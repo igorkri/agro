@@ -45,3 +45,5 @@ phpunit.phar
 #logs
 /log
 /frontend/web/category/
+/backend/web/vendor/
+/backend/web/images/
