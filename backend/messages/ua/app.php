@@ -2,7 +2,7 @@
 
 return[
     'ID' => 'ID',
-    'Parent ID' => 'Батьківський ID',
+    'Parent ID' => 'Головна категорія',
     'name' => 'Назва',
     'pageTitle' => 'Назва для відображення SEO',
     'slug' => 'url адреса',
@@ -12,16 +12,17 @@ return[
     'Description' => 'Опис',
     'Published' => 'Опублікована',
     'Hidden' => 'Прихована',
-    'Parent category' => 'Батьківська категорія',
+    'Parent category' => 'Головна категорія',
     'Select all' => 'Вибрать все',
     'Remove all' => 'Видалити все',
     'Select category...' => 'Виберіть категорію...',
-    'Select a category that will be the parent of the current one.' => 'Виберіть категорію, яка буде батьківською для поточної.<br> Або залиште пустою щоб назначити головною',
+    'Select a category that will be the parent of the current one.' => 'Виберіть категорію, яка буде головною для поточної.<br> Або залиште пустою щоб назначити головною',
 
     'Categories' => 'Категорії',
     'Category' => 'Категорія',
     'Create Category' => 'Створення категорії',
     'New category' => 'Додати категорію',
+    'New +' => 'Додати +',
     'Home' => 'Головна',
     'Duplicate' => 'Створити копію',
     'Save' => 'Зберегти',
@@ -32,7 +33,9 @@ return[
     'Update' => 'Обновити',
     'Create' => 'Створити',
     'Create more' => 'Створити ще',
+    'Create Tag' => 'Створити тег',
     'List category' => 'Список категорій',
+    'List' => 'Список',
     'Basic information' => 'Основна інформація',
     'Replace image' => 'Змінити зображення',
     'Remove image' => 'Видалити',
@@ -48,4 +51,26 @@ return[
     'Search engine optimization' => 'Пошукова оптимізація',
 
     'Update Category: {name}' => 'Редагування категорії: {name}',
+    'Update Label: {name}' => 'Редагування мітки: {name}',
+
+    'Status' => 'Статус',
+    'Statuses' => 'Статуси',
+    'Tag' => 'Тег',
+    'Label' => 'Мітка товару',
+    'Tags' => 'Теги',
+
+    'Start typing to search for labels' => 'Почніть вводити текст для пошуку мітки товару',
+    'Start typing to search for statuses' => 'Почніть вводити текст для пошуку статусу',
+    'Start typing to search for tags' => 'Почніть вводити текст для пошуку тегу',
+
+    'Labels' => 'Мітка товару',
+    'Count' => 'К-ть',
+    'Create Label' => 'Створення нової мітки',
+
+//    '' => '',
+//    '' => '',
+//    '' => '',
+//    '' => '',
+
+
 ];

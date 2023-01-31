@@ -84,6 +84,7 @@ AppAsset::register($this);
                                         <span class="sa-nav__title"><?=Yii::t('app', 'Categories')?></span>
                                     </a>
                                 </li>
+                                <!-- Settings-->
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon"
                                     data-sa-collapse-item="sa-nav__menu-item--open">
                                     <a href="/" class="sa-nav__link" data-sa-collapse-trigger="">
@@ -95,7 +96,7 @@ AppAsset::register($this);
                                                     ></path>
                                                 </svg>
                                             </span>
-                                        <span class="sa-nav__title">Settings</span>
+                                        <span class="sa-nav__title">Настройки</span>
                                         <span class="sa-nav__arrow">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9"
                                                      viewBox="0 0 6 9" fill="currentColor">
@@ -107,19 +108,26 @@ AppAsset::register($this);
                                     </a>
                                     <ul class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
                                         <li class="sa-nav__menu-item">
-                                            <a href="/app-settings-toc.html" class="sa-nav__link">
+                                            <a href="<?=Url::to(['status/index'])?>" class="sa-nav__link">
                                                 <span class="sa-nav__menu-item-padding"></span>
-                                                <span class="sa-nav__title">Table of Content</span>
+                                                <span class="sa-nav__title"><?=Yii::t('app', 'Status')?></span>
                                             </a>
                                         </li>
                                         <li class="sa-nav__menu-item">
-                                            <a href="/app-settings-form.html" class="sa-nav__link">
+                                            <a href="<?=Url::to(['tag/index'])?>" class="sa-nav__link">
                                                 <span class="sa-nav__menu-item-padding"></span>
-                                                <span class="sa-nav__title">Form</span>
+                                                <span class="sa-nav__title"><?=Yii::t('app', 'Tag')?></span>
+                                            </a>
+                                        </li>
+                                        <li class="sa-nav__menu-item">
+                                            <a href="<?=Url::to(['label/index'])?>" class="sa-nav__link">
+                                                <span class="sa-nav__menu-item-padding"></span>
+                                                <span class="sa-nav__title"><?=Yii::t('app', 'Label')?></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                                <!-- End Settings-->
                             </ul>
                         </li>
                     </ul>
