@@ -20,7 +20,7 @@
  </IfModule>
 
  DirectoryIndex index.php
-
+#
 # <IfModule mod_setenvif.c>
 # 	SetEnv TZ Europe/Kiev
 # </IfModule>

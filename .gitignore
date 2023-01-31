@@ -44,3 +44,4 @@ phpunit.phar
 
 #logs
 /log
+/frontend/web/category/

@@ -8,11 +8,37 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'language' => 'uk-UA',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'homeUrl' => '/admin',
+
+    'modules' => [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+        ],
+        'gridviewKrajee' =>  [
+            'class' => '\kartik\grid\Module',
+            // your other grid module settings
+        ]
+    ],
     'components' => [
+
+//        'defaultRoute' => 'main/index',
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@backend/messages',
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app'       => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'baseUrl' => '/admin',
@@ -42,12 +68,28 @@ return [
            'class' => 'yii\rbac\DbManager',
            'defaultRoles' => ['admin'],
         ],
-        
+        'assetManager' => [
+            'bundles' => [
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
+                ],
+            ],
+        ],
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
+
+            // List all supported languages here
+            // Make sure, you include your app's default language.
+            'languages' => ['en-US', 'en', 'ru', 'ua'],
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+//                '<action:\w+>' => 'category/<action>'
+//                '<module:\w+>/<controller:\w+>/<action:(\w|-)+>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<controller:\w+>/<action:(\w|-)+>/<id:\d+>' => '<controller>/<action>',
             ],
+
         ],
         
     ],
