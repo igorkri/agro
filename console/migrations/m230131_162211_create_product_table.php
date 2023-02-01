@@ -15,6 +15,7 @@ class m230131_162211_create_product_table extends Migration
         $this->createTable('{{%product}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull()->unique(),
+            'slug' => $this->string(),
             'description' => $this->text()->notNull(),
             'short_description' => $this->text()->notNull(),
             'price' => $this->money(19, 2)->notNull(),

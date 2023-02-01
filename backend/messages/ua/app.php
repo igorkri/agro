@@ -4,6 +4,7 @@ return[
     'ID' => 'ID',
     'Parent ID' => 'Головна категорія',
     'name' => 'Назва',
+    'Name' => 'Назва',
     'pageTitle' => 'Назва для відображення SEO',
     'slug' => 'url адреса',
     'file' => 'Файл',
@@ -21,6 +22,9 @@ return[
     'Categories' => 'Категорії',
     'Category' => 'Категорія',
     'Create Category' => 'Створення категорії',
+    'Create Product' => 'Створення товару',
+
+
     'New category' => 'Додати категорію',
     'New +' => 'Додати +',
     'Home' => 'Головна',
@@ -52,6 +56,7 @@ return[
 
     'Update Category: {name}' => 'Редагування категорії: {name}',
     'Update Label: {name}' => 'Редагування мітки: {name}',
+    'Update Product: {name}' => 'Редагування товару: {name}',
 
     'Status' => 'Статус',
     'Statuses' => 'Статуси',
@@ -62,11 +67,21 @@ return[
     'Start typing to search for labels' => 'Почніть вводити текст для пошуку мітки товару',
     'Start typing to search for statuses' => 'Почніть вводити текст для пошуку статусу',
     'Start typing to search for tags' => 'Почніть вводити текст для пошуку тегу',
+    'Start typing to search for products' => 'Почніть вводити текст для пошуку товару',
 
     'Labels' => 'Мітка товару',
     'Count' => 'К-ть',
     'Create Label' => 'Створення нової мітки',
 
+    'Product' => 'Товар',
+    'Products' => 'Товари',
+    'Price' => 'Ціна',
+    'Prices' => 'Ціни',
+    'Short Description' => 'Короткий опис товару',
+    'Priority' => 'Пріоритет',
+    'Alt image' => 'Назва забраження',
+    'Download images' => 'Завантажити забраження',
+//    '' => '',
 //    '' => '',
 //    '' => '',
 //    '' => '',

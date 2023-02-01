@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  * @property string $description
  * @property string $short_description
  * @property float $price
@@ -41,8 +42,8 @@ class Product extends \yii\db\ActiveRecord
             [['name', 'description', 'short_description', 'price', 'status_id', 'category_id', 'label_id'], 'required'],
             [['description', 'short_description'], 'string'],
             [['price', 'old_price'], 'number'],
-            [['status_id', 'category_id', 'label_id'], 'integer'],
-            [['name', 'seo_title', 'seo_description'], 'string', 'max' => 255],
+            [['status_id', 'category_id', 'label_id'], 'safe'],
+            [['name', 'seo_title', 'seo_description', 'slug'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];
     }
@@ -55,6 +56,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
+            'slug' => Yii::t('app', 'Slug'),
             'description' => Yii::t('app', 'Description'),
             'short_description' => Yii::t('app', 'Short Description'),
             'price' => Yii::t('app', 'Price'),
@@ -85,5 +87,25 @@ class Product extends \yii\db\ActiveRecord
     public function getTags()
     {
         return $this->hasMany(Tag::class, ['id' => 'tag_id'])->viaTable('product_tag', ['product_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[Status]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatus()
+    {
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 }
