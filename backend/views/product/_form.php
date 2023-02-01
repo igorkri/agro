@@ -177,12 +177,12 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                                         <td>
                                                             <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--xxl">
                                                                 <a href="image-view?id=<?=$image->id?>" role='modal-remote', data-toggle='tooltip'>
-                                                                    <img src="<?= Yii::$app->request->hostInfo . '/upload/stock/' . $image->name ?>" width="40" height="40" alt="" />
+                                                                    <img src="<?= Yii::$app->request->hostInfo . '/product/' . $image->name ?>" width="40" height="40" alt="" />
                                                                 </a>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" name="alt[<?= $image->id ?>]" class="form-control form-control-sm" value="<?= $image->alt ? $image->alt : $model->title ?>" />
+                                                            <input type="text" name="alt[<?= $image->id ?>]" class="form-control form-control-sm" value="<?= $image->alt ? $image->alt : $model->name ?>" />
                                                         </td>
                                                         <td><input type="number" name="priority[<?= $image->id ?>]" class="form-control form-control-sm w-4x" value="<?= $image->priority ? $image->priority : 0 ?>" /></td>
                                                         <td>
@@ -202,8 +202,8 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                 <div class="px-5 py-4 my-2">
                                     <?= Html::a(
                                         Yii::t('app', 'Download images'),
-                                        Url::to(['create-image', 'id' => $model->id]),
-                                        ['role' => 'modal-remote', 'title' => 'Подробнее', 'data-toggle' => 'tooltip']
+                                        Url::to(['create-image', 'id' => $model->id, 'language' => 'uk']),
+                                        ['role' => 'modal-remote', 'data-toggle' => 'tooltip']
                                     ); ?>
                                 </div>
                             </div>

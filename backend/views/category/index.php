@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($dataProvider->models as $model): ?>
+                    <?php $i=1; foreach ($dataProvider->models as $model): ?>
                     <tr>
 <!--                        <td><input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." /></td>-->
                         <td>
@@ -75,7 +75,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </a>
                             </div>
                         </td>
-                        <td><a href="<?=isset($model->parent) ? Url::to(['category/update', 'id' => $model->parent->id]) : '#'?>" class="text-reset"><?=isset($model->parent) ? $model->parent->name : '-' ?></a></td>
+                        <td>
+                            <a href="<?=isset($model->parent) ? Url::to(['category/update', 'id' => $model->parent->id]) : '#'?>"
+                               class="text-reset"><?=isset($model->parent) ? $model->parent->name : '-' ?>
+                            </a>
+                        </td>
                         <td>
                             <a href="<?=Url::to(['category/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a></td>
                         <td>
@@ -119,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
+                    <?php $i++; endforeach; ?>
                     </tbody>
                 </table>
             </div>

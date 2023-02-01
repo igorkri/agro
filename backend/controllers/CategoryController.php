@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
+//        debug($dataProvider);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -69,13 +69,14 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
+//        debug($this->request->post());
+//        die;
 //        Yii::$app->cache->flush();
         $model = new Category();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-//                debug($model);
-//                die;
+//
                 $dir = Yii::getAlias('@frontendWeb/category');
 
                 $file = UploadedFile::getInstance($model, 'file');
@@ -83,7 +84,7 @@ class CategoryController extends Controller
                 $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
                 $model->file = $imageName . '.' . $file->extension;
 
-                if ($model->save(false)) {
+                if ($model->save()) {
                     return $this->redirect(['update', 'id' => $model->id]);
                 }
             }
@@ -121,7 +122,7 @@ class CategoryController extends Controller
                 $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
                 $model->file = $imageName . '.' . $file->extension;
             }
-            if($model->save()) {
+            if($model->save(false)) {
                 return $this->redirect(['update', 'id' => $model->id]);
             }else{
                 debug($model->errors);

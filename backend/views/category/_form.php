@@ -2,16 +2,17 @@
 
 use common\models\shop\Category;
 use kartik\file\FileInput;
+use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+
 
 /** @var yii\web\View $this */
 /** @var common\models\shop\Category $model */
-/** @var yii\widgets\ActiveForm $form */
+/** @var ActiveForm $form */
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -67,6 +68,7 @@ use yii\widgets\ActiveForm;
 <!--                                        <label for="form-category/name" class="form-label">Name</label>-->
 <!--                                        <input type="text" class="form-control" id="form-category/name" value="Hand Tools" />-->
                                         <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
+                                        <?php // echo $form->field($model, 'slug')->hiddenInput(['maxlength' => true])->label(false) ?>
                                     </div>
                                     <div class="mb-4">
 
@@ -174,18 +176,14 @@ use yii\widgets\ActiveForm;
                                 <div class="card-body p-5">
                                     <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Parent category')?></h2></div>
                                     <?php
-                                    $data = ArrayHelper::map(Category::find()->where(['parentId' => null])->orderBy('id')->asArray()->all(), 'id', 'name');
+                                    $data = ArrayHelper::map(Category::find()
+                                        ->where(['parentId' => null])->orderBy('id')
+                                        ->asArray()->all(), 'id', 'name');
                                     echo $form->field($model, 'parentId')->widget(Select2::classname(), [
                                         'data' => $data,
                                         'theme' => Select2::THEME_DEFAULT,
                                         'maintainOrder' => true,
                                         'pluginLoading' => false,
-                                        'toggleAllSettings' => [
-                                            'selectLabel' => '<i class="fas fa-check-circle"></i>' . Yii::t('app', 'Select all'),
-                                            'unselectLabel' => '<i class="fas fa-times-circle"></i>' . Yii::t('app', 'Remove all'),
-                                            'selectOptions' => ['class' => 'text-success'],
-                                            'unselectOptions' => ['class' => 'text-danger'],
-                                        ],
                                         'options' => [
                                             'placeholder' => Yii::t('app', 'Select category...'),
                                             'class' => 'sa-select2 form-select',
@@ -193,9 +191,7 @@ use yii\widgets\ActiveForm;
 //                                            'multiple' => true
                                         ],
                                         'pluginOptions' => [
-                                            'tags' => true,
-                                            'tokenSeparators' => [', ', ' '],
-                                            'maximumInputLength' => 10,
+                                            'allowClear' => true,
                                             'width' => '272px',
                                         ],
                                     ])->label(false);
@@ -272,6 +268,7 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <!-- sa-app__body / end -->
+
 
     <?php ActiveForm::end(); ?>
 

@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * This is the model class for table "category".
@@ -19,6 +20,25 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'pageTitle',
+                // optional params
+                'ensureUnique' => true,
+                'replacement' => '-',
+                'lowercase' => true,
+                'immutable' => false,
+                // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
+                'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -26,6 +46,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return 'category';
     }
+
 
     /**
      * {@inheritdoc}
@@ -36,8 +57,9 @@ class Category extends \yii\db\ActiveRecord
             [['parentId'], 'integer'],
             [['name', 'pageTitle'], 'required'],
             [['description', 'metaDescription'], 'string'],
-            [['name', 'pageTitle', 'slug', 'file', 'visibility'], 'string', 'max' => 255],
-            [['slug'], 'unique'],
+            [['name', 'pageTitle', 'file', 'visibility'], 'string', 'max' => 255],
+            [['name', 'slug'], 'unique'],
+            [['slug'], 'safe'],
         ];
     }
 

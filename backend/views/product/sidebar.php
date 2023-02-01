@@ -49,27 +49,15 @@ use yii\widgets\Pjax;
                 ->orderBy('name')->asArray()->all(), 'id', 'name');
             echo $form->field($model, 'category_id')->widget(Select2::classname(), [
                 'data' => $data,
-                // 'data' => $category_arrs,
                 'theme' => Select2::THEME_DEFAULT,
-//                'maintainOrder' => true,
+                'maintainOrder' => true,
                 'pluginLoading' => false,
-                'toggleAllSettings' => [
-//                    'selectLabel' => '<i class="fas fa-check-circle"></i> Выбрать все',
-//                    'unselectLabel' => '<i class="fas fa-times-circle"></i> Удалить все',
-//                    'selectOptions' => ['class' => 'text-success'],
-//                    'unselectOptions' => ['class' => 'text-danger'],
-                ],
                 'options' => [
                      'placeholder' => 'Виберіть категорію ...',
                     'class' => 'sa-select2 form-select',
-                    // 'data-tags'=>'true',
-//                    'multiple' => true
                 ],
                 'pluginOptions' => [
                     'allowClear' => true,
-//                    'tags' => true,
-//                    'tokenSeparators' => [', ', ' '],
-//                    'maximumInputLength' => 10,
                     'width' => '273px',
                 ],
             ])->label(false);

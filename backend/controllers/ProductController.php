@@ -4,12 +4,18 @@ namespace backend\controllers;
 
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
+use common\models\shop\ProductImage;
 use common\models\shop\ProductTag;
+use yii\imagine\Image;
 use Yii;
 use yii\base\BaseObject;
+use yii\bootstrap5\Html;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -107,7 +113,7 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
 
             $post_product = $this->request->post('Product');
             if (isset($post_product['tags'])) {
@@ -169,5 +175,87 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function actionCreateImage($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $request = Yii::$app->request;
+        $model = Product::find()->where(['id' => $id])->one();
+        $imageModel = new ProductImage();
+        $imageModel->product_id = $id;
+
+        if ($request->isAjax) {
+            /*
+            *   Process for ajax request
+            */
+            if ($request->isGet) {
+                return [
+                    'title' => "Додавання зображення: " . $model->name,
+                    'content' => $this->renderAjax('create-image', [
+                        // 'model' => $model,
+                        'imageModel' => $imageModel,
+                    ]),
+                    // 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                    //     Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
+
+                ];
+            } else if ($imageModel->load($request->post()) && $imageModel->save()) {
+                return [
+                    'forceReload' => '#images-table',
+                    // 'title' => "Create new Stock",
+                    // 'content' => '<span class="text-success">Create Stock success</span>',
+                    // 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                    //     Html::a('Create More', ['create-image'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
+                ];
+            }
+        }
+    }
+
+    public function actionAjaxUpload($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $stock = Product::find()->where(['id' => $id])->one();
+        $directory = $stock->id;
+        $model = new ProductImage();
+        if (Yii::$app->request->isAjax && $model->validate()) {
+            $dir = Yii::getAlias('@frontendWeb/product/');
+            if (!file_exists($dir . $directory)) {
+                mkdir($dir . $directory, 0777);
+            }
+//            $watermark = Yii::getAlias('@frontend' . '/web/img/watermark1.png');
+            foreach (UploadedFile::getInstances($model, 'name') as $file) {
+                $imageName = date('d-m-Y', time()) . '-' . uniqid();
+                if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
+                    $file->saveAs($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
+                    $imagePath = $dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension;
+                    $cropPath = $dir . $directory . '/' . $imageName . '.' . $file->extension;
+                    Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    unlink($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
+                } else {
+                    $file->saveAs($dir . $directory . '/' . $imageName . '.' . $file->extension);
+                }
+                $new_file = new ProductImage();
+
+                $new_file->product_id = $id;
+                $new_file->name = $directory . '/' . $imageName . '.' . $file->extension;
+                if ($new_file->save() and file_exists($dir . $directory)) {
+                    Yii::$app->getSession()->addFlash('success', "Файл: {$new_file->name} успешно добавлен");
+                }
+                if (Yii::$app->response->statusCode = 200) {
+                    return true;
+                }
+            }
+        } else {
+            if (Yii::$app->request->referrer != Yii::$app->request->absoluteUrl) {
+                Url::remember(Yii::$app->request->referrer ? Yii::$app->request->referrer : null);
+            }
+            if (!Yii::$app->request->isPost) {
+                $model->setAttributes(Yii::$app->request->get());
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 }

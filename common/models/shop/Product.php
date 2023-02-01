@@ -33,6 +33,24 @@ class Product extends \yii\db\ActiveRecord
         return 'product';
     }
 
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'Zelenin\yii\behaviors\Slug',
+                'slugAttribute' => 'slug',
+                'attribute' => 'name',
+                // optional params
+                'ensureUnique' => true,
+                'replacement' => '-',
+                'lowercase' => true,
+                'immutable' => false,
+                // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
+                'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -86,7 +104,8 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->viaTable('product_tag', ['product_id' => 'id']);
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])
+            ->viaTable('product_tag', ['product_id' => 'id']);
     }
 
     /**
@@ -112,9 +131,21 @@ class Product extends \yii\db\ActiveRecord
      * Gets query for [[Label]].
      *
      * @return \yii\db\ActiveQuery
+     *
      */
     public function getLabel()
     {
         return $this->hasOne(Label::class, ['id' => 'label_id']);
+    }
+
+    /**
+     * Gets query for [[ProductImage]].
+     *
+     * @return \yii\db\ActiveQuery
+     *
+     */
+    public function getImages()
+    {
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
 }

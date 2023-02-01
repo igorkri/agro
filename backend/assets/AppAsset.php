@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
         "vendor/datatables/css/dataTables.bootstrap5.min.css",
         "vendor/nouislider/nouislider.min.css",
         "vendor/fullcalendar/main.min.css",
+        'css/ajaxcrud.css',
         "css/style.css",
     ];
     public $js = [
@@ -42,9 +43,12 @@ class AppAsset extends AssetBundle
         "vendor/fullcalendar/main.min.js",
         "js/stroyka.js",
         "js/custom.js",
-        "js/calendar.js",
+//        "js/calendar.js",
         "js/demo.js",
         "js/demo-chart-js.js",
+
+        'js/ModalRemote.js',
+        'js/ajaxcrud.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
