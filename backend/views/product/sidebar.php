@@ -84,7 +84,7 @@ use yii\widgets\Pjax;
             </div>
             <?php
             $data = ArrayHelper::map(\common\models\shop\Tag::find()->orderBy('id')->asArray()->all(), 'id', 'name');
-            echo $form->field($model, 'label_id')->widget(Select2::classname(), [
+            echo $form->field($model, 'tags')->widget(Select2::classname(), [
                 'data' => $data,
                 'theme' => \kartik\select2\Select2::THEME_DEFAULT,
                 'maintainOrder' => true,

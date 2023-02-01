@@ -6,22 +6,20 @@
 /** @var Exception $exception*/
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $name;
 ?>
-<div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<!-- sa-app__body -->
+<div id="top" class="sa-app__body">
+    <div class="sa-error">
+        <div class="sa-error__background-text">Oops! <?= Html::encode($name) ?></div>
+        <div class="sa-error__content">
+            <h1 class="sa-error__title"><?=$message?></h1>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+            <a class="btn btn-secondary btn-sm" href="<?=Url::to('/admin/')?>">На головну</a>
+        </div>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
 </div>
+<!-- sa-app__body / end -->

@@ -122,9 +122,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td>
                                 <div class="sa-price">
-                                    <span class="sa-price__symbol">$</span>
-                                    <span class="sa-price__integer"><?=$model->price?></span>
-                                    <span class="sa-price__decimal"></span>
+                                    <span class="sa-price__symbol">&#8372;</span>
+                                    <span class="sa-price__integer"><?= explode('.', $model->price)[0] ?></span>
+                                    <span class="sa-price__decimal">.<?= explode('.', $model->price)[1] ?></span>
                                 </div>
                             </td>
                             <td>
@@ -144,11 +144,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </svg>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="product-context-menu-0">
-                                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                                        <li><a class="dropdown-item" href="#">Duplicate</a></li>
-                                        <li><a class="dropdown-item" href="#">Add tag</a></li>
-                                        <li><hr class="dropdown-divider" /></li>
-                                        <li><a class="dropdown-item text-danger" href="<?=Url::to(['product/delete', 'id' => $model->id])?>">Delete</a></li>
+<!--                                        <li><a class="dropdown-item" href="#">Edit</a></li>-->
+<!--                                        <li><a class="dropdown-item" href="#">Duplicate</a></li>-->
+<!--                                        <li><a class="dropdown-item" href="#">Add tag</a></li>-->
+<!--                                        <li><hr class="dropdown-divider" /></li>-->
+                                        <li>
+                                            <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+                                                'class' => 'dropdown-item text-danger',
+                                                'data' => [
+                                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                    'method' => 'post',
+                                                ],
+                                            ]) ?>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>

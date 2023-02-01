@@ -4,7 +4,9 @@ namespace backend\controllers;
 
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
+use common\models\shop\ProductTag;
 use Yii;
+use yii\base\BaseObject;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,11 +70,21 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
-        Yii::$app->cache->flush();
+//        Yii::$app->cache->flush();
         $model = new Product();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $post_product = $this->request->post('Product');
+                if (isset($post_product['tags'])) {
+                    //добавляем Tags
+                    foreach ($post_product['tags'] as $tag_id) {
+                        $add_tag = new ProductTag();
+                        $add_tag->product_id = $model->id;
+                        $add_tag->tag_id = $tag_id;
+                        $add_tag->save();
+                    }
+                }
                 return $this->redirect(['update', 'id' => $model->id]);
             }
         } else {
@@ -96,6 +108,31 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+
+            $post_product = $this->request->post('Product');
+            if (isset($post_product['tags'])) {
+                //удаляем существующие tags
+                $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
+                if ($tags) {
+                    foreach ($tags as $t) {
+                        $t->delete();
+                    }
+                }
+                //добавляем Tags
+                foreach ($post_product['tags'] as $tag_id) {
+                    $tag = ProductTag::find()
+                        ->where(['product_id' => $model->id])
+                        ->andWhere(['tag_id' => $tag_id])
+                        ->one();
+                    if (!$tag) {
+                        $add_tag = new ProductTag();
+                        $add_tag->product_id = $model->id;
+                        $add_tag->tag_id = $tag_id;
+                        $add_tag->save();
+                    }
+                }
+            }
+
             return $this->redirect(['update', 'id' => $model->id]);
         }
 

@@ -1,26 +1,22 @@
 <?php
 
+use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
 /** @var common\models\shop\Product $model */
-/** @var yii\widgets\ActiveForm $form */
+/** @var ActiveForm $form */
 ?>
 
 <?php
 
-$form = ActiveForm::begin([
-    'options' => ['autocomplete'=>"off"]
-    // 'method' => 'post',
-    // 'action' => ['update']
-]); ?>
+$form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
@@ -30,14 +26,14 @@ $form = ActiveForm::begin([
                         <nav class="mb-2" aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-sa-simple">
                                 <?php
-                                echo Breadcrumbs::widget([
-                                    'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
-                                    'homeLink' => [
-                                        'label' => 'Главная ',
-                                        'url' => Yii::$app->homeUrl,
-                                    ],
-                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                                ]);
+                                    echo Breadcrumbs::widget([
+                                        'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+                                        'homeLink' => [
+                                            'label' => 'Главная ',
+                                            'url' => Yii::$app->homeUrl,
+                                        ],
+                                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                    ]);
                                 ?>
                             </ol>
                         </nav>
@@ -139,18 +135,17 @@ $form = ActiveForm::begin([
                                 </div>
                                 <div class="row g-4">
                                     <div class="col">
-                                        <label for="form-product/price" class="form-label"><?=Yii::t('app', 'Price')?></label>
                                         <?= $form->field($model, 'price')->textInput([
-                                             'type' => 'number',
+//                                             'type' => 'number',
+//                                            'language' => 'ru',
                                             'class' => "form-control"
-                                        ])->label(false) ?>
+                                        ]) ?>
                                     </div>
                                     <div class="col">
-                                        <label for="form-product/old-price" class="form-label">Старая цена</label>
                                         <?= $form->field($model, 'old_price')->textInput([
                                             // 'type' => 'number',
                                             'class' => "form-control"
-                                        ])->label(false) ?>
+                                        ])?>
 
                                     </div>
                                 </div>
@@ -210,6 +205,20 @@ $form = ActiveForm::begin([
                                         Url::to(['create-image', 'id' => $model->id]),
                                         ['role' => 'modal-remote', 'title' => 'Подробнее', 'data-toggle' => 'tooltip']
                                     ); ?>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Seo')?></h2>
+                                </div>
+                                <div class="row g-4">
+                                    <?= $form->field($model, 'seo_title')->textInput() ?>
+                                    <?= $form->field($model, 'seo_description')->textarea(['rows' => '4', 'class' => "form-control"])?>
                                 </div>
                             </div>
                         </div>

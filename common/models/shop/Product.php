@@ -39,7 +39,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'description', 'short_description', 'price', 'status_id', 'category_id', 'label_id'], 'required'],
+            [['name', 'description', 'short_description', 'price', 'status_id', 'category_id'], 'required'],
             [['description', 'short_description'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id'], 'safe'],
@@ -63,9 +63,9 @@ class Product extends \yii\db\ActiveRecord
             'old_price' => Yii::t('app', 'Old Price'),
             'seo_title' => Yii::t('app', 'Seo Title'),
             'seo_description' => Yii::t('app', 'Seo Description'),
-            'status_id' => Yii::t('app', 'Status ID'),
-            'category_id' => Yii::t('app', 'Category ID'),
-            'label_id' => Yii::t('app', 'Label ID'),
+            'status_id' => Yii::t('app', 'Status'),
+            'category_id' => Yii::t('app', 'Category'),
+            'label_id' => Yii::t('app', 'Label'),
         ];
     }
 

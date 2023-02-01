@@ -24,7 +24,7 @@ class m230131_162211_create_product_table extends Migration
             'seo_description' => $this->string(),
             'status_id' => $this->integer()->notNull(),
             'category_id' => $this->integer()->notNull(),
-            'label_id' => $this->integer()->notNull(),
+            'label_id' => $this->integer()->defaultValue(null),
         ]);
     }
 
