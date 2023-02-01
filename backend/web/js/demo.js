@@ -66,4 +66,56 @@
 
         $(this).addClass('was-validated');
     });
+
+
+    
+    $(document).on('click', '.qty-plus', function () {
+    // $('.qty-plus').on('click', function() {
+        // alert('.qty-plus');
+        var quantityId = document.getElementById('partsapplicationmodel-quantity');
+        var quantityVal = parseFloat($('#partsapplicationmodel-quantity').val()); // quantity
+        var orderId = quantityId.dataset.orderId;// data order id
+        var qtyId = document.getElementById('qty-' + orderId);
+        
+        $.ajax({
+            url:'/shop-admin/crm/order-parts-listed/quantity-order-plus',
+            type:'get',
+            data:{id:orderId},
+            success:function(data){
+                console.log('qty', data.order.quantity);
+                qtyId.innerHTML = data.order.quantity;
+
+            },
+            error: function (data) {
+                console.log('errors', data);
+
+            }
+        });
+    });
+    
+    $(document).on('click', '.qty-minus', function () {
+        var quantityId = document.getElementById('partsapplicationmodel-quantity');
+        var quantityVal = parseFloat($('#partsapplicationmodel-quantity').val()); // quantity
+        var orderId = quantityId.dataset.orderId;// data order id
+        var qtyId = document.getElementById('qty-' + orderId);
+        
+        $.ajax({
+            url:'/shop-admin/crm/order-parts-listed/quantity-order-minus',
+            type:'get',
+            data:{id:orderId},
+            success:function(data){
+                console.log('qty', data.order.quantity);
+                qtyId.innerHTML = data.order.quantity;
+
+            },
+            error: function (data) {
+                console.log('errors', data);
+
+            }
+        });
+    });
+    
+
+
+
 }(jQuery, window));

@@ -19,7 +19,7 @@
     */
     window.stroyka.search.getAjaxSettings = function(query) {
         return {
-            url: 'ajax/suggestions.html?query=' + encodeURIComponent(query),
+            url: '/shop-admin/app/default/suggestions?search=' + encodeURIComponent(query),
         };
     };
 
@@ -42,7 +42,7 @@
     // Search simulate no results
     */
     window.stroyka.search.requestMiddleware.add(function(next, query, abortController) {
-        if (query.length >= 6) {
+        if (query.length >= 15) {
             return Promise.resolve('');
         } else {
             return Promise.resolve(next(query, abortController));
@@ -54,8 +54,8 @@
     */
     (function() {
         $.fn.DataTable.ext.pager.numbers_length = 5;
-        $.fn.DataTable.defaults.oLanguage.sInfo = 'Showing _START_ to _END_ of _TOTAL_';
-        $.fn.DataTable.defaults.oLanguage.sLengthMenu = 'Rows per page _MENU_';
+        $.fn.DataTable.defaults.oLanguage.sInfo = 'Показано _START_ от _END_ до _TOTAL_';
+        $.fn.DataTable.defaults.oLanguage.sLengthMenu = 'Строк на странице _MENU_';
 
         const template = '' +
             '<"sa-datatables"' +
@@ -70,12 +70,23 @@
                 '>' +
             '>';
 
-        $('.sa-datatables-init').each(function() {
+            $('.sa-datatables-init').each(function() {
             const tableSearchSelector = $(this).data('sa-search-input');
             const table = $(this).DataTable({
+                
                 dom: template,
                 paging: true,
-                ordering: true,
+                ordering: false,
+                // order: [[0, 'asc']],
+                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Все"] ],
+                "language": {
+                    "paginate": {
+                      "next": "Следующая",
+                      "previous": "Предыдущая"
+                    },
+                    "infoFiltered": " - отфильтровано из _MAX_ записей",
+                         "loadingRecords": "Подождите, идет загрузка...",
+                  },
                 drawCallback: function() {
                     $(this.api().table().container()).find('.pagination').addClass('pagination-sm');
                 },
@@ -87,6 +98,50 @@
                 });
             }
         });
+        
+    })();
+
+    (function() {
+        $.fn.DataTable.ext.pager.numbers_length = 5;
+        $.fn.DataTable.defaults.oLanguage.sInfo = 'Показано _START_ от _END_ до _TOTAL_';
+        $.fn.DataTable.defaults.oLanguage.sLengthMenu = 'Строк на странице _MENU_';
+
+        const template = '' +
+            '<"sa-datatables"' +
+                '<"sa-datatables__table"t>' +
+                '<"sa-datatables__footer"' +
+                    // '<"sa-datatables__pagination"p>' +
+                    '<"sa-datatables__controls"' +
+                        '<"sa-datatables__legend"i>' +
+                        // '<"sa-datatables__divider">' +
+                        // '<"sa-datatables__page-size"l>' +
+                    '>' +
+                '>' +
+            '>';
+
+            $('.sa-datatables-order-parts').each(function() {
+            const tableSearchSelector = $(this).data('id');
+            const table = $(this).DataTable({
+                
+                dom: template,
+                paging: true,
+                ordering: true,
+                "language": {
+                    
+                  },
+                drawCallback: function() {
+                    $(this.api().table().container()).find('.pagination').addClass('pagination-sm');
+                },
+            });
+
+            if (tableSearchSelector) {
+                $(tableSearchSelector).on('input', function() {
+                    console.log(this.value);
+                    table.search(this.value).draw();
+                });
+            }
+        });
+        
     })();
 
     /*
@@ -143,7 +198,7 @@
                             fontColor: '#828f99',
                             // Include a dollar sign in the ticks
                             callback: function (value) {
-                                return '$' + value;
+                                return '₴' + value;
                             },
                         },
                         gridLines: {
@@ -209,7 +264,7 @@
                                 fontSize: 13,
                                 fontColor: '#828f99',
                                 callback: function (value) {
-                                    return '$' + value;
+                                    return '₴ ' + value;
                                 },
                             },
                             gridLines: {
@@ -317,4 +372,69 @@
             inputs[handle].value = values[handle];
         });
     });
+
+    $(document).ready(function () {
+    $(".plus").click(function () {
+        $(this).toggleClass("minus").siblings("ul").toggle();
+    })
+
+    $("input[type=checkbox]").click(function () {
+        //alert($(this).attr("id"));
+        //var sp = $(this).attr("id");
+        //if (sp.substring(0, 4) === "c_bs" || sp.substring(0, 4) === "c_bf") {
+            $(this).siblings("ul").find("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+        //}
+    })
+
+    $("input[type=checkbox]").change(function () {
+        var sp = $(this).attr("id");
+        if (sp.substring(0, 4) === "c_io") {
+            var ff = $(this).parents("ul[id^=bf_l]").attr("id");
+            if ($('#' + ff + ' > li input[type=checkbox]:checked').length == $('#' + ff + ' > li input[type=checkbox]').length) {
+                $('#' + ff).siblings("input[type=checkbox]").prop('checked', true);
+                check_fst_lvl(ff);
+            }
+            else {
+                $('#' + ff).siblings("input[type=checkbox]").prop('checked', false);
+                check_fst_lvl(ff);
+            }
+        }
+
+        if (sp.substring(0, 4) === "c_bf") {
+            var ss = $(this).parents("ul[id^=bs_l]").attr("id");
+            if ($('#' + ss + ' > li input[type=checkbox]:checked').length == $('#' + ss + ' > li input[type=checkbox]').length) {
+                $('#' + ss).siblings("input[type=checkbox]").prop('checked', true);
+                check_fst_lvl(ss);
+            }
+            else {
+                $('#' + ss).siblings("input[type=checkbox]").prop('checked', false);
+                check_fst_lvl(ss);
+            }
+        }
+    });
+
+})
+
+function check_fst_lvl(dd) {
+    //var ss = $('#' + dd).parents("ul[id^=bs_l]").attr("id");
+    var ss = $('#' + dd).parent().closest("ul").attr("id");
+    if ($('#' + ss + ' > li input[type=checkbox]:checked').length == $('#' + ss + ' > li input[type=checkbox]').length) {
+        //$('#' + ss).siblings("input[id^=c_bs]").prop('checked', true);
+        $('#' + ss).siblings("input[type=checkbox]").prop('checked', true);
+    }
+    else {
+        //$('#' + ss).siblings("input[id^=c_bs]").prop('checked', false);
+        $('#' + ss).siblings("input[type=checkbox]").prop('checked', false);
+    }
+
+}
+
+function pageLoad() {
+    $(".plus").click(function () {
+        $(this).toggleClass("minus").siblings("ul").toggle();
+    })
+}
+
+
+
 }(jQuery, window));

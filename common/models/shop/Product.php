@@ -108,4 +108,13 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
+    /**
+     * Gets query for [[Label]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLabel()
+    {
+        return $this->hasOne(Label::class, ['id' => 'label_id']);
+    }
 }

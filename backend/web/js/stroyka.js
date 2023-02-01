@@ -328,9 +328,10 @@
 
                 requestMiddleware.run(request, query, abortController).then(
                     function(suggestionsHtml) {
+                        console.log(suggestionsHtml)
                         const suggestions = $(suggestionsHtml);
-
                         $suggestions.html(suggestions);
+
 
                         if (suggestions.length > 0) {
                             setState('has-results');

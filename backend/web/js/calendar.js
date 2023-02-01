@@ -28,75 +28,20 @@
         }
     }
 
+    let val = $.ajax({
+        url: '/shop-admin/otcher/calendar/ajax-calendar',
+        type: 'get',
+        async: false,
+        dataType: 'json',
+    }).responseText;
+    let values = $.parseJSON(val);
     $('#calendar').each(function () {
         const calendarEl = this;
         const curYear = (new Date()).getFullYear();
         const curMonth = ('0' + ((new Date()).getMonth() + 1)).substr(-2);
-        const eventsSources = [
-            {
-                events: [
-                    {
-                        title: 'E3 Electronic Entertainment Expo',
-                        start: curYear + '-' + curMonth + '-01',
-                        end: curYear + '-' + curMonth + '-05',
-                        color: '#DB4343',
-                        textColor: '#fff',
-                    },
-                    {
-                        title: 'Adam\'s birthday',
-                        start: curYear + '-' + curMonth + '-06',
-                        color: '#f69a2f',
-                        textColor: '#fff',
-                    },
-                    {
-                        title: 'Stroyka HTML release',
-                        start: curYear + '-' + curMonth + '-19',
-                        color: '#ffd333',
-                        textColor: '#212529',
-                    },
-                    {
-                        title: 'Stroyka Angular release',
-                        start: curYear + '-' + curMonth + '-28',
-                        color: '#dd0032',
-                        textColor: '#fff',
-                    },
-                    {
-                        title: 'Stroyka React release',
-                        start: curYear + '-' + curMonth + '-14',
-                        color: '#61dafd',
-                        textColor: '#292c36',
-                    },
-                    {
-                        title: 'Stroyka Vue release',
-                        start: curYear + '-' + curMonth + '-02',
-                        color: '#43b885',
-                        textColor: '#fff',
-                    },
-                    {
-                        title: 'Annual leave',
-                        start: curYear + '-' + curMonth + '-24',
-                        end: curYear + '-' + curMonth + '-28',
-                        color: '#4275c2',
-                        textColor: '#fff',
-                    },
-                    {
-                        title: 'Moscow JavaScript Conference',
-                        start: curYear + '-' + curMonth + '-11',
-                        end: curYear + '-' + curMonth + '-13',
-                        color: '#7a42c2',
-                        textColor: '#fff',
-                    },
-                    {
-                        title: 'Russian Hacker\'s Day',
-                        start: curYear + '-' + curMonth + '-16',
-                        color: '#c33994',
-                        textColor: '#fff',
-                    },
-                ],
-            }
-        ];
+        const eventsSources = values;
         const datepicker = $('.sa-calendar-datepicker').datepicker({
-            language: 'en',
+            language: 'ru',
             classes: 'datepicker-sa-embedded',
             inline: true,
             onRenderCell: function (date, cellType) {
@@ -136,7 +81,9 @@
                 }
             },
         }).data('datepicker');
+        
         const calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'ru',
             initialView: 'dayGridMonth',
             customButtons: {
                 'sa-sidebar': {
@@ -161,11 +108,11 @@
             height: getCalendarHeight(),
             navLinks: true,
             buttonText: {
-                today: 'Today',
-                month: 'Month',
-                week: 'Week',
-                day: 'Day',
-                list: 'List',
+                today: 'Сегодня',
+                month: 'Месяц',
+                week: 'Неделя',
+                day: 'День',
+                list: 'Список',
             },
             editable: true,
             selectable: true,
@@ -173,22 +120,64 @@
             droppable: true,
 
             select: function(info) {
-                const eventTitle = prompt('Enter a title for the new event:');
+                const eventTitle = prompt('Введите название нового события:');
 
+                let date = JSON.stringify(info.start);
+                let dateEnd = JSON.stringify(info.end);
+                // date = date.slice(1,11);
+                // dateEnd = dateEnd.slice(1,11);
+                console.log('info.end', date);
                 if (eventTitle) {
-                    calendar.addEvent({
-                        title: eventTitle,
-                        start: info.start,
-                        end: info.end,
-                        allDay: info.allDay,
+
+                    $.ajax({
+                        url: '/shop-admin/otcher/calendar/ajax-add',
+                        type: "get",
+                        data: {
+                            title: eventTitle,
+                            date: date,
+                            dateEnd: dateEnd,
+                            color: '#a61c00',
+                            colorText: '#ffffff',
+                        },
+                        success: function(res){
+                            console.log(res);
+                            calendar.addEvent({
+                                title: eventTitle,
+                                start: info.start,
+                                end: info.end,
+                                allDay: info.allDay,
+                            });
+                        },
+                        error: function (res) {
+                            // console.log('errors', res);
+                        }
                     });
+
+                    // console.log('eventTitle', calendar.addEvent());
                 }
 
                 calendar.unselect();
             },
 
             eventClick: function(info) {
-                if (confirm('Are you sure you want to delete this event?')) {
+
+                if (confirm('Вы уверены, что хотите удалить это событие?')) {
+                    var id = info.event._def.publicId;
+                    $.ajax({
+                        url: '/shop-admin/otcher/calendar/delete',
+                        // type: "post",
+                        data: {
+                            id: id,
+                            // _csrf: yii.getCsrfToken()
+                        },
+                        dataType: 'json',
+                        success: function(res){
+                            info.event.remove();
+                        },
+                        error: function (res) {
+                            // console.log('errors', res);
+                        }
+                    });
                     info.event.remove();
                 }
             },

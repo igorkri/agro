@@ -66,6 +66,7 @@ use yii\widgets\Pjax;
 //                    'multiple' => true
                 ],
                 'pluginOptions' => [
+                    'allowClear' => true,
 //                    'tags' => true,
 //                    'tokenSeparators' => [', ', ' '],
 //                    'maximumInputLength' => 10,
@@ -74,6 +75,36 @@ use yii\widgets\Pjax;
             ])->label(false);
             Pjax::end();
             ?>
+
+        </div>
+    </div>
+    <div class="card w-100 mt-5">
+        <div class="card-body p-5">
+            <div class="mb-5">
+                <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Label')?></h2>
+            </div>
+            <?php
+            $data = ArrayHelper::map(\common\models\shop\Label::find()
+                ->orderBy('name')->asArray()->all(), 'id', 'name');
+            echo $form->field($model, 'label_id')->widget(Select2::classname(), [
+                'data' => $data,
+                'theme' => Select2::THEME_DEFAULT,
+                'pluginLoading' => false,
+//                'toggleAllSettings' => [
+//                    'selectLabel' => '<i class="fas fa-check-circle"></i> Выбрать все',
+//                    'unselectLabel' => '<i class="fas fa-times-circle"></i> Удалить все',
+//                    'selectOptions' => ['class' => 'text-success'],
+//                    'unselectOptions' => ['class' => 'text-danger'],
+//                ],
+                'options' => [
+                    'placeholder' => 'Виберіть мітку ...',
+                    'class' => 'sa-select2 form-select',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'width' => '273px',
+                ],
+            ])->label(false);?>
 
         </div>
     </div>
@@ -96,12 +127,13 @@ use yii\widgets\Pjax;
                     'unselectOptions' => ['class' => 'text-danger'],
                 ],
                 'options' => [
-                     'placeholder' => 'Виберіть мітку...',
+                     'placeholder' => 'Виберіть тег ...',
                     'class' => 'sa-select2 form-select',
                     // 'data-tags'=>'true',
                     'multiple' => true
                 ],
                 'pluginOptions' => [
+                    'closeOnSelect' => false,
                     'tags' => true,
                     'tokenSeparators' => [', ', ' '],
                     'maximumInputLength' => 10,

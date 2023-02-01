@@ -80,7 +80,7 @@ const browsersData = {
                         fontColor: '#828f99',
                         // Include a dollar sign in the ticks
                         callback: function (value) {
-                            return '$' + value;
+                            return '&#8372;' + value;
                         },
                     },
                     gridLines: {

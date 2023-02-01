@@ -105,11 +105,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <ul class="sa-meta__list">
                                                 <li class="sa-meta__item">
                                                     ID:
-                                                    <span title="Click to copy product ID" class="st-copy"><?=$model->id?></span>
+                                                    <span class="st-copy"><?=$model->id?></span>
+                                                </li>
+                                                <li class="sa-meta__item">
+                                                    LABEL:
+                                                    <span class="st-copy"><?=isset($model->label) ? ' <span class="badge badge-sa-primary">' . $model->label->name . '</span>' : ''?></span>
                                                 </li>
                                                 <li class="sa-meta__item">
                                                     TAGS:
-                                                    <span title="Click to copy product TAGS" class="st-copy"></span>
+                                                    <span class="st-copy">
+                                                        <?php
+                                                            foreach ($model->tags as $tag){
+                                                                echo ' <span class="badge badge-sa-secondary">' . $tag->name . '</span>';
+                                                            }
+                                                        ?>
+                                                    </span>
                                                 </li>
                                             </ul>
                                         </div>
