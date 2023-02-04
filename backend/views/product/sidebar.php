@@ -45,7 +45,7 @@ use yii\widgets\Pjax;
             <?php
             Pjax::begin(['id' => "category"]);
             $data = ArrayHelper::map(\common\models\shop\Category::find()
-                ->where(['NOT', ['parentId' => null]])
+//                ->where(['NOT', ['parentId' => null]])
                 ->orderBy('name')->asArray()->all(), 'id', 'name');
             echo $form->field($model, 'category_id')->widget(Select2::classname(), [
                 'data' => $data,

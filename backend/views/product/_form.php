@@ -186,7 +186,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                                         </td>
                                                         <td><input type="number" name="priority[<?= $image->id ?>]" class="form-control form-control-sm w-4x" value="<?= $image->priority ? $image->priority : 0 ?>" /></td>
                                                         <td>
-                                                            <button onclick="removeImageStock(<?= $image->id ?>)" class="btn btn-sa-muted btn-sm mx-n3" type="button" aria-label="Удалить изображение" data-bs-toggle="tooltip" data-bs-placement="right" title="Удалить изображение">
+                                                            <button onclick="removeImageStock(<?= $image->id ?>)" class="btn btn-sa-muted btn-sm mx-n3" type="button" aria-label="Видалити зображення" data-bs-toggle="tooltip" data-bs-placement="right" title="Видалити зображення">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
                                                                     <path d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z"></path>
                                                                 </svg>
@@ -200,11 +200,17 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                 </div>
                                 <div class="sa-divider"></div>
                                 <div class="px-5 py-4 my-2">
-                                    <?= Html::a(
-                                        Yii::t('app', 'Download images'),
-                                        Url::to(['create-image', 'id' => $model->id, 'language' => 'uk']),
-                                        ['role' => 'modal-remote', 'data-toggle' => 'tooltip']
-                                    ); ?>
+                                    <?php if(!$model->isNewRecord): ?>
+                                        <?= Html::a(
+                                            Yii::t('app', 'Download images'),
+                                            Url::to(['create-image', 'id' => $model->id, 'language' => 'uk']),
+                                            ['role' => 'modal-remote', 'data-toggle' => 'tooltip']
+                                        ); ?>
+                                    <?php else: ?>
+                                        <?= Html::tag('span','Завантаження зображення буде доступно після створення товару!',
+                                            ['class' => 'text-danger']
+                                        ); ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
