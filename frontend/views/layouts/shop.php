@@ -17,7 +17,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Yii::g
 
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>" class="h-100">
+    <html lang="<?= Yii::$app->language ?>" dir="ltr">
 
 <head>
     <title><?= Html::encode($this->title) ?></title>
@@ -33,12 +33,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Yii::g
 <div class="site">
 
     <!-- mobile site__header -->
-    <?=$this->render('mobile-site-header')?>   
+    <?=$this->render('mobile-site-header')?>
     <!-- mobile site__header / end -->
 
     <!-- desktop site__header -->
-    <?=$this->render('site-header')?> 
-    <!-- desktop site__header / end -->
+    <?= $this->render('site-header')?>
+<!--     desktop site__header / end -->
 
     <?= $content ?>
 
