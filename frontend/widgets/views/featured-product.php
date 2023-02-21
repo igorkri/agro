@@ -160,7 +160,7 @@ use yii\helpers\Url;
                                     Availability: <span class="text-success">In Stock</span>
                                 </div>
                                 <div class="product-card__prices">
-                                    $749.00
+                                    <?= Yii::$app->formatter->asCurrency($product->price)?>
                                 </div>
                                 <div class="product-card__buttons">
                                     <button class="btn btn-primary product-card__addtocart" type="button">Add To Cart</button>
