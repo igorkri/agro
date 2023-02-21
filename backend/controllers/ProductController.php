@@ -47,6 +47,7 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -116,7 +117,7 @@ class ProductController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
 
             $post_product = $this->request->post('Product');
-            if (isset($post_product['tags'])) {
+            if (!empty($post_product['tags'])) {
                 //удаляем существующие tags
                 $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
                 if ($tags) {
@@ -257,5 +258,22 @@ class ProductController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionRemoveImage($id)
+    {
+        $image = ProductImage::find()->where(['id' => $id])->one();
+        $dir = Yii::getAlias('@frontendWeb/product/');
+        $product = Product::find()->where(['id' => $image->product_id])->one();
+        if(Yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if (unlink($dir . $image->name)) {
+                if ($image->delete()) {
+                    return true;
+                }
+            }
+        }
+
+
     }
 }

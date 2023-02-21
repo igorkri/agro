@@ -45,6 +45,7 @@ class AppAsset extends AssetBundle
         "js/custom.js",
 //        "js/calendar.js",
         "js/demo.js",
+        "js/my-demo.js",
         "js/demo-chart-js.js",
 
         'js/ModalRemote.js',

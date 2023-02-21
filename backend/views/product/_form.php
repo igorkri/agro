@@ -2,6 +2,7 @@
 
 use kartik\form\ActiveForm;
 use kartik\select2\Select2;
+use vova07\imperavi\Widget;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\ArrayHelper;
@@ -15,7 +16,6 @@ use yii\widgets\Pjax;
 ?>
 
 <?php
-
 $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
@@ -50,7 +50,6 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                     </div>
                 </div>
             </div>
-            <?php Pjax::begin(['id' => 'update-product']) ?>
             <div class="sa-entity-layout" data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                 <div class="sa-entity-layout__body">
                     <div class="sa-entity-layout__main">
@@ -66,61 +65,26 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
 
                                 <div class="mb-4">
                                     <!-- sa-quill-control  -->
-                                    <?= $form->field($model, 'description')->widget(\bizley\quill\Quill::class, [
-                                        // 'class'=>"sa-quill-control form-control",
-
-                                        'toolbarOptions' => [
-                                            [
-                                                ['font' => []],
-                                                [
-                                                    'size' => [
-                                                        'small',
-                                                        false,
-                                                        'large',
-                                                        'huge',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                'bold',
-                                                'italic',
-                                                'underline',
-                                                'strike',
-                                            ],
-                                            [
-                                                ['color' => []],
-                                                ['background' => []],
-                                            ],
-                                            [
-                                                ['script' => 'sub'],
-                                                ['script' => 'super'],
-                                            ],
-                                            [
-                                                ['header' => 1],
-                                                ['header' => 2],
-                                                'blockquote',
-                                                'code-block',
-                                            ],
-                                            [
-                                                ['list' => 'ordered'],
-                                                ['list' => 'bullet'],
-                                                ['indent' => '-1'],
-                                                ['indent' => '+1'],
-                                            ],
-                                            [
-                                                ['direction' => 'rtl'],
-                                                ['align' => []],
-                                            ],
-                                            // [
-                                            //     'link',
-                                            //     'image',
-                                            //     'video',
-                                            // ],
-                                            [
-                                                'clean',
-                                            ],
-                                        ],
-                                    ]) ?>
+                                    <?= $form->field($model, 'description')->widget(Widget::class, [
+        'defaultSettings' => [
+            'style' => 'position: unset;'
+        ],
+        'settings' => [
+            'lang' => 'uk',
+            'minHeight' => 100,
+            'plugins' => [
+//                'clips',
+                'fullscreen',
+                'table',
+            ],
+//            'clips' => [
+//                ['Не вкл', 'Не включается'],
+//                ['Не раб', 'Не работает'],
+//                ['Протекает', 'Протекает'],
+//                ['Шумит', 'Посторонний шум'],
+//            ],
+        ],
+    ]);?>
 
                                 </div>
                                 <div>
@@ -170,6 +134,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                                 <th class="w-min"></th>
                                             </tr>
                                         </thead>
+                                        <?php Pjax::begin(['id' => 'images']);?>
                                         <tbody id="images-table">
                                             <?php if (!empty($model->images)) : ?>
                                                 <?php foreach ($model->images as $image) : ?>
@@ -186,7 +151,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                                         </td>
                                                         <td><input type="number" name="priority[<?= $image->id ?>]" class="form-control form-control-sm w-4x" value="<?= $image->priority ? $image->priority : 0 ?>" /></td>
                                                         <td>
-                                                            <button onclick="removeImageStock(<?= $image->id ?>)" class="btn btn-sa-muted btn-sm mx-n3" type="button" aria-label="Видалити зображення" data-bs-toggle="tooltip" data-bs-placement="right" title="Видалити зображення">
+                                                            <button class="btn btn-sa-muted btn-sm mx-n3" onclick="removeImageStock(<?=$image->id?>, '<?=$_SESSION['_language']?>')" type="button" aria-label="Видалити зображення" data-bs-toggle="tooltip" data-bs-placement="right" title="Видалити зображення">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
                                                                     <path d="M10.8,10.8L10.8,10.8c-0.4,0.4-1,0.4-1.4,0L6,7.4l-3.4,3.4c-0.4,0.4-1,0.4-1.4,0l0,0c-0.4-0.4-0.4-1,0-1.4L4.6,6L1.2,2.6 c-0.4-0.4-0.4-1,0-1.4l0,0c0.4-0.4,1-0.4,1.4,0L6,4.6l3.4-3.4c0.4-0.4,1-0.4,1.4,0l0,0c0.4,0.4,0.4,1,0,1.4L7.4,6l3.4,3.4 C11.2,9.8,11.2,10.4,10.8,10.8z"></path>
                                                                 </svg>
@@ -196,6 +161,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </tbody>
+                                        <?php Pjax::end() ?>
                                     </table>
                                 </div>
                                 <div class="sa-divider"></div>
@@ -234,11 +200,11 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                     <?=$this->render('sidebar', ['form' => $form, 'model' => $model])?>
                 </div>
             </div>
-            <?php Pjax::end() ?>
         </div>
     </div>
 
     <?php ActiveForm::end(); ?>
+
 
     <?php Modal::begin([
         "id" => "ajaxCrudModal",
