@@ -10,7 +10,12 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'layout' => 'shop',
+    'name' => 'AgroPro',
+    'basePath' => dirname(__DIR__),
+    'language' => 'uk-UA',
     'controllerNamespace' => 'frontend\controllers',
+    'defaultRoute' => '/site/index',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -28,7 +33,7 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => \yii\log\FileTarget::class,
+                    'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -36,14 +41,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        
+        // 'urlManager' => [
+        //     'enablePrettyUrl' => true,
+        //     'showScriptName' => false,
+        //     'enableStrictParsing' => false,
+        //     'rules' => [
+        //     ],
+        // ],
+        
     ],
     'params' => $params,
 ];
