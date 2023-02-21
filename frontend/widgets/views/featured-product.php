@@ -1,19 +1,21 @@
 <?php
+use yii\helpers\Url;
 
+/** @var \common\models\shop\Product $products */
 
 ?>
 
 <div class="block block-products-carousel" data-layout="grid-4" data-mobile-grid-columns="2">
     <div class="container">
         <div class="block-header">
-            <h3 class="block-header__title">Featured Products</h3>
+            <h3 class="block-header__title">Популярні товари</h3>
             <div class="block-header__divider"></div>
-            <ul class="block-header__groups-list">
-                <li><button type="button" class="block-header__group  block-header__group--active ">All</button></li>
-                <li><button type="button" class="block-header__group ">Power Tools</button></li>
-                <li><button type="button" class="block-header__group ">Hand Tools</button></li>
-                <li><button type="button" class="block-header__group ">Plumbing</button></li>
-            </ul>
+<!--            <ul class="block-header__groups-list">-->
+<!--                <li><button type="button" class="block-header__group  block-header__group--active ">All</button></li>-->
+<!--                <li><button type="button" class="block-header__group ">Power Tools</button></li>-->
+<!--                <li><button type="button" class="block-header__group ">Hand Tools</button></li>-->
+<!--                <li><button type="button" class="block-header__group ">Plumbing</button></li>-->
+<!--            </ul>-->
             <div class="block-header__arrows-list">
                 <button class="block-header__arrow block-header__arrow--left" type="button">
                     <svg width="7px" height="11px">
@@ -30,9 +32,7 @@
         <div class="block-products-carousel__slider">
             <div class="block-products-carousel__preloader"></div>
             <div class="owl-carousel">
-                <?php use yii\helpers\Url;
-
-                foreach ($products as $product): ?>
+                <?php foreach ($products as $product): ?>
                 <div class="block-products-carousel__column">
                     <div class="block-products-carousel__cell">
                         <div class="product-card product-card--hidden-actions ">
@@ -160,7 +160,7 @@
                                     Availability: <span class="text-success">In Stock</span>
                                 </div>
                                 <div class="product-card__prices">
-                                    $749.00
+                                    <?=Yii::$app->formatter->asCurrency($product->price)?>
                                 </div>
                                 <div class="product-card__buttons">
                                     <button class="btn btn-primary product-card__addtocart" type="button">Add To Cart</button>
