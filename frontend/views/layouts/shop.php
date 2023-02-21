@@ -18,13 +18,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Yii::g
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>" dir="ltr">
-
 <head>
     <title><?= Html::encode($this->title) ?></title>
-    
     <?php $this->head() ?>
-
-
 </head>
 
 <body>
@@ -585,7 +581,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Yii::g
 
 <?php $this->endBody() ?>
 
-<script src="vendor/svg4everybody/svg4everybody.min.js"></script>
+<script src="/vendor/svg4everybody/svg4everybody.min.js"></script>
 <script> svg4everybody(); </script>
 
 </body>
