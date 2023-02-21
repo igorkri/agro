@@ -12,7 +12,6 @@ return [
     'bootstrap' => ['log'],
     'layout' => 'shop',
     'name' => 'AgroPro',
-    'basePath' => dirname(__DIR__),
     'language' => 'uk-UA',
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/site/index',
