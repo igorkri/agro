@@ -84,4 +84,7 @@ class Category extends \yii\db\ActiveRecord
     public function getParent(){
         return $this->hasOne(Category::class, ['id' => 'parentId']);
     }
+    public function getParents(){
+        return $this->hasMany(Category::class, ['id' => 'parentId']);
+    }
 }
