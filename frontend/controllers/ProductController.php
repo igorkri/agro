@@ -10,7 +10,7 @@ class ProductController extends Controller
     public function actionView($slug): string
     {
 
-        $product = Product::find()->where(['slug' => $slug])->one();
+        $product = Product::find()->where(['slug' => $slug])->one(); //all products
 
         return $this->render('index', ['product' => $product]);
     }
