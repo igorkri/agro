@@ -1,3 +1,9 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
+
 <header class="site__header d-lg-block d-none">
         <div class="site-header">
             <!-- .topbar -->
@@ -5,7 +11,7 @@
                 <div class="topbar__container container">
                     <div class="topbar__row">
                         <div class="topbar__item topbar__item--link">
-                            <a class="topbar-link" href="about-us.html">About Us</a>
+
                         </div>
                         <div class="topbar__item topbar__item--link">
                             <a class="topbar-link" href="contact-us.html">Contacts</a>
@@ -260,7 +266,7 @@
                                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
                                                         <!-- .megamenu -->
                                                         <div class="megamenu  megamenu--departments ">
-                                                            <div class="megamenu__body" style="background-image: url('images/megamenu/megamenu-1.jpg');">
+                                                            <div class="megamenu__body" style="background-image: url('/frontend/web/images/megamenu/megamenu-1.jpg');">
                                                                 <div class="row">
                                                                     <div class="col-3">
                                                                         <ul class="megamenu__links megamenu__links--level--0">
@@ -358,7 +364,7 @@
                                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--lg">
                                                         <!-- .megamenu -->
                                                         <div class="megamenu  megamenu--departments ">
-                                                            <div class="megamenu__body" style="background-image: url('images/megamenu/megamenu-2.jpg');">
+                                                            <div class="megamenu__body" style="background-image: url('/frontend/web/images/megamenu/megamenu-2.jpg');">
                                                                 <div class="row">
                                                                     <div class="col-4">
                                                                         <ul class="megamenu__links megamenu__links--level--0">
@@ -428,7 +434,7 @@
                                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--nl">
                                                         <!-- .megamenu -->
                                                         <div class="megamenu  megamenu--departments ">
-                                                            <div class="megamenu__body" style="background-image: url('images/megamenu/megamenu-3.jpg');">
+                                                            <div class="megamenu__body" style="background-image: url('/frontend/web/images/megamenu/megamenu-3.jpg');">
                                                                 <div class="row">
                                                                     <div class="col-6">
                                                                         <ul class="megamenu__links megamenu__links--level--0">

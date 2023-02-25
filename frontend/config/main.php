@@ -14,10 +14,11 @@ return [
     'name' => 'AgroPro',
     'language' => 'uk-UA',
     'controllerNamespace' => 'frontend\controllers',
-    'defaultRoute' => '/site/index',
+    'defaultRoute' => '/site',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => '',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -41,13 +42,13 @@ return [
             'errorAction' => 'site/error',
         ],
         
-        // 'urlManager' => [
-        //     'enablePrettyUrl' => true,
-        //     'showScriptName' => false,
-        //     'enableStrictParsing' => false,
-        //     'rules' => [
-        //     ],
-        // ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            // 'enableStrictParsing' => false,
+            'rules' => [
+            ],
+        ],
         
     ],
     'params' => $params,

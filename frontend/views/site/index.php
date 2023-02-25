@@ -31,7 +31,7 @@ $this->title = Yii::$app->name;
                                     <div class="block-slideshow__slide-title">Big choice of<br>Plumbing products</div>
                                     <div class="block-slideshow__slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.</div>
                                     <div class="block-slideshow__slide-button">
-                                        <span class="btn btn-primary btn-lg">Shop Now</span>
+                                        <span class="btn btn-primary btn-lg">Здійснити Покупку</span>
                                     </div>
                                 </div>
                             </a>
@@ -42,7 +42,7 @@ $this->title = Yii::$app->name;
                                     <div class="block-slideshow__slide-title">Screwdrivers<br>Professional Tools</div>
                                     <div class="block-slideshow__slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.</div>
                                     <div class="block-slideshow__slide-button">
-                                        <span class="btn btn-primary btn-lg">Shop Now</span>
+                                        <span class="btn btn-primary btn-lg">Здійснити Покупку</span>
                                     </div>
                                 </div>
                             </a>
@@ -53,7 +53,7 @@ $this->title = Yii::$app->name;
                                     <div class="block-slideshow__slide-title">One more<br>Unique header</div>
                                     <div class="block-slideshow__slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Etiam pharetra laoreet dui quis molestie.</div>
                                     <div class="block-slideshow__slide-button">
-                                        <span class="btn btn-primary btn-lg">Shop Now</span>
+                                        <span class="btn btn-primary btn-lg">Здійснити Покупку</span>
                                     </div>
                                 </div>
                             </a>
@@ -134,7 +134,7 @@ $this->title = Yii::$app->name;
                 <div class="block-banner__title">Hundreds <br class="block-banner__mobile-br"> Hand Tools</div>
                 <div class="block-banner__text">Hammers, Chisels, Universal Pliers, Nippers, Jigsaws, Saws</div>
                 <div class="block-banner__button">
-                    <span class="btn btn-sm btn-primary">Shop Now</span>
+                    <span class="btn btn-sm btn-primary">Здійснити Покупку</span>
                 </div>
             </a>
         </div>
