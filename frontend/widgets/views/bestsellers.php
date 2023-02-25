@@ -25,13 +25,13 @@ use yii\helpers\Url;
                                 <div class="product-card__badge product-card__badge--new"><?=$products[0]->label->name?></div>
                             </div>
                             <div class="product-card__image product-image">
-                                <a href="product.html" class="product-image__body">
+                                <a href="<?=Url::to(['product/view', 'slug' => $products[0]->slug])?>" class="product-image__body">
                                     <img class="product-image__img" src="/product/<?=$products[0]->images[0]->name?>" alt="">
                                 </a>
                             </div>
                             <div class="product-card__info">
                                 <div class="product-card__name">
-                                    <a href="product.html"><?=$products[0]->name?></a>
+                                    <a href="<?=Url::to(['product/view', 'slug' => $products[0]->slug])?>"><?=$products[0]->name?></a>
                                 </div>
                                 <div class="product-card__rating">
                                     <div class="product-card__rating-stars">
@@ -138,8 +138,8 @@ use yii\helpers\Url;
                                 <?= Yii::$app->formatter->asCurrency($products[0]->price)?>
                                 </div>
                                 <div class="product-card__buttons">
-                                    <button class="btn btn-primary product-card__addtocart" type="button">В Корзину</button>
-                                    <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">В Корзину</button>
+                                    <button class="btn btn-primary product-card__addtocart" type="button">В Кошик</button>
+                                    <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">В Кошик</button>
                                     <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
                                         <svg width="16px" height="16px">
                                             <use xlink:href="images/sprite.svg#wishlist-16"></use>
@@ -288,8 +288,8 @@ use yii\helpers\Url;
                                 <?= Yii::$app->formatter->asCurrency($product->price)?>
                                 </div>
                                 <div class="product-card__buttons">
-                                    <button class="btn btn-primary product-card__addtocart" type="button">В Корзину</button>
-                                    <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button>
+                                    <button class="btn btn-primary product-card__addtocart" type="button">В Кошик</button>
+                                    <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">В Кошик</button>
                                     <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
                                         <svg width="16px" height="16px">
                                             <use xlink:href="images/sprite.svg#wishlist-16"></use>

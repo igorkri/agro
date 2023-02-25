@@ -1,7 +1,6 @@
 <?php
-use yii\helpers\Url;
 
-/** @var \common\models\shop\Category $сategories */
+/** @var \common\models\shop\Category $categories */
 
 ?>
 
@@ -17,7 +16,7 @@ use yii\helpers\Url;
                    
                 <div class="category-card__body">
                         <div class="category-card__image">
-                            <a href=""><img src="/category/<?=$categories[0]->file?>" alt=""></a>
+                            <a href=""><img src="/category/<?= $categories[0]->file ?>" alt=""></a>
                         </div>
                         <div class="category-card__content">
                             <div class="category-card__name">
