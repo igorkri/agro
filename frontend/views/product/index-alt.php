@@ -94,7 +94,6 @@ $this->title = Yii::$app->name;
                                     <?php endif; ?>
                                 </div>
                             </div>
-
                             <!-- .product__gallery / end -->
                             <!-- .product__info -->
                             <div class="product__info">
