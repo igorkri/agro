@@ -17,7 +17,7 @@
                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
                         <!-- .megamenu -->
                         <div class="megamenu  megamenu--departments ">
-                            <div class="megamenu__body" style="background-image: url('images/megamenu/megamenu-1.jpg');">
+                            <div class="megamenu__body" style="background-image: url('/frontend/web/images/megamenu/megamenu-1.jpg');">
                                 <div class="row">
                                     <div class="col-3">
                                         <ul class="megamenu__links megamenu__links--level--0">
@@ -115,7 +115,7 @@
                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--lg">
                         <!-- .megamenu -->
                         <div class="megamenu  megamenu--departments ">
-                            <div class="megamenu__body" style="background-image: url('images/megamenu/megamenu-2.jpg');">
+                            <div class="megamenu__body" style="background-image: url('/frontend/web/images/megamenu/megamenu-2.jpg');">
                                 <div class="row">
                                     <div class="col-4">
                                         <ul class="megamenu__links megamenu__links--level--0">
@@ -185,7 +185,7 @@
                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--nl">
                         <!-- .megamenu -->
                         <div class="megamenu  megamenu--departments ">
-                            <div class="megamenu__body" style="background-image: url('images/megamenu/megamenu-3.jpg');">
+                            <div class="megamenu__body" style="background-image: url('/frontend/web/images/megamenu/megamenu-3.jpg');">
                                 <div class="row">
                                     <div class="col-6">
                                         <ul class="megamenu__links megamenu__links--level--0">
