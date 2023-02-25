@@ -13,7 +13,7 @@ use yii\helpers\Url;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">Головна</a>
+                            <a href="#">Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/frontend/web/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -63,10 +63,10 @@ use yii\helpers\Url;
                                 <?php endforeach; ?>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 <!-- site__body / end -->
