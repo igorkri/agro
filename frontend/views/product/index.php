@@ -38,8 +38,6 @@ $this->title = Yii::$app->name;
         <div class="container">
             <div class="product product--layout--standard" data-layout="standard">
                 <div class="product__content">
-
-
                     <!-- .product__gallery -->
                     <div class="product__gallery">
                         <div class="product-gallery">
@@ -94,7 +92,6 @@ $this->title = Yii::$app->name;
                                                      alt="no image">
                                             </a>
                                         </div>
-
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -118,122 +115,27 @@ $this->title = Yii::$app->name;
                             </button>
                         </div>
                         <h1 class="product__name"><?= $product->name ?></h1>
-                        <div class="product__rating">
-                            <div class="product__rating-stars">
-                                <div class="rating">
-                                    <div class="rating__body">
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="/images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="/images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="/images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="/images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                        <svg class="rating__star rating__star--active" width="13px" height="12px">
-                                            <g class="rating__fill">
-                                                <use xlink:href="/images/sprite.svg#star-normal"></use>
-                                            </g>
-                                            <g class="rating__stroke">
-                                                <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
-                                            </g>
-                                        </svg>
-                                        <div class="rating__star rating__star--only-edge rating__star--active">
-                                            <div class="rating__fill">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                            <div class="rating__stroke">
-                                                <div class="fake-svg-icon"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product__rating-legend">
-                                <a href="">7 Reviews</a><span>/</span><a href="">Write A Review</a>
-                            </div>
-                        </div>
+
 
                         <div class="product__description"><?= $product->short_description ?>
 
                         </div>
-                        <ul class="product__features">
-                            <li>Speed: 750 RPM</li>
-                            <li>Power Source: Cordless-Electric</li>
-                            <li>Battery Cell Type: Lithium</li>
-                            <li>Voltage: 20 Volts</li>
-                            <li>Battery Capacity: 2 Ah</li>
-                        </ul>
+
                         <ul class="product__meta">
                             <li class="product__meta-availability"><span
                                         <?php if ($product->status->name == 'В наявності'): ?>
-                                            class="p-3 mb-2 bg-success text-white"><?= $product->status->name ?></span></li>
-                                        <? endif; ?>
-                                        <?php if ($product->status->name == 'Немає в наявності'): ?>
-                                            class="p-3 mb-2 bg-danger text-white"><?= $product->status->name ?></span></li>
-                                        <? endif; ?>
-                                        <?php if ($product->status->name == 'Очікується'): ?>
-                                            class="p-3 mb-2 bg-warning text-dark"><?= $product->status->name ?></span></li>
-                                        <? endif; ?>
-                                        <?php if ($product->status->name == 'Під замовлення'): ?>
-                                            class="p-3 mb-2 bg-info text-white"><?= $product->status->name ?></span></li>
-                                        <? endif; ?>
+                                            class="p-3 mb-2 bg-success text-white"><?= $product->status->name ?></span>
+                            </li>
+                            <? endif; ?>
+                            <?php if ($product->status->name == 'Немає в наявності'): ?>
+                                class="p-3 mb-2 bg-danger text-white"><?= $product->status->name ?></span></li>
+                            <? endif; ?>
+                            <?php if ($product->status->name == 'Очікується'): ?>
+                                class="p-3 mb-2 bg-warning text-dark"><?= $product->status->name ?></span></li>
+                            <? endif; ?>
+                            <?php if ($product->status->name == 'Під замовлення'): ?>
+                                class="p-3 mb-2 bg-info text-white"><?= $product->status->name ?></span></li>
+                            <? endif; ?>
                             <li><a href=""> </a></li>
                             <li class="payment-methods__item" style="background: #ffe484;padding: 10px;color: black;">
                                 Артикул: <span style="margin-right: 10px;" id="sku">0000<?= $product->id ?> </span>
@@ -303,14 +205,11 @@ $this->title = Yii::$app->name;
                         <!-- .product__options / end -->
                     </div>
                     <!-- .product__end -->
-
                 </div>
             </div>
-
             <!-- description -->
             <?= $this->render('description', ['product' => $product]) ?>
             <!-- description /end -->
-
         </div>
     </div>
     <!-- .block-products-carousel -->
