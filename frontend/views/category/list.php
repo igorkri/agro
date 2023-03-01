@@ -18,12 +18,6 @@ use yii\helpers\Url;
                                 <use xlink:href="/frontend/web/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="">Breadcrumb</a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="/frontend/web/images/sprite.svg#arrow-rounded-right-6x9"></use>
-                            </svg>
-                        </li>
                         <li class="breadcrumb-item active" aria-current="page">Категорії</li>
                     </ol>
                 </nav>
@@ -44,13 +38,17 @@ use yii\helpers\Url;
                                 <div class="products-list__item">
                                     <div class="product-card product-card--hidden-actions ">
                                         <div class="product-card__image product-image">
-                                            <a href="<?=Url::to(['category/list', 'slug' => $category->slug])?>" class="product-image__body">
+                                            <?php if(empty($category->products)): ?>
+                                            <a href="<?=Url::to(['category/children', 'slug' => $category->slug])?>" class="product-image__body">
+                                            <?php else: ?>
+                                            <a href="<?=Url::to(['category/catalog', 'slug' => $category->slug])?>" class="product-image__body">
+                                            <?php endif; ?>
                                                 <img class="product-image__img" src="<?= $category->file ?>" alt="">
                                             </a>
                                         </div>
                                         <div class="product-card__info">
                                             <div class="product-card__name">
-                                                <a href="<?=Url::to(['category/list', 'slug' => $category->slug])?>"><?= $category->name ?></a>
+                                                <a href="<?=Url::to(['category/children', 'slug' => $category->slug])?>"><?= $category->name ?></a>
                                             </div>
                                         </div>
                                         <div class="product-card__actions">

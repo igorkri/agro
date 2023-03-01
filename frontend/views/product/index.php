@@ -17,18 +17,32 @@ $this->title = Yii::$app->name;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Home</a>
+                            <a href="/">Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="">Breadcrumb</a>
+                            <a href="<?=Url::to(['category/list'])?>">Категорії</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Brandix Screwdriver SCREW1500ACC</li>
+                        <?php if (isset($product->category->parent)): ?>
+                        <li class="breadcrumb-item">
+                            <a href="<?=Url::to(['category/children', 'slug' => $product->category->parent->slug])?>"><?=$product->category->parent->name?></a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+                        <?php endif; ?>
+                        <li class="breadcrumb-item">
+                            <a href="<?=Url::to(['category/catalog', 'slug' => $product->category->slug])?>"><?=$product->category->name?></a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page"><?=$product->name?></li>
                     </ol>
                 </nav>
             </div>
