@@ -23,26 +23,26 @@ $this->title = Yii::$app->name;
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="<?=Url::to(['category/list'])?>">Категорії</a>
+                            <a href="<?= Url::to(['category/list']) ?>">Категорії</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <?php if (isset($product->category->parent)): ?>
-                        <li class="breadcrumb-item">
-                            <a href="<?=Url::to(['category/children', 'slug' => $product->category->parent->slug])?>"><?=$product->category->parent->name?></a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
-                            </svg>
-                        </li>
+                            <li class="breadcrumb-item">
+                                <a href="<?= Url::to(['category/children', 'slug' => $product->category->parent->slug]) ?>"><?= $product->category->parent->name ?></a>
+                                <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                    <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                </svg>
+                            </li>
                         <?php endif; ?>
                         <li class="breadcrumb-item">
-                            <a href="<?=Url::to(['category/catalog', 'slug' => $product->category->slug])?>"><?=$product->category->name?></a>
+                            <a href="<?= Url::to(['category/catalog', 'slug' => $product->category->slug]) ?>"><?= $product->category->name ?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"><?=$product->name?></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= $product->name ?></li>
                     </ol>
                 </nav>
             </div>
@@ -90,7 +90,7 @@ $this->title = Yii::$app->name;
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <div class="product-gallery__featured">
                                     <button class="product-gallery__zoom">
                                         <svg width="24px" height="24px">
@@ -137,19 +137,21 @@ $this->title = Yii::$app->name;
 
                         <ul class="product__meta">
                             <li class="product__meta-availability"><span
-                                        <?php if ($product->status->name == 'В наявності'): ?>
-                                            class="p-3 mb-2 bg-success text-white"><?= $product->status->name ?></span>
-                            </li>
-                            <? endif; ?>
+                            <?php if ($product->status->name == 'В наявності'): ?>
+                                <li><span class="p-3 mb-2 bg-success text-white"><?= $product->status->name ?></span>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($product->status->name == 'Немає в наявності'): ?>
-                                class="p-3 mb-2 bg-danger text-white"><?= $product->status->name ?></span></li>
-                            <? endif; ?>
+                                <li><span class="p-3 mb-2 bg-danger text-white"><?= $product->status->name ?></span>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($product->status->name == 'Очікується'): ?>
-                                class="p-3 mb-2 bg-warning text-dark"><?= $product->status->name ?></span></li>
-                            <? endif; ?>
+                                <li><span class="p-3 mb-2 bg-warning text-dark"><?= $product->status->name ?></span>
+                                </li>
+                            <?php endif; ?>
                             <?php if ($product->status->name == 'Під замовлення'): ?>
-                                class="p-3 mb-2 bg-info text-white"><?= $product->status->name ?></span></li>
-                            <? endif; ?>
+                                <li><span class="p-3 mb-2 bg-info text-white"><?= $product->status->name ?></span></li>
+                            <?php endif; ?>
                             <li><a href=""> </a></li>
                             <li class="payment-methods__item" style="background: #ffe484;padding: 10px;color: black;">
                                 Артикул: <span style="margin-right: 10px;" id="sku">0000<?= $product->id ?> </span>
@@ -181,7 +183,7 @@ $this->title = Yii::$app->name;
                                         </div>
                                     </div>
                                 </div>
-                            <?php endif ?>
+                            <?php endif; ?>
                             <div class="form-group product__option">
                                 <label class="product__option-label" for="product-quantity">Кількість</label>
                                 <div class="product__actions">
