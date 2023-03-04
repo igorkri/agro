@@ -11,7 +11,7 @@ class ProductController extends Controller
     {
 
         $product = Product::find()->with('category.parent')->where(['slug' => $slug])->one(); //all products
-        return $this->render('index', ['product' => $product]);
+        return $this->render('_index', ['product' => $product]);
     }
 
 }
