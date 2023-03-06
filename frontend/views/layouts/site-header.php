@@ -15,7 +15,7 @@ use yii\helpers\Url;
                     <a href="/">
                         <!-- logo -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="196px" height="26px">
-                            <img style="display: block;margin: -24px 0 0 0; width: 89px; " src="/frontend/web/images/logos/logoagro-1.png" alt="">
+                            <img style="display: block;margin: -28px 0px 0px -28px; width: 309px; " src="/frontend/web/images/logos/333.jpg" alt="">
                         </svg>
                         <!-- logo / end -->
                     </a>
@@ -38,7 +38,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="site-header__phone">
                     <div class="site-header__phone-title">Номер для замовлення</div>
-                    <div class="site-header__phone-number">(050) 871-20-76</div>
+                    <div class="site-header__phone-number">(050) ххх-20-76</div>
                 </div>
             </div>
             <div class="site-header__nav-panel">
