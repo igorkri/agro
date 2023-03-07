@@ -52,7 +52,7 @@ class AppAsset extends AssetBundle
         'js/ajaxcrud.js',
     ];
     public $depends = [
-        // 'yii\web\YiiAsset',
+         'yii\web\YiiAsset',
         // 'yii\bootstrap5\BootstrapAsset',
     ];
 }
