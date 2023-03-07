@@ -98,7 +98,7 @@ AppAsset::register($this);
                                     </a>
                                 </li>
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                                    <a href="<?=Url::to(['/about'])?>" class="sa-nav__link">
+                                    <a href="<?=Url::to(['/about/view', 'id' => 1])?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                                      viewBox="0 0 16 16" fill="currentColor">

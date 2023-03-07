@@ -46,8 +46,9 @@ return[
     'Create image' => 'Добавить зображення',
     'The download will be available after saving' => 'Завантаження буде доступне після збереження',
     'Download saving' => 'Завантажити збереження',
-
+    'Update pages: {name}' => 'Редагування сторінки: {name}',
     'About' => 'Про нас',
+    'Abouts' => 'Про нас',
 
     'Image' => 'Зображення',
     'Start typing to search for categories' => 'Почніть вводити текст для пошуку категорій',

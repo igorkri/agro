@@ -36,7 +36,7 @@ return[
     'Create image' => 'Добавить зображення',
     'The download will be available after saving' => 'Завантаження буде доступне після збереження',
     'Download saving' => 'Завантажити збереження',
-
+    'Update pages: {name}' => 'Редагування сторінки: {name}',
     'Image' => 'Зображення',
     'Start typing to search for categories' => 'Почніть вводити текст для пошуку категорій',
     'The requested page does not exist.' => 'Потрібна сторінка не існує.',
