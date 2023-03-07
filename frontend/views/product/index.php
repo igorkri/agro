@@ -98,7 +98,6 @@ $this->title = Yii::$app->name;
                                         </svg>
                                     </button>
                                     <div class="owl-carousel" id="product-image">
-
                                         <div class="product-image product-image--location--gallery">
                                             <a href="/product/no-image.png" data-width="700" data-height="700"
                                                class="product-image__body" target="_blank">
@@ -129,12 +128,8 @@ $this->title = Yii::$app->name;
                             </button>
                         </div>
                         <h1 class="product__name"><?= $product->name ?></h1>
-
-
                         <div class="product__description"><?= $product->short_description ?>
-
                         </div>
-
                         <ul class="product__meta">
                             <li class="product__meta-availability"><span
                             <?php if ($product->status->name == 'В наявності'): ?>
@@ -197,23 +192,7 @@ $this->title = Yii::$app->name;
                                         </div>
                                     </div>
                                     <div class="product__actions-item product__actions-item--addtocart">
-                                        <button class="btn btn-primary btn-lg">В Кошик</button>
-                                    </div>
-                                    <div class="product__actions-item product__actions-item--wishlist">
-                                        <button type="button" class="btn btn-secondary btn-svg-icon btn-lg"
-                                                data-toggle="tooltip" title="Wishlist">
-                                            <svg width="16px" height="16px">
-                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="product__actions-item product__actions-item--compare">
-                                        <button type="button" class="btn btn-secondary btn-svg-icon btn-lg"
-                                                data-toggle="tooltip" title="Compare">
-                                            <svg width="16px" height="16px">
-                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                            </svg>
-                                        </button>
+                                        <button class="btn btn-primary btn-lg">Купити</button>
                                     </div>
                                 </div>
                             </div>

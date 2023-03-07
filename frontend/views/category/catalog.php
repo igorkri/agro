@@ -1,8 +1,10 @@
 <?php
 
+use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $products */
+/** @var \common\models\shop\Product $pages */
 
 ?>
 
@@ -187,8 +189,8 @@ use yii\helpers\Url;
                                                 <?= Yii::$app->formatter->asCurrency($product->price) ?>
                                             </div>
                                             <div class="product-card__buttons">
-                                                <button class="btn btn-primary product-card__addtocart" type="button">Add To Cart</button>
-                                                <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Add To Cart</button>
+                                                <button class="btn btn-primary product-card__addtocart" type="button">Купити</button>
+                                                <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Купити</button>
                                                 <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
                                                     <svg width="16px" height="16px">
                                                         <use xlink:href="/images/sprite.svg#wishlist-16"></use>
@@ -207,6 +209,13 @@ use yii\helpers\Url;
                                 </div>
                                <?php endforeach; ?> 
                             </div>
+                        </div>
+                        <div style="display: block;margin: 60px 0px 0px 0px;">
+                            <ul class="pagination justify-content-center">
+                                <li>
+                                <?= LinkPager::widget(['pagination' => $pages,]) ?>
+                                </li>
+                            </ul>
                         </div>
                      </div>
                 </div>
