@@ -330,7 +330,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-primary">Pending</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/IT.png" class="sa-language-icon d-block" alt="" title="Italy" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/IT.png" class="sa-language-icon d-block" alt="" title="Italy" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -347,7 +347,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-warning">Hold</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/DE.png" class="sa-language-icon d-block" alt="" title="Germany" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/DE.png" class="sa-language-icon d-block" alt="" title="Germany" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -364,7 +364,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-primary">Pending</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/IT.png" class="sa-language-icon d-block" alt="" title="Italy" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/IT.png" class="sa-language-icon d-block" alt="" title="Italy" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -381,7 +381,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-danger">Canceled</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/US.png" class="sa-language-icon d-block" alt="" title="USA" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/US.png" class="sa-language-icon d-block" alt="" title="USA" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -398,7 +398,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-success">Completed</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/CO.png" class="sa-language-icon d-block" alt="" title="Columbia" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/CO.png" class="sa-language-icon d-block" alt="" title="Columbia" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -415,7 +415,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-success">Completed</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/RS.png" class="sa-language-icon d-block" alt="" title="Srbija" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/RS.png" class="sa-language-icon d-block" alt="" title="Srbija" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -432,7 +432,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-primary">Pending</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/FR.png" class="sa-language-icon d-block" alt="" title="France" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/FR.png" class="sa-language-icon d-block" alt="" title="France" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -449,7 +449,7 @@ $this->title = 'My Yii Application';
                                     <td>
                                         <div class="d-flex fs-6"><div class="badge badge-sa-success">Completed</div></div>
                                     </td>
-                                    <td><img src="/vendor/flag-icons/24/RU.png" class="sa-language-icon d-block" alt="" title="Russia" /></td>
+                                    <td><img src="/admin/vendor/flag-icons/24/RU.png" class="sa-language-icon d-block" alt="" title="Russia" /></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="/app-customer.html" class="sa-symbol sa-symbol--shape--circle sa-symbol--size--md me-3">
@@ -698,7 +698,7 @@ $this->title = 'My Yii Application';
                                 <div class="d-flex align-items-center py-3">
                                     <a href="/app-product.html" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="/images/products/product-1-40x40.jpg" width="40" height="40" alt="" />
+                                            <img src="/admin/images/products/product-1-40x40.jpg" width="40" height="40" alt="" />
                                         </div>
                                     </a>
                                     <div class="d-flex align-items-center flex-grow-1 flex-wrap">
@@ -721,7 +721,7 @@ $this->title = 'My Yii Application';
                                 <div class="d-flex align-items-center py-3">
                                     <a href="/app-product.html" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="/images/products/product-7-40x40.jpg" width="40" height="40" alt="" />
+                                            <img src="/admin/images/products/product-7-40x40.jpg" width="40" height="40" alt="" />
                                         </div>
                                     </a>
                                     <div class="d-flex align-items-center flex-grow-1 flex-wrap">
@@ -746,7 +746,7 @@ $this->title = 'My Yii Application';
                                 <div class="d-flex align-items-center py-3">
                                     <a href="/app-product.html" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="/images/products/product-10-40x40.jpg" width="40" height="40" alt="" />
+                                            <img src="/admin/images/products/product-10-40x40.jpg" width="40" height="40" alt="" />
                                         </div>
                                     </a>
                                     <div class="d-flex align-items-center flex-grow-1 flex-wrap">
@@ -769,7 +769,7 @@ $this->title = 'My Yii Application';
                                 <div class="d-flex align-items-center py-3">
                                     <a href="/app-product.html" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="/images/products/product-5-40x40.jpg" width="40" height="40" alt="" />
+                                            <img src="/admin/images/products/product-5-40x40.jpg" width="40" height="40" alt="" />
                                         </div>
                                     </a>
                                     <div class="d-flex align-items-center flex-grow-1 flex-wrap">
@@ -792,7 +792,7 @@ $this->title = 'My Yii Application';
                                 <div class="d-flex align-items-center py-3">
                                     <a href="/app-product.html" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="/images/products/product-2-40x40.jpg" width="40" height="40" alt="" />
+                                            <img src="/admin/images/products/product-2-40x40.jpg" width="40" height="40" alt="" />
                                         </div>
                                     </a>
                                     <div class="d-flex align-items-center flex-grow-1 flex-wrap">
@@ -815,7 +815,7 @@ $this->title = 'My Yii Application';
                                 <div class="d-flex align-items-center py-3">
                                     <a href="/app-product.html" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="/images/products/product-16-40x40.jpg" width="40" height="40" alt="" />
+                                            <img src="/admin/images/products/product-16-40x40.jpg" width="40" height="40" alt="" />
                                         </div>
                                     </a>
                                     <div class="d-flex align-items-center flex-grow-1 flex-wrap">

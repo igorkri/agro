@@ -246,36 +246,36 @@ AppAsset::register($this);
                                 data-bs-offset="0,1"
                                 aria-expanded="false"
                         >
-                            <img src="/vendor/flag-icons/24/DE.png" class="sa-language-icon" alt=""/>
+                            <img src="/admin/vendor/flag-icons/24/DE.png" class="sa-language-icon" alt=""/>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/vendor/flag-icons/24/DE.png" class="sa-language-icon me-3" alt=""/>
+                                    <img src="/admin/vendor/flag-icons/24/DE.png" class="sa-language-icon me-3" alt=""/>
                                     <span class="ps-2">German</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/vendor/flag-icons/24/FR.png" class="sa-language-icon me-3" alt=""/>
+                                    <img src="/admin/vendor/flag-icons/24/FR.png" class="sa-language-icon me-3" alt=""/>
                                     <span class="ps-2">French</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/vendor/flag-icons/24/GB.png" class="sa-language-icon me-3" alt=""/>
+                                    <img src="/admin/vendor/flag-icons/24/GB.png" class="sa-language-icon me-3" alt=""/>
                                     <span class="ps-2">English</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/vendor/flag-icons/24/RU.png" class="sa-language-icon me-3" alt=""/>
+                                    <img src="/admin/vendor/flag-icons/24/RU.png" class="sa-language-icon me-3" alt=""/>
                                     <span class="ps-2">Russian</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/vendor/flag-icons/24/IT.png" class="sa-language-icon me-3" alt=""/>
+                                    <img src="/admin/vendor/flag-icons/24/IT.png" class="sa-language-icon me-3" alt=""/>
                                     <span class="ps-2">Italian</span>
                                 </a>
                             </li>
@@ -438,7 +438,7 @@ AppAsset::register($this);
                                 aria-expanded="false"
                         >
                                 <span class="sa-toolbar-user__avatar sa-symbol sa-symbol--shape--rounded">
-                                    <img src="/images/customers/customer-4-64x64.jpg" width="64" height="64" alt=""/>
+                                    <img src="/admin/images/customers/customer-4-64x64.jpg" width="64" height="64" alt=""/>
                                 </span>
                             <span class="sa-toolbar-user__info">
                                     <span class="sa-toolbar-user__title">Konstantin Veselovsky</span>
