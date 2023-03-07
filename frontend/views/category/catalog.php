@@ -210,9 +210,9 @@ use yii\helpers\Url;
                                <?php endforeach; ?> 
                             </div>
                         </div>
-                        <div>
+                        <div style="display: block;margin: 60px 0px 0px 0px;">
                             <ul class="pagination justify-content-center">
-                                <li >
+                                <li>
                                 <?= LinkPager::widget(['pagination' => $pages,]) ?>
                                 </li>
                             </ul>

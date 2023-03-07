@@ -46,7 +46,7 @@ use yii\helpers\Url;
                                                                                         </li>
                                                                                     <?php endif; ?>
                                                                                     <?php if ($i == 6): ?>
-                                                                                        <li class="megamenu__item" Color: green>
+                                                                                        <li class="megamenu__item">
                                                                                             <a href="<?= Url::to(['/category/catalog', 'slug' => $parent->slug]) ?>">
                                                                                                 <span style="color: #30b12b; ">Дивитись всі... </span>
                                                                                             </a>

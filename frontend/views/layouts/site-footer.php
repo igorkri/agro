@@ -10,7 +10,7 @@
                                     Допоможемо підібрати надійну систему захисту та розвитку сільськогосподарським культурам.
                                 </div>
                                 <ul class="footer-contacts__contacts">
-                                    <li><i class="footer-contacts__icon fas fa-globe-americas"></i> вул.Зіньківська 35, Полтава 36000 Україна</li>
+                                    <li><i class="footer-contacts__icon fas fa-globe-americas"></i> Україна Полтава вул.Зіньківська 35, ін:36000</li>
                                     <li><i class="footer-contacts__icon far fa-envelope"></i> nisatatyana@gmail.com</li>
                                     <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> (800) ххх-0730, (800) ххх-0730</li>
                                     <li><i class="footer-contacts__icon far fa-clock"></i> Пн-Пт 9:00 - 17:00</li>
