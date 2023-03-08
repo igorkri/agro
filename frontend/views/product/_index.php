@@ -317,3 +317,16 @@ use frontend\widgets\RelatedProducts;
     <!-- .block-products-carousel / end -->
 </div>
 <!-- site__body / end -->
+
+<?php
+$js = <<<JS
+$( document ).ready(function() {
+
+      $('table').each(function() {
+              $( this ).addClass( "table table-bordered" );
+      });
+});
+
+JS;
+$this->registerJs($js);
+?>
