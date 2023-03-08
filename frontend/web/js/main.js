@@ -235,14 +235,14 @@
     });
 
     /*
-    // quickview
+    // add cart
     */
     const quickview = {
         cancelPreviousModal: function() {},
         clickHandler: function() {
             const modal = $('#quickview-modal');
             const button = $(this);
-            const doubleClick = button.is('.product-card__quickview--preload');
+            const doubleClick = button.is('.product-card__addtocart--preload');
 
             quickview.cancelPreviousModal();
 
@@ -250,16 +250,18 @@
                 return;
             }
 
-            button.addClass('product-card__quickview--preload');
+            button.addClass('product-card__addtocart--preload');
+            button.addClass('btn-loading');
 
             let xhr = null;
             // timeout ONLY_FOR_DEMO!
             const timeout = setTimeout(function() {
                 xhr = $.ajax({
-                    url: 'quickview.html',
+                    url: '/cart/quickview',
                     success: function(data) {
                         quickview.cancelPreviousModal = function() {};
-                        button.removeClass('product-card__quickview--preload');
+                        button.removeClass('product-card__addtocart--preload');
+                        button.removeClass('btn-loading');
 
                         modal.find('.modal-content').html(data);
                         modal.find('.quickview__close').on('click', function() {
@@ -268,10 +270,10 @@
                         modal.modal('show');
                     }
                 });
-            }, 1000);
+            }, 100);
 
             quickview.cancelPreviousModal = function() {
-                button.removeClass('product-card__quickview--preload');
+                button.removeClass('product-card__addtocart--preload');
 
                 if (xhr) {
                     xhr.abort();
@@ -298,7 +300,7 @@
             $('.input-number', modal).customNumber();
         });
 
-        $('.product-card__quickview').on('click', function() {
+        $('.product-card__addtocart').on('click', function() {
             quickview.clickHandler.apply(this, arguments);
         });
     });
@@ -417,7 +419,7 @@
                         .trigger('refresh.owl.carousel')
                         .trigger('to.owl.carousel', [0, 0]);
 
-                    $('.product-card__quickview', block).on('click', function() {
+                    $('.product-card__addtocart', block).on('click', function() {
                         quickview.clickHandler.apply(this, arguments);
                     });
 
