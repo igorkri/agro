@@ -1,5 +1,6 @@
 <?php
 define('PROJECT_VERSION', 21);
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -48,6 +49,19 @@ return [
             'showScriptName' => false,
             // 'enableStrictParsing' => false,
             'rules' => [
+                '/' => '/site/index',
+
+                'catalog' => 'category/list',
+                'catalog/<slug:[\w+-]*\w+>' => 'category/children',
+                'product-list/<slug:[\w+-]*\w+>' => 'category/catalog',
+
+//                'catalog/<slug:[\w+-]*\w+>/<page:\d+>' => 'category/index', //pagination
+//                'catalog/<slug:[\w+-]*\w+>/<brand:[\w+-]*\w+>' => 'category/index',
+//                'catalog/<slug:[\w+-]*\w+>' => 'category/index',
+
+                'product/<slug:[\w+-]*\w+>' => 'product/view',
+
+                'about' => 'about/view',
             ],
         ],
         

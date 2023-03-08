@@ -45,7 +45,7 @@ use yii\helpers\Url;
                                         <div class="product-card product-card--hidden-actions ">
                                             <div class="product-card__image product-image">
                                                 <a href="<?=Url::to(['category/catalog', 'slug' => $parent->slug])?>" class="product-image__body">
-                                                    <img class="product-image__img" src="<?= $parent->file ?>" alt="">
+                                                    <img class="product-image__img" src="/category/<?= $parent->file ?>" alt="">
                                                 </a>
                                             </div>
                                             <div class="product-card__info">
