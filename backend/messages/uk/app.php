@@ -76,6 +76,12 @@ return[
     'Count' => 'К-ть',
     'Create Label' => 'Створення нової мітки',
 
+    'Address' => 'Адреса',
+    'The phone is the first' => 'Телефон перший',
+    'Phone number two' => 'Телефон другий',
+    'Hours of work' => 'Години роботи',
+    'Coment' => 'Коментар',
+
     'Product' => 'Товар',
     'Products' => 'Товари',
     'Price' => 'Ціна',

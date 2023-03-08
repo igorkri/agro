@@ -13,7 +13,7 @@ class AboutController extends Controller
     public function actionView(){
 
         $model = About::find()->one();
-        return $this->render('about', ['model' => $model]);
+        return $this->render('view', ['model' => $model]);
     }
 
 }

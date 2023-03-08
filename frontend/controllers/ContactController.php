@@ -3,14 +3,14 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
-//use common\models\shop\Product;
+
 
 class ContactController extends Controller
 {
-    public function actionContact(): string
+    public function actionView(): string
     {
 
-        return $this->render('contact');
+        return $this->render('view');
 
     }
 

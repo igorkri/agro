@@ -79,7 +79,7 @@ use yii\helpers\Url;
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="/contact/contact">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['/contact/view']) ?>">
                                         <div class="nav-links__item-body">
                                             Зв'язок з нами
                                         </div>
