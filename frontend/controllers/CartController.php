@@ -5,15 +5,24 @@ namespace frontend\controllers;
 
 
 use common\models\shop\Product;
+use Yii;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class CartController extends Controller
 {
-    public function actionQuickview(){
+    public function actionQuickview($id){
 
-        $product = Product::find()->limit(3)->all();
+        $cart = Yii::$app->cart;
 
-        return $this->renderPartial('quickview', ['orders' => $product]);
+        $model = Product::findOne($id);
+        if ($model) {
+            $cart->put($model);
+        return $this->renderPartial('quickview', [
+            'orders' => Yii::$app->cart->getPositions()
+        ]);
+        }
+        throw new NotFoundHttpException();
 
     }
 

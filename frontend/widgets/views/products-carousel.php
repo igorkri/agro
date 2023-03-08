@@ -31,12 +31,7 @@ use yii\helpers\Url;
                     <div class="block-products-carousel__column">
                         <div class="block-products-carousel__cell">
                             <div class="product-card product-card--hidden-actions ">
-                                <button class="product-card__quickview" type="button">
-                                    <svg width="16px" height="16px">
-                                        <use xlink:href="images/sprite.svg#quickview-16"></use>
-                                    </svg>
-                                    <span class="fake-svg-icon"></span>
-                                </button>
+
                                 <?php if (isset($product->label)): ?>
                                     <div class="product-card__badges-list">
                                         <div class="product-card__badge product-card__badge--sale"><?= $product->label->name ?></div>

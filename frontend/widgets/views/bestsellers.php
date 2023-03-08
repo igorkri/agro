@@ -16,12 +16,7 @@ use yii\helpers\Url;
             <div class="block-products__featured">
                 <div class="block-products__featured-item">
                     <div class="product-card product-card--hidden-actions ">
-                        <button class="product-card__quickview" type="button">
-                            <svg width="16px" height="16px">
-                                <use xlink:href="images/sprite.svg#quickview-16"></use>
-                            </svg>
-                            <span class="fake-svg-icon"></span>
-                        </button>
+
                         <div class="product-card__badges-list">
                             <div class="product-card__badge product-card__badge--new"><?= $products[0]->label->name ?></div>
                         </div>
@@ -132,23 +127,15 @@ use yii\helpers\Url;
                                 <?= Yii::$app->formatter->asCurrency($products[0]->price) ?>
                             </div>
                             <div class="product-card__buttons">
-                                <button class="btn btn-primary product-card__addtocart" type="button">В Кошик</button>
+                                <button class="btn btn-primary product-card__addtocart "
+                                        type="button"
+                                        data-product-id="<?=$products[0]->id?>">
+                                    В Кошик
+                                </button>
                                 <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                        type="button">В Кошик
-                                </button>
-                                <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
-                                        type="button">
-                                    <svg width="16px" height="16px">
-                                        <use xlink:href="images/sprite.svg#wishlist-16"></use>
-                                    </svg>
-                                    <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-                                </button>
-                                <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                        type="button">
-                                    <svg width="16px" height="16px">
-                                        <use xlink:href="images/sprite.svg#compare-16"></use>
-                                    </svg>
-                                    <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
+                                        type="button"
+                                        data-product-id="<?=$products[0]->id?>">
+                                    В Кошик
                                 </button>
                             </div>
                         </div>
@@ -159,12 +146,7 @@ use yii\helpers\Url;
                 <?php foreach ($products as $product): ?>
                     <div class="block-products__list-item">
                         <div class="product-card product-card--hidden-actions ">
-                            <button class="product-card__quickview" type="button">
-                                <svg width="16px" height="16px">
-                                    <use xlink:href="images/sprite.svg#quickview-16"></use>
-                                </svg>
-                                <span class="fake-svg-icon"></span>
-                            </button>
+
                             <?php if (isset($product->label)): ?>
                                 <div class="product-card__badges-list">
                                     <div class="product-card__badge product-card__badge--hot"><?= $product->label->name ?></div>
@@ -284,24 +266,15 @@ use yii\helpers\Url;
                                     <?= Yii::$app->formatter->asCurrency($product->price) ?>
                                 </div>
                                 <div class="product-card__buttons">
-                                    <button class="btn btn-primary product-card__addtocart" type="button">В Кошик
+                                    <button class="btn btn-primary product-card__addtocart "
+                                            type="button"
+                                            data-product-id="<?=$product->id?>">
+                                        В Кошик
                                     </button>
                                     <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                            type="button">В Кошик
-                                    </button>
-                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
-                                            type="button">
-                                        <svg width="16px" height="16px">
-                                            <use xlink:href="images/sprite.svg#wishlist-16"></use>
-                                        </svg>
-                                        <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-                                    </button>
-                                    <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                            type="button">
-                                        <svg width="16px" height="16px">
-                                            <use xlink:href="images/sprite.svg#compare-16"></use>
-                                        </svg>
-                                        <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
+                                            type="button"
+                                            data-product-id="<?=$product->id?>">
+                                        В Кошик
                                     </button>
                                 </div>
                             </div>

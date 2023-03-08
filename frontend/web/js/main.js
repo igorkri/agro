@@ -252,12 +252,15 @@
 
             button.addClass('product-card__addtocart--preload');
             button.addClass('btn-loading');
-
+            let prodId = $(this).data('productId');
             let xhr = null;
             // timeout ONLY_FOR_DEMO!
             const timeout = setTimeout(function() {
                 xhr = $.ajax({
                     url: '/cart/quickview',
+                    data: {
+                        id: prodId,
+                    },
                     success: function(data) {
                         quickview.cancelPreviousModal = function() {};
                         button.removeClass('product-card__addtocart--preload');
@@ -300,11 +303,11 @@
             $('.input-number', modal).customNumber();
         });
 
-        $('.product-card__addtocart').on('click', function() {
+        $('.product-card__addtocart').on('click', function(event) {
+            console.log(arguments);
             quickview.clickHandler.apply(this, arguments);
         });
     });
-
 
     /*
     // products carousel

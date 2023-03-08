@@ -68,12 +68,6 @@ use yii\helpers\Url;
                               <?php foreach ($products as $product): ?>  
                                 <div class="products-list__item">
                                     <div class="product-card product-card--hidden-actions ">
-                                        <button class="product-card__quickview" type="button">
-                                            <svg width="16px" height="16px">
-                                                <use xlink:href="/images/sprite.svg#quickview-16"></use>
-                                            </svg>
-                                            <span class="fake-svg-icon"></span>
-                                        </button>
                                         <?php if (isset($product->label)): ?>
                                         <div class="product-card__badges-list">
                                             <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
@@ -189,20 +183,17 @@ use yii\helpers\Url;
                                                 <?= Yii::$app->formatter->asCurrency($product->price) ?>
                                             </div>
                                             <div class="product-card__buttons">
-                                                <button class="btn btn-primary product-card__addtocart" type="button">Купити</button>
-                                                <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list" type="button">Купити</button>
-                                                <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist" type="button">
-                                                    <svg width="16px" height="16px">
-                                                        <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                                    </svg>
-                                                    <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
+                                                <button class="btn btn-primary product-card__addtocart "
+                                                        type="button"
+                                                        data-product-id="<?=$product->id?>">
+                                                    В Кошик
                                                 </button>
-                                                <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare" type="button">
-                                                    <svg width="16px" height="16px">
-                                                        <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                                    </svg>
-                                                    <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
+                                                <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
+                                                        type="button"
+                                                        data-product-id="<?=$product->id?>">
+                                                    В Кошик
                                                 </button>
+
                                             </div>
                                         </div>
                                     </div>

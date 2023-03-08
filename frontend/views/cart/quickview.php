@@ -34,7 +34,7 @@
                             <td class="cart-table__column cart-table__column--image">
                                 <div class="product-image">
                                     <a href="" class="product-image__body">
-                                        <img class="product-image__img" src="/product/<?=$order->images[0]->name?>" alt="">
+                                        <img class="product-image__img" src="/product/<?= $order->images[0]->name?>" alt="">
                                     </a>
                                 </div>
                             </td>

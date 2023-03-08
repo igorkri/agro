@@ -3,6 +3,9 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yz\shoppingcart\CartPositionInterface;
+use yz\shoppingcart\CartPositionTrait;
 
 /**
  * This is the model class for table "product".
@@ -23,8 +26,12 @@ use Yii;
  * @property ProductTag[] $productTags
  * @property Tag[] $tags
  */
-class Product extends \yii\db\ActiveRecord
+class Product extends ActiveRecord implements CartPositionInterface
 {
+
+    use CartPositionTrait;
+
+
     /**
      * {@inheritdoc}
      */
@@ -147,5 +154,15 @@ class Product extends \yii\db\ActiveRecord
     public function getImages()
     {
         return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }

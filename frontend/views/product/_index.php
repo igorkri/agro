@@ -58,7 +58,7 @@ use frontend\widgets\RelatedProducts;
                         <div class="product-gallery">
                             <?php if (!empty($product->images)) : ?>
                                 <div class="product-gallery__featured">
-                                   
+
                                     <button class="product-gallery__zoom">
                                         <svg width="24px" height="24px">
                                             <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
@@ -67,7 +67,8 @@ use frontend\widgets\RelatedProducts;
                                     <div class="owl-carousel" id="product-image">
                                         <?php foreach ($product->images as $image) : ?>
                                             <div class="product-image product-image--location--gallery">
-                                                <a href="<?= '/product/' . $image->name ?>" data-width="700" data-height="700" class="product-image__body" target="_blank">
+                                                <a href="<?= '/product/' . $image->name ?>" data-width="700"
+                                                   data-height="700" class="product-image__body" target="_blank">
                                                     <img class="product-image__img" src="
                                                  <?= '/product/' . $image->name ?>
                                                 " alt="<?= $image->name ?>">
@@ -79,9 +80,12 @@ use frontend\widgets\RelatedProducts;
                                 <div class="product-gallery__carousel">
                                     <div class="owl-carousel" id="product-carousel">
                                         <?php foreach ($product->images as $image) : ?>
-                                            <a href="/images/products/product-16-4.jpg" class="product-image product-gallery__carousel-item">
+                                            <a href="/images/products/product-16-4.jpg"
+                                               class="product-image product-gallery__carousel-item">
                                                 <div class="product-image__body">
-                                                    <img class="product-image__img product-gallery__carousel-image" src="<?= '/product/' . $image->name ?>" alt="<?= $image->name ?>">
+                                                    <img class="product-image__img product-gallery__carousel-image"
+                                                         src="<?= '/product/' . $image->name ?>"
+                                                         alt="<?= $image->name ?>">
                                                 </div>
                                             </a>
                                         <?php endforeach; ?>
@@ -97,8 +101,10 @@ use frontend\widgets\RelatedProducts;
                                     <div class="owl-carousel" id="product-image">
 
                                         <div class="product-image product-image--location--gallery">
-                                            <a href="/upload/stock/no-image.png" data-width="700" data-height="700" class="product-image__body" target="_blank">
-                                                <img class="product-image__img" src="/upload/stock/no-image.png" alt="no image">
+                                            <a href="/upload/stock/no-image.png" data-width="700" data-height="700"
+                                               class="product-image__body" target="_blank">
+                                                <img class="product-image__img" src="/upload/stock/no-image.png"
+                                                     alt="no image">
                                             </a>
                                         </div>
 
@@ -114,18 +120,18 @@ use frontend\widgets\RelatedProducts;
 
                         <h1 class="product__name"><?= $product->name ?></h1>
 
-                            <div class="product__rating">
-                                <div class="product__rating-stars">
-                                    <div class="rating">
-                                        <div class="rating__body">
+                        <div class="product__rating">
+                            <div class="product__rating-stars">
+                                <div class="rating">
+                                    <div class="rating__body">
 
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="product__rating-legend">
-                                    <a href="#tab-reviews">5.0 (89 оценок)</a>
-                                </div>
                             </div>
+                            <div class="product__rating-legend">
+                                <a href="#tab-reviews">5.0 (89 оценок)</a>
+                            </div>
+                        </div>
 
                         <div class="product__description">
                             <?= $product->short_description ?>
@@ -139,18 +145,21 @@ use frontend\widgets\RelatedProducts;
                         <!-- .product__options -->
                         <div class="payment-methods">
                             <ul class="payment-methods__list">
-                                <li class="payment-methods__item" style="background: #ffe484;padding: 10px;color: black;">
+                                <li class="payment-methods__item"
+                                    style="background: #ffe484;padding: 10px;color: black;">
                                     Артикул: <span style="margin-right: 10px;" id="sku"><?= $product->id ?> </span>
                                 </li>
                                 <li class="payment-methods__item payment-methods__item--active">
                                     <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
-                                                <input class="input-radio__input" name="checkout_payment_method" value="" type="radio" checked="">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="" type="radio" checked="">
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                        <span class="delivery-methods__item-name"><i style="font-size: 28px" class="fas fa-truck"></i>
+                                        <span class="delivery-methods__item-name"><i style="font-size: 28px"
+                                                                                     class="fas fa-truck"></i>
                                             <span style="font-size:20px; margin:0px 20px">Доставка</span></span>
                                     </label>
                                     <div class="payment-methods__item-container" style="">
@@ -161,7 +170,9 @@ use frontend\widgets\RelatedProducts;
                                                     <li><?php echo $delivery_text; ?></li>
                                                 <?php endif; ?>
                                                 <li>
-                                                    Вартість доставки по тарифу <a href="https://novaposhta.ua/ru/basic_tariffs" target="_bank">перевізника</a>
+                                                    Вартість доставки по тарифу <a
+                                                            href="https://novaposhta.ua/ru/basic_tariffs"
+                                                            target="_bank">перевізника</a>
                                                 </li>
                                             </ul>
                                             <b>Відвантаження з Полтави</b>
@@ -177,11 +188,14 @@ use frontend\widgets\RelatedProducts;
                                     <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
-                                                <input class="input-radio__input" name="checkout_payment_method" value="beznal" type="radio">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="beznal" type="radio">
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                        <span class="payment-methods__item-name"><i style="font-size: 28px" class="fas fa-credit-card"></i> <span style="font-size:20px; margin:0px 20px">Спосіб сплати</span></span>
+                                        <span class="payment-methods__item-name"><i style="font-size: 28px"
+                                                                                    class="fas fa-credit-card"></i> <span
+                                                    style="font-size:20px; margin:0px 20px">Спосіб сплати</span></span>
                                     </label>
                                     <div class="payment-methods__item-container" style="">
                                         <div class="payment-methods__item-description text-muted">
@@ -194,16 +208,20 @@ use frontend\widgets\RelatedProducts;
                                                 <ul class="list-unstyled pay-methods">
 
                                                     <li name="Visa Checkout">
-                                                        <img src="https://m.wayforpay.com/img/method2/visaCheckout.png" style="width: 65px; float: left; margin: 2px;">
+                                                        <img src="https://m.wayforpay.com/img/method2/visaCheckout.png"
+                                                             style="width: 65px; float: left; margin: 2px;">
                                                     </li>
                                                     <li name="Masterpass">
-                                                        <img src="https://m.wayforpay.com/img/method2/masterPass.png" style="width: 65px; float: left; margin: 2px;">
+                                                        <img src="https://m.wayforpay.com/img/method2/masterPass.png"
+                                                             style="width: 65px; float: left; margin: 2px;">
                                                     </li>
                                                     <li name="Google Pay">
-                                                        <img src="https://m.wayforpay.com/img/method2/googlePay.png" style="width: 65px; float: left; margin: 2px;">
+                                                        <img src="https://m.wayforpay.com/img/method2/googlePay.png"
+                                                             style="width: 65px; float: left; margin: 2px;">
                                                     </li>
                                                     <li name="Apple Pay">
-                                                        <img src="https://m.wayforpay.com/img/method2/applePay.png" style="width: 65px; float: left; margin: 2px;">
+                                                        <img src="https://m.wayforpay.com/img/method2/applePay.png"
+                                                             style="width: 65px; float: left; margin: 2px;">
                                                     </li>
 
                                                 </ul>
@@ -216,15 +234,20 @@ use frontend\widgets\RelatedProducts;
                                     <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
-                                                <input class="input-radio__input" name="checkout_payment_method" value="online" type="radio">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="online" type="radio">
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                        <span class="shield-methods__item-name"><i style="font-size: 28px" class="fas fa-shield-alt"></i> <span style="font-size:20px; margin:0px 20px">Гарантия</span></span>
+                                        <span class="shield-methods__item-name"><i style="font-size: 28px"
+                                                                                   class="fas fa-shield-alt"></i> <span
+                                                    style="font-size:20px; margin:0px 20px">Гарантия</span></span>
                                     </label>
                                     <div class="payment-methods__item-container" style="">
                                         <div class="payment-methods__item-description text-muted">
-                                            Гарантія на повернення ознайомтесь будь ласка з<a href="/company/vozvrat-i-garantii.html" target="_blank">правилами</a>
+                                            Гарантія на повернення ознайомтесь будь ласка з<a
+                                                    href="/company/vozvrat-i-garantii.html"
+                                                    target="_blank">правилами</a>
                                         </div>
                                     </div>
                                 </li>
@@ -236,85 +259,84 @@ use frontend\widgets\RelatedProducts;
                     <div class="product__footer">
                         <div class="product__prices">
 
-                            <?php foreach($product->tags as $brand): ?>
+                            <?php foreach ($product->tags as $brand): ?>
                                 <button class="btn btn-secondary btn-xs"><?= $brand->name ?></button>
                             <?php endforeach; ?>
                             <hr>
-                                   <div class="price" style="margin-bottom: 25px">
-                                       <?= $product->price ?> &#8372;
-                                   </div>
+                            <div class="price" style="margin-bottom: 25px">
+                                <?= $product->price ?> &#8372;
+                            </div>
                             <div class="product__actions">
                                 <div class="product__actions-item">
                                     <div class="input-number product__quantity">
-                                        <input id="product-quantity" class="input-number__input form-control form-control-lg" type="number" min="1" value="1">
+                                        <input id="product-quantity"
+                                               class="input-number__input form-control form-control-lg" type="number"
+                                               min="1" value="1">
                                         <div class="input-number__add"></div>
                                         <div class="input-number__sub"></div>
                                     </div>
                                 </div>
-<!--                                <div class="product__actions-item product__actions-item--addtocart">-->
-                                    <?=Html::a('<svg width="20px" height="20px" style="display: unset;">
-                                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                                    </svg>
-                                                    Купити',
-                                            Url::to(['/cart/add-product', 'id' => $product->id]),
-                                            [
-                                                'class' => 'btn btn-primary',
-                                                'role' => 'modal-remote-product',
-                                                'data-toggle' => 'tooltip',
-                                                'style' => "margin-top: 4px;
-                                                    margin-left: 9px;
-                                                    padding: 9px 39px;
-                                                    height: 47px;"
-                                            ]
-                                        )
-                                    ?>
-<!--                                </div>-->
+                                <!--                                <div class="product__actions-item product__actions-item--addtocart">-->
+                                <button class="btn btn-primary product-card__addtocart "
+                                        type="button"
+                                        data-product-id="<?= $product->id ?>"
+                                        style="margin-top: 4px;
+                                margin-left: 9px;
+                                padding: 9px 39px;
+                                height: 47px;">
+                                    <svg width="20px" height="20px" style="display: unset;">
+                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                    </svg>
+                                    В Кошик
+                                </button>
+
                             </div>
-
-                            <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
-
                         </div>
-                        <div class="form-group product__option">
-                            Наявність: <span class="text-success" style="padding: 3px 1px">
+
+                        <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
+
+                    </div>
+                    <div class="form-group product__option">
+                        Наявність: <span class="text-success" style="padding: 3px 1px">
                                 <?php
                                 if ($product->status_id == 1) {
                                     echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
-                                } elseif($product->status_id == 2) {
+                                } elseif ($product->status_id == 2) {
                                     echo "<span style='color: #ff0000!important;
                                                 font-weight: 600;
                                                 letter-spacing: 0.6px;
-                                            '> ". $product->status->name ." </span>";
-                                } elseif ($product->status_id == 3){
+                                            '> " . $product->status->name . " </span>";
+                                } elseif ($product->status_id == 3) {
                                     echo "<span style='color: #ff8300 !important;
                                                 font-weight: 600;
                                                 letter-spacing: 0.6px;
-                                            '> ". $product->status->name ." </span>";
-                                } elseif ($product->status_id == 4){
+                                            '> " . $product->status->name . " </span>";
+                                } elseif ($product->status_id == 4) {
                                     echo "<span style='color: #0331fc!important;
                                                 font-weight: 600;
                                                 letter-spacing: 0.6px;
-                                            '> ". $product->status->name ." </span>";
-                                }else{
+                                            '> " . $product->status->name . " </span>";
+                                } else {
                                     echo "<span style='color: #060505!important;
                                                 font-weight: 600;
                                                 letter-spacing: 0.6px;
-                                            '> " . $product->status->name ." </span>";
+                                            '> " . $product->status->name . " </span>";
                                 }
                                 ?>
                             </span>
 
-                        </div>
                     </div>
                 </div>
             </div>
-            <!-- description -->
-            <?= $this->render('description', ['product' => $product]) ?>
-            <!-- description /end -->
         </div>
+        <!-- description -->
+        <?= $this->render('description', ['product' => $product]) ?>
+        <!-- description /end -->
     </div>
-    <!-- .block-products-carousel -->
-    <?php echo RelatedProducts::widget() ?>
-    <!-- .block-products-carousel / end -->
+</div>
+<!-- .block-products-carousel -->
+<?php echo RelatedProducts::widget() ?>
+<!-- .block-products-carousel / end -->
 </div>
 <!-- site__body / end -->
 

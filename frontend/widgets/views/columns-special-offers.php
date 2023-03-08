@@ -15,12 +15,7 @@ use yii\helpers\Url;
         <?php foreach ($products as $product): ?>
             <div class="block-product-columns__item">
                 <div class="product-card product-card--hidden-actions product-card--layout--horizontal">
-                    <button class="product-card__quickview" type="button">
-                        <svg width="16px" height="16px">
-                            <use xlink:href="images/sprite.svg#quickview-16"></use>
-                        </svg>
-                        <span class="fake-svg-icon"></span>
-                    </button>
+
                     <?php if (isset($product->label)): ?>
                         <div class="product-card__badges-list">
                             <div class="product-card__badge product-card__badge--sale"><?= $product->label->name ?></div>
@@ -134,24 +129,17 @@ use yii\helpers\Url;
                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->old_price) ?></span>
                         </div>
                         <div class="product-card__buttons">
-                            <button class="btn btn-primary product-card__addtocart" type="button">В Кошик</button>
+                            <button class="btn btn-primary product-card__addtocart "
+                                    type="button"
+                                    data-product-id="<?=$product->id?>">
+                                В Кошик
+                            </button>
                             <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                    type="button">В Кошик
+                                    type="button"
+                                    data-product-id="<?=$product->id?>">
+                                В Кошик
                             </button>
-                            <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wishlist"
-                                    type="button">
-                                <svg width="16px" height="16px">
-                                    <use xlink:href="images/sprite.svg#wishlist-16"></use>
-                                </svg>
-                                <span class="fake-svg-icon fake-svg-icon--wishlist-16"></span>
-                            </button>
-                            <button class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                    type="button">
-                                <svg width="16px" height="16px">
-                                    <use xlink:href="images/sprite.svg#compare-16"></use>
-                                </svg>
-                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>
-                            </button>
+
                         </div>
                     </div>
                 </div>
