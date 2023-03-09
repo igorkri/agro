@@ -165,4 +165,16 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         return $this->id;
     }
+
+    public function getIssetToCart($product_id){
+        $isset_to_cart = null;
+        if(isset($_SESSION['agro_cart'])){
+            $keys = array_keys(unserialize($_SESSION['agro_cart']));
+
+            if(in_array($product_id, $keys)){
+                $isset_to_cart = Yii::$app->cart->getPositions()[$product_id];
+            }
+        }
+        return $isset_to_cart;
+    }
 }

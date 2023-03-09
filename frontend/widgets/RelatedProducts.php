@@ -20,7 +20,9 @@ class RelatedProducts extends Widget
     {
         $products = Product::find()->limit(20)->all();
 
-        return $this->render('related-products', ['products' => $products]);
+        return $this->render('related-products', [
+            'products' => $products,
+        ]);
     }
 
 

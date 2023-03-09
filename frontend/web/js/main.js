@@ -252,10 +252,13 @@
 
             button.addClass('product-card__addtocart--preload');
             button.addClass('btn-loading');
+            button.html('Уже в кошику');
+
             // $('button').click(function () {
+                // let name = $('.product-card__addtocart').val();
                 let prodId = $(this).data('productId');
                 let valQty = $( '.input-number__input' ).val();
-                // console.log(valQty);
+                // console.log(name);
             // });
             let xhr = null;
             // timeout ONLY_FOR_DEMO!
@@ -273,6 +276,7 @@
                                 $('#desc-qty-cart').html(qty.qty_cart);
                             }
                         });
+
                         quickview.cancelPreviousModal = function() {};
                         button.removeClass('product-card__addtocart--preload');
                         button.removeClass('btn-loading');
@@ -987,22 +991,24 @@ function removeProduct(id){
 }
 
 function updateQty(prodId, qty){
-    $.ajax({
-        url: '/cart/update',
-        data: {
-            id: prodId,
-            qty: qty
-        },
-        success: function(data) {
-            $.ajax({
-                url: '/cart/qty-cart',
-                success: function(qty) {
-                    $('#desc-qty-cart').html(qty.qty_cart);
-                }
-            });
-            $('.cart').html(data);
-        }
-    });
+    if(qty != 0) {
+        $.ajax({
+            url: '/cart/update',
+            data: {
+                id: prodId,
+                qty: qty
+            },
+            success: function (data) {
+                $.ajax({
+                    url: '/cart/qty-cart',
+                    success: function (qty) {
+                        $('#desc-qty-cart').html(qty.qty_cart);
+                    }
+                });
+                $('.cart').html(data);
+            }
+        });
+    }
 }
 
 

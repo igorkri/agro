@@ -154,12 +154,12 @@ use yii\helpers\Url;
                                         <button class="btn btn-primary product-card__addtocart "
                                                 type="button"
                                                 data-product-id="<?=$product->id?>">
-                                            В Кошик
+                                            <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
                                         <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
                                                 type="button"
                                                 data-product-id="<?=$product->id?>">
-                                            В Кошик
+                                            <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
                                     </div>
                                 </div>

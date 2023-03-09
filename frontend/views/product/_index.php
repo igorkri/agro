@@ -8,7 +8,6 @@ use kartik\rating\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
-
 ?>
 <!-- site__body -->
 <div class="site__body">
@@ -166,9 +165,7 @@ use frontend\widgets\RelatedProducts;
                                         <div class="payment-methods__item-description text-muted">
                                             <b>Новая почта</b>
                                             <ul>
-                                                <?php if (isset($delivery_text)) : ?>
-                                                    <li><?php echo $delivery_text; ?></li>
-                                                <?php endif; ?>
+
                                                 <li>
                                                     Вартість доставки по тарифу <a
                                                             href="https://novaposhta.ua/ru/basic_tariffs"
@@ -177,9 +174,7 @@ use frontend\widgets\RelatedProducts;
                                             </ul>
                                             <b>Відвантаження з Полтави</b>
                                             <ul>
-                                                <?php if (isset($stock_delivery)) : ?>
-                                                    <li><?php echo $stock_delivery; ?></li>
-                                                <?php endif; ?>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -205,27 +200,6 @@ use frontend\widgets\RelatedProducts;
                                                 <li>Наеладенний платіж</li>
                                                 <li>Сплатити на розрахунковий рахунок</li>
                                                 <hr>
-                                                <ul class="list-unstyled pay-methods">
-
-                                                    <li name="Visa Checkout">
-                                                        <img src="https://m.wayforpay.com/img/method2/visaCheckout.png"
-                                                             style="width: 65px; float: left; margin: 2px;">
-                                                    </li>
-                                                    <li name="Masterpass">
-                                                        <img src="https://m.wayforpay.com/img/method2/masterPass.png"
-                                                             style="width: 65px; float: left; margin: 2px;">
-                                                    </li>
-                                                    <li name="Google Pay">
-                                                        <img src="https://m.wayforpay.com/img/method2/googlePay.png"
-                                                             style="width: 65px; float: left; margin: 2px;">
-                                                    </li>
-                                                    <li name="Apple Pay">
-                                                        <img src="https://m.wayforpay.com/img/method2/applePay.png"
-                                                             style="width: 65px; float: left; margin: 2px;">
-                                                    </li>
-
-                                                </ul>
-
                                             </ul>
                                         </div>
                                     </div>
@@ -271,7 +245,7 @@ use frontend\widgets\RelatedProducts;
                                     <div class="input-number product__quantity">
                                         <input id="product-quantity"
                                                class="input-number__input form-control form-control-lg" type="number"
-                                               min="1" value="1">
+                                               min="1" value="<?= !$isset_to_cart ? '1' : $isset_to_cart['_quantity'] ?>">
                                         <div class="input-number__add"></div>
                                         <div class="input-number__sub"></div>
                                     </div>
@@ -287,7 +261,7 @@ use frontend\widgets\RelatedProducts;
                                     <svg width="20px" height="20px" style="display: unset;">
                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                     </svg>
-                                    В Кошик
+                                    <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                 </button>
 
                             </div>
