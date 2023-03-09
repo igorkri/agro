@@ -7,7 +7,7 @@ use yii\helpers\Url;
 
 <div class="col-4">
                     <div class="block-header">
-                        <h3 class="block-header__title">Найкращі товари</h3>
+                        <h3 class="block-header__title">Інсектециди</h3>
                         <div class="block-header__divider"></div>
                     </div>
                     <div class="block-product-columns__column">

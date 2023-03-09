@@ -18,8 +18,8 @@ class ColumnsSpecialOffers extends Widget
 
     public function run()
     {
-        $products = Product::find()->with('label')->limit(3)->all();
-
+//      $products = Product::find()->with('label')->limit(3)->all();
+        $products = Product::find()->with('label')->limit(3)->where(['category_id' => 6])->all();
         return $this->render('columns-special-offers', ['products' => $products]);
     }
 

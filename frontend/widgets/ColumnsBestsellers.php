@@ -18,8 +18,8 @@ class ColumnsBestsellers extends Widget
 
     public function run()
     {
-        $products = Product::find()->with('label')->limit(3)->all();
-
+//      $products = Product::find()->with('label')->limit(3)->all();
+        $products = Product::find()->with('label')->limit(3)->where(['category_id' => 7])->all();
         return $this->render('columns-bestsellers', ['products' => $products]);
     }
 

@@ -8,7 +8,7 @@ use yii\helpers\Url;
 
 <div class="col-4">
     <div class="block-header">
-        <h3 class="block-header__title">Товари за Рейтингом</h3>
+        <h3 class="block-header__title">Гербіциди</h3>
         <div class="block-header__divider"></div>
     </div>
     <div class="block-product-columns__column">
