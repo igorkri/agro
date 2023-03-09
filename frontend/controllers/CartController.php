@@ -13,13 +13,13 @@ use yii\web\Response;
 
 class CartController extends Controller
 {
-    public function actionQuickview($id){
+    public function actionQuickview($id, $qty = 1){
 
         $cart = Yii::$app->cart;
 
         $model = Product::findOne($id);
         if ($model) {
-            $cart->put($model);
+            $cart->put($model, $qty);
         return $this->renderPartial('quickview', [
             'orders' => Yii::$app->cart->getPositions(),
             'total_summ' => Yii::$app->cart->getCost(),

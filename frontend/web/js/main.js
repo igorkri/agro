@@ -254,6 +254,8 @@
             button.addClass('btn-loading');
             // $('button').click(function () {
                 let prodId = $(this).data('productId');
+                let valQty = $( '.input-number__input' ).val();
+                // console.log(valQty);
             // });
             let xhr = null;
             // timeout ONLY_FOR_DEMO!
@@ -262,6 +264,7 @@
                     url: '/cart/quickview',
                     data: {
                         id: prodId,
+                        qty: valQty
                     },
                     success: function(data) {
                         $.ajax({
@@ -1002,7 +1005,4 @@ function updateQty(prodId, qty){
     });
 }
 
-// function SetDefault(prodId, qty){
-//
-// }
 

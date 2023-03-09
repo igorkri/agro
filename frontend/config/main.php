@@ -1,5 +1,5 @@
 <?php
-define('PROJECT_VERSION', 31);
+define('PROJECT_VERSION', 32);
 
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
