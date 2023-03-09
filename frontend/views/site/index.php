@@ -142,7 +142,7 @@ $this->title = Yii::$app->name;
     <!-- .block-banner / end -->
     
     <!-- .block-products -->
-        <?php echo Bestsellers::widget() ?>
+    <?php echo Bestsellers::widget() ?>
     <!-- .block-products / end -->
    
     <!-- .block-categories -->

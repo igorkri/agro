@@ -10,8 +10,11 @@
                 <div class="col-12 col-xl-10">
                     <div class="about-us__body" style="padding: 14px 92px;">
                         <h1 class="about-us__title" style=" margin-bottom: 30px;"><?=$model->name?></h1>
-                        <div class="about-us__text_no_center typography" >
-                           <?=$model->description?>
+
+                        <div class="about-us__text_no_center typography">
+
+                            <?= $model->description ?>
+
                         </div>
                     </div>
                 </div>

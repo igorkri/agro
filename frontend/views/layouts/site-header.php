@@ -57,7 +57,7 @@ use yii\helpers\Url;
                         <div class="nav-panel__nav-links nav-links">
                             <ul class="nav-links__list">
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="#">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['/delivery/view']) ?>">
                                         <div class="nav-links__item-body">
                                             Доставка та оплата
                                         </div>

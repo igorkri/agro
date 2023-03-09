@@ -7899,6 +7899,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .about-us__text {
   text-align: center;
 }
+.about-us__text_no_center {
+  text-align: left;
+}
 
 .about-us__team {
   margin-top: 75px;
