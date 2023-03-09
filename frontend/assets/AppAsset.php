@@ -29,7 +29,7 @@ class AppAsset extends AssetBundle
 
     ];
     public $js = [
-        //  '/vendor/jquery/jquery.min.js',
+//          '/vendor/jquery/jquery.min.js?v=' . PROJECT_VERSION,
         // 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/all.min.jsx',
         '/vendor/bootstrap/js/bootstrap.bundle.min.js?v=' . PROJECT_VERSION,
         '/vendor/owl-carousel/owl.carousel.min.js?v=' . PROJECT_VERSION,
@@ -47,6 +47,6 @@ class AppAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset',
+//        'yii\bootstrap5\BootstrapAsset',
     ];
 }

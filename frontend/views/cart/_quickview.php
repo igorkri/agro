@@ -5,23 +5,7 @@ use yii\helpers\Url;
 
 
 ?>
-<div class="quickview">
-    <button class="quickview__close" type="button">
-        <svg width="20px" height="20px">
-            <use xlink:href="/images/sprite.svg#cross-20"></use>
-        </svg>
-    </button>
-    <div class="product product--layout--quickview" data-layout="quickview">
-        <!-- site__body -->
-        <div class="site__body">
-            <div class="page-header">
-                <div class="page-header__container container">
 
-                    <div class="page-header__title">
-                        <h1>Ваш кошик</h1>
-                    </div>
-                </div>
-            </div>
             <div class="cart block">
                 <div class="container">
                     <table class="cart__table cart-table">
@@ -103,8 +87,4 @@ use yii\helpers\Url;
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- site__body / end -->
-    </div>
-</div>
-<div class="qty"><?=$qty_cart?></div>
+
