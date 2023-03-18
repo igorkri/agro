@@ -128,7 +128,7 @@ use frontend\widgets\RelatedProducts;
                                 </div>
                             </div>
                             <div class="product__rating-legend">
-                                <a href="#tab-reviews">5.0 (89 оценок)</a>
+                                <a href="#">5.0 (89 оценок)</a>
                             </div>
                         </div>
 
@@ -319,7 +319,7 @@ $js = <<<JS
 $( document ).ready(function() {
 
       $('table').each(function() {
-              $( this ).addClass( "table table-bordered" );
+              $( this ).addClass( "table table-bordered table-responsive" );
       });
 });
 

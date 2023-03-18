@@ -14,10 +14,12 @@ use yii\helpers\Url;
             </div>
         </div>
     </div>
-    <div class="product-tabs__content">
-        <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
-            <div class="typography">
-                <?= $product->description ?>
+    <div class="container">
+        <div class="product-tabs__content">
+            <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
+                <div class="typography">
+                    <?= $product->description ?>
+                </div>
             </div>
         </div>
     </div>

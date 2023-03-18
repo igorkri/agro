@@ -115,6 +115,13 @@ class Product extends ActiveRecord implements CartPositionInterface
             ->viaTable('product_tag', ['product_id' => 'id']);
     }
 
+    public function getTag()
+    {
+        return $this->hasOne(Tag::class, ['id' => 'id']);
+    }
+
+
+
     /**
      * Gets query for [[Category]].
      *
@@ -176,5 +183,9 @@ class Product extends ActiveRecord implements CartPositionInterface
             }
         }
         return $isset_to_cart;
+    }
+
+    public function getIdProducts(){
+        return [2,4,5];
     }
 }
