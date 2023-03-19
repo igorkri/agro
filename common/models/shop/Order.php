@@ -48,6 +48,7 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['fio', 'phone', 'city'], 'required'],
             [['created_at', 'updated_at', 'order_status_id'], 'integer'],
             [['fio', 'phone', 'city'], 'string', 'max' => 255],
             [['note'], 'string'],
@@ -67,8 +68,8 @@ class Order extends \yii\db\ActiveRecord
             'order_status_id' => 'Статус',
             'fio' => 'ПІБ',
             'phone' => 'Телефон',
-            'city' => 'Город',
-            'note' => 'Примітка',
+            'city' => 'Місто',
+            'note' => 'Коментар',
         ];
     }
 
@@ -90,5 +91,23 @@ class Order extends \yii\db\ActiveRecord
     public function getOrderStatus()
     {
         return $this->hasOne(OrderStatus::class, ['id' => 'order_status_id']);
+    }
+
+    public function getTotalSumm($order_id){
+        $order = Order::find()->with('orderItems')->where(['id' => $order_id])->one();
+        $total_res = [];
+        foreach ($order->orderItems as $orderItem){
+            $total_res[] = $orderItem->price * $orderItem->quantity;
+        }
+        return array_sum($total_res);
+    }
+
+    public function getTotalQty($order_id){
+        $order = Order::find()->with('orderItems')->where(['id' => $order_id])->one();
+        $total_res = [];
+        foreach ($order->orderItems as $orderItem){
+            $total_res[] = $orderItem->quantity;
+        }
+        return array_sum($total_res);
     }
 }
