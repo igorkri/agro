@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </nav>
                         <h1 class="h3 m-0">Orders</h1>
                     </div>
-                    <div class="col-auto d-flex"><a href="app-order.html" class="btn btn-primary">New order</a></div>
+<!--                    <div class="col-auto d-flex"><a href="app-order.html" class="btn btn-primary">New order</a></div>-->
                 </div>
             </div>
             <div class="card">
@@ -64,23 +64,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php foreach ($dataProvider->models as $order): ?>
                     <tr>
                         <td><input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." /></td>
-                        <td><a href="app-order.html" class="text-reset"><?=$order->id?></a></td>
+                        <td><a href="<?=Url::to(['order/view', 'id' => $order->id])?>" class="text-reset"><?=$order->id?></a></td>
                         <td><?=Yii::$app->formatter->asDatetime($order->created_at)?></td>
                         <td><?=$order->fio?></td>
                         <td>
-                            <div class="d-flex fs-6"><div class="badge badge-sa-success">Yes</div></div>
+                            <div class="d-flex fs-6"><?=$order->getPayMent($order->id)?></div>
                         </td>
                         <td>
-                            <div class="d-flex fs-6"><div class="badge badge-sa-danger">
-                                    <?=$order->status->name?>
-                                </div></div>
+                            <div class="d-flex fs-6"><?=$order->getExecutionStatus($order->id)?></div>
                         </td>
-                        <td><?=count($order->orderItems)?> замовлень</td>
+                        <td><?=Yii::$app->formatter->asDecimal($order->getTotalQty($order->id), 0)?>
+                        </td>
                         <td>
                             <div class="sa-price">
-                                <span class="sa-price__symbol">$</span>
-                                <span class="sa-price__integer">200</span>
-                                <span class="sa-price__decimal">.00</span>
+                                <?=Yii::$app->formatter->asDecimal($order->getTotalSumm($order->id), 2)?>
                             </div>
                         </td>
                         <td>

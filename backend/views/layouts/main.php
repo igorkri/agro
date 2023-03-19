@@ -40,7 +40,7 @@ AppAsset::register($this);
         <div class="sa-app__sidebar">
             <div class="sa-sidebar">
                 <div class="sa-sidebar__header">
-                    <a class="sa-sidebar__logo" href="/">
+                    <a class="sa-sidebar__logo" href="/admin/">
                         <!-- logo -->
                         <div class="sa-sidebar-logo">
                             <svg xmlns="http://www.w3.org/2000/svg" width="120px" height="20px">
@@ -59,7 +59,7 @@ AppAsset::register($this);
                             <div class="sa-nav__section-title"><span>Application</span></div>
                             <ul class="sa-nav__menu sa-nav__menu--root">
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                                    <a href="/index.html" class="sa-nav__link">
+                                    <a href="<?=Url::to(['/order/index'])?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                                      viewBox="0 0 16 16" fill="currentColor">
@@ -68,7 +68,7 @@ AppAsset::register($this);
                                                     ></path>
                                                 </svg>
                                             </span>
-                                        <span class="sa-nav__title">Dashboard</span>
+                                        <span class="sa-nav__title"><?=Yii::t('app', 'Orders')?></span>
                                     </a>
                                 </li>
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
@@ -84,6 +84,7 @@ AppAsset::register($this);
                                         <span class="sa-nav__title"><?=Yii::t('app', 'Categories')?></span>
                                     </a>
                                 </li>
+
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                                     <a href="<?=Url::to(['/product'])?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
@@ -236,51 +237,7 @@ AppAsset::register($this);
                             </svg>
                         </button>
                     </div>
-                    <div class="sa-toolbar__item dropdown">
-                        <button
-                                class="sa-toolbar__button"
-                                type="button"
-                                id="dropdownMenuButton3"
-                                data-bs-toggle="dropdown"
-                                data-bs-reference="parent"
-                                data-bs-offset="0,1"
-                                aria-expanded="false"
-                        >
-                            <img src="/admin/vendor/flag-icons/24/DE.png" class="sa-language-icon" alt=""/>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/admin/vendor/flag-icons/24/DE.png" class="sa-language-icon me-3" alt=""/>
-                                    <span class="ps-2">German</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/admin/vendor/flag-icons/24/FR.png" class="sa-language-icon me-3" alt=""/>
-                                    <span class="ps-2">French</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/admin/vendor/flag-icons/24/GB.png" class="sa-language-icon me-3" alt=""/>
-                                    <span class="ps-2">English</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/admin/vendor/flag-icons/24/RU.png" class="sa-language-icon me-3" alt=""/>
-                                    <span class="ps-2">Russian</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/#">
-                                    <img src="/admin/vendor/flag-icons/24/IT.png" class="sa-language-icon me-3" alt=""/>
-                                    <span class="ps-2">Italian</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+
                     <div class="sa-toolbar__item dropdown">
                         <button
                                 class="sa-toolbar__button"
@@ -441,18 +398,26 @@ AppAsset::register($this);
                                     <img src="/admin/images/customers/customer-4-64x64.jpg" width="64" height="64" alt=""/>
                                 </span>
                             <span class="sa-toolbar-user__info">
-                                    <span class="sa-toolbar-user__title">Konstantin Veselovsky</span>
-                                    <span class="sa-toolbar-user__subtitle">stroyka@example.com</span>
+                                <?php if(isset(Yii::$app->user->identity->username)): ?>
+                                    <span class="sa-toolbar-user__title"><?=Yii::$app->user->identity->username?></span>
+                                    <span class="sa-toolbar-user__subtitle"><?=Yii::$app->user->identity->email?></span>
+                                <?php endif; ?>
                                 </span>
                         </button>
                         <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="/#">Profile</a></li>
-                            <li><a class="dropdown-item" href="/app-inbox-list.html">Inbox</a></li>
-                            <li><a class="dropdown-item" href="/app-settings-toc.html">Settings</a></li>
+<!--                            <li><a class="dropdown-item" href="/#">Profile</a></li>-->
+<!--                            <li><a class="dropdown-item" href="/app-inbox-list.html">Inbox</a></li>-->
+<!--                            <li><a class="dropdown-item" href="/app-settings-toc.html">Settings</a></li>-->
+<!--                            <li>-->
+<!--                                <hr class="dropdown-divider"/>-->
+<!--                            </li>-->
                             <li>
-                                <hr class="dropdown-divider"/>
-                            </li>
-                            <li><a class="dropdown-item" href="/auth-sign-in.html">Sign Out</a></li>
+                                <?=Html::a('Вихід', ['/site/logout'],[
+                                    'class' => 'dropdown-item',
+                                    'data' => [
+                                        'method' => 'post',
+                                    ],
+                                ])?>
                         </ul>
                     </div>
                 </div>

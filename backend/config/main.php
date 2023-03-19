@@ -93,5 +93,20 @@ return [
         ],
         
     ],
+    'as access' => [
+        'class' => 'yii\filters\AccessControl',
+        'except' => [
+            'site/login', 'site/error', 'site/signup', 'site/verify-email',
+            'site/resend-verification-email',
+            'site/request-password-reset',
+            'site/reset-password',
+        ],
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
+    ],
     'params' => $params,
 ];

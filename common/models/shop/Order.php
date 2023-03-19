@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use common\models\OrderPayMent;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -13,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property int|null $created_at Дата створення
  * @property int|null $updated_at Дата оновлення
  * @property int|null $order_status_id Статус
+ * @property int|null $order_pay_ment_id Статус оплати
  * @property string|null $fio ПІБ
  * @property string|null $phone Телефон
  * @property string|null $city Город
@@ -20,6 +22,7 @@ use yii\db\ActiveRecord;
  *
  * @property OrderItem[] $orderItems
  * @property OrderStatus $orderStatus
+ * @property OrderPayMent $orderPayMent
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -49,10 +52,11 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['fio', 'phone', 'city'], 'required'],
-            [['created_at', 'updated_at', 'order_status_id'], 'integer'],
+            [['created_at', 'updated_at', 'order_status_id', 'order_pay_ment_id'], 'integer'],
             [['fio', 'phone', 'city'], 'string', 'max' => 255],
             [['note'], 'string'],
             [['order_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderStatus::class, 'targetAttribute' => ['order_status_id' => 'id']],
+            [['order_pay_ment_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderPayMent::class, 'targetAttribute' => ['order_pay_ment_id' => 'id']],
         ];
     }
 
@@ -66,6 +70,7 @@ class Order extends \yii\db\ActiveRecord
             'created_at' => 'Дата створення',
             'updated_at' => 'Дата оновлення',
             'order_status_id' => 'Статус',
+            'order_pay_ment_id' => 'Статус оплати',
             'fio' => 'ПІБ',
             'phone' => 'Телефон',
             'city' => 'Місто',
@@ -93,6 +98,11 @@ class Order extends \yii\db\ActiveRecord
         return $this->hasOne(OrderStatus::class, ['id' => 'order_status_id']);
     }
 
+    public function getOrderPayMent()
+    {
+        return $this->hasOne(OrderPayMent::class, ['id' => 'order_pay_ment_id']);
+    }
+
     public function getTotalSumm($order_id){
         $order = Order::find()->with('orderItems')->where(['id' => $order_id])->one();
         $total_res = [];
@@ -109,5 +119,48 @@ class Order extends \yii\db\ActiveRecord
             $total_res[] = $orderItem->quantity;
         }
         return array_sum($total_res);
+    }
+    public function getPayMent($order_id){
+        $order = Order::find()->with('orderPayMent')->where(['id' => $order_id])->one();
+        $status = '<span class="badge badge-sa-dark me-2">Не відомо</span>';
+        if($order->order_pay_ment_id != null){
+            switch ($order->order_pay_ment_id) {
+                case 1:
+                    $status = '<span class="badge badge-sa-danger me-2">'. $order->orderPayMent->name .'</span>';
+                    break;
+                case 2:
+                    $status = '<span class="badge badge-sa-warning me-2">'. $order->orderPayMent->name .'</span>';
+                    break;
+                case 3:
+                    $status = '<span class="badge badge-sa-success me-2">'. $order->orderPayMent->name .'</span>';
+                    break;
+                default;
+                    $status = '<span class="badge badge-sa-info me-2">'. $order->orderPayMent->name .'</span>';
+                    break;
+            }
+        }
+        return $status;
+    }
+
+    public function getExecutionStatus($order_id){
+        $order = Order::find()->with('orderStatus')->where(['id' => $order_id])->one();
+        $status = '<span class="badge badge-sa-dark me-2">Не відомо</span>';
+        if($order->order_status_id != null){
+            switch ($order->order_status_id) {
+                case 1:
+                    $status = '<span class="badge badge-sa-danger me-2">'. $order->orderStatus->name .'</span>';
+                    break;
+                case 2:
+                    $status = '<span class="badge badge-sa-warning me-2">'. $order->orderStatus->name .'</span>';
+                    break;
+                case 3:
+                    $status = '<span class="badge badge-sa-success me-2">'. $order->orderStatus->name .'</span>';
+                    break;
+                default;
+                    $status = '<span class="badge badge-sa-info me-2">'. $order->orderStatus->name .'</span>';
+                    break;
+            }
+        }
+        return $status;
     }
 }

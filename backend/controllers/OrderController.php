@@ -4,9 +4,12 @@ namespace backend\controllers;
 
 use common\models\shop\Order;
 use backend\models\search\shop\OrderSearch;
+use Yii;
+use yii\bootstrap5\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -86,13 +89,28 @@ class OrderController extends Controller
      * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return array
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
+        $request = Yii::$app->request;
         $model = $this->findModel($id);
 
+        if ($request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($request->isGet) {
+                return [
+                    'title' => "Змовлення № " . $model->id,
+                    'content' => $this->renderAjax('update', [
+                        'model' => $model,
+                    ]),
+                    'footer' => Html::button('Зберегти', ['class' => 'btn btn-primary', 'type' => "submit"])
+                ];
+            } else if ($model->load($request->post()) && $model->save()) {
+                return ['forceClose' => true, 'forceReload' => '#top'];
+            }
+        }
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -100,6 +118,22 @@ class OrderController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionUpdateNote()
+    {
+        $request = Yii::$app->request;
+        $model = $this->findModel($request->post('id'));
+        $model->note = $request->post('note');
+        if ($request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($model->save()) {
+                return ['res' => 'Збережено', 'color' => '#00b52a'];
+            }else{
+                return ['res' => 'Не збережено', 'color' => '#FF1356'];
+            }
+        }
+
     }
 
     /**

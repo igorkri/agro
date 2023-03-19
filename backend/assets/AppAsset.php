@@ -12,6 +12,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/jquery.toast.css',
         "https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i",
         "vendor/bootstrap/css/bootstrap.ltr.css",
         "vendor/highlight.js/styles/github.css",
@@ -27,6 +28,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
 //        "vendor/jquery/jquery.min.js",
+        'js/jquery.toast.js',
         "vendor/feather-icons/feather.min.js",
         "vendor/simplebar/simplebar.min.js",
         "vendor/bootstrap/js/bootstrap.bundle.min.js",
