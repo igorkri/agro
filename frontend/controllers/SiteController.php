@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -15,6 +16,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -255,5 +257,33 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    //Карта сайта. Выводит в виде XML файла.
+    public function actionSitemap()
+    {
+        $arr = array();
+
+        $posts = Product::find()
+            ->select('slug')
+            ->all();
+        foreach ($posts as $post) {
+            $arr[] = array(
+                'loc' => '/' . $post->slug, // Ссылка
+                'lastmod' => !empty($post->stock->update_date_sm_url_product) ? date(DATE_W3C, $post->stock->update_date_sm_url_product) : date(DATE_W3C, time()), // Дата
+            );
+        }
+
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('sitemap', array(
+            'host' => Yii::$app->request->hostInfo, // Имя хоста
+            'urls' => $arr, // Полученный массив
+        ));
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+
+        return $xml_array;
     }
 }

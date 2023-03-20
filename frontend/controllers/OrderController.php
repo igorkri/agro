@@ -19,12 +19,18 @@ class OrderController extends Controller
 
         if($order->load($this->request->post()) && $order->save()){
             foreach (Yii::$app->cart->getPositions() as $order_cart){
+
                 $order_item = new OrderItem();
                 $order_item->order_id = $order->id;
                 $order_item->product_id = $order_cart->id;
                 $order_item->price = $order_cart->price;
-                $order_item->quantity = $order_cart->quantity;
-                $order_item->save();
+                $order_item->quantity = strval($order_cart->quantity);
+                if($order_item->save()){
+
+//                }else{
+//                    debug($order_item->errors);
+//                    die;
+                }
             }
             \Yii::$app->cart->removeAll();
             return $this->redirect(['order-success', 'order_id' => $order->id]);

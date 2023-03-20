@@ -1,7 +1,10 @@
 <?php
+
+
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $categories */
+
 
 ?>
 

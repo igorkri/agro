@@ -185,7 +185,14 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $isset_to_cart;
     }
 
-    public function getIdProducts(){
-        return [2,4,5];
+    public function getSchemaImg($id){
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        $images = [];
+        foreach ($product->images as $image){
+            $images[] = Yii::$app->request->hostInfo . '/product/' . $image->name;
+        }
+        return $images;
     }
+
+
 }

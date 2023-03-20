@@ -18,6 +18,11 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/site',
     'components' => [
+        'metamaster' => [
+            'class' => 'floor12\metamaster\MetaMaster',
+            'siteName' => 'AgroPro.org.ua',
+            'defaultImage' => '/images/logos/logoagro.png',
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'baseUrl' => '',
@@ -62,6 +67,11 @@ return [
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
 
                 'about' => 'about/view',
+                [
+                    'pattern' => 'sitemap',
+                    'route' => 'site/sitemap',
+                    'suffix' => '.xml'
+                ],
             ],
         ],
         

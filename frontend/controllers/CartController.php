@@ -17,7 +17,7 @@ class CartController extends Controller
 
         $cart = Yii::$app->cart;
 
-        $model = Product::findOne($id);
+        $model = Product::find()->select(['id', 'price', 'name', 'slug'])->where(['id' => $id])->one();
         if ($model) {
             $cart->put($model, $qty);
         return $this->renderPartial('quickview', [

@@ -80,7 +80,7 @@ use yii\helpers\Url;
                                         </tr>
                                         </tfoot>
                                     </table>
-                                    <a class="btn btn-primary btn-xl btn-block cart__checkout-button" href="checkout.html">Замовити</a>
+                                    <a class="btn btn-primary btn-xl btn-block cart__checkout-button" href="<?=Url::to(['/order/checkout'])?>">Замовити</a>
                                 </div>
                             </div>
                         </div>

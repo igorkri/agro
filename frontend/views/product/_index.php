@@ -8,6 +8,11 @@ use kartik\rating\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
+use yii\web\View;
+
+$this->title = $product->name;
+//$this->registerJs($schemaProduct, View::POS_HEAD);
+//$this->renderHeadHtml($schemaProduct);
 ?>
 <!-- site__body -->
 <div class="site__body">
