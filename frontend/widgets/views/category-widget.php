@@ -28,7 +28,7 @@ use yii\helpers\Url;
                                         <!-- .megamenu -->
                                         <div class="megamenu  megamenu--departments ">
                                             <div class="megamenu__body"
-                                                 style="background-image: url('/images/background_menu.jpg<?php //$category->file?>');">
+                                                 <?php //$category->file?>');">
                                                 <div class="row">
                                                     <?php foreach ($category->parents as $parent): ?>
                                                         <?php if ($parent->products): ?>

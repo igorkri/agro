@@ -3,25 +3,27 @@
         <div class="block-features__list">
             <div class="block-features__item">
                 <div class="block-features__icon">
-                    <svg width="48px" height="48px">
-                        <use xlink:href="images/sprite.svg#fi-free-delivery-48"></use>
-                    </svg>
+<!--                    <svg width="48px" height="48px">-->
+<!--                        <use xlink:href="images/sprite.svg#fi-free-delivery-48"></use>-->
+<!--                    </svg>-->
+                    <img style="display: block;margin: -5px -13px 0px -10px; width: 63px; " src="/frontend/web/images/delivery.png" alt="">
                 </div>
                 <div class="block-features__content">
-                    <div class="block-features__title">Free Shipping</div>
-                    <div class="block-features__subtitle">For orders from $50</div>
+                    <div class="block-features__title">Доставка</div>
+                    <div class="block-features__subtitle">Нова пошта</div>
                 </div>
             </div>
             <div class="block-features__divider"></div>
             <div class="block-features__item">
                 <div class="block-features__icon">
-                    <svg width="48px" height="48px">
-                        <use xlink:href="images/sprite.svg#fi-24-hours-48"></use>
-                    </svg>
+<!--                    <svg width="48px" height="48px">-->
+<!--                        <use xlink:href="images/sprite.svg#fi-24-hours-48"></use>-->
+<!--                    </svg>-->
+                    <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/frontend/web/images/tell.png" alt="">
                 </div>
                 <div class="block-features__content">
-                    <div class="block-features__title">Support 24/7</div>
-                    <div class="block-features__subtitle">Call us anytime</div>
+                    <div class="block-features__title">Телефонуйте нам</div>
+                    <div class="block-features__subtitle">Пн-Пт 9:00 - 17:00</div>
                 </div>
             </div>
             <div class="block-features__divider"></div>
@@ -32,8 +34,8 @@
                     </svg>
                 </div>
                 <div class="block-features__content">
-                    <div class="block-features__title">100% Safety</div>
-                    <div class="block-features__subtitle">Only secure payments</div>
+                    <div class="block-features__title">100% Надійно</div>
+                    <div class="block-features__subtitle">Безпечні платежі</div>
                 </div>
             </div>
             <div class="block-features__divider"></div>
@@ -44,8 +46,8 @@
                     </svg>
                 </div>
                 <div class="block-features__content">
-                    <div class="block-features__title">Hot Offers</div>
-                    <div class="block-features__subtitle">Discounts up to 90%</div>
+                    <div class="block-features__title">Знижки</div>
+                    <div class="block-features__subtitle">Акційні пропозиції</div>
                 </div>
             </div>
         </div>

@@ -41,16 +41,19 @@ use yii\helpers\Url;
                         <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
                             <div class="products-list__body">
                                 <?php foreach ($products as $product): ?>
+
                                 <div class="products-list__item">
                                     <div class="product-card product-card--hidden-actions ">
 <!--                                        <div class="product-card__badges-list">-->
-<!--                                            <div class="product-card__badge product-card__badge--new">New</div>-->
-<!--                                        </div>-->
-                                        <div class="product-card__image product-image">
+                                            <!--                                            <div class="product-card__badge product-card__badge--new">New</div>-->
+                                            <!--                                        </div>-->
+
+                                            <div class="product-card__image product-image">
                                             <a href="<?=Url::to(['product/view', 'slug' => $product->slug])?>" class="product-image__body">
                                                 <img class="product-image__img" src="/product/<?= $product->images[0]->name?>" alt="">
                                             </a>
                                         </div>
+
                                         <div class="product-card__info">
                                             <div class="product-card__name">
                                                 <a href="<?=Url::to(['product/view', 'slug' => $product->slug])?>"><?=$product->name?></a>
