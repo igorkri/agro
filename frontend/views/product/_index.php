@@ -69,7 +69,7 @@ $this->title = $product->name;
                                         </svg>
                                     </button>
                                     <div class="owl-carousel" id="product-image">
-                                        <?php foreach ($product->images as $image) : ?>
+                                        <?php foreach ($product->images as $image) :?>
                                             <div class="product-image product-image--location--gallery">
                                                 <a href="<?= '/product/' . $image->name ?>" data-width="700"
                                                    data-height="700" class="product-image__body" target="_blank">
@@ -105,9 +105,9 @@ $this->title = $product->name;
                                     <div class="owl-carousel" id="product-image">
 
                                         <div class="product-image product-image--location--gallery">
-                                            <a href="/upload/stock/no-image.png" data-width="700" data-height="700"
+                                            <a href="/images/no-image.png" data-width="700" data-height="700"
                                                class="product-image__body" target="_blank">
-                                                <img class="product-image__img" src="/upload/stock/no-image.png"
+                                                <img class="product-image__img" src="/images/no-image.png"
                                                      alt="no image">
                                             </a>
                                         </div>

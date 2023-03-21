@@ -21,7 +21,7 @@ class ProductController extends Controller
             ->description($product->seo_description)
             ->sku($product->id)
             ->mpn($product->id . '-' . $product->id)
-            ->brand(Schema::brand()->name('testBrand'))
+            ->brand(Schema::brand()->name('Brand'))
             ->review(Schema::review()
                 ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
                 ->author(Schema::person()->name('Tatyana Khalimon'))
@@ -34,17 +34,14 @@ class ProductController extends Controller
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
                 ->itemCondition('https://schema.org/NewCondition')
                 ->availability("https://schema.org/InStock")
-
-
-            )
-        ;
+            );
 
         Yii::$app->params['schema'] = $schemaProduct->toScript();
 
         Yii::$app->metamaster
             ->setTitle($product->name)
             ->setDescription($product->seo_description)
-            ->setImage('/product/' . $product->images[0]->name)
+            ->setImage($product->getImgOne($product->id))
             ->register(Yii::$app->getView());
 
         return $this->render('_index', [

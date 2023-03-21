@@ -194,5 +194,14 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $images;
     }
 
+    public function getImgOne($id){
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        if(isset($product->images[0])){
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->name;
+        }else{
+            $img = Yii::$app->request->hostInfo . "/images/no-image.png";
+        }
+        return $img;
+    }
 
 }

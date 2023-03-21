@@ -36,15 +36,15 @@ use yii\helpers\Url;
                                         <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
                                     </div>
                                 <?php endif; ?>
-                                <?php if (!empty($product->images)): ?>
+
                                     <div class="product-card__image product-image">
                                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
                                            class="product-image__body">
                                             <img class="product-image__img"
-                                                 src="/product/<?= $product->images[0]->name ?>" alt="">
+                                                 src="<?= $product->getImgOne($product->getId()) ?>" alt="">
                                         </a>
                                     </div>
-                                <?php endif; ?>
+
                                 <div class="product-card__info">
                                     <div class="product-card__name">
                                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
