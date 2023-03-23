@@ -3,6 +3,7 @@
 /** @var \common\models\shop\Product $product */
 
 /** @var \common\models\shop\Product $products */
+/** @var \common\models\shop\Review $model_review */
 
 use kartik\rating\StarRating;
 use yii\helpers\Html;
@@ -126,14 +127,10 @@ $this->title = $product->name;
 
                         <div class="product__rating">
                             <div class="product__rating-stars">
-                                <div class="rating">
-                                    <div class="rating__body">
-
-                                    </div>
-                                </div>
+                                <?=$product->getRating($product->id)?>
                             </div>
                             <div class="product__rating-legend">
-                                <a href="#">5.0 (89 оценок)</a>
+                                <?= $product->getRatingCount($product->id) ?>
                             </div>
                         </div>
 
@@ -312,7 +309,10 @@ $this->title = $product->name;
             </div>
         </div>
         <!-- description -->
-        <?= $this->render('description', ['product' => $product]) ?>
+        <?= $this->render('description', [
+            'product' => $product,
+            'model_review' => $model_review
+        ]) ?>
         <!-- description /end -->
     </div>
 </div>

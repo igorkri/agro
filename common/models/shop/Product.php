@@ -121,7 +121,6 @@ class Product extends ActiveRecord implements CartPositionInterface
     }
 
 
-
     /**
      * Gets query for [[Category]].
      *
@@ -141,6 +140,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
+
     /**
      * Gets query for [[Label]].
      *
@@ -163,6 +163,11 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
 
+    public function getReviews()
+    {
+        return $this->hasMany(Review::class, ['product_id' => 'id']);
+    }
+
     public function getPrice()
     {
         return $this->price;
@@ -173,35 +178,134 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $this->id;
     }
 
-    public function getIssetToCart($product_id){
+    public function getIssetToCart($product_id)
+    {
         $isset_to_cart = null;
-        if(isset($_SESSION['agro_cart'])){
+        if (isset($_SESSION['agro_cart'])) {
             $keys = array_keys(unserialize($_SESSION['agro_cart']));
 
-            if(in_array($product_id, $keys)){
+            if (in_array($product_id, $keys)) {
                 $isset_to_cart = Yii::$app->cart->getPositions()[$product_id];
             }
         }
         return $isset_to_cart;
     }
 
-    public function getSchemaImg($id){
+    public function getSchemaImg($id)
+    {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
         $images = [];
-        foreach ($product->images as $image){
+        foreach ($product->images as $image) {
             $images[] = Yii::$app->request->hostInfo . '/product/' . $image->name;
         }
         return $images;
     }
 
-    public function getImgOne($id){
+    public function getImgOne($id)
+    {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if(isset($product->images[0])){
+        if (isset($product->images[0])) {
             $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->name;
-        }else{
+        } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
         }
         return $img;
+    }
+
+    public function getRatingCount($id)
+    {
+        $product = Product::find()->with('reviews')->where(['id' => $id])->one();
+        $res = '<a href="#review-form"> 0 (Не оцінювалось)</a>';
+        if($product->reviews){
+            $s = [];
+            foreach ($product->reviews as $review) {
+                $s[] = $review->rating;
+            }
+            $res = array_sum($s) / count($product->reviews);
+            $count = count($product->reviews);
+            $res = '<a href="#review-form"> ' . Yii::$app->formatter->asDecimal($res, 1) . ' (' . $count . ' оцінок)</a>';
+        }
+        return $res;
+    }
+
+    public function getRating($id, $w = 18, $h = 17)
+    {
+        $product = Product::find()->with('reviews')->where(['id' => $id])->one();
+        $res = '';
+        if($product->reviews) {
+            $s = [];
+            foreach ($product->reviews as $review) {
+                $s[] = $review->rating;
+            }
+            $rating = round(array_sum($s) / count($product->reviews));
+            $count = count($product->reviews);
+
+            $res = '
+            <div class="rating">
+                                                    <div class="rating__body">';
+            if ($rating != 0) {
+                for ($i = 1; $i <= $rating; $i++) {
+                    $res .= '<svg class="rating__star rating__star--active" width="' . $w . 'px" height="' . $h . 'px">
+                                                                    <g class="rating__fill">
+                                                                        <use xlink:href="/images/sprite.svg#star-normal"></use>
+                                                                    </g>
+                                                                    <g class="rating__stroke">
+                                                                        <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
+                                                                    </g>
+                                                                </svg>
+                                                                <div class="rating__star rating__star--only-edge rating__star--active">
+                                                                <div class="rating__fill">
+                                                                    <div class="fake-svg-icon"></div>
+                                                                </div>
+                                                                <div class="rating__stroke">
+                                                                    <div class="fake-svg-icon"></div>
+                                                                </div>
+                                                            </div>';
+                }
+                if (5 - $rating != 0) {
+                    for ($i = 1; $i <= 5 - $rating; $i++) {
+                        $res .= '<svg class="rating__star " width="' . $w . 'px" height="' . $h . 'px">
+                                                                        <g class="rating__fill">
+                                                                            <use xlink:href="/images/sprite.svg#star-normal"></use>
+                                                                        </g>
+                                                                        <g class="rating__stroke">
+                                                                            <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
+                                                                        </g>
+                                                                    </svg>
+                                                                    <div class="rating__star rating__star--only-edge ">
+                                                                        <div class="rating__fill">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                        <div class="rating__stroke">
+                                                                            <div class="fake-svg-icon"></div>
+                                                                        </div>
+                                                                    </div>';
+                    }
+                }
+            } else {
+                for ($i = 1; $i <= 5; $i++) {
+                    $res .= '<svg class="rating__star " width="' . $w . 'px" height="' . $h . 'px">
+                                                                    <g class="rating__fill">
+                                                                        <use xlink:href="/images/sprite.svg#star-normal"></use>
+                                                                    </g>
+                                                                    <g class="rating__stroke">
+                                                                        <use xlink:href="/images/sprite.svg#star-normal-stroke"></use>
+                                                                    </g>
+                                                                </svg>
+                                                                <div class="rating__star rating__star--only-edge ">
+                                                                <div class="rating__fill">
+                                                                    <div class="fake-svg-icon"></div>
+                                                                </div>
+                                                                <div class="rating__stroke">
+                                                                    <div class="fake-svg-icon"></div>
+                                                                </div>
+                                                            </div>';
+                }
+            }
+            $res .= '</div>
+                                                </div>';
+        }
+        return $res;
     }
 
 }

@@ -2,11 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\models\shop\Review;
 use Spatie\SchemaOrg\Schema;
 use Yii;
+use yii\base\BaseObject;
 use yii\helpers\Url;
 use yii\web\Controller;
 use common\models\shop\Product;
+use yii\web\Response;
 
 class ProductController extends Controller
 {
@@ -15,6 +18,7 @@ class ProductController extends Controller
 
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one(); //all products
 
+        $model_review = new Review();
         $schemaProduct = Schema::product()
             ->name($product->name)
             ->image($product->getSchemaImg($product->id))
@@ -47,7 +51,7 @@ class ProductController extends Controller
         return $this->render('_index', [
             'product' => $product,
             'isset_to_cart' => $product->getIssetToCart($product->id),
-//            'schemaProduct' => $schemaProduct->toScript()
+            'model_review' => $model_review
         ]);
     }
 
