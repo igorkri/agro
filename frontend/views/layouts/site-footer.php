@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
 <footer class="site__footer">
         <div class="site-footer">
             <div class="container">
@@ -22,7 +27,7 @@
                                 <h5 class="footer-links__title">Інформація</h5>
                                 <ul class="footer-links__list">
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Про нас</a></li>
-                                    <li class="footer-links__item"><a href="" class="footer-links__link">Про доставку</a></li>
+                                    <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>" class="footer-links__link">Про доставку</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Конфіденційність</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Бренди</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Контакти</a></li>
@@ -39,7 +44,7 @@
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Нові надходження</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Лідери продажу</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Популярні Категорії</a></li>
-                                    <li class="footer-links__item"><a href="/category/list" class="footer-links__link">Каталог</a></li>
+                                    <li class="footer-links__item"><a href="<?= Url::to(['/category/list']) ?>" class="footer-links__link">Каталог</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Спеціальні пропозиції</a></li>
                                     <li class="footer-links__item"><a href="" class="footer-links__link">Статті</a></li>
                                 </ul>
