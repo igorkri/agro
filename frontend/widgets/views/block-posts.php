@@ -1,7 +1,7 @@
 <div class="block block-posts" data-layout="list" data-mobile-columns="1">
     <div class="container">
         <div class="block-header">
-            <h3 class="block-header__title">Latest News</h3>
+            <h3 class="block-header__title">Статті</h3>
             <div class="block-header__divider"></div>
             <div class="block-header__arrows-list">
                 <button class="block-header__arrow block-header__arrow--left" type="button">
@@ -20,7 +20,7 @@
             <div class="owl-carousel">
                 <div class="post-card  ">
                     <div class="post-card__image">
-                        <a href="">
+                        <a href="/">
                             <img src="images/posts/post-1.jpg" alt="">
                         </a>
                     </div>
@@ -29,13 +29,14 @@
                             <a href="">Special Offers</a>
                         </div>
                         <div class="post-card__name">
-                            <a href="">Philosophy That Addresses Topics Such As Goodness</a>
+                            <a href="">Що таке гербіциди та навіщо вони потрібні?</a>
                         </div>
-                        <div class="post-card__date">October 19, 2019</div>
+                        <div class="post-card__date">Вересень 19, 2022</div>
                         <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
+                            Гербіциди стали необхідними засобами для боротьби з бур’янами в промисловому вирощуванні овочів і фруктів,
+                            оскільки вони значно полегшують догляд за рослинами та зменшують собівартість продукції.
+                            Також їх успішно використовують на приватних ділянках. Багато садівників віддають перевагу гербіцидам,
+                            які знищують бур’яни, щоб полегшити догляд за рослинами...
                         </div>
                         <div class="post-card__read-more">
                             <a href="" class="btn btn-secondary btn-sm">Read More</a>
@@ -44,7 +45,7 @@
                 </div>
                 <div class="post-card  ">
                     <div class="post-card__image">
-                        <a href="">
+                        <a href="/">
                             <img src="images/posts/post-2.jpg" alt="">
                         </a>
                     </div>
@@ -53,13 +54,16 @@
                             <a href="">Latest News</a>
                         </div>
                         <div class="post-card__name">
-                            <a href="">Logic Is The Study Of Reasoning And Argument Part 2</a>
+                            <a href="">Пестициди і температури їх застосування.</a>
                         </div>
-                        <div class="post-card__date">September 5, 2019</div>
+                        <div class="post-card__date">Квітень 5, 2021</div>
                         <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
+                            Посушливі погодні умови — це стрес для всіх живих організмів. А додатково і для аграрія,
+                            який стоїть перед вибором препарату для подолання тієї чи іншої проблеми в посіві за таких умов.
+                            Попри те, що на сьогодні у переліку пестицидів, дозволених для використання в Україні,
+                            більше 2000 препаратів, не всі вони здатні працювати за температур понад 25°С.
+                            Ба більше, багато препаратів не здатні забезпечити очікувану ефективність навіть за температур
+                            у діапазоні 20-25°C...
                         </div>
                         <div class="post-card__read-more">
                             <a href="" class="btn btn-secondary btn-sm">Read More</a>
@@ -68,7 +72,7 @@
                 </div>
                 <div class="post-card  ">
                     <div class="post-card__image">
-                        <a href="">
+                        <a href="/">
                             <img src="images/posts/post-3.jpg" alt="">
                         </a>
                     </div>
@@ -77,181 +81,16 @@
                             <a href="">New Arrivals</a>
                         </div>
                         <div class="post-card__name">
-                            <a href="">Some Philosophers Specialize In One Or More Historical Periods</a>
+                            <a href="">ЗЗР від «Сингента» — переваги в усіх аспектах</a>
                         </div>
-                        <div class="post-card__date">August 12, 2019</div>
+                        <div class="post-card__date">Жовтень 12, 2022</div>
                         <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-4.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">Special Offers</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">A Variety Of Other Academic And Non-Academic Approaches Have Been Explored</a>
-                        </div>
-                        <div class="post-card__date">Jule 30, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-5.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">New Arrivals</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">Germany Was The First Country To Professionalize Philosophy</a>
-                        </div>
-                        <div class="post-card__date">June 12, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-6.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">Special Offers</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">Logic Is The Study Of Reasoning And Argument Part 1</a>
-                        </div>
-                        <div class="post-card__date">May 21, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-7.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">Special Offers</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">Many Inquiries Outside Of Academia Are Philosophical In The Broad Sense</a>
-                        </div>
-                        <div class="post-card__date">April 3, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-8.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">Latest News</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">An Advantage Of Digital Circuits When Compared To Analog Circuits</a>
-                        </div>
-                        <div class="post-card__date">Mart 29, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-9.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">New Arrivals</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">A Digital Circuit Is Typically Constructed From Small Electronic Circuits</a>
-                        </div>
-                        <div class="post-card__date">February 10, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
-                        </div>
-                        <div class="post-card__read-more">
-                            <a href="" class="btn btn-secondary btn-sm">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-card  ">
-                    <div class="post-card__image">
-                        <a href="">
-                            <img src="images/posts/post-10.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="post-card__info">
-                        <div class="post-card__category">
-                            <a href="">Special Offers</a>
-                        </div>
-                        <div class="post-card__name">
-                            <a href="">Engineers Use Many Methods To Minimize Logic Functions</a>
-                        </div>
-                        <div class="post-card__date">January 1, 2019</div>
-                        <div class="post-card__content">
-                            In one general sense, philosophy is associated with wisdom,
-                            intellectual culture and a search for knowledge.
-                            In that sense, all cultures...
+                            Спеціалісти, які працюють в сільському господарстві, постійно стикаються з великим потоком
+                            різної технічної інформації на аграрну тематику: статті в журналах, брошурах, каталогах,
+                            окрім того, величезний обсяг інформації можна зустріти на просторах Інтернету.
+                            Однак зазвичай такого роду інформація поширюється компаніями насамперед з огляду на
+                            комерційні інтереси. Дійсно, інколи важко визначити, де все ж таки правда, а де банальний
+                            комерційний міф...
                         </div>
                         <div class="post-card__read-more">
                             <a href="" class="btn btn-secondary btn-sm">Read More</a>
