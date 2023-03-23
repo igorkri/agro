@@ -148,7 +148,10 @@ $rating = 3;
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="review-email">Email</label>
-                                    <input type="text" name="email" class="form-control" id="review-email" placeholder="Email" oninvalid="this.setCustomValidity('Укажіть будь ласка Ваш email')" oninput="this.setCustomValidity('')" required>
+                                    <input type="text" name="email" class="form-control" id="review-email" placeholder="Email"
+                                           oninvalid="this.setCustomValidity('Укажіть будь ласка Ваш email')"
+                                           oninput="this.setCustomValidity('')"
+                                           required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -174,14 +177,14 @@ $rating = 3;
 
 <?php
 $js = <<<JS
- $( document ).ready(function() {
-     $('#review-form-submit').on('click', function(){
+     $('#review-form-submit').click(function(event) {
+        event.preventDefault();
      var productId = $('input[name=product_id]').val();
      var star = $('input[name=starrating]').val();
      var name = $('input[name=name]').val();
      var email = $('input[name=email]').val();
      var mess = $('textarea[name=message]').val();
-          
+      if(name != ''){
      $.ajax({
          url: '/review/create',
          type: 'post',
@@ -201,11 +204,11 @@ $js = <<<JS
          }
      });
      
+      }    
      return false;
-     }).on('submit', function(e){
-     e.preventDefault();
+     // }).on('submit', function(e){
+     // e.preventDefault();
    
-     });
 });
 
 JS;
