@@ -115,4 +115,4 @@ use yii\helpers\Url;
         <!-- site__body / end -->
     </div>
 </div>
-<div class="qty"><?=$qty_cart?></div>
+<!--<div class="qty">--><?//=$qty_cart?><!--</div>-->
