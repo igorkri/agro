@@ -22,13 +22,6 @@ use yii\helpers\Url;
                         <div class="category-card__name">
                             <a href="<?= Url::to(['/catalog/nazva-dlya-vidobrazhennya-seo']) ?>"><?= $categories[0]->name ?></a>
                         </div>
-<!--                        --><?php //if ($categories[0]->parents): ?>
-<!--                            <ul class="category-card__links">-->
-<!--                                --><?php //foreach ($categories[0]->parents as $parent): ?>
-<!--                                    <li><a href="">--><?//= $parent->name ?><!--</a></li>-->
-<!--                                --><?php //endforeach ?>
-<!--                            </ul>-->
-<!--                        --><?php //endif ?>
                     </div>
                 </div>
             </div>
@@ -52,13 +45,6 @@ use yii\helpers\Url;
                                     <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><?= $category->name ?></a>
                                     <?php } ?>
                                 </div>
-<!--                                --><?php //if ($category->parents): ?>
-<!--                                    <ul class="category-card__links">-->
-<!--                                        --><?php //foreach ($category->parents as $parent): ?>
-<!--                                            <li><a href="">--><?//= $parent->name ?><!--</a></li>-->
-<!--                                        --><?php //endforeach ?>
-<!--                                    </ul>-->
-<!--                                --><?php //endif ?>
                             </div>
                         </div>
                     </div>
