@@ -2,6 +2,8 @@
 
 /** @var \common\models\shop\Category $categories */
 
+use yii\helpers\Url;
+
 ?>
 
 <div class="block block--highlighted block-categories block-categories--layout--classic">
@@ -14,19 +16,19 @@
             <div class="block-categories__item category-card category-card--layout--classic">
                 <div class="category-card__body">
                     <div class="category-card__image">
-                        <a href=""><img src="/category/<?= $categories[0]->file ?>" alt=""></a>
+                        <a href="<?= Url::to(['/catalog/nazva-dlya-vidobrazhennya-seo']) ?>"><img src="/category/<?= $categories[0]->file ?>" alt=""></a>
                     </div>
                     <div class="category-card__content">
                         <div class="category-card__name">
-                            <a href=""><?= $categories[0]->name ?></a>
+                            <a href="<?= Url::to(['/catalog/nazva-dlya-vidobrazhennya-seo']) ?>"><?= $categories[0]->name ?></a>
                         </div>
-                        <?php if ($categories[0]->parents): ?>
-                            <ul class="category-card__links">
-                                <?php foreach ($categories[0]->parents as $parent): ?>
-                                    <li><a href=""><?= $parent->name ?></a></li>
-                                <?php endforeach ?>
-                            </ul>
-                        <?php endif ?>
+<!--                        --><?php //if ($categories[0]->parents): ?>
+<!--                            <ul class="category-card__links">-->
+<!--                                --><?php //foreach ($categories[0]->parents as $parent): ?>
+<!--                                    <li><a href="">--><?//= $parent->name ?><!--</a></li>-->
+<!--                                --><?php //endforeach ?>
+<!--                            </ul>-->
+<!--                        --><?php //endif ?>
                     </div>
                 </div>
             </div>
@@ -36,19 +38,27 @@
                     <div class="block-categories__item category-card category-card--layout--classic">
                         <div class="category-card__body">
                             <div class="category-card__image">
-                                <a href=""><img src="/category/<?= $category->file ?>" alt=""></a>
+                                <?php if ($category->parentId == null) { ?>
+                                <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" alt=""></a>
+                                <?php } else { ?>
+                                <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" alt=""></a>
+                                <?php } ?>
                             </div>
                             <div class="category-card__content">
                                 <div class="category-card__name">
-                                    <a href=""><?= $category->name ?></a>
+                                    <?php if ($category->parentId == null) { ?>
+                                    <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><?= $category->name ?></a>
+                                    <?php } else { ?>
+                                    <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><?= $category->name ?></a>
+                                    <?php } ?>
                                 </div>
-                                <?php if ($category->parents): ?>
-                                    <ul class="category-card__links">
-                                        <?php foreach ($category->parents as $parent): ?>
-                                            <li><a href=""><?= $parent->name ?></a></li>
-                                        <?php endforeach ?>
-                                    </ul>
-                                <?php endif ?>
+<!--                                --><?php //if ($category->parents): ?>
+<!--                                    <ul class="category-card__links">-->
+<!--                                        --><?php //foreach ($category->parents as $parent): ?>
+<!--                                            <li><a href="">--><?//= $parent->name ?><!--</a></li>-->
+<!--                                        --><?php //endforeach ?>
+<!--                                    </ul>-->
+<!--                                --><?php //endif ?>
                             </div>
                         </div>
                     </div>

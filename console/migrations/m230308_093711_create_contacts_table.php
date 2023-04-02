@@ -18,7 +18,9 @@ class m230308_093711_create_contacts_table extends Migration
             'tel_primary' => $this->string()->comment('Телефон перший'),
             'tel_second' => $this->string()->comment('Телефон другий'),
             'hours_work' => $this->string()->comment('Години роботи'),
-            'coments' => $this->string()->comment('Коментар'),
+            'coments_comm' => $this->string()->comment('Коментар зв"язок з нами'),
+            'coments_footer' => $this->string()->comment('Коментар в футері'),
+            'email' => $this->string()->comment('Пошта'),
 
         ]);
     }
