@@ -17,7 +17,8 @@ use yii\helpers\Url;
                                 <ul class="footer-contacts__contacts">
                                     <li><i class="footer-contacts__icon fas fa-globe-americas"></i> Україна Полтава вул.Зіньківська 35, ін:36000</li>
                                     <li><i class="footer-contacts__icon far fa-envelope"></i> nisatatyana@gmail.com</li>
-                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> (800) ххх-0730, (800) ххх-0730</li>
+                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> (068) 489-43-86 </li>
+                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> (066) 394-18-28 </li>
                                     <li><i class="footer-contacts__icon far fa-clock"></i> Пн-Пт 9:00 - 17:00</li>
                                 </ul>
                             </div>

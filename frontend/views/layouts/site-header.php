@@ -40,7 +40,8 @@ use yii\helpers\Url;
             </div>
             <div class="site-header__phone">
                 <div class="site-header__phone-title">Номер для замовлення</div>
-                <div class="site-header__phone-number">(050) ххх-20-76</div>
+                <div class="site-header__phone-number" style="margin: 0px 0px 6px 0px;">(068) 489-43-86</div>
+                <div class="site-header__phone-number">(066) 394-18-28</div>
             </div>
         </div>
         <div class="site-header__nav-panel">
@@ -92,7 +93,6 @@ use yii\helpers\Url;
                                         </div>
                                     </a>
                                 </li>
-
                             </ul>
                         </div>
                         <!-- .nav-links / end -->
