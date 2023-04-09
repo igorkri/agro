@@ -2,34 +2,40 @@ version: '3.2'
 
 services:
 
-  frontend:
-    build: frontend
+  web:
+    build: .
     ports:
-      - 20080:80
+      - "80:80"
     volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
+      - .:/var/www/html
+    depends_on:
+      - db
 
-  backend:
-    build: backend
-    ports:
-      - 21080:80
-    volumes:
-      # Re-use local composer cache via host-volume
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
-      - ./:/app
-
-  mysql:
+  db:
     image: mysql:8.0
+    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=verysecret
-      - MYSQL_DATABASE=yii2advanced
-      - MYSQL_USER=yii2advanced
-      - MYSQL_PASSWORD=secret
-
+      - MYSQL_ROOT_PASSWORD=!@#MEMORy85
+      - MYSQL_DATABASE=mako
+      - MYSQL_USER=igor
+      - MYSQL_PASSWORD=memory85
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - "./docker/mysql:/var/lib/mysql"
+    networks:
+      - default
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8888:80'
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+    depends_on:
+      - db
   #pgsql:
   #  image: postgres:9.5
   #  environment:

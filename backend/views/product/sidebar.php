@@ -131,4 +131,27 @@ use yii\widgets\Pjax;
             ?>
         </div>
     </div>
+    <div class="card w-100 mt-5">
+        <div class="card-body p-5">
+            <div class="mb-5">
+                <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Brand')?></h2>
+            </div>
+            <?php
+            $data = ArrayHelper::map(\common\models\shop\Brand::find()->orderBy('id')->asArray()->all(), 'id', 'name');
+            echo $form->field($model, 'brand_id')->widget(Select2::classname(), [
+                'data' => $data,
+                'theme' => Select2::THEME_DEFAULT,
+                'pluginLoading' => false,
+                'options' => [
+                    'placeholder' => 'Виберіть Бренд ...',
+                    'class' => 'sa-select2 form-select',
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'width' => '273px',
+                ],
+            ])->label(false);
+            ?>
+        </div>
+    </div>
 </div>

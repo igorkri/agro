@@ -16231,3 +16231,6 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   padding: 28px;
 }
 /*# sourceMappingURL=style.css.map */
+.block-banner__text:hover {
+  color: #47991f;
+}

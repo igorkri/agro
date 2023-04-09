@@ -64,6 +64,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                                 </div>
 
                                 <div class="mb-4">
+
                                     <!-- sa-quill-control  -->
                                     <?= $form->field($model, 'description')->widget(Widget::class, [
         'defaultSettings' => [

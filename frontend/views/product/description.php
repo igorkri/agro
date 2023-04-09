@@ -184,7 +184,7 @@ $js = <<<JS
      var name = $('input[name=name]').val();
      var email = $('input[name=email]').val();
      var mess = $('textarea[name=message]').val();
-      if(name != ''){
+     if(name != ''){
      $.ajax({
          url: '/review/create',
          type: 'post',

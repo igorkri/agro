@@ -48,3 +48,4 @@ phpunit.phar
 /backend/web/vendor/
 /backend/web/images/
 /frontend/web/product/
+/frontend/web/brand/
