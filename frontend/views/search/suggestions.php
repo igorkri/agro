@@ -19,7 +19,7 @@ use yii\helpers\Url;
             <div class="suggestions__item-meta">Артикул: <?=$product->id?></div>
         </div>
         <div class="suggestions__item-price">
-            <?=Yii::$app->formatter->asCurrency($product->price)?>
+            <?=Yii::$app->formatter->asCurrency($product->getPrice())?>
         </div>
     </li>
     <?php endforeach; ?>

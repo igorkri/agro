@@ -17,14 +17,14 @@ class CartController extends Controller
 
         $cart = Yii::$app->cart;
 
-        $model = Product::find()->select(['id', 'price', 'name', 'slug'])->where(['id' => $id])->one();
+        $model = Product::find()->select(['id', 'price', 'name', 'slug', 'currency'])->where(['id' => $id])->one();
         if ($model) {
             $cart->put($model, $qty);
-        return $this->renderPartial('quickview', [
-            'orders' => Yii::$app->cart->getPositions(),
-            'total_summ' => Yii::$app->cart->getCost(),
-            'qty_cart' => \Yii::$app->cart->getCount(),
-        ]);
+            return $this->renderPartial('quickview', [
+                'orders' => Yii::$app->cart->getPositions(),
+                'total_summ' => Yii::$app->cart->getCost(),
+                'qty_cart' => \Yii::$app->cart->getCount(),
+            ]);
         }
         throw new NotFoundHttpException();
 

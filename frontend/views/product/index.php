@@ -160,7 +160,7 @@ $this->title = Yii::$app->name;
                             Availability: <span class="text-success">In Stock</span>
                         </div>
                         <div class="product__prices">
-                            <?= Yii::$app->formatter->asCurrency($product->price) ?>
+                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                         </div>
                         <!-- .product__options -->
                         <form class="product__options">

@@ -5,6 +5,7 @@
 /** @var string $content */
 
 use backend\assets\AppAsset;
+use common\models\Settings;
 use common\widgets\Alert;
 use kartik\alert\AlertBlock;
 use kartik\growl\Growl;
@@ -99,6 +100,18 @@ AppAsset::register($this);
                                     </a>
                                 </li>
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                                    <a href="<?=Url::to(['/brand/index'])?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                     viewBox="0 0 16 16" fill="currentColor">
+                                                    <path
+                                                            d="M8,13.1c-4.4,0-8,3.4-8-3C0,5.6,3.6,2,8,2s8,3.6,8,8.1C16,16.5,12.4,13.1,8,13.1zM8,4c-3.3,0-6,2.7-6,6c0,4,2.4,0.9,5,0.2C7,9.9,7.1,9.5,7.4,9.2l3-2.3c0.4-0.3,1-0.2,1.3,0.3c0.3,0.5,0.2,1.1-0.2,1.4l-2.2,1.7c2.5,0.9,4.8,3.6,4.8-0.2C14,6.7,11.3,4,8,4z"
+                                                    ></path>
+                                                </svg>
+                                            </span>
+                                        <span class="sa-nav__title"><?=Yii::t('app', 'Brand')?></span>
+                                    </a>
+                                </li><li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                                     <a href="<?=Url::to(['/about/view', 'id' => 1])?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
@@ -237,7 +250,9 @@ AppAsset::register($this);
                             </svg>
                         </button>
                     </div>
-
+                    <div class="sa-toolbar__item dropdown">
+                        <i class="fas fa-dollar-sign"></i><?=Yii::$app->formatter->asDecimal(Settings::currencyRate(),2)?>
+                    </div>
                     <div class="sa-toolbar__item dropdown">
                         <button
                                 class="sa-toolbar__button"

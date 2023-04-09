@@ -48,7 +48,11 @@ use yii\helpers\Url;
                             <td class="cart-table__column cart-table__column--product">
                                 <a href="<?=Url::to(['product/view', 'slug' => $order->slug])?>" class="cart-table__product-name"><?=$order->name?></a>
                             </td>
+                            <?php if($order->currency == 'UAH'): ?>
                             <td class="cart-table__column cart-table__column--price" data-title="Price"><?=Yii::$app->formatter->asCurrency($order->price)?></td>
+                            <?php else: ?>
+                            <td class="cart-table__column cart-table__column--price" data-title="Price"><?=Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency))?></td>
+                            <?php endif; ?>
                             <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                                 <div class="input-number">
                                     <input class="form-control input-number__input" type="number" min="1" value="<?=$order->getQuantity()?>"
@@ -57,7 +61,11 @@ use yii\helpers\Url;
                                     <div class="input-number__sub" onclick="updateQty(<?= $order->getId()?>, <?= $order->getQuantity() - 1?>)"></div>
                                 </div>
                             </td>
-                            <td class="cart-table__column cart-table__column--total" data-title="Total"><?=Yii::$app->formatter->asCurrency($order->price * $order->getQuantity())?></td>
+                            <?php if($order->currency == 'UAH'): ?>
+                                <td class="cart-table__column cart-table__column--total" data-title="Total"><?=Yii::$app->formatter->asCurrency($order->price * $order->getQuantity())?></td>
+                            <?php else: ?>
+                                <td class="cart-table__column cart-table__column--total" data-title="Total"><?=Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency) * $order->getQuantity())?></td>
+                            <?php endif; ?>
                             <td class="cart-table__column cart-table__column--remove" onclick="removeProduct(<?=$order->id?>)">
                                 <button type="button" class="btn btn-light btn-sm btn-svg-icon">
                                     <svg width="12px" height="12px">

@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function actionView($slug): string
     {
 
-        $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one(); //all products
+        $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
 
         $model_review = new Review();
         $schemaProduct = Schema::product()
@@ -25,7 +25,7 @@ class ProductController extends Controller
             ->description($product->seo_description)
             ->sku($product->id)
             ->mpn($product->id . '-' . $product->id)
-            ->brand(Schema::brand()->name('Brand'))
+            ->brand(Schema::brand()->name($product->brand ? $product->brand->name : 'Brand'))
             ->review(Schema::review()
                 ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
                 ->author(Schema::person()->name('Tatyana Khalimon'))
@@ -34,7 +34,7 @@ class ProductController extends Controller
             ->offers(Schema::offer()
                 ->url(Yii::$app->request->absoluteUrl)
                 ->priceCurrency("UAH")
-                ->price($product->price)
+                ->price($product->getPrice())
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
                 ->itemCondition('https://schema.org/NewCondition')
                 ->availability("https://schema.org/InStock")
@@ -43,7 +43,7 @@ class ProductController extends Controller
         Yii::$app->params['schema'] = $schemaProduct->toScript();
 
         Yii::$app->metamaster
-            ->setTitle($product->name)
+            ->setTitle($product->seo_title)
             ->setDescription($product->seo_description)
             ->setImage($product->getImgOne($product->id))
             ->register(Yii::$app->getView());

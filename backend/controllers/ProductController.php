@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Settings;
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
 use common\models\shop\ProductImage;
@@ -50,10 +51,12 @@ class ProductController extends Controller
 
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $currency = Settings::currencyRate();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'currency' => $currency,
         ]);
     }
 

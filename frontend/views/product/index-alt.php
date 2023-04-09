@@ -194,7 +194,7 @@ $this->title = Yii::$app->name;
                             <!-- .product__end -->
                             <div class="product__footer">
                                 <div class="product__prices">
-                                    <?= $product->price?> &#8372;
+                                    <?= $product->getPrice()?> &#8372;
                                     <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
                                     <?= Html::a(
                                         '<svg width="20px" height="20px" style="display: unset;margin: 0px 7px 0px -12px;">

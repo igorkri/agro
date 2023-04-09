@@ -59,7 +59,7 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__actions">
                                     <div class="product-card__prices">
-                                        <?= Yii::$app->formatter->asCurrency($product->price) ?></span>
+                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
                                     </div>
                                 </div>
                             </div>

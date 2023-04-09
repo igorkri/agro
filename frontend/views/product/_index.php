@@ -11,7 +11,7 @@ use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
 use yii\web\View;
 
-$this->title = $product->name;
+$this->title = $product->seo_title;
 //$this->registerJs($schemaProduct, View::POS_HEAD);
 //$this->renderHeadHtml($schemaProduct);
 ?>
@@ -240,7 +240,7 @@ $this->title = $product->name;
                             <?php endforeach; ?>
                             <hr>
                             <div class="price" style="margin-bottom: 25px">
-                                <?= $product->price ?> &#8372;
+                                <?= $product->getPrice() ?> &#8372;
                             </div>
                             <div class="product__actions">
                                 <div class="product__actions-item">

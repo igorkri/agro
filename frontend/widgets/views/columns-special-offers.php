@@ -42,7 +42,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="product-card__actions">
                         <div class="product-card__prices">
-                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->price) ?></span>
+                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->old_price) ?></span>
                         </div>
                         <div class="product-card__buttons">

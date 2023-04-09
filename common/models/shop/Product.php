@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use common\models\Settings;
 use Yii;
 use yii\db\ActiveRecord;
 use yz\shoppingcart\CartPositionInterface;
@@ -16,6 +17,7 @@ use yz\shoppingcart\CartPositionTrait;
  * @property string $brand_id
  * @property string $description
  * @property string $short_description
+ * @property string $currency
  * @property float $price
  * @property float|null $old_price
  * @property string|null $seo_title
@@ -66,7 +68,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         return [
             [['name', 'description', 'short_description', 'price', 'status_id', 'category_id'], 'required'],
-            [['description', 'short_description'], 'string'],
+            [['description', 'short_description', 'currency'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id', 'brand_id'], 'safe'],
             [['name', 'seo_title', 'seo_description', 'slug'], 'string', 'max' => 255],
@@ -84,6 +86,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             'name' => Yii::t('app', 'Name'),
             'brand_id' => Yii::t('app', 'Brand'),
             'slug' => Yii::t('app', 'Slug'),
+            'currency' => Yii::t('app', 'Currency'),
             'description' => Yii::t('app', 'Description'),
             'short_description' => Yii::t('app', 'Short Description'),
             'price' => Yii::t('app', 'Price'),
@@ -120,6 +123,11 @@ class Product extends ActiveRecord implements CartPositionInterface
     public function getTag()
     {
         return $this->hasOne(Tag::class, ['id' => 'id']);
+    }
+
+    public function getBrand()
+    {
+        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
     }
 
 
@@ -172,7 +180,11 @@ class Product extends ActiveRecord implements CartPositionInterface
 
     public function getPrice()
     {
-        return $this->price;
+        if($this->currency === 'UAH'){
+            return $this->price;
+        }else{
+            return floatval($this->price) * floatval(Settings::currencyRate($this->currency));
+        }
     }
 
     public function getId()

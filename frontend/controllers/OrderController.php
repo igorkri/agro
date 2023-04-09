@@ -23,7 +23,7 @@ class OrderController extends Controller
                 $order_item = new OrderItem();
                 $order_item->order_id = $order->id;
                 $order_item->product_id = $order_cart->id;
-                $order_item->price = $order_cart->price;
+                $order_item->price = $order_cart->getPrice();
                 $order_item->quantity = strval($order_cart->quantity);
                 if($order_item->save()){
 

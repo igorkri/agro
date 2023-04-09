@@ -64,7 +64,7 @@
 
                                 </td>
                                 <td class="order-list__column-quantity" data-title="К-ть:"><?=$orderItem->quantity?></td>
-                                <td class="order-list__column-total"><?= Yii::$app->formatter->asCurrency($orderItem->price * $orderItem->quantity) ?></td>
+                                <td class="order-list__column-total"><?= Yii::$app->formatter->asCurrency($orderItem->getPrice() * $orderItem->quantity) ?></td>
                             </tr>
                             <?php endforeach; ?>
                             </tbody>

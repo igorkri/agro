@@ -80,7 +80,7 @@ $this->title = 'Оформлення замовлення';
 
                                     <tr>
                                         <td><?= $order->name ?> × <?= $order->quantity ?></td>
-                                        <td><?= Yii::$app->formatter->asCurrency($order->price * $order->quantity) ?></td>
+                                        <td><?= Yii::$app->formatter->asCurrency($order->getPrice() * $order->quantity) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
