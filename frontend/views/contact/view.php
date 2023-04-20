@@ -36,19 +36,17 @@
                                 <h4 class="contact-us__header card-title">Наша адреса</h4>
                                 <div class="contact-us__address">
                                     <p>
-                                        Україна Полтава вул.Зіньківська 35, ін:36000 <br>
-                                        Email: nisatatyana@gmail.com<br>
-                                        Phone Number: (800) ххх-0730
+                                        <?= $contacts->address?><br>
+                                        Email: <?= $contacts->email?><br>
+                                        Телефон: <?= $contacts->tel_primary ?>
+                                                 <?= $contacts->tel_second ?>
                                     </p>
                                     <p>
                                         <strong>Години роботи</strong><br>
-                                        Понеділок - П'ятниця: 9:00 - 17:00<br>
-                                        Субота: Вихідний<br>
-                                        Неділя: Вихідний
+                                        <?= $contacts->hours_work ?>
                                     </p>
                                     <p>
-                                        Ми цінуємо довіру, яку наші клієнти нам надають, і робимо все можливе, щоб виправдати цю довіру.
-                                        Ми прагнемо, щоб наш бізнес був прозорим, чесним та відповідальним, і завжди готові до діалогу та обміну думками.
+                                        <?= $contacts->coments ?>
                                     </p>
                                 </div>
                             </div>
