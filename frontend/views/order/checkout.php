@@ -42,7 +42,7 @@ $this->title = 'Оформлення замовлення';
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="card mb-lg-0">
                         <div class="card-body">
-                            <h3 class="card-title">Платіжні реквізити</h3>
+                            <h3 class="card-title">Інформація для доставки</h3>
                             <div class="form-row">
                                 <div class="form-group col-md-8">
                                     <?= $form->field($order, 'fio')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>

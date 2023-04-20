@@ -6089,7 +6089,7 @@ input:checked + .sa-color-checkbox__box {
 }
 
 .sa-sidebar__header {
-  background-color: #ffd333;
+  background-color: #47991f;
   color: #3d464d;
   height: var(--sa-toolbar-height);
   flex-shrink: 0;
