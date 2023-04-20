@@ -13,7 +13,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Contacts');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="contact-index">
+<div class="container contact-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -35,6 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'tel_second',
             'hours_work',
             //'coments',
+            //'comment_two',
+            //'work_time_short',
+            //'email',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Contact $model, $key, $index, $column) {

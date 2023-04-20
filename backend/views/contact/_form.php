@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="contact-form">
+<div class="container contact-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -21,6 +21,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'hours_work')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'coments')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'comment_two')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'work_time_short')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

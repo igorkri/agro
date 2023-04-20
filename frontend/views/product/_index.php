@@ -199,7 +199,7 @@ $this->title = $product->seo_title;
                                             <ul>
                                                 <li>Сплатити Visa/Mastercard</li>
                                                 <li>Оплатити готівкою</li>
-                                                <li>Наеладенний платіж</li>
+                                                <li>Наложенний платіж</li>
                                                 <li>Сплатити на розрахунковий рахунок</li>
                                                 <hr>
                                             </ul>

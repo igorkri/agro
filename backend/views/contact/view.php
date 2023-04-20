@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contacts'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="contact-view">
+<div class="container contact-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,12 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+          //  'id',
             'address',
             'tel_primary',
             'tel_second',
             'hours_work',
             'coments',
+            'comment_two',
+            'work_time_short',
+            'email',
         ],
     ]) ?>
 
