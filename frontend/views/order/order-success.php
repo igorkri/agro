@@ -64,7 +64,7 @@
 
                                 </td>
                                 <td class="order-list__column-quantity" data-title="К-ть:"><?=$orderItem->quantity?></td>
-                                <td class="order-list__column-total"><?= Yii::$app->formatter->asCurrency($orderItem->getPrice() * $orderItem->quantity) ?></td>
+                                <td class="order-list__column-total"><?= $orderItem->price * $orderItem->quantity ?></td>
                             </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -91,11 +91,9 @@
                                     <div class="address-card__row-title">Телефон</div>
                                     <div class="address-card__row-content"><?=$order->phone?></div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

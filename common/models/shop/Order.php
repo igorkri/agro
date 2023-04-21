@@ -74,7 +74,7 @@ class Order extends \yii\db\ActiveRecord
             'fio' => 'ПІБ',
             'phone' => 'Телефон',
             'city' => 'Місто',
-            'note' => 'Коментар',
+            'note' => 'Дані для відправки (коментар)',
         ];
     }
 
