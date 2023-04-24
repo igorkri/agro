@@ -18,7 +18,10 @@ class ProductsCarousel extends Widget
 
     public function run()
     {
-        $products = Product::find()->with('label')->limit(16)->all();
+        $products = Product::find()
+            ->with('label')
+            ->limit(20)
+            ->all();
 
         return $this->render('products-carousel', ['products' => $products]);
     }
