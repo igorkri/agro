@@ -28,7 +28,9 @@ AppAsset::register($this);
 <div class="site">
 
     <!-- mobile site__header -->
+    <?php if(\Yii::$app->devicedetect->isMobile()): ?>
           <?= $this->render('mobile-site-header')?>
+    <?php endif; ?>
     <!-- mobile site__header / end -->
 
     <!-- desktop site__header -->

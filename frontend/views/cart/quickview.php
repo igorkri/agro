@@ -53,7 +53,7 @@ use yii\helpers\Url;
                             <?php else: ?>
                             <td class="cart-table__column cart-table__column--price" data-title="Price"><?=Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency))?></td>
                             <?php endif; ?>
-                            <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
+                            <td class="cart-table__column cart-table__column--quantity" data-title="Quantity45">
                                 <div class="input-number">
                                     <input class="form-control input-number__input" type="number" min="1" value="<?=$order->getQuantity()?>"
                                            onchange="updateQty(<?= $order->getId()?>, $(this).val());" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();">
@@ -62,9 +62,9 @@ use yii\helpers\Url;
                                 </div>
                             </td>
                             <?php if($order->currency == 'UAH'): ?>
-                                <td class="cart-table__column cart-table__column--total" data-title="Total"><?=Yii::$app->formatter->asCurrency($order->price * $order->getQuantity())?></td>
+                                <td class="cart-table__column cart-table__column--total" data-title="Total45"><?=Yii::$app->formatter->asCurrency($order->price * $order->getQuantity())?></td>
                             <?php else: ?>
-                                <td class="cart-table__column cart-table__column--total" data-title="Total"><?=Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency) * $order->getQuantity())?></td>
+                                <td class="cart-table__column cart-table__column--total" data-title="Total45"><?=Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency) * $order->getQuantity())?></td>
                             <?php endif; ?>
                             <td class="cart-table__column cart-table__column--remove" onclick="removeProduct(<?=$order->id?>)">
                                 <button type="button" class="btn btn-light btn-sm btn-svg-icon">

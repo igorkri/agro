@@ -61,11 +61,11 @@ class CartController extends Controller
         return [
             'orders' => Yii::$app->cart->getPositions(),
             'total_summ' => Yii::$app->cart->getCost(),
-            'qty_cart' => \Yii::$app->cart->getCount(),
+            'qty_cart' => Yii::$app->cart->getCount(),
         ];
     }
 
-    public function actionUpdate($id, $qty)
+    public function actionUpdate($id, $qty = null)
     {
         $product = Product::findOne($id);
         \Yii::$app->cart->update($product, $qty);

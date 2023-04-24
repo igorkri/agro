@@ -11,13 +11,16 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'devicedetect'],
     'layout' => 'shop',
     'name' => 'AgroPro',
     'language' => 'uk-UA',
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/site',
     'components' => [
+        'devicedetect' => [
+            'class' => 'alexandernst\devicedetect\DeviceDetect'
+        ],
         'metamaster' => [
             'class' => 'floor12\metamaster\MetaMaster',
             'siteName' => 'AgroPro.org.ua',

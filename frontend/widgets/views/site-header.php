@@ -41,7 +41,7 @@ use yii\helpers\Url;
             <div class="site-header__phone">
                 <div class="site-header__phone-title">Номер для замовлення</div>
                 <div class="site-header__phone-number" style="margin: 0px 0px 6px 0px;"><?= $contacts->tel_primary ?></div>
-                <div class="site-header__phone-number"><?= $contacts->tel_second ?></div>
+                <div class="site-header__phone-number"><?= isset($contacts->tel_second) ? $contacts->tel_second : '' ?></div>
             </div>
         </div>
         <div class="site-header__nav-panel">

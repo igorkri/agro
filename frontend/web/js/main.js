@@ -273,6 +273,7 @@
                         $.ajax({
                             url: '/cart/qty-cart',
                             success: function(qty) {
+                        // console.log('4545', qty.qty_cart);
                                 $('#desc-qty-cart').html(qty.qty_cart);
                             }
                         });
@@ -991,6 +992,7 @@ function removeProduct(id){
 }
 
 function updateQty(prodId, qty){
+    console.log('4545', qty);
     if(qty != 0) {
         $.ajax({
             url: '/cart/update',
@@ -1009,6 +1011,7 @@ function updateQty(prodId, qty){
             }
         });
     }
+    $('.cart').html(data);
 }
 
 
