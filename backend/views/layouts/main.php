@@ -54,7 +54,7 @@ AppAsset::register($this);
                 <div class="sa-sidebar__body" data-simplebar="">
                     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
                         <li class="sa-nav__section">
-                            <div class="sa-nav__section-title"><span>Application</span></div>
+                            <div class="sa-nav__section-title"><span>-= МАГАЗИН =-</span></div>
                             <ul class="sa-nav__menu sa-nav__menu--root">
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                                     <a href="<?=Url::to(['/order/index'])?>" class="sa-nav__link">

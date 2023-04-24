@@ -29,7 +29,7 @@ use yii\helpers\Url;
                                 <li class="footer-links__item"><a href="/" class="footer-links__link">Про нас</a></li>
                                 <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
                                                                   class="footer-links__link">Про доставку</a></li>
-                                <li class="footer-links__item"><a href="/"
+                                <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
                                                                   class="footer-links__link">Конфіденційність</a></li>
                                 <li class="footer-links__item"><a href="/" class="footer-links__link">Бренди</a></li>
                                 <li class="footer-links__item"><a href="<?= Url::to(['/contact/view']) ?>"
