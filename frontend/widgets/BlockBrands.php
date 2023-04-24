@@ -3,6 +3,7 @@
 
 namespace frontend\widgets;
 
+use common\models\shop\Brand;
 use yii\base\Widget;
 
 class BlockBrands extends Widget
@@ -16,8 +17,8 @@ class BlockBrands extends Widget
 
     public function run()
     {
-
-        return $this->render('block-brands');
+$brands = Brand::find()->all();
+        return $this->render('block-brands', ['brands' => $brands]);
     }
 
 
