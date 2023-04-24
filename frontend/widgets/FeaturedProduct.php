@@ -18,7 +18,10 @@ class FeaturedProduct extends Widget
 
     public function run()
     {
-        $products = Product::find()->limit(20)->all();
+        $products = Product::find()
+            ->where('status_id != 2 and status_id != 4')
+            ->limit(20)
+            ->all();
 
         return $this->render('featured-product', ['products' => $products]);
     }
