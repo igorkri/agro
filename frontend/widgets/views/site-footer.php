@@ -26,10 +26,10 @@ use yii\helpers\Url;
                         <div class="site-footer__widget footer-links">
                             <h5 class="footer-links__title">Інформація</h5>
                             <ul class="footer-links__list">
-                                <li class="footer-links__item"><a href="/" class="footer-links__link">Про нас</a></li>
+                                <li class="footer-links__item"><a href="<?= Url::to(['/about/view']) ?>" class="footer-links__link">Про нас</a></li>
                                 <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
                                                                   class="footer-links__link">Про доставку</a></li>
-                                <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
+                                <li class="footer-links__item"><a href="/"
                                                                   class="footer-links__link">Конфіденційність</a></li>
                                 <li class="footer-links__item"><a href="/" class="footer-links__link">Бренди</a></li>
                                 <li class="footer-links__item"><a href="<?= Url::to(['/contact/view']) ?>"

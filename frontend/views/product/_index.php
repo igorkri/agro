@@ -1,7 +1,7 @@
 <?php
 /** @var yii\web\View $this */
 /** @var \common\models\shop\Product $product */
-/** @var \common\models\shop\Brand $brand */
+/** @var \common\models\shop\Brand $img_brand */
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Review $model_review */
@@ -140,7 +140,7 @@ $this->title = $product->seo_title;
                             <div>
                             <?php if ($product->brand_id != null): ?>
                                 <img src="/frontend/web/brand/<?= $img_brand->file ?>" alt="<?= $img_brand->name ?>"style="width: 100%;padding: 0px 0px 5px 0px;"">
-                            <? endif; ?>
+                            <?php endif; ?>
                             </div>
                             <ul class="payment-methods__list">
                                 <li class="payment-methods__item"
