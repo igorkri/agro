@@ -18,7 +18,10 @@ class Bestsellers extends Widget
 
     public function run()
     {
-        $products = Product::find()->with('label')->limit(6)->all();
+        $products = Product::find()
+            ->with('label')
+            ->limit(6)
+            ->all();
 
         return $this->render('bestsellers', ['products' => $products]);
     }
