@@ -8,7 +8,9 @@ use yii\helpers\Url;
 
 <div class="col-4">
     <div class="block-header">
+        <a href="<?= Url::to(['product-list/fungitsidi']) ?>"
         <h3 class="block-header__title">Фунгіциди</h3>
+        </a>
         <div class="block-header__divider"></div>
     </div>
     <div class="block-product-columns__column">

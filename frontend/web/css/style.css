@@ -634,6 +634,7 @@ h6 {
 // .block-header
 */
 .block-header {
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -646,6 +647,7 @@ h6 {
 .block-header__title {
   margin-bottom: 0;
   font-size: 20px;
+  color: inherit;
 }
 
 .block-header__divider {
