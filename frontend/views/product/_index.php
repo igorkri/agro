@@ -1,6 +1,7 @@
 <?php
 /** @var yii\web\View $this */
 /** @var \common\models\shop\Product $product */
+/** @var \common\models\shop\Brand $brand */
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Review $model_review */
@@ -63,7 +64,6 @@ $this->title = $product->seo_title;
                         <div class="product-gallery">
                             <?php if (!empty($product->images)) : ?>
                                 <div class="product-gallery__featured">
-
                                     <button class="product-gallery__zoom">
                                         <svg width="24px" height="24px">
                                             <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
@@ -104,7 +104,6 @@ $this->title = $product->seo_title;
                                         </svg>
                                     </button>
                                     <div class="owl-carousel" id="product-image">
-
                                         <div class="product-image product-image--location--gallery">
                                             <a href="/images/no-image.png" data-width="700" data-height="700"
                                                class="product-image__body" target="_blank">
@@ -112,19 +111,15 @@ $this->title = $product->seo_title;
                                                      alt="no image">
                                             </a>
                                         </div>
-
                                     </div>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </div>
-
                     <!-- .product__gallery / end -->
                     <!-- .product__info -->
                     <div class="product__info">
-
                         <h1 class="product__name"><?= $product->name ?></h1>
-
                         <div class="product__rating">
                             <div class="product__rating-stars">
                                 <?=$product->getRating($product->id)?>
@@ -133,18 +128,20 @@ $this->title = $product->seo_title;
                                 <?= $product->getRatingCount($product->id) ?>
                             </div>
                         </div>
-
                         <div class="product__description">
                             <?= $product->short_description ?>
                         </div>
-
-
                     </div>
                     <!-- .product__info / end -->
                     <!-- .product__sidebar -->
                     <div class="product__sidebar">
                         <!-- .product__options -->
                         <div class="payment-methods">
+                            <div>
+                            <?php if ($product->brand_id != null): ?>
+                                <img src="/frontend/web/brand/<?= $img_brand->file ?>" alt="<?= $img_brand->name ?>"style="width: 100%;padding: 0px 0px 5px 0px;"">
+                            <? endif; ?>
+                            </div>
                             <ul class="payment-methods__list">
                                 <li class="payment-methods__item"
                                     style="background: #ffe484;padding: 10px;color: black;">
@@ -234,7 +231,6 @@ $this->title = $product->seo_title;
                     <!-- .product__end -->
                     <div class="product__footer">
                         <div class="product__prices">
-
                             <?php foreach ($product->tags as $brand): ?>
                                 <button class="btn btn-secondary btn-xs"><?= $brand->name ?></button>
                             <?php endforeach; ?>
@@ -265,12 +261,9 @@ $this->title = $product->seo_title;
                                     </svg>
                                     <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                 </button>
-
                             </div>
                         </div>
-
                         <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
-
                     </div>
                     <div class="form-group product__option">
                         Наявність: <span class="text-success" style="padding: 3px 1px">
@@ -303,7 +296,6 @@ $this->title = $product->seo_title;
                                 }
                                 ?>
                             </span>
-
                     </div>
                 </div>
             </div>

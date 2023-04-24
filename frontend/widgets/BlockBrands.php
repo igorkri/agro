@@ -17,7 +17,7 @@ class BlockBrands extends Widget
 
     public function run()
     {
-$brands = Brand::find()->all();
+        $brands = Brand::find()->all();
         return $this->render('block-brands', ['brands' => $brands]);
     }
 

@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="site">
 
     <!-- mobile site__header -->
-          <?=$this->render('mobile-site-header')?>
+          <?= $this->render('mobile-site-header')?>
     <!-- mobile site__header / end -->
 
     <!-- desktop site__header -->

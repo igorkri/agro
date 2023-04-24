@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\shop\Brand;
 use common\models\shop\Review;
 use Spatie\SchemaOrg\Schema;
 use Yii;
@@ -15,8 +16,8 @@ class ProductController extends Controller
 {
     public function actionView($slug): string
     {
-
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
+        $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
 
         $model_review = new Review();
         $schemaProduct = Schema::product()
@@ -51,7 +52,8 @@ class ProductController extends Controller
         return $this->render('_index', [
             'product' => $product,
             'isset_to_cart' => $product->getIssetToCart($product->id),
-            'model_review' => $model_review
+            'model_review' => $model_review,
+            'img_brand' => $img_brand
         ]);
     }
 
