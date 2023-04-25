@@ -16,7 +16,6 @@ use yii\helpers\Url;
             <div class="block-products__featured">
                 <div class="block-products__featured-item">
                     <div class="product-card product-card--hidden-actions ">
-
                         <div class="product-card__badges-list">
                             <div class="product-card__badge product-card__badge--new"><?= $products[0]->label->name ?></div>
                         </div>
@@ -93,16 +92,16 @@ use yii\helpers\Url;
                 </div>
             </div>
             <div class="block-products__list">
+                <?php $i=0;?>
                 <?php foreach ($products as $product): ?>
+                <?php if ($i != 0): ?>
                     <div class="block-products__list-item">
                         <div class="product-card product-card--hidden-actions ">
-
                             <?php if (isset($product->label)): ?>
                                 <div class="product-card__badges-list">
                                     <div class="product-card__badge product-card__badge--hot"><?= $product->label->name ?></div>
                                 </div>
                             <?php endif; ?>
-
                                 <div class="product-card__image product-image">
                                     <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
                                        class="product-image__body">
@@ -110,7 +109,6 @@ use yii\helpers\Url;
                                              alt="">
                                     </a>
                                 </div>
-
                             <div class="product-card__info">
                                 <div class="product-card__name">
                                     <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
@@ -174,6 +172,8 @@ use yii\helpers\Url;
                             </div>
                         </div>
                     </div>
+                <?php endif; ?>
+                <?php $i++ ?>
                 <?php endforeach; ?>
             </div>
         </div>

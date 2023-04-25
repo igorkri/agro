@@ -20,7 +20,7 @@ class Bestsellers extends Widget
     {
         $products = Product::find()
             ->with('label')
-            ->limit(6)
+            ->limit(7)
             ->all();
 
         return $this->render('bestsellers', ['products' => $products]);
