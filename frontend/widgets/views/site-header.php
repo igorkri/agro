@@ -66,7 +66,7 @@ use yii\helpers\Url;
 
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="#">
+                                    <a class="nav-links__item-link" href="/">
                                         <div class="nav-links__item-body">
                                             Спеціальні пропозиції
                                         </div>
@@ -87,7 +87,7 @@ use yii\helpers\Url;
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="#">
+                                    <a class="nav-links__item-link" href="/">
                                         <div class="nav-links__item-body">
                                             Статті
                                         </div>
@@ -99,7 +99,7 @@ use yii\helpers\Url;
                         <div class="nav-panel__indicators">
 
                             <div class="indicator indicator--trigger--click cart-header">
-                                <a href="#" class="indicator__button ">
+                                <a href="/" class="indicator__button ">
                                     <span class="indicator__area">
                                         <svg width="20px" height="20px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
