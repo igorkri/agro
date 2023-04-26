@@ -99,7 +99,7 @@ use yii\helpers\Url;
                         <div class="nav-panel__indicators">
 
                             <div class="indicator indicator--trigger--click cart-header">
-                                <a href="/" class="indicator__button ">
+                                <a href="#" class="indicator__button ">
                                     <span class="indicator__area">
                                         <svg width="20px" height="20px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
