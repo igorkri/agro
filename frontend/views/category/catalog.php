@@ -7,8 +7,6 @@ use yii\helpers\Url;
 /** @var \common\models\shop\Product $pages */
 
 ?>
-
-
 <!-- site__body -->
 <div class="site__body">
     <div class="page-header">
@@ -52,20 +50,17 @@ use yii\helpers\Url;
                     <div class="products-view">
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
-
                                 <div class="view-options__layout">
                                     <div class="layout-switcher">
-
                                     </div>
                                 </div>
                                 <div class="view-options__legend">Показано <?= count($products) ?> товарів</div>
                                 <div class="view-options__divider"></div>
-
                             </div>
                         </div>
                         <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
                             <div class="products-list__body">
-                              <?php foreach ($products as $product): ?>  
+                              <?php foreach ($products as $product): ?>
                                 <div class="products-list__item">
                                     <div class="product-card product-card--hidden-actions ">
                                         <?php if (isset($product->label)): ?>
@@ -140,12 +135,11 @@ use yii\helpers\Url;
                                                         data-product-id="<?=$product->id?>">
                                                     <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                 </button>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                               <?php endforeach; ?> 
+                               <?php endforeach; ?>
                             </div>
                         </div>
                         <div style="display: block;margin: 60px 0px 0px 0px;">

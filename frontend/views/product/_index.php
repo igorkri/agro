@@ -249,6 +249,7 @@ $this->title = $product->seo_title;
                                     </div>
                                 </div>
                                 <!--                                <div class="product__actions-item product__actions-item--addtocart">-->
+                                <?php if ($product->status_id != 2): ?>
                                 <button class="btn btn-primary product-card__addtocart "
                                         type="button"
                                         data-product-id="<?= $product->id ?>"
@@ -261,6 +262,7 @@ $this->title = $product->seo_title;
                                     </svg>
                                     <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                 </button>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
