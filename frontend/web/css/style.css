@@ -3592,6 +3592,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .product-image__img {
+  overflow: hidden;
   display: block;
   position: absolute;
   width: 100%;
@@ -16236,3 +16237,10 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .block-banner__text:hover {
   color: #47991f;
 }
+
+.category-card__image:hover img {
+   -webkit-transform: scale(1.2);
+   -ms-transform: scale(1.2);
+   transform: scale(1.2);
+ }
+
