@@ -258,7 +258,7 @@
                 // let name = $('.product-card__addtocart').val();
                 let prodId = $(this).data('productId');
                 let valQty = $( '.input-number__input' ).val();
-                // console.log(name);
+                // console.log('valQty', valQty);
             // });
             let xhr = null;
             // timeout ONLY_FOR_DEMO!
@@ -267,7 +267,8 @@
                     url: '/cart/quickview',
                     data: {
                         id: prodId,
-                        qty: valQty
+                        qty: 1
+                        // qty: valQty
                     },
                     success: function(data) {
                         $.ajax({
@@ -992,7 +993,7 @@ function removeProduct(id){
 }
 
 function updateQty(prodId, qty){
-    console.log('4545', qty);
+    // console.log('4545', qty);
     if(qty != 0) {
         $.ajax({
             url: '/cart/update',
@@ -1011,7 +1012,7 @@ function updateQty(prodId, qty){
             }
         });
     }
-    $('.cart').html(data);
+    // $('.cart').html(data);
 }
 
 
