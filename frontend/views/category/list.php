@@ -39,7 +39,7 @@ use yii\helpers\Url;
                             <div class="products-list__body">
                                 <?php foreach ($categories as $category): ?>
                                 <div class="products-list__item">
-                                    <div class="product-card product-card--hidden-actions ">
+                                    <div class="product-card ">
                                         <div class="product-card__image product-image">
                                             <?php if(empty($category->products)): ?>
                                             <a href="<?=Url::to(['category/children', 'slug' => $category->slug])?>" class="product-image__body">

@@ -42,7 +42,7 @@ use yii\helpers\Url;
                             <div class="products-list__body">
                                 <?php foreach ($category->parents as $parent): ?>
                                     <div class="products-list__item">
-                                        <div class="product-card product-card--hidden-actions ">
+                                        <div class="product-card ">
                                             <div class="product-card__image product-image">
                                                 <a href="<?=Url::to(['category/catalog', 'slug' => $parent->slug])?>" class="product-image__body">
                                                     <img class="product-image__img" src="/category/<?= $parent->file ?>" alt="">
