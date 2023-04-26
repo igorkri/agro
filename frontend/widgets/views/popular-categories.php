@@ -16,11 +16,11 @@ use yii\helpers\Url;
             <div class="block-categories__item category-card category-card--layout--classic">
                 <div class="category-card__body">
                     <div class="category-card__image">
-                        <a href="<?= Url::to(['/catalog/nazva-dlya-vidobrazhennya-seo']) ?>"><img src="/category/<?= $categories[0]->file ?>" alt=""></a>
+                        <a href="<?= Url::to(['/catalog/zasobi-zahistu-roslin']) ?>"><img src="/category/<?= $categories[0]->file ?>" alt=""></a>
                     </div>
                     <div class="category-card__content">
                         <div class="category-card__name">
-                            <a href="<?= Url::to(['/catalog/nazva-dlya-vidobrazhennya-seo']) ?>"><?= $categories[0]->name ?></a>
+                            <a href="<?= Url::to(['/catalog/zasobi-zahistu-roslin']) ?>"><?= $categories[0]->name ?></a>
                         </div>
                     </div>
                 </div>
