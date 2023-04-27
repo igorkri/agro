@@ -3,6 +3,11 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+if ($total_summ === 0){
+    $h = 'Ваш кошик порожній';
+} else {
+    $h = 'Ваш кошик';
+}
 
 ?>
 <div class="quickview">
@@ -17,7 +22,7 @@ use yii\helpers\Url;
             <div class="page-header">
                 <div class="page-header__container container">
                     <div class="page-header__title">
-                        <h1>Ваш кошик</h1>
+                        <h1> <?= $h ?> </h1>
                     </div>
                 </div>
             </div>
@@ -115,8 +120,13 @@ use yii\helpers\Url;
                                         </tr>
                                         </tfoot>
                                     </table>
-                                    <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                                       href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                    <?php if ($total_summ != 0){ ?>
+                                        <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
+                                           href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                    <?php } else { ?>
+                                        <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
+                                           href="<?= Url::to(['/']) ?>">Дивитись товари</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

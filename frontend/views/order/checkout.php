@@ -111,7 +111,12 @@ $this->title = 'Оформлення замовлення';
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-xl btn-block">Зробити замовлення</button>
+                            <?php if ($total_summ != 0){ ?>
+                                <button type="submit" class="btn btn-primary btn-dec-xl btn-block">Зробити замовлення</button>
+                            <?php } else { ?>
+                                <a class="btn btn-primary btn-dec-xl btn-block"
+                                   href="<?= Url::to(['/']) ?>">Дивитись товари</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

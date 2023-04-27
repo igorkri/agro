@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-
 ?>
 
 <div class="cart block">
@@ -89,8 +88,13 @@ use yii\helpers\Url;
                             </tr>
                             </tfoot>
                         </table>
+                        <?php if ($total_summ != 0){ ?>
                         <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
                            href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                        <?php } else { ?>
+                            <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
+                               href="<?= Url::to(['/']) ?>">Дивитись товари</a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

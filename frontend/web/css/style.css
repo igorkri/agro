@@ -934,6 +934,14 @@ h6 {
   width: calc(2.75rem + 2px);
 }
 
+.btn-dec-xl {
+  font-size: 1.375rem;
+  height: calc(3.625rem + 2px);
+  padding: 0.125rem 3rem;
+  line-height: 1;
+  font-weight: 500;
+}
+
 .btn-xl {
   font-size: 1.375rem;
   height: calc(3.625rem + 2px);
