@@ -219,8 +219,8 @@ $this->title = $product->seo_title;
                                     <div class="payment-methods__item-container" style="">
                                         <div class="payment-methods__item-description text-muted">
                                             Гарантія на повернення ознайомтесь будь ласка з<a
-                                                    href="/company/vozvrat-i-garantii.html"
-                                                    target="_blank">правилами</a>
+                                                    href="/"
+                                                    target="_blank">_правилами</a>
                                         </div>
                                     </div>
                                 </li>
