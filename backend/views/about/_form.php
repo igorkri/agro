@@ -1,10 +1,11 @@
 <?php
 
 use vova07\imperavi\Widget;
+use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use yii\widgets\Breadcrumbs;
+
 
 /** @var yii\web\View $this */
 /** @var common\models\About $model */

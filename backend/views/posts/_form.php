@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
                                 ?>
                             </ol>
                         </nav>
-<!--                        <h1 class="h3 m-0">--><?//=$this->title?><!--</h1>-->
+<!--                        <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
                     </div>
                     <div class="col-auto d-flex">
                         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>

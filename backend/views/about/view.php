@@ -1,7 +1,8 @@
 <?php
 
+use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
+
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
@@ -21,7 +22,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col">
                     <nav class="mb-2" aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-sa-simple">
-
+                            <?php
+                            echo Breadcrumbs::widget([
+                                'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+                                'homeLink' => [
+                                    'label' => 'Главная ',
+                                    'url' => Yii::$app->homeUrl,
+                                ],
+                                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                            ]);
+                            ?>
                         </ol>
                     </nav>
                 </div>
