@@ -1,11 +1,12 @@
 <?php
 
 use common\models\About;
+use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\Breadcrumbs;
+
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\AboutSearch $searchModel */
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ?>
                         </ol>
                     </nav>
-                    <h1 class="h3 m-0"><?= $this->title ?></h1>
+<!--                    <h1 class="h3 m-0">--><?//= $this->title ?><!--</h1>-->
                 </div>
                 <div class="col-auto d-flex">
                     <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
@@ -80,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
 
-                                'id',
+//                                'id',
                                 'name',
                                 'description:raw',
                                 [

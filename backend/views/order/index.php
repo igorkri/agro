@@ -25,11 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col">
                         <nav class="mb-2" aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-sa-simple">
-                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+                                <?php echo Breadcrumbs::widget([
+                                    'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+                                    'homeLink' => [
+                                        'label' => Yii::t('app', 'Home'),
+                                        'url' => Yii::$app->homeUrl,
+                                    ],
+                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                ]);
+                                ?>
                             </ol>
                         </nav>
-                        <h1 class="h3 m-0">Orders</h1>
+<!--                        <h1 class="h3 m-0">Orders</h1>-->
                     </div>
 <!--                    <div class="col-auto d-flex"><a href="app-order.html" class="btn btn-primary">New order</a></div>-->
                 </div>
