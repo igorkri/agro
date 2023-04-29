@@ -201,7 +201,7 @@ use yii\helpers\Url;
                             </div>
                             <div class="card w-100 mt-5">
                                 <div class="card-body p-5">
-                                    <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Image')?></h2></div>
+                                    <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Image 700x700')?></h2></div>
                                     <div class="border p-4 d-flex justify-content-center">
                                         <div class="max-w-20x">
                                             <?php if($model->isNewRecord): ?>

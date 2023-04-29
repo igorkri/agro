@@ -65,7 +65,7 @@ use yii\widgets\ActiveForm;
                             <div class="card mt-5">
                                 <div class="card-body p-5">
                                     <div class="mb-5">
-                                        <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Logo')?></h2>
+                                        <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Logo 340x80')?></h2>
                                     </div>
                                     <div class="mb-4">
                                         <?php if($model->isNewRecord): ?>

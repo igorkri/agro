@@ -120,7 +120,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Image')?></h2>
+                                    <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Image 700x700')?></h2>
                                 </div>
                             </div>
                             <div class="mt-n5">
