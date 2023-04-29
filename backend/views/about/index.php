@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="top" class="sa-app__body">
     <div class="mx-xxl-3 px-4 px-sm-5">
+        <div class="container">
         <div class="py-5">
             <div class="row g-4 align-items-center">
                 <div class="col">
@@ -94,5 +95,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
