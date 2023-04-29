@@ -54,7 +54,7 @@ AppAsset::register($this);
                 <div class="sa-sidebar__body" data-simplebar="">
                     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
                         <li class="sa-nav__section">
-                            <div class="sa-nav__section-title"><span>-= МАГАЗИН =-</span></div>
+                            <div class="sa-nav__section-title"><h5>-= МАГАЗИН =-</h5></div>
                             <!-------- Menu --------->
                             <ul class="sa-nav__menu sa-nav__menu--root">
                                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
@@ -243,7 +243,7 @@ AppAsset::register($this);
         </div>
         <!-- sa-app__sidebar / end -->
         <div class="sa-app__content">
-            <!-- sa-app__toolbar -->
+            <!---- sa-app__toolbar ---->
             <div class="sa-toolbar sa-toolbar--search-hidden sa-app__toolbar">
                 <div class="sa-toolbar__body">
                     <div class="sa-toolbar__item">
