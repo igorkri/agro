@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             </ol>
                         </nav>
-                        <h1 class="h3 m-0"><?=$this->title?></h1>
+<!--                        <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
                     </div>
                     <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'New +')?></a></div>
                 </div>
