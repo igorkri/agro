@@ -49,19 +49,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     />
                 </div>
                 <div class="sa-divider"></div>
-
-
                         <?php echo GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
-
 //                                'id',
                                 'title',
-                                'description:ntext',
+//                                'description:ntext',
                                 'date_public',
-                                'image',
+//                                'image',
                                 [
                                     'class' => ActionColumn::className(),
                                     'urlCreator' => function ($action, Posts $model, $key, $index, $column) {

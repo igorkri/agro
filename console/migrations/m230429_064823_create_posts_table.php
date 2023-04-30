@@ -16,7 +16,7 @@ class m230429_064823_create_posts_table extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string()->comment('Название'),
             'description' => $this->text()->comment('Описание'),
-            'date_public' => $this->date()->comment('Дата публикации'),
+            'date_public' => $this->text()->comment('Дата публикации'),
             'image' => $this->string()->comment('Картинка'),
         ]);
     }

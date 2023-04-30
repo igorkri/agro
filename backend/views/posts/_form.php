@@ -1,6 +1,7 @@
 <?php
 
 use kartik\file\FileInput;
+use vova07\imperavi\Widget;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -46,22 +47,30 @@ use yii\widgets\ActiveForm;
                         <div class="card">
                             <div class="card-body p-5">
                                 <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Basic information')?></h2></div>
-                                <div class="mb-4">
-                                    <!--                                        <label for="form-brand/name" class="form-label">Name</label>-->
-                                    <!--                                        <input type="text" class="form-control" id="form-brand/name" value="Hand Tools" />-->
+                            <div class="row">
+                                <div class="col-8 mb-4">
                                     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                                 </div>
-                                <div class="mb-4">
-                                    <!--                                        <label for="form-brand/name" class="form-label">Name</label>-->
-                                    <!--                                        <input type="text" class="form-control" id="form-brand/name" value="Hand Tools" />-->
-                                    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-                                </div>
-                                <div class="mb-4">
-                                    <!--                                        <label for="form-brand/name" class="form-label">Name</label>-->
-                                    <!--                                        <input type="text" class="form-control" id="form-brand/name" value="Hand Tools" />-->
+                                <div class="col-4 mb-4">
                                     <?= $form->field($model, 'date_public')->textInput() ?>
                                 </div>
+                            </div>
 
+                                <div class="mb-4">
+                                    <?= $form->field($model, 'description')->widget(Widget::class, [
+                                        'defaultSettings' => [
+                                            'style' => 'position: unset;'
+                                        ],
+                                        'settings' => [
+                                            'lang' => 'uk',
+                                            'minHeight' => 100,
+                                            'plugins' => [
+                                                'fullscreen',
+                                                'table',
+                                            ],
+                                        ],
+                                    ]);?>
+                                </div>
                             </div>
                         </div>
                         <div class="card mt-5">
@@ -113,11 +122,8 @@ use yii\widgets\ActiveForm;
                                                 ],
                                                 'initialPreviewAsData'=>true,
                                             ]
-                                        ]);
-
-                                        ?>
+                                        ]); ?>
                                     <?php endif; ?>
-
                                 </div>
                             </div>
                         </div>
