@@ -13579,7 +13579,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     overflow: hidden;
   }
   .block-posts[data-layout=list] .post-card .post-card__read-more {
-    display: none;
+    /*display: none;*/
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -13647,6 +13647,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   .block-posts[data-layout=list] .post-card .post-card__content {
     width: 100%;
     margin-top: 12px;
+    height: 66px;
   }
   .block-posts[data-layout=list] .post-card .post-card__read-more {
     width: 100%;

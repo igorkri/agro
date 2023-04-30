@@ -4,6 +4,7 @@
 namespace frontend\widgets;
 
 
+use common\models\Posts;
 use common\models\shop\Category;
 use yii\base\Widget;
 
@@ -19,7 +20,9 @@ class BlockPosts extends Widget
     public function run()
     {
 
-        return $this->render('block-posts');
+        $posts = Posts::find()->all();
+
+        return $this->render('block-posts', ['posts' => $posts]);
     }
 
 

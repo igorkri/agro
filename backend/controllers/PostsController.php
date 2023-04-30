@@ -7,6 +7,8 @@ use backend\models\search\PostsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use Yii;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -70,12 +72,23 @@ class PostsController extends Controller
         $model = new Posts();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+//
+                $dir = Yii::getAlias('@frontendWeb/posts');
+
+                $file = UploadedFile::getInstance($model, 'image');
+                $imageName = uniqid();
+                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+                $model->image = $imageName . '.' . $file->extension;
+
+                if ($model->save()) {
+                    return $this->redirect(['index']);
+                }
             }
         } else {
             $model->loadDefaultValues();
         }
+
 
         return $this->render('create', [
             'model' => $model,
@@ -93,8 +106,26 @@ class PostsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $post_file = $_FILES['Posts']['size']['image'];
+            if($post_file <= 0 ){
+                $old = $this->findModel($id);
+                $model->image = $old->image;
+            }else {
+                $dir = Yii::getAlias('@frontendWeb/posts');
+
+                $file = UploadedFile::getInstance($model, 'image');
+                $imageName = uniqid();
+                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+                $model->image = $imageName . '.' . $file->extension;
+            }
+            if($model->save(false)) {
+                return $this->redirect(['index']);
+            }else{
+                debug($model->errors);
+                debug($model->image);
+                die;
+            }
         }
 
         return $this->render('update', [
