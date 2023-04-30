@@ -10,7 +10,14 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="container">
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'note')->textarea(['rows' => 4]) ?>
     <div class="row">
