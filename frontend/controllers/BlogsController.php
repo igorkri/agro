@@ -13,9 +13,9 @@ class BlogsController extends Controller
 
     public function actionView(){
 
-        $posts = Posts::find()->all();
+        $blogs = Posts::find()->all();
         $tags = Tag::find()->all();
-        return $this->render('view', ['posts' => $posts, 'tags' => $tags ]);
+        return $this->render('view', ['blogs' => $blogs, 'tags' => $tags, ]);
     }
 
 }
