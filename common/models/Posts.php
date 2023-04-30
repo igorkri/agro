@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $description Описание
  * @property string|null $date_public Дата публикации
  * @property string|null $image Картинка
+ * @property string|null $slug Слаг
  */
 class Posts extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,8 @@ class Posts extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['date_public'], 'safe'],
+            [['date_public'], 'string'],
+            [['slug'], 'string'],
             [['title', 'image'], 'string', 'max' => 255],
         ];
     }
@@ -46,6 +48,7 @@ class Posts extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Описание'),
             'date_public' => Yii::t('app', 'Дата публикации'),
             'image' => Yii::t('app', 'Картинка'),
+            'slug' => Yii::t('app', 'Слаг'),
         ];
     }
 }
