@@ -53,16 +53,11 @@ use yii\widgets\ActiveForm;
                                 <div class="card-body p-5">
                                     <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Basic information')?></h2></div>
                                     <div class="mb-4">
-                                        <!--                                        <label for="form-category/name" class="form-label">Name</label>-->
-                                        <!--                                        <input type="text" class="form-control" id="form-category/name" value="Hand Tools" />-->
                                         <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
