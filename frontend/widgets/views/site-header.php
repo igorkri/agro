@@ -6,10 +6,7 @@ use yii\helpers\Url;
 ?>
 
 <header class="site__header d-lg-block d-none">
-        <div class="site-header">
-            <!-- .topbar -->
-
-        <!-- .topbar / end -->
+    <div class="site-header">
         <div class="site-header__middle container">
             <div class="site-header__logo">
                 <a href="/">
@@ -40,7 +37,8 @@ use yii\helpers\Url;
             </div>
             <div class="site-header__phone">
                 <div class="site-header__phone-title">Номер для замовлення</div>
-                <div class="site-header__phone-number" style="margin: 0px 0px 6px 0px;"><?= $contacts->tel_primary ?></div>
+                <div class="site-header__phone-number"
+                     style="margin: 0px 0px 6px 0px;"><?= $contacts->tel_primary ?></div>
                 <div class="site-header__phone-number"><?= isset($contacts->tel_second) ? $contacts->tel_second : '' ?></div>
             </div>
         </div>
@@ -63,7 +61,6 @@ use yii\helpers\Url;
                                             Доставка та оплата
                                         </div>
                                     </a>
-
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="/">
@@ -97,14 +94,14 @@ use yii\helpers\Url;
                         </div>
                         <!-- .nav-links / end -->
                         <div class="nav-panel__indicators">
-
                             <div class="indicator indicator--trigger--click cart-header">
                                 <a href="#" class="indicator__button ">
                                     <span class="indicator__area">
                                         <svg width="20px" height="20px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        <span class="indicator__value" id="desc-qty-cart"><?= \Yii::$app->cart->getCount() ?></span>
+                                        <span class="indicator__value"
+                                              id="desc-qty-cart"><?= \Yii::$app->cart->getCount() ?></span>
                                     </span>
                                 </a>
                             </div>
