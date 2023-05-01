@@ -27,8 +27,7 @@ use yii\helpers\Url;
                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
                                         <!-- .megamenu -->
                                         <div class="megamenu  megamenu--departments ">
-                                            <div class="megamenu__body"
-                                                 <?php //$category->file?>');">
+                                            <div class="megamenu__body ">
                                                 <div class="row">
                                                     <?php foreach ($category->parents as $parent): ?>
                                                         <?php if ($parent->products): ?>

@@ -11,7 +11,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     </url>
     <?php foreach ($urls as $url) { ?>
         <url>
-            <loc><?= $host . $url['loc']; ?>.html</loc>
+            <loc><?= $host .'/product'. $url['loc']; ?></loc>
             <?php if (isset($url['lastmod'])) { ?>
                 <lastmod><?= $url['lastmod']; ?></lastmod>
             <?php } ?>

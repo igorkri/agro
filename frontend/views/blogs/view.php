@@ -1,3 +1,8 @@
+<?php
+
+use yii\bootstrap5\LinkPager;
+
+?>
 <!-- site__body -->
 <div class="site__body">
     <div class="page-header">
@@ -34,9 +39,7 @@
                         <!-- Пости -->
                         <div class="posts-view__list posts-list posts-list--layout--list">
                             <div class="posts-list__body">
-                                <?php use yii\bootstrap5\LinkPager;
-
-                                foreach ($blogs as $post ): ?>
+                                <?php foreach ($blogs as $post ): ?>
                                 <div class="posts-list__item">
                                     <div class="post-card post-card--layout--list post-card--size--nl">
                                         <div class="post-card__image">
