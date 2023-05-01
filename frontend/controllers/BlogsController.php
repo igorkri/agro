@@ -11,7 +11,8 @@ use yii\web\Controller;
 class BlogsController extends Controller
 {
 
-    public function actionView(){
+    public function actionView()
+    {
 
         $blogs = Posts::find()->all();
         $tags = Tag::find()->all();

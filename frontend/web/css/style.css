@@ -7897,7 +7897,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 // Pages
 // ---------------------------------------- */
 /*
-// .about-us
+// .about-us  .delivery-us
 */
 .about-us__image {
   background-image: url("../images/aboutus.jpg");
@@ -7924,6 +7924,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 .about-us__text_no_center {
   text-align: left;
+  margin: -21px -72px 0px -63px;
+}
+
+.delivery-us__text_no_center {
+  text-align: left;
+  margin: -16px -71px 0px -66px;
 }
 
 .about-us__team {
@@ -13561,7 +13567,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     margin-left: 22px;
   }
   .block-posts[data-layout=list] .post-card .post-card__name {
-    margin-top: 10px;
+    margin-top: 0px;
     font-size: 16px;
     line-height: 20px;
     -webkit-box-ordinal-group: 0;
@@ -13571,13 +13577,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     overflow: hidden;
   }
   .block-posts[data-layout=list] .post-card .post-card__date {
-    margin-top: 6px;
+    margin-top: -14px;
   }
   .block-posts[data-layout=list] .post-card .post-card__category {
     display: none;
   }
   .block-posts[data-layout=list] .post-card .post-card__content {
-    margin-top: 10px;
+    margin-top: 3px;
     font-size: 15px;
     line-height: 22px;
     /*height: 66px;*/
@@ -13656,7 +13662,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   .block-posts[data-layout=list] .post-card .post-card__content {
     width: 100%;
     margin-top: 12px;
-    height: 66px;
+    /*height: 66px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
   .block-posts[data-layout=list] .post-card .post-card__read-more {
     width: 100%;

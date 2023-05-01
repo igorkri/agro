@@ -1,6 +1,7 @@
 <?php
 
 use yii\bootstrap5\LinkPager;
+use yii\helpers\Url;
 
 ?>
 <!-- site__body -->
@@ -43,7 +44,7 @@ use yii\bootstrap5\LinkPager;
                                 <div class="posts-list__item">
                                     <div class="post-card post-card--layout--list post-card--size--nl">
                                         <div class="post-card__image">
-                                            <a href="/">
+                                            <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                                 <img src="/posts/<?= $post->image ?>" alt="">
                                             </a>
                                         </div>
@@ -59,7 +60,7 @@ use yii\bootstrap5\LinkPager;
                                                 <?= $post->description ?>
                                             </div>
                                             <div class="post-card__read-more">
-                                                <a href="" class="btn btn-secondary btn-sm">Читати більше...</a>
+                                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>" class="btn btn-secondary btn-sm">Докладніше...</a>
                                             </div>
                                         </div>
                                     </div>

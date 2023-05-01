@@ -1,3 +1,9 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
+
 <div class="block block-posts" data-layout="list" data-mobile-columns="1">
     <div class="container">
         <div class="block-header">
@@ -21,7 +27,7 @@
                 <?php foreach ($posts as $post): ?>
                     <div class="post-card  ">
                         <div class="post-card__image">
-                            <a href="/">
+                            <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                 <?php if ($post->image != null) ?>
                                     <img src="posts/<?= $post->image ?>" alt="">
                             </a>
@@ -31,14 +37,14 @@
                                 <a href="/">Special Offers</a>
                             </div>
                             <div class="post-card__name">
-                                <a href="/"><?= $post->title ?></a>
+                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
                             </div>
                             <div class="post-card__date"><?= $post->date_public ?></div>
                             <div class="post-card__content">
                                 <?= $post->description ?>
                             </div>
                             <div class="post-card__read-more">
-                                <a href="/" class="btn btn-secondary btn-sm">Читати більше...</a>
+                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>" class="btn btn-secondary btn-sm">Докладніше...</a>
                             </div>
                         </div>
                     </div>
