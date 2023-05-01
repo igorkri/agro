@@ -15,7 +15,7 @@ use yii\helpers\Url;
                 <a href="/">
                     <!-- logo -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="196px" height="26px">
-                        <img style="display: block;margin: -28px -12px 0px -28px; width: 237px; "
+                        <img style="display: block;margin: -48px -12px 0px -28px; width: 300px; "
                              src="/frontend/web/images/logos/logoagro.png" alt="">
                     </svg>
                     <!-- logo / end -->
