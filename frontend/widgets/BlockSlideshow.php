@@ -17,7 +17,7 @@ class BlockSlideshow extends Widget
 
     public function run()
     {
-        $slides = Slider::find()->all();
+        $slides = Slider::find()->where(['visible' => 1])->all();
         return $this->render('block-slideshow', ['slides' => $slides]);
     }
 
