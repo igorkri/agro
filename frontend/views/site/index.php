@@ -61,7 +61,6 @@ $this->title = Yii::$app->name;
     <div class="block block-product-columns d-lg-block d-none">
         <div class="container">
             <div class="row">
-
    <!-- .block-product-columns Top Rated Products-->
    <?php echo ColumnsTopRated::widget() ?>
    <!-- .block-product-columns Top Rated Products /end -->

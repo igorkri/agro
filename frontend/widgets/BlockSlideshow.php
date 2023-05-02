@@ -3,8 +3,7 @@
 
 namespace frontend\widgets;
 
-
-use common\models\shop\Category;
+use common\models\Slider;
 use yii\base\Widget;
 
 class BlockSlideshow extends Widget
@@ -18,8 +17,8 @@ class BlockSlideshow extends Widget
 
     public function run()
     {
-
-        return $this->render('block-slideshow');
+        $slides = Slider::find()->all();
+        return $this->render('block-slideshow', ['slides' => $slides]);
     }
 
 

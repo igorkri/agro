@@ -101,7 +101,7 @@ use yii\widgets\ActiveForm;
                                     <?php else: ?>
                                         <?php
 
-                                        echo $form->field($model, 'image')->widget(FileInput::classname(), [
+                                        echo $form->field($model, 'image')->widget(FileInput::class, [
                                             'options' => ['accept' => 'image/*'],
                                             'language' => 'uk',
                                             'pluginOptions' => [
@@ -128,7 +128,6 @@ use yii\widgets\ActiveForm;
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
