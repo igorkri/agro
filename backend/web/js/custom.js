@@ -78,7 +78,7 @@
                 paging: true,
                 ordering: false,
                 // order: [[0, 'asc']],
-                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Все"] ],
+                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Все"] ],
                 "language": {
                     "paginate": {
                       "next": "Следующая",
