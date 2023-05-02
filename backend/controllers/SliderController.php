@@ -110,8 +110,37 @@ class SliderController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $post_file = $_FILES['Slider']['size']['image'];
+            if($post_file <= 0 ){
+                $old = $this->findModel($id);
+                $model->image = $old->image;
+            }else {
+                $dir = Yii::getAlias('@frontendWeb/slider');
+
+                $file = UploadedFile::getInstance($model, 'image');
+                $imageName = uniqid();
+                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+                $model->image = $imageName . '.' . $file->extension;
+            }
+            $post_file_mob = $_FILES['Slider']['size']['image_mob'];
+            if($post_file_mob <= 0 ){
+                $old = $this->findModel($id);
+                $model->image_mob = $old->image_mob;
+            }else {
+                $dir = Yii::getAlias('@frontendWeb/slider');
+
+                $file_mob = UploadedFile::getInstance($model, 'image_mob');
+                $imageName_mob = uniqid();
+                $file_mob->saveAs($dir . '/' . $imageName_mob . '.' . $file_mob->extension);
+                $model->image_mob = $imageName_mob . '.' . $file_mob->extension;
+            }
+                if($model->save()) {
+                    return $this->redirect(['update', 'id' => $model->id]);
+                }else{
+                    debug($model->errors);
+                    die;
+            }
         }
 
         return $this->render('update', [
