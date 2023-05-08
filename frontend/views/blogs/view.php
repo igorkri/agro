@@ -12,23 +12,16 @@ use yii\helpers\Url;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Home</a>
+                            <a href="/">Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="">Breadcrumb</a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="images/sprite.svg#arrow-rounded-right-6x9"></use>
-                            </svg>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Latest News</li>
+                        <li class="breadcrumb-item active" aria-current="page">Статті</li>
                     </ol>
                 </nav>
             </div>
             <div class="page-header__title">
-<!--                <h1>Статті</h1>-->
             </div>
         </div>
     </div>
@@ -50,7 +43,6 @@ use yii\helpers\Url;
                                         </div>
                                         <div class="post-card__info">
                                             <div class="post-card__category">
-<!--                                                <a href="">Special Offers</a>-->
                                             </div>
                                             <div class="post-card__name">
                                                 <a href="/"><?= $post->title ?></a>
