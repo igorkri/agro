@@ -13763,6 +13763,11 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     margin-top: 6px;
     font-size: 14px;
     line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 }
 @media (max-width: 459px) {
@@ -13776,11 +13781,21 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     margin-top: 4px;
     font-size: 14px;
     line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .block-posts[data-layout=grid-4][data-mobile-columns="2"] .post-card .post-card__content {
     margin-top: 4px;
     font-size: 14px;
     line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 }
 

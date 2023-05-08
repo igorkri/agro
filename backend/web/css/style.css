@@ -4693,6 +4693,13 @@ input:checked + .sa-color-checkbox__box {
   border-radius: inherit;
 }
 
+.sa-brand img {
+  width: 50%;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+}
+
 .sa-symbol--shape--circle {
   border-radius: 0.5em;
 }

@@ -21,6 +21,8 @@ class ProductsCarousel extends Widget
         $products = Product::find()
             ->with('label')
             ->limit(20)
+            ->where(['status_id'=>1])
+            ->orderBy('id DESC')
             ->all();
 
         return $this->render('products-carousel', ['products' => $products]);

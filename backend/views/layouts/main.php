@@ -46,7 +46,7 @@ AppAsset::register($this);
                         <div class="sa-sidebar-logo">
                             <img style="display: block;margin: -1px -7px 1px -14px; width: 153px; "
                                  src="/backend/web/images/logoagro-admin.png" alt="">
-                            <div class="sa-sidebar-logo__caption">Admin</div>
+                            <div class="sa-sidebar-logo__caption">=Admin=</div>
                         </div>
                         <!-- logo / end -->
                     </a>

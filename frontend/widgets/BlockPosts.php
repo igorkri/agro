@@ -21,7 +21,7 @@ class BlockPosts extends Widget
     {
 
         $posts = Posts::find()->all();
-        return $this->render('block-posts', ['posts' => $posts]);
+        return $this->render('block-posts-4', ['posts' => $posts]);
     }
 
 
