@@ -45,7 +45,7 @@ use yii\helpers\Url;
                                             <div class="post-card__category">
                                             </div>
                                             <div class="post-card__name">
-                                                <a href="/"><?= $post->title ?></a>
+                                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
                                             </div>
                                             <div class="post-card__date"><?= $post->date_public ?></div>
                                             <div class="post-card__content">
