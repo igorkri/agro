@@ -36,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             </ol>
                         </nav>
-<!--                        <h1 class="h3 m-0">Orders</h1>-->
                     </div>
 <!--                    <div class="col-auto d-flex"><a href="app-order.html" class="btn btn-primary">New order</a></div>-->
                 </div>
@@ -104,12 +103,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </svg>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="order-context-menu-0">
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Duplicate</a></li>
-                                    <li><a class="dropdown-item" href="#">Add tag</a></li>
-                                    <li><a class="dropdown-item" href="#">Remove tag</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+<!--                                    <li><a class="dropdown-item" href="#">Edit</a></li>-->
+<!--                                    <li><a class="dropdown-item" href="#">Duplicate</a></li>-->
+<!--                                    <li><a class="dropdown-item" href="#">Add tag</a></li>-->
+<!--                                    <li><a class="dropdown-item" href="#">Remove tag</a></li>-->
+<!--                                    <li><hr class="dropdown-divider" /></li>-->
+                                    <li>
+                                        <?= Html::a(Yii::t('app', 'View'), ['view', 'id' => $order->id], [
+                                            'class' => 'dropdown-item text-info',
+                                        ]) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $order->id], [
+                                            'class' => 'dropdown-item text-warning',
+                                        ]) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $order->id], [
+                                            'class' => 'dropdown-item text-danger',
+                                            'data' => [
+                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                'method' => 'post',
+                                            ],
+                                        ]) ?>
+                                    </li>
                                 </ul>
                             </div>
                         </td>
