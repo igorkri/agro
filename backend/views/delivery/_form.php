@@ -1,30 +1,14 @@
 <?php
 
 use vova07\imperavi\Widget;
+use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\widgets\Breadcrumbs;
 
 /** @var yii\web\View $this */
 /** @var common\models\Delivery $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
-<!--<div class="delivery-form">-->
-<!---->
-<!--    --><?php //$form = ActiveForm::begin(); ?>
-<!---->
-<!--    --><?//= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-<!---->
-<!--    --><?//= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-<!---->
-<!--    <div class="form-group">-->
-<!--        --><?//= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-<!--    </div>-->
-<!---->
-<!--    --><?php //ActiveForm::end(); ?>
-<!---->
-<!--</div>-->
 
 <?php $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
 <div id="top" class="sa-app__body">
@@ -47,14 +31,11 @@ use yii\widgets\Breadcrumbs;
                                 ?>
                             </ol>
                         </nav>
-                        <h1 class="h3 m-0"><?= $this->title ?></h1>
                     </div>
 
                     <div class="col-auto d-flex">
                         <?php if(!$model->isNewRecord): ?>
-                            <!--                            <a href="#" class="btn btn-secondary me-3">--><?php ////Yii::t('app', 'Duplicate')?><!--</a>-->
-                            <?php // Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
-                            <?php // Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
+
                         <?php endif; ?>
                         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
                     </div>
@@ -97,7 +78,6 @@ use yii\widgets\Breadcrumbs;
                                     ]);?>
 
                                 </div>
-
                             </div>
                         </div>
                     </div>

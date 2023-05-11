@@ -1,11 +1,11 @@
 <?php
 
 use common\models\Delivery;
+use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\Breadcrumbs;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\DeliverySearch $searchModel */
@@ -14,34 +14,6 @@ use yii\widgets\Breadcrumbs;
 $this->title = Yii::t('app', 'Deliveries');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!--<div class="container">-->
-<!---->
-<!--    <p>-->
-<!--        --><?//= Html::a(Yii::t('app', 'Create Delivery'), ['create'], ['class' => 'btn btn-success']) ?>
-<!--    </p>-->
-<!---->
-<!--    --><?php //// echo $this->render('_search', ['model' => $searchModel]); ?>
-<!---->
-<!--    --><?//= GridView::widget([
-//        'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
-//        'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
-//
-//            'id',
-//            'name',
-//            'description:ntext',
-//            [
-//                'class' => ActionColumn::className(),
-//                'urlCreator' => function ($action, Delivery $model, $key, $index, $column) {
-//                    return Url::toRoute([$action, 'id' => $model->id]);
-//                 }
-//            ],
-//        ],
-//    ]); ?>
-<!---->
-<!---->
-<!--</div>-->
 
 <div id="top" class="sa-app__body">
     <div class="mx-xxl-3 px-4 px-sm-5">
@@ -61,11 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ?>
                         </ol>
                     </nav>
-                    <h1 class="h3 m-0"><?= $this->title ?></h1>
                 </div>
                 <div class="col-auto d-flex">
-                    <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
-                                                    class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a></div>
+<!--                    <div class="col-auto d-flex"><a href="--><?php //= Url::to(['create']) ?><!--"-->
+<!--                                                    class="btn btn-primary">--><?php //= Yii::t('app', 'New +') ?><!--</a></div>-->
                 </div>
             </div>
         </div>
@@ -108,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
 
-                                'id',
+//                                'id',
                                 'name',
                                 'description:raw',
                                 [
