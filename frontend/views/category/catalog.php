@@ -27,12 +27,12 @@ use yii\helpers\Url;
                             </svg>
                         </li>
                         <?php if (isset($category->parent)): ?>
-                        <li class="breadcrumb-item">
-                            <a href="<?= Url::to(['category/children', 'slug' => $category->parent->slug ]) ?>"><?= $category->parent->name ?></a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
-                            </svg>
-                        </li>
+                            <li class="breadcrumb-item">
+                                <a href="<?= Url::to(['category/children', 'slug' => $category->parent->slug]) ?>"><?= $category->parent->name ?></a>
+                                <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                    <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                </svg>
+                            </li>
                         <?php endif; ?>
                         <li class="breadcrumb-item active" aria-current="page"><?= $category->name ?></li>
                     </ol>
@@ -58,39 +58,44 @@ use yii\helpers\Url;
                                 <div class="view-options__divider"></div>
                             </div>
                         </div>
-                        <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
+                        <div class="products-view__list products-list" data-layout="grid-4-full"
+                             data-with-features="false" data-mobile-grid-columns="2">
                             <div class="products-list__body">
-                              <?php foreach ($products as $product): ?>
-                                <div class="products-list__item">
-                                    <div class="product-card product-card--hidden-actions ">
-                                        <?php if (isset($product->label)): ?>
-                                        <div class="product-card__badges-list">
-                                            <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
-                                        </div>
-                                        <?php endif; ?>
-                                        <div class="product-card__image product-image">
-                                            <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>" class="product-image__body">
-                                                <img class="product-image__img" src="<?= $product->getImgOne($product->getId()) ?>" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="product-card__info">
-                                            <div class="product-card__name">
-                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                            </div>
-                                            <div class="product-card__rating">
-                                                <div class="product-card__rating-stars">
-                                                    <?=$product->getRating($product->id, 13, 12)?>
+                                <?php foreach ($products as $product): ?>
+                                    <div class="products-list__item">
+                                        <div class="product-card product-card--hidden-actions ">
+                                            <?php if (isset($product->label)): ?>
+                                                <div class="product-card__badges-list">
+                                                    <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
                                                 </div>
-                                                <div class="product-card__rating-legend"><?=count($product->reviews)?> відгуків</div>
+                                            <?php endif; ?>
+                                            <div class="product-card__image product-image">
+                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
+                                                   class="product-image__body">
+                                                    <img class="product-image__img"
+                                                         src="<?= $product->getImgOne($product->getId()) ?>" alt="">
+                                                </a>
                                             </div>
-                                        </div>
-                                        <div class="product-card__actions">
-                                            <div class="product-card__availability">
-                                                Availability: <span class="text-success">In Stock</span>
+                                            <div class="product-card__info">
+                                                <div class="product-card__name">
+                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                                </div>
+                                                <div class="product-card__rating">
+                                                    <div class="product-card__rating-stars">
+                                                        <?= $product->getRating($product->id, 13, 12) ?>
+                                                    </div>
+                                                    <div class="product-card__rating-legend"><?= count($product->reviews) ?>
+                                                        відгуків
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="product-card__prices">
-                                                <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                                <div class="form-group product__option">
+                                            <div class="product-card__actions">
+                                                <div class="product-card__availability">
+                                                    Availability: <span class="text-success">In Stock</span>
+                                                </div>
+                                                <div class="product-card__prices">
+                                                    <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                                    <div class="form-group product__option">
                                         <span class="text-success" style="padding: 3px 1px">
                                 <?php
                                 if ($product->status_id == 1) {
@@ -122,40 +127,42 @@ use yii\helpers\Url;
                                 ?>
                             </span>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="product-card__buttons">
-                                                <button class="btn btn-primary product-card__addtocart "
-                                                        type="button"
-                                                        data-product-id="<?=$product->id?>">
-                                                    <svg width="20px" height="20px" style="display: unset;">
-                                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                                    </svg>
-                                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
-                                                </button>
-                                                <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                                        type="button"
-                                                        data-product-id="<?=$product->id?>">
-                                                    <svg width="20px" height="20px" style="display: unset;">
-                                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                                    </svg>
-                                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
-                                                </button>
+                                                <?php if ($product->status_id != 2): ?>
+                                                    <div class="product-card__buttons">
+                                                        <button class="btn btn-primary product-card__addtocart "
+                                                                type="button"
+                                                                data-product-id="<?= $product->id ?>">
+                                                            <svg width="20px" height="20px" style="display: unset;">
+                                                                <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                                            </svg>
+                                                            <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                                        </button>
+                                                        <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
+                                                                type="button"
+                                                                data-product-id="<?= $product->id ?>">
+                                                            <svg width="20px" height="20px" style="display: unset;">
+                                                                <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                                            </svg>
+                                                            <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                                        </button>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                               <?php endforeach; ?>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                         <div style="display: block;margin: 60px 0px 0px 0px;">
                             <ul class="pagination justify-content-center">
                                 <li>
-                                <?= LinkPager::widget(['pagination' => $pages,]) ?>
+                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
                                 </li>
                             </ul>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,7 +178,8 @@ use yii\helpers\Url;
                     </button>
                 </div>
                 <div class="block-sidebar__item">
-                    <div class="widget-filters widget widget-filters--offcanvas--always" data-collapse data-collapse-opened-class="filter--opened">
+                    <div class="widget-filters widget widget-filters--offcanvas--always" data-collapse
+                         data-collapse-opened-class="filter--opened">
                         <h4 class="widget-filters__title widget__title">Filters</h4>
                         <div class="widget-filters__list">
                             <div class="widget-filters__item">
@@ -265,106 +273,142 @@ use yii\helpers\Url;
                                     <div class="filter__body" data-collapse-content>
                                         <div class="filter__container">
                                             <div class="filter-categories-alt">
-                                                <ul class="filter-categories-alt__list filter-categories-alt__list--level--1" data-collapse-opened-class="filter-categories-alt__item--open">
+                                                <ul class="filter-categories-alt__list filter-categories-alt__list--level--1"
+                                                    data-collapse-opened-class="filter-categories-alt__item--open">
                                                     <li class="filter-categories-alt__item" data-collapse-item>
                                                         <a href="">Clothes & PPE</a>
                                                     </li>
                                                     <li class="filter-categories-alt__item" data-collapse-item>
-                                                        <button class="filter-categories-alt__expander" data-collapse-trigger></button>
+                                                        <button class="filter-categories-alt__expander"
+                                                                data-collapse-trigger></button>
                                                         <a href="">Power Tools</a>
-                                                        <div class="filter-categories-alt__children" data-collapse-content>
+                                                        <div class="filter-categories-alt__children"
+                                                             data-collapse-content>
                                                             <ul class="filter-categories-alt__list filter-categories-alt__list--level--2">
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Engravers</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Drills</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Wrenches</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Plumbing</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Wall Chaser</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Pneumatic Tools</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Milling Cutters</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </li>
-                                                    <li class="filter-categories-alt__item filter-categories-alt__item--open filter-categories-alt__item--current" data-collapse-item>
-                                                        <button class="filter-categories-alt__expander" data-collapse-trigger></button>
+                                                    <li class="filter-categories-alt__item filter-categories-alt__item--open filter-categories-alt__item--current"
+                                                        data-collapse-item>
+                                                        <button class="filter-categories-alt__expander"
+                                                                data-collapse-trigger></button>
                                                         <a href="">Hand Tools</a>
-                                                        <div class="filter-categories-alt__children" data-collapse-content>
+                                                        <div class="filter-categories-alt__children"
+                                                             data-collapse-content>
                                                             <ul class="filter-categories-alt__list filter-categories-alt__list--level--2">
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Screwdrivers</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item filter-categories-alt__item--current" data-collapse-item>
-                                                                    <button class="filter-categories-alt__expander" data-collapse-trigger></button>
+                                                                <li class="filter-categories-alt__item filter-categories-alt__item--current"
+                                                                    data-collapse-item>
+                                                                    <button class="filter-categories-alt__expander"
+                                                                            data-collapse-trigger></button>
                                                                     <a href="">Handsaws</a>
-                                                                    <div class="filter-categories-alt__children" data-collapse-content>
+                                                                    <div class="filter-categories-alt__children"
+                                                                         data-collapse-content>
                                                                         <ul class="filter-categories-alt__list filter-categories-alt__list--level--3">
-                                                                            <li class="filter-categories-alt__item" data-collapse-item>
+                                                                            <li class="filter-categories-alt__item"
+                                                                                data-collapse-item>
                                                                                 <a href="">Power Saws</a>
                                                                             </li>
-                                                                            <li class="filter-categories-alt__item" data-collapse-item>
+                                                                            <li class="filter-categories-alt__item"
+                                                                                data-collapse-item>
                                                                                 <a href="">Hacksaws</a>
                                                                             </li>
-                                                                            <li class="filter-categories-alt__item filter-categories-alt__item--current" data-collapse-item>
-                                                                                <button class="filter-categories-alt__expander" data-collapse-trigger></button>
+                                                                            <li class="filter-categories-alt__item filter-categories-alt__item--current"
+                                                                                data-collapse-item>
+                                                                                <button class="filter-categories-alt__expander"
+                                                                                        data-collapse-trigger></button>
                                                                                 <a href="">Deep Dive</a>
-                                                                                <div class="filter-categories-alt__children" data-collapse-content>
+                                                                                <div class="filter-categories-alt__children"
+                                                                                     data-collapse-content>
                                                                                     <ul class="filter-categories-alt__list filter-categories-alt__list--level--4">
-                                                                                        <li class="filter-categories-alt__item" data-collapse-item>
+                                                                                        <li class="filter-categories-alt__item"
+                                                                                            data-collapse-item>
                                                                                             <a href="">Submarines</a>
                                                                                         </li>
-                                                                                        <li class="filter-categories-alt__item" data-collapse-item>
+                                                                                        <li class="filter-categories-alt__item"
+                                                                                            data-collapse-item>
                                                                                             <a href="">Silt In Bags</a>
                                                                                         </li>
-                                                                                        <li class="filter-categories-alt__item" data-collapse-item>
+                                                                                        <li class="filter-categories-alt__item"
+                                                                                            data-collapse-item>
                                                                                             <a href="">Black Pearl</a>
                                                                                         </li>
-                                                                                        <li class="filter-categories-alt__item" data-collapse-item>
+                                                                                        <li class="filter-categories-alt__item"
+                                                                                            data-collapse-item>
                                                                                             <a href="">Krakens</a>
                                                                                         </li>
-                                                                                        <li class="filter-categories-alt__item" data-collapse-item>
+                                                                                        <li class="filter-categories-alt__item"
+                                                                                            data-collapse-item>
                                                                                             <a href="">Nautilus</a>
                                                                                         </li>
-                                                                                        <li class="filter-categories-alt__item" data-collapse-item>
-                                                                                            <a href="">Mariana Trench</a>
+                                                                                        <li class="filter-categories-alt__item"
+                                                                                            data-collapse-item>
+                                                                                            <a href="">Mariana
+                                                                                                Trench</a>
                                                                                         </li>
                                                                                     </ul>
                                                                                 </div>
                                                                             </li>
-                                                                            <li class="filter-categories-alt__item" data-collapse-item>
+                                                                            <li class="filter-categories-alt__item"
+                                                                                data-collapse-item>
                                                                                 <a href="">Chain Saws</a>
                                                                             </li>
-                                                                            <li class="filter-categories-alt__item" data-collapse-item>
+                                                                            <li class="filter-categories-alt__item"
+                                                                                data-collapse-item>
                                                                                 <a href="">Two-handed Saws</a>
                                                                             </li>
-                                                                            <li class="filter-categories-alt__item" data-collapse-item>
+                                                                            <li class="filter-categories-alt__item"
+                                                                                data-collapse-item>
                                                                                 <a href="">Other</a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Knives</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Axes</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Multitools</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Paint Tools</a>
                                                                 </li>
                                                             </ul>
@@ -374,20 +418,26 @@ use yii\helpers\Url;
                                                         <a href="">Measurement</a>
                                                     </li>
                                                     <li class="filter-categories-alt__item" data-collapse-item>
-                                                        <button class="filter-categories-alt__expander" data-collapse-trigger></button>
+                                                        <button class="filter-categories-alt__expander"
+                                                                data-collapse-trigger></button>
                                                         <a href="">Garden Equipment</a>
-                                                        <div class="filter-categories-alt__children" data-collapse-content>
+                                                        <div class="filter-categories-alt__children"
+                                                             data-collapse-content>
                                                             <ul class="filter-categories-alt__list filter-categories-alt__list--level--2">
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Motor Pumps</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Chainsaws</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Electric Saws</a>
                                                                 </li>
-                                                                <li class="filter-categories-alt__item" data-collapse-item>
+                                                                <li class="filter-categories-alt__item"
+                                                                    data-collapse-item>
                                                                     <a href="">Brush Cutters</a>
                                                                 </li>
                                                             </ul>
@@ -409,9 +459,12 @@ use yii\helpers\Url;
                                     </button>
                                     <div class="filter__body" data-collapse-content>
                                         <div class="filter__container">
-                                            <div class="filter-price" data-min="500" data-max="1500" data-from="590" data-to="1130">
+                                            <div class="filter-price" data-min="500" data-max="1500" data-from="590"
+                                                 data-to="1130">
                                                 <div class="filter-price__slider"></div>
-                                                <div class="filter-price__title">Price: $<span class="filter-price__min-value"></span> – $<span class="filter-price__max-value"></span></div>
+                                                <div class="filter-price__title">Price: $<span
+                                                            class="filter-price__min-value"></span> – $<span
+                                                            class="filter-price__max-value"></span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -432,9 +485,11 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
-                                                                        <input class="input-check__input" type="checkbox">
+                                                                        <input class="input-check__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px" height="7px">
+                                                                        <svg class="input-check__icon" width="9px"
+                                                                             height="7px">
                                                                             <use xlink:href="/images/sprite.svg#check-9x7"></use>
                                                                         </svg>
                                                                     </span>
@@ -447,9 +502,11 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
-                                                                        <input class="input-check__input" type="checkbox" checked>
+                                                                        <input class="input-check__input"
+                                                                               type="checkbox" checked>
                                                                         <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px" height="7px">
+                                                                        <svg class="input-check__icon" width="9px"
+                                                                             height="7px">
                                                                             <use xlink:href="/images/sprite.svg#check-9x7"></use>
                                                                         </svg>
                                                                     </span>
@@ -462,9 +519,11 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item  filter-list__item--disabled ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
-                                                                        <input class="input-check__input" type="checkbox" checked disabled>
+                                                                        <input class="input-check__input"
+                                                                               type="checkbox" checked disabled>
                                                                         <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px" height="7px">
+                                                                        <svg class="input-check__icon" width="9px"
+                                                                             height="7px">
                                                                             <use xlink:href="/images/sprite.svg#check-9x7"></use>
                                                                         </svg>
                                                                     </span>
@@ -476,9 +535,11 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item  filter-list__item--disabled ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
-                                                                        <input class="input-check__input" type="checkbox" disabled>
+                                                                        <input class="input-check__input"
+                                                                               type="checkbox" disabled>
                                                                         <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px" height="7px">
+                                                                        <svg class="input-check__icon" width="9px"
+                                                                             height="7px">
                                                                             <use xlink:href="/images/sprite.svg#check-9x7"></use>
                                                                         </svg>
                                                                     </span>
@@ -490,9 +551,11 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
-                                                                        <input class="input-check__input" type="checkbox">
+                                                                        <input class="input-check__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px" height="7px">
+                                                                        <svg class="input-check__icon" width="9px"
+                                                                             height="7px">
                                                                             <use xlink:href="/images/sprite.svg#check-9x7"></use>
                                                                         </svg>
                                                                     </span>
@@ -505,9 +568,11 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
-                                                                        <input class="input-check__input" type="checkbox">
+                                                                        <input class="input-check__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px" height="7px">
+                                                                        <svg class="input-check__icon" width="9px"
+                                                                             height="7px">
                                                                             <use xlink:href="/images/sprite.svg#check-9x7"></use>
                                                                         </svg>
                                                                     </span>
@@ -538,7 +603,8 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
-                                                                        <input class="input-radio__input" name="filter_radio" type="radio">
+                                                                        <input class="input-radio__input"
+                                                                               name="filter_radio" type="radio">
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span>
@@ -550,7 +616,8 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
-                                                                        <input class="input-radio__input" name="filter_radio" type="radio">
+                                                                        <input class="input-radio__input"
+                                                                               name="filter_radio" type="radio">
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span>
@@ -562,7 +629,9 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item  filter-list__item--disabled ">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
-                                                                        <input class="input-radio__input" name="filter_radio" type="radio" checked disabled>
+                                                                        <input class="input-radio__input"
+                                                                               name="filter_radio" type="radio" checked
+                                                                               disabled>
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span>
@@ -573,7 +642,9 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item  filter-list__item--disabled ">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
-                                                                        <input class="input-radio__input" name="filter_radio" type="radio" disabled>
+                                                                        <input class="input-radio__input"
+                                                                               name="filter_radio" type="radio"
+                                                                               disabled>
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span>
@@ -584,7 +655,8 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
-                                                                        <input class="input-radio__input" name="filter_radio" type="radio">
+                                                                        <input class="input-radio__input"
+                                                                               name="filter_radio" type="radio">
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span>
@@ -596,7 +668,8 @@ use yii\helpers\Url;
                                                     <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-radio">
                                                                     <span class="input-radio__body">
-                                                                        <input class="input-radio__input" name="filter_radio" type="radio">
+                                                                        <input class="input-radio__input"
+                                                                               name="filter_radio" type="radio">
                                                                         <span class="input-radio__circle"></span>
                                                                     </span>
                                                                 </span>
@@ -624,11 +697,14 @@ use yii\helpers\Url;
                                             <div class="filter-color">
                                                 <div class="filter-color__list">
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  input-check-color--white  " style="color: #fff;">
+                                                                <span class="filter-color__check input-check-color  input-check-color--white  "
+                                                                      style="color: #fff;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -636,11 +712,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color   input-check-color--light " style="color: #d9d9d9;">
+                                                                <span class="filter-color__check input-check-color   input-check-color--light "
+                                                                      style="color: #d9d9d9;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -648,11 +727,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #b3b3b3;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #b3b3b3;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -660,11 +742,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #808080;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #808080;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -672,11 +757,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #666;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #666;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -684,11 +772,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #4d4d4d;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #4d4d4d;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -696,11 +787,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #262626;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #262626;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -708,11 +802,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #ff4040;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #ff4040;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox" checked>
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox" checked>
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -720,11 +817,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #ff8126;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #ff8126;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -732,11 +832,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color   input-check-color--light " style="color: #ffd440;">
+                                                                <span class="filter-color__check input-check-color   input-check-color--light "
+                                                                      style="color: #ffd440;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -744,11 +847,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color   input-check-color--light " style="color: #becc1f;">
+                                                                <span class="filter-color__check input-check-color   input-check-color--light "
+                                                                      style="color: #becc1f;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -756,11 +862,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #8fcc14;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #8fcc14;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox" checked>
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox" checked>
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -768,11 +877,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #47cc5e;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #47cc5e;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -780,11 +892,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #47cca0;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #47cca0;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -792,11 +907,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #47cccc;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #47cccc;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -804,11 +922,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #40bfff;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #40bfff;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox" disabled>
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox" disabled>
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -816,11 +937,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #3d6dcc;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #3d6dcc;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox" checked>
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox" checked>
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -828,11 +952,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #7766cc;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #7766cc;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -840,11 +967,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #b852cc;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #b852cc;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
@@ -852,11 +982,14 @@ use yii\helpers\Url;
                                                                 </span>
                                                     </label>
                                                     <label class="filter-color__item">
-                                                                <span class="filter-color__check input-check-color  " style="color: #e53981;">
+                                                                <span class="filter-color__check input-check-color  "
+                                                                      style="color: #e53981;">
                                                                     <label class="input-check-color__body">
-                                                                        <input class="input-check-color__input" type="checkbox">
+                                                                        <input class="input-check-color__input"
+                                                                               type="checkbox">
                                                                         <span class="input-check-color__box"></span>
-                                                                        <svg class="input-check-color__icon" width="12px" height="9px">
+                                                                        <svg class="input-check-color__icon"
+                                                                             width="12px" height="9px">
                                                                             <use xlink:href="/images/sprite.svg#check-12x9"></use>
                                                                         </svg>
                                                                         <span class="input-check-color__stick"></span>
