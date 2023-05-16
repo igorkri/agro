@@ -31,11 +31,11 @@ class Posts extends \yii\db\ActiveRecord
         return [
             [
                 'class' => SluggableBehavior::class,
-                'attribute' => 'title',
+                'attribute' => 'title',                 // создание слага
                 'slugAttribute' => 'slug',
             ],
             'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
+                'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
                 ],

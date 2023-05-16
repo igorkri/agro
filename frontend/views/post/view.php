@@ -36,7 +36,7 @@ use yii\helpers\Url;
                     <div class="post__header post-header post-header--layout--classic">
                         <h2 class="post-header__title"><?= $post->title ?></h2>
                         <div class="post-header__meta">
-                            <div class="post-header__meta-item"><a href=""><?= $post->date_public ?></a></div>
+                            <div class="post-header__meta-item"><a><?= Yii::$app->formatter->asDate($post->date_public) ?></a></div>
                         </div>
                     </div>
                     <div class="post__featured">
@@ -69,7 +69,7 @@ use yii\helpers\Url;
                                         <div class="widget-posts__name">
                                             <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
                                         </div>
-                                        <div class="widget-posts__date"><?=$post->date_public ?></div>
+                                        <div class="widget-posts__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
                                     </div>
                                 </div>
                                 <?php endforeach; ?>

@@ -4,6 +4,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var common\models\Posts $model */
@@ -57,7 +58,19 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'id',
                             'title',
                             'description:raw',
-                            'date_public',
+                     //       'date_public',
+                            [
+                                'attribute' => 'date_public',
+                                'filter' => false,
+                                'value' => function($model){
+                                    return Yii::$app->formatter->asDate($model->date_public, 'long');
+                                },
+                                'width' => '5%',
+                                'vAlign' => GridView::ALIGN_MIDDLE,
+                                'hAlign' => GridView::ALIGN_CENTER,
+
+                            ],
+                            'slug',
                             [
                                 'attribute' => 'image',
                                 'format' => 'html',
@@ -67,7 +80,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]) ?>
-
                 </div>
             </div>
         </div>

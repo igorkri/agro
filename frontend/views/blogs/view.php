@@ -48,7 +48,7 @@ use yii\helpers\Url;
                                             <div class="post-card__name">
                                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
                                             </div>
-                                            <div class="post-card__date"><?= $post->date_public ?></div>
+                                            <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
                                             <div class="post-card__content">
                                                 <?= $post->description ?>
                                             </div>
