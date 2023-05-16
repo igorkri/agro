@@ -65,6 +65,7 @@ use yii\helpers\Url;
                                         <?=$this->render('status',['product' => $product])?>
                                         <!-- status / end -->
                                     </div>
+                                    <?php if ($product->status_id != 2): ?>
                                     <div class="product-card__buttons">
                                         <button class="btn btn-primary product-card__addtocart "
                                                 type="button"
@@ -83,6 +84,7 @@ use yii\helpers\Url;
                                             <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
                                     </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
