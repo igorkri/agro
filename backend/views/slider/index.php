@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+//use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\SliderSearch $searchModel */
@@ -65,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'title',
                         'description:raw',
 //                        'image_mob',
-                        'visible',
+                        'visible:boolean',
                         //'sort',
                         [
                             'class' => ActionColumn::className(),

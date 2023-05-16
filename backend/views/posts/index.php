@@ -63,8 +63,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ],
                                 'title',
-                                'description:raw',
-                                'date_public',
+                                [
+                                    'attribute' => 'description',
+                                    'format' => 'raw',
+                                    'value' => function ($model) {
+                                        return mb_substr($model->description, 0, 450);
+                                    },
+                                ],
+
+//                                'description:raw',
+//                                'date_public',
 //                                'image',
                                 [
                                     'class' => ActionColumn::className(),
