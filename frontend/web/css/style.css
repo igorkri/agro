@@ -9031,14 +9031,14 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .category-card__image img {
   overflow: hidden;
   max-width: 100%;
-  opacity: 0.5;
+  /*opacity: 0.5;*/
   transition: opacity 0.5s ease;
 }
 
 .category-card__image img:hover {
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
-  opacity: 1;
+  /*opacity: 1;*/
   transform: scale(1.2);
 }
 

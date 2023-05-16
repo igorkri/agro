@@ -15,8 +15,8 @@ class PostController extends Controller
     {
         $blogs = Posts::find()->limit(4)->all();
         $post = Posts::find()->where(['slug' => $slug])->one();
-        $tags = Tag::find()->all();
-        return $this->render('view', ['post' => $post, 'tags' => $tags, 'blogs' => $blogs]);
+
+        return $this->render('view', ['post' => $post, 'blogs' => $blogs]);
     }
 
 }

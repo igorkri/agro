@@ -63,7 +63,7 @@ use yii\helpers\Url;
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="/">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['/special/view']) ?>">
                                         <div class="nav-links__item-body">
                                             Спеціальні пропозиції
                                         </div>

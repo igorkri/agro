@@ -1,5 +1,6 @@
 <?php
 
+use frontend\widgets\TagCloud;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
@@ -77,18 +78,7 @@ use yii\helpers\Url;
             <div class="col-12 col-lg-4">
                 <div class="block block-sidebar block-sidebar--position--end">
                     <!-- Хмара тегів -->
-                    <div class="block-sidebar__item">
-                        <div class="widget-tags widget">
-                            <h4 class="widget__title">Хмара тегів</h4>
-                            <div class="tags tags--lg">
-                                <div class="tags__list">
-                                   <?php foreach ($tags as $tag): ?>
-                                    <a href="/"><?= $tag->name ?></a>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php echo TagCloud::widget() ?>
                     <!-- Хмара тегів /end -->
                 </div>
             </div>
