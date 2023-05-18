@@ -62,4 +62,13 @@ class Brand extends \yii\db\ActiveRecord
             'file' => 'File',
         ];
     }
+
+    public function getProductBrand($id){
+        $products = Product::find()->where(['brand_id' => $id])->all();
+        $total_res = [];
+        foreach ($products as $product){
+            $total_res[] = $product;
+        }
+        return count($total_res);
+    }
 }

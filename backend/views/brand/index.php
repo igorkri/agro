@@ -79,8 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <a href="<?=Url::to(['brand/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a>
                             </td>
                             <td>
-                                <!--                                К-ть товарів у мітки-->
-
+                                <?= $model->getProductBrand($model->id) ?>
                             </td>
                             <td>
                                 <div class="dropdown">
