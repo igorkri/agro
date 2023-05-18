@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             </ol>
                         </nav>
-<!--                        <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
+                        <!--                        <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
                     </div>
                     <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'New brand')?></a></div>
                 </div>
@@ -57,6 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!--                        </th>-->
                         <th><?=Yii::t('app', 'Image')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'name')?></th>
+                        <th class="min-w-15x"><?=Yii::t('app', 'Count')?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -78,6 +79,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <a href="<?=Url::to(['brand/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a>
                             </td>
                             <td>
+                                <!--                                К-ть товарів у мітки-->
+
+                            </td>
+                            <td>
                                 <div class="dropdown">
                                     <button
                                             class="btn btn-sa-muted btn-sm"
@@ -94,13 +99,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </svg>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="category-context-menu-0">
-                                        <li><a class="dropdown-item" href="<?=Url::to(['category/update', 'id' => $model->id])?>"><?=Yii::t('app', 'Edit')?></a></li>
-                                        <li><a class="dropdown-item" href="<?=Url::to(['category/duplicate', 'id' => $model->id])?>"><?=Yii::t('app', 'Duplicate')?></a></li>
-                                        <li><a class="dropdown-item" href="<?=Url::to(['category/add-tag', 'id' => $model->id])?>"><?=Yii::t('app', 'Add tag')?></a></li>
-                                        <li><a class="dropdown-item" href="<?=Url::to(['category/remove-tag', 'id' => $model->id])?>"><?=Yii::t('app', 'Remove tag')?></a></li>
+                                        <li><a class="dropdown-item" href="<?=Url::to(['brand/update', 'id' => $model->id])?>"><?=Yii::t('app', 'Edit')?></a></li>
                                         <li><hr class="dropdown-divider" /></li>
                                         <li>
-                                            <?= Html::a(Yii::t('app', 'Delete'), ['category/delete', 'id' => $model->id], ['class'=>"dropdown-item text-danger",
+                                            <?= Html::a(Yii::t('app', 'Delete'), ['brand/delete', 'id' => $model->id], ['class'=>"dropdown-item text-danger",
                                                 'data' => [
                                                     'confirm' => 'Are you sure you want to delete this item?',
                                                     'method' => 'post'
