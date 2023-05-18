@@ -40,4 +40,14 @@ class Label extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
         ];
     }
+
+    public function getProductLabel($id){
+        $products = Product::find()->where(['label_id' => $id])->all();
+        $total_res = [];
+        foreach ($products as $product){
+            $total_res[] = $product;
+        }
+        return count($total_res);
+    }
+
 }

@@ -66,8 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td><a href="<?=Url::to(['label/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a></td>
                             <td>
-<!--                                К-ть товарів у мітки-->
-
+                                <?= $model->getProductLabel($model->id) ?>
                             </td>
 
                             <td>
