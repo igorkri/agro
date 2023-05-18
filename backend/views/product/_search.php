@@ -17,13 +17,13 @@ use yii\widgets\ActiveForm;
 
     <div class="sa-layout__sidebar">
         <div class="sa-layout__sidebar-header">
-            <div class="sa-layout__sidebar-title">Filters</div>
+            <div class="sa-layout__sidebar-title">Фільтер</div>
             <button type="button" class="sa-close sa-layout__sidebar-close" aria-label="Close" data-sa-layout-sidebar-close=""></button>
         </div>
         <div class="sa-layout__sidebar-body sa-filters">
             <ul class="sa-filters__list">
                 <li class="sa-filters__item">
-                    <div class="sa-filters__item-title">Price</div>
+                    <div class="sa-filters__item-title">Ціна</div>
                     <div class="sa-filters__item-body">
                         <div class="sa-filter-range" data-min="0" data-max="2000" data-from="0" data-to="2000">
                             <div class="sa-filter-range__slider"></div>
@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
                     </div>
                 </li>
                 <li class="sa-filters__item">
-                    <div class="sa-filters__item-title">Categories</div>
+                    <div class="sa-filters__item-title">Категорії</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
                             <li>
@@ -70,7 +70,7 @@ use yii\widgets\ActiveForm;
                     </div>
                 </li>
                 <li class="sa-filters__item">
-                    <div class="sa-filters__item-title">Product type</div>
+                    <div class="sa-filters__item-title">Культура</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
                             <li>
@@ -100,7 +100,7 @@ use yii\widgets\ActiveForm;
                     </div>
                 </li>
                 <li class="sa-filters__item">
-                    <div class="sa-filters__item-title">Brands</div>
+                    <div class="sa-filters__item-title">Бренди</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
                             <li>

@@ -55,7 +55,12 @@ use yii\widgets\ActiveForm;
                                         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                                     </div>
                                     <div class="col-4 mb-4">
-                                        <?= $form->field($model, 'visible')->textInput() ?>
+                                        <?= $form->field($model, 'visible')->dropDownList(
+                                            [
+                                                1 => 'Так',
+                                                0 => 'Ні'
+                                            ]
+                                        ) ?>
                                     </div>
                                 </div>
 

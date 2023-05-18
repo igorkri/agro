@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="p-4">
                     <input
                             type="text"
-                            placeholder="Start typing to search for orders"
+                            placeholder="<?=Yii::t('app', 'Start typing to search for categories')?>"
                             class="form-control form-control--search mx-auto"
                             id="table-search"
                     />

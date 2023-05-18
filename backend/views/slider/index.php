@@ -39,15 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="card">
-                <div class="p-4">
-                    <input
-                            type="text"
-                            placeholder="<?=Yii::t('app', 'Start typing to search for categories')?>"
-                            class="form-control form-control--search mx-auto"
-                            id="table-search"
-                    />
-                </div>
                 <div class="sa-divider"></div>
+                <div class="container">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -76,6 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
                 ]); ?>
+                 </div>
             </div>
         </div>
     </div>

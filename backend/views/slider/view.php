@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            'id',
                             'title',
                             'description:raw',
-                            'visible',
+                            'visible:boolean',
                             'sort',
                             [
                                 'attribute' => 'image',

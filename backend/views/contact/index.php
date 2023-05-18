@@ -34,20 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             </ol>
                         </nav>
                     </div>
-                    <div class="col-auto d-flex"><a href="<?= Url::to(['create'])?>" class="btn btn-primary"><?= Yii::t('app', 'Create Contact')?></a></div>
                 </div>
             </div>
             <div class="card">
-                <div class="p-4">
-                    <input
-                            type="text"
-                            placeholder="<?=Yii::t('app', 'Start typing to search for categories')?>"
-                            class="form-control form-control--search mx-auto"
-                            id="table-search"
-                    />
-                </div>
                 <div class="sa-divider"></div>
-
+                <div class="container">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -71,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
                 ]); ?>
-
+                </div>
             </div>
         </div>
     </div>

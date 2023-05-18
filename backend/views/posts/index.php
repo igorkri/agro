@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
+
 /** @var yii\web\View $this */
 /** @var backend\models\search\PostsSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -34,27 +35,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             </ol>
                         </nav>
-                        <!--                        <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
                     </div>
                     <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'New post')?></a></div>
                 </div>
             </div>
             <div class="card">
-                <div class="p-4">
-                    <input
-                            type="text"
-                            placeholder="<?=Yii::t('app', 'Start typing to search for categories')?>"
-                            class="form-control form-control--search mx-auto"
-                            id="table-search"
-                    />
-                </div>
                 <div class="sa-divider"></div>
+                <div class="container">
                         <?php echo GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
 //                                'id',
+                                [
+                                    'attribute' => 'date_public',
+                                    'filter' => false,
+                                    'value' => function($model){
+                                        return Yii::$app->formatter->asDate($model->date_public, 'long');
+                                    },
+//                                    'width' => '5%',
+//                                    'vAlign' => GridView::ALIGN_MIDDLE,
+//                                    'hAlign' => GridView::ALIGN_CENTER,
+
+                                ],
                                 [
                                     'attribute' => 'image',
                                     'format' => 'html',
@@ -82,6 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ],
                         ]); ?>
+                </div>
             </div>
         </div>
     </div>

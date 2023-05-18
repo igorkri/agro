@@ -1,18 +1,17 @@
 <?php
 
-use common\models\About;
+use common\models\shop\Review;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
-
 /** @var yii\web\View $this */
-/** @var backend\models\search\AboutSearch $searchModel */
+/** @var backend\models\search\ReviewSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Abouts');
+$this->title = Yii::t('app', 'Reviews');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -30,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'label' => Yii::t('app', 'Home'),
                                         'url' => Yii::$app->homeUrl,
                                     ],
-                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                                ]);
-                                ?>
+                                    'links' => $this->params['breadcrumbs'] ?? [],
+                                ]); ?>
                             </ol>
                         </nav>
                     </div>
+                    <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'Create Review')?></a></div>
                 </div>
             </div>
             <div class="card">
@@ -47,12 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
-//                                'id',
+//                            'id',
+                            'product_id',
+//                            'created_at',
+                            [
+                                'attribute' => 'created_at',
+                                'filter' => false,
+                                'value' => function($model){
+                                    return Yii::$app->formatter->asDate($model->created_at, 'short');
+                                },
+//                                    'width' => '5%',
+//                                    'vAlign' => GridView::ALIGN_MIDDLE,
+//                                    'hAlign' => GridView::ALIGN_CENTER,
+
+                            ],
+                            'rating',
                             'name',
-                            'description:raw',
+                            'email:email',
+                            'message:raw',
                             [
                                 'class' => ActionColumn::className(),
-                                'urlCreator' => function ($action, About $model, $key, $index, $column) {
+                                'urlCreator' => function ($action, Review $model, $key, $index, $column) {
                                     return Url::toRoute([$action, 'id' => $model->id]);
                                 }
                             ],

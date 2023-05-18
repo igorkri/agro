@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
                                     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                                 </div>
                                 <div class="col-4 mb-4">
-                                    <?= $form->field($model, 'date_public')->textInput() ?>
+<!--                                    --><?php //= $form->field($model, 'date_public')->textInput(['value' => Yii::$app->formatter->asDate($model->date_public), 'disabled' => true]) ?>
                                 </div>
                             </div>
                                 <div class="mb-4">
