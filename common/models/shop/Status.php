@@ -40,4 +40,13 @@ class Status extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
         ];
     }
+
+    public function getProductStatus($id){
+        $products = Product::find()->where(['status_id' => $id])->all();
+        $total_res = [];
+        foreach ($products as $product){
+            $total_res[] = $product;
+        }
+        return count($total_res);
+    }
 }
