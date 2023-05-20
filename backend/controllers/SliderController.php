@@ -157,8 +157,15 @@ class SliderController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $dir = Yii::getAlias('@frontendWeb');
+        $model = $this->findModel($id);
+        if (file_exists($dir .'/slider/'. $model->image)) {
+            unlink($dir .'/slider/'. $model->image);
+        }
+        if (file_exists($dir .'/slider/'. $model->image_mob)) {
+            unlink($dir .'/slider/'. $model->image_mob);
+        }
+        $model->delete();
         return $this->redirect(['index']);
     }
 

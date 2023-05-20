@@ -142,8 +142,12 @@ class PostsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $dir = Yii::getAlias('@frontendWeb');
+        $model = $this->findModel($id);
+        if (file_exists($dir .'/posts/'. $model->image)) {
+            unlink($dir .'/posts/'. $model->image);
+        }
+        $model->delete();
         return $this->redirect(['index']);
     }
 

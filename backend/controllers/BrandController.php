@@ -140,10 +140,16 @@ class BrandController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $dir = Yii::getAlias('@frontendWeb');
+        $model = $this->findModel($id);
+        if (file_exists($dir .'/brand/'. $model->file)) {
+            unlink($dir .'/brand/'. $model->file);
+        }
 
+        $model->delete();
         return $this->redirect(['index']);
     }
 

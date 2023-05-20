@@ -145,8 +145,13 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $dir = Yii::getAlias('@frontendWeb');
+        $model = $this->findModel($id);
+        if (file_exists($dir .'/category/'. $model->file)) {
+            unlink($dir .'/category/'. $model->file);
+        }
 
+        $model->delete();
         return $this->redirect(['index']);
     }
 

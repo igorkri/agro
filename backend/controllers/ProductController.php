@@ -158,12 +158,28 @@ class ProductController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
+//    public function actionDelete($id)
+//    {
+//        $this->findModel($id)->delete();
+//
+//        return $this->redirect(['index']);
+//    }
+
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $dir = Yii::getAlias('@frontendWeb');
+        $model = $this->findModel($id);
+        $images = ProductImage::find()->where(['product_id' => $model->id])->all();
+        foreach ($images as $image) {
+            if (file_exists($dir . '/product/' . $image->name)) {
+                unlink($dir . '/product/' . $image->name);
+            }
 
+            $model->delete();
+        }
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Product model based on its primary key value.
