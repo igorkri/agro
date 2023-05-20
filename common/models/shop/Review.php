@@ -63,4 +63,11 @@ class Review extends \yii\db\ActiveRecord
             'message' => 'Message',
         ];
     }
+
+    public function getProductName($id){
+
+        $products = Product::find()->where(['id' => $id])->one();
+
+        return $products->name;
+    }
 }

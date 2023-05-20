@@ -56,8 +56,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $model,
                         'attributes' => [
 //                            'id',
-                            'product_id',
-//                            'created_at',
+                            [
+                                'attribute' => 'product_id',
+//                                'filter' => false,
+                                'value' => function($model){
+                                    return $model->getProductName($model->product_id);
+                                },
+                            ],
                             [
                                 'attribute' => 'created_at',
                                 'filter' => false,
