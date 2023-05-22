@@ -4,6 +4,7 @@
 /** @var \common\models\shop\Brand $img_brand */
 
 /** @var \common\models\shop\Product $products */
+
 /** @var \common\models\shop\Review $model_review */
 
 use kartik\rating\StarRating;
@@ -24,7 +25,7 @@ $this->title = $product->seo_title;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -70,7 +71,7 @@ $this->title = $product->seo_title;
                                         </svg>
                                     </button>
                                     <div class="owl-carousel" id="product-image">
-                                        <?php foreach ($product->images as $image) :?>
+                                        <?php foreach ($product->images as $image) : ?>
                                             <div class="product-image product-image--location--gallery">
                                                 <a href="<?= '/product/' . $image->name ?>" data-width="700"
                                                    data-height="700" class="product-image__body" target="_blank">
@@ -122,7 +123,7 @@ $this->title = $product->seo_title;
                         <h1 class="product__name"><?= $product->name ?></h1>
                         <div class="product__rating">
                             <div class="product__rating-stars">
-                                <?=$product->getRating($product->id)?>
+                                <?= $product->getRating($product->id) ?>
                             </div>
                             <div class="product__rating-legend">
                                 <?= $product->getRatingCount($product->id) ?>
@@ -138,9 +139,10 @@ $this->title = $product->seo_title;
                         <!-- .product__options -->
                         <div class="payment-methods">
                             <div>
-                            <?php if ($product->brand_id != null): ?>
-                                <img src="/frontend/web/brand/<?= $img_brand->file ?>" alt="<?= $img_brand->name ?>"style="width: 100%;padding: 0px 0px 5px 0px;"">
-                            <?php endif; ?>
+                                <?php if ($product->brand_id != null): ?>
+                                    <img src="/frontend/web/brand/<?= $img_brand->file ?>" alt="<?= $img_brand->name ?>"
+                                         style="width: 100%;padding: 0px 0px 5px 0px;"">
+                                <?php endif; ?>
                             </div>
                             <ul class="payment-methods__list">
                                 <li class="payment-methods__item"
@@ -232,7 +234,9 @@ $this->title = $product->seo_title;
                     <div class="product__footer">
                         <div class="product__prices">
                             <?php foreach ($product->tags as $brand): ?>
-                                <button class="btn btn-secondary btn-xs"><?= $brand->name ?></button>
+                                <button class="btn btn-secondary btn-xs">
+                                    <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
+                                </button>
                             <?php endforeach; ?>
                             <hr>
                             <div class="price" style="margin-bottom: 25px">
@@ -243,25 +247,26 @@ $this->title = $product->seo_title;
                                     <div class="input-number product__quantity">
                                         <input id="product-quantity"
                                                class="input-number__input form-control form-control-lg" type="number"
-                                               min="1" value="<?= !$isset_to_cart ? '1' : $isset_to_cart['_quantity'] ?>">
+                                               min="1"
+                                               value="<?= !$isset_to_cart ? '1' : $isset_to_cart['_quantity'] ?>">
                                         <div class="input-number__add"></div>
                                         <div class="input-number__sub"></div>
                                     </div>
                                 </div>
                                 <!--                                <div class="product__actions-item product__actions-item--addtocart">-->
                                 <?php if ($product->status_id != 2): ?>
-                                <button class="btn btn-primary product-card__addtocart "
-                                        type="button"
-                                        data-product-id="<?= $product->id ?>"
-                                        style="margin-top: 4px;
+                                    <button class="btn btn-primary product-card__addtocart "
+                                            type="button"
+                                            data-product-id="<?= $product->id ?>"
+                                            style="margin-top: 4px;
                                 margin-left: 9px;
                                 padding: 9px 39px;
                                 height: 47px;">
-                                    <svg width="20px" height="20px" style="display: unset;">
-                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                    </svg>
-                                    <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
-                                </button>
+                                        <svg width="20px" height="20px" style="display: unset;">
+                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                        </svg>
+                                        <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
+                                    </button>
                                 <?php endif; ?>
                             </div>
                         </div>

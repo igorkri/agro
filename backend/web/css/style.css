@@ -5640,7 +5640,7 @@ input:checked + .sa-color-checkbox__box {
   text-decoration: none;
 }
 .sa-nav--sidebar .sa-nav__link:hover {
-  background-color: #48525a;
+  background-color: #55954c;
 }
 .sa-nav--sidebar .sa-nav__menu-item-padding {
   width: 1rem;

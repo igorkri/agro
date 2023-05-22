@@ -109,7 +109,8 @@ return[
     'Sliders' => 'Слайдер',
     'delivery' => 'Доставка',
     'Deliveries' => 'Доставка',
-
+    'Reviews' => 'Відгуки',
+    'Create Review' => '+ Додати відгук',
     //    '' => '',
 
 
