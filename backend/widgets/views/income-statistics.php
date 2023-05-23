@@ -5,7 +5,7 @@
 <div class="col-12 col-lg-8 col-xxl-9 d-flex">
     <div
         class="card flex-grow-1 saw-chart"
-        data-sa-data='[{"label":"Січ","value":50},{"label":"Лют","value":130},{"label":"Бер","value":525},{"label":"Кві","value":285},{"label":"Тра","value":470},{"label":"Чер","value":130},{"label":"Лип","value":285},{"label":"Сер","value":240},{"label":"Вер","value":710},{"label":"Жов","value":470},{"label":"Лис","value":640},{"label":"Гру","value":1110}]'
+        data-sa-data='[{"label":"Січ","value":50},{"label":"Лют","value":130},{"label":"Бер","value":525},{"label":"Кві","value":285},{"label":"Тра","value":470},{"label":"Чер","value":130},{"label":"Лип","value":285},{"label":"Сер","value":240},{"label":"Вер","value":710},{"label":"Жов","value":470},{"label":"Лис","value":640},{"label":"Гру","value":110}]'
     >
         <div class="sa-widget-header saw-chart__header">
             <h2 class="sa-widget-header__title">Статистика доходів</h2>
