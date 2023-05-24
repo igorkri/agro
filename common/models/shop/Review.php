@@ -26,6 +26,7 @@ class Review extends \yii\db\ActiveRecord
     {
         return 'review';
     }
+
     public function behaviors()
     {
         return [
@@ -37,6 +38,7 @@ class Review extends \yii\db\ActiveRecord
             ],
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -69,5 +71,42 @@ class Review extends \yii\db\ActiveRecord
         $products = Product::find()->where(['id' => $id])->one();
 
         return $products->name;
+    }
+
+    public function getProductSlug($id){
+
+        $products = Product::find()->where(['id' => $id])->one();
+
+        return $products->slug;
+    }
+
+    public function getProductImage($id)
+    {
+
+        $products = ProductImage::find()->where(['product_id' => $id])->one();
+
+        return $products->name;
+    }
+
+    public function getReviewRating($rating)
+    {
+
+        if ($rating == 5) {
+
+            $value = 1;
+        } elseif ($rating == 4) {
+
+            $value = 0.8;
+        } elseif ($rating == 3) {
+
+            $value = 0.6;
+        } elseif ($rating == 2) {
+
+            $value = 0.4;
+        } elseif ($rating == 1) {
+
+            $value = 0.2;
+        }
+        return $value;
     }
 }
