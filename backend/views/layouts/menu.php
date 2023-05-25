@@ -7,8 +7,13 @@ use yii\helpers\Url;
 <div class="sa-sidebar__body" data-simplebar="">
     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
         <li class="sa-nav__section">
-            <div class="sa-nav__section-title"><h5>-= МАГАЗИН =-</h5></div>
-            <hr>
+            <div class="sa-nav__section-title"><h6><span><i class="fas fa-frog"> </i> Магазин </span></h6></div>
+            <ul class="sa-nav__menu sa-nav__menu--root">
+
+            </ul>
+        </li>
+        <!--   ------------------------------------------------------------>
+        <li class="sa-nav__section">
             <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/order']) ?>" class="sa-nav__link">
@@ -16,19 +21,21 @@ use yii\helpers\Url;
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                                      viewBox="0 0 16 16" fill="currentColor">
                                                     <path
-                                                        d="M14.2,10.3c-0.1,0.4-0.5,0.7-0.9,0.7H4.8c-0.5,0-0.9-0.3-1-0.8L2.2,4C2.1,3.4,1.6,3,1,3H0.4C0.2,3,0,2.8,0,2.6V1.4C0,1.2,0.2,1,0.4,1h1.4c1,0,1.9,0.7,2.1,1.7l1.5,6.1C5.5,8.9,5.7,9,5.8,9h6.5c0.1,0,0.2-0.1,0.3-0.2l1.1-3.4C13.8,5.2,13.7,5,13.5,5H7.4C7.2,5,7,4.8,7,4.6V3.4C7,3.2,7.2,3,7.4,3H15c0.6,0,1,0.4,1,1v1L14.2,10.3z M4.5,13C5.3,13,6,13.7,6,14.5C6,15.3,5.3,16,4.5,16S3,15.3,3,14.5C3,13.7,3.7,13,4.5,13z M11.5,13c0.8,0,1.5,0.7,1.5,1.5c0,0.8-0.7,1.5-1.5,1.5S10,15.3,10,14.5C10,13.7,10.7,13,11.5,13z"
+                                                            d="M14.2,10.3c-0.1,0.4-0.5,0.7-0.9,0.7H4.8c-0.5,0-0.9-0.3-1-0.8L2.2,4C2.1,3.4,1.6,3,1,3H0.4C0.2,3,0,2.8,0,2.6V1.4C0,1.2,0.2,1,0.4,1h1.4c1,0,1.9,0.7,2.1,1.7l1.5,6.1C5.5,8.9,5.7,9,5.8,9h6.5c0.1,0,0.2-0.1,0.3-0.2l1.1-3.4C13.8,5.2,13.7,5,13.5,5H7.4C7.2,5,7,4.8,7,4.6V3.4C7,3.2,7.2,3,7.4,3H15c0.6,0,1,0.4,1,1v1L14.2,10.3z M4.5,13C5.3,13,6,13.7,6,14.5C6,15.3,5.3,16,4.5,16S3,15.3,3,14.5C3,13.7,3.7,13,4.5,13z M11.5,13c0.8,0,1.5,0.7,1.5,1.5c0,0.8-0.7,1.5-1.5,1.5S10,15.3,10,14.5C10,13.7,10.7,13,11.5,13z"
                                                     ></path>
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Orders') ?></span>
+                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme">0</span>
                     </a>
                 </li>
-                <hr>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/category']) ?>" class="sa-nav__link">
-                                            <span class="sa-nav__icon">
-                                          <i class="fas fa-bars"></i>
-                                            </span>
+                        <span class="sa-nav__icon"><i class="fas fa-bars"></i></span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Categories') ?></span>
                     </a>
                 </li>
@@ -81,7 +88,10 @@ use yii\helpers\Url;
                         <span class="sa-nav__title"><?= Yii::t('app', 'Tag') ?></span>
                     </a>
                 </li>
-                <hr>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/posts']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
@@ -95,7 +105,10 @@ use yii\helpers\Url;
                         <span class="sa-nav__title"><?= Yii::t('app', 'Posts') ?></span>
                     </a>
                 </li>
-                <hr>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/slider']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
@@ -142,7 +155,10 @@ use yii\helpers\Url;
                         <span class="sa-nav__title"><?= Yii::t('app', 'delivery') ?></span>
                     </a>
                 </li>
-                <hr>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/review']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
@@ -152,9 +168,37 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Reviews') ?></span>
+                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme">0</span>
                     </a>
                 </li>
-                <hr>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
+                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                    <a href="<?= Url::to(['/']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="1em"
+                                                        height="1em"
+                                                        viewBox="0 0 16 16"
+                                                        fill="currentColor"
+                                                >
+            <path
+                    d="M14.5,15h-1c-0.8,0-1.5-0.7-1.5-1.5v-8C12,4.7,12.7,4,13.5,4h1C15.3,4,16,4.7,16,5.5v8C16,14.3,15.3,15,14.5,15z M8.5,15h-1C6.7,15,6,14.3,6,13.5v-11C6,1.7,6.7,1,7.5,1h1C9.3,1,10,1.7,10,2.5v11C10,14.3,9.3,15,8.5,15z M2.5,15h-1C0.7,15,0,14.3,0,13.5v-5C0,7.7,0.7,7,1.5,7h1C3.3,7,4,7.7,4,8.5v5C4,14.3,3.3,15,2.5,15z"
+            ></path>
+        </svg>
+                                            </span>
+                        <span class="sa-nav__title"><?= Yii::t('app', 'Analytics') ?></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--   ------------------------------------------------------------>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
+
             </ul>
         </li>
     </ul>

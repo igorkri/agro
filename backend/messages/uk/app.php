@@ -111,6 +111,7 @@ return[
     'Deliveries' => 'Доставка',
     'Reviews' => 'Відгуки',
     'Create Review' => '+ Додати відгук',
+    'Analytics' => 'Статистика',
     //    '' => '',
 
 

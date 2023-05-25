@@ -163,4 +163,13 @@ class Order extends \yii\db\ActiveRecord
         }
         return $status;
     }
+
+    public function getOrderIncomeTotal($order_id){
+        $order = Order::find()->with('orderItems')->where(['id' => $order_id])->one();
+        $total_res = [];
+        foreach ($order->orderItems as $orderItem){
+            $total_res[] = intval($orderItem->price * $orderItem->quantity);
+        }
+        return array_sum($total_res);
+    }
 }
