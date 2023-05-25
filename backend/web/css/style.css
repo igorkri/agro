@@ -6643,8 +6643,8 @@ input:checked + .sa-color-checkbox__box {
 .saw-pulse__counter {
   margin: 0 1.25rem 0.75rem;
   border-radius: 0.125rem;
-  background: #d9ecff;
-  color: #004b9a;
+  background: #4580bb;
+  color: #f5f7f9;
   padding: 1.5rem 1.25rem;
   text-align: center;
   font-size: 2.5rem;

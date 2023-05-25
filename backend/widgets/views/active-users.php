@@ -38,8 +38,8 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Active pages</th>
-                    <th class="text-end">Users</th>
+                    <th>Активні сторінки</th>
+                    <th class="text-end">Переглядів</th>
                 </tr>
                 </thead>
                 <tbody>
