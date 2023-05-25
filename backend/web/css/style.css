@@ -522,23 +522,23 @@ body {
 }
 
 .badge-sa-success {
-  background: #def2d0;
-  color: #245900;
+  background: #429b03;
+  color: #fbfcfa;
 }
 
 .badge-sa-danger {
-  background: #ffdcdc;
-  color: #990000;
+  background: #d51c1c;
+  color: #fff;
 }
 
 .badge-sa-warning {
-  background: #f9f1c8;
-  color: #5e4f00;
+  background: #e7c306;
+  color: #fff;
 }
 
 .badge-sa-info {
-  background: #dcf1f2;
-  color: #00585d;
+  background: #0a7cd4;
+  color: #fff;
 }
 
 .badge-sa-light {
@@ -547,7 +547,7 @@ body {
 }
 
 .badge-sa-dark {
-  background: #3d464d;
+  background: #31393e;
   color: #fff;
 }
 
