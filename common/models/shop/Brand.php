@@ -82,7 +82,7 @@ class Brand extends \yii\db\ActiveRecord
         elseif ($i == 9)
             $color = '#bb43df';
         elseif ($i == 8)
-            $color = '#0dcaf0';
+            $color = '#198754';
         elseif ($i == 7)
             $color = '#6f42c1';
         elseif ($i == 6)
@@ -90,13 +90,13 @@ class Brand extends \yii\db\ActiveRecord
         elseif ($i == 5)
             $color = '#fd7e14';
         elseif ($i == 4)
-            $color = '#5dc728';
+            $color = '#e62e2e';
         elseif ($i == 3)
             $color = '#29cccc';
         elseif ($i == 2)
             $color = '#3377ff';
         elseif ($i == 1)
-            $color = '#e62e2e';
+            $color = '#5dc728';
         elseif ($i == 0)
             $color = '#ffd333';
         else
