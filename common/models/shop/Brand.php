@@ -78,27 +78,29 @@ class Brand extends \yii\db\ActiveRecord
         $color = '';
 
         if ($i == 10)
-            $color = '#ffd333';
+            $color = '#0cdd9d';
         elseif ($i == 9)
-            $color = '#0d6efd';
+            $color = '#bb43df';
         elseif ($i == 8)
             $color = '#0dcaf0';
         elseif ($i == 7)
             $color = '#6f42c1';
         elseif ($i == 6)
-            $color = '#dc3545';
+            $color = '#f907ed';
         elseif ($i == 5)
             $color = '#fd7e14';
         elseif ($i == 4)
-            $color = '#3cfd14';
+            $color = '#5dc728';
         elseif ($i == 3)
-            $color = '#148bfd';
+            $color = '#29cccc';
         elseif ($i == 2)
-            $color = '#fd14ba';
+            $color = '#3377ff';
         elseif ($i == 1)
-            $color = '#14fde3';
+            $color = '#e62e2e';
         elseif ($i == 0)
-            $color = '#b3fd14';
+            $color = '#ffd333';
+        else
+            $color = '#a79ea6';
 
         return $color;
     }

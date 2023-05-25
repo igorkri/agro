@@ -54,7 +54,6 @@
                 <tbody>
                 <?php $i = 0;
                 foreach ($brands as $brand): ?>
-
                     <tr>
                         <td>
                             <div class="d-flex align-items-center">
