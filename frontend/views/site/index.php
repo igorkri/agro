@@ -16,6 +16,8 @@ use frontend\widgets\BlockSlideshow;
 use frontend\widgets\BlockBrands;
 use frontend\widgets\BlockBanner;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 $this->title = Yii::$app->name;
 ?>
 <!-- site__body -->
