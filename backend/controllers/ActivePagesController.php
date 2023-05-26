@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\models\shop\ActivePages;
-use backend\models\search\ReviewsSearch;
+use backend\models\search\ActivePagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,7 +38,7 @@ class ActivePagesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ReviewsSearch();
+        $searchModel = new ActivePagesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [

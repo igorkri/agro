@@ -9,7 +9,7 @@ use common\models\shop\ActivePages;
 /**
  * ReviewsSearch represents the model behind the search form of `common\models\shop\ActivePages`.
  */
-class ReviewsSearch extends ActivePages
+class ActivePagesSearch extends ActivePages
 {
     /**
      * {@inheritdoc}
