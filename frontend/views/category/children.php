@@ -3,6 +3,8 @@ use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $categories */
 
+\common\models\shop\ActivePages::setActiveUser();
+
 ?>
 
 <!-- site__body -->

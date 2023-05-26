@@ -4,6 +4,8 @@ use frontend\widgets\TagCloud;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 ?>
 <!-- site__body -->
 <div class="site__body">

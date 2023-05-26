@@ -1,6 +1,8 @@
 <?php
 
 use common\models\shop\ActivePages;
+use kartik\ipinfo\IpInfo;
+use kartik\popover\PopoverX;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -48,7 +50,23 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
 //                            'id',
-                            'ip_user',
+                            [
+                                'attribute' => 'ip_user',
+                                'format' => 'raw',
+                                'visible' => true,
+                                'value' => function($model){
+                                    return IpInfo::widget([
+                                        'ip' => $model->ip_user,
+                                        'popoverOptions' => [
+                                            'options' => [
+                                                'style' => 'display:none'
+                                            ],
+                                            'toggleButton' => ['class' => 'btn btn-secondary btn-default btn-lg'],
+                                            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
+                                        ]
+                                    ]);
+                                }
+                            ],
                             'url_page:url',
                             'user_agent',
                             'client_from',

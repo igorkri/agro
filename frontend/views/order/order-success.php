@@ -1,6 +1,9 @@
 <?php
 
 //debug($order->orderItems);
+
+\common\models\shop\ActivePages::setActiveUser();
+
 ?>
 
 <!-- site__body -->

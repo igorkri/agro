@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 ?>
 
 <div class="cart block">

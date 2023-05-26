@@ -120,6 +120,7 @@ class Order extends \yii\db\ActiveRecord
         }
         return array_sum($total_res);
     }
+
     public function getPayMent($order_id){
         $order = Order::find()->with('orderPayMent')->where(['id' => $order_id])->one();
         $status = '<span class="badge badge-sa-dark me-2">Не відомо</span>';

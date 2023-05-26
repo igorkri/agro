@@ -3,6 +3,8 @@
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Product $pages */
 

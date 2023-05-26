@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 if ($total_summ === 0){
     $h = 'Ваш кошик порожній';
 } else {

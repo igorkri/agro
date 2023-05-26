@@ -5,6 +5,8 @@ use yii\helpers\Url;
 //use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 $this->title = 'Оформлення замовлення';
 ?>
 <!-- site__body -->
