@@ -112,6 +112,7 @@ return[
     'Reviews' => 'Відгуки',
     'Create Review' => '+ Додати відгук',
     'Analytics' => 'Статистика',
+    'Active users' => 'Активні сторінки',
 //      '' => '',
 
 
