@@ -85,9 +85,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             if($model->status_id == 1){
                                 $color = 'success';
                             }elseif ($model->status_id == 2){
-                                $color = 'warning';
-                            }elseif ($model->status_id == 3){
                                 $color = 'danger';
+                            }elseif ($model->status_id == 3){
+                                $color = 'warning';
+                            }elseif ($model->status_id == 4){
+                                $color = 'info';
                             }
                         ?>
                         <tr>
