@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             </ol>
                         </nav>
                     </div>
-                    <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'Create Active Pages')?></a></div>
                 </div>
             </div>
             <div class="card">
@@ -49,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
-//                            'id',
                             [
                                 'attribute' => 'ip_user',
                                 'format' => 'raw',
@@ -67,10 +65,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 }
                             ],
+                            [
+                                'attribute' => 'date_visit',
+                                'filter' => false,
+                                'value' => function($model){
+                                    return Yii::$app->formatter->asDatetime($model->date_visit, 'medium');
+                                },
+                            ],
+                            'client_from',
                             'url_page',
                             'user_agent',
-                            'client_from',
-                            //'date_visit',
                             //'status_serv',
                             //'other',
                             [

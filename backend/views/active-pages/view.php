@@ -38,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'List active'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
-                        <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
-                        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary me-3']) ?>
                         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                             'class' => 'btn btn-danger',
                             'data' => [
@@ -78,9 +76,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             'url_page',
                             'user_agent',
                             'client_from',
-                            'date_visit',
+                            [
+                                'attribute' => 'date_visit',
+                                'filter' => false,
+                                'value' => function($model){
+                                    return Yii::$app->formatter->asDatetime($model->date_visit, 'short');
+                                },
+//                                    'width' => '5%',
+//                                    'vAlign' => GridView::ALIGN_MIDDLE,
+//                                    'hAlign' => GridView::ALIGN_CENTER,
+
+                            ],
                             'status_serv',
-                            'other',
+//                            'other',
                         ],
                     ]) ?>
                 </div>
