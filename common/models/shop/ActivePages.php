@@ -57,12 +57,12 @@ class ActivePages extends \yii\db\ActiveRecord
 
         $server = $_SERVER;
         $model = new ActivePages();
-        $model->ip_user = $server['REMOTE_ADDR'];
-        $model->url_page = $server['REQUEST_URI'];
-        $model->user_agent = $server['HTTP_USER_AGENT'];
-        $model->client_from = $server['HTTP_REFERER'];
-        $model->date_visit = strval($server['REQUEST_TIME']);
-        $model->status_serv = $server['REDIRECT_STATUS'];
+        $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
+        $model->url_page = $server['REQUEST_URI'] ?? "Не известно";
+        $model->user_agent = $server['HTTP_USER_AGENT'] ?? "Не известно";
+        $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
+        $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
+        $model->status_serv = $server['REDIRECT_STATUS'] ?? "Не известно";
         if ($model->save()){
 
         } else { exit('<pre>'.print_r($model->errors,true).'</pre>');}

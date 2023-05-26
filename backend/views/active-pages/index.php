@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 }
                             ],
-                            'url_page:url',
+                            'url_page',
                             'user_agent',
                             'client_from',
                             //'date_visit',
