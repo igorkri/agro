@@ -172,4 +172,15 @@ class Order extends \yii\db\ActiveRecord
         }
         return array_sum($total_res);
     }
+
+    public static function orderNews(){
+
+        $orders = Order::find()->all();
+        $total_res = [];
+        foreach ($orders as $order){
+            if ($order->order_status_id == null)
+            $total_res[] = $order;
+        }
+        return count($total_res);
+    }
 }

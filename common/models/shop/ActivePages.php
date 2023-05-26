@@ -52,4 +52,20 @@ class ActivePages extends \yii\db\ActiveRecord
             'other' => Yii::t('app', 'Прочее'),
         ];
     }
+
+    public static function setActiveUser(){
+
+        $server = $_SERVER;
+        $model = new ActivePages();
+        $model->ip_user = $server['REMOTE_ADDR'];
+        $model->url_page = $server['REQUEST_URI'];
+        $model->user_agent = $server['HTTP_USER_AGENT'];
+        $model->client_from = $server['HTTP_REFERER'];
+        $model->date_visit = strval($server['REQUEST_TIME']);
+        $model->status_serv = $server['REDIRECT_STATUS'];
+        if ($model->save()){
+
+        } else { exit('<pre>'.print_r($model->errors,true).'</pre>');}
+
+    }
 }

@@ -26,7 +26,7 @@ use yii\helpers\Url;
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Orders') ?></span>
-                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme">0</span>
+                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= \common\models\shop\Order::orderNews() ?></span>
                     </a>
                 </li>
             </ul>

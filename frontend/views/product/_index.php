@@ -13,6 +13,8 @@ use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
 use yii\web\View;
 
+\common\models\shop\ActivePages::setActiveUser();
+
 $this->title = $product->seo_title;
 //$this->registerJs($schemaProduct, View::POS_HEAD);
 //$this->renderHeadHtml($schemaProduct);
