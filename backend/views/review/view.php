@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-auto d-flex">
 
                         <?= Html::a(Yii::t('app', 'List reviews'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
-                        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary me-3']) ?>
                         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                             'class' => 'btn btn-danger',
                             'data' => [
