@@ -59,8 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th>№</th>
                         <th>Дата</th>
                         <th>Замовник</th>
-                        <th>Оплата</th>
                         <th>Статус</th>
+                        <th>Оплата</th>
                         <th>К-ть</th>
                         <th>Заг. сума</th>
                         <th class="w-min" data-orderable="false"></th>
@@ -74,10 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?=Yii::$app->formatter->asDatetime($order->created_at)?></td>
                         <td><?=$order->fio?></td>
                         <td>
-                            <div class="d-flex fs-6"><?=$order->getPayMent($order->id)?></div>
+                            <div class="d-flex fs-6"><?=$order->getExecutionStatus($order->id)?></div>
                         </td>
                         <td>
-                            <div class="d-flex fs-6"><?=$order->getExecutionStatus($order->id)?></div>
+                            <div class="d-flex fs-6"><?=$order->getPayMent($order->id)?></div>
                         </td>
                         <td><?=Yii::$app->formatter->asDecimal($order->getTotalQty($order->id), 0)?>
                         </td>
