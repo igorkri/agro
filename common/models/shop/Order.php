@@ -145,7 +145,7 @@ class Order extends \yii\db\ActiveRecord
 
     public function getExecutionStatus($order_id){
         $order = Order::find()->with('orderStatus')->where(['id' => $order_id])->one();
-        $status = '<span class="badge badge-sa-primary me-2"><i class="fas fa-star"></i> Новий <i class="fas fa-star"></i></span>';
+        $status = '<span class="badge badge-sa-primary me-2"> Новий <i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i><i class="fas fa-exclamation"></i></span>';
         if($order->order_status_id != null){
             switch ($order->order_status_id) {
                 case 1:
