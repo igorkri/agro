@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\ActivePagesSearch $searchModel */
@@ -45,6 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
+                        'pager' => [
+                            'class' => LinkPager::class,
+                            'options' => ['class' => 'pagination'],
+//                            'maxButtonCount' => 5,
+                        ],
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
@@ -53,17 +59,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'raw',
                                 'visible' => true,
                                 'value' => function($model){
+
                                     return IpInfo::widget([
                                         'ip' => $model->ip_user,
-                                        'popoverOptions' => [
-                                            'options' => [
-                                                'style' => 'display:none'
-                                            ],
-                                            'toggleButton' => ['class' => 'btn btn-secondary btn-default btn-lg'],
-                                            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
-                                        ]
+                                        'showPopover' => false,
+                                        'template' => ['inlineContent'=>'{flag} {city}'],
                                     ]);
-                                }
+                                },
+                                 'contentOptions' => ['style' => 'width: 150px'],
                             ],
                             [
                                 'attribute' => 'date_visit',
@@ -71,10 +74,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function($model){
                                     return Yii::$app->formatter->asDatetime($model->date_visit, 'medium');
                                 },
+                                'contentOptions' => ['style' => 'width: 200px'],
                             ],
-                            'client_from',
                             'url_page',
-                            'user_agent',
+                            'client_from',
+//                            'user_agent',
                             //'status_serv',
                             //'other',
                             [

@@ -1,5 +1,9 @@
 <?php
 
+use common\models\shop\ActivePages;
+
+$url = '';
+
 ?>
 
 <div class="col-12 col-lg-4 col-xxl-3 d-flex">
@@ -33,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="saw-pulse__counter">148</div>
+        <div class="saw-pulse__counter"><?= ActivePages::countIpUsers() ?></div>
         <div class="sa-widget-table saw-pulse__table">
             <table>
                 <thead>
@@ -44,32 +48,44 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><a href="/#" class="text-reset">/products/brandix-z4</a></td>
-                    <td class="text-end">15</td>
+                    <td><a href="/" class="text-reset">Головна /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/') ?></td>
                 </tr>
                 <tr>
-                    <td><a href="/#" class="text-reset">/categories/drivetrain</a></td>
-                    <td class="text-end">11</td>
+                    <td><a href="/catalog" class="text-reset">Каталог /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/catalog') ?></td>
                 </tr>
                 <tr>
-                    <td><a href="/#" class="text-reset">/categories/monitors</a></td>
-                    <td class="text-end">7</td>
+                    <td><a href="/" class="text-reset">Продукти /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/product/') ?></td>
                 </tr>
                 <tr>
-                    <td><a href="/#" class="text-reset">/account/orders</a></td>
-                    <td class="text-end">4</td>
+                    <td><a href="/blogs/view" class="text-reset">Статті /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/blogs/') ?></td>
                 </tr>
                 <tr>
-                    <td><a href="/#" class="text-reset">/cart</a></td>
-                    <td class="text-end">3</td>
+                    <td><a href="/" class="text-reset">Корзина /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/cart/') ?></td>
                 </tr>
                 <tr>
-                    <td><a href="/#" class="text-reset">/checkout</a></td>
-                    <td class="text-end">3</td>
+                    <td><a href="/" class="text-reset">Замовлення /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/order/') ?></td>
                 </tr>
                 <tr>
-                    <td><a href="/#" class="text-reset">/pages/about-us</a></td>
-                    <td class="text-end">1</td>
+                    <td><a href="/special/view" class="text-reset">Спец пропозиції /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/special/') ?></td>
+                </tr>
+                <tr>
+                    <td><a href="/contact/view" class="text-reset">Зв'язок з нами /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/contact/') ?></td>
+                </tr>
+                <tr>
+                    <td><a href="/delivery/view" class="text-reset">Доставка оплата /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/delivery/') ?></td>
+                </tr>
+                <tr>
+                    <td><a href="/about" class="text-reset">Про нас /</a></td>
+                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/about') ?></td>
                 </tr>
                 </tbody>
             </table>

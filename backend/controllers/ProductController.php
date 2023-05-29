@@ -86,7 +86,7 @@ class ProductController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 $post_product = $this->request->post('Product');
-                if (isset($post_product['tags'])) {
+                if (isset($post_product['tags']) && $post_product['tags'] != null) {
                     //добавляем Tags
                     foreach ($post_product['tags'] as $tag_id) {
                         $add_tag = new ProductTag();

@@ -40,7 +40,7 @@ class ActivePagesSearch extends ActivePages
      */
     public function search($params)
     {
-        $query = ActivePages::find();
+        $query = ActivePages::find()->orderBy('date_visit DESC');
 
         // add conditions that should always apply here
 

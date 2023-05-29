@@ -226,6 +226,21 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $img;
     }
 
+    public static function productImage($slug)
+    {
+        $product = Product::find()->where(['slug' => $slug])->one();
+        $product_image = ProductImage::find()->where(['product_id' => $product->id])->one();
+
+        return $product_image->name;
+    }
+
+    public static function productName($slug) {
+
+        $product = Product::find()->where(['slug' => $slug])->one();
+
+        return $product->name;
+    }
+
     public function getRatingCount($id)
     {
         $product = Product::find()->with('reviews')->where(['id' => $id])->one();
