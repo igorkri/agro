@@ -5,7 +5,7 @@
 <div class="col-12 col-xxl-3 d-flex">
     <div
             class="card flex-grow-1 saw-chart-circle"
-            data-sa-data='<?=$carts?>'
+            data-sa-data='<?= $carts ?>'
             data-sa-container-query='{"600":"saw-chart-circle--size--lg"}'
     >
         <div class="sa-widget-header saw-chart-circle__header">
@@ -54,22 +54,24 @@
                 <tbody>
                 <?php $i = 0;
                 foreach ($brands as $brand): ?>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="saw-chart-circle__symbol"
-                                     style="--saw-chart-circle__symbol--color: <?= $brand->getColorBrand($i) ?>"></div>
-                                <div class="ps-2"><?= $brand->name ?></div>
-                            </div>
-                        </td>
-                        <td class="text-center"><?= $brand->getProductOrderBrand($brand->id) ?></td>
-                        <td class="text-end">
-                            <div class="sa-price">
-                                <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($brand->getIncomeOrderBrand($brand->id), 'UAH') ?></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php $i++; endforeach; ?>
+                    <?php if ($brand->getProductOrderBrand($brand->id) != 0): ?>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="saw-chart-circle__symbol"
+                                         style="--saw-chart-circle__symbol--color: <?= $brand->getColorBrand($i) ?>"></div>
+                                    <div class="ps-2"><?= $brand->name ?></div>
+                                </div>
+                            </td>
+                            <td class="text-center"><?= $brand->getProductOrderBrand($brand->id) ?></td>
+                            <td class="text-end">
+                                <div class="sa-price">
+                                    <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($brand->getIncomeOrderBrand($brand->id), 'UAH') ?></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php $i++; endif; ?>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
