@@ -516,6 +516,11 @@ body {
   color: #fcfbfb;
 }
 
+.badge-sa-primary-label {
+  background: rgba(255, 210, 2, 0.8);
+  color: #000000;
+}
+
 .badge-sa-secondary {
   background: #e2e3e5;
   color: #444a4f;

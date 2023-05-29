@@ -114,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </li>
                                                 <li class="sa-meta__item">
                                                     LABEL:
-                                                    <span class="st-copy"><?=isset($model->label) ? ' <span class="badge badge-sa-primary">' . $model->label->name . '</span>' : ''?></span>
+                                                    <span class="st-copy"><?=isset($model->label) ? ' <span class="badge badge-sa-primary-label">' . $model->label->name . '</span>' : ''?></span>
                                                 </li>
                                                 <li class="sa-meta__item">
                                                     TAGS:
