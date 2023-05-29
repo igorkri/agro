@@ -9,13 +9,15 @@ use yii\helpers\VarDumper;
 
 class BrandOrders extends \yii\base\Widget
 {
-    public function init() {
+    public function init()
+    {
 
         parent::init();
 
     }
 
-    public function run() {
+    public function run()
+    {
 
         /**
          * $brand->getIncomeOrderBrand($brand->id)
@@ -27,15 +29,17 @@ class BrandOrders extends \yii\base\Widget
 
         $carts = [];
         $i = 0;
-        foreach ($brands as $brand){
-            $carts[] = [
-                "label" => $brand->name,
-                "value" => $brand->getIncomeOrderBrand($brand->id),
-                "color" => $brand->getColorBrand($i),
-                "orders" => $brand->getProductOrderBrand($brand->id),
+        foreach ($brands as $brand) {
+            if ($brand->getProductOrderBrand($brand->id) != 0) {
+                $carts[] = [
+                    "label" => $brand->name,
+                    "value" => $brand->getIncomeOrderBrand($brand->id),
+                    "color" => $brand->getColorBrand($i),
+                    "orders" => $brand->getProductOrderBrand($brand->id),
 
-            ];
-            $i++;
+                ];
+                $i++;
+            }
         }
 
 
