@@ -54,7 +54,7 @@ use common\models\shop\Product;
                                         <a href="/product/<?= $value['url'] ?>"
                                            class="text-reset fs-exact-14"><?= Product::productName($value['url']) ?></a>
                                                                             <div class="text-muted fs-exact-13">
-                                                                                Переглядів: <?= ActivePages::productCountViews($value['url']) ?>
+                                                                                Переглядів: <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::productCountViews($value['url']) ?></span>
                                                                             </div>
                                     </div>
                                     <div class="col-12 col-sm-auto">

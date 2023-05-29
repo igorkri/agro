@@ -63,7 +63,7 @@
                                     <div class="ps-2"><?= $brand->name ?></div>
                                 </div>
                             </td>
-                            <td class="text-center"><?= $brand->getProductOrderBrand($brand->id) ?></td>
+                            <td class="text-center"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= $brand->getProductOrderBrand($brand->id) ?></span></td>
                             <td class="text-end">
                                 <div class="sa-price">
                                     <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($brand->getIncomeOrderBrand($brand->id), 'UAH') ?></span>
