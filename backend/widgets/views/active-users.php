@@ -49,43 +49,43 @@ $url = '';
                 <tbody>
                 <tr>
                     <td><a href="/" class="text-reset">Головна /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/')?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/catalog" class="text-reset">Каталог /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/catalog') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/catalog') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/" class="text-reset">Продукти /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/product/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/product/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/blogs/view" class="text-reset">Статті /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/blogs/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/blogs/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/" class="text-reset">Корзина /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/cart/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/cart/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/" class="text-reset">Замовлення /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/order/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/order/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/special/view" class="text-reset">Спец пропозиції /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/special/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/special/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/contact/view" class="text-reset">Зв'язок з нами /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/contact/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/contact/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/delivery/view" class="text-reset">Доставка оплата /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/delivery/') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/delivery/') ?></span></td>
                 </tr>
                 <tr>
                     <td><a href="/about" class="text-reset">Про нас /</a></td>
-                    <td class="text-end"><?= ActivePages::countViewsPage($url = '/about') ?></td>
+                    <td class="text-end"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::countViewsPage($url = '/about') ?></span></td>
                 </tr>
                 </tbody>
             </table>
