@@ -552,7 +552,7 @@ body {
 }
 
 .badge-sa-dark {
-  background: #31393e;
+  background: rgba(49, 57, 62, 0.7);
   color: #fff;
 }
 
