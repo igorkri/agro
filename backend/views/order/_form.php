@@ -44,7 +44,6 @@ use yii\widgets\ActiveForm;
                         <div class="card-body p-5">
                             <div class="mb-5"><h2
                                         class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></div>
-
                             <div class="container row">
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
@@ -73,7 +72,6 @@ use yii\widgets\ActiveForm;
                                     <?php echo $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
                                 </div>
                             </div>
-
                             <div class="container">
                                 <div>
                                     <?= $form->field($model, 'note')->textarea(['rows' => 4]) ?>
