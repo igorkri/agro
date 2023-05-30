@@ -74,9 +74,12 @@ use yii\widgets\ActiveForm;
                                 </div>
                             </div>
 
-                            <div class="container row">
-                                <div class="col-12 mb-4">
-                                <?= $form->field($model, 'note')->textarea(['rows' => 4]) ?>
+                            <div class="container">
+                                <div>
+                                    <?= $form->field($model, 'note')->textarea(['rows' => 4]) ?>
+                                </div>
+                                <div>
+                                    <?= $form->field($model, 'comment')->textarea(['rows' => 4]) ?>
                                 </div>
                             </div>
                         </div>
