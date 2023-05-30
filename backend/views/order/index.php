@@ -57,9 +57,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." />
                         </th>
                         <th>№</th>
-                        <th>Дата</th>
-                        <th>Замовник</th>
                         <th>Статус</th>
+                        <th>Замовник</th>
+                        <th>Дата</th>
                         <th>Оплата</th>
                         <th>К-ть</th>
                         <th>Заг. сума</th>
@@ -71,11 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tr>
                         <td><input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." /></td>
                         <td><a href="<?=Url::to(['order/view', 'id' => $order->id])?>" class="text-reset"><?=$order->id?></a></td>
-                        <td><?=Yii::$app->formatter->asDatetime($order->created_at)?></td>
-                        <td><?=$order->fio?></td>
                         <td>
                             <div class="d-flex fs-6"><?=$order->getExecutionStatus($order->id)?></div>
                         </td>
+                        <td><?=$order->fio?></td>
+                        <td><?=Yii::$app->formatter->asDatetime($order->created_at)?></td>
                         <td>
                             <div class="d-flex fs-6"><?=$order->getPayMent($order->id)?></div>
                         </td>
