@@ -113,6 +113,8 @@ return[
     'Create Review' => '+ Додати відгук',
     'Analytics' => 'Статистика',
     'Active users' => 'Активні сторінки',
+    'Providers' => 'Постачальники',
+    'Order Providers' => 'Постачальники',
 //      '' => '',
 
 
