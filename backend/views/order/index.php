@@ -63,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th>Оплата</th>
                         <th>К-ть</th>
                         <th>Заг. сума</th>
+                        <th>Постачальник</th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -86,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?=Yii::$app->formatter->asDecimal($order->getTotalSumm($order->id), 2)?>
                             </div>
                         </td>
+                        <td><?= $order->getProvider($order->order_provider_id)?></td>
                         <td>
                             <div class="dropdown">
                                 <button

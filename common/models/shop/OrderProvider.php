@@ -40,4 +40,9 @@ class OrderProvider extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Постачальник'),
         ];
     }
+
+    public function getOrders()
+    {
+        return $this->hasMany(Order::class, ['order_provider_id' => 'id']);
+    }
 }
