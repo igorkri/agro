@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h1 class="h3 m-0">Замовлення #<?=$model->id?></h1>
                     </div>
                     <div class="col-auto d-flex">
-                        <a href="#" class="btn btn-secondary me-3">Видалити</a>
+<!--                        <a href="#" class="btn btn-secondary me-3">Видалити</a>-->
                         <?php echo Html::a('Редагувати', Url::to(['update', 'id' => $model->id]), [
                             'class' => "btn btn-primary",
                             'role' => 'modal-remote',

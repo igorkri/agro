@@ -134,7 +134,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         </td>
                     </tr>
                     <?php endforeach; ?>
-
                     </tbody>
                 </table>
             </div>

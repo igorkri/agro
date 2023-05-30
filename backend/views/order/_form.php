@@ -45,7 +45,7 @@ use yii\widgets\ActiveForm;
                             <div class="mb-5"><h2
                                         class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></div>
 
-                            <div class="row">
+                            <div class="container row">
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
                                         \yii\helpers\ArrayHelper::map(OrderPayMent::find()->all(), 'id', 'name')
@@ -62,20 +62,22 @@ use yii\widgets\ActiveForm;
                                     ) ?>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-2">
+                            <div class="container row">
+                                <div class="col-4 sm-2">
                                     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-4 sm-5">
                                     <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-4 sm-5">
                                     <?php echo $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
                                 </div>
                             </div>
 
-                            <div class="mb-4">
+                            <div class="container row">
+                                <div class="col-12 mb-4">
                                 <?= $form->field($model, 'note')->textarea(['rows' => 4]) ?>
+                                </div>
                             </div>
                         </div>
                     </div>
