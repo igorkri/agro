@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td>
                             <div class="d-flex fs-6"><?=$order->getExecutionStatus($order->id)?></div>
                         </td>
-                        <td><?=$order->fio?></td>
+                        <td><a href="<?=Url::to(['order/view', 'id' => $order->id])?>" class="text-reset"><?=$order->fio?></a></td>
                         <td><?=Yii::$app->formatter->asDatetime($order->created_at)?></td>
                         <td>
                             <div class="d-flex fs-6"><?=$order->getPayMent($order->id)?></div>

@@ -105,7 +105,7 @@ class OrderController extends Controller
                     'content' => $this->renderAjax('update', [
                         'model' => $model,
                     ]),
-                    'footer' => Html::button('Зберегти', ['class' => 'btn btn-primary', 'type' => "submit"])
+//                    'footer' => Html::button('Зберегти', ['class' => 'btn btn-primary', 'type' => "submit"])
                 ];
             } else if ($model->load($request->post()) && $model->save()) {
                 return ['forceClose' => true, 'forceReload' => '#top'];
