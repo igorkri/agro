@@ -19,6 +19,7 @@ class CategoryWidget extends Widget
 //            ->orderBy('name ASC')
 //            ->asArray()
             ->all();
+
         return $this->render('category-widget', ['categories' => $categories]);
 
     }

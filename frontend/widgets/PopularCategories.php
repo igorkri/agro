@@ -7,7 +7,7 @@ namespace frontend\widgets;
 use common\models\shop\Category;
 use yii\base\Widget;
 
-class PopularCategories extends Widget
+class PopularCategories extends Widget  // Популярні Категорії
 {
 
     public function init()
@@ -18,7 +18,9 @@ class PopularCategories extends Widget
 
     public function run()
     {
-        $categories = Category::find()->limit(6)->all();
+        $categories = Category::find()
+            ->limit(6)
+            ->all();
 
         return $this->render('popular-categories', ['categories' => $categories]);
     }

@@ -7,7 +7,7 @@ namespace frontend\widgets;
 use common\models\shop\Product;
 use yii\base\Widget;
 
-class ColumnsSpecialOffers extends Widget
+class ColumnsSpecialOffers extends Widget  // Фунгіциди
 {
 
     public function init()
@@ -18,8 +18,14 @@ class ColumnsSpecialOffers extends Widget
 
     public function run()
     {
-//      $products = Product::find()->with('label')->limit(3)->all();
-        $products = Product::find()->with('label')->limit(3)->where(['category_id' => 6])->all();
+
+        $products = Product::find()
+            ->with('label')
+            ->where(['category_id' => 6])
+            ->andWhere(['IN', 'status_id', [1, 3, 4]])
+            ->limit(3)
+            ->all();
+
         return $this->render('columns-special-offers', ['products' => $products]);
     }
 

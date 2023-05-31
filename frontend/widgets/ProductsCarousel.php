@@ -7,7 +7,7 @@ namespace frontend\widgets;
 use common\models\shop\Product;
 use yii\base\Widget;
 
-class ProductsCarousel extends Widget
+class ProductsCarousel extends Widget   // Нові надходження
 {
 
     public function init()
@@ -20,9 +20,9 @@ class ProductsCarousel extends Widget
     {
         $products = Product::find()
             ->with('label')
-            ->limit(20)
-            ->where(['status_id'=>1])
+            ->where(['status_id' => 1])
             ->orderBy('id DESC')
+            ->limit(10)
             ->all();
 
         return $this->render('products-carousel', ['products' => $products]);

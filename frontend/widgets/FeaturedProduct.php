@@ -7,7 +7,7 @@ namespace frontend\widgets;
 use common\models\shop\Product;
 use yii\base\Widget;
 
-class FeaturedProduct extends Widget
+class FeaturedProduct extends Widget    // Популярні товари
 {
 
     public function init()
@@ -19,7 +19,7 @@ class FeaturedProduct extends Widget
     public function run()
     {
         $products = Product::find()
-            ->where('status_id != 2 and status_id != 4')
+            ->where(['status_id' => 1])
             ->limit(20)
             ->all();
 
