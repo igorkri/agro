@@ -47,7 +47,7 @@ use yii\helpers\Url;
                                     </div>
 
                                 <div class="product-card__info">
-                                    <div class="product-card__name">
+                                    <div class="product-card__name_slider">
                                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
                                     </div>
                                     <div class="product-card__rating">

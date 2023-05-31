@@ -3006,12 +3006,34 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   font-size: 15px;
   line-height: 19px;
 }
+
+.product-card__name_slider {
+  font-size: 15px;
+  line-height: 19px;
+}
+
 .product-card__name a {
   color: inherit;
   -webkit-transition: 0.15s;
   transition: 0.15s;
 }
+
+.product-card__name_slider a {
+  color: inherit;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 .product-card__name a:hover {
+  color: #47991f;
+}
+
+.product-card__name_slider a:hover {
   color: #47991f;
 }
 
