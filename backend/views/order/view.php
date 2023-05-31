@@ -59,11 +59,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 Сума <?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></div>
                             <div class="sa-page-meta__item">
                                 <!--                        Статус виконання -->
-                                Статус <?= $model->getExecutionStatus($model->id) ?>
+                                Статус: <?= $model->getExecutionStatus($model->id) ?>
                             </div>
                             <div class="sa-page-meta__item">
                                 <!--                            Статус оплати -->
-                                Оплата <?= $model->getPayMent($model->id) ?>
+                                Оплата: <?= $model->getPayMent($model->id) ?>
                             </div>
                         </div>
                     </div>

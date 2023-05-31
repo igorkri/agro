@@ -93,10 +93,6 @@ class ActivePages extends \yii\db\ActiveRecord
                 $res[] = $page['url_page'];
             }
         }
-
-
-//        exit('<pre>' . print_r($res, true) . '</pre>');
-
         return count($res);
     }
 
@@ -110,7 +106,6 @@ class ActivePages extends \yii\db\ActiveRecord
             foreach ($pages as $page) {
                 $res[] = $page['url_page'];
             }
-//        exit('<pre>' . print_r($url, true) . '</pre>');
         return count($res);
     }
 
