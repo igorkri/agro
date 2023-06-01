@@ -37,10 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ?>
                                 </ol>
                             </nav>
-                            <h1 class="h3 m-0">Замовлення #<?= $model->id ?></h1>
+                            <h1 class="h3 m-0">Замовлення # <?= $model->id ?></h1>
                         </div>
                         <div class="col-auto d-flex">
-                            <!--                        <a href="#" class="btn btn-secondary me-3">Видалити</a>-->
                             <?php echo Html::a('Редагувати', Url::to(['update', 'id' => $model->id]), [
                                 'class' => "btn btn-primary",
                                 'role' => 'modal-remote',
@@ -49,7 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-
                 <div class="sa-page-meta mb-5">
                     <div class="sa-page-meta__body">
                         <div class="sa-page-meta__list">
@@ -71,50 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="sa-entity-layout" data-sa-container-query='{"920":"sa-entity-layout--size--md"}'>
                     <div class="sa-entity-layout__body">
                         <div class="sa-entity-layout__main">
-                            <div class="card">
-                                <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
-                                    <h2 class="mb-0 fs-exact-18 me-4">Коментар замовника</h2>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="sa-table">
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-end">
-                                                <div class="sa-price">
-                                                    <textarea class="sa-card-area__area" id="order-note"
-                                                              data-id="<?= $model->id ?>"
-                                                              data-land="<?= $_SESSION['_language'] ?>" rows="4"
-                                                              placeholder="Ваш коментар"><?= $model->note ? $model->note : '' ?></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
-                                    <h2 class="mb-0 fs-exact-18 me-4">Коментар менеджера</h2>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="sa-table">
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-end">
-                                                <div class="sa-price">
-                                                    <textarea class="sa-card-area__area" id="order-coment"
-                                                              data-id="<?= $model->id ?>"
-                                                              data-land="<?= $_SESSION['_language'] ?>" rows="4"
-                                                              placeholder="Ваш коментар"><?= $model->comment ? $model->comment : '' ?></textarea>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                             <?php if ($model->orderItems): ?>
-                                <div class="card mt-5">
+                                <div class="card">
                                     <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
                                         <h2 class="mb-0 fs-exact-18 me-4">Товари</h2>
                                         <div class="text-muted fs-exact-14"><a href="#">Редагувати</a></div>
@@ -166,13 +122,44 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="card">
                                 <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
                                     <h2 class="fs-exact-16 mb-0">Замовник</h2>
+                                    <a href="#" class="fs-exact-14"></a>
                                 </div>
                                 <div class="card-body pt-4 fs-exact-14">
                                     <div><?= $model->fio ?></div>
+                                    <div class="mt-1"><?= $model->city ?></div>
                                     <div class="text-muted mt-1"><?= $model->phone ?></div>
-                                    <div class="card-body pt-4 fs-exact-14">
-                                        <?= $model->city ?>
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-5">
+                                <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
+                                    <h2 class="fs-exact-16 mb-0"><span class="sa-nav__icon">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                   fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd"
+        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg>
+                                            </span> Коментар замовника</h2>
+                                    <a href="#" class="fs-exact-14"></a>
+                                </div>
+                                <div class="card-body pt-4 fs-exact-14">
+                                    <div><?= $model->note ? $model->note : '' ?></div>
+                                </div>
+                            </div>
+                            <div class="card mt-5">
+                                <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
+                                    <h2 class="fs-exact-16 mb-0"><span class="sa-nav__icon">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                   fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  <path fill-rule="evenodd"
+        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+</svg>
+                                            </span>Коментар менеджера</h2>
+                                    <a href="#" class="fs-exact-14"></a>
+                                </div>
+                                <div class="card-body pt-4 fs-exact-14">
+                                    <div><?= $model->comment ? $model->comment : '' ?></div>
                                 </div>
                             </div>
                         </div>
