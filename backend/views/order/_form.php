@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
                         <div class="card-body p-5">
                             <div class="mb-5"><h2
                                         class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></div>
-                            <div class="container row">
+                            <div class="row">
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
                                         \yii\helpers\ArrayHelper::map(OrderPayMent::find()->all(), 'id', 'name')
@@ -61,22 +61,22 @@ use yii\widgets\ActiveForm;
                                     ) ?>
                                 </div>
                             </div>
-                            <div class="container row">
-                                <div class="col-4 sm-2">
-                                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+                            <div class="row">
+                                <div class="col-4 sm-2 mb-4">
+                                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div>
-                                <div class="col-4 sm-5">
-                                    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
+                                <div class="col-4 sm-5 mb-4">
+                                    <?= $form->field($model, 'fio')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div>
-                                <div class="col-4 sm-5">
-                                    <?php echo $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+                                <div class="col-4 sm-5 mb-4">
+                                    <?php echo $form->field($model, 'city')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                 </div>
                             </div>
-                            <div class="container">
-                                <div>
+                            <div>
+                                <div class="mb-4">
                                     <?= $form->field($model, 'note')->textarea(['rows' => 4]) ?>
                                 </div>
-                                <div>
+                                <div class="mb-4">
                                     <?= $form->field($model, 'comment')->textarea(['rows' => 4]) ?>
                                 </div>
                             </div>
