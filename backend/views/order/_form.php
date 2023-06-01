@@ -63,13 +63,13 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div class="row">
                                 <div class="col-4 sm-2 mb-4">
-                                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
                                 </div>
                                 <div class="col-4 sm-5 mb-4">
-                                    <?= $form->field($model, 'fio')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
                                 </div>
                                 <div class="col-4 sm-5 mb-4">
-                                    <?php echo $form->field($model, 'city')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                    <?php echo $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
                                 </div>
                             </div>
                             <div>

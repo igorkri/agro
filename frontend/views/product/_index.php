@@ -19,6 +19,8 @@ $this->title = $product->seo_title;
 //$this->registerJs($schemaProduct, View::POS_HEAD);
 //$this->renderHeadHtml($schemaProduct);
 ?>
+
+<?php //exit('<pre>'.print_r($isset_to_cart['_quantity'],true).'</pre>'); ?>
 <!-- site__body -->
 <div class="site__body">
     <div class="page-header">
