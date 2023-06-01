@@ -5004,7 +5004,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: block;
   padding: 10px 16px;
   color: inherit;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 16px;
   letter-spacing: 0.02em;
 }
@@ -5679,10 +5679,15 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .megamenu__links--level--1 > .megamenu__item > a {
-  font-size: 14px;
+  font-size: 15px;
   color: #5c6b73;
   -webkit-transition: color 0.15s;
   transition: color 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .megamenu__links--level--1 > .megamenu__item > a:hover {
   color: #47991f;
@@ -6376,7 +6381,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
       -ms-flex-align: center;
           align-items: center;
   height: 100%;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1;
   letter-spacing: 0.02em;
   font-weight: 400;

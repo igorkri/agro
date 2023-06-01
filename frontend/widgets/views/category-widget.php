@@ -19,7 +19,7 @@ use yii\helpers\Url;
                                 <li class="departments__item">
                                     <a class="departments__item-link"
                                        href="<?= Url::to(['/category/children', 'slug' => $category->slug]) ?>">
-                                        <?= $category->name ?>
+                                        <i class="fas fa-seedling"></i>  <?= $category->name ?>
                                         <svg class="departments__item-arrow" width="6px" height="9px">
                                             <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                         </svg>
@@ -55,7 +55,6 @@ use yii\helpers\Url;
                                                                             <?php endif; ?>
                                                                         </ul>
                                                                     </li>
-
                                                                 </ul>
                                                             </div>
                                                         <?php endif; ?>
@@ -70,7 +69,7 @@ use yii\helpers\Url;
                                 <li class="departments__item">
                                     <a class="departments__item-link"
                                        href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
-                                        <?php echo $category->name ?>
+                                        <i class="fas fa-seedling"></i>  <?= $category->name ?>
                                     </a>
                                 </li>
                             <?php endif; ?>
