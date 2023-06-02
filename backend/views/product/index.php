@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td>
                                 <div class="badge badge-sa-<?=$color?>"><?= $model->status->name ?></div>
                             </td>
-                            <td>
+                            <td style="width: 10%">
                                 <div class="sa-price">
                                     <span class="sa-price__symbol">&#8372;</span>
                                     <span class="sa-price__integer"><?= explode('.', $model->price)[0] ?></span>
