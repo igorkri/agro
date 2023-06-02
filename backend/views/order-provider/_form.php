@@ -2,6 +2,7 @@
 
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -9,21 +10,21 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
+<!--<div class="order-provider-form">-->
+<!---->
+<!--    --><?php //$form = ActiveForm::begin(); ?>
+<!---->
+<!--    --><?//= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+<!---->
+<!--    <div class="form-group">-->
+<!--        --><?//= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+<!--    </div>-->
+<!---->
+<!--    --><?php //ActiveForm::end(); ?>
+<!---->
+<!--</div>-->
+
 <div class="order-provider-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
-
-<div class="status-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -70,12 +71,9 @@ use yii\widgets\ActiveForm;
                                         <!--                                        <input type="text" class="form-control" id="form-category/name" value="Hand Tools" />-->
                                         <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>

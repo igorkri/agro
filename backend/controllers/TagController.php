@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\shop\ProductTag;
 use common\models\shop\Tag;
 use backend\models\search\TagSearch;
 use yii\web\Controller;
@@ -111,7 +112,15 @@ class TagController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $tags = ProductTag::find()->where(['tag_id' => $model->id])->all();
+        foreach ($tags as $tag) {
+
+            $tag->delete();
+        }
+
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }

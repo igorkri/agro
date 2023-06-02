@@ -196,8 +196,14 @@ class Order extends \yii\db\ActiveRecord
     {
         if ($id != null) {
             $order = OrderProvider::find()->where(['id' => $id])->one();
+            if ($order != null) {
 
-            return $order->name;
+                return $order->name;
+
+            } else {
+
+                return $order = 'Видалений';
+            }
         } else {
 
             return $order = 'Не вибрано';

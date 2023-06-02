@@ -66,19 +66,11 @@ use yii\widgets\ActiveForm;
                                             'lang' => 'uk',
                                             'minHeight' => 100,
                                             'plugins' => [
-//                'clips',
                                                 'fullscreen',
                                                 'table',
                                             ],
-//            'clips' => [
-//                ['Не вкл', 'Не включается'],
-//                ['Не раб', 'Не работает'],
-//                ['Протекает', 'Протекает'],
-//                ['Шумит', 'Посторонний шум'],
-//            ],
                                         ],
                                     ]); ?>
-
                                 </div>
                             </div>
                         </div>
@@ -87,8 +79,6 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
 

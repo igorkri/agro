@@ -158,28 +158,26 @@ class ProductController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-//    public function actionDelete($id)
-//    {
-//        $this->findModel($id)->delete();
-//
-//        return $this->redirect(['index']);
-//    }
 
     public function actionDelete($id)
     {
         $dir = Yii::getAlias('@frontendWeb');
         $model = $this->findModel($id);
         $images = ProductImage::find()->where(['product_id' => $model->id])->all();
+        $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
         foreach ($images as $image) {
             if (file_exists($dir . '/product/' . $image->name)) {
                 unlink($dir . '/product/' . $image->name);
             }
-
-            $model->delete();
+            $image->delete();
         }
+        foreach ($tags as $tag) {
+            $tag->delete();
+        }
+        $model->delete();
+
         return $this->redirect(['index']);
     }
-
 
     /**
      * Finds the Product model based on its primary key value.
@@ -284,7 +282,7 @@ class ProductController extends Controller
         $image = ProductImage::find()->where(['id' => $id])->one();
         $dir = Yii::getAlias('@frontendWeb/product/');
         $product = Product::find()->where(['id' => $image->product_id])->one();
-        if(Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             if (unlink($dir . $image->name)) {
                 if ($image->delete()) {

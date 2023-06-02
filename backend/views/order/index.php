@@ -111,17 +111,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--                                    <li><a class="dropdown-item" href="#">Remove tag</a></li>-->
 <!--                                    <li><hr class="dropdown-divider" /></li>-->
                                     <li>
-                                        <?= Html::a(Yii::t('app', 'View'), ['view', 'id' => $order->id], [
+                                        <?= Html::a(Yii::t('app', 'View'), ['order/view', 'id' => $order->id], [
                                             'class' => 'dropdown-item text-info',
                                         ]) ?>
                                     </li>
                                     <li>
-                                        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $order->id], [
+                                        <?= Html::a(Yii::t('app', 'Update'), ['order/update', 'id' => $order->id], [
                                             'class' => 'dropdown-item text-warning',
                                         ]) ?>
                                     </li>
                                     <li>
-                                        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $order->id], [
+                                        <?= Html::a(Yii::t('app', 'Delete'), ['order/delete', 'id' => $order->id], [
                                             'class' => 'dropdown-item text-danger',
                                             'data' => [
                                                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
