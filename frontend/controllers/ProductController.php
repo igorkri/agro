@@ -49,7 +49,7 @@ class ProductController extends Controller
             ->setImage($product->getImgOne($product->id))
             ->register(Yii::$app->getView());
 
-        return $this->render('_index', [
+        return $this->render('index', [
             'product' => $product,
             'isset_to_cart' => $product->getIssetToCart($product->id),
             'model_review' => $model_review,
