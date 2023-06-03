@@ -2,7 +2,6 @@
 
 /** @var yii\web\View $this */
 
-use common\models\shop\Product;
 use frontend\widgets\FeaturedProduct;
 use frontend\widgets\PopularCategories;
 use frontend\widgets\Bestsellers;

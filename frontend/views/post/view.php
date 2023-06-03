@@ -1,5 +1,6 @@
 <?php
 
+use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use yii\helpers\Url;
 
@@ -53,6 +54,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
             </div>
+
             <div class="col-12 col-lg-4">
                 <div class="block block-sidebar block-sidebar--position--end">
                     <!--- Останні статті --->
@@ -78,14 +80,21 @@ use yii\helpers\Url;
                             </div>
                         </div>
                     </div>
+
                     <!--- Останні статті /end --->
 
                     <!--- Хмара тегів /end --->
                     <?php echo TagCloud::widget() ?>
                     <!--- Хмара тегів /end --->
+
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="container">
+    <!-- .block-products-carousel -->
+    <?php echo ProductsCarousel::widget() ?>
+    <!-- .block-products-carousel / end -->
 </div>
 <!-- site__body / end -->

@@ -1,5 +1,6 @@
 <?php
 
+use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
@@ -37,7 +38,7 @@ use yii\helpers\Url;
                         <div class="posts-view__list posts-list posts-list--layout--list">
                             <div class="posts-list__body">
                                 <?php foreach ($blogs as $post ): ?>
-                                <div class="posts-list__item">
+                                <div class="container posts-list__item">
                                     <div class="post-card post-card--layout--list post-card--size--nl">
                                         <div class="post-card__image">
                                             <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
@@ -64,18 +65,17 @@ use yii\helpers\Url;
                             </div>
                         </div>
                         <!-- Пости /end -->
-
-                        <!-- Пагінація -->
-                        <div class="posts-view__pagination">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-<!--                                    --><?php //= LinkPager::widget(['pagination' => $pages,]) ?>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Пагінація /end -->
                     </div>
                 </div>
+                <!-- Пагінація -->
+                <div style="display: block; margin: 60px 0px 0px 0px;">
+                    <ul class="pagination justify-content-center">
+                        <li>
+                            <?= LinkPager::widget(['pagination' => $pages,]) ?>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Пагінація /end -->
             </div>
             <div class="col-12 col-lg-4">
                 <div class="block block-sidebar block-sidebar--position--end">
@@ -86,5 +86,10 @@ use yii\helpers\Url;
             </div>
         </div>
     </div>
+</div>
+<div class="container">
+    <!-- .block-products-carousel -->
+    <?php echo ProductsCarousel::widget() ?>
+    <!-- .block-products-carousel / end -->
 </div>
 <!-- site__body / end -->

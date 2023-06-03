@@ -7,6 +7,7 @@
 
 /** @var \common\models\shop\Review $model_review */
 
+use frontend\widgets\ProductsCarousel;
 use kartik\rating\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -237,11 +238,13 @@ $this->title = $product->seo_title;
                     <!-- .product__end -->
                     <div class="product__footer">
                         <div class="product__prices">
-                            <?php foreach ($product->tags as $brand): ?>
-                                <button class="btn btn-secondary btn-xs">
-                                    <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
-                                </button>
-                            <?php endforeach; ?>
+                            <div class="tags tags--lg">
+                                <div class="tags__list">
+                                    <?php foreach ($product->tags as $brand): ?>
+                                        <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
                             <hr>
                             <div class="price" style="margin-bottom: 25px">
                                 <?= $product->getPrice() ?> &#8372;
@@ -258,8 +261,8 @@ $this->title = $product->seo_title;
                                     </div>
                                 </div>
                                 <!--                                <div class="product__actions-item product__actions-item--addtocart">-->
-                                <?php if ($product->status_id != 2): ?>
-                                    <button class="btn btn-primary product-card__addtocart "
+                                <?php if ($product->status_id != 2) { ?>
+                                    <button class="btn btn-primary product-card__addtocart"
                                             type="button"
                                             data-product-id="<?= $product->id ?>"
                                             style="margin-top: 4px;
@@ -271,7 +274,22 @@ $this->title = $product->seo_title;
                                         </svg>
                                         <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                     </button>
-                                <?php endif; ?>
+                                <?php } else { ?>
+                                    <button class="btn btn-primary disabled"
+                                            type="button"
+                                            data-product-id=""
+                                            style="margin-top: 4px;
+                                margin-left: 9px;
+                                padding: 9px 39px;
+                                height: 47px;">
+                                        <svg width="20px" height="20px" style="display: unset;">
+                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                        </svg>
+                                        <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
+                                    </button>
+                                <?php } ?>
+
+
                             </div>
                         </div>
                         <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
@@ -319,6 +337,10 @@ $this->title = $product->seo_title;
         <!-- description /end -->
     </div>
 </div>
+<!-- .block-products-carousel -->
+<?php echo ProductsCarousel::widget() ?>
+<!-- .block-products-carousel / end -->
+
 <!-- .block-products-carousel -->
 <?php echo RelatedProducts::widget() ?>
 <!-- .block-products-carousel / end -->
