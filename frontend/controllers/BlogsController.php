@@ -5,7 +5,6 @@ namespace frontend\controllers;
 
 
 use common\models\Posts;
-use common\models\shop\Tag;
 use yii\data\Pagination;
 use yii\web\Controller;
 

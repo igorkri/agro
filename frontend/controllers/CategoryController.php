@@ -46,6 +46,7 @@ class CategoryController extends Controller
         $query = Product::find()->where(['category_id' => $category->id]);
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 12]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $products_all = $query->count();
 
         Yii::$app->metamaster
             ->setTitle($category->pageTitle)
@@ -53,7 +54,7 @@ class CategoryController extends Controller
             ->setImage('/category/' . $category->file)
             ->register(Yii::$app->getView());
 
-        return $this->render('catalog', compact(['products', 'category', 'pages']));
+        return $this->render('catalog', compact(['products', 'category', 'pages', 'products_all']));
     }
 
 }

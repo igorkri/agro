@@ -56,7 +56,7 @@ use yii\helpers\Url;
                                     <div class="layout-switcher">
                                     </div>
                                 </div>
-                                <div class="view-options__legend">Показано <?= count($products) ?> товарів</div>
+                                <div class="view-options__legend">Показано <?= count($products) ?> товарів з <?= $products_all ?></div>
                                 <div class="view-options__divider"></div>
                             </div>
                         </div>
