@@ -16,7 +16,7 @@ use yii\helpers\Url;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i>  Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -37,30 +37,31 @@ use yii\helpers\Url;
                         <!-- Пости -->
                         <div class="posts-view__list posts-list posts-list--layout--list">
                             <div class="posts-list__body">
-                                <?php foreach ($blogs as $post ): ?>
-                                <div class="container posts-list__item">
-                                    <div class="post-card post-card--layout--list post-card--size--nl">
-                                        <div class="post-card__image">
-                                            <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                                <img src="/posts/<?= $post->image ?>" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="post-card__info">
-                                            <div class="post-card__category">
+                                <?php foreach ($blogs as $post): ?>
+                                    <div class="container posts-list__item">
+                                        <div class="post-card post-card--layout--list post-card--size--nl">
+                                            <div class="post-card__image">
+                                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
+                                                    <img src="/posts/<?= $post->image ?>" alt="">
+                                                </a>
                                             </div>
-                                            <div class="post-card__name">
-                                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
-                                            </div>
-                                            <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
-                                            <div class="post-card__content">
-                                                <?= $post->description ?>
-                                            </div>
-                                            <div class="post-card__read-more">
-                                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>" class="btn btn-secondary btn-sm">Докладніше...</a>
+                                            <div class="post-card__info">
+                                                <div class="post-card__category">
+                                                </div>
+                                                <div class="post-card__name">
+                                                    <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
+                                                </div>
+                                                <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
+                                                <div class="post-card__content">
+                                                    <?= $post->description ?>
+                                                </div>
+                                                <div class="post-card__read-more">
+                                                    <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"
+                                                       class="btn btn-secondary btn-sm">Докладніше...</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>

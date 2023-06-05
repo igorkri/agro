@@ -18,14 +18,11 @@ class BlogsController extends Controller
         $posts = Posts::find();
 
         $pages = new Pagination(['totalCount' => $posts->count(), 'pageSize' => 3]);
-        $blogs = $posts->offset($pages->offset)->limit($pages->limit)->all();
-
-        $tags = Tag::find()->all();
+        $blogs = $posts->offset($pages->offset)->limit($pages->limit)->orderBy('date_public DESC')->all();
 
         return $this->render('view',
             [
                 'blogs' => $blogs,
-                'tags' => $tags,
                 'pages' => $pages
             ]);
     }
