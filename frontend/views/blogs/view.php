@@ -67,15 +67,6 @@ use yii\helpers\Url;
                         <!-- Пости /end -->
                     </div>
                 </div>
-                <!-- Пагінація -->
-                <div style="display: block; margin: 60px 0px 0px 0px;">
-                    <ul class="pagination justify-content-center">
-                        <li>
-                            <?= LinkPager::widget(['pagination' => $pages,]) ?>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Пагінація /end -->
             </div>
             <div class="col-12 col-lg-4">
                 <div class="block block-sidebar block-sidebar--position--end">
@@ -87,6 +78,15 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
+<!-- Пагінація -->
+<div style="display: block; margin: 60px 0px 0px 0px;">
+    <ul class="pagination justify-content-center">
+        <li>
+            <?= LinkPager::widget(['pagination' => $pages,]) ?>
+        </li>
+    </ul>
+</div>
+<!-- Пагінація /end -->
 <div class="container">
     <!-- .block-products-carousel -->
     <?php echo ProductsCarousel::widget() ?>
