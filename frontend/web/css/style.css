@@ -14047,7 +14047,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     display: none;
   }
   .block-products__featured-item .product-card .product-card__availability {
-    display: none;
+    /*display: none;*/
   }
   .block-products__featured-item .product-card .product-card__buttons {
     display: none;
@@ -14151,7 +14151,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     display: none;
   }
   .block-products__featured-item .product-card .product-card__availability {
-    display: none;
+    /*display: none;*/
   }
   .block-products__featured-item .product-card .product-card__features-list {
     display: none;
