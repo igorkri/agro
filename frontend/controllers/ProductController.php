@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\shop\Brand;
+use common\models\shop\ProductProperties;
 use common\models\shop\Review;
 use Spatie\SchemaOrg\Schema;
 use Yii;
@@ -17,6 +18,8 @@ class ProductController extends Controller
     public function actionView($slug): string
     {
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
+        $product_properties = ProductProperties::find()->where(['product_id' => $product->id])->all();
+
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
 
         $model_review = new Review();
@@ -53,6 +56,7 @@ class ProductController extends Controller
             'product' => $product,
             'isset_to_cart' => $product->getIssetToCart($product->id),
             'model_review' => $model_review,
+            'product_properties' => $product_properties,
             'img_brand' => $img_brand
         ]);
     }

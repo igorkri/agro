@@ -130,6 +130,10 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $this->hasOne(Brand::class, ['id' => 'brand_id']);
     }
 
+    public function getProperties()
+    {
+        return $this->hasMany(ProductProperties::class, ['product_id' => 'id']);
+    }
 
     /**
      * Gets query for [[Category]].

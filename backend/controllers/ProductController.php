@@ -6,7 +6,9 @@ use common\models\Settings;
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
 use common\models\shop\ProductImage;
+use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
+use yii\helpers\ArrayHelper;
 use yii\imagine\Image;
 use Yii;
 use yii\base\BaseObject;
@@ -113,35 +115,65 @@ class ProductController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
+//
+//            $post_product = $this->request->post('Product');
+//            if (!empty($post_product['tags'])) {
+//                //удаляем существующие tags
+//                $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
+//                if ($tags) {
+//                    foreach ($tags as $t) {
+//                        $t->delete();
+//                    }
+//                }
+//                //добавляем Tags
+//                foreach ($post_product['tags'] as $tag_id) {
+//                    $tag = ProductTag::find()
+//                        ->where(['product_id' => $model->id])
+//                        ->andWhere(['tag_id' => $tag_id])
+//                        ->one();
+//                    if (!$tag) {
+//                        $add_tag = new ProductTag();
+//                        $add_tag->product_id = $model->id;
+//                        $add_tag->tag_id = $tag_id;
+//                        $add_tag->save();
+//                    }
+//                }
+//            }
+//
+//            return $this->redirect(['update', 'id' => $model->id]);
+//        }
+//
+//        return $this->render('update', [
+//            'model' => $model,
+//        ]);
+//    }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
+            // Сохранение свойств товара
+            $postProperties = Yii::$app->request->post('ProductProperties', []);
 
-            $post_product = $this->request->post('Product');
-            if (!empty($post_product['tags'])) {
-                //удаляем существующие tags
-                $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
-                if ($tags) {
-                    foreach ($tags as $t) {
-                        $t->delete();
-                    }
-                }
-                //добавляем Tags
-                foreach ($post_product['tags'] as $tag_id) {
-                    $tag = ProductTag::find()
-                        ->where(['product_id' => $model->id])
-                        ->andWhere(['tag_id' => $tag_id])
-                        ->one();
-                    if (!$tag) {
-                        $add_tag = new ProductTag();
-                        $add_tag->product_id = $model->id;
-                        $add_tag->tag_id = $tag_id;
-                        $add_tag->save();
-                    }
-                }
+            // Удаление существующих свойств товара
+            ProductProperties::deleteAll(['product_id' => $model->id]);
+
+            // Добавление новых свойств товара
+            foreach ($postProperties as $postProperty) {
+                $propertyModel = new ProductProperties();
+                $propertyModel->product_id = $model->id;
+                $propertyModel->properties = $postProperty['properties'];
+                $propertyModel->value = $postProperty['value'];
+                $propertyModel->save();
             }
+
+            // Остальной код...
 
             return $this->redirect(['update', 'id' => $model->id]);
         }
@@ -150,6 +182,11 @@ class ProductController extends Controller
             'model' => $model,
         ]);
     }
+
+
+
+
+
 
     /**
      * Deletes an existing Product model.

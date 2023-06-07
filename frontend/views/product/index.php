@@ -337,6 +337,7 @@ $this->title = $product->seo_title;
         <!-- description -->
         <?= $this->render('description', [
             'product' => $product,
+            'product_properties' => $product_properties,
             'model_review' => $model_review
         ]) ?>
         <!-- description /end -->

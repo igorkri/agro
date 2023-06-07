@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\ProductProperties;
 use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use vova07\imperavi\Widget;
@@ -93,6 +94,40 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!--------------  Product_properties  ------------------>
+                        <div class="card mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5">
+                                    <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Properties') ?></h2>
+                                </div>
+                                <?php $data = ProductProperties::find()->where(['product_id' => $model->id])->all(); ?>
+                                <div id="properties-container">
+                                    <?php foreach ($data as $index => $productProperty): ?>
+                                        <div class="row g-4">
+                                            <div class="col-5">
+                                                <?= $form->field($productProperty, "[$index]properties")->textInput() ?>
+                                            </div>
+                                            <div class="col-5">
+                                                <?= $form->field($productProperty, "[$index]value")->textInput() ?>
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="button"
+                                                        class="btn btn-danger remove-property-btn">Удалить
+                                                </button>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="mt-3">
+                                    <button type="button" id="add-property-btn" class="btn btn-primary">Добавить
+                                        свойство
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-------------  Product_properties  ----------------->
+
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
@@ -229,3 +264,58 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
             /* width: max-content; */
         }
     </style>
+
+    <script>
+        var index = <?= count($data) ?>; // Определение индекса для новых свойств
+
+        // Обработчик нажатия кнопки "Добавить свойство"
+        document.getElementById("add-property-btn").addEventListener("click", function () {
+            var container = document.getElementById("properties-container");
+
+            // Создание нового блока для свойств
+            var row = document.createElement("div");
+            row.className = "row g-4";
+
+            // Создание поля "properties"
+            var propertiesField = document.createElement("div");
+            propertiesField.className = "col";
+            propertiesField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][properties]" class="form-control" />';
+
+            // Создание поля "value"
+            var valueField = document.createElement("div");
+            valueField.className = "col";
+            valueField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][value]" class="form-control" />';
+
+            // Создание кнопки "Удалить"
+            var removeBtn = document.createElement("div");
+            removeBtn.className = "col";
+            removeBtn.innerHTML = '<button type="button" class="btn btn-danger remove-property-btn">Удалить</button>';
+
+            // Добавление полей и кнопки в новый блок
+            row.appendChild(propertiesField);
+            row.appendChild(valueField);
+            row.appendChild(removeBtn);
+
+            // Добавление нового блока в контейнер
+            container.appendChild(row);
+
+            // Увеличение индекса для следующего свойства
+            index++;
+
+            // Активация кнопки "Удалить" для уже добавленных свойств
+            var removeBtns = container.getElementsByClassName("remove-property-btn");
+            for (var i = 0; i < removeBtns.length; i++) {
+                removeBtns[i].disabled = false;
+            }
+        });
+
+        // Обработчик нажатия кнопки "Удалить"
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("remove-property-btn")) {
+                var row = event.target.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            }
+        });
+    </script>
+
+

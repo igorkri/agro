@@ -32,10 +32,14 @@ $rating = 3;
                     <h3 class="spec__header">Специфікація товару</h3>
                     <div class="spec__section">
                         <h4 class="spec__section-title">Загальна</h4>
+                        <?php if ($product_properties != null): ?>
+                        <?php foreach ($product_properties as $property): ?>
                         <div class="spec__row">
-                            <div class="spec__name">-</div>
-                            <div class="spec__value">-</div>
+                            <div class="spec__name"><?= $property->properties ?></div>
+                            <div class="spec__value"><?= $property->value ?></div>
                         </div>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                     <div class="spec__disclaimer">
                         Інформація про технічні характеристики, комплект поставки, країну виробника та зовнішній вигляд товару є довідковою та базується на актуальній на момент публікації інформації.
@@ -128,7 +132,6 @@ $rating = 3;
                                 </li>
                                 <?php endforeach; ?>
                             </ol>
-
                         </div>
                     </div>
                     <form id="form-review">
