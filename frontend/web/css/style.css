@@ -3242,7 +3242,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: none;
 }
 .product-card--layout--horizontal .product-card__availability {
-  display: none;
+  /*display: none;*/
 }
 .product-card--layout--horizontal .product-card__buttons {
   display: none;
@@ -9997,7 +9997,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   margin-bottom: 18px;
 }
 .product__option:last-child {
-  margin-bottom: 0;
+  margin-bottom: -8px;
 }
 
 .product__option-label {
@@ -10014,7 +10014,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: -4px;
+  margin: 30px;
 }
 
 .product__actions-item {
@@ -10746,7 +10746,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: none;
 }
 .products-list[data-layout^=grid-] .product-card .product-card__availability {
-  display: none;
+  /*display: none;*/
 }
 .products-list[data-layout^=grid-] .product-card .product-card__features-list {
   display: none;
@@ -13924,7 +13924,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: none;
 }
 .block-products__list-item .product-card .product-card__availability {
-  display: none;
+  /*display: none;*/
 }
 .block-products__list-item .product-card .product-card__features-list {
   display: none;
@@ -13944,7 +13944,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     display: none;
   }
   .block-products__featured-item .product-card .product-card__availability {
-    display: none;
+    /*display: none;*/
   }
   .block-products__featured-item .product-card .product-card__features-list {
     display: none;
@@ -14608,7 +14608,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: none;
 }
 .block-products-carousel[data-layout^=grid-] .product-card .product-card__availability {
-  display: none;
+  /*display: none;*/
 }
 .block-products-carousel[data-layout^=grid-] .product-card .product-card__features-list {
   display: none;
@@ -15140,7 +15140,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: none;
 }
 .block-products-carousel[data-layout=horizontal] .product-card .product-card__availability {
-  display: none;
+  /*display: none;*/
 }
 .block-products-carousel[data-layout=horizontal] .product-card .product-card__buttons {
   display: none;

@@ -246,9 +246,48 @@ $this->title = $product->seo_title;
                                 </div>
                             </div>
                             <hr>
-                            <div class="price" style="margin-bottom: 25px">
-                                <?= $product->getPrice() ?> &#8372;
+                            <div class="form-group product__option">
+                                <span class="text-success" style="padding: 3px 1px">
+                                <?php
+                                if ($product->status_id == 1) {
+                                    echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
+                                } elseif ($product->status_id == 2) {
+                                    echo '<i style="font-size:1.5rem; color: #ff0000!important; margin: 5px;" class="fas fa-ban"></i> ';
+                                    echo "<span style='color: #ff0000 !important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $product->status->name . " </span>";
+                                } elseif ($product->status_id == 3) {
+                                    echo '<i style="font-size:1.5rem; color: #ff8300!important; margin: 5px;" class="fas fa-truck"></i> ';
+                                    echo "<span style='color: #ff8300 !important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $product->status->name . " </span>";
+                                } elseif ($product->status_id == 4) {
+                                    echo '<i style="font-size:1.5rem; color: #0331fc!important; margin: 5px;" class="fa fa-bars"></i> ';
+                                    echo "<span style='color: #0331fc !important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $product->status->name . " </span>";
+                                } else {
+                                    echo "<span style='color: #060505!important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $product->status->name . " </span>";
+                                }
+                                ?>
+                            </span>
                             </div>
+                            <?php if ($product->old_price == null) { ?>
+                                <div class="product-card__prices">
+                                    <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                </div>
+                            <?php } else { ?>
+                                <div class="product-card__prices">
+                                    <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                    <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                </div>
+                            <?php } ?>
                             <div class="product__actions">
                                 <div class="product__actions-item">
                                     <div class="input-number product__quantity">
@@ -288,43 +327,9 @@ $this->title = $product->seo_title;
                                         <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                     </button>
                                 <?php } ?>
-
-
                             </div>
                         </div>
                         <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
-                    </div>
-                    <div class="form-group product__option">
-                        Наявність: <span class="text-success" style="padding: 3px 1px">
-                                <?php
-                                if ($product->status_id == 1) {
-                                    echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
-                                } elseif ($product->status_id == 2) {
-                                    echo '<i style="font-size:1.5rem; color: #ff0000!important; margin: 5px;" class="fas fa-ban"></i> ';
-                                    echo "<span style='color: #ff0000 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                } elseif ($product->status_id == 3) {
-                                    echo '<i style="font-size:1.5rem; color: #ff8300!important; margin: 5px;" class="fas fa-truck"></i> ';
-                                    echo "<span style='color: #ff8300 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                } elseif ($product->status_id == 4) {
-                                    echo '<i style="font-size:1.5rem; color: #0331fc!important; margin: 5px;" class="fa fa-bars"></i> ';
-                                    echo "<span style='color: #0331fc !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                } else {
-                                    echo "<span style='color: #060505!important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                }
-                                ?>
-                            </span>
                     </div>
                 </div>
             </div>

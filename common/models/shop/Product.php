@@ -187,6 +187,15 @@ class Product extends ActiveRecord implements CartPositionInterface
         }
     }
 
+    public function getOldPrice()
+    {
+        if($this->currency === 'UAH'){
+            return $this->old_price;
+        }else{
+            return floatval($this->old_price) * floatval(Settings::currencyRate($this->currency));
+        }
+    }
+
     public function getId()
     {
         return $this->id;

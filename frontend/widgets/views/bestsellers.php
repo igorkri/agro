@@ -17,6 +17,10 @@ use yii\helpers\Url;
             <div class="block-products__featured">
                 <div class="block-products__featured-item">
                     <div class="product-card product-card--hidden-actions ">
+                        <button class="product-card__quickview" type="button">
+                            <i class="fas fa-bars"></i>
+                            <span class="fake-svg-icon"></span>
+                        </button>
                         <div class="product-card__badges-list">
                             <div class="product-card__badge product-card__badge--new"><?= $products[0]->label->name ?></div>
                         </div>
@@ -37,42 +41,55 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__rating-legend"><?=count($products[0]->reviews)?> відгуків</div>
                             </div>
-
                         </div>
                         <div class="product-card__actions">
-                            <div class="product-card__prices">
-                                <?= Yii::$app->formatter->asCurrency($products[0]->getPrice()) ?>
+                            <div class="product-card__availability">
+                                   <span class="text-success">
+                                           <!-- status -->
+                                              <?php
+                                              if ($products[0]->status_id == 1) {
+                                                  echo '<i style="font-size:1rem; margin: 5px;" class="fas fa-check"></i> ' . $products[0]->status->name;
+                                              } elseif ($products[0]->status_id == 2) {
+                                                  echo '<i style="font-size:1rem; color: #ff0000!important; margin: 5px;" class="fas fa-ban"></i> ';
+                                                  echo "<span style='color: #ff0000 !important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $products[0]->status->name . " </span>";
+                                              } elseif ($products[0]->status_id == 3) {
+                                                  echo '<i style="font-size:1rem; color: #ff8300!important; margin: 5px;" class="fas fa-truck"></i> ';
+                                                  echo "<span style='color: #ff8300 !important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $products[0]->status->name . " </span>";
+                                              } elseif ($products[0]->status_id == 4) {
+                                                  echo '<i style="font-size:1rem; color: #0331fc!important; margin: 5px;" class="fa fa-bars"></i> ';
+                                                  echo "<span style='color: #0331fc !important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $products[0]->status->name . " </span>";
+                                              } else {
+                                                  echo "<span style='color: #060505!important;
+                                                font-weight: 600;
+                                                letter-spacing: 0.6px;
+                                            '> " . $products[0]->status->name . " </span>";
+                                              }
+                                              ?>
+                                        <!-- status / end -->
+                                        </span>
                             </div>
+                            <?php if ($products[0]->old_price == null) { ?>
+                                <div class="product-card__prices">
+                                    <?= Yii::$app->formatter->asCurrency($products[0]->getPrice()) ?>
+                                </div>
+                            <?php } else { ?>
+                                <div class="product-card__prices">
+                                    <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($products[0]->getPrice()) ?></span>
+                                    <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($products[0]->getOldPrice()) ?></span>
+                                </div>
+                            <?php } ?>
                             <div class="form-group product__option">
                                         <span class="text-success" style="padding: 3px 1px;font-size: 25px;">
-                                <?php
-                                if ($products[0]->status_id == 1) {
-                                    echo '<i style="font-size:1rem; margin: 5px;" class="fas fa-check"></i> ' . $products[0]->status->name;
-                                } elseif ($products[0]->status_id == 2) {
-                                    echo '<i style="font-size:1rem; color: #ff0000!important; margin: 5px;" class="fas fa-ban"></i> ';
-                                    echo "<span style='color: #ff0000 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                } elseif ($products[0]->status_id == 3) {
-                                    echo '<i style="font-size:1rem; color: #ff8300!important; margin: 5px;" class="fas fa-truck"></i> ';
-                                    echo "<span style='color: #ff8300 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                } elseif ($products[0]->status_id == 4) {
-                                    echo '<i style="font-size:1rem; color: #0331fc!important; margin: 5px;" class="fa fa-bars"></i> ';
-                                    echo "<span style='color: #0331fc !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                } else {
-                                    echo "<span style='color: #060505!important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                }
-                                ?>
+
                             </span>
 
                             </div>
@@ -104,6 +121,10 @@ use yii\helpers\Url;
                 <?php if ($i != 0): ?>
                     <div class="block-products__list-item">
                         <div class="product-card product-card--hidden-actions ">
+                            <button class="product-card__quickview" type="button">
+                                <i class="fas fa-bars"></i>
+                                <span class="fake-svg-icon"></span>
+                            </button>
                             <?php if (isset($product->label)): ?>
                                 <div class="product-card__badges-list">
                                     <div class="product-card__badge product-card__badge--hot"><?= $product->label->name ?></div>
@@ -128,12 +149,23 @@ use yii\helpers\Url;
                                 </div>
                             </div>
                             <div class="product-card__actions">
-                                <div class="product-card__prices">
-                                    <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                    <!-- status -->
-                                    <?=$this->render('status',['product' => $product])?>
-                                    <!-- status / end -->
+                                <div class="product-card__availability">
+                                  <span class="text-success">
+                                           <!-- status -->
+                                        <?= $this->render('status', ['product' => $product]) ?>
+                                        <!-- status / end -->
+                                        </span>
                                 </div>
+                                <?php if ($product->old_price == null) { ?>
+                                    <div class="product-card__prices">
+                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="product-card__prices">
+                                        <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                        <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                    </div>
+                                <?php } ?>
                                 <div class="product-card__buttons">
                                     <button class="btn btn-primary product-card__addtocart "
                                             type="button"

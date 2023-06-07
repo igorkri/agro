@@ -11,6 +11,20 @@ use yii\helpers\Url;
         <div class="block-header">
             <h3 class="block-header__title">Супутні товари</h3>
             <div class="block-header__divider"></div>
+            <ul class="block-header__groups-list">
+                <li>
+                    <button type="button" class="block-header__group  block-header__group--active ">Всі</button>
+                </li>
+                <li>
+                    <button type="button" class="block-header__group ">Гербіциди</button>
+                </li>
+                <li>
+                    <button type="button" class="block-header__group ">Фунгіциди</button>
+                </li>
+                <li>
+                    <button type="button" class="block-header__group ">Інсектециди</button>
+                </li>
+            </ul>
             <div class="block-header__arrows-list">
                 <button class="block-header__arrow block-header__arrow--left" type="button">
                     <svg width="7px" height="11px">
@@ -31,7 +45,10 @@ use yii\helpers\Url;
                     <div class="block-products-carousel__column">
                         <div class="block-products-carousel__cell">
                             <div class="product-card product-card--hidden-actions ">
-
+                                <button class="product-card__quickview" type="button">
+                                    <i class="fas fa-bars"></i>
+                                    <span class="fake-svg-icon"></span>
+                                </button>
                                 <?php if (isset($product->label)): ?>
                                     <div class="product-card__badges-list">
                                         <div class="product-card__badge product-card__badge--hot"><?= $product->label->name ?></div>
@@ -57,14 +74,22 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__actions">
                                     <div class="product-card__availability">
-                                        Availability: <span class="text-success">In Stock</span>
-                                    </div>
-                                    <div class="product-card__prices">
-                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                        <!-- status -->
-                                        <?=$this->render('status',['product' => $product])?>
+                                  <span class="text-success">
+                                           <!-- status -->
+                                        <?= $this->render('status', ['product' => $product]) ?>
                                         <!-- status / end -->
+                                        </span>
                                     </div>
+                                    <?php if ($product->old_price == null) { ?>
+                                        <div class="product-card__prices">
+                                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="product-card__prices">
+                                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                            <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                        </div>
+                                    <?php } ?>
                                     <?php if ($product->status_id != 2): ?>
                                     <div class="product-card__buttons">
                                         <button class="btn btn-primary product-card__addtocart "

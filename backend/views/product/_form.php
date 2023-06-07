@@ -61,6 +61,22 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                 </div>
                                 <div class="mb-4">
                                     <!-- sa-quill-control  -->
+                                    <?= $form->field($model, 'short_description')->widget(Widget::class, [
+                                        'defaultSettings' => [
+                                            'style' => 'position: unset;'
+                                        ],
+                                        'settings' => [
+                                            'lang' => 'uk',
+                                            'minHeight' => 100,
+                                            'plugins' => [
+                                                'fullscreen',
+                                                'table',
+                                            ],
+                                        ],
+                                    ]); ?>
+                                </div>
+                                <div class="mb-4">
+                                    <!-- sa-quill-control  -->
                                     <?= $form->field($model, 'description')->widget(Widget::class, [
                                         'defaultSettings' => [
                                             'style' => 'position: unset;'
@@ -69,21 +85,11 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                             'lang' => 'uk',
                                             'minHeight' => 100,
                                             'plugins' => [
-//                'clips',
                                                 'fullscreen',
                                                 'table',
                                             ],
-//            'clips' => [
-//                ['Не вкл', 'Не включается'],
-//                ['Не раб', 'Не работает'],
-//                ['Протекает', 'Протекает'],
-//                ['Шумит', 'Посторонний шум'],
-//            ],
                                         ],
                                     ]); ?>
-                                </div>
-                                <div>
-                                    <?= $form->field($model, 'short_description')->textarea(['rows' => '6', 'class' => "form-control"]) ?>
                                 </div>
                             </div>
                         </div>
@@ -95,14 +101,11 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                 <div class="row g-4">
                                     <div class="col">
                                         <?= $form->field($model, 'price')->textInput([
-//                                             'type' => 'number',
-//                                            'language' => 'ru',
                                             'class' => "form-control"
                                         ]) ?>
                                     </div>
                                     <div class="col">
                                         <?= $form->field($model, 'old_price')->textInput([
-                                            // 'type' => 'number',
                                             'class' => "form-control"
                                         ]) ?>
                                     </div>

@@ -14,7 +14,7 @@ $rating = 3;
         <div class="product-tabs__list-body">
             <div class="product-tabs__list-container container">
                 <a href="#tab-description" class="product-tabs__item product-tabs__item--active">Опис</a>
-<!--                <a href="#tab-specification" class="product-tabs__item">Specification</a>-->
+                <a href="#tab-specification" class="product-tabs__item">Специфікація</a>
                 <a href="#tab-reviews" class="product-tabs__item">Відгуки</a>
             </div>
         </div>
@@ -23,7 +23,23 @@ $rating = 3;
         <div class="product-tabs__content">
             <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
                 <div class="typography">
+                    <h3 class="spec__header">Опис товару</h3>
                     <?= $product->description ?>
+                </div>
+            </div>
+            <div class="product-tabs__pane" id="tab-specification">
+                <div class="spec">
+                    <h3 class="spec__header">Специфікація товару</h3>
+                    <div class="spec__section">
+                        <h4 class="spec__section-title">Загальна</h4>
+                        <div class="spec__row">
+                            <div class="spec__name">-</div>
+                            <div class="spec__value">-</div>
+                        </div>
+                    </div>
+                    <div class="spec__disclaimer">
+                        Інформація про технічні характеристики, комплект поставки, країну виробника та зовнішній вигляд товару є довідковою та базується на актуальній на момент публікації інформації.
+                    </div>
                 </div>
             </div>
             <div class="product-tabs__pane" id="tab-reviews">

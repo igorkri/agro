@@ -17,7 +17,10 @@ use yii\helpers\Url;
                     <?php foreach($products as $product): ?>
                         <div class="block-product-columns__item">
                             <div class="product-card product-card--hidden-actions product-card--layout--horizontal">
-
+                                <button class="product-card__quickview" type="button">
+                                    <i class="fas fa-bars"></i>
+                                    <span class="fake-svg-icon"></span>
+                                </button>
                                 <?php if(isset($product->label)): ?>
                             <div class="product-card__badges-list">
                                 <div class="product-card__badge product-card__badge--hot"><?=$product->label->name?></div>
@@ -42,12 +45,23 @@ use yii\helpers\Url;
                                     </div>
                                 </div>
                                 <div class="product-card__actions">
-                                    <div class="product-card__prices">
-                                    <?= Yii::$app->formatter->asCurrency($product->getPrice())?>
-                                        <!-- status -->
-                                        <?=$this->render('status',['product' => $product])?>
+                                    <div class="product-card__availability">
+                                  <span class="text-success">
+                                           <!-- status -->
+                                        <?= $this->render('status', ['product' => $product]) ?>
                                         <!-- status / end -->
+                                        </span>
                                     </div>
+                                    <?php if ($product->old_price == null) { ?>
+                                        <div class="product-card__prices">
+                                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="product-card__prices">
+                                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                            <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                        </div>
+                                    <?php } ?>
                                     <div class="product-card__buttons">
                                         <button class="btn btn-primary product-card__addtocart "
                                                 type="button"
