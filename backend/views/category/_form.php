@@ -62,8 +62,8 @@ use yii\helpers\Url;
                     <div class="sa-entity-layout__main">
                         <div class="card">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2
-                                            class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2>
+                                <div class="mb-5">
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></span>
                                 </div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
@@ -130,7 +130,7 @@ use yii\helpers\Url;
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Search engine optimization') ?></h2>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Search engine optimization') ?></h2></span>
                                     <div class="mt-3 text-muted">
                                         <?= Yii::t('app', 'Provide information that will help improve the snippet and bring your category to the top of search engines.') ?>
                                     </div>
@@ -147,7 +147,8 @@ use yii\helpers\Url;
                     <div class="sa-entity-layout__sidebar">
                         <div class="card w-100">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'visibility') ?></h2>
+                                <div class="mb-5">
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'visibility') ?></h2></span>
                                 </div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'visibility')
@@ -172,8 +173,9 @@ use yii\helpers\Url;
                         </div>
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2
-                                            class="mb-0 fs-exact-18"><?= Yii::t('app', 'Parent category') ?></h2></div>
+                                <div class="mb-5">
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Parent category') ?></h2></span>
+                                    </div>
                                 <?php
                                 $data = ArrayHelper::map(Category::find()
                                     ->where(['parentId' => null])->orderBy('id')
@@ -198,9 +200,10 @@ use yii\helpers\Url;
                         </div>
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2
-                                            class="mb-0 fs-exact-18"><?= Yii::t('app', 'Image 700x700') ?></h2></div>
-                                <div class="border p-4 d-flex justify-content-center">
+                                <div class="mb-5">
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Image 700x700') ?></h2></span>
+                                    </div>
+                                <div class="p-4 d-flex justify-content-center">
                                     <div class="max-w-20x">
                                         <?php if ($model->isNewRecord): ?>
                                             <?= $form->field($model, 'file')->widget(FileInput::class, [
@@ -251,7 +254,6 @@ use yii\helpers\Url;
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="mt-4 mb-n2"></div>
                             </div>
                         </div>
                     </div>

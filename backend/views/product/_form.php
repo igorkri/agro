@@ -55,7 +55,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                         <div class="card">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18">Основна інформація</h2>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18">Основна інформація</h2></span>
                                 </div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
@@ -99,7 +99,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Properties') ?></h2>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Properties') ?></h2></span>
                                 </div>
                                 <?php $data = ProductProperties::find()->where(['product_id' => $model->id])->all(); ?>
                                 <div id="properties-container">
@@ -130,7 +130,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Prices') ?></h2>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Prices') ?></h2></span>
                                 </div>
                                 <div class="row g-4">
                                     <div class="col">
@@ -149,7 +149,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2></span>
                                 </div>
                                 <div class="row g-4">
                                     <?= $form->field($model, 'seo_title')->textInput() ?>

@@ -511,6 +511,11 @@ body {
   color: #3d464d;
 }
 
+.badge-sa-theme-cart {
+  background: #fff4a7;
+  color: #3d464d;
+}
+
 .badge-sa-primary {
   background: #ff0000;
   color: #fcfbfb;
