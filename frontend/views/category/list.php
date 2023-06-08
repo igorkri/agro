@@ -56,9 +56,7 @@ use yii\helpers\Url;
                                             </div>
                                         </div>
                                         <div class="product-card__actions">
-                                            <div class="product-card__availability">
-                                                Availability: <span class="text-success">In Stock</span>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
