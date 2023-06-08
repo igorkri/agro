@@ -113,20 +113,19 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                             </div>
                                             <div class="col-2">
                                                 <button type="button"
-                                                        class="btn btn-danger remove-property-btn">Удалить
+                                                        class="btn btn-outline-danger remove-property-btn" style="
+                                                        margin: 25px 0px;">Видалити
                                                 </button>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                                 <div class="mt-3">
-                                    <button type="button" id="add-property-btn" class="btn btn-primary">Добавить
-                                        свойство
-                                    </button>
+                                    <button type="button" id="add-property-btn" class="btn btn-outline-warning">+Додати</button>
                                 </div>
                             </div>
                         </div>
-                        <!-------------  Product_properties  ----------------->
+                        <!-------------End Product properties  ----------------->
 
                         <div class="card mt-5">
                             <div class="card-body p-5">
@@ -278,18 +277,18 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
 
             // Создание поля "properties"
             var propertiesField = document.createElement("div");
-            propertiesField.className = "col";
+            propertiesField.className = "col-5";
             propertiesField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][properties]" class="form-control" />';
 
             // Создание поля "value"
             var valueField = document.createElement("div");
-            valueField.className = "col";
+            valueField.className = "col-5";
             valueField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][value]" class="form-control" />';
 
             // Создание кнопки "Удалить"
             var removeBtn = document.createElement("div");
-            removeBtn.className = "col";
-            removeBtn.innerHTML = '<button type="button" class="btn btn-danger remove-property-btn">Удалить</button>';
+            removeBtn.className = "col-2";
+            removeBtn.innerHTML = '<button type="button" class="btn btn-outline-danger remove-property-btn">Видалити</button>';
 
             // Добавление полей и кнопки в новый блок
             row.appendChild(propertiesField);
