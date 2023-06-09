@@ -14,7 +14,6 @@ use yii\widgets\Pjax;
 
 
 <div class="sa-entity-layout__sidebar">
-
     <div class="card">
         <div class="card-body p-5">
             <div class="mb-5">
@@ -63,6 +62,25 @@ use yii\widgets\Pjax;
 
                         ],
                     )->label(false); ?>
+            </div>
+        </div>
+    </div>
+    <div class="card w-100 mt-5">
+        <div class="card-body p-5">
+            <div class="mb-5">
+                <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Prices') ?></h2></span>
+            </div>
+            <div class="g-4">
+                <div>
+                    <?= $form->field($model, 'price')->textInput([
+                        'class' => "form-control"
+                    ]) ?>
+                </div>
+                <div>
+                    <?= $form->field($model, 'old_price')->textInput([
+                        'class' => "form-control"
+                    ]) ?>
+                </div>
             </div>
         </div>
     </div>

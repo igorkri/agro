@@ -126,26 +126,6 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                             </div>
                         </div>
                         <!-------------End Product properties  ----------------->
-
-                        <div class="card mt-5">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Prices') ?></h2></span>
-                                </div>
-                                <div class="row g-4">
-                                    <div class="col">
-                                        <?= $form->field($model, 'price')->textInput([
-                                            'class' => "form-control"
-                                        ]) ?>
-                                    </div>
-                                    <div class="col">
-                                        <?= $form->field($model, 'old_price')->textInput([
-                                            'class' => "form-control"
-                                        ]) ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
