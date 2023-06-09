@@ -69,7 +69,16 @@ return [
 
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
 
+                'post/<slug:[\w+-]*\w+>' => 'post/view',
+
+                'tag/<id:\d+>' => 'tag/view',
+
                 'about' => 'about/view',
+                'delivery' => 'delivery/view',
+                'special' => 'special/view',
+                'contact' => 'contact/view',
+                'blogs' => 'blogs/view',
+
                 [
                     'pattern' => 'sitemap',
                     'route' => 'site/sitemap',
