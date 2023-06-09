@@ -247,7 +247,7 @@ $this->title = $product->seo_title;
                             </div>
                             <hr>
                             <div class="form-group product__option">
-                                <span class="text-success" style="padding: 3px 1px">
+                                <span class="text-success" style="padding: 3px 30px">
                                 <?php
                                 if ($product->status_id == 1) {
                                     echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
@@ -279,11 +279,15 @@ $this->title = $product->seo_title;
                             </span>
                             </div>
                             <?php if ($product->old_price == null) { ?>
-                                <div class="product-card__prices">
+                                <div class="product-card__prices" style="
+    padding: 0px 34px;
+">
                                     <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                 </div>
                             <?php } else { ?>
-                                <div class="product-card__prices">
+                                <div class="product-card__prices" style="
+    padding: 0px 34px;
+">
                                     <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
                                     <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                 </div>
