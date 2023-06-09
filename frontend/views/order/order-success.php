@@ -63,7 +63,7 @@
                                     </div>
                                 </td>
                                 <td class="order-list__column-product">
-                                    <a href=""><?=$orderItem->product->name?></a>
+                                <?=$orderItem->product->name?></a>
 
                                 </td>
                                 <td class="order-list__column-quantity" data-title="К-ть:"><?=$orderItem->quantity?></td>

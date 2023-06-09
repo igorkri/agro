@@ -43,7 +43,6 @@ use yii\helpers\Url;
                         </div>
                     </div>
                     <div class="post__featured">
-                        <a href="">
                             <img src="/posts/<?= $post->image ?>" alt="">
                         </a>
                     </div>

@@ -54,7 +54,7 @@ use yii\helpers\Url;
                                         Категорії</a></li>
                                 <li class="footer-links__item"><a href="<?= Url::to(['/category/list']) ?>"
                                                                   class="footer-links__link">Каталог</a></li>
-                                <li class="footer-links__item"><a href="/" class="footer-links__link">Спеціальні
+                                <li class="footer-links__item"><a href="<?= Url::to(['/special/view']) ?>" class="footer-links__link">Спеціальні
                                         пропозиції</a></li>
                                 <li class="footer-links__item"><a href="<?= Url::to(['/blogs/view']) ?>" class="footer-links__link">Статті</a></li>
                             </ul>
