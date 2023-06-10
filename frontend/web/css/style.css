@@ -5636,6 +5636,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 [dir=ltr] .megamenu--departments {
   padding-right: 31px;
+  background-image: url("/images/background_menu.jpg");
+  background-position: center;
+  background-size: cover;
 }
 [dir=rtl] .megamenu--departments {
   padding-left: 31px;
