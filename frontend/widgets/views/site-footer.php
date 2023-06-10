@@ -5,8 +5,9 @@ use yii\helpers\Url;
 ?>
 <footer class="site__footer">
     <div class="site-footer">
+        <br>
         <div class="container">
-            <div class="site-footer__widgets">
+            <div class="site-footer__widgets bk-1">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="site-footer__widget footer-contacts">

@@ -7743,10 +7743,19 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   margin-top: 16px;
   background: transparent;
   border-top: 1px solid #ebebeb;
+
 }
 
 .site-footer__widgets {
   padding: 48px 0 54px;
+}
+
+.bk-1{
+  margin: -50px 0px;
+  background-image: url("/images/baground_footer.png");
+  background-position: center;
+  bottom: 0px;
+  background-repeat: no-repeat;
 }
 
 .site-footer__bottom {
