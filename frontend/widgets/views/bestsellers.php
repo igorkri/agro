@@ -22,7 +22,9 @@ use yii\helpers\Url;
                             <span class="fake-svg-icon"></span>
                         </button>
                         <div class="product-card__badges-list">
+                            <?php if (isset($products[0]->label->name)) : ?>
                             <div class="product-card__badge product-card__badge--new"><?= $products[0]->label->name ?></div>
+                            <?php endif; ?>
                         </div>
                         <div class="product-card__image product-image">
                             <a href="<?= Url::to(['product/view', 'slug' => $products[0]->slug]) ?>"

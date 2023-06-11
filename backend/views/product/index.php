@@ -113,6 +113,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <span class="st-copy"><?=$model->id?></span>
                                                 </li>
                                                 <li class="sa-meta__item">
+                                                    ГРУП:
+                                                    <span class="st-copy">
+                                                        <?php
+                                                        foreach ($model->grups as $grup){
+                                                            echo ' <span class="badge badge-sa-secondary">' . $grup->name . '</span>';
+                                                        }
+                                                        ?>
+                                                    </span>
+                                                </li>
+                                                <li class="sa-meta__item">
                                                     LABEL:
                                                     <span class="st-copy"><?=isset($model->label) ? ' <span class="badge badge-sa-primary-label">' . $model->label->name . '</span>' : ''?></span>
                                                 </li>

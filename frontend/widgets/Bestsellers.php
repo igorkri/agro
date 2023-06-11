@@ -5,6 +5,7 @@ namespace frontend\widgets;
 
 
 use common\models\shop\Product;
+use common\models\shop\ProductGrup;
 use yii\base\Widget;
 
 class Bestsellers extends Widget  // Найкращі товари
@@ -16,11 +17,17 @@ class Bestsellers extends Widget  // Найкращі товари
 
     }
 
-    public function run()
-    {
+    public function run() {
+
+        $products_grup = ProductGrup::find()
+            ->select('product_id')
+            ->where(['grup_id' => 1])            //  Перша_Группа_Тест
+            ->column();
+
+
         $products = Product::find()
             ->with('label')
-            ->where(['status_id' => 1])
+            ->where(['id' => $products_grup])
             ->limit(7)
             ->all();
 
