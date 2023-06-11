@@ -18,8 +18,9 @@ class SpecialController extends Controller
         $query = Product::find()->where(['label_id' => 2]);
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 12]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $products_all = $query->count();
 
-        return $this->render('view', compact(['products', 'pages']));
+        return $this->render('view', compact(['products', 'products_all', 'pages']));
     }
 
 }

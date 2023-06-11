@@ -28,8 +28,9 @@ class TagController extends Controller
 
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 12]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $products_all = $query->count();
 
-        return $this->render('view', ['products' => $products, 'tag_name' => $tag_name, 'pages' => $pages]);
+        return $this->render('view', ['products' => $products, 'products_all' => $products_all, 'tag_name' => $tag_name, 'pages' => $pages]);
     }
 
 }
