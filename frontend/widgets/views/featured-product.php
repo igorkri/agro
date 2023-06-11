@@ -102,14 +102,6 @@ use yii\helpers\Url;
                                                 </svg>
                                                 <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                             </button>
-                                            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                                    type="button"
-                                                    data-product-id="<?= $product->id ?>">
-                                                <svg width="20px" height="20px" style="display: unset;">
-                                                    <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                                </svg>
-                                                <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
-                                            </button>
                                         </div>
                                     <?php } else { ?>
                                         <div class="product-card__buttons">

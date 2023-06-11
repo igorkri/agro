@@ -91,26 +91,30 @@ use yii\helpers\Url;
                                         <span class="text-success" style="padding: 3px 1px;font-size: 25px;">
 
                             </span>
-
                             </div>
-                            <div class="product-card__buttons">
-                                <button class="btn btn-primary product-card__addtocart "
-                                        type="button"
-                                        data-product-id="<?=$products[0]->id?>">
-                                    <svg width="20px" height="20px" style="display: unset;">
-                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                    </svg>
-                                    <?= !$products[0]->getIssetToCart($products[0]->id) ? 'В Кошик' : 'Уже в кошику' ?>
-                                </button>
-                                <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                        type="button"
-                                        data-product-id="<?=$products[0]->id?>">
-                                    <svg width="20px" height="20px" style="display: unset;">
-                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                    </svg>
-                                    <?= !$products[0]->getIssetToCart($products[0]->id) ? 'В Кошик' : 'Уже в кошику' ?>
-                                </button>
-                            </div>
+                            <?php if ($products[0]->status_id != 2) { ?>
+                                <div class="product-card__buttons">
+                                    <button class="btn btn-primary product-card__addtocart "
+                                            type="button"
+                                            data-product-id="<?= $products[0]->id ?>">
+                                        <svg width="20px" height="20px" style="display: unset;">
+                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                        </svg>
+                                        <?= !$products[0]->getIssetToCart($products[0]->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                    </button>
+                                </div>
+                            <?php } else { ?>
+                                <div class="product-card__buttons">
+                                    <button class="btn btn-secondary disabled"
+                                            type="button"
+                                            data-product-id="<?= $products[0]->id ?>">
+                                        <svg width="20px" height="20px" style="display: unset;">
+                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                        </svg>
+                                        <?= !$products[0]->getIssetToCart($products[0]->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                    </button>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
