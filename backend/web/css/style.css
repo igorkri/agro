@@ -531,6 +531,11 @@ body {
   color: #444a4f;
 }
 
+.badge-sa-secondary-grup {
+  background: #f93a00a3;
+  color: #ffffff;
+}
+
 .badge-sa-success {
   background: rgba(66, 155, 3, 0.7);
   color: #fbfcfa;

@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <span class="st-copy">
                                                         <?php
                                                         foreach ($model->grups as $grup){
-                                                            echo ' <span class="badge badge-sa-secondary">' . $grup->name . '</span>';
+                                                            echo ' <span class="badge badge-sa-secondary-grup">' . $grup->name . '</span>';
                                                         }
                                                         ?>
                                                     </span>
