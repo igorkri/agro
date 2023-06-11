@@ -109,6 +109,17 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $this->hasMany(ProductTag::class, ['product_id' => 'id']);
     }
 
+
+    /**
+     * Gets query for [[ProductGrups]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductGrups()
+    {
+        return $this->hasMany(ProductGrup::class, ['product_id' => 'id']);
+    }
+
     /**
      * Gets query for [[Tags]].
      *
@@ -120,9 +131,25 @@ class Product extends ActiveRecord implements CartPositionInterface
             ->viaTable('product_tag', ['product_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[Grups]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGrups()
+    {
+        return $this->hasMany(Grup::class, ['id' => 'grup_id'])
+            ->viaTable('product_grup', ['product_id' => 'id']);
+    }
+
     public function getTag()
     {
         return $this->hasOne(Tag::class, ['id' => 'id']);
+    }
+
+    public function getGrup()
+    {
+        return $this->hasOne(Grup::class, ['id' => 'id']);
     }
 
     public function getBrand()

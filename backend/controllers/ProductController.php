@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Settings;
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
+use common\models\shop\ProductGrup;
 use common\models\shop\ProductImage;
 use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
@@ -97,6 +98,16 @@ class ProductController extends Controller
                         $add_tag->save();
                     }
                 }
+
+                if (isset($post_product['grups']) && $post_product['grups'] != null) {
+                    foreach ($post_product['grups'] as $grup_id) {
+                        $add_grup = new ProductTag();
+                        $add_grup->product_id = $model->id;
+                        $add_grup->grup_id = $grup_id;
+                        $add_grup->save();
+                    }
+                }
+
                 return $this->redirect(['update', 'id' => $model->id]);
             }
         } else {
@@ -115,43 +126,6 @@ class ProductController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-//    public function actionUpdate($id)
-//    {
-//        $model = $this->findModel($id);
-//
-//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
-//
-//            $post_product = $this->request->post('Product');
-//            if (!empty($post_product['tags'])) {
-//                //удаляем существующие tags
-//                $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
-//                if ($tags) {
-//                    foreach ($tags as $t) {
-//                        $t->delete();
-//                    }
-//                }
-//                //добавляем Tags
-//                foreach ($post_product['tags'] as $tag_id) {
-//                    $tag = ProductTag::find()
-//                        ->where(['product_id' => $model->id])
-//                        ->andWhere(['tag_id' => $tag_id])
-//                        ->one();
-//                    if (!$tag) {
-//                        $add_tag = new ProductTag();
-//                        $add_tag->product_id = $model->id;
-//                        $add_tag->tag_id = $tag_id;
-//                        $add_tag->save();
-//                    }
-//                }
-//            }
-//
-//            return $this->redirect(['update', 'id' => $model->id]);
-//        }
-//
-//        return $this->render('update', [
-//            'model' => $model,
-//        ]);
-//    }
 
     public function actionUpdate($id)
     {
@@ -197,6 +171,36 @@ class ProductController extends Controller
                 }
             }
 
+            $post_product = $this->request->post('Product');
+            if (!empty($post_product['grups'])) {
+                $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
+                if ($grups) {
+                    foreach ($grups as $g) {
+                        $g->delete();
+                    }
+                }
+
+                foreach ($post_product['grups'] as $grup_id) {
+                    $grup = ProductGrup::find()
+                        ->where(['product_id' => $model->id])
+                        ->andWhere(['grup_id' => $grup_id])
+                        ->one();
+                    if (!$grup) {
+                        $add_grup = new ProductGrup();
+                        $add_grup->product_id = $model->id;
+                        $add_grup->grup_id = $grup_id;
+                        $add_grup->save();
+                    }
+                }
+            } else {
+
+                $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
+                if ($grups) {
+                    foreach ($grups as $g) {
+                        $g->delete();
+                    }
+                }
+            }
 
             return $this->redirect(['update', 'id' => $model->id]);
         }
@@ -205,11 +209,6 @@ class ProductController extends Controller
             'model' => $model,
         ]);
     }
-
-
-
-
-
 
     /**
      * Deletes an existing Product model.
@@ -225,6 +224,7 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $images = ProductImage::find()->where(['product_id' => $model->id])->all();
         $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
+        $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
         foreach ($images as $image) {
             if (file_exists($dir . '/product/' . $image->name)) {
                 unlink($dir . '/product/' . $image->name);
@@ -234,6 +234,11 @@ class ProductController extends Controller
         foreach ($tags as $tag) {
             $tag->delete();
         }
+
+        foreach ($grups as $grup) {
+            $grup->delete();
+        }
+
         $model->delete();
 
         return $this->redirect(['index']);
@@ -271,20 +276,12 @@ class ProductController extends Controller
                 return [
                     'title' => "Додавання зображення: " . $model->name,
                     'content' => $this->renderAjax('create-image', [
-                        // 'model' => $model,
                         'imageModel' => $imageModel,
                     ]),
-                    // 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                    //     Html::button('Save', ['class' => 'btn btn-primary', 'type' => "submit"])
-
                 ];
             } else if ($imageModel->load($request->post()) && $imageModel->save()) {
                 return [
                     'forceReload' => '#images-table',
-                    // 'title' => "Create new Stock",
-                    // 'content' => '<span class="text-success">Create Stock success</span>',
-                    // 'footer' => Html::button('Close', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                    //     Html::a('Create More', ['create-image'], ['class' => 'btn btn-primary', 'role' => 'modal-remote'])
                 ];
             }
         }

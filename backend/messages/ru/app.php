@@ -117,5 +117,6 @@ return[
     'Order Providers' => 'Постачальники',
     'Properties' => 'Властивості',
     'Currency' => 'Валюта',
+    'Group' => 'Групи',
     //  '' => '',
 ];

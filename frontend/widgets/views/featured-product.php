@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 ?>
 
-<div class="block block-products-carousel" data-layout="grid-4" data-mobile-grid-columns="2">
+<div class="block block-products-carousel" data-layout="grid-5" data-mobile-grid-columns="2">
     <div class="container">
         <div class="block-header">
             <h3 class="block-header__title">Популярні товари</h3>

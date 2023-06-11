@@ -1,6 +1,6 @@
 <?php
 
-use common\models\shop\Tag;
+use common\models\shop\Grup;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -8,12 +8,13 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\search\TagSearch $searchModel */
+/** @var backend\models\search\GrupSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Tags');
+$this->title = Yii::t('app', 'Grups');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
@@ -58,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </tr>
                     </thead>
                     <tbody>
+
                     <?php foreach ($dataProvider->models as $model): ?>
                         <tr>
                             <td>
@@ -65,10 +67,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <span class="me-4"><?=$model->id?></span>
                                 </div>
                             </td>
-                            <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a></td>
+                            <td><a href="<?=Url::to(['grup/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a></td>
                             <td>
-                                <?= $model->getProductTag($model->id) ?>
+                                <?= $model->getProductGrup($model->id) ?>
                             </td>
+
                             <td>
                                 <div class="dropdown">
                                     <button
@@ -89,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <li><a class="dropdown-item" href="<?php //Url::to(['category/remove-tag', 'id' => $model->id])?>"><?php //Yii::t('app', 'Remove tag')?></a></li>
                                         <li><hr class="dropdown-divider" /></li>
                                         <li>
-                                            <?= Html::a(Yii::t('app', 'Delete'), ['tag/delete', 'id' => $model->id], ['class'=>"dropdown-item text-danger",
+                                            <?= Html::a(Yii::t('app', 'Delete'), ['grup/delete', 'id' => $model->id], ['class'=>"dropdown-item text-danger",
                                                 'data' => [
                                                     'confirm' => 'Are you sure you want to delete this item?',
                                                     'method' => 'post'

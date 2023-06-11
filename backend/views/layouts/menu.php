@@ -187,6 +187,14 @@ use yii\helpers\Url;
                         <span class="sa-nav__title"><?= Yii::t('app', 'delivery') ?></span>
                     </a>
                 </li>
+                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                    <a href="<?= Url::to(['/grup']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <i class="fas fa-truck"></i>
+                                            </span>
+                        <span class="sa-nav__title"><?= Yii::t('app', 'Group') ?></span>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="sa-nav__section">
