@@ -17,8 +17,8 @@ use yii\helpers\Url;
                             <ul class="footer-contacts__contacts">
                                 <li><i class="footer-contacts__icon fas fa-globe-americas"></i> <?= $contacts->address?> </li>
                                 <li><i class="footer-contacts__icon far fa-envelope"></i> <?= $contacts->email?> </li>
-                                <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <?= $contacts->tel_primary ?> </li>
-                                <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <?= $contacts->tel_second ?> </li>
+                                <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_primary) ?>"><?= $contacts->tel_primary ?></a> </li>
+                                <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_second) ?>"><?= $contacts->tel_second ?></a> </li>
                                 <li><i class="footer-contacts__icon far fa-clock"></i> <?= $contacts->work_time_short ?> </li>
                             </ul>
                         </div>

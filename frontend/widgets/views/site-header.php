@@ -38,11 +38,15 @@ use yii\helpers\Url;
             <div class="site-header__phone">
                 <div class="site-header__phone-title">Номер для замовлення</div>
                 <div class="site-header__phone-number"
-                     style="margin: 0px 0px 6px 0px;"><i class="fas fa-mobile-alt"></i> <?= $contacts->tel_primary ?>
+                     style="margin: 0px 0px 6px 0px;"><i class="fas fa-mobile-alt"></i>  <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_primary) ?>"><?= $contacts->tel_primary ?></a>
                 </div>
                 <div class="site-header__phone-number"><i
-                            class="fas fa-mobile-alt"></i> <?= isset($contacts->tel_second) ? $contacts->tel_second : '' ?>
+                            class="fas fa-mobile-alt"></i>  <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_second) ?>"><?= $contacts->tel_second ?></a>
                 </div>
+
+
+
+
             </div>
         </div>
         <div class="site-header__nav-panel">

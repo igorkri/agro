@@ -2,6 +2,9 @@
 
 use yii\helpers\Url;
 
+$tel_1 = '(066) 394-18-28';
+$tel_2 = '(068) 489-43-86';
+
 ?>
 
 <div class="mobilemenu">
@@ -66,12 +69,12 @@ use yii\helpers\Url;
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a data-collapse-trigger class="mobile-links__item-link"> <i class="fas fa-mobile-alt"></i> (066) 394-18-28</a>
+                        <a data-collapse-trigger href="tel:<?= str_replace([' ', '(', ')', '-'], '', $tel_1) ?>" class="mobile-links__item-link"> <i class="fas fa-mobile-alt"> </i> <?= $tel_1 ?> </a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a data-collapse-trigger class="mobile-links__item-link"> <i class="fas fa-mobile-alt"></i> (068) 489-43-86</a>
+                        <a data-collapse-trigger href="tel:<?= str_replace([' ', '(', ')', '-'], '', $tel_2) ?>" class="mobile-links__item-link"> <i class="fas fa-mobile-alt"> </i> <?= $tel_2 ?> </a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
