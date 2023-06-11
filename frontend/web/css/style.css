@@ -3005,6 +3005,11 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .product-card__name {
   font-size: 15px;
   line-height: 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .product-card__name_slider {
