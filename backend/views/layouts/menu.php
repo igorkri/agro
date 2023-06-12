@@ -7,7 +7,7 @@ use yii\helpers\Url;
 <div class="sa-sidebar__body" data-simplebar="">
     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
         <li class="sa-nav__section">
-            <div class="sa-nav__section-title"><h6><span><i class="fas fa-frog"> </i> Магазин </span></h6></div>
+            <div class="sa-nav__section-title"><h6><span><i class="fas fa-cat"></i> Магазин </span></h6></div>
             <ul class="sa-nav__menu sa-nav__menu--root">
 
             </ul>
@@ -190,7 +190,7 @@ use yii\helpers\Url;
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/grup']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
-                                                <i class="fas fa-truck"></i>
+                                                <i class="fas fa-layer-group"></i>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Group') ?></span>
                     </a>
