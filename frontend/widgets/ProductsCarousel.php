@@ -21,7 +21,7 @@ class ProductsCarousel extends Widget   // Нові надходження
     {
         $products_grup = ProductGrup::find()
             ->select('product_id')
-            ->where(['grup_id' => 1])            //  Перша_Группа_Тест
+            ->where(['grup_id' => 3])            //  Перша_Группа_Тест
             ->column();
 
 
