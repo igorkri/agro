@@ -5,6 +5,7 @@ namespace frontend\widgets;
 
 
 use common\models\shop\Product;
+use common\models\shop\ProductGrup;
 use yii\base\Widget;
 
 class ColumnsTopRated extends Widget   //  Гербіциди
@@ -19,10 +20,15 @@ class ColumnsTopRated extends Widget   //  Гербіциди
     public function run()
     {
 
+        $products_grup = ProductGrup::find()
+            ->select('product_id')
+            ->where(['grup_id' => 4])            //  Перша_Группа_Тест
+            ->column();
+
+
         $products = Product::find()
             ->with('label')
-            ->where(['category_id' => 5])
-            ->andWhere(['IN', 'status_id', [1, 3, 4]])
+            ->where(['id' => $products_grup])
             ->limit(3)
             ->all();
 

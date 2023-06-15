@@ -9,12 +9,11 @@ use yii\helpers\Url;
     <div class="col-4">
         <div class="block-header">
             <a href="<?= Url::to(['product-list/insektitsidi']) ?>"
-            <h3 class="block-header__title">Інсектециди</h3>
+            <h3 class="block-header__title">Інсектициди</h3>
             </a>
             <div class="block-header__divider"></div>
         </div>
         <div class="block-product-columns__column">
-
             <?php foreach ($products as $product): ?>
                 <div class="block-product-columns__item">
                     <div class="product-card product-card--hidden-actions product-card--layout--horizontal">
@@ -40,7 +39,6 @@ use yii\helpers\Url;
                                      alt="">
                             </a>
                         </div>
-
                         <div class="product-card__info">
                             <div class="product-card__name">
                                 <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
