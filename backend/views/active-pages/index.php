@@ -3,7 +3,8 @@
 use common\models\shop\ActivePages;
 use kartik\ipinfo\IpInfo;
 use kartik\popover\PopoverX;
-use yii\bootstrap5\ActiveForm;
+//use yii\bootstrap5\ActiveForm;
+use yii\widgets\ActiveForm;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="sa-divider"></div>
                 <div class="container">
-                    <?php $form = ActiveForm::begin(['action' => ['check-delete']]); ?>
+                    <?php echo Html::beginForm(['check-delete'], 'post'); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
@@ -101,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= Html::submitButton('Видалити обрані', ['class' => 'btn btn-danger mb-4']) ?>
 
-                    <?php ActiveForm::end(); ?>
+                    <?php echo Html::endForm(); ?>
                 </div>
             </div>
         </div>
