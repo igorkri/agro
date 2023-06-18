@@ -34,13 +34,13 @@ AppAsset::register($this);
     <!-- mobile site__header / end -->
 
     <!-- desktop site__header -->
-          <?= $this->render('site-header')?>
+    <?php echo \frontend\widgets\SiteHeader::widget() ?>
     <!--  desktop site__header / end -->
 
     <?= $content ?>
 
     <!-- site__footer -->
-          <?=$this->render('site-footer')?> 
+    <?php echo \frontend\widgets\SiteFooter::widget() ?>
     <!-- site__footer / end -->
     
 </div>

@@ -1,1 +1,0 @@
-<?php echo \frontend\widgets\SiteHeader::widget() ?>
