@@ -42,6 +42,7 @@ class PostsController extends Controller
     {
         $searchModel = new PostsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->sort->defaultOrder = ['date_public' => SORT_DESC];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
