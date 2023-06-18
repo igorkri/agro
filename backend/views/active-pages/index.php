@@ -3,6 +3,7 @@
 use common\models\shop\ActivePages;
 use kartik\ipinfo\IpInfo;
 use kartik\popover\PopoverX;
+use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -43,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="sa-divider"></div>
                 <div class="container">
+                    <?php $form = ActiveForm::begin(['action' => ['check-delete']]); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
@@ -52,6 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            'maxButtonCount' => 5,
                         ],
                         'columns' => [
+
+                            [
+                                'class' => 'yii\grid\CheckboxColumn',
+                                'checkboxOptions' => function ($model) {
+                                    return ['name' => 'selection', 'value' => $model->id];
+                                },
+                            ],
                             ['class' => 'yii\grid\SerialColumn'],
 
                             [
@@ -84,11 +93,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, ActivePages $model, $key, $index, $column) {
-                                    return Url::toRoute([$action, 'id' => $model->id]);
+                                    return Url::toRoute([$action, 'id' => $model->id, 'selection' => $model->id]);
                                 }
                             ],
                         ],
                     ]); ?>
+
+                    <?= Html::submitButton('Видалити обрані', ['class' => 'btn btn-danger mb-4']) ?>
+
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
         </div>
