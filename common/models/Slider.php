@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string|null $title Название
+ * @property string|null $slug Слаг
  * @property string|null $description Описание
  * @property string|null $image Картинка
  * @property string|null $image_mob Картинка мобилбной версии
@@ -31,7 +32,7 @@ class Slider extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description'], 'string'],
+            [['description', 'slug'], 'string'],
             [['visible', 'sort'], 'integer'],
             [['title', 'image', 'image_mob'], 'string', 'max' => 255],
         ];
@@ -50,6 +51,7 @@ class Slider extends \yii\db\ActiveRecord
             'image_mob' => Yii::t('app', 'Картинка мобилбной версии'),
             'visible' => Yii::t('app', 'Показ на странице'),
             'sort' => Yii::t('app', 'Порядок вывода'),
+//            'slug' => Yii::t('app', 'Слаг'),
         ];
     }
 }
