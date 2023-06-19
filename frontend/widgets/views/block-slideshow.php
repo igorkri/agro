@@ -10,37 +10,24 @@ use yii\helpers\Url;
             <div class="col-12 col-lg-9">
                 <div class="block-slideshow__body">
                     <div class="owl-carousel">
-                        <?php foreach ($slides as $index => $slide): ?>
-                            <div class="block-slideshow__slide<?= $index === 0 ? ' active' : '' ?>">
-                                <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop" style="background-image: url('slider/<?= $slide->image ?>')"></div>
-                                <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile" style="background-image: url('slider/<?= $slide->image_mob ?>')"></div>
-                                <div class="block-slideshow__slide-content">
-                                    <a href="<?= Url::to(['/product/'. $slide->slug]) ?>">
-                                        <div class="block-slideshow__slide-button">
-                                            <span class="btn btn-primary btn-lg">Переглянути</span>
-                                        </div>
-                                    </a>
+                    <?php foreach ($slides as $slide): ?>
+                        <div class="block-slideshow__slide">
+                            <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop" style="background-image: url('slider/<?= $slide->image ?>')"></div>
+                            <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile" style="background-image: url('slider/<?= $slide->image_mob ?>')"></div>
+                            <div class="block-slideshow__slide-content">
+<!--                                <div class="block-slideshow__slide-title">--><?php //= $slide->title ?><!--</div>-->
+<!--                                <div class="col-6 block-slideshow__slide-text">--><?php //= $slide->description ?><!--</div>-->
+                                <a href="<?= Url::to(['/product/'. $slide->slug]) ?>">
+                                <div class="block-slideshow__slide-button">
+                                    <span class="btn btn-primary btn-lg">Переглянути</span>
                                 </div>
+                                </a>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
+                    <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var carousel = $('.owl-carousel');
-        carousel.owlCarousel({
-            items: 1,
-            loop: true,
-            autoplay: true,
-            autoplayTimeout: 3000, // Change slide every 1 second
-            autoplayHoverPause: true
-        });
-    });
-</script>
-
