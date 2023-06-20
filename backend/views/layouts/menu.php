@@ -1,5 +1,7 @@
 <?php
 
+use common\models\shop\Order;
+use common\models\shop\Review;
 use yii\helpers\Url;
 
 ?>
@@ -26,7 +28,9 @@ use yii\helpers\Url;
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Orders') ?></span>
-                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= \common\models\shop\Order::orderNews() ?></span>
+                        <?php if (Order::orderNews() != 0){ ?>
+                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Order::orderNews() ?></span>
+                        <?php } ?>
                     </a>
                 </li>
             </ul>
@@ -226,7 +230,9 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Reviews') ?></span>
-                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= \common\models\shop\Review::reviewsNews() ?></span>
+                        <?php if (Review::reviewsNews() != 0){ ?>
+                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Review::reviewsNews() ?></span>
+                        <?php } ?>
                     </a>
                 </li>
             </ul>
