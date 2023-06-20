@@ -125,7 +125,10 @@
             nav: false,
             dots: true,
             loop: true,
-            rtl: isRTL()
+            rtl: isRTL(),
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true
         });
     });
 
@@ -139,6 +142,9 @@
             dots: false,
             loop: true,
             rtl: isRTL(),
+            autoplay: true,
+            autoplayTimeout: 2000,
+            autoplayHoverPause: true,
             responsive: {
                 1200: {items: 6},
                 992: {items: 5},
