@@ -47,21 +47,21 @@ use yii\widgets\ActiveForm;
                                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-4 mb-4">
                                         <?= $form->field($model, 'date_visit')->textInput(['maxlength' => true]) ?>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-4 mb-4">
                                         <?= $form->field($model, 'ip_user')->textInput(['maxlength' => true]) ?>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-4 mb-4">
                                         <?= $form->field($model, 'status_serv')->textInput(['maxlength' => true]) ?>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-6 mb-4">
                                         <?= $form->field($model, 'url_page')->textInput(['maxlength' => true]) ?>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6 mb-4">
                                         <?= $form->field($model, 'client_from')->textInput(['maxlength' => true]) ?>
                                     </div>
                                     <?= $form->field($model, 'user_agent')->textInput(['maxlength' => true]) ?>
