@@ -43,10 +43,6 @@ use yii\helpers\Url;
                 <div class="site-header__phone-number"><i
                             class="fas fa-mobile-alt"></i>  <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_second) ?>"><?= $contacts->tel_second ?></a>
                 </div>
-
-
-
-
             </div>
         </div>
         <div class="site-header__nav-panel">
