@@ -109,4 +109,16 @@ class Review extends \yii\db\ActiveRecord
         }
         return $value;
     }
+
+    public static function reviewsNews()
+    {
+
+        $reviews = Review::find()->all();
+//        $total_res = [];
+//        foreach ($reviews as $review) {
+//            if ($review->order_status_id == null)
+//                $total_res[] = $review;
+//        }
+        return count($reviews);
+    }
 }

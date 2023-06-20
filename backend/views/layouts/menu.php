@@ -226,7 +226,7 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Reviews') ?></span>
-                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme">0</span>
+                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= \common\models\shop\Review::reviewsNews() ?></span>
                     </a>
                 </li>
             </ul>
