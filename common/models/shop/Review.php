@@ -10,6 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "review".
  *
  * @property int $id
+ * @property int $viewed Перегляд
  * @property int|null $product_id Товар
  * @property int|null $created_at Дата публікації
  * @property float|null $rating Рейтинг
@@ -45,7 +46,7 @@ class Review extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'created_at'], 'integer'],
+            [['product_id', 'created_at', 'viewed'], 'integer'],
             [['rating'], 'number'],
             [['name', 'email', 'message'], 'string', 'max' => 255],
         ];
@@ -63,6 +64,7 @@ class Review extends \yii\db\ActiveRecord
             'name' => 'Name',
             'email' => 'Email',
             'message' => 'Message',
+            'viewed' => 'Viewed',
         ];
     }
 
@@ -114,11 +116,11 @@ class Review extends \yii\db\ActiveRecord
     {
 
         $reviews = Review::find()->all();
-//        $total_res = [];
-//        foreach ($reviews as $review) {
-//            if ($review->order_status_id == null)
-//                $total_res[] = $review;
-//        }
-        return count($reviews);
+        $total_res = [];
+        foreach ($reviews as $review) {
+            if ($review->viewed == 0)
+                $total_res[] = $review;
+        }
+        return count($total_res);
     }
 }

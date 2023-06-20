@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'attribute' => 'created_at',
-                                'filter' => false,
+//                                'filter' => false,
                                 'value' => function($model){
                                     return Yii::$app->formatter->asDate($model->created_at, 'short');
                                 },
@@ -73,8 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'rating',
                             'name',
-                            'email:email',
-                            'message:raw',
+//                            'email:email',
+//                            'message:raw',
+                            'viewed:boolean',
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, Review $model, $key, $index, $column) {

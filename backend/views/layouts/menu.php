@@ -251,7 +251,6 @@ use yii\helpers\Url;
         <!--   ------------------------------------------------------------>
         <li class="sa-nav__section">
             <ul class="sa-nav__menu sa-nav__menu--root">
-
             </ul>
         </li>
     </ul>

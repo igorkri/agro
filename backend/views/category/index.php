@@ -89,9 +89,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                    class="text-reset"><?= $model->name ?></a></td>
                             <td>
                                 <?php if ($model->visibility == 1): ?>
-                                    <div class="badge badge-sa-success">Visible</div>
+                                    <div class="badge badge-sa-success">Показувати</div>
                                 <?php else: ?>
-                                    <div class="badge badge-sa-danger">Hidden</div>
+                                    <div class="badge badge-sa-danger">Приховати</div>
                                 <?php endif; ?>
                             </td>
                             <td>

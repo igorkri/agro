@@ -51,8 +51,16 @@ use yii\widgets\ActiveForm;
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'created_at')->textInput() ?>
                                 </div>
-                                <div class="col-4 mb-4">
+                                <div class="col-2 mb-4">
                                     <?= $form->field($model, 'rating')->textInput() ?>
+                                </div>
+                                <div class="col-2 mb-4">
+                                    <?= $form->field($model, 'viewed')->dropDownList(
+                                    [
+                                    1 => 'Так',
+                                    0 => 'Ні'
+                                    ]
+                                    )?>
                                 </div>
                             </div>
                             <div class="row">
