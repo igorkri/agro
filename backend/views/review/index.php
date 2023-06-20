@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\ReviewSearch $searchModel */
@@ -43,6 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
+                        'pager' => [
+                            'class' => LinkPager::class,
+                            'options' => ['class' => 'pagination'],
+//                            'maxButtonCount' => 5,
+                        ],
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
