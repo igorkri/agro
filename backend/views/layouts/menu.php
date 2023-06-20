@@ -9,9 +9,7 @@ use yii\helpers\Url;
 <div class="sa-sidebar__body" data-simplebar="">
     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
         <li class="sa-nav__section">
-            <div class="sa-nav__section-title"><h6><span><i class="fas fa-cat"></i> Магазин </span></h6></div>
             <ul class="sa-nav__menu sa-nav__menu--root">
-
             </ul>
         </li>
         <!--   ------------------------------------------------------------>
