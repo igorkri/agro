@@ -69,49 +69,37 @@ class Review extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProductName($id){
+    public function getProductName($id)
+    {
 
         $products = Product::find()->where(['id' => $id])->one();
 
         return $products->name;
     }
 
-    public function getProductSlug($id){
+    public function getProductSlug($id)
+    {
 
         $products = Product::find()->where(['id' => $id])->one();
 
         return $products->slug;
     }
 
-    public function getProductImage($id){
+    public function getProductImage($id)
+    {
 
         $products = ProductImage::find()->where(['product_id' => $id])->one();
 
         return $products->name;
     }
 
-    public function getReviewRating($rating){
-
-        if ($rating == 5) {
-
-            $value = 1;
-        } elseif ($rating == 4) {
-
-            $value = 0.8;
-        } elseif ($rating == 3) {
-
-            $value = 0.6;
-        } elseif ($rating == 2) {
-
-            $value = 0.4;
-        } elseif ($rating == 1) {
-
-            $value = 0.2;
-        }
-        return $value;
+    public function getReviewRating($rating)
+    {
+        return $rating / 5;
     }
 
-    public static function reviewsNews(){
+    public static function reviewsNews()
+    {
 
         $reviews = Review::find()->all();
         $total_res = [];
@@ -120,5 +108,17 @@ class Review extends \yii\db\ActiveRecord
                 $total_res[] = $review;
         }
         return count($total_res);
+    }
+
+    public function getStarRating($rating)
+    {
+
+        $stars = '';
+        for ($i = 0; $i < $rating; $i++) {
+            $stars .= '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+        </svg>';
+        }
+        return $stars;
     }
 }

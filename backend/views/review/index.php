@@ -35,7 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </ol>
                         </nav>
                     </div>
-                    <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'Create Review')?></a></div>
+                    <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
+                                                    class="btn btn-primary"><?= Yii::t('app', 'Create Review') ?></a>
+                    </div>
                 </div>
             </div>
             <div class="card">
@@ -56,14 +58,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'product_id',
 //                                'filter' => false,
-                                'value' => function($model){
+                                'value' => function ($model) {
                                     return $model->getProductName($model->product_id);
                                 },
                             ],
                             [
                                 'attribute' => 'created_at',
 //                                'filter' => false,
-                                'value' => function($model){
+                                'contentOptions' => ['style' => 'width: 100px'],
+                                'value' => function ($model) {
                                     return Yii::$app->formatter->asDate($model->created_at, 'short');
                                 },
 //                                    'width' => '5%',
@@ -71,11 +74,25 @@ $this->params['breadcrumbs'][] = $this->title;
 //                                    'hAlign' => GridView::ALIGN_CENTER,
 
                             ],
-                            'rating',
+                            [
+                                'attribute' => 'rating',
+                                'format' => 'raw',
+                                'filter' => false,
+                                'contentOptions' => ['style' => 'width: 100px'],
+                                'value' => function ($model) {
+                                   return $model->getStarRating($model->rating);
+                                },
+                            ],
                             'name',
 //                            'email:email',
 //                            'message:raw',
-                            'viewed:boolean',
+//                            'viewed:boolean',
+                            [
+                                'attribute' => 'viewed',
+                                'format' => 'boolean',
+                                'filter' => true,
+                                'contentOptions' => ['style' => 'width: 60px'],
+                            ],
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, Review $model, $key, $index, $column) {
