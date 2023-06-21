@@ -115,7 +115,7 @@ return[
     'Active users' => 'Активні сторінки',
     'Providers' => 'Постачальники',
     'Order Providers' => 'Постачальники',
-    'Properties' => 'Властивості',
+    'Properties' => 'Специфікація',
     'Currency' => 'Валюта',
     'Group' => 'Групи',
     'Grups' => 'Групи',
