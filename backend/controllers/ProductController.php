@@ -101,7 +101,7 @@ class ProductController extends Controller
 
                 if (isset($post_product['grups']) && $post_product['grups'] != null) {
                     foreach ($post_product['grups'] as $grup_id) {
-                        $add_grup = new ProductTag();
+                        $add_grup = new ProductGrup();
                         $add_grup->product_id = $model->id;
                         $add_grup->grup_id = $grup_id;
                         $add_grup->save();
