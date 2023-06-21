@@ -56,24 +56,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //                            'id',
                             [
-                                'attribute' => 'product_id',
-//                                'filter' => false,
-                                'value' => function ($model) {
-                                    return $model->getProductName($model->product_id);
-                                },
-                            ],
-                            [
                                 'attribute' => 'created_at',
 //                                'filter' => false,
                                 'contentOptions' => ['style' => 'width: 100px'],
                                 'value' => function ($model) {
                                     return Yii::$app->formatter->asDate($model->created_at, 'short');
                                 },
-//                                    'width' => '5%',
-//                                    'vAlign' => GridView::ALIGN_MIDDLE,
-//                                    'hAlign' => GridView::ALIGN_CENTER,
-
                             ],
+                            [
+                                'attribute' => 'product_id',
+//                                'filter' => false,
+                                'value' => function ($model) {
+                                    return $model->getProductName($model->product_id);
+                                },
+                            ],
+
                             [
                                 'attribute' => 'rating',
                                 'format' => 'raw',
@@ -85,8 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'name',
 //                            'email:email',
-//                            'message:raw',
-//                            'viewed:boolean',
+                            'message:raw',
                             [
                                 'attribute' => 'viewed',
                                 'format' => 'boolean',
