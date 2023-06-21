@@ -40,6 +40,7 @@ class ReviewController extends Controller
     {
         $searchModel = new ReviewSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->sort->defaultOrder = ['created_at' => SORT_DESC];
 
         return $this->render('index', [
             'searchModel' => $searchModel,

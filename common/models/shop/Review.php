@@ -65,6 +65,7 @@ class Review extends \yii\db\ActiveRecord
             'email' => 'Email',
             'message' => 'Message',
             'viewed' => 'Viewed',
+            'created_at' => 'Date'
         ];
     }
 
@@ -82,16 +83,14 @@ class Review extends \yii\db\ActiveRecord
         return $products->slug;
     }
 
-    public function getProductImage($id)
-    {
+    public function getProductImage($id){
 
         $products = ProductImage::find()->where(['product_id' => $id])->one();
 
         return $products->name;
     }
 
-    public function getReviewRating($rating)
-    {
+    public function getReviewRating($rating){
 
         if ($rating == 5) {
 
@@ -112,8 +111,7 @@ class Review extends \yii\db\ActiveRecord
         return $value;
     }
 
-    public static function reviewsNews()
-    {
+    public static function reviewsNews(){
 
         $reviews = Review::find()->all();
         $total_res = [];
