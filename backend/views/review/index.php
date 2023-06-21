@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'rating',
                                 'format' => 'raw',
                                 'filter' => false,
-                                'contentOptions' => ['style' => 'width: 100px'],
+                                'contentOptions' => ['style' => 'width: 115px'],
                                 'value' => function ($model) {
                                    return $model->getStarRating($model->rating);
                                 },
