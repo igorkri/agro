@@ -10,20 +10,6 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<!--<div class="order-provider-form">-->
-<!---->
-<!--    --><?php //$form = ActiveForm::begin(); ?>
-<!---->
-<!--    --><?//= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-<!---->
-<!--    <div class="form-group">-->
-<!--        --><?//= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-<!--    </div>-->
-<!---->
-<!--    --><?php //ActiveForm::end(); ?>
-<!---->
-<!--</div>-->
-
 <div class="order-provider-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -48,10 +34,9 @@ use yii\widgets\ActiveForm;
                                     ?>
                                 </ol>
                             </nav>
-                            <!--                            <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
                         </div>
                         <div class="col-auto d-flex">
-                            <?php if(!$model->isNewRecord): ?>
+                            <?php if (!$model->isNewRecord): ?>
                                 <!--                            <a href="#" class="btn btn-secondary me-3">--><?php ////Yii::t('app', 'Duplicate')?><!--</a>-->
                                 <?= Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
                                 <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
@@ -60,12 +45,15 @@ use yii\widgets\ActiveForm;
                         </div>
                     </div>
                 </div>
-                <div class="sa-entity-layout" data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
+                <div class="sa-entity-layout"
+                     data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                     <div class="sa-entity-layout__body">
                         <div class="sa-entity-layout__main">
                             <div class="card">
                                 <div class="card-body p-5">
-                                    <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Basic information')?></h2></div>
+                                    <div class="mb-5"><h2
+                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2>
+                                    </div>
                                     <div class="mb-4">
                                         <!--                                        <label for="form-category/name" class="form-label">Name</label>-->
                                         <!--                                        <input type="text" class="form-control" id="form-category/name" value="Hand Tools" />-->
