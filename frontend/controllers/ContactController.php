@@ -15,9 +15,10 @@ class ContactController extends Controller
     {
         $contacts = Contact::find()->one();
 
-        return $this->render('view',['contacts' => $contacts]);
+        return $this->render('view', ['contacts' => $contacts]);
 
     }
+
     public function actionCreate()
     {
         if ($this->request->isPost) {
@@ -33,14 +34,12 @@ class ContactController extends Controller
                 return $this->renderAjax('view', [
                     'contacts' => $contacts,
                 ]);
-            }else{
+            } else {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $this->renderAjax('view', [
                     'contacts' => $contacts,
                 ]);
             }
         }
-
     }
-
 }

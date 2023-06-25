@@ -51,13 +51,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
-                            'id',
+                            [
+                                'attribute' => 'created_at',
+                                'filter' => false,
+                                'value' => function($model){
+                                    return Yii::$app->formatter->asDate($model->created_at, 'long');
+                                },
+                            ],
                             'name',
                             'email:email',
                             'subject',
-                            'message:ntext',
-                            //'comment:ntext',
-                            //'viewed',
+                            'message:raw',
+                            'comment:raw',
+                            'viewed',
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, Messages $model, $key, $index, $column) {

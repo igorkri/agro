@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Messages;
 use common\models\shop\Order;
 use common\models\shop\Review;
 use yii\helpers\Url;
@@ -227,8 +228,8 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Messages') ?></span>
-                        <?php if (Review::reviewsNews() != 0) { ?>
-                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Review::reviewsNews() ?></span>
+                        <?php if (Messages::messagesNews() != 0) { ?>
+                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Messages::messagesNews() ?></span>
                         <?php } ?>
                     </a>
                 </li>

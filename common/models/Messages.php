@@ -67,4 +67,16 @@ class Messages extends \yii\db\ActiveRecord
             'created_at' => 'Date',
         ];
     }
+
+    public static function messagesNews()
+    {
+
+        $messages = Messages::find()->all();
+        $total_res = [];
+        foreach ($messages as $message) {
+            if ($message->viewed == 0)
+                $total_res[] = $message;
+        }
+        return count($total_res);
+    }
 }
