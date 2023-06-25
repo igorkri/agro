@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'subject',
                             'message:raw',
                             'comment:raw',
-                            'viewed',
+                            'viewed:boolean',
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, Messages $model, $key, $index, $column) {
