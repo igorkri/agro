@@ -38,7 +38,8 @@
         "kartik-v/yii2-editors": "@dev",
         "alexandernst/yii2-device-detect": "0.0.12",
         "kartik-v/yii2-ipinfo": "dev-master",
-        "kartik-v/yii2-popover-x": "dev-master"
+        "kartik-v/yii2-popover-x": "dev-master",
+        "yii2mod/yii2-sweet-alert": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

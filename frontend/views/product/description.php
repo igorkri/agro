@@ -1,8 +1,6 @@
 <?php
 
-use kartik\form\ActiveForm;
 use kartik\rating\StarRating;
-use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $product */
 

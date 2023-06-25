@@ -26,8 +26,8 @@ use yii\helpers\Url;
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Orders') ?></span>
-                        <?php if (Order::orderNews() != 0){ ?>
-                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Order::orderNews() ?></span>
+                        <?php if (Order::orderNews() != 0) { ?>
+                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Order::orderNews() ?></span>
                         <?php } ?>
                     </a>
                 </li>
@@ -100,6 +100,18 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Label') ?></span>
+                    </a>
+                </li>
+                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                    <a href="<?= Url::to(['/grup']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
+  <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
+  <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
+</svg>
+                                            </span>
+                        <span class="sa-nav__title"><?= Yii::t('app', 'Group') ?></span>
                     </a>
                 </li>
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
@@ -203,16 +215,21 @@ use yii\helpers\Url;
                         <span class="sa-nav__title"><?= Yii::t('app', 'delivery') ?></span>
                     </a>
                 </li>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                    <a href="<?= Url::to(['/grup']) ?>" class="sa-nav__link">
+                    <a href="<?= Url::to(['/messages']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
-                                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16">
-  <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/>
-  <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/>
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
 </svg>
                                             </span>
-                        <span class="sa-nav__title"><?= Yii::t('app', 'Group') ?></span>
+                        <span class="sa-nav__title"><?= Yii::t('app', 'Messages') ?></span>
+                        <?php if (Review::reviewsNews() != 0) { ?>
+                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Review::reviewsNews() ?></span>
+                        <?php } ?>
                     </a>
                 </li>
             </ul>
@@ -228,8 +245,8 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Reviews') ?></span>
-                        <?php if (Review::reviewsNews() != 0){ ?>
-                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Review::reviewsNews() ?></span>
+                        <?php if (Review::reviewsNews() != 0) { ?>
+                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Review::reviewsNews() ?></span>
                         <?php } ?>
                     </a>
                 </li>

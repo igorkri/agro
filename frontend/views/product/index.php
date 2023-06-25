@@ -2,17 +2,12 @@
 /** @var yii\web\View $this */
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
-
 /** @var \common\models\shop\Product $products */
-
 /** @var \common\models\shop\Review $model_review */
 
 use frontend\widgets\ProductsCarousel;
-use kartik\rating\StarRating;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
-use yii\web\View;
 
 \common\models\shop\ActivePages::setActiveUser();
 

@@ -1,7 +1,8 @@
 <?php
-\common\models\shop\ActivePages::setActiveUser();
-?>
 
+\common\models\shop\ActivePages::setActiveUser();
+
+?>
 <!-- site__body -->
 <div class="site__body">
     <div class="page-header">
@@ -34,10 +35,10 @@
                                 <h4 class="contact-us__header card-title">Наша адреса</h4>
                                 <div class="contact-us__address">
                                     <p>
-                                        <?= $contacts->address?><br>
-                                        Email: <?= $contacts->email?><br>
-                                        Телефон: <?= $contacts->tel_primary ?>
-                                                 <?= $contacts->tel_second ?>
+                                        <?= $contacts->address ?><br>
+                                        Email: <?= $contacts->email ?><br>
+                                        Телефон: <?= $contacts->tel_primary ?><br>
+                                    <p style="padding-left: 72px; margin-top: -15px;"> <?= $contacts->tel_second ?></p>
                                     </p>
                                     <p>
                                         <strong>Години роботи</strong><br>
@@ -48,30 +49,9 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6">
-                                <h4 class="contact-us__header card-title">Leave us a Message</h4>
-                                <form>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="form-name">Your Name</label>
-                                            <input type="text" id="form-name" class="form-control" placeholder="Your Name">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="form-email">Email</label>
-                                            <input type="email" id="form-email" class="form-control" placeholder="Email Address">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="form-subject">Subject</label>
-                                        <input type="text" id="form-subject" class="form-control" placeholder="Subject">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="form-message">Message</label>
-                                        <textarea id="form-message" class="form-control" rows="4"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Send Message</button>
-                                </form>
-                            </div>
+                            <!-- message -->
+                            <?= $this->render('message') ?>
+                            <!-- message / end -->
                         </div>
                     </div>
                 </div>
