@@ -17,10 +17,7 @@
                         Здається, ми не можемо знайти сторінку, яку ви шукаєте.<br>
                         Спробуйте скористатися пошуком.
                     </p>
-                    <form class="not-found__search">
-                        <input type="text" class="not-found__search-input form-control" placeholder="Search Query...">
-                        <button type="submit" class="not-found__search-button btn btn-primary">Пошук</button>
-                    </form>
+                    <img src="/images/404.jpg" alt="">
                     <p class="not-found__text">
                         Або перейдіть на головну сторінку, щоб почати все спочатку.
                     </p>
