@@ -192,7 +192,9 @@ $rating = 3;
                                     <div class="form-group">
                                         <label for="review-text">Ваш відгук</label>
                                         <textarea class="form-control" name="message" id="review-text"
-                                                  rows="6"></textarea>
+                                                  rows="6" oninvalid="this.setCustomValidity('Напишіть будь ласка Ваш відгук')"
+                                                  oninput="this.setCustomValidity('')"
+                                                  required></textarea>
                                     </div>
                                     <div class="form-group mb-0">
                                         <button type="submit" id="review-form-submit" class="btn btn-primary btn-lg">
