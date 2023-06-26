@@ -2,6 +2,8 @@
 
 \common\models\shop\ActivePages::setActiveUser();
 
+
+
 ?>
 <!-- site__body -->
 <div class="site__body">
