@@ -15,7 +15,8 @@ class SpecialController extends Controller
     public function actionView()
     {
 
-        $query = Product::find()->where(['label_id' => 2]);
+      //  $query = Product::find()->where(['label_id' => 2]);
+        $query = Product::find()->andWhere(['not', ['label_id' => null]]);
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 12]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
