@@ -29,7 +29,7 @@ class SearchController extends Controller
             }
 
             $products = Product::find()
-                ->select(['id', 'slug', 'name', 'price', 'currency'])
+                ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id'])
                 ->where(['like', 'name', $q])
                 ->orFilterWhere(['in', 'id', $id_prod])
                 ->all();
