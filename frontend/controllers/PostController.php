@@ -3,13 +3,10 @@
 
 namespace frontend\controllers;
 
-
 use common\models\Posts;
-use common\models\shop\Tag;
 use yii\web\Controller;
 
-class PostController extends Controller
-{
+class PostController extends Controller {
 
     public function actionView($slug)
     {

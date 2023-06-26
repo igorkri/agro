@@ -21,16 +21,16 @@ use yii\web\Response;
 /**
  * Site controller
  */
-class SiteController extends Controller
-
-{
+class SiteController extends Controller {
 
     public function actionError() {
-        $error = Yii::$app->response->statusCode;
 
-        if ($error === 404) {
-            return $this->render('404');
-
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            if ($exception->statusCode == 404)
+                return $this->render('404', ['exception' => $exception]);
+            else
+                return $this->render('404', ['exception' => $exception]);
         }
     }
 
@@ -38,8 +38,8 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
+
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -69,8 +69,8 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -87,8 +87,8 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
+
         return $this->render('index');
     }
 
@@ -97,8 +97,8 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
