@@ -87,7 +87,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'contentOptions' => ['style' => 'width: 200px'],
                             ],
                             'url_page',
-                            'client_from',
+//                            'client_from',
+                            [
+                                'attribute' => 'client_from',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    $decodedUrl = urldecode($model->client_from);
+                                    return  $decodedUrl ;
+                                },
+                            ],
 //                            'user_agent',
                             //'status_serv',
                             //'other',
