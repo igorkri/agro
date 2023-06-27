@@ -200,6 +200,9 @@ $rating = 3;
                                         <button type="submit" id="review-form-submit" class="btn btn-primary btn-lg">
                                             Залишити відгук
                                         </button>
+                                        <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
+                                            Вітаемо Ваше повідомлення -- надіслане !!!
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -212,6 +215,16 @@ $rating = 3;
     <style>
         .rating-md {
             font-size: 22px;
+        }
+        #success-message {
+            position: absolute;
+            top: -24%;
+            left: 15px;
+            width: 95%;
+        }
+
+        #form-review {
+            position: relative;
         }
     </style>
 
@@ -237,6 +250,11 @@ $js = <<<JS
              },
          success: function(data){
              $('#form-review')[0].reset();
+              $('#success-message').fadeIn(); // Показать сообщение
+
+    setTimeout(function() {
+        $('#success-message').fadeOut(); // Скрыть сообщение после 2 секунд
+    }, 2500);
              $('.reviews-list__content').html(data);
          },
          error: function(data){
