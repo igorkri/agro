@@ -1,6 +1,8 @@
-
 <div class="col-12 col-lg-6">
     <h4 class="contact-us__header card-title">Залиште нам повідомлення</h4>
+    <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
+        Вітаемо Ваше повідомлення -- надіслане !!!
+    </div>
     <form id="form-messages">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -38,6 +40,19 @@
     </form>
 </div>
 
+<style>
+    #success-message {
+        position: absolute;
+        top: -13%;
+        left: 0;
+        width: 100%;
+    }
+
+    #form-messages {
+        position: relative;
+    }
+</style>
+
 <?php
 $js = <<<JS
     $('#form-messages').submit(function(event) {
@@ -58,6 +73,11 @@ $js = <<<JS
             },
             success: function(data) {
                 $('#form-messages')[0].reset();
+                 $('#success-message').fadeIn(); // Показать сообщение
+
+    setTimeout(function() {
+        $('#success-message').fadeOut(); // Скрыть сообщение после 2 секунд
+    }, 2500);
             },
             error: function(data) {
                 console.log("Ошибка", data);
