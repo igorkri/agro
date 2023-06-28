@@ -17,7 +17,7 @@ use frontend\widgets\BlockBanner;
 
 \common\models\shop\ActivePages::setActiveUser();
 
-$this->title = Yii::$app->name;
+//$this->title = Yii::$app->name;
 ?>
 <!-- site__body -->
 <div class="site__body">
