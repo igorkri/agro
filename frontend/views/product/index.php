@@ -147,7 +147,7 @@ $this->title = $product->seo_title;
                             <ul class="payment-methods__list">
                                 <li class="payment-methods__item"
                                     style="background: #ffe484;padding: 10px;color: black;">
-                                    Артикул: <span style="margin-right: 10px;" id="sku"><?= $product->id ?> </span>
+                                    Артикул: <span style="margin-right: 10px;" id="sku">100<?= $product->id ?> </span>
                                 </li>
                                 <li class="payment-methods__item payment-methods__item--active">
                                     <label class="payment-methods__item-header">

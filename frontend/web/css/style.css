@@ -10031,7 +10031,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 30px;
+  margin: 12px;
 }
 
 .product__actions-item {
@@ -10273,7 +10273,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 @media (min-width: 992px) {
   .product--layout--columnar .product__prices {
     margin-top: 20px;
-    margin-bottom: 24px;
+    margin-bottom: -50px;
     line-height: 28px;
   }
 }
@@ -10549,7 +10549,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   }
 }
 .product-tabs {
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 .product-tabs__list {
@@ -10575,8 +10575,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 .product-tabs__item {
   font-size: 20px;
-  padding: 18px 48px;
-  border-bottom: 2px solid transparent;
+  padding: 17px 48px;
+  border-bottom: 5px solid transparent;
   color: inherit;
   font-weight: 500;
   border-radius: 3px 3px 0 0;
