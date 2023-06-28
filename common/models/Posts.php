@@ -11,7 +11,9 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string|null $title Название
+ * @property string|null $seo_title Название
  * @property string|null $description Описание
+ * @property string|null $seo_description Описание
  * @property string|null $date_public Дата публикации
  * @property string|null $image Картинка
  * @property string|null $slug Слаг
@@ -50,10 +52,10 @@ class Posts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description'], 'string'],
+            [['description', 'seo_description'], 'string'],
             [['date_public'], 'string'],
             [['slug'], 'string'],
-            [['title', 'image'], 'string', 'max' => 255],
+            [['title', 'seo_title', 'image'], 'string', 'max' => 255],
         ];
     }
 
@@ -69,6 +71,8 @@ class Posts extends \yii\db\ActiveRecord
             'date_public' => Yii::t('app', 'Дата публикации'),
             'image' => Yii::t('app', 'Картинка'),
             'slug' => Yii::t('app', 'Слаг'),
+            'seo_title' => Yii::t('app', 'SEO заголовок'),
+            'seo_description' => Yii::t('app', 'SEO опис'),
         ];
     }
 }

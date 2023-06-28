@@ -40,20 +40,23 @@ use yii\widgets\ActiveForm;
                     </div>
                 </div>
             </div>
-            <div class="sa-entity-layout" data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
+            <div class="sa-entity-layout"
+                 data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                 <div class="sa-entity-layout__body">
                     <div class="sa-entity-layout__main">
                         <div class="card">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Basic information')?></h2></div>
-                            <div class="row">
-                                <div class="col-8 mb-4">
-                                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                                <div class="mb-5"><h2
+                                            class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2>
                                 </div>
-                                <div class="col-4 mb-4">
-<!--                                    --><?php //= $form->field($model, 'date_public')->textInput(['value' => Yii::$app->formatter->asDate($model->date_public), 'disabled' => true]) ?>
+                                <div class="row">
+                                    <div class="col-8 mb-4">
+                                        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                                    </div>
+                                    <div class="col-4 mb-4">
+                                        <!--                                    --><?php //= $form->field($model, 'date_public')->textInput(['value' => Yii::$app->formatter->asDate($model->date_public), 'disabled' => true]) ?>
+                                    </div>
                                 </div>
-                            </div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'description')->widget(Widget::class, [
                                         'defaultSettings' => [
@@ -67,61 +70,75 @@ use yii\widgets\ActiveForm;
                                                 'table',
                                             ],
                                         ],
-                                    ]);?>
+                                    ]); ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mt-5">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
-                                    <h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Image 730x490')?></h2>
+                        <div class="row mt-5">
+                            <div class="card col-8">
+                                <div class="card-body p-5">
+                                    <div class="mb-5">
+                                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
+                                                    class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2></span>
+                                    </div>
+                                    <div class="row g-4">
+                                        <?= $form->field($model, 'seo_title')->textInput() ?>
+                                        <?= $form->field($model, 'seo_description')->textarea(['rows' => '4', 'class' => "form-control"]) ?>
+                                    </div>
                                 </div>
-                                <div class="mb-4">
-                                    <?php if($model->isNewRecord): ?>
-                                        <?= $form->field($model, 'image')->widget(FileInput::class, [
-                                            'options' => ['accept' => 'image/*'],
-                                            'language' => 'uk',
-                                            'pluginOptions' => [
-                                                'showCaption' => true,
-                                                'showRemove' => true,
-                                                'showUpload' => false,
+                            </div>
+                            <div class="card col-4">
+                                <div class="card-body p-5">
+                                    <div class="mb-5">
+                                        <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Image 730x490') ?></h2>
+                                    </div>
+                                    <div class="mb-4">
+                                        <?php if ($model->isNewRecord): ?>
+                                            <?= $form->field($model, 'image')->widget(FileInput::class, [
+                                                'options' => ['accept' => 'image/*'],
+                                                'language' => 'uk',
+                                                'pluginOptions' => [
+                                                    'showCaption' => true,
+                                                    'showRemove' => true,
+                                                    'showUpload' => false,
 
-                                                'uploadLabel' => '',
-                                                'browseLabel' => '',
-                                                'removeLabel' => '',
+                                                    'uploadLabel' => '',
+                                                    'browseLabel' => '',
+                                                    'removeLabel' => '',
 
-                                                'browseClass' => 'btn btn-success',
-                                                'uploadClass' => 'btn btn-info',
-                                                'removeClass' => 'btn btn-danger',
-                                                'removeIcon' => '<i class="fas fa-trash"></i> '
-                                            ]
-                                        ]);?>
-                                    <?php else: ?>
-                                        <?php
+                                                    'browseClass' => 'btn btn-success',
+                                                    'uploadClass' => 'btn btn-info',
+                                                    'removeClass' => 'btn btn-danger',
+                                                    'removeIcon' => '<i class="fas fa-trash"></i> '
+                                                ]
+                                            ]); ?>
+                                        <?php else: ?>
+                                            <?php
 
-                                        echo $form->field($model, 'image')->widget(FileInput::class, [
-                                            'options' => ['accept' => 'image/*'],
-                                            'language' => 'uk',
-                                            'pluginOptions' => [
-                                                'showCaption' => true,
-                                                'showRemove' => true,
-                                                'showUpload' => false,
+                                            echo $form->field($model, 'image')->widget(FileInput::class, [
+                                                'options' => ['accept' => 'image/*'],
+                                                'language' => 'uk',
+                                                'pluginOptions' => [
+                                                    'showCaption' => true,
+                                                    'showRemove' => true,
+                                                    'showUpload' => false,
 
-                                                'uploadLabel' => '',
-                                                'browseLabel' => '',
-                                                'removeLabel' => '',
+                                                    'uploadLabel' => '',
+                                                    'browseLabel' => '',
+                                                    'removeLabel' => '',
 
-                                                'browseClass' => 'btn btn-success',
-                                                'uploadClass' => 'btn btn-info',
-                                                'removeClass' => 'btn btn-danger',
-                                                'removeIcon' => '<i class="fas fa-trash"></i> ',
-                                                'initialPreview'=>[
-                                                    Yii::$app->request->hostInfo . '/posts/'. $model->image
-                                                ],
-                                                'initialPreviewAsData'=>true,
-                                            ]
-                                        ]); ?>
-                                    <?php endif; ?>
+                                                    'browseClass' => 'btn btn-success',
+                                                    'uploadClass' => 'btn btn-info',
+                                                    'removeClass' => 'btn btn-danger',
+                                                    'removeIcon' => '<i class="fas fa-trash"></i> ',
+                                                    'initialPreview' => [
+                                                        Yii::$app->request->hostInfo . '/posts/' . $model->image
+                                                    ],
+                                                    'initialPreviewAsData' => true,
+                                                ]
+                                            ]); ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
