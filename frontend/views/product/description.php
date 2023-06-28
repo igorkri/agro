@@ -201,7 +201,7 @@ $rating = 3;
                                             Залишити відгук
                                         </button>
                                         <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
-                                            Вітаемо Ваше повідомлення -- надіслане !!!
+                                            Вітаемо Ваш відгук -- надіслано !!!
                                         </div>
                                     </div>
                                 </div>
