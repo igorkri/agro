@@ -19,10 +19,9 @@ class ProductController extends Controller
     {
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
         $product_properties = ProductProperties::find()->where(['product_id' => $product->id])->all();
-
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
-
         $model_review = new Review();
+
         $schemaProduct = Schema::product()
             ->name($product->name)
             ->image($product->getSchemaImg($product->id))

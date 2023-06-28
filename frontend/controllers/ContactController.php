@@ -15,12 +15,22 @@ class ContactController extends Controller
     {
         $contacts = Contact::find()->one();
 
+        Yii::$app->metamaster
+            ->setTitle('Зв\'язок з нами - AgroPro: Задайте питання, отримайте підтримку та зв\'яжіться з нашою командою')
+            ->setDescription('Зв\'яжіться з нами в AgroPro та отримайте необхідну підтримку та відповіді на ваші запитання. 
+        Наша команда експертів з сільського господарства готова надати вам допомогу та консультації. 
+        Задавайте питання щодо наших товарів, умов доставки, оплати та багато іншого. 
+        Ми працюємо для вашого задоволення та успіху в сільському господарстві. 
+        Зв\'яжіться з нами сьогодні і отримайте персоналізовану підтримку для вашого сільськогосподарського бізнесу.')
+            ->setImage('/frontend/web/images/logos/logoagro-mobile.png')
+            ->register(Yii::$app->getView());
+
         return $this->render('view', ['contacts' => $contacts]);
 
     }
 
-    public function actionCreate()
-    {
+    public function actionCreate() {
+
         if ($this->request->isPost) {
             $contacts = Contact::find()->one();
             $post = Yii::$app->request->post();
