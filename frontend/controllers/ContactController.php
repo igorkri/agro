@@ -22,7 +22,7 @@ class ContactController extends Controller
         Задавайте питання щодо наших товарів, умов доставки, оплати та багато іншого. 
         Ми працюємо для вашого задоволення та успіху в сільському господарстві. 
         Зв\'яжіться з нами сьогодні і отримайте персоналізовану підтримку для вашого сільськогосподарського бізнесу.')
-            ->setImage('/frontend/web/images/logos/logoagro-mobile.png')
+            ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
         return $this->render('view', ['contacts' => $contacts]);

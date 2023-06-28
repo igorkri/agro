@@ -23,7 +23,7 @@ class AboutController extends Controller
             захисті від шкідників та підвищенні врожайності. 
             Ми пропонуємо широкий асортимент продуктів, оперативну доставку та персоналізоване обслуговування. 
             Дізнайтеся більше про нас та наші цінності на сторінці Про нас.')
-            ->setImage('/frontend/web/images/logos/logoagro-mobile.png')
+            ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
         return $this->render('view', ['model' => $model]);

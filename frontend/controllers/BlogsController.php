@@ -21,7 +21,7 @@ class BlogsController extends Controller
             Ви дізнаєтесь про ефективні методи вирощування рослин, боротьби зі шкідниками, використання добрив та багато іншого. 
             Наші статті допоможуть вам підвищити врожайність та ефективність вашого сільськогосподарського бізнесу. 
             Запрошуємо вас відкрити світ знань і досвіду на сторінці статей AgroPro.')
-            ->setImage('/frontend/web/images/logos/logoagro-mobile.png')
+            ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
         $posts = Posts::find();

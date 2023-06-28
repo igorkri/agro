@@ -22,7 +22,7 @@ class SpecialController extends Controller
             Вибирайте з нашого широкого асортименту продуктів за привабливими цінами. 
             Не пропустіть можливості скористатися найкращими пропозиціями для вашого сільськогосподарського бізнесу. 
             Замовляйте сьогодні та скористайтеся перевагами наших спеціальних пропозицій!')
-            ->setImage('/frontend/web/images/logos/logoagro-mobile.png')
+            ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
       //  $query = Product::find()->where(['label_id' => 2]);
