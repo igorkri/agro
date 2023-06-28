@@ -10272,8 +10272,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 @media (min-width: 992px) {
   .product--layout--columnar .product__prices {
-    margin-top: 20px;
-    margin-bottom: -50px;
+    margin-top: -15px;
+    margin-bottom: -5px;
     line-height: 28px;
   }
 }
