@@ -54,10 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'value' => function($model){
                                         return Yii::$app->formatter->asDate($model->date_public, 'long');
                                     },
-//                                    'width' => '5%',
-//                                    'vAlign' => GridView::ALIGN_MIDDLE,
-//                                    'hAlign' => GridView::ALIGN_CENTER,
-
                                 ],
                                 [
                                     'attribute' => 'image',
@@ -75,6 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ],
 
+//                                'seo_title:raw',
+//                                'seo_description:raw',
 //                                'description:raw',
 //                                'date_public',
 //                                'image',
