@@ -130,7 +130,28 @@ $this->title = $product->seo_title;
                             </div>
                         </div>
                         <div class="product__description">
-                            <?= $product->short_description ?>
+<!--                            --><?php //= $product->short_description ?>
+                            <?php if ($product_properties != null) { ?>
+                                <?php foreach ($product_properties as $property): ?>
+                                    <div class="spec__row">
+                                        <div class="spec__name"><?= $property->properties ?></div>
+                                        <div class="spec__value"><?= $property->value ?></div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php } else { ?>
+                                <div class="spec__row">
+                                    <div class="spec__name">- - -</div>
+                                    <div class="spec__value">- - -</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">- - -</div>
+                                    <div class="spec__value">- - -</div>
+                                </div>
+                                <div class="spec__row">
+                                    <div class="spec__name">- - -</div>
+                                    <div class="spec__value">- - -</div>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <!-- .product__info / end -->

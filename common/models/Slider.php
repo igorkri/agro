@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\shop\Product;
 use Yii;
 
 /**
@@ -51,7 +52,24 @@ class Slider extends \yii\db\ActiveRecord
             'image_mob' => Yii::t('app', 'Картинка мобилбной версии'),
             'visible' => Yii::t('app', 'Показ на странице'),
             'sort' => Yii::t('app', 'Порядок вывода'),
-//            'slug' => Yii::t('app', 'Слаг'),
+            'slug' => Yii::t('app', 'Слаг'),
         ];
     }
+//    public function getPrice($slug) {
+//        $product = Product::find()->where(['slug' => $slug])->one();
+//        if($product->currency === 'UAH'){
+//            return $product->price;
+//        }else{
+//            return floatval($product->price) * floatval(Settings::currencyRate($product->currency));
+//        }
+//    }
+//
+//    public function getOldPrice($slug) {
+//        $product = Product::find()->where(['slug' => $slug])->one();
+//        if($product->currency === 'UAH'){
+//            return $product->old_price;
+//        }else{
+//            return floatval($product->old_price) * floatval(Settings::currencyRate($product->currency));
+//        }
+//    }
 }

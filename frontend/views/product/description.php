@@ -22,6 +22,7 @@ $rating = 3;
                 <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
                     <div class="typography">
                         <h3 class="spec__header">Опис товару</h3>
+                        <?= $product->short_description ?>
                         <?= $product->description ?>
                     </div>
                 </div>
