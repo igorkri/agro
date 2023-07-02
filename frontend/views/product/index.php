@@ -319,7 +319,6 @@ $this->title = $product->seo_title;
                                         <div class="input-number__sub"></div>
                                     </div>
                                 </div>
-                                <!--                                <div class="product__actions-item product__actions-item--addtocart">-->
                                 <?php if ($product->status_id != 2) { ?>
                                     <button class="btn btn-primary product-card__addtocart"
                                             type="button"
@@ -349,7 +348,6 @@ $this->title = $product->seo_title;
                                 <?php } ?>
                             </div>
                         </div>
-                        <!-- <div class="product__actions-item product__actions-item--addtocart"> -->
                     </div>
                 </div>
             </div>

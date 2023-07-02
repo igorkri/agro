@@ -105,23 +105,27 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                 <div id="properties-container">
                                     <?php foreach ($data as $index => $productProperty): ?>
                                         <div class="row g-4">
-                                            <div class="col-5">
+                                            <div class="col-3">
                                                 <?= $form->field($productProperty, "[$index]properties")->textInput() ?>
                                             </div>
-                                            <div class="col-5">
+                                            <div class="col-8">
                                                 <?= $form->field($productProperty, "[$index]value")->textInput() ?>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <button type="button"
                                                         class="btn btn-outline-danger remove-property-btn" style="
-                                                        margin: 25px 0px;">Видалити
+                                                        margin: 25px 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                                    </svg>
                                                 </button>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                                 <div class="mt-3">
-                                    <button type="button" id="add-property-btn" class="btn btn-outline-warning">+Додати</button>
+                                    <button type="button" id="add-property-btn" class="btn btn-outline-warning me-3">+Додати</button>
+                                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
                                 </div>
                             </div>
                         </div>
@@ -181,12 +185,12 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
 
             // Создание поля "properties"
             var propertiesField = document.createElement("div");
-            propertiesField.className = "col-5";
+            propertiesField.className = "col-3";
             propertiesField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][properties]" class="form-control" />';
 
             // Создание поля "value"
             var valueField = document.createElement("div");
-            valueField.className = "col-5";
+            valueField.className = "col-7";
             valueField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][value]" class="form-control" />';
 
             // Создание кнопки "Удалить"
