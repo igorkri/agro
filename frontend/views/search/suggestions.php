@@ -16,7 +16,7 @@ use yii\helpers\Url;
             <a href="<?=Url::to(['product/view', 'slug' => $product->slug])?>" class="suggestions__item-name">
                 <?=$product->name?>
             </a>
-            <div class="suggestions__item-meta">Артикул: <?=$product->id?></div>
+            <div class="suggestions__item-meta">Артикул: 100<?=$product->id?></div>
         </div>
         <div class="suggestions__item-price">
             <?=Yii::$app->formatter->asCurrency($product->getPrice())?>

@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 
 use common\models\shop\Product;
+use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
 use common\models\shop\Tag;
 use Yii;
@@ -25,6 +26,10 @@ class SearchController extends Controller
             $tag_products = ProductTag::find()->where(['in', 'tag_id', $id_tag])->asArray()->all();
             $id_prod = [];
             foreach ($tag_products as $product) {
+                $id_prod[] = $product['product_id'];
+            }
+            $val_products = ProductProperties::find()->where(['like', 'value', $q])->asArray()->all();
+            foreach ($val_products as $product) {
                 $id_prod[] = $product['product_id'];
             }
 
