@@ -24,7 +24,7 @@ return [
         'metamaster' => [
             'class' => 'floor12\metamaster\MetaMaster',
             'siteName' => 'AgroPro.org.ua',
-            'defaultImage' => '/images/logos/logoagro.png',
+            'defaultImage' => '/images/logos/meta_logo.jpg',
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
