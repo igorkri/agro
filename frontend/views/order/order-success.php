@@ -58,7 +58,7 @@
                                 <td class="order-list__column-image">
                                     <div class="product-image">
                                         <a href="" class="product-image__body">
-                                            <img class="product-image__img" src="<?= $orderItem->product->getImgOne($orderItem->product->getId())?>" alt="">
+                                            <img class="product-image__img" src="<?= $orderItem->product->getImgOne($orderItem->product->getId())?>" alt="<?=$orderItem->product->name?>">
                                         </a>
                                     </div>
                                 </td>

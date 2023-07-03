@@ -6,7 +6,7 @@
 <!--                    <svg width="48px" height="48px">-->
 <!--                        <use xlink:href="images/sprite.svg#fi-free-delivery-48"></use>-->
 <!--                    </svg>-->
-                    <img style="display: block;margin: -5px -13px 0px -10px; width: 63px; " src="/frontend/web/images/delivery.png" alt="">
+                    <img style="display: block;margin: -5px -13px 0px -10px; width: 63px; " src="/frontend/web/images/delivery.png" alt="Доставка">
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title">Доставка</div>
@@ -19,7 +19,7 @@
 <!--                    <svg width="48px" height="48px">-->
 <!--                        <use xlink:href="images/sprite.svg#fi-24-hours-48"></use>-->
 <!--                    </svg>-->
-                    <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/frontend/web/images/tell.png" alt="">
+                    <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/frontend/web/images/tell.png" alt="Телефонуйте">
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title">Телефонуйте нам</div>

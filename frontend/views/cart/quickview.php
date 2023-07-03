@@ -49,7 +49,7 @@ if ($total_summ === 0){
                                         <a href="<?= Url::to(['product/view', 'slug' => $order->slug]) ?>"
                                            class="product-image__body">
                                             <img class="product-image__img"
-                                                 src="<?= $order->getImgOne($order->getId()) ?>" alt="">
+                                                 src="<?= $order->getImgOne($order->getId()) ?>" alt="<?= $order->name ?>">
                                         </a>
                                     </div>
                                 </td>

@@ -42,7 +42,7 @@ use yii\helpers\Url;
                                         <div class="post-card post-card--layout--list post-card--size--nl">
                                             <div class="post-card__image">
                                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                                    <img src="/posts/<?= $post->image ?>" alt="">
+                                                    <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
                                                 </a>
                                             </div>
                                             <div class="post-card__info">

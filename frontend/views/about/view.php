@@ -21,21 +21,21 @@
                                 <div class="owl-carousel">
                                     <div class="teammates__item teammate">
                                         <div class="teammate__avatar">
-                                            <img src="/images/about_1.jpg" alt="">
+                                            <img src="/images/about_1.jpg" alt="<?=$model->name?>">
                                         </div>
 <!--                                        <div class="teammate__name">Michael Russo</div>-->
 <!--                                        <div class="teammate__position text-muted">Chief Executive Officer</div>-->
                                     </div>
                                     <div class="teammates__item teammate">
                                         <div class="teammate__avatar">
-                                            <img src="/images/about_2.jpg" alt="">
+                                            <img src="/images/about_2.jpg" alt="<?=$model->name?>">
                                         </div>
 <!--                                        <div class="teammate__name">Katherine Miller</div>-->
 <!--                                        <div class="teammate__position text-muted">Marketing Officer</div>-->
                                     </div>
                                     <div class="teammates__item teammate">
                                         <div class="teammate__avatar">
-                                            <img src="/images/about_3.jpg" alt="">
+                                            <img src="/images/about_3.jpg" alt="<?=$model->name?>">
                                         </div>
 <!--                                        <div class="teammate__name">Anthony Harris</div>-->
 <!--                                        <div class="teammate__position text-muted">Finance Director</div>-->

@@ -153,7 +153,7 @@ use yii\helpers\Url;
                             <!-- copyright / end -->
                         </div>
                         <div class="site-footer__payments">
-                            <img src="/images/payments.png" alt="">
+                            <img src="/images/payments.png" alt="Платежі">
                         </div>
                     </div>
                 </div>

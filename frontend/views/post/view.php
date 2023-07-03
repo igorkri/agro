@@ -43,7 +43,7 @@ use yii\helpers\Url;
                         </div>
                     </div>
                     <div class="post__featured">
-                            <img src="/posts/<?= $post->image ?>" alt="">
+                            <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
                         </a>
                     </div>
                     <div class="post__content typography ">
@@ -65,7 +65,7 @@ use yii\helpers\Url;
                                 <div class="widget-posts__item">
                                     <div class="widget-posts__image">
                                         <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                            <img src="/posts/<?= $post->image ?>" alt="">
+                                            <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
                                         </a>
                                     </div>
                                     <div class="widget-posts__info">

@@ -47,7 +47,7 @@ use yii\helpers\Url;
                                             <?php else: ?>
                                             <a href="<?=Url::to(['category/catalog', 'slug' => $category->slug])?>" class="product-image__body">
                                             <?php endif; ?>
-                                                <img class="product-image__img" src="/category/<?= $category->file ?>" alt="">
+                                                <img class="product-image__img" src="/category/<?= $category->file ?>" alt="<?= $category->name ?>">
                                             </a>
                                         </div>
                                         <div class="product-card__info">

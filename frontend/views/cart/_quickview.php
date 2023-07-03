@@ -27,7 +27,7 @@ use yii\helpers\Url;
                         <div class="product-image">
                             <a href="<?= Url::to(['product/view', 'slug' => $order->slug]) ?>"
                                class="product-image__body">
-                                <img class="product-image__img" src="<?= $order->getImgOne($order->getId()) ?>" alt="">
+                                <img class="product-image__img" src="<?= $order->getImgOne($order->getId()) ?>" alt="<?= $order->name ?>">
                             </a>
                         </div>
                     </td>

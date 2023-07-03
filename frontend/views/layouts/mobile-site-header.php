@@ -12,7 +12,7 @@
                     <a class="mobile-header__logo" href="/">
                         <!-- mobile-logo -->
                         <img style="display: block;margin: -0px -12px 0px -10px; width: 135px; "
-                             src="/frontend/web/images/logos/logoagro-mobile.png" alt="">
+                             src="/frontend/web/images/logos/logoagro-mobile.png" alt="Логотип">
                         <!-- mobile-logo / end -->
                     </a>
                     <div class="search search--location--mobile-header mobile-header__search">
