@@ -65,7 +65,7 @@ $this->title = $product->seo_title;
                         <div class="product-gallery">
                             <?php if (!empty($product->images)) : ?>
                                 <div class="product-gallery__featured">
-                                    <button class="product-gallery__zoom">
+                                    <button class="product-gallery__zoom" aria-label="Збільшити">
                                         <svg width="24px" height="24px">
                                             <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
                                         </svg>
@@ -99,7 +99,7 @@ $this->title = $product->seo_title;
                                 </div>
                             <?php else : ?>
                                 <div class="product-gallery__featured">
-                                    <button class="product-gallery__zoom">
+                                    <button class="product-gallery__zoom" aria-label="Збільшити">
                                         <svg width="24px" height="24px">
                                             <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
                                         </svg>
@@ -321,6 +321,7 @@ $this->title = $product->seo_title;
                                 </div>
                                 <?php if ($product->status_id != 2) { ?>
                                     <button class="btn btn-primary product-card__addtocart"
+                                            aria-label="В кошик"
                                             type="button"
                                             data-product-id="<?= $product->id ?>"
                                             style="margin-top: 4px;

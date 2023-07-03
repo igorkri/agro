@@ -24,7 +24,7 @@ use yii\helpers\Url;
                         <form class="search__form" action="/search/suggestions">
                             <input class="search__input" name="q" placeholder="Пошук товарів"
                                    aria-label="Site search" type="text" autocomplete="off">
-                            <button class="search__button search__button--type--submit" type="submit">
+                            <button class="search__button search__button--type--submit" type="submit" aria-label="Site search">
                                 <svg width="20px" height="20px">
                                     <use xlink:href="/images/sprite.svg#search-20"></use>
                                 </svg>

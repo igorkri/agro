@@ -20,12 +20,12 @@
                             <form class="search__form" action="">
                                 <input class="search__input" name="search" placeholder="Пошук товарів"
                                        aria-label="Site search" type="text" autocomplete="off">
-                                <button class="search__button search__button--type--submit" type="submit">
+                                <button class="search__button search__button--type--submit" type="submit" aria-label="Site search">
                                     <svg width="20px" height="20px">
                                         <use xlink:href="/images/sprite.svg#search-20"></use>
                                     </svg>
                                 </button>
-                                <button class="search__button search__button--type--close" type="button">
+                                <button class="search__button search__button--type--close" type="button" aria-label="Site search">
                                     <svg width="20px" height="20px">
                                         <use xlink:href="/images/sprite.svg#cross-20"></use>
                                     </svg>
