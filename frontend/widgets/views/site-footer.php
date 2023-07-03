@@ -110,33 +110,37 @@ use yii\helpers\Url;
                                             <li class="social-links__item">
                                                 <a class="social-links__link social-links__link--type--rss" href="/"
                                                    target="_blank">
-                                                    <i class="fas fa-rss"></i>
+                                                    <span class="sr-only">Офіційна сторінка RSS</span>
+                                                    <i class="fas fa-rss" aria-hidden="true"></i>
                                                 </a>
                                             </li>
                                             <li class="social-links__item">
                                                 <a class="social-links__link social-links__link--type--youtube" href="/"
                                                    target="_blank">
-                                                    <i class="fab fa-youtube"></i>
+                                                    <span class="sr-only">Офіційна сторінка Youtube</span>
+                                                    <i class="fab fa-youtube" aria-hidden="true"></i>
                                                 </a>
                                             </li>
                                             <li class="social-links__item">
                                                 <a class="social-links__link social-links__link--type--facebook"
                                                    href="/"
                                                    target="_blank">
-                                                    <i class="fab fa-facebook-f"></i>
+                                                    <span class="sr-only">Офіційна сторінка Facebook</span>
+                                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
                                                 </a>
                                             </li>
                                             <li class="social-links__item">
                                                 <a class="social-links__link social-links__link--type--twitter" href="/"
                                                    target="_blank">
-                                                    <i class="fab fa-twitter"></i>
+                                                    <span class="sr-only">Офіційна сторінка Twitter</span>
+                                                    <i class="fab fa-twitter" aria-hidden="true"></i>
                                                 </a>
                                             </li>
                                             <li class="social-links__item">
                                                 <a class="social-links__link social-links__link--type--instagram"
-                                                   href="/"
-                                                   target="_blank">
-                                                    <i class="fab fa-instagram"></i>
+                                                   href="/" target="_blank">
+                                                    <span class="sr-only">Офіційна сторінка Instagram</span>
+                                                    <i class="fab fa-instagram" aria-hidden="true"></i>
                                                 </a>
                                             </li>
                                         </ul>
