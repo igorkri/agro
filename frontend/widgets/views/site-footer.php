@@ -16,7 +16,7 @@ use yii\helpers\Url;
                         <div class="row">
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="site-footer__widget footer-contacts">
-                                    <h5 class="footer-contacts__title">Наші контакти</h5>
+                                    <h4 class="footer-contacts__title">Наші контакти</h4>
                                     <div class="footer-contacts__text"><?= $contacts->comment_two ?>
                                     </div>
                                     <ul class="footer-contacts__contacts">
