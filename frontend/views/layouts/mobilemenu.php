@@ -59,12 +59,12 @@ $tel_2 = '(068) 489-43-86';
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a data-collapse-trigger class="mobile-links__item-link"> <i class="fas fa-language"></i> Мова</a>
+                        <a data-collapse-trigger href="/" class="mobile-links__item-link"> <i class="fas fa-language"></i> Мова</a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a data-collapse-trigger class="mobile-links__item-link"></a>
+                        <a data-collapse-trigger href="/" class="mobile-links__item-link"></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
@@ -79,7 +79,7 @@ $tel_2 = '(068) 489-43-86';
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a data-collapse-trigger class="mobile-links__item-link"><i class="far fa-envelope"></i> nisatatyana@gmail.com</a>
+                        <a data-collapse-trigger href="/" class="mobile-links__item-link"><i class="far fa-envelope"></i> nisatatyana@gmail.com</a>
                     </div>
                 </li>
             </ul>
