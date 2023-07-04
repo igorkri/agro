@@ -26,7 +26,7 @@ use yii\helpers\Url;
                 </li>
             </ul>
             <div class="block-header__arrows-list">
-                <button class="block-header__arrow block-header__arrow--left" type="button">
+                <button class="block-header__arrow block-header__arrow--left" type="button" aria-label="Left">
                     <svg width="7px" height="11px">
                         <use xlink:href="/images/sprite.svg#arrow-rounded-left-7x11"></use>
                     </svg>
