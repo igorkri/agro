@@ -4,7 +4,7 @@
             <div class="owl-carousel">
                 <?php foreach ($brands as $brand): ?>
                     <div class="block-brands__item">
-                        <img src="brand/<?= $brand->file ?>" alt="<?= $brand->name ?>">
+                        <img src="brand/<?= $brand->file ?>" width="136" height="32" alt="<?= $brand->name ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
