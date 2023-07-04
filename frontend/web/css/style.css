@@ -9074,7 +9074,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 
 .category-card__image img {
   overflow: hidden;
-  max-width: 100%;
+  /*max-width: 100%;*/
   /*opacity: 0.5;*/
   transition: opacity 0.5s ease;
 }

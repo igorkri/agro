@@ -13,21 +13,7 @@ use yii\helpers\Url;
             <div class="block-header__divider"></div>
         </div>
         <div class="block-categories__list">
-            <div class="block-categories__item category-card category-card--layout--classic">
-                <div class="category-card__body">
-                    <div class="category-card__image">
-                        <a href="<?= Url::to(['/catalog/zasobi-zahistu-roslin']) ?>"><img src="/category/<?= $categories[0]->file ?>" width="130" height="130" alt="<?= $categories[0]->name ?>"></a>
-                    </div>
-                    <div class="category-card__content">
-                        <div class="category-card__name">
-                            <a href="<?= Url::to(['/catalog/zasobi-zahistu-roslin']) ?>"><?= $categories[0]->name ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php $i = 1;
-            foreach ($categories as $category): ?>
-                <?php if ($i >= 2): ?>
+            <?php foreach ($categories as $category): ?>
                     <div class="block-categories__item category-card category-card--layout--classic">
                         <div class="category-card__body">
                             <div class="category-card__image">
@@ -48,8 +34,7 @@ use yii\helpers\Url;
                             </div>
                         </div>
                     </div>
-                <?php endif ?>
-            <?php $i++; endforeach; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
