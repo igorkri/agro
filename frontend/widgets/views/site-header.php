@@ -11,10 +11,8 @@ use yii\helpers\Url;
             <div class="site-header__logo">
                 <a href="/">
                     <!-- logo -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="196px" height="26px">
-                        <img style="display: block;margin: -48px -12px 0px -28px; width: 300px; "
-                             src="/frontend/web/images/logos/logoagro.png" alt="Логотип">
-                    </svg>
+                        <img style="display: block;margin: -22px -12px 0px -28px;"
+                             src="/frontend/web/images/logos/logoagro.png" width="300" height="99" alt="Логотип">
                     <!-- logo / end -->
                 </a>
             </div>
