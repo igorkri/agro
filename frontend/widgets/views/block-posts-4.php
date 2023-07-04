@@ -22,42 +22,71 @@ use yii\helpers\Url;
                 </button>
             </div>
         </div>
-        <div class="block-posts__slider">
-            <div class="owl-carousel">
-                <?php foreach ($posts as $post): ?>
-                    <div class="post-card">
-                        <div class="post-card__image">
-                            <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                <?php if ($post->image != null) ?>
-                                <?php if (Yii::$app->devicedetect->isMobile()) { ?>
-                                    <img src="posts/<?= $post->image ?>" width="263" height="107"
+        <?php if (Yii::$app->devicedetect->isMobile()) { ?>
+            <div class="block-posts__slider">
+                <div class="owl-carousel">
+                    <?php foreach ($posts as $post): ?>
+                        <div class="post-card">
+                            <div class="post-card__image">
+                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
+                                    <?php if ($post->image != null) ?>
+                                    <img src="posts/<?= $post->image ?>" width="159" height="107"
                                          alt="<?= $post->title ?>">
-                                <?php } else { ?>
-                                    <img src="posts/<?= $post->image ?>" width="159" height="177"
-                                         alt="<?= $post->title ?>">
-                                <?php } ?>
-                            </a>
-                        </div>
-                        <div class="post-card__info">
-                            <div class="post-card__category">
-                                <!--                                        <a href="/">Special Offers</a>-->
+                                </a>
                             </div>
-                            <div class="post-card__name">
-                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
-                            </div>
-                            <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
-                            <div class="post-card__content">
-                                <?= $post->description ?>
-                            </div>
-                            <div class="post-card__read-more">
-                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"
-                                   class="btn btn-secondary btn-sm">Докладніше...</a>
+                            <div class="post-card__info">
+                                <div class="post-card__category">
+                                    <!--                                        <a href="/">Special Offers</a>-->
+                                </div>
+                                <div class="post-card__name">
+                                    <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
+                                </div>
+                                <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
+                                <div class="post-card__content">
+                                    <?= $post->description ?>
+                                </div>
+                                <div class="post-card__read-more">
+                                    <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"
+                                       class="btn btn-secondary btn-sm">Докладніше...</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
+        <?php } else { ?>
+            <div class="block-posts__slider">
+                <div class="owl-carousel">
+                    <?php foreach ($posts as $post): ?>
+                        <div class="post-card">
+                            <div class="post-card__image">
+                                <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
+                                    <?php if ($post->image != null) ?>
+                                    <img src="posts/<?= $post->image ?>" width="263" height="177"
+                                         alt="<?= $post->title ?>">
+                                </a>
+                            </div>
+                            <div class="post-card__info">
+                                <div class="post-card__category">
+                                    <!--                                        <a href="/">Special Offers</a>-->
+                                </div>
+                                <div class="post-card__name">
+                                    <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>
+                                </div>
+                                <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
+                                <div class="post-card__content">
+                                    <?= $post->description ?>
+                                </div>
+                                <div class="post-card__read-more">
+                                    <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"
+                                       class="btn btn-secondary btn-sm">Докладніше...</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
 <!-- .block-posts / end -->
