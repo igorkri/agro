@@ -16,7 +16,7 @@ use yii\helpers\Url;
             <div class="block-categories__item category-card category-card--layout--classic">
                 <div class="category-card__body">
                     <div class="category-card__image">
-                        <a href="<?= Url::to(['/catalog/zasobi-zahistu-roslin']) ?>"><img src="/category/<?= $categories[0]->file ?>" alt="<?= $categories[0]->name ?>"></a>
+                        <a href="<?= Url::to(['/catalog/zasobi-zahistu-roslin']) ?>"><img src="/category/<?= $categories[0]->file ?>" width="130" height="130" alt="<?= $categories[0]->name ?>"></a>
                     </div>
                     <div class="category-card__content">
                         <div class="category-card__name">
@@ -32,9 +32,9 @@ use yii\helpers\Url;
                         <div class="category-card__body">
                             <div class="category-card__image">
                                 <?php if ($category->parentId == null) { ?>
-                                <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" alt="<?= $category->name ?>"></a>
+                                <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>"></a>
                                 <?php } else { ?>
-                                <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" alt="<?= $category->name ?>"><?= $category->name ?></a>
+                                <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>"></a>
                                 <?php } ?>
                             </div>
                             <div class="category-card__content">
