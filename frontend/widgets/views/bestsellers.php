@@ -19,6 +19,7 @@ use yii\helpers\Url;
                     <div class="block-products__featured-item">
                         <div class="product-card product-card--hidden-actions ">
                             <button class="product-card__quickview ttp_inf" type="button"
+                                    aria-label="Info"
                                     data-title=" <?= Product::productParams($products[0]->id) ?> ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-info-circle" viewBox="0 0 16 16">
@@ -137,6 +138,7 @@ use yii\helpers\Url;
                             <div class="block-products__list-item">
                                 <div class="product-card product-card--hidden-actions ">
                                     <button class="product-card__quickview ttp_inf" type="button"
+                                            aria-label="Info"
                                             data-title=" <?= Product::productParams($product->id) ?> ">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

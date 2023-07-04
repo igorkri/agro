@@ -4,7 +4,7 @@
         <div class="mobile-header__panel">
             <div class="container">
                 <div class="mobile-header__body">
-                    <button class="mobile-header__menu-button">
+                    <button class="mobile-header__menu-button" aria-label="Menu">
                         <svg width="18px" height="14px">
                             <use xlink:href="/images/sprite.svg#menu-18x14"></use>
                         </svg>

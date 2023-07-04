@@ -31,7 +31,7 @@ use yii\helpers\Url;
                         <use xlink:href="/images/sprite.svg#arrow-rounded-left-7x11"></use>
                     </svg>
                 </button>
-                <button class="block-header__arrow block-header__arrow--right" type="button">
+                <button class="block-header__arrow block-header__arrow--right" type="button" aria-label="Right">
                     <svg width="7px" height="11px">
                         <use xlink:href="/images/sprite.svg#arrow-rounded-right-7x11"></use>
                     </svg>
@@ -45,7 +45,8 @@ use yii\helpers\Url;
                     <div class="block-products-carousel__column">
                         <div class="block-products-carousel__cell">
                             <div class="product-card product-card--hidden-actions ">
-                                <button class="product-card__quickview ttp_inf" type="button"
+                                <button class="product-card__quickview ttp_inf" type="button "
+                                        aria-label="Info"
                                         data-title=" <?= \common\models\shop\Product::productParams($product->id) ?> ">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

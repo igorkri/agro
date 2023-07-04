@@ -18,6 +18,7 @@ use yii\helpers\Url;
                 <div class="block-product-columns__item">
                     <div class="product-card product-card--hidden-actions product-card--layout--horizontal">
                         <button class="product-card__quickview ttp_inf" type="button"
+                                aria-label="Info"
                                 data-title=" <?= \common\models\shop\Product::productParams($product->id) ?> ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-info-circle" viewBox="0 0 16 16">
