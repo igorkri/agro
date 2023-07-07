@@ -75,10 +75,11 @@ class ActivePages extends \yii\db\ActiveRecord
     public static function setActiveUser()
     {
 
-        $botAgents = [          // Агенти которые не пишутся в статистику
+        $botAgents = [          // Агенты которые не пишутся в статистику
             'Googlebot',
             'Chrome-Lighthouse',
             'WebCrawler',
+            'Google-InspectionTool',
         ];
 
         $server = $_SERVER;

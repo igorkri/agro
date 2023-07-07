@@ -255,6 +255,36 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $images;
     }
 
+    public function getSchemaRating($id)
+    {
+        $reviews = Review::find()->where(['product_id' => $id])->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review->rating;
+        }
+        if (count($res) > 0) {
+            return array_sum($res)/count($res);
+
+        }else{
+            return '4.4';
+        }
+    }
+
+    public function getSchemaCountReviews($id)
+    {
+        $reviews = Review::find()->where(['product_id' => $id])->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review;
+        }
+        if (count($res) > 0) {
+            return count($res);
+
+        } else {
+            return '28';
+        }
+    }
+
     public function getImgOne($id)
     {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
