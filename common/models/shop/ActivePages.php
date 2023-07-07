@@ -54,26 +54,60 @@ class ActivePages extends \yii\db\ActiveRecord
         ];
     }
 
+//    public static function setActiveUser() {
+//
+//        $server = $_SERVER;
+//        $model = new ActivePages();
+//        $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
+//        $model->url_page = $server['REQUEST_URI'] ?? "Не известно";
+//        $model->user_agent = $server['HTTP_USER_AGENT'] ?? "Не известно";
+//        $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
+//        $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
+//        $model->status_serv = $server['REDIRECT_STATUS'] ?? "Не известно";
+//        if ($model->save()) {
+//
+//        } else {
+//            exit('<pre>' . print_r($model->errors, true) . '</pre>');
+//        }
+//
+//    }
+
     public static function setActiveUser()
     {
 
+        $botAgents = [          // Агенти которые не пишутся в статистику
+            'Googlebot',
+            'Chrome-Lighthouse',
+            'WebCrawler',
+        ];
+
         $server = $_SERVER;
+        $userAgent = $server['HTTP_USER_AGENT'] ?? "Не известно";
+
+        foreach ($botAgents as $botAgent) {
+            if (strpos($userAgent, $botAgent) !== false) {
+
+                return;
+            }
+        }
+
         $model = new ActivePages();
         $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
         $model->url_page = $server['REQUEST_URI'] ?? "Не известно";
-        $model->user_agent = $server['HTTP_USER_AGENT'] ?? "Не известно";
+        $model->user_agent = $userAgent;
         $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
         $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
         $model->status_serv = $server['REDIRECT_STATUS'] ?? "Не известно";
-        if ($model->save()) {
 
+        if ($model->save()) {
         } else {
             exit('<pre>' . print_r($model->errors, true) . '</pre>');
         }
-
     }
 
-    public static function countViewsPage($url)
+
+    public
+    static function countViewsPage($url)
     {
         $res = [];
         if ($url == '/') {
@@ -96,20 +130,22 @@ class ActivePages extends \yii\db\ActiveRecord
         return count($res);
     }
 
-    public static function productCountViews($url)
+    public
+    static function productCountViews($url)
     {
         $res = [];
-            $pages = ActivePages::find()
-                ->where(['like', 'url_page', '%' . $url . '%', false])
-                ->asArray()
-                ->all();
-            foreach ($pages as $page) {
-                $res[] = $page['url_page'];
-            }
+        $pages = ActivePages::find()
+            ->where(['like', 'url_page', '%' . $url . '%', false])
+            ->asArray()
+            ->all();
+        foreach ($pages as $page) {
+            $res[] = $page['url_page'];
+        }
         return count($res);
     }
 
-    public static function countIpUsers()
+    public
+    static function countIpUsers()
     {
         $res = [];
         $pages = ActivePages::find()
