@@ -15,8 +15,8 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css?v=' . PROJECT_VERSION,
-        'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i',
+//        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css?v=' . PROJECT_VERSION,
+//        'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i',
         '/vendor/bootstrap/css/bootstrap.min.css?v=' . PROJECT_VERSION,
         '/vendor/owl-carousel/assets/owl.carousel.min.css?v=' . PROJECT_VERSION,
         '/vendor/photoswipe/photoswipe.css?v=' . PROJECT_VERSION,

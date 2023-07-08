@@ -171,6 +171,12 @@ Table of Contents:
 /*
 // base
 */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i);
+html, body, html * {
+  font-family: 'Roboto', sans-serif;
+}
+
 html,
 body {
   height: 100%;
@@ -178,7 +184,7 @@ body {
 
 body {
   overflow-x: hidden;
-  font-family: "Roboto", "sans-serif";
+  /*font-family: "Roboto", "sans-serif";*/
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
@@ -634,7 +640,7 @@ h6 {
 // .block-header
 */
 .block-header {
-
+  font-weight: bold;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2490,10 +2496,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .post-card__category {
+  font-weight: bold;
   font-size: 14px;
   color: #adadad;
 }
 .post-card__category a {
+  font-weight: bold;
   color: inherit;
   -webkit-transition: 0.15s;
   transition: 0.15s;
@@ -2513,6 +2521,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   font-weight: 500;
 }
 .post-card__name a {
+  font-weight: bold;
   color: inherit;
   -webkit-transition: 0.15s;
   transition: 0.15s;
@@ -3013,11 +3022,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .product-card__name_slider {
+  font-weight: bold;
   font-size: 15px;
   line-height: 19px;
 }
 
 .product-card__name a {
+  font-weight: bold;
   color: inherit;
   -webkit-transition: 0.15s;
   transition: 0.15s;
@@ -4061,7 +4072,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: bold;
+  /*font-weight: 500;*/
   line-height: 18px;
   margin: -2px;
 }
@@ -5678,7 +5690,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   padding: 1px 0;
 }
 .megamenu__links--level--0 > .megamenu__item > a {
-  font-weight: 500;
+  font-weight: bold;
 }
 .megamenu__links--level--0 > .megamenu__item > a + .megamenu__links {
   padding-top: 10px;
@@ -6400,6 +6412,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .nav-links__item-body {
+  font-weight: 540;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9103,6 +9116,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   line-height: 19px;
 }
 .category-card__name a {
+  font-weight: bold;
   color: inherit;
   -webkit-transition: 0.15s;
   transition: 0.15s;
@@ -13799,6 +13813,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
     margin: -1px 0;
   }
   .block-posts[data-layout=grid-4] .post-card .post-card__name {
+    font-weight: bold;
     font-size: 15px;
     margin-top: 4px;
     line-height: 20px;
