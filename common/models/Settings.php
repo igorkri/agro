@@ -9,7 +9,6 @@ use yii\base\Model;
 
 class Settings extends Model
 {
-
     static function currencyRate($cc = 'USD'){
 
         $currency = Yii::$app->cache->get('currency');

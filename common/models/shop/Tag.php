@@ -41,11 +41,11 @@ class Tag extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProductTag($id){
+    public function getProductTag($id) {
 
         $products = ProductTag::find()->where(['tag_id' => $id])->all();
         $total_res = [];
-        foreach ($products as $product){
+        foreach ($products as $product) {
             $total_res[] = $product;
         }
         return count($total_res);

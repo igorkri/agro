@@ -87,7 +87,6 @@ class Review extends \yii\db\ActiveRecord
 
     public function getProductImage($id)
     {
-
         $products = ProductImage::find()->where(['product_id' => $id])->one();
 
         return $products->name;
@@ -98,9 +97,9 @@ class Review extends \yii\db\ActiveRecord
         return $rating / 5;
     }
 
+//  новие отзивы меню админ
     public static function reviewsNews()
     {
-
         $reviews = Review::find()->all();
         $total_res = [];
         foreach ($reviews as $review) {
@@ -110,9 +109,9 @@ class Review extends \yii\db\ActiveRecord
         return count($total_res);
     }
 
+//  звездочки вместо цифр админ отзивы
     public function getStarRating($rating)
     {
-
         $stars = '';
         for ($i = 0; $i < $rating; $i++) {
             $stars .= '<svg style="color: #e9a70e" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">

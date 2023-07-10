@@ -209,10 +209,9 @@ class Order extends \yii\db\ActiveRecord
             return $order = 'Не вибрано';
         }
     }
-
+//  новый заказ в меню админ
     public static function orderNews()
     {
-
         $orders = Order::find()->all();
         $total_res = [];
         foreach ($orders as $order) {

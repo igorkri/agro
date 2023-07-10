@@ -67,10 +67,9 @@ class Messages extends \yii\db\ActiveRecord
             'created_at' => 'Date',
         ];
     }
-
+//  новые сообщения в меню админ
     public static function messagesNews()
     {
-
         $messages = Messages::find()->all();
         $total_res = [];
         foreach ($messages as $message) {
