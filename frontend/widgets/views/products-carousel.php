@@ -64,7 +64,7 @@ use yii\helpers\Url;
                                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
                                            class="product-image__body">
                                             <img class="product-image__img"
-                                                 src="<?= $product->getImgOne($product->getId()) ?>" alt="<?= $product->name ?>">
+                                                 src="<?= $product->getImgOneCarousel($product->getId()) ?>" alt="<?= $product->name ?>">
                                         </a>
                                     </div>
 
