@@ -12,7 +12,7 @@ use yii\helpers\Url;
                 <a href="/">
                     <!-- logo -->
                         <img style="display: block;margin: -22px -12px 0px -28px;"
-                             src="/frontend/web/images/logos/logoagro.png" width="300" height="99" alt="Логотип">
+                             src="/frontend/web/images/logos/logoagro.jpg" width="300" height="99" alt="Логотип">
                     <!-- logo / end -->
                 </a>
             </div>
