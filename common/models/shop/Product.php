@@ -296,6 +296,17 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $img;
     }
 
+    public function getImgOneFeatured($id)
+    {
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        if (isset($product->images[0])) {
+            $img = Yii::$app->request->hostInfo . '/product/thumb/' . $product->images[0]->large;
+        } else {
+            $img = Yii::$app->request->hostInfo . "/images/no-image.png";
+        }
+        return $img;
+    }
+
     public static function productImage($slug)
     {
         $product = Product::find()->where(['slug' => $slug])->one();

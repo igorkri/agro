@@ -1,10 +1,11 @@
 <?php
 
 
-namespace app\commands;
+namespace console\controllers;
 
 
-use app\models\ProductPhoto;
+use common\models\shop\ProductImage;
+use Yii;
 use yii\console\Controller;
 use yii\imagine\Image;
 
@@ -12,39 +13,40 @@ class ResizeImageController extends Controller
 {
 
     /**
-     * Обрізка зображення з оригіналу на 538 * 404; 345 * 259; 246 * 198; 158 * 119; 90 * 90;
+     * Обрізка зображення з оригіналу;
      */
     public function actionProduct(){
 
-        $photos = ProductPhoto::find()->all();
+        $photos = ProductImage::find()->all();
 
-        $dir = ProductPhoto::FILE_URL;
-        $path = \Yii::getAlias($dir);
-$i = 1;
+        $dir = Yii::getAlias('@frontendWeb/product/');
+        $i = 1;
         foreach ($photos as $photo){
-            $original = $path . $photo['path'];
-            $is = ProductPhoto::find()->where(['x_large' => 'x_large-' . $original])->one();
-
+            $original = $dir . $photo['name'];
+            $is = ProductImage::find()->where(['extra_extra_large' => 'extra_extra_large-' . $original])->one();
             if (!$is && file_exists($original)) {
-                Image::resize($original, 538, 404)->save($path . 'thumb/x_large-' . $photo['path'], ['quality' => 50]);
-                Image::resize($original, 345, 259)->save($path . 'thumb/large-' . $photo['path'], ['quality' => 50]);
-                Image::resize($original, 264, 198)->save($path . 'thumb/medium-' . $photo['path'], ['quality' => 50]);
-                Image::resize($original, 158, 119)->save($path . 'thumb/small-' . $photo['path'], ['quality' => 50]);
-                Image::resize($original, 90, 90)->save($path . 'thumb/x_small-' . $photo['path'], ['quality' => 50]);
-                $photo->x_large = 'x_large-' . $photo['path'];
-                $photo->large = 'large-' . $photo['path'];
-                $photo->medium = 'medium-' . $photo['path'];
-                $photo->small = 'small-' . $photo['path'];
-                $photo->x_small = 'x_small-' . $photo['path'];
+                $name = basename( $photo['name']);
+                Image::resize($original, 350, 350)->save($dir . 'thumb/extra_extra_large-' . $name, ['quality' => 70]);
+                Image::resize($original, 290, 290)->save($dir . 'thumb/extra_large-' . $name, ['quality' => 70]);
+                Image::resize($original, 195, 195)->save($dir . 'thumb/large-' . $name, ['quality' => 70]);
+                Image::resize($original, 150, 150)->save($dir . 'thumb/medium-' . $name, ['quality' => 70]);
+                Image::resize($original, 90, 90)->save($dir . 'thumb/small-' . $name, ['quality' => 70]);
+                Image::resize($original, 64, 64)->save($dir . 'thumb/extra_small-' . $name, ['quality' => 70]);
+                $photo->extra_extra_large = 'extra_extra_large-' . $name;
+                $photo->extra_large = 'extra_large-' . $name;
+                $photo->large = 'large-' . $name;
+                $photo->medium = 'medium-' . $name;
+                $photo->small = 'small-' . $name;
+                $photo->extra_small = 'extra_small-' . $name;
                 if ($photo->save(false)) {
-                    echo "\n " . $i . " | Успішно збережено: " . $photo['path'] . PHP_EOL;
+                    echo "\n " . $i . " | Успішно збережено: " . $name . PHP_EOL;
                 } else {
                     print_r($photo->errors);
 
                 }
                 $i++;
             }else{
-                echo "\n " . $i . " | Успішно існує: " . $photo['path'] . PHP_EOL;
+                echo "\n " . $i . " | Успішно існує: " . $photo['name'] . PHP_EOL;
             }
         }
 
