@@ -50,7 +50,7 @@ class ProductController extends Controller
         Yii::$app->metamaster
             ->setTitle($product->seo_title)
             ->setDescription($product->seo_description)
-            ->setImage($product->getImgOne($product->id))
+            ->setImage($product->getImgSeo($product->id))
             ->register(Yii::$app->getView());
 
         return $this->render('index', [
