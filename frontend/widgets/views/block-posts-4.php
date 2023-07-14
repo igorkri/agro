@@ -30,7 +30,7 @@ use yii\helpers\Url;
                             <div class="post-card__image">
                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                     <?php if ($post->image != null) ?>
-                                    <img src="posts/<?= $post->image ?>" width="159" height="107"
+                                    <img src="posts/thumb/<?= $post->medium ?>" width="159" height="107"
                                          alt="<?= $post->title ?>">
                                 </a>
                             </div>
@@ -62,7 +62,7 @@ use yii\helpers\Url;
                             <div class="post-card__image">
                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                     <?php if ($post->image != null) ?>
-                                    <img src="posts/<?= $post->image ?>" width="263" height="177"
+                                    <img src="posts/thumb/<?= $post->large ?>" width="263" height="177"
                                          alt="<?= $post->title ?>">
                                 </a>
                             </div>

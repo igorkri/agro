@@ -4,6 +4,7 @@
 namespace console\controllers;
 
 
+use common\models\Posts;
 use common\models\shop\ProductImage;
 use Yii;
 use yii\console\Controller;
@@ -42,7 +43,6 @@ class ResizeImageController extends Controller
                     echo "\n " . $i . " | Успішно збережено: " . $name . PHP_EOL;
                 } else {
                     print_r($photo->errors);
-
                 }
                 $i++;
             }else{
@@ -53,8 +53,37 @@ class ResizeImageController extends Controller
         echo "\nOk";
     }
 
-    public function actionGallery(){
+    public function actionPost(){
 
+        $photos = Posts::find()->all();
+
+        $dir = Yii::getAlias('@frontendWeb/posts/');
+        $i = 1;
+        foreach ($photos as $photo){
+            $original = $dir . $photo['image'];
+            $is = Posts::find()->where(['extra_large' => 'extra_large-' . $original])->one();
+            if (!$is && file_exists($original)) {
+                $name =  $photo['image'];
+                Image::resize($original, 330, 222)->save($dir . 'thumb/extra_large-' . $name, ['quality' => 70]);
+                Image::resize($original, 263, 177)->save($dir . 'thumb/large-' . $name, ['quality' => 70]);
+                Image::resize($original, 159, 107)->save($dir . 'thumb/medium-' . $name, ['quality' => 70]);
+                Image::resize($original, 90, 60)->save($dir . 'thumb/small-' . $name, ['quality' => 70]);
+                $photo->extra_large = 'extra_large-' . $name;
+                $photo->large = 'large-' . $name;
+                $photo->medium = 'medium-' . $name;
+                $photo->small = 'small-' . $name;
+                if ($photo->save(false)) {
+                    echo "\n " . $i . " | Успішно збережено: " . $name . PHP_EOL;
+                } else {
+                    print_r($photo->errors);
+                }
+                $i++;
+            }else{
+                echo "\n " . $i . " | Успішно існує: " . $photo['image'] . PHP_EOL;
+            }
+        }
+
+        echo "\nOk";
     }
 
 }

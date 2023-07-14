@@ -43,7 +43,12 @@ use yii\helpers\Url;
                         </div>
                     </div>
                     <div class="post__featured">
+                        <?php if (Yii::$app->devicedetect->isMobile()) { ?>
+                            <img src="/posts/thumb/<?= $post->extra_large ?>" alt="<?= $post->title ?>">
+                        <?php } else { ?>
                             <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
+                        <?php } ?>
+
                         </a>
                     </div>
                     <div class="post__content typography ">
@@ -65,7 +70,7 @@ use yii\helpers\Url;
                                 <div class="widget-posts__item">
                                     <div class="widget-posts__image">
                                         <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                            <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
+                                            <img src="/posts/thumb/<?= $post->small ?>" alt="<?= $post->title ?>">
                                         </a>
                                     </div>
                                     <div class="widget-posts__info">
