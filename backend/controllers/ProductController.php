@@ -306,6 +306,14 @@ class ProductController extends Controller
                     $imagePath = $dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension;
                     $cropPath = $dir . $directory . '/' . $imageName . '.' . $file->extension;
                     Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    // ----------- Нарезка картинок
+                    Image::resize($imagePath, 350, 350)->save($dir . 'thumb/extra_extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 290, 290)->save($dir . 'thumb/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 195, 195)->save($dir . 'thumb/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 150, 150)->save($dir . 'thumb/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 90, 90)->save($dir . 'thumb/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 64, 64)->save($dir . 'thumb/extra_small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    //----------- End Нарезка картинок
                     unlink($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
                 } else {
                     $file->saveAs($dir . $directory . '/' . $imageName . '.' . $file->extension);
@@ -314,9 +322,18 @@ class ProductController extends Controller
 
                 $new_file->product_id = $id;
                 $new_file->name = $directory . '/' . $imageName . '.' . $file->extension;
+
+                $new_file->extra_extra_large = 'extra_extra_large-' . $imageName . '.' . $file->extension;
+                $new_file->extra_large = 'extra_large-' . $imageName . '.' . $file->extension;
+                $new_file->large = 'large-' . $imageName . '.' . $file->extension;
+                $new_file->medium = 'medium-' . $imageName . '.' . $file->extension;
+                $new_file->small = 'small-' . $imageName . '.' . $file->extension;
+                $new_file->extra_small = 'extra_small-' . $imageName . '.' . $file->extension;
+
                 if ($new_file->save() and file_exists($dir . $directory)) {
                     Yii::$app->getSession()->addFlash('success', "Файл: {$new_file->name} успешно добавлен");
                 }
+
                 if (Yii::$app->response->statusCode = 200) {
                     return true;
                 }
