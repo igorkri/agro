@@ -15,7 +15,7 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link type="image/png" href="/images/favicon.png" rel="icon">
+<!--    <link type="image/ico" href="/images/favicon.ico" rel="icon">-->
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?= Yii::$app->params['schema'] ?? '' ?>
