@@ -3,6 +3,7 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
+
 /** @var \common\models\shop\Review $model_review */
 
 use frontend\widgets\ProductsCarousel;
@@ -75,9 +76,9 @@ $this->title = $product->seo_title;
                                             <div class="product-image product-image--location--gallery">
                                                 <a href="<?= '/product/' . $image->name ?>" data-width="700"
                                                    data-height="700" class="product-image__body" target="_blank">
-                                                    <img class="product-image__img" src="
-                                                 <?= '/product/' . $image->name ?>
-                                                " alt="<?= $image->name ?>">
+                                                    <img class="product-image__img"
+                                                         src=" <?= '/product/' . $image->extra_extra_large ?> "
+                                                         alt="<?= $product->name ?>">
                                                 </a>
                                             </div>
                                         <?php endforeach; ?>
@@ -86,12 +87,11 @@ $this->title = $product->seo_title;
                                 <div class="product-gallery__carousel">
                                     <div class="owl-carousel" id="product-carousel">
                                         <?php foreach ($product->images as $image) : ?>
-                                            <a href="/images/products/product-16-4.jpg"
-                                               class="product-image product-gallery__carousel-item">
+                                            <a class="product-image product-gallery__carousel-item">
                                                 <div class="product-image__body">
                                                     <img class="product-image__img product-gallery__carousel-image"
-                                                         src="<?= '/product/' . $image->name ?>"
-                                                         alt="<?= $image->name ?>">
+                                                         src="<?= '/product/' . $image->extra_small ?>"
+                                                         alt="<?= $product->name ?>">
                                                 </div>
                                             </a>
                                         <?php endforeach; ?>
@@ -130,7 +130,7 @@ $this->title = $product->seo_title;
                             </div>
                         </div>
                         <div class="product__description">
-<!--                            --><?php //= $product->short_description ?>
+                            <!--                            --><?php //= $product->short_description ?>
                             <?php if ($product_properties != null) { ?>
                                 <?php foreach ($product_properties as $property): ?>
                                     <div class="spec__row">
