@@ -220,15 +220,21 @@ class ProductController extends Controller
 
     public function actionDelete($id)
     {
-        $dir = Yii::getAlias('@frontendWeb');
+        $dir = Yii::getAlias('@frontendWeb/product/');
         $model = $this->findModel($id);
         $images = ProductImage::find()->where(['product_id' => $model->id])->all();
         $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
         $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
         foreach ($images as $image) {
-            if (file_exists($dir . '/product/' . $image->name)) {
-                unlink($dir . '/product/' . $image->name);
-            }
+            //----------- Удаление всех картинок продукта
+            (file_exists($dir . $image->name)) ? unlink($dir . $image->name) : '';
+            (file_exists($dir . $image->extra_extra_large)) ? unlink($dir . $image->extra_extra_large) : '';
+            (file_exists($dir . $image->extra_large)) ? unlink($dir . $image->extra_large) : '';
+            (file_exists($dir . $image->large)) ? unlink($dir . $image->large) : '';
+            (file_exists($dir . $image->medium)) ? unlink($dir . $image->medium) : '';
+            (file_exists($dir . $image->small)) ? unlink($dir . $image->small) : '';
+            (file_exists($dir . $image->extra_small)) ? unlink($dir . $image->extra_small) : '';
+
             $image->delete();
         }
         foreach ($tags as $tag) {
@@ -305,14 +311,15 @@ class ProductController extends Controller
                     $file->saveAs($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
                     $imagePath = $dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension;
                     $cropPath = $dir . $directory . '/' . $imageName . '.' . $file->extension;
+                    //------------ Основная картинка
                     Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
                     // ----------- Нарезка картинок
-                    Image::resize($imagePath, 350, 350)->save($dir . 'thumb/extra_extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 290, 290)->save($dir . 'thumb/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 195, 195)->save($dir . 'thumb/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 150, 150)->save($dir . 'thumb/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 90, 90)->save($dir . 'thumb/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 64, 64)->save($dir . 'thumb/extra_small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 350, 350)->save($dir . $stock->id . '/extra_extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 290, 290)->save($dir . $stock->id . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 195, 195)->save($dir . $stock->id . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 150, 150)->save($dir . $stock->id . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 90, 90)->save($dir . $stock->id . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 64, 64)->save($dir . $stock->id . '/extra_small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     //----------- End Нарезка картинок
                     unlink($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
                 } else {
@@ -323,12 +330,12 @@ class ProductController extends Controller
                 $new_file->product_id = $id;
                 $new_file->name = $directory . '/' . $imageName . '.' . $file->extension;
 
-                $new_file->extra_extra_large = 'extra_extra_large-' . $imageName . '.' . $file->extension;
-                $new_file->extra_large = 'extra_large-' . $imageName . '.' . $file->extension;
-                $new_file->large = 'large-' . $imageName . '.' . $file->extension;
-                $new_file->medium = 'medium-' . $imageName . '.' . $file->extension;
-                $new_file->small = 'small-' . $imageName . '.' . $file->extension;
-                $new_file->extra_small = 'extra_small-' . $imageName . '.' . $file->extension;
+                $new_file->extra_extra_large = $stock->id . '/extra_extra_large-' . $imageName . '.' . $file->extension;
+                $new_file->extra_large = $stock->id . '/extra_large-' . $imageName . '.' . $file->extension;
+                $new_file->large = $stock->id . '/large-' . $imageName . '.' . $file->extension;
+                $new_file->medium = $stock->id . '/medium-' . $imageName . '.' . $file->extension;
+                $new_file->small = $stock->id . '/small-' . $imageName . '.' . $file->extension;
+                $new_file->extra_small = $stock->id . '/extra_small-' . $imageName . '.' . $file->extension;
 
                 if ($new_file->save() and file_exists($dir . $directory)) {
                     Yii::$app->getSession()->addFlash('success', "Файл: {$new_file->name} успешно добавлен");
@@ -354,17 +361,22 @@ class ProductController extends Controller
     public function actionRemoveImage($id)
     {
         $image = ProductImage::find()->where(['id' => $id])->one();
+
         $dir = Yii::getAlias('@frontendWeb/product/');
         $product = Product::find()->where(['id' => $image->product_id])->one();
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            if (unlink($dir . $image->name)) {
-                if ($image->delete()) {
-                    return true;
-                }
+            //----------- Удаление основной картинки и нарезаных
+            (file_exists($dir . $image->name)) ? unlink($dir . $image->name) : '';
+            (file_exists($dir . $image->extra_extra_large)) ? unlink($dir . $image->extra_extra_large) : '';
+            (file_exists($dir . $image->extra_large)) ? unlink($dir . $image->extra_large) : '';
+            (file_exists($dir . $image->large)) ? unlink($dir . $image->large) : '';
+            (file_exists($dir . $image->medium)) ? unlink($dir . $image->medium) : '';
+            (file_exists($dir . $image->small)) ? unlink($dir . $image->small) : '';
+            (file_exists($dir . $image->extra_small)) ? unlink($dir . $image->extra_small) : '';
+            if ($image->delete()) {
+                return true;
             }
         }
-
-
     }
 }

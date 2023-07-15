@@ -37,7 +37,7 @@ use yii\helpers\Url;
                                 <a href="<?= Url::to(['product/view', 'slug' => $products[0]->slug]) ?>"
                                    class="product-image__body">
                                     <img class="product-image__img"
-                                         src="<?= $products[0]->getImgOneBestBig($products[0]->getId()) ?>"
+                                         src="<?= $products[0]->getImgOneExtraExtraLarge($products[0]->getId()) ?>"
                                          alt="<?= $products[0]->name ?>">
                                 </a>
                             </div>
@@ -156,7 +156,7 @@ use yii\helpers\Url;
                                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
                                            class="product-image__body">
                                             <img class="product-image__img"
-                                                 src="<?= $product->getImgOneFeatured($product->getId()) ?>"
+                                                 src="<?= $product->getImgOneLarge($product->getId()) ?>"
                                                  alt="<?= $product->name ?>">
                                         </a>
                                     </div>

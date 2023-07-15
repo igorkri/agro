@@ -63,7 +63,7 @@ use yii\helpers\Url;
                                     <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
                                        class="product-image__body">
                                         <img class="product-image__img"
-                                             src="<?= $product->getImgOneFeatured($product->getId()) ?>" alt="<?= $product->name ?>">
+                                             src="<?= $product->getImgOneLarge($product->getId()) ?>" alt="<?= $product->name ?>">
                                     </a>
                                 </div>
                                 <div class="product-card__info">

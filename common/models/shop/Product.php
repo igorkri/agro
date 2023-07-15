@@ -307,33 +307,72 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $img;
     }
 
-    public function getImgOneFeatured($id)
+    // 350 * 350
+    public function getImgOneExtraExtraLarge($id)
     {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
         if (isset($product->images[0])) {
-            $img = Yii::$app->request->hostInfo . '/product/thumb/' . $product->images[0]->large;
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->extra_extra_large;
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
         }
         return $img;
     }
 
-    public function getImgOneBestBig($id)
+    // 290 * 290
+    public function getImgOneExtraLarge($id)
     {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
         if (isset($product->images[0])) {
-            $img = Yii::$app->request->hostInfo . '/product/thumb/' . $product->images[0]->extra_extra_large;
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->extra_large;
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
         }
         return $img;
     }
 
-    public function getImgOneCarousel($id)
+    //  195 * 195
+    public function getImgOneLarge($id)
     {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
         if (isset($product->images[0])) {
-            $img = Yii::$app->request->hostInfo . '/product/thumb/' . $product->images[0]->small;
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->large;
+        } else {
+            $img = Yii::$app->request->hostInfo . "/images/no-image.png";
+        }
+        return $img;
+    }
+
+    // 150 * 150
+    public function getImgOneMedium($id)
+    {
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        if (isset($product->images[0])) {
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->medium;
+        } else {
+            $img = Yii::$app->request->hostInfo . "/images/no-image.png";
+        }
+        return $img;
+    }
+
+    // 90 * 90
+    public function getImgOneSmall($id)
+    {
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        if (isset($product->images[0])) {
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->small;
+        } else {
+            $img = Yii::$app->request->hostInfo . "/images/no-image.png";
+        }
+        return $img;
+    }
+
+    // 64 * 64
+    public function getImgOneExtraSmal($id)
+    {
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        if (isset($product->images[0])) {
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->extra_small;
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
         }
