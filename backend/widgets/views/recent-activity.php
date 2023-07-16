@@ -37,13 +37,15 @@ use common\models\shop\Product;
                     </div>
                 </div>
             </div>
+
             <ul class="list-group list-group-flush">
                 <?php $i = 0; foreach ($result as $value): ?>
-                    <?php if ($i <= 5) { ?>
+                    <?php if ( Product::productImage($value['url']) != null and $i < 6) { ?>
                         <li class="list-group-item py-2">
                             <div class="d-flex align-items-center py-3">
                                 <a href="/product/<?= $value['url'] ?>" class="me-4">
                                     <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
+
                                         <img src="/product/<?= Product::productImage($value['url']) ?>"
                                              width="40"
                                              height="40" alt=""/>
@@ -65,9 +67,10 @@ use common\models\shop\Product;
                                 </div>
                             </div>
                         </li>
-                    <?php } ?>
-                 <?php $i++; endforeach; ?>
+                    <?php $i++; } ?>
+                 <?php endforeach; ?>
             </ul>
+
         </div>
     </div>
 </div>

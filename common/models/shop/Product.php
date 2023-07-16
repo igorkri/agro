@@ -382,9 +382,14 @@ class Product extends ActiveRecord implements CartPositionInterface
     public static function productImage($slug)
     {
         $product = Product::find()->where(['slug' => $slug])->one();
-        $product_image = ProductImage::find()->where(['product_id' => $product->id])->one();
+        if ($product != null) {
+            $product_image = ProductImage::find()->where(['product_id' => $product->id])->one();
 
-        return $product_image->name;
+            return $product_image->name;
+        }else{
+
+            return;
+        }
     }
 
     public static function productName($slug) {

@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use Yii;
+use yii\imagine\Image;
 
 /**
  * PostsController implements the CRUD actions for Posts model.
@@ -68,33 +69,87 @@ class PostsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
+//    public function actionCreate()
+//    {
+//        $model = new Posts();
+//
+//        if ($this->request->isPost) {
+//            if ($model->load($this->request->post())) {
+////
+//                $dir = Yii::getAlias('@frontendWeb/posts');
+//
+//                $file = UploadedFile::getInstance($model, 'image');
+//                $imageName = uniqid();
+//                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+//                $model->image = $imageName . '.' . $file->extension;
+//
+//                if ($model->save()) {
+//                    return $this->redirect(['index']);
+//                }
+//            }
+//        } else {
+//            $model->loadDefaultValues();
+//        }
+//
+//
+//        return $this->render('create', [
+//            'model' => $model,
+//        ]);
+//    }
+
     public function actionCreate()
     {
         $model = new Posts();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-//
-                $dir = Yii::getAlias('@frontendWeb/posts');
 
+                // Создание директории с именем id модели
+                $catalog = time();
+                $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog);
+                if (!file_exists($dir)) {
+                    mkdir($dir, 0777, true);
+                }
                 $file = UploadedFile::getInstance($model, 'image');
                 $imageName = uniqid();
-                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                $model->image = $imageName . '.' . $file->extension;
-
-                if ($model->save()) {
-                    return $this->redirect(['index']);
+                if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
+                    $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
+                    $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
+                    $cropPath = $dir  . '/' . $imageName . '.' . $file->extension;
+                    //------------ Основная картинка
+                    Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    // ----------- Нарезка картинок
+                    Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    //----------- End Нарезка картинок
+                    unlink($dir  . '/' . 'del-' . $imageName . '.' . $file->extension);
+                } else {
+                    $file->saveAs($dir  . '/' . $imageName . '.' . $file->extension);
                 }
+                $model->extra_large = 'extra_large-' . $imageName . '.' . $file->extension;
+                $model->large = 'large-' . $imageName . '.' . $file->extension;
+                $model->medium = 'medium-' . $imageName . '.' . $file->extension;
+                $model->small = 'small-' . $imageName . '.' . $file->extension;
+                if ($model->save()) {
+
+                } else {
+                    print_r($model->errors);
+                }
+
+
+
             }
         } else {
             $model->loadDefaultValues();
         }
 
-
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Posts model.
@@ -145,8 +200,8 @@ class PostsController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb');
         $model = $this->findModel($id);
-        if (file_exists($dir .'/posts/'. $model->image)) {
-            unlink($dir .'/posts/'. $model->image);
+        if (file_exists($dir .'/posts/'. $id . $model->image)) {
+            unlink($dir .'/posts/'. $id . $model->image);
         }
         $model->delete();
         return $this->redirect(['index']);
