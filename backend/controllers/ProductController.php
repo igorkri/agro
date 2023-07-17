@@ -10,6 +10,7 @@ use common\models\shop\ProductImage;
 use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\imagine\Image;
 use Yii;
 use yii\base\BaseObject;
@@ -234,6 +235,10 @@ class ProductController extends Controller
             (file_exists($dir . $image->medium)) ? unlink($dir . $image->medium) : '';
             (file_exists($dir . $image->small)) ? unlink($dir . $image->small) : '';
             (file_exists($dir . $image->extra_small)) ? unlink($dir . $image->extra_small) : '';
+            //----------- Удаление каталога продукта
+            $files = scandir($dir . $model->id);
+            $files = array_diff($files, array('.', '..'));
+            (is_dir($dir . $model->id) && empty($files)) ? FileHelper::removeDirectory($dir . $model->id) : '';
 
             $image->delete();
         }
@@ -320,25 +325,23 @@ class ProductController extends Controller
                     Image::resize($imagePath, 150, 150)->save($dir . $stock->id . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 90, 90)->save($dir . $stock->id . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 64, 64)->save($dir . $stock->id . '/extra_small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    //----------- End Нарезка картинок
+
                     unlink($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
                 } else {
                     $file->saveAs($dir . $directory . '/' . $imageName . '.' . $file->extension);
                 }
-                $new_file = new ProductImage();
+                //------ Сохраняем в базу
+                $model->product_id = $id;
+                $model->name = $directory . '/' . $imageName . '.' . $file->extension;
+                $model->extra_extra_large = $stock->id . '/extra_extra_large-' . $imageName . '.' . $file->extension;
+                $model->extra_large = $stock->id . '/extra_large-' . $imageName . '.' . $file->extension;
+                $model->large = $stock->id . '/large-' . $imageName . '.' . $file->extension;
+                $model->medium = $stock->id . '/medium-' . $imageName . '.' . $file->extension;
+                $model->small = $stock->id . '/small-' . $imageName . '.' . $file->extension;
+                $model->extra_small = $stock->id . '/extra_small-' . $imageName . '.' . $file->extension;
 
-                $new_file->product_id = $id;
-                $new_file->name = $directory . '/' . $imageName . '.' . $file->extension;
-
-                $new_file->extra_extra_large = $stock->id . '/extra_extra_large-' . $imageName . '.' . $file->extension;
-                $new_file->extra_large = $stock->id . '/extra_large-' . $imageName . '.' . $file->extension;
-                $new_file->large = $stock->id . '/large-' . $imageName . '.' . $file->extension;
-                $new_file->medium = $stock->id . '/medium-' . $imageName . '.' . $file->extension;
-                $new_file->small = $stock->id . '/small-' . $imageName . '.' . $file->extension;
-                $new_file->extra_small = $stock->id . '/extra_small-' . $imageName . '.' . $file->extension;
-
-                if ($new_file->save() and file_exists($dir . $directory)) {
-                    Yii::$app->getSession()->addFlash('success', "Файл: {$new_file->name} успешно добавлен");
+                if ($model->save() and file_exists($dir . $directory)) {
+                    Yii::$app->getSession()->addFlash('success', "Файл: {$model->name} успешно добавлен");
                 }
 
                 if (Yii::$app->response->statusCode = 200) {

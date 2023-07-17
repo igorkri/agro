@@ -62,7 +62,7 @@ use yii\helpers\Url;
                             <div class="post-card__image">
                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                     <?php if ($post->image != null) ?>
-                                    <img src="posts/thumb/<?= $post->large ?>" width="263" height="177"
+                                    <img src="posts/<?= $post->large ?>" width="263" height="177"
                                          alt="<?= $post->title ?>">
                                 </a>
                             </div>

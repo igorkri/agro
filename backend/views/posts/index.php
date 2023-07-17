@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'attribute' => 'image',
                                     'format' => 'html',
                                     'value' => function ($model) {
-                                        return Html::img(Yii::$app->request->hostInfo . '/posts/' .$model->image, ['width' => '250px']);
+                                        return Html::img(Yii::$app->request->hostInfo . '/posts/' .$model->medium);
                                     },
                                 ],
                                 'title',

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Posts;
 use backend\models\search\PostsSearch;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,33 +70,6 @@ class PostsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-//    public function actionCreate()
-//    {
-//        $model = new Posts();
-//
-//        if ($this->request->isPost) {
-//            if ($model->load($this->request->post())) {
-////
-//                $dir = Yii::getAlias('@frontendWeb/posts');
-//
-//                $file = UploadedFile::getInstance($model, 'image');
-//                $imageName = uniqid();
-//                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-//                $model->image = $imageName . '.' . $file->extension;
-//
-//                if ($model->save()) {
-//                    return $this->redirect(['index']);
-//                }
-//            }
-//        } else {
-//            $model->loadDefaultValues();
-//        }
-//
-//
-//        return $this->render('create', [
-//            'model' => $model,
-//        ]);
-//    }
 
     public function actionCreate()
     {
@@ -128,18 +102,18 @@ class PostsController extends Controller
                 } else {
                     $file->saveAs($dir  . '/' . $imageName . '.' . $file->extension);
                 }
-                $model->extra_large = 'extra_large-' . $imageName . '.' . $file->extension;
-                $model->large = 'large-' . $imageName . '.' . $file->extension;
-                $model->medium = 'medium-' . $imageName . '.' . $file->extension;
-                $model->small = 'small-' . $imageName . '.' . $file->extension;
+                $model->image = $catalog .'/'. $imageName . '.' . $file->extension;
+                $model->extra_large = $catalog .'/'. 'extra_large-' . $imageName . '.' . $file->extension;
+                $model->large = $catalog .'/'. 'large-' . $imageName . '.' . $file->extension;
+                $model->medium = $catalog .'/'. 'medium-' . $imageName . '.' . $file->extension;
+                $model->small = $catalog .'/'. 'small-' . $imageName . '.' . $file->extension;
+
                 if ($model->save()) {
+                    return $this->redirect(['index']);
 
                 } else {
                     print_r($model->errors);
                 }
-
-
-
             }
         } else {
             $model->loadDefaultValues();
@@ -167,13 +141,36 @@ class PostsController extends Controller
             if($post_file <= 0 ){
                 $old = $this->findModel($id);
                 $model->image = $old->image;
+                $model->extra_large = $old->extra_large;
+                $model->large = $old->large;
+                $model->medium = $old->medium;
+                $model->small = $old->small;
             }else {
-                $dir = Yii::getAlias('@frontendWeb/posts');
-
+                $catalog = explode("/", $model->small);
+                $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog[0]);
                 $file = UploadedFile::getInstance($model, 'image');
                 $imageName = uniqid();
-                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                $model->image = $imageName . '.' . $file->extension;
+                if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
+                    $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
+                    $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
+                    $cropPath = $dir  . '/' . $imageName . '.' . $file->extension;
+                    //------------ Основная картинка
+                    Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    // ----------- Нарезка картинок
+                    Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                    //----------- End Нарезка картинок
+                    unlink($dir  . '/' . 'del-' . $imageName . '.' . $file->extension);
+                } else {
+                    $file->saveAs($dir  . '/' . $imageName . '.' . $file->extension);
+                }
+                $model->image = $model->id . '/' . $imageName . '.' . $file->extension;
+                $model->extra_large = 'extra_large-' . $imageName . '.' . $file->extension;
+                $model->large = 'large-' . $imageName . '.' . $file->extension;
+                $model->medium = 'medium-' . $imageName . '.' . $file->extension;
+                $model->small = 'small-' . $imageName . '.' . $file->extension;
             }
             if($model->save(false)) {
                 return $this->redirect(['index']);
@@ -183,7 +180,6 @@ class PostsController extends Controller
                 die;
             }
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -195,14 +191,24 @@ class PostsController extends Controller
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \yii\base\ErrorException
      */
     public function actionDelete($id)
     {
-        $dir = Yii::getAlias('@frontendWeb');
+        $dir = Yii::getAlias('@frontendWeb/posts/');
         $model = $this->findModel($id);
-        if (file_exists($dir .'/posts/'. $id . $model->image)) {
-            unlink($dir .'/posts/'. $id . $model->image);
-        }
+            //----------- Удаление всех картинок продукта
+            (file_exists($dir  . $model->image)) ? unlink($dir  . $model->image) : '';
+            (file_exists($dir . $model->extra_large)) ? unlink($dir . $model->extra_large) : '';
+            (file_exists($dir . $model->large)) ? unlink($dir . $model->large) : '';
+            (file_exists($dir . $model->medium)) ? unlink($dir . $model->medium) : '';
+            (file_exists($dir . $model->small)) ? unlink($dir . $model->small) : '';
+            //----------- Удаление каталога продукта
+            $catalog = explode('/', $model->image);
+            $files = scandir($dir . $catalog[0]);
+            $files = array_diff($files, array('.', '..'));
+            (is_dir($dir . $catalog[0]) && empty($files)) ? FileHelper::removeDirectory($dir . $catalog[0]) : '';
+
         $model->delete();
         return $this->redirect(['index']);
     }

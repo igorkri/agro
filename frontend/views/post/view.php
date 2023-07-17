@@ -44,7 +44,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="post__featured">
                         <?php if (Yii::$app->devicedetect->isMobile()) { ?>
-                            <img src="/posts/thumb/<?= $post->extra_large ?>" alt="<?= $post->title ?>">
+                            <img src="/posts/<?= $post->extra_large ?>" alt="<?= $post->title ?>">
                         <?php } else { ?>
                             <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
                         <?php } ?>
