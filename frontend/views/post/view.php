@@ -70,7 +70,7 @@ use yii\helpers\Url;
                                 <div class="widget-posts__item">
                                     <div class="widget-posts__image">
                                         <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                            <img src="/posts/thumb/<?= $post->small ?>" alt="<?= $post->title ?>">
+                                            <img src="/posts/<?= $post->small ?>" alt="<?= $post->title ?>">
                                         </a>
                                     </div>
                                     <div class="widget-posts__info">
