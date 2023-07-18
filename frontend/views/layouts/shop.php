@@ -64,8 +64,8 @@ AppAsset::register($this);
 
 <?php $this->endBody() ?>
 
-<script src="/vendor/svg4everybody/svg4everybody.min.js"></script>
-<script> svg4everybody(); </script>
+<!--<script src="/vendor/svg4everybody/svg4everybody.min.js"></script>-->
+<!--<script> svg4everybody(); </script>-->
 
 </body>
 </html>
