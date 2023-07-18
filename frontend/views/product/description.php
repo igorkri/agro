@@ -157,7 +157,7 @@ $rating = 3;
                                     <input type="hidden" name="product_id" value="<?= $product->id ?>">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="review-author">Ваша оцінка</label>
+                                            <label for="w0">Ваша оцінка</label>
                                             <?php
                                             echo StarRating::widget([
                                                 'name' => 'starrating',
@@ -175,8 +175,8 @@ $rating = 3;
                                             ?>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="review-author">Ваше ім'я</label>
-                                            <input type="text" name="name" class="form-control"
+                                            <label for="review-name">Ваше ім'я</label>
+                                            <input type="text" name="name" class="form-control" id="review-name"
                                                    oninvalid="this.setCustomValidity('Укажіть будь ласка Ваше ім’я')"
                                                    oninput="this.setCustomValidity('')"
                                                    placeholder="Ваше ім’я" required>
