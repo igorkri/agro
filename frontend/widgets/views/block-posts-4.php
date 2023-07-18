@@ -41,7 +41,6 @@ use yii\helpers\Url;
                         </div>
                         <div class="post-card__info">
                             <div class="post-card__category">
-                                <!--                                        <a href="/">Special Offers</a>-->
                             </div>
                             <div class="post-card__name">
                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"><?= $post->title ?></a>

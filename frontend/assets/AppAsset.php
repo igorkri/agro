@@ -43,7 +43,7 @@ class AppAsset extends AssetBundle
 //        '/js/ModalRemote.js?v=' . PROJECT_VERSION,
 //        '/js/ajaxcrud.js?v=' . PROJECT_VERSION,
         '/js/main.js?v=' . PROJECT_VERSION,
-        '/vendor/svg4everybody/svg4everybody.min.js?v=' . PROJECT_VERSION,
+//        '/vendor/svg4everybody/svg4everybody.min.js?v=' . PROJECT_VERSION,
     ];
     public $depends = [
         'yii\web\YiiAsset',
