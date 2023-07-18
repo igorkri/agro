@@ -21,6 +21,7 @@ class BlockPosts extends Widget  // Статті на головній
     {
 
         $posts = Posts::find()
+            ->limit(6)
             ->orderBy('date_public DESC')
             ->all();
 
