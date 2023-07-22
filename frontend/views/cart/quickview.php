@@ -5,7 +5,7 @@ use yii\helpers\Url;
 
 \common\models\shop\ActivePages::setActiveUser();
 
-if ($total_summ === 0){
+if ($total_summ === 0) {
     $h = 'Ваш кошик порожній';
 } else {
     $h = 'Ваш кошик';
@@ -49,7 +49,8 @@ if ($total_summ === 0){
                                         <a href="<?= Url::to(['product/view', 'slug' => $order->slug]) ?>"
                                            class="product-image__body">
                                             <img class="product-image__img"
-                                                 src="<?= $order->getImgOne($order->getId()) ?>" alt="<?= $order->name ?>">
+                                                 src="<?= $order->getImgOne($order->getId()) ?>"
+                                                 alt="<?= $order->name ?>">
                                         </a>
                                     </div>
                                 </td>
@@ -113,7 +114,9 @@ if ($total_summ === 0){
                         <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <!--                                    <h3 class="card-title">Cart Totals</h3>-->
+                                    <?php if ($total_summ < 500) { ?>
+                                        <h5 class="card-title" style="color: red">Замовлення від 500 ₴</h5>
+                                    <?php } ?>
                                     <table class="cart__totals">
                                         <tfoot class="cart__totals-footer">
                                         <tr>
@@ -122,9 +125,14 @@ if ($total_summ === 0){
                                         </tr>
                                         </tfoot>
                                     </table>
-                                    <?php if ($total_summ != 0){ ?>
-                                        <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                                           href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                    <?php if ($total_summ != 0) { ?>
+                                        <?php if ($total_summ < 500) { ?>
+                                            <a class="btn btn-primary btn-xl btn-block disabled cart__checkout-button"
+                                               href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                        <?php } else { ?>
+                                            <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
+                                               href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                        <?php } ?>
                                     <?php } else { ?>
                                         <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
                                            href="<?= Url::to(['/']) ?>">Дивитись товари</a>

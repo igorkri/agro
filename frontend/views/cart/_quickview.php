@@ -81,7 +81,9 @@ use yii\helpers\Url;
             <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                 <div class="card">
                     <div class="card-body">
-                        <!--                                    <h3 class="card-title">Cart Totals</h3>-->
+                        <?php if ($total_summ < 500) { ?>
+                            <h5 class="card-title" style="color: red">Замовлення від 500 ₴</h5>
+                        <?php } ?>
                         <table class="cart__totals">
                             <tfoot class="cart__totals-footer">
                             <tr>
@@ -91,8 +93,13 @@ use yii\helpers\Url;
                             </tfoot>
                         </table>
                         <?php if ($total_summ != 0){ ?>
-                        <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                           href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                            <?php if ($total_summ < 500) { ?>
+                                <a class="btn btn-primary btn-xl btn-block disabled cart__checkout-button"
+                                   href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                            <?php } else { ?>
+                                <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
+                                   href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                            <?php } ?>
                         <?php } else { ?>
                             <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
                                href="<?= Url::to(['/']) ?>">Дивитись товари</a>
