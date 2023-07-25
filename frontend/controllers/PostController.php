@@ -11,7 +11,7 @@ class PostController extends Controller {
 
     public function actionView($slug)
     {
-        $blogs = Posts::find()->limit(4)->orderBy('date_public DESC')->all();
+        $blogs = Posts::find()->limit(6)->orderBy('date_public DESC')->all();
         $post = Posts::find()->where(['slug' => $slug])->one();
 
         Yii::$app->metamaster
