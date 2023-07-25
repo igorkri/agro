@@ -54,7 +54,7 @@ class CategoryController extends Controller
             ->setImage('/category/' . $category->file)
             ->register(Yii::$app->getView());
 
-        return $this->render('catalog', compact(['products', 'category', 'pages', 'products_all']));
+        return $this->render('catalog_dev', compact(['products', 'category', 'pages', 'products_all']));
     }
 
 }

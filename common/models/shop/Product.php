@@ -415,6 +415,28 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $title_param;
     }
 
+    public static function productParamsList($id) {
+
+        $title_param = '';
+        $product_params = ProductProperties::find()->where(['product_id' => $id])->all();
+        foreach ($product_params as $params){
+            $title_param .= '<li style="
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+">' . $params->properties . ' ' . '<b>' .  $params->value  .'</b></li>';
+        }
+        if ($title_param == ''){
+            $title_param ='-------------------------<br>
+                              параметри заповнюються<br>
+                              -------------------------<br>
+                             ';
+        }
+        return $title_param;
+    }
+
     public function getRatingCount($id)
     {
         $product = Product::find()->with('reviews')->where(['id' => $id])->one();

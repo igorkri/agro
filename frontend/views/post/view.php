@@ -61,6 +61,18 @@ use yii\helpers\Url;
 
             <div class="col-12 col-lg-4">
                 <div class="block block-sidebar block-sidebar--position--end">
+                    <div class="block-sidebar__item">
+                        <div class="widget-search">
+                            <form class="widget-search__body">
+                                <input class="widget-search__input" placeholder="Blog search..." type="text" autocomplete="off" spellcheck="false">
+                                <button class="widget-search__button" type="submit">
+                                    <svg width="20px" height="20px">
+                                        <use xlink:href="images/sprite.svg#search-20"></use>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     <!--- Останні статті --->
                     <div class="block-sidebar__item">
                         <div class="widget-posts widget">

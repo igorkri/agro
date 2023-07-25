@@ -3,32 +3,27 @@
 
 namespace frontend\widgets;
 
+
 use common\models\shop\Product;
-use yii\base\Widget;
+use common\models\shop\ProductProperties;
 use yii\db\Expression;
 
-class RelatedProducts extends Widget  // Супутні товари
+class LatestProduct extends \yii\base\Widget
 {
-
     public function init()
     {
         parent::init();
-
     }
 
     public function run()
     {
-
         $products = Product::find()
             ->where(['IN', 'status_id', [1, 3, 4]])
             ->orderBy(new Expression('RAND()'))
-            ->limit(10)
+            ->limit(5)
             ->all();
 
-        return $this->render('related-products', [
-            'products' => $products,
-        ]);
+        return $this->render('latest-product', ['products' => $products]);
     }
-
 
 }
