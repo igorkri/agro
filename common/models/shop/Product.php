@@ -402,7 +402,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public static function productParams($id) {
 
         $title_param = '';
-        $product_params = ProductProperties::find()->where(['product_id' => $id])->all();
+        $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
         foreach ($product_params as $params){
             $title_param .= $params->properties .'<br><b>'. $params->value .'</b><br><br>';
         }
@@ -418,7 +418,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public static function productParamsList($id) {
 
         $title_param = '';
-        $product_params = ProductProperties::find()->where(['product_id' => $id])->all();
+        $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
         foreach ($product_params as $params){
             $title_param .= '<li style="
     overflow: hidden;

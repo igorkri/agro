@@ -130,7 +130,6 @@ $this->title = $product->seo_title;
                             </div>
                         </div>
                         <div class="product__description">
-                            <!--                            --><?php //= $product->short_description ?>
                             <?php if ($product_properties != null) { ?>
                                 <?php foreach ($product_properties as $property): ?>
                                     <div class="spec__row">
