@@ -39,38 +39,38 @@ class ProductPopertiesController extends \yii\console\Controller
         foreach ($properties as $property){
 
             if ($property->properties == 'діюча речовина:')
-                $property->sort = 1;
+                $property->sort = 0;
 
             if ($property->properties == 'тип:')
-                $property->sort = 2;
+                $property->sort = 1;
 
             if ($property->properties == 'культура:')
-                $property->sort = 3;
+                $property->sort = 2;
 
             if ($property->properties == 'об\'єкт:')
-                $property->sort = 4;
+                $property->sort = 3;
 
             if ($property->properties == 'спосіб дії:')
-                $property->sort = 5;
+                $property->sort = 4;
 
             if ($property->properties == 'препаративна форма:')
-                $property->sort = 6;
+                $property->sort = 5;
 
             if ($property->properties == 'норма витрати:')
-                $property->sort = 7;
+                $property->sort = 6;
 
             if ($property->properties == 'застосування:')
-                $property->sort = 8;
+                $property->sort = 7;
 
             if ($property->properties == 'тара:')
-                $property->sort = 9;
+                $property->sort = 8;
 
             if ($property->properties == 'склад:')
                 $property->sort = 1;
 
 
             if ($property->save(false)) {
-                echo "\t" . $i . " Категория добавлена \n";
+                echo "\t" . $i . " Порядок сортировки изменен \n";
                 $i++;
             }
 

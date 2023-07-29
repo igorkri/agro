@@ -126,10 +126,10 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                         <?php foreach ($uniqueArray as $productProperty): ?>
                                             <div class="row g-4">
                                                 <div class="col-3">
-                                                    <?= $form->field($productProperty, "[$index]properties")->textInput(['readonly' => true]) ?>
+                                                    <?= $form->field($productProperty, "[$index]properties")->textInput(['readonly' => true])->label(false) ?>
                                                 </div>
                                                 <div class="col-9">
-                                                    <?= $form->field($productProperty, "[$index]value")->textInput() ?>
+                                                    <?= $form->field($productProperty, "[$index]value")->textInput()->label(false) ?>
                                                 </div>
                                             </div>
                                             <?php $index++; ?>

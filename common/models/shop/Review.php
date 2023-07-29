@@ -89,7 +89,15 @@ class Review extends \yii\db\ActiveRecord
     {
         $products = ProductImage::find()->where(['product_id' => $id])->one();
 
+        if ($products !== null){
+
         return $products->name;
+
+        }else{
+
+            return 'no-image.png';
+        }
+
     }
 
     public function getReviewRating($rating)
