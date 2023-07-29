@@ -133,20 +133,34 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
-            // Сохранение свойств товара
             $postProperties = Yii::$app->request->post('ProductProperties', []);
+            $sort = 1;
+            foreach ($postProperties as $index => $postData) {
 
-            // Удаление существующих свойств товара
-            ProductProperties::deleteAll(['product_id' => $model->id]);
+                $productProperty = ProductProperties::findOne([
+                    'product_id' => $model['id'],
+                    'properties' => $postData['properties']
+                ]);
 
-            // Добавление новых свойств товара
-            foreach ($postProperties as $postProperty) {
-                $propertyModel = new ProductProperties();
-                $propertyModel->product_id = $model->id;
-                $propertyModel->properties = $postProperty['properties'];
-                $propertyModel->value = $postProperty['value'];
-                $propertyModel->save();
+                if (!empty($productProperty)) {
+
+                    $productProperty->product_id = $model->id;
+                    $productProperty->properties = $postData['properties'];
+                    $productProperty->value = $postData['value'];
+                    $productProperty->sort = $sort;
+                    $productProperty->category_id = $model->category_id;
+                }else{
+                    $productProperty = new ProductProperties();
+                    $productProperty->product_id = $model->id;
+                    $productProperty->properties = $postData['properties'];
+                    $productProperty->value = $postData['value'];
+                    $productProperty->sort = $sort;
+                    $productProperty->category_id = $model->category_id;
+                }
+                $productProperty->save();
+                $sort++;
             }
+
 
             $post_product = $this->request->post('Product');
             if (!empty($post_product['tags'])) {
@@ -223,6 +237,7 @@ class ProductController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb/product/');
         $model = $this->findModel($id);
+        $properties = ProductProperties::find()->where(['product_id' => $model->id])->all();
         $images = ProductImage::find()->where(['product_id' => $model->id])->all();
         $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
         $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
@@ -248,6 +263,10 @@ class ProductController extends Controller
 
         foreach ($grups as $grup) {
             $grup->delete();
+        }
+
+        foreach ($properties as $property) {
+            $property->delete();
         }
 
         $model->delete();

@@ -55,7 +55,8 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                         <div class="card">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18">Основна інформація</h2></span>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
+                                                class="mb-0 fs-exact-18">Основна інформація</h2></span>
                                 </div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
@@ -96,44 +97,56 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                         </div>
 
                         <!--------------  Product_properties  ------------------>
-                        <div class="card mt-5">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Properties') ?></h2></span>
-                                </div>
-                                <?php $data = ProductProperties::find()->where(['product_id' => $model->id])->all(); ?>
-                                <div id="properties-container">
-                                    <?php foreach ($data as $index => $productProperty): ?>
-                                        <div class="row g-4">
-                                            <div class="col-3">
-                                                <?= $form->field($productProperty, "[$index]properties")->textInput() ?>
+                        <?php if (!$model->isNewRecord): ?>
+                            <div class="card mt-5">
+                                <div class="card-body p-5">
+                                    <div class="mb-5">
+                                        <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
+                                                    class="mb-0 fs-exact-18"><?= Yii::t('app', 'Properties') ?></h2></span>
+                                    </div>
+                                    <?php $data_product = ProductProperties::find()->where(['product_id' => $model->id])->orderBy('sort ASC')->all();
+
+                                    $data_category = ProductProperties::find()
+                                        ->select('properties')
+                                        ->distinct()
+                                        ->where(['category_id' => $model->category_id])
+                                        ->orderBy('sort ASC')
+                                        ->all();
+
+                                    $unique_properties = array_column($data_category, 'properties');
+                                    $diff_properties = array_diff($unique_properties, array_column($data_product, 'properties'));
+                                    $data = array_merge($data_product, array_filter($data_category, function ($item) use ($diff_properties) {
+                                        return in_array($item['properties'], $diff_properties);
+                                    }));
+                                    ?>
+                                    <div id="properties-container">
+                                        <?php $index = 0;
+                                        $uniqueArray = array_values($data);
+                                        ?>
+                                        <?php foreach ($uniqueArray as $productProperty): ?>
+                                            <div class="row g-4">
+                                                <div class="col-3">
+                                                    <?= $form->field($productProperty, "[$index]properties")->textInput(['readonly' => true]) ?>
+                                                </div>
+                                                <div class="col-9">
+                                                    <?= $form->field($productProperty, "[$index]value")->textInput() ?>
+                                                </div>
                                             </div>
-                                            <div class="col-8">
-                                                <?= $form->field($productProperty, "[$index]value")->textInput() ?>
-                                            </div>
-                                            <div class="col-1">
-                                                <button type="button"
-                                                        class="btn btn-outline-danger remove-property-btn" style="
-                                                        margin: 25px 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                                <div class="mt-3">
-                                    <button type="button" id="add-property-btn" class="btn btn-outline-warning me-3">+Додати</button>
-                                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+                                            <?php $index++; ?>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="mt-3">
+                                        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                         <!-------------End Product properties  ----------------->
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2></span>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
+                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2></span>
                                 </div>
                                 <div class="row g-4">
                                     <?= $form->field($model, 'seo_title')->textInput() ?>
@@ -172,57 +185,6 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
         }
     </style>
 
-    <script>
-        var index = <?= count($data) ?>; // Определение индекса для новых свойств
 
-        // Обработчик нажатия кнопки "Добавить свойство"
-        document.getElementById("add-property-btn").addEventListener("click", function () {
-            var container = document.getElementById("properties-container");
-
-            // Создание нового блока для свойств
-            var row = document.createElement("div");
-            row.className = "row g-4";
-
-            // Создание поля "properties"
-            var propertiesField = document.createElement("div");
-            propertiesField.className = "col-3";
-            propertiesField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][properties]" class="form-control" />';
-
-            // Создание поля "value"
-            var valueField = document.createElement("div");
-            valueField.className = "col-7";
-            valueField.innerHTML = '<input type="text" name="ProductProperties[' + index + '][value]" class="form-control" />';
-
-            // Создание кнопки "Удалить"
-            var removeBtn = document.createElement("div");
-            removeBtn.className = "col-2";
-            removeBtn.innerHTML = '<button type="button" class="btn btn-outline-danger remove-property-btn">Видалити</button>';
-
-            // Добавление полей и кнопки в новый блок
-            row.appendChild(propertiesField);
-            row.appendChild(valueField);
-            row.appendChild(removeBtn);
-
-            // Добавление нового блока в контейнер
-            container.appendChild(row);
-
-            // Увеличение индекса для следующего свойства
-            index++;
-
-            // Активация кнопки "Удалить" для уже добавленных свойств
-            var removeBtns = container.getElementsByClassName("remove-property-btn");
-            for (var i = 0; i < removeBtns.length; i++) {
-                removeBtns[i].disabled = false;
-            }
-        });
-
-        // Обработчик нажатия кнопки "Удалить"
-        document.addEventListener("click", function (event) {
-            if (event.target.classList.contains("remove-property-btn")) {
-                var row = event.target.parentNode.parentNode;
-                row.parentNode.removeChild(row);
-            }
-        });
-    </script>
 
 
