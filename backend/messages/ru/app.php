@@ -120,5 +120,7 @@ return[
     'Group' => 'Групи',
     'Grups' => 'Групи',
     'Messages' => 'Повідомлення',
+      'Settings' => 'Сторінки | SEO',
+      'Seo Pages' => 'Seo Сторінки',
     //  '' => '',
 ];
