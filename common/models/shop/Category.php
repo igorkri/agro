@@ -4,6 +4,7 @@ namespace common\models\shop;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -81,16 +82,58 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getParent(){
+    public function getParent()
+    {
         return $this->hasOne(Category::class, ['id' => 'parentId']);
     }
-    public function getParents(){
-        return $this->hasMany(Category::class, ['parentId'=> 'id']);
+
+    public function getParents()
+    {
+        return $this->hasMany(Category::class, ['parentId' => 'id']);
     }
 
-    public function getProducts(){
+    public function getProducts()
+    {
         return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
 
+    public function getCountProductCategory($id)
+    {
+        $cat = [];
+        $categories = Category::find()->select('id')->where(['parentId' => $id])->all();
+        foreach ($categories as $category) {
+            $cat[] = $category->id;
+        }
+        $products = Product::find()
+            ->select('id')
+            ->where(['category_id' => $cat])
+            ->orWhere(['category_id' => $id])
+            ->all();
+        $res = [];
+        foreach ($products as $product) {
+            $res[] = $product;
+        }
+        if (count($res) > 0) {
+            return count($res);
 
+        } else {
+            return 0;
+        }
+    }
+
+    public function getCountProductCategoryChild($id)
+    {
+        $products = Product::find()->select('id')->where(['category_id' => $id])->all();
+        $res = [];
+        foreach ($products as $product) {
+            $res[] = $product;
+        }
+        if (count($res) > 0) {
+            return count($res);
+
+        } else {
+            return 0;
+        }
+    }
+    
 }

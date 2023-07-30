@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 
 ?>
 
@@ -8,7 +9,6 @@
          data-collapse-opened-class="filter--opened">
         <h4 class="widget-filters__title widget__title">Фільтр</h4>
         <div class="widget-filters__list">
-
             <div class="widget-filters__item">
                 <div class="filter" data-collapse-item>
                     <button type="button" class="filter__title" data-collapse-trigger>
@@ -28,23 +28,19 @@
                                                      height="9px">
                                                     <use xlink:href="/images/sprite.svg#arrow-rounded-left-6x9"></use>
                                                 </svg>
-                                                <a href=""><?= $category->name ?></a>
-                                                <div class="filter-categories__counter">75</div>
+                                                <a href="#" style="font-weight: 600;"><?php echo $category->name ?></a>
+                                                <div class="filter-categories__counter"><?= $category->getCountProductCategory($category->id) ?></div>
                                             </li>
                                             <?php foreach ($categories as $child): ?>
                                                 <?php if ($category->id === $child->parentId): ?>
                                                     <li class="filter-categories__item filter-categories__item--child">
                                                         <a
-                                                                href=""><?= $child->name ?></a>
-                                                        <div class="filter-categories__counter">15</div>
+                                                                href="<?= Url::to(['category/catalog', 'slug' => $child->slug]) ?>"><?= $child->name ?></a>
+                                                        <div class="filter-categories__counter"><?= $child->getCountProductCategoryChild($child->id) ?></div>
                                                     </li>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
-                                        <!--                                    <li class="filter-categories__item filter-categories__item--current">-->
-                                        <!--                                        <a href="">Power Tools</a>-->
-                                        <!--                                        <div class="filter-categories__counter">21</div>-->
-                                        <!--                                    </li>-->
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -52,7 +48,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="widget-filters__item">
                 <div class="filter" data-collapse-item>
                     <button type="button" class="filter__title" data-collapse-trigger>
@@ -63,18 +58,18 @@
                     </button>
                     <div class="filter__body" data-collapse-content>
                         <div class="filter__container">
-                            <div class="filter-price" data-min="500" data-max="15000"
-                                 data-from="590" data-to="11300">
+                            <div class="filter-price" data-min="<?php echo $minPrice ?>"
+                                 data-max="<?php echo $maxPrice ?>"
+                                 data-from="3000" data-to="12000">
                                 <div class="filter-price__slider"></div>
-                                <div class="filter-price__title">Ціна: $<span
-                                            class="filter-price__min-value"></span> – $<span
+                                <div class="filter-price__title">Ціна: ₴ <span
+                                            class="filter-price__min-value"></span> – ₴ <span
                                             class="filter-price__max-value"></span></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="widget-filters__item">
                 <div class="filter" data-collapse-item>
                     <button type="button" class="filter__title" data-collapse-trigger>
@@ -90,32 +85,32 @@
                                     <? foreach ($brands as $brand): ?>
                                         <?php if ($brand->getProductBrand($brand->id) > 0) { ?>
                                             <label class="filter-list__item ">
-                                                                        <span class="filter-list__input input-radio">
-                                                                            <span class="input-radio__body">
-                                                                                <input class="input-radio__input"
-                                                                                       name="filter_radio" type="radio">
-                                                                                <span class="input-radio__circle"></span>
-                                                                            </span>
-                                                                        </span>
+                                                <span class="filter-list__input input-radio">
+                                                    <span class="input-radio__body">
+                                                        <input class="input-radio__input"
+                                                               name="filter_radio" type="radio">
+                                                        <span class="input-radio__circle"></span>
+                                                    </span>
+                                                </span>
                                                 <span class="filter-list__title">
                                                         <?= $brand->name ?>
-                                                                        </span>
+                                                </span>
                                                 <span class="filter-list__counter"><?= $brand->getProductBrand($brand->id) ?></span>
                                             </label>
                                         <?php } else { ?>
                                             <label class="filter-list__item  filter-list__item--disabled ">
-                                                                                                                <span class="filter-list__input input-radio">
-                                                                                                                    <span class="input-radio__body">
-                                                                                                                        <input class="input-radio__input"
-                                                                                                                               name="filter_radio"
-                                                                                                                               type="radio"
-                                                                                                                               disabled>
-                                                                                                                        <span class="input-radio__circle"></span>
-                                                                                                                    </span>
-                                                                                                                </span>
+                                                <span class="filter-list__input input-radio">
+                                                    <span class="input-radio__body">
+                                                        <input class="input-radio__input"
+                                                               name="filter_radio"
+                                                               type="radio"
+                                                               disabled>
+                                                        <span class="input-radio__circle"></span>
+                                                    </span>
+                                                </span>
                                                 <span class="filter-list__title">
                                        <?= $brand->name ?>
-                                                                                                                </span>
+                                                </span>
                                             </label>
                                         <?php } ?>
                                     <?php endforeach; ?>

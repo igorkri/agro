@@ -4443,6 +4443,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 [dir=ltr] .filter-categories__item > a {
   padding-right: 10px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 [dir=rtl] .filter-categories__item > a {
   padding-left: 10px;

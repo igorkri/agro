@@ -6,6 +6,7 @@ namespace frontend\widgets;
 
 use common\models\shop\Brand;
 use common\models\shop\Category;
+use common\models\shop\Product;
 
 class FilterProductList extends \yii\base\Widget
 {
@@ -17,13 +18,19 @@ class FilterProductList extends \yii\base\Widget
 
     public function run()
     {
+        $minPrice = Product::find()->min('price');
+        $maxPrice = Product::find()->max('price');
         $brands = Brand::find()->all();
-
         $categories = Category::find()->where(['visibility' => 1])->all();
+
+        $minPrice = round($minPrice);
+        $maxPrice = round($maxPrice);
 
         return $this->render('filter-product-list', [
             'brands' => $brands,
-            'categories' => $categories
+            'categories' => $categories,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice
             ]);
     }
 
