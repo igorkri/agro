@@ -128,4 +128,4 @@ use yii\helpers\Url;
     </div>
 </div>
 <!-- site__body / end -->
-<?= $this->render('@frontend/widgets/views/info-params.php') ?>
+<?php //echo $this->render('@frontend/widgets/views/info-params.php') ?>
