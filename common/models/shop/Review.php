@@ -87,11 +87,11 @@ class Review extends \yii\db\ActiveRecord
 
     public function getProductImage($id)
     {
-        $products = ProductImage::find()->where(['product_id' => $id])->one();
+        $products = ProductImage::find()->select('extra_small')->where(['product_id' => $id])->one();
 
         if ($products !== null){
 
-        return $products->name;
+        return $products->extra_small;
 
         }else{
 

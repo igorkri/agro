@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <a href="<?=Url::to(['product/update', 'id' => $model->id])?>" class="me-4">
                                         <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
                                             <?php if(isset($model->images[0])): ?>
-                                                <img src="<?= Yii::$app->request->hostInfo . '/product/' . $model->images[0]->name ?>" width="40" height="40" alt="" />
+                                                <img src="<?= Yii::$app->request->hostInfo . '/product/' . $model->images[0]->extra_small ?>" width="40" height="40" alt="" />
                                             <?php else: ?>
                                                 <img src="<?= Yii::$app->request->hostInfo . '/images/no-image.png' ?>" width="40" height="40" alt="" />
                                             <?php endif; ?>
