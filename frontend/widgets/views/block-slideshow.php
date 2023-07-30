@@ -15,8 +15,8 @@ use yii\helpers\Url;
                             <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop" style="background-image: url('slider/<?= $slide->image ?>')"></div>
                             <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile" style="background-image: url('slider/<?= $slide->image_mob ?>')"></div>
                             <div class="block-slideshow__slide-content">
-<!--                                <div class="block-slideshow__slide-title">--><?php //= $slide->title ?><!--</div>-->
-<!--                                <div class="col-6 block-slideshow__slide-text">--><?php //= $slide->description ?><!--</div>-->
+<!--                                <div class="block-slideshow__slide-title">--><?php //echo $slide->title ?><!--</div>-->
+<!--                                <div class="col-6 block-slideshow__slide-text">--><?php //echo $slide->description ?><!--</div>-->
                                 <a href="<?= Url::to(['/product/'. $slide->slug]) ?>">
                                 <div class="block-slideshow__slide-button">
                                     <span class="btn btn-primary btn-lg">Переглянути</span>

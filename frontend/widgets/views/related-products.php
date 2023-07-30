@@ -128,4 +128,4 @@ use yii\helpers\Url;
     </div>
 </div>
 
-<?= $this->render('info-params') ?>
+<?php //echo $this->render('info-params') ?>
