@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 
 use common\models\Posts;
+use common\models\SeoPages;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -14,12 +15,11 @@ class BlogsController extends Controller
 
     public function actionView() {
 
+        $seo = SeoPages::find()->where(['slug' => 'blogs'])->one();
+
         Yii::$app->metamaster
-            ->setTitle('Статті - AgroPro: Поради, новини та інформація про сільське господарство')
-            ->setDescription('Дізнайтесь про гербіциди, інсектициди, фунгіциди, протруйники, прилипачі, десиканти, добрива, посівний матеріал та інші препарати в статтях AgroPro. 
-            Корисні поради, новини та методи вирощування рослин. 
-            Підвищуйте врожайність та ефективність вашого бізнесу. 
-            Знання AgroPro - успіх вашого господарства.')
+            ->setTitle($seo->title)
+            ->setDescription($seo->description)
             ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\SeoPages;
 use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -89,12 +90,11 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
 
+        $seo = SeoPages::find()->where(['slug' => 'home'])->one();
+
         Yii::$app->metamaster
-            ->setTitle('Інтернет-магазин AgroPro з продажу гербіцидів, інсектицидів, фумігантів, посівмату, фунгіцидів, прилипачів, добрив та родентицидів - широкий асортимент для вашого сільськогосподарського успіху')
-            ->setDescription('Купуйте гербіциди, інсектициди, фунгіциди, протруйники, прилипачі, десиканти, добрива та посівний матеріал від нашої високоякісної платформи. 
-            Забезпечте надійний захист своїх посівів та рослин для високої врожайності.
-             Отримуйте продукцію найвищої якості та ефективні рішення за допомогою нашого асортименту та консультацій. 
-            Замовляйте зараз та розвивайте своє сільське господарство разом з нами!')
+            ->setTitle($seo->title)
+            ->setDescription($seo->description)
             ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 

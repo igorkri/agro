@@ -4,7 +4,9 @@
 namespace frontend\controllers;
 
 
+use backend\controllers\SeoPagesController;
 use common\models\About;
+use common\models\SeoPages;
 use Yii;
 use yii\web\Controller;
 
@@ -14,12 +16,11 @@ class AboutController extends Controller
     public function actionView(){
 
         $model = About::find()->one();
+        $seo = SeoPages::find()->where(['slug' => 'about'])->one();
 
         Yii::$app->metamaster
-            ->setTitle('Про нас - AgroPro: Товари для сільського господарства та якісні рішення для вашого успіху')
-            ->setDescription('Магазин AgroPro - експерти з гербіцидів, інсектицидів, фунгіцидів, протруйників, прилипачів, десикантів, добрив та посівного матеріалу. 
-            Довіряйте нам для успіху у вирощуванні рослин. 
-            Широкий вибір, швидка доставка та персоналізоване обслуговування. Дізнайтеся більше на сторінці "Про нас".')
+            ->setTitle($seo->title)
+            ->setDescription($seo->description)
             ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 

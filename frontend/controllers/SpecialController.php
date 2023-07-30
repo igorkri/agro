@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\SeoPages;
 use common\models\shop\Product;
 use Yii;
 use yii\base\BaseObject;
@@ -14,12 +15,11 @@ class SpecialController extends Controller
 
     public function actionView()
     {
+         $seo = SeoPages::find()->where(['slug' => 'special'])->one();
+
         Yii::$app->metamaster
-            ->setTitle('Спеціальні пропозиції - Акції, Розпродажі, Оптові Ціни та Новинки - AgroPro')
-            ->setDescription('Купуйте гербіциди, інсектициди, фунгіциди, протруйники, прилипачі, десиканти, добрива та посівний матеріал за найкращими пропозиціями в AgroPro.
-             Вигідні акції на товари для росту, захисту та врожайності.
-             Вибирайте з широкого асортименту продуктів за привабливими цінами. 
-             Замовляйте сьогодні та скористайтеся вигодами!')
+            ->setTitle($seo->title)
+            ->setDescription($seo->description)
             ->setImage('/frontend/web/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
