@@ -5,6 +5,8 @@ namespace backend\widgets;
 
 use common\models\shop\OrderItem;
 use common\models\shop\Order;
+use DateInterval;
+use DateTime;
 use yii\base\Widget;
 
 class AverageOrder extends Widget
@@ -29,7 +31,23 @@ class AverageOrder extends Widget
         }
         $average_cost = array_sum($order_summ) / count($order_summ);
 
-        return $this->render('average-order', ['average_cost' => $average_cost]);
+        $currentDate = new DateTime();
+        $interval = new DateInterval('P1M');
+        $oneMonthAgo = $currentDate->sub($interval);
+        $months = [
+            1 => 'Январь', 2 => 'Февраль', 3 => 'Март', 4 => 'Апрель',
+            5 => 'Май', 6 => 'Июнь', 7 => 'Июль', 8 => 'Август',
+            9 => 'Сентябрь', 10 => 'Октябрь', 11 => 'Ноябрь', 12 => 'Декабрь',
+        ];
+        $monthNumber = $oneMonthAgo->format('n');
+        $year = $oneMonthAgo->format('Y');
+        $monthName = $months[$monthNumber];
+        $formattedDate = $monthName . ' ' . $year;
+
+        return $this->render('average-order', [
+            'average_cost' => $average_cost,
+            'formattedDate' => $formattedDate
+            ]);
     }
 
 
