@@ -211,18 +211,18 @@ class Product extends ActiveRecord implements CartPositionInterface
 
     public function getPrice()
     {
-        if($this->currency === 'UAH'){
+        if ($this->currency === 'UAH') {
             return $this->price;
-        }else{
+        } else {
             return floatval($this->price) * floatval(Settings::currencyRate($this->currency));
         }
     }
 
     public function getOldPrice()
     {
-        if($this->currency === 'UAH'){
+        if ($this->currency === 'UAH') {
             return $this->old_price;
-        }else{
+        } else {
             return floatval($this->old_price) * floatval(Settings::currencyRate($this->currency));
         }
     }
@@ -263,9 +263,9 @@ class Product extends ActiveRecord implements CartPositionInterface
             $res[] = $review->rating;
         }
         if (count($res) > 0) {
-            return array_sum($res)/count($res);
+            return array_sum($res) / count($res);
 
-        }else{
+        } else {
             return '4.4';
         }
     }
@@ -396,44 +396,47 @@ class Product extends ActiveRecord implements CartPositionInterface
     }
 
 
-    public static function productName($slug) {
+    public static function productName($slug)
+    {
 
         $product = Product::find()->where(['slug' => $slug])->one();
 
         return $product->name;
     }
 
-    public static function productParams($id) {
+    public static function productParams($id)
+    {
 
         $title_param = '';
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
-        foreach ($product_params as $params){
-            $title_param .= $params->properties .'<br><b>'. $params->value .'</b><br><br>';
+        foreach ($product_params as $params) {
+            $title_param .= $params->properties . '<br><b>' . $params->value . '</b><br><br>';
         }
-           if ($title_param == ''){
-               $title_param ='-------------------------<br>
+        if ($title_param == '') {
+            $title_param = '-------------------------<br>
                               параметри заповнюються<br>
                               -------------------------<br>
                              ';
-           }
+        }
         return $title_param;
     }
 
-    public static function productParamsList($id) {
+    public static function productParamsList($id)
+    {
 
         $title_param = '';
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
-        foreach ($product_params as $params){
+        foreach ($product_params as $params) {
             $title_param .= '<li style="
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
-">' . $params->properties . ' ' . '<b>' .  $params->value  .'</b></li>';
+">' . $params->properties . ' ' . '<b>' . $params->value . '</b></li>';
         }
-        if ($title_param == ''){
-            $title_param ='-------------------------<br>
+        if ($title_param == '') {
+            $title_param = '-------------------------<br>
                               параметри заповнюються<br>
                               -------------------------<br>
                              ';
@@ -445,7 +448,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         $product = Product::find()->with('reviews')->where(['id' => $id])->one();
         $res = '<a href="#review-form"> 0 (Не оцінювалось)</a>';
-        if($product->reviews){
+        if ($product->reviews) {
             $s = [];
             foreach ($product->reviews as $review) {
                 $s[] = $review->rating;
@@ -457,11 +460,36 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $res;
     }
 
+    public function getNonParametr($id)
+    {
+
+        $res = '';
+        $parametrs = ProductProperties::find()->where(['product_id' => $id])->all();
+
+        if ($parametrs == null) {
+            $res = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg>';
+            return $res;
+
+        }else {
+
+            foreach ($parametrs as $parametr) {
+                if ($parametr->value === null or $parametr->value === '') {
+                    $res = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg>';
+                    return $res;
+                }
+            }
+        }
+    }
+
     public function getRating($id, $w = 18, $h = 17)
     {
         $product = Product::find()->with('reviews')->where(['id' => $id])->one();
         $res = '';
-        if($product->reviews) {
+        if ($product->reviews) {
             $s = [];
             foreach ($product->reviews as $review) {
                 $s[] = $review->rating;
