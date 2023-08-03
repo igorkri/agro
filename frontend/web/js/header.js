@@ -877,190 +877,190 @@
             /*
             // sticky nav-panel
             */
-            // const nav = $('.nav-panel--sticky');
-            //
-            // if (nav.length) {
-            //     const mode = nav.data('sticky-mode') ? nav.data('sticky-mode') : 'alwaysOnTop'; // one of [alwaysOnTop, pullToShow]
-            //     const media = matchMedia('(min-width: 992px)');
-            //     const departmentsMode = departments ? departments.mode : null;
-            //
-            //     let stuck = false;
-            //     let shown = false;
-            //     let locked = false;
-            //     let lockedPosition = 0;
-            //     let lockRequested = false;
-            //     let scrollDistance = 0;
-            //     let scrollPosition = 0;
-            //     let positionWhenToFix = function() { return 0; };
-            //     let positionWhenToStick = function() { return 0; };
-            //
-            //     nav.on('stroyka.header.lock', function(){
-            //         lockRequested = true;
-            //     });
-            //     nav.on('stroyka.header.unlock', function(){
-            //         lockRequested = false;
-            //         unlock();
-            //     });
-            //
-            //     const closeAllSubmenus = function() {
-            //         if (departments) {
-            //             departments.closeImmediately();
-            //         }
-            //         $('.nav-links').data('navLinksInstance').unsetCurrentItem();
-            //         $('.indicator').each(function() {
-            //             $(this).data('indicatorInstance').closeImmediately();
-            //         });
-            //     };
-            //     const show = function() {
-            //         nav.addClass('nav-panel--show');
-            //         shown = true;
-            //         $(document).trigger('stroyka.header.sticky.show');
-            //     };
-            //     const hide = function() {
-            //         nav.removeClass('nav-panel--show');
-            //         shown = false;
-            //         $(document).trigger('stroyka.header.sticky.hide');
-            //     };
-            //     const lock = function() {
-            //         lockedPosition = Math.max(0, window.pageYOffset);
-            //         nav.css({
-            //             position: 'absolute',
-            //             top: lockedPosition,
-            //             width: '100%',
-            //         });
-            //         locked = true;
-            //     };
-            //     const unlock = function() {
-            //         nav.css({
-            //             position: '',
-            //             top: '',
-            //             width: '',
-            //         });
-            //         locked = false;
-            //     };
-            //     const onScroll = function() {
-            //         const scrollDelta = window.pageYOffset - scrollPosition;
-            //
-            //         if ((scrollDelta < 0) !== (scrollDistance < 0)) {
-            //             scrollDistance = 0;
-            //         }
-            //
-            //         scrollPosition = window.pageYOffset;
-            //         scrollDistance += scrollDelta;
-            //
-            //         if (lockRequested) {
-            //             if (scrollDistance > 0 && !locked) {
-            //                 lock();
-            //             } else if (scrollDistance <= 0 && window.pageYOffset <= lockedPosition) {
-            //                 unlock();
-            //             }
-            //
-            //             return;
-            //         }
-            //
-            //         if (window.pageYOffset > positionWhenToStick()) {
-            //             if (!stuck) {
-            //                 nav.addClass('nav-panel--stuck');
-            //                 nav.css('transitionDuration', '0s');
-            //
-            //                 if (mode === 'alwaysOnTop') {
-            //                     show();
-            //                 }
-            //
-            //                 nav.height(); // force reflow
-            //                 nav.css('transitionDuration', '');
-            //                 stuck = true;
-            //
-            //                 if (departments && departmentsMode === 'fixed') {
-            //                     departments.setMode('normal');
-            //                 }
-            //
-            //                 closeAllSubmenus();
-            //             }
-            //
-            //             if (mode === 'pullToShow') {
-            //                 const distanceToShow = 10; // in pixels
-            //                 const distanceToHide = 25; // in pixels
-            //
-            //                 if (scrollDistance < -distanceToShow && !nav.hasClass('nav-panel--show')) {
-            //                     show();
-            //                 }
-            //                 if (scrollDistance > distanceToHide && nav.hasClass('nav-panel--show')) {
-            //                     hide();
-            //                     closeAllSubmenus();
-            //                 }
-            //             }
-            //         } else if (window.pageYOffset <= positionWhenToFix()) {
-            //             if (stuck) {
-            //                 nav.removeClass('nav-panel--stuck');
-            //                 stuck = false;
-            //                 hide();
-            //
-            //                 if (departments && departmentsMode === 'fixed') {
-            //                     departments.setMode('fixed');
-            //                 }
-            //
-            //                 closeAllSubmenus();
-            //             }
-            //         }
-            //     };
-            //
-            //     const onMediaChange = function() {
-            //         if (media.matches) {
-            //             scrollDistance = 0;
-            //             scrollPosition = window.pageYOffset;
-            //
-            //             const navPanelTop = nav.offset().top;
-            //             const navPanelBottom = navPanelTop + nav.outerHeight();
-            //             const departmentsBottom = departments ? departments.body.offset().top + departments.body.outerHeight() : 0;
-            //
-            //             if (departments && departmentsMode === 'fixed' && departmentsBottom > navPanelBottom) {
-            //                 positionWhenToFix = positionWhenToStick = function () {
-            //                     return departmentsBottom;
-            //                 };
-            //             } else {
-            //                 if (mode === 'alwaysOnTop') {
-            //                     positionWhenToFix = positionWhenToStick = function() {
-            //                         return navPanelTop;
-            //                     };
-            //                 } else {
-            //                     positionWhenToFix = function () {
-            //                         return shown ? navPanelTop : navPanelBottom;
-            //                     };
-            //                     positionWhenToStick = function () {
-            //                         return navPanelBottom;
-            //                     };
-            //                 }
-            //             }
-            //
-            //             window.addEventListener('scroll', onScroll, passiveSupported ? {passive: true} : false);
-            //
-            //             onScroll();
-            //         } else {
-            //             if (stuck) {
-            //                 nav.removeClass('nav-panel--stuck');
-            //                 stuck = false;
-            //                 hide();
-            //
-            //                 if (departments && departmentsMode === 'fixed') {
-            //                     departments.setMode('fixed');
-            //                 }
-            //
-            //                 closeAllSubmenus();
-            //             }
-            //
-            //             window.removeEventListener('scroll', onScroll, passiveSupported ? {passive: true} : false);
-            //         }
-            //     };
-            //
-            //     if (media.addEventListener) {
-            //         media.addEventListener('change', onMediaChange);
-            //     } else {
-            //         media.addListener(onMediaChange);
-            //     }
-            //
-            //     onMediaChange();
-            // }
+            const nav = $('.nav-panel--sticky');
+
+            if (nav.length) {
+                const mode = nav.data('sticky-mode') ? nav.data('sticky-mode') : 'alwaysOnTop'; // one of [alwaysOnTop, pullToShow]
+                const media = matchMedia('(min-width: 992px)');
+                const departmentsMode = departments ? departments.mode : null;
+
+                let stuck = false;
+                let shown = false;
+                let locked = false;
+                let lockedPosition = 0;
+                let lockRequested = false;
+                let scrollDistance = 0;
+                let scrollPosition = 0;
+                let positionWhenToFix = function() { return 0; };
+                let positionWhenToStick = function() { return 0; };
+
+                nav.on('stroyka.header.lock', function(){
+                    lockRequested = true;
+                });
+                nav.on('stroyka.header.unlock', function(){
+                    lockRequested = false;
+                    unlock();
+                });
+
+                const closeAllSubmenus = function() {
+                    if (departments) {
+                        departments.closeImmediately();
+                    }
+                    $('.nav-links').data('navLinksInstance').unsetCurrentItem();
+                    $('.indicator').each(function() {
+                        $(this).data('indicatorInstance').closeImmediately();
+                    });
+                };
+                const show = function() {
+                    nav.addClass('nav-panel--show');
+                    shown = true;
+                    $(document).trigger('stroyka.header.sticky.show');
+                };
+                const hide = function() {
+                    nav.removeClass('nav-panel--show');
+                    shown = false;
+                    $(document).trigger('stroyka.header.sticky.hide');
+                };
+                const lock = function() {
+                    lockedPosition = Math.max(0, window.pageYOffset);
+                    nav.css({
+                        position: 'absolute',
+                        top: lockedPosition,
+                        width: '100%',
+                    });
+                    locked = true;
+                };
+                const unlock = function() {
+                    nav.css({
+                        position: '',
+                        top: '',
+                        width: '',
+                    });
+                    locked = false;
+                };
+                const onScroll = function() {
+                    const scrollDelta = window.pageYOffset - scrollPosition;
+
+                    if ((scrollDelta < 0) !== (scrollDistance < 0)) {
+                        scrollDistance = 0;
+                    }
+
+                    scrollPosition = window.pageYOffset;
+                    scrollDistance += scrollDelta;
+
+                    if (lockRequested) {
+                        if (scrollDistance > 0 && !locked) {
+                            lock();
+                        } else if (scrollDistance <= 0 && window.pageYOffset <= lockedPosition) {
+                            unlock();
+                        }
+
+                        return;
+                    }
+
+                    if (window.pageYOffset > positionWhenToStick()) {
+                        if (!stuck) {
+                            nav.addClass('nav-panel--stuck');
+                            nav.css('transitionDuration', '0s');
+
+                            if (mode === 'alwaysOnTop') {
+                                show();
+                            }
+
+                            nav.height(); // force reflow
+                            nav.css('transitionDuration', '');
+                            stuck = true;
+
+                            if (departments && departmentsMode === 'fixed') {
+                                departments.setMode('normal');
+                            }
+
+                            closeAllSubmenus();
+                        }
+
+                        if (mode === 'pullToShow') {
+                            const distanceToShow = 10; // in pixels
+                            const distanceToHide = 25; // in pixels
+
+                            if (scrollDistance < -distanceToShow && !nav.hasClass('nav-panel--show')) {
+                                show();
+                            }
+                            if (scrollDistance > distanceToHide && nav.hasClass('nav-panel--show')) {
+                                hide();
+                                closeAllSubmenus();
+                            }
+                        }
+                    } else if (window.pageYOffset <= positionWhenToFix()) {
+                        if (stuck) {
+                            nav.removeClass('nav-panel--stuck');
+                            stuck = false;
+                            hide();
+
+                            if (departments && departmentsMode === 'fixed') {
+                                departments.setMode('fixed');
+                            }
+
+                            closeAllSubmenus();
+                        }
+                    }
+                };
+
+                const onMediaChange = function() {
+                    if (media.matches) {
+                        scrollDistance = 0;
+                        scrollPosition = window.pageYOffset;
+
+                        const navPanelTop = nav.offset().top;
+                        const navPanelBottom = navPanelTop + nav.outerHeight();
+                        const departmentsBottom = departments ? departments.body.offset().top + departments.body.outerHeight() : 0;
+
+                        if (departments && departmentsMode === 'fixed' && departmentsBottom > navPanelBottom) {
+                            positionWhenToFix = positionWhenToStick = function () {
+                                return departmentsBottom;
+                            };
+                        } else {
+                            if (mode === 'alwaysOnTop') {
+                                positionWhenToFix = positionWhenToStick = function() {
+                                    return navPanelTop;
+                                };
+                            } else {
+                                positionWhenToFix = function () {
+                                    return shown ? navPanelTop : navPanelBottom;
+                                };
+                                positionWhenToStick = function () {
+                                    return navPanelBottom;
+                                };
+                            }
+                        }
+
+                        window.addEventListener('scroll', onScroll, passiveSupported ? {passive: true} : false);
+
+                        onScroll();
+                    } else {
+                        if (stuck) {
+                            nav.removeClass('nav-panel--stuck');
+                            stuck = false;
+                            hide();
+
+                            if (departments && departmentsMode === 'fixed') {
+                                departments.setMode('fixed');
+                            }
+
+                            closeAllSubmenus();
+                        }
+
+                        window.removeEventListener('scroll', onScroll, passiveSupported ? {passive: true} : false);
+                    }
+                };
+
+                if (media.addEventListener) {
+                    media.addEventListener('change', onMediaChange);
+                } else {
+                    media.addListener(onMediaChange);
+                }
+
+                onMediaChange();
+            }
 
 
             /*
