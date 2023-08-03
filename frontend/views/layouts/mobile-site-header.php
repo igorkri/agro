@@ -36,6 +36,15 @@
                         </div>
                     </div>
                     <div class="nav-panel__indicators">
+                        <div class="indicator indicator--mobile-search indicator--mobile d-md-none">
+                            <button class="indicator__button">
+                                        <span class="indicator__area">
+                                            <svg width="20px" height="20px">
+                                                <use xlink:href="/images/sprite.svg#search-20"></use>
+                                            </svg>
+                                        </span>
+                            </button>
+                        </div>
                         <div class="indicator indicator--trigger--click cart-header">
                             <a href="#" class="indicator__button ">
                                     <span class="indicator__area">

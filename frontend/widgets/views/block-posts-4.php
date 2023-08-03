@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 ?>
-<!-- .block-posts -->
+
 <div class="block block-posts" data-layout="grid-4" data-mobile-columns="2">
     <div class="container">
         <div class="block-header">
@@ -60,4 +60,3 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-<!-- .block-posts / end -->
