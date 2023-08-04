@@ -13,6 +13,7 @@ use yz\shoppingcart\CartPositionTrait;
  *
  * @property int $id
  * @property string $name
+ * @property string $sku
  * @property string $slug
  * @property string $brand_id
  * @property string $description
@@ -71,7 +72,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             [['description', 'short_description', 'currency'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id', 'brand_id'], 'safe'],
-            [['name', 'seo_title', 'seo_description', 'slug'], 'string', 'max' => 255],
+            [['name', 'seo_title', 'seo_description', 'slug', 'sku'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];
     }
@@ -96,6 +97,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             'status_id' => Yii::t('app', 'Status'),
             'category_id' => Yii::t('app', 'Category'),
             'label_id' => Yii::t('app', 'Label'),
+            'sku' => Yii::t('app', 'SKU'),
         ];
     }
 
