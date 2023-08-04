@@ -26,6 +26,16 @@ class ProductsCarousel extends Widget   // Нові надходження
 
 
         $products = Product::find()
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'price',
+                'old_price',
+                'status_id',
+                'label_id',
+                'currency',
+            ])
             ->with('label')
             ->where(['id' => $products_grup])
             ->limit(20)

@@ -25,6 +25,16 @@ class FeaturedProduct extends Widget    // Популярні товари
             ->column();
 
         $products = Product::find()
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'price',
+                'old_price',
+                'status_id',
+                'label_id',
+                'currency',
+            ])
             ->where(['id' => $products_grup])
             ->limit(20)
             ->all();

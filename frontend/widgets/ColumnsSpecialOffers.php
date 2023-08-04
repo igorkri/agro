@@ -27,6 +27,16 @@ class ColumnsSpecialOffers extends Widget  // Фунгіциди
 
 
         $products = Product::find()
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'price',
+                'old_price',
+                'status_id',
+                'label_id',
+                'currency',
+            ])
             ->with('label')
             ->where(['id' => $products_grup])
             ->limit(3)
