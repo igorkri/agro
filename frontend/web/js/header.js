@@ -908,8 +908,12 @@
                     }
                     $('.nav-links').data('navLinksInstance').unsetCurrentItem();
                     $('.indicator').each(function() {
-                        $(this).data('indicatorInstance').closeImmediately();
+                        const indicatorInstance = $(this).data('indicatorInstance');
+                        if (indicatorInstance) {
+                            indicatorInstance.closeImmediately();
+                        }
                     });
+
                 };
                 const show = function() {
                     nav.addClass('nav-panel--show');
