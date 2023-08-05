@@ -7768,8 +7768,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
   padding: 48px 0 54px;
 }
 
-.bk-1{
-  margin: -50px 0px;
+.bk-1 {
+  margin: -47px 0px;
   background-image: url("/images/baground_footer.png");
   background-position: center;
   bottom: 0px;

@@ -17,8 +17,6 @@ use yii\helpers\Url;
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="site-footer__widget footer-contacts">
                                     <h4 class="footer-contacts__title">Наші контакти</h4>
-                                    <div class="footer-contacts__text"><?= $contacts->comment_two ?>
-                                    </div>
                                     <ul class="footer-contacts__contacts">
                                         <li>
                                             <i class="footer-contacts__icon fas fa-globe-americas"></i> <?= $contacts->address ?>
@@ -36,6 +34,8 @@ use yii\helpers\Url;
                                             <i class="footer-contacts__icon far fa-clock"></i> <?= $contacts->work_time_short ?>
                                         </li>
                                     </ul>
+                                    <div class="footer-contacts__text"><?= $contacts->comment_two ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
