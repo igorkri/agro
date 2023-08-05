@@ -59,9 +59,9 @@ return [
             'rules' => [
                 '/' => '/site/index',
 
-//                'catalog' => 'category/list',
-//                'catalog/<slug:[\w+-]*\w+>' => 'category/children',
-//                'product-list/<slug:[\w+-]*\w+>' => 'category/catalog',
+                'catalog' => 'category/list',
+                'catalog/<slug:[\w+-]*\w+>' => 'category/children',
+                'product-list/<slug:[\w+-]*\w+>' => 'category/catalog',
 
 //                'catalog/<slug:[\w+-]*\w+>/<page:\d+>' => 'category/index', //pagination
 //                'catalog/<slug:[\w+-]*\w+>/<brand:[\w+-]*\w+>' => 'category/index',

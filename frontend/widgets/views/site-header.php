@@ -111,13 +111,6 @@ use yii\helpers\Url;
                         <div class="nav-panel__nav-links nav-links">
                             <ul class="nav-links__list">
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/delivery/view']) ?>">
-                                        <div class="nav-links__item-body">
-                                            Доставка та оплата
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="<?= Url::to(['/special/view']) ?>">
                                         <div class="nav-links__item-body">
                                             Спеціальні пропозиції
@@ -125,9 +118,16 @@ use yii\helpers\Url;
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/about/view']) ?>">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['/catalog/dacha']) ?>">
                                         <div class="nav-links__item-body">
-                                            Про нас
+                                            Дача
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-links__item  nav-links__item--has-submenu ">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['/delivery/view']) ?>">
+                                        <div class="nav-links__item-body">
+                                            Доставка та оплата
                                         </div>
                                     </a>
                                 </li>
