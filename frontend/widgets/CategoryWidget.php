@@ -3,9 +3,9 @@
 
 namespace frontend\widgets;
 
-
 use common\models\shop\Category;
 use yii\base\Widget;
+use yii\db\Expression;
 
 class CategoryWidget extends Widget
 {
@@ -15,7 +15,7 @@ class CategoryWidget extends Widget
 
         $categories = Category::find()->select('id, parentId, slug, file, name, visibility')
             ->with(['parents', 'parent', 'products'])
-            ->where(['is', 'parentId', new \yii\db\Expression('null')])
+            ->where(['is', 'parentId', new Expression('null')])
 //            ->orderBy('name ASC')
 //            ->asArray()
             ->all();

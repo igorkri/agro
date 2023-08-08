@@ -3,7 +3,6 @@
 
 namespace frontend\widgets;
 
-
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
 use yii\base\Widget;
@@ -14,7 +13,6 @@ class FeaturedProduct extends Widget    // Популярні товари
     public function init()
     {
         parent::init();
-
     }
 
     public function run() {

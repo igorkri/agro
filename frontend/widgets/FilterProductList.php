@@ -21,7 +21,9 @@ class FilterProductList extends \yii\base\Widget
         $minPrice = Product::find()->min('price');
         $maxPrice = Product::find()->max('price');
         $brands = Brand::find()->all();
-        $categories = Category::find()->where(['visibility' => 1])->all();
+        $categories = Category::find()
+            ->where(['visibility' => 1])
+            ->all();
 
         $minPrice = round($minPrice);
         $maxPrice = round($maxPrice);
