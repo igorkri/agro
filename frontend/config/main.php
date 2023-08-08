@@ -68,11 +68,8 @@ return [
 //                'catalog/<slug:[\w+-]*\w+>' => 'category/index',
 
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
-
                 'post/<slug:[\w+-]*\w+>' => 'post/view',
-
                 'tag/<id:\d+>' => 'tag/view',
-
                 'about' => 'about/view',
                 'delivery' => 'delivery/view',
                 'special' => 'special/view',
