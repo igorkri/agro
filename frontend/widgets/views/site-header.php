@@ -59,7 +59,7 @@ use yii\helpers\Url;
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
-                                <img src="/images/ua.svg" width="21px" height="20px">
+                                <img src="/images/ua.svg" width="21px" height="20px" alt="Flag">
                             </button>
                         </div>
                     </div>
