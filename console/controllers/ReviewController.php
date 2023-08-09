@@ -104,18 +104,11 @@ class ReviewController extends \yii\console\Controller
             'Максимальна результативність.', 'Миттєвий і ефективний результат.', 'Можна довіряти.',
             'Надійне рішення проблеми.', 'надійний продавець', 'працює відмінно',
         ];
-        $res = [];
+
         $minTimestamp = 1672567211;
         $maxTimestamp = 1691485211;
 
         $products = Product::find()->select('id')->all();
-
-        foreach ($products as $item) {
-
-            $randomRange = $maxTimestamp - $minTimestamp;
-            $randomTimestamp = $minTimestamp + mt_rand(0, $randomRange);
-            $res[] = $randomTimestamp;
-        }
 
         $fio = [];
         $fios = Review::find()->select('name')->all();
