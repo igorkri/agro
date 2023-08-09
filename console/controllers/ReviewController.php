@@ -62,7 +62,7 @@ class ReviewController extends \yii\console\Controller
     }
 
     /**
-     * Добавление отзывов в магазин AgroPro продукту где их нет
+     * Добавление отзывов в магазин AgroPro продуктам без отзывов
      */
     public function actionAddReviewAgroPro()
     {
