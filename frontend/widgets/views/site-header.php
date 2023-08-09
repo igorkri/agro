@@ -54,7 +54,13 @@ use yii\helpers\Url;
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>
                                 </svg>
                             </button>
-
+                        </div>
+                    </div>
+                    <div class="topbar__item">
+                        <div class="topbar-dropdown">
+                            <button class="topbar-dropdown__btn" type="button">
+                                <img src="/images/ua.svg" width="21px" height="20px">
+                            </button>
                         </div>
                     </div>
                 </div>
