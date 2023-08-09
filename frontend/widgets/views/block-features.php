@@ -22,8 +22,8 @@
                     <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/frontend/web/images/tell.png" width="50" height="50" alt="Телефонуйте">
                 </div>
                 <div class="block-features__content">
-                    <div class="block-features__title">Телефонуйте нам</div>
-                    <div class="block-features__subtitle">Пн-Пт 9:00 - 17:00</div>
+                    <div class="block-features__title">Ми працюемо</div>
+                    <div class="block-features__subtitle">Пн-Пт 9:00 - 19:00</div>
                 </div>
             </div>
             <div class="block-features__divider"></div>

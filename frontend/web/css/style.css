@@ -7608,6 +7608,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 .footer-contacts__contacts a {
   color: inherit;
+  font-size: 24px;
+  font-weight: 600;
 }
 .footer-contacts__contacts li {
   padding: 4px 0;
