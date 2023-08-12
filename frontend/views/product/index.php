@@ -262,7 +262,7 @@ $this->title = $product->seo_title;
                             </div>
                             <hr>
                             <div class="form-group product__option">
-                                <span class="text-success" style="padding: 3px 30px">
+                                <span class="text-success" style="padding: 0px 12px">
                                 <?php
                                 if ($product->status_id == 1) {
                                     echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
@@ -293,31 +293,22 @@ $this->title = $product->seo_title;
                                 ?>
                             </span>
                             </div>
-                            <?php if ($product->old_price == null) { ?>
-                                <div class="product-card__prices" style="
-    padding: 0px 34px;
-">
-                                    <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                </div>
-                            <?php } else { ?>
-                                <div class="product-card__prices" style="
-    padding: 0px 34px;
-">
-                                    <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                    <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                </div>
-                            <?php } ?>
+
                             <div class="product__actions">
-                                <div class="product__actions-item">
-                                    <div class="input-number product__quantity">
-                                        <input id="product-quantity"
-                                               class="input-number__input form-control form-control-lg" type="number"
-                                               min="1"
-                                               value="<?= !$isset_to_cart ? '1' : $isset_to_cart['_quantity'] ?>">
-                                        <div class="input-number__add"></div>
-                                        <div class="input-number__sub"></div>
+                                <?php if ($product->old_price == null) { ?>
+                                    <div class="product-card__prices" style="
+    padding: 0px 5px;
+">
+                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                     </div>
-                                </div>
+                                <?php } else { ?>
+                                    <div class="product-card__prices" style="
+    padding: 0px 34px;
+">
+                                        <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                        <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                    </div>
+                                <?php } ?>
                                 <?php if ($product->status_id != 2) { ?>
                                     <button class="btn btn-primary product-card__addtocart"
                                             aria-label="В кошик"
