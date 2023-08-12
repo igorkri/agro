@@ -11823,7 +11823,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .spec__name {
-  width: 230px;
+  width: 185px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   color: #999;
