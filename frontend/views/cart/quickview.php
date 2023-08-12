@@ -24,7 +24,7 @@ if ($total_summ === 0) {
             <div class="page-header">
                 <div class="page-header__container container">
                     <div class="page-header__title">
-                        <h1 style="font-size: 29px"> <?= $h ?> </h1>
+                        <h1 style="font-size: 28px"> <?= $h ?> </h1>
                     </div>
                 </div>
             </div>
