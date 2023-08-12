@@ -473,7 +473,7 @@
         layout = layout !== undefined ? layout : 'standard';
 
         const options = {
-            dots: false,
+            dots: true,
             margin: 10,
             rtl: isRTL()
         };
@@ -519,7 +519,7 @@
 
         const image = gallery.find('.product-gallery__featured .owl-carousel');
         const carousel = gallery.find('.product-gallery__carousel .owl-carousel');
-
+        carousel.css('display', 'none');
         image
             .owlCarousel({items: 1, dots: false, rtl: isRTL()})
             .on('changed.owl.carousel', syncPosition);

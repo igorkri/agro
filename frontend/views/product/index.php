@@ -297,13 +297,13 @@ $this->title = $product->seo_title;
                             <div class="product__actions">
                                 <?php if ($product->old_price == null) { ?>
                                     <div class="product-card__prices" style="
-    padding: 0px 5px;
+    padding: 0px 0px;
 ">
                                         <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                     </div>
                                 <?php } else { ?>
                                     <div class="product-card__prices" style="
-    padding: 0px 34px;
+    padding: 0px 0px;
 ">
                                         <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
                                         <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
@@ -315,7 +315,8 @@ $this->title = $product->seo_title;
                                             type="button"
                                             data-product-id="<?= $product->id ?>"
                                             style="margin-top: 4px;
-                                margin-left: 9px;
+                                margin-left: 5px;
+                                margin-right: -21px;
                                 padding: 9px 39px;
                                 height: 47px;">
                                         <svg width="20px" height="20px" style="display: unset;">
@@ -328,7 +329,8 @@ $this->title = $product->seo_title;
                                             type="button"
                                             data-product-id=""
                                             style="margin-top: 4px;
-                                margin-left: 9px;
+                                margin-left: 5px;
+                                margin-right: -21px;
                                 padding: 9px 39px;
                                 height: 47px;">
                                         <svg width="20px" height="20px" style="display: unset;">
