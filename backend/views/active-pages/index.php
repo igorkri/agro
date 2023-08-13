@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]); ?>
 
-                    <?= Html::submitButton('Видалити обрані', ['class' => 'btn btn-danger mb-4']) ?>
+                    <?= Html::submitButton('<i class="fas fa-trash-alt"></i> Вибрані', ['class' => 'btn btn-danger mb-4']) ?>
 
                     <?php echo Html::endForm(); ?>
                 </div>
