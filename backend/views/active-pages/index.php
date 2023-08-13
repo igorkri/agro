@@ -3,6 +3,7 @@
 use common\models\shop\ActivePages;
 use kartik\ipinfo\IpInfo;
 use kartik\popover\PopoverX;
+
 //use yii\bootstrap5\ActiveForm;
 use yii\widgets\ActiveForm;
 use yii\bootstrap5\Breadcrumbs;
@@ -68,37 +69,50 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'ip_user',
                                 'format' => 'raw',
                                 'visible' => true,
-                                'value' => function($model){
+                                'value' => function ($model) {
 
                                     return IpInfo::widget([
                                         'ip' => $model->ip_user,
                                         'showPopover' => false,
-                                        'template' => ['inlineContent'=>'{flag} {city}'],
+                                        'template' => ['inlineContent' => '{flag} {city}'],
                                     ]);
                                 },
-                                 'contentOptions' => ['style' => 'width: 150px'],
+                                'contentOptions' => ['style' => 'width: 150px'],
                             ],
                             [
                                 'attribute' => 'date_visit',
                                 'filter' => false,
-                                'value' => function($model){
+                                'value' => function ($model) {
                                     return Yii::$app->formatter->asDatetime($model->date_visit, 'medium');
                                 },
                                 'contentOptions' => ['style' => 'width: 200px'],
                             ],
                             'url_page',
-//                            'client_from',
                             [
                                 'attribute' => 'client_from',
                                 'format' => 'raw',
                                 'value' => function ($model) {
                                     $decodedUrl = urldecode($model->client_from);
-                                    return  $decodedUrl ;
+                                    return $decodedUrl;
                                 },
                             ],
 //                            'user_agent',
                             //'status_serv',
-                            'other',
+                            [
+                                'attribute' => 'other',
+                                'filter' => false,
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    if ($model->other == 'mobile') {
+                                        return '<i class="fas fa-mobile-alt" style="width: 3.125em"></i>';
+                                    } elseif ($model->other == 'desktop') {
+                                        return '<i class="fas fa-desktop" style="width: 3.125em"></i>';
+                                    } else {
+                                        return '<i class="fas fa-ban" style="width: 3.125em"></i>';
+                                    }
+                                },
+                                'contentOptions' => ['style' => 'width: 62px'],
+                            ],
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, ActivePages $model, $key, $index, $column) {
