@@ -10,21 +10,37 @@ use yii\helpers\Url;
             <div class="col-12 col-lg-9">
                 <div class="block-slideshow__body">
                     <div class="owl-carousel">
-                    <?php foreach ($slides as $slide): ?>
-                        <div class="block-slideshow__slide">
-                            <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop" style="background-image: url('slider/<?= $slide->image ?>')"></div>
-                            <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile" style="background-image: url('slider/<?= $slide->image_mob ?>')"></div>
-                            <div class="block-slideshow__slide-content">
-<!--                                <div class="block-slideshow__slide-title">--><?php //echo $slide->title ?><!--</div>-->
-<!--                                <div class="col-6 block-slideshow__slide-text">--><?php //echo $slide->description ?><!--</div>-->
-                                <a href="<?= Url::to(['/product/'. $slide->slug]) ?>">
-                                <div class="block-slideshow__slide-button">
-                                    <span class="btn btn-primary btn-lg">Переглянути</span>
+                        <?php foreach ($slides as $slide): ?>
+                            <div class="block-slideshow__slide">
+                                <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop"
+                                     style="background-image: url('slider/<?= $slide->image ?>')"></div>
+                                <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile"
+                                     style="background-image: url('slider/<?= $slide->image_mob ?>')"></div>
+                                <div class="block-slideshow__slide-content">
+                                    <div class="block-slideshow__slide-title"><?php echo $slide->title ?></div>
+                                    <?php if (\Yii::$app->devicedetect->isMobile()) { ?>
+                                        <div class="col-10 block-slideshow__slide-text"
+                                             style="margin: 25px 0px 0px 70px;"><?php echo $slide->description ?></div>
+                                    <?php } else { ?>
+                                        <div class="col-10 block-slideshow__slide-text"
+                                             style="margin: 0px 0px 0px -40px;"><?php echo $slide->description ?></div>
+                                    <?php } ?>
+                                    <?php if ($slide->getSliderOldPrice($slide->slug) == null) { ?>
+                                        <div class="block-slideshow__slide-text product-card__prices"><?php echo Yii::$app->formatter->asCurrency($slide->getSliderPrice($slide->slug)) ?></div>
+                                    <?php } else { ?>
+                                        <div class="block-slideshow__slide-text product-card__prices">
+                                            <span class="product-card__new-price"><?php echo Yii::$app->formatter->asCurrency($slide->getSliderPrice($slide->slug)) ?></span>
+                                            <span class="product-card__old-price"><?php echo Yii::$app->formatter->asCurrency($slide->getSliderOldPrice($slide->slug)) ?></span>
+                                        </div>
+                                    <?php } ?>
+                                    <a href="<?= Url::to(['/product/' . $slide->slug]) ?>">
+                                        <div class="block-slideshow__slide-button">
+                                            <span class="btn btn-primary btn-lg">Переглянути</span>
+                                        </div>
+                                    </a>
                                 </div>
-                                </a>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

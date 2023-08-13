@@ -292,7 +292,6 @@ $this->title = $product->seo_title;
                                 ?>
                             </span>
                             </div>
-
                             <div class="product__actions">
                                 <?php if ($product->old_price == null) { ?>
                                     <div class="product-card__prices" style="

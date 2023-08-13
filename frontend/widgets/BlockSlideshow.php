@@ -1,6 +1,5 @@
 <?php
 
-
 namespace frontend\widgets;
 
 use common\models\Slider;

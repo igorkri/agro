@@ -55,21 +55,21 @@ class Slider extends \yii\db\ActiveRecord
             'slug' => Yii::t('app', 'Слаг'),
         ];
     }
-//    public function getPrice($slug) {
-//        $product = Product::find()->where(['slug' => $slug])->one();
-//        if($product->currency === 'UAH'){
-//            return $product->price;
-//        }else{
-//            return floatval($product->price) * floatval(Settings::currencyRate($product->currency));
-//        }
-//    }
-//
-//    public function getOldPrice($slug) {
-//        $product = Product::find()->where(['slug' => $slug])->one();
-//        if($product->currency === 'UAH'){
-//            return $product->old_price;
-//        }else{
-//            return floatval($product->old_price) * floatval(Settings::currencyRate($product->currency));
-//        }
-//    }
+    public function getSliderPrice($slug) {
+        $product = Product::find()->select(['price', 'currency'])->where(['slug' => $slug])->one();
+        if($product->currency === 'UAH'){
+            return $product->price;
+        }else{
+            return floatval($product->price) * floatval(Settings::currencyRate($product->currency));
+        }
+    }
+
+    public function getSliderOldPrice($slug) {
+        $product = Product::find()->select(['old_price', 'currency'])->where(['slug' => $slug])->one();
+        if($product->currency === 'UAH'){
+            return $product->old_price;
+        }else{
+            return floatval($product->old_price) * floatval(Settings::currencyRate($product->currency));
+        }
+    }
 }

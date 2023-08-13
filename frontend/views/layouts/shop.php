@@ -63,10 +63,6 @@ AppAsset::register($this);
 <!-- photoswipe / end -->
 
 <?php $this->endBody() ?>
-
-<!--<script src="/vendor/svg4everybody/svg4everybody.min.js"></script>-->
-<!--<script> svg4everybody(); </script>-->
-
 </body>
 </html>
 <?php $this->endPage() ?>
