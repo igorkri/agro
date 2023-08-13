@@ -3,14 +3,14 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
-
 /** @var \common\models\shop\Review $model_review */
 
+use common\models\shop\ActivePages;
 use frontend\widgets\ProductsCarousel;
 use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 $this->title = $product->seo_title;
 //$this->registerJs($schemaProduct, View::POS_HEAD);
@@ -186,7 +186,6 @@ $this->title = $product->seo_title;
                                         <div class="payment-methods__item-description text-muted">
                                             <b>Новая почта</b>
                                             <ul>
-
                                                 <li>
                                                     Вартість доставки по тарифу <a
                                                             href="https://novaposhta.ua/ru/basic_tariffs"

@@ -1,9 +1,10 @@
 <?php
 
+use common\models\shop\ActivePages;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 ?>
 
@@ -58,30 +59,16 @@ use yii\helpers\Url;
                                 <use xlink:href="/images/sprite.svg#cross-12"></use>
                             </svg>
                         </button>
-                        <?php // Html::a('
-                        //                            <button type="button" class="btn btn-light btn-sm btn-svg-icon">
-                        //                                    <svg width="12px" height="12px">
-                        //                                        <use xlink:href="/images/sprite.svg#cross-12"></use>
-                        //                                    </svg>
-                        //                                </button>',
-                        //                                    Url::to(['cart/remove', 'id' => $order->getId()]),
-                        //                                    ['class' => 'reset-quantity',
-                        //                                        'data' => [
-                        //                                            'method' => 'post',
-                        //                                            'pjax' => 1,
-                        //                                        ],
-                        //                                    ]) ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
-
         <div class="row justify-content-end pt-5">
             <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                 <div class="card">
                     <div class="card-body">
-                        <?php if ($total_summ < 500) { ?>
+                        <?php if ($total_summ < 500 and $total_summ > 0) { ?>
                             <h5 class="card-title" style="color: red">Замовлення від 500 ₴</h5>
                         <?php } ?>
                         <table class="cart__totals">

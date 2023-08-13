@@ -1,9 +1,11 @@
 <?php
 
+use common\models\Settings;
+use common\models\shop\ActivePages;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 if ($total_summ === 0) {
     $h = 'Ваш кошик порожній';
@@ -63,7 +65,7 @@ if ($total_summ === 0) {
                                         data-title="Ціна"><?= Yii::$app->formatter->asCurrency($order->price) ?></td>
                                 <?php else: ?>
                                     <td class="cart-table__column cart-table__column--price"
-                                        data-title="Ціна"><?= Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency)) ?></td>
+                                        data-title="Ціна"><?= Yii::$app->formatter->asCurrency($order->price * Settings::currencyRate($order->currency)) ?></td>
                                 <?php endif; ?>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Кількість">
                                     <div class="input-number">
@@ -83,7 +85,7 @@ if ($total_summ === 0) {
                                         data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->price * $order->getQuantity()) ?></td>
                                 <?php else: ?>
                                     <td class="cart-table__column cart-table__column--total"
-                                        data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->price * \common\models\Settings::currencyRate($order->currency) * $order->getQuantity()) ?></td>
+                                        data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->price * Settings::currencyRate($order->currency) * $order->getQuantity()) ?></td>
                                 <?php endif; ?>
                                 <td class="cart-table__column cart-table__column--remove"
                                     onclick="removeProduct(<?= $order->id ?>)">
@@ -92,19 +94,6 @@ if ($total_summ === 0) {
                                             <use xlink:href="/images/sprite.svg#cross-12"></use>
                                         </svg>
                                     </button>
-                                    <?php // Html::a('
-                                    //                            <button type="button" class="btn btn-light btn-sm btn-svg-icon">
-                                    //                                    <svg width="12px" height="12px">
-                                    //                                        <use xlink:href="/images/sprite.svg#cross-12"></use>
-                                    //                                    </svg>
-                                    //                                </button>',
-                                    //                                    Url::to(['cart/remove', 'id' => $order->getId()]),
-                                    //                                    ['class' => 'reset-quantity',
-                                    //                                        'data' => [
-                                    //                                            'method' => 'post',
-                                    //                                            'pjax' => 1,
-                                    //                                        ],
-                                    //                                    ]) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -114,7 +103,7 @@ if ($total_summ === 0) {
                         <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <?php if ($total_summ < 500) { ?>
+                                    <?php if ($total_summ < 500 and $total_summ > 0) { ?>
                                         <h5 class="card-title" style="color: red">Замовлення від 500 ₴</h5>
                                     <?php } ?>
                                     <table class="cart__totals">
@@ -147,4 +136,4 @@ if ($total_summ === 0) {
         <!-- site__body / end -->
     </div>
 </div>
-<!--<div class="qty">--><? //=$qty_cart?><!--</div>-->
+
