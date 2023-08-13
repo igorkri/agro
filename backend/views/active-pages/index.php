@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return IpInfo::widget([
                                         'ip' => $model->ip_user,
                                         'showPopover' => false,
-                                        'template' => ['inlineContent' => '{flag} {city}'],
+                                        'template' => ['inlineContent' => '{flag} {city} {ip}'],
                                     ]);
                                 },
                                 'contentOptions' => ['style' => 'width: 150px'],
@@ -104,11 +104,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'raw',
                                 'value' => function ($model) {
                                     if ($model->other == 'mobile') {
-                                        return '<i class="fas fa-mobile-alt" style="width: 3.125em"></i>';
+                                        return '<i class="fas fa-mobile-alt" style="width: 3.125em; font-size: 23px; color: #a77120"></i>';
                                     } elseif ($model->other == 'desktop') {
-                                        return '<i class="fas fa-desktop" style="width: 3.125em"></i>';
+                                        return '<i class="fas fa-desktop" style="width: 3.125em; font-size: 23px; color: #20a73d"></i>';
                                     } else {
-                                        return '<i class="fas fa-ban" style="width: 3.125em"></i>';
+                                        return '<i class="fas fa-ban" style="width: 3.125em; font-size: 23px; color: #a72032"></i>';
                                     }
                                 },
                                 'contentOptions' => ['style' => 'width: 62px'],
