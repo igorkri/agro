@@ -50,27 +50,9 @@ class ActivePages extends \yii\db\ActiveRecord
             'client_from' => Yii::t('app', 'Откуда пользователь'),
             'date_visit' => Yii::t('app', 'Дата визита'),
             'status_serv' => Yii::t('app', 'Статус сервера'),
-            'other' => Yii::t('app', 'Прочее'),
+            'other' => Yii::t('app', 'Девайс'),
         ];
     }
-
-//    public static function setActiveUser() {
-//
-//        $server = $_SERVER;
-//        $model = new ActivePages();
-//        $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
-//        $model->url_page = $server['REQUEST_URI'] ?? "Не известно";
-//        $model->user_agent = $server['HTTP_USER_AGENT'] ?? "Не известно";
-//        $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
-//        $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
-//        $model->status_serv = $server['REDIRECT_STATUS'] ?? "Не известно";
-//        if ($model->save()) {
-//
-//        } else {
-//            exit('<pre>' . print_r($model->errors, true) . '</pre>');
-//        }
-//
-//    }
 
     public static function setActiveUser()
     {
@@ -91,6 +73,11 @@ class ActivePages extends \yii\db\ActiveRecord
                 return;
             }
         }
+        if (\Yii::$app->devicedetect->isMobile()){
+        $device = 'mobile';
+        }else{
+            $device = 'desktop';
+        }
 
         $model = new ActivePages();
         $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
@@ -99,6 +86,7 @@ class ActivePages extends \yii\db\ActiveRecord
         $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
         $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
         $model->status_serv = $server['REDIRECT_STATUS'] ?? "Не известно";
+        $model->other = $device ?? "Не известно";
 
         if ($model->save()) {
         } else {

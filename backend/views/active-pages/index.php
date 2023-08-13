@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 //                            'user_agent',
                             //'status_serv',
-                            //'other',
+                            'other',
                             [
                                 'class' => ActionColumn::className(),
                                 'urlCreator' => function ($action, ActivePages $model, $key, $index, $column) {
