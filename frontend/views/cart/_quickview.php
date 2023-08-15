@@ -6,6 +6,8 @@ use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
+$min_order = 100;  //минимальная сумма заказа
+
 ?>
 
 <div class="cart block">
@@ -68,8 +70,8 @@ ActivePages::setActiveUser();
             <div class="col-12 col-md-7 col-lg-6 col-xl-5">
                 <div class="card">
                     <div class="card-body">
-                        <?php if ($total_summ < 500 and $total_summ > 0) { ?>
-                            <h5 class="card-title" style="color: red">Замовлення від 500 ₴</h5>
+                        <?php if ($total_summ < $min_order and $total_summ > 0) { ?>
+                            <h5 class="card-title" style="color: red">Замовлення від <?= $min_order ?> ₴</h5>
                         <?php } ?>
                         <table class="cart__totals">
                             <tfoot class="cart__totals-footer">
@@ -80,7 +82,7 @@ ActivePages::setActiveUser();
                             </tfoot>
                         </table>
                         <?php if ($total_summ != 0){ ?>
-                            <?php if ($total_summ < 500) { ?>
+                            <?php if ($total_summ < $min_order) { ?>
                                 <a class="btn btn-primary btn-xl btn-block disabled cart__checkout-button"
                                    href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
                             <?php } else { ?>
