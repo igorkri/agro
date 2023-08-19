@@ -10,6 +10,12 @@ use frontend\widgets\ProductsCarousel;
 use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
 
+if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
+    $webp_support = true; // webp поддерживается
+} else {
+    $webp_support = false; // webp не поддерживается
+}
+
 ActivePages::setActiveUser();
 
 $this->title = $product->seo_title;
@@ -73,12 +79,22 @@ $this->title = $product->seo_title;
                                     </button>
                                     <div class="owl-carousel" id="product-image">
                                         <?php foreach ($product->images as $image) : ?>
-                                            <div class="product-image product-image--location--gallery">
-                                                <a href="<?= '/product/' . $image->name ?>" data-width="700"
-                                                   data-height="700" class="product-image__body" target="_blank">
-                                                    <img class="product-image__img"
-                                                         src=" <?= '/product/' . $image->extra_extra_large ?> "
-                                                         alt="<?= $product->name ?>">
+
+                                                    <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
+                                                <div class="product-image product-image--location--gallery">
+                                                <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
+                                                data-height="700" class="product-image__body" target="_blank">
+                                                        <img class="product-image__img"
+                                                             src=" <?= '/product/' . $image->webp_extra_extra_large ?> "
+                                                             alt="<?= $product->name ?>">
+                                                    <?php }else{ ?>
+                                                    <div class="product-image product-image--location--gallery">
+                                                        <a href="<?= '/product/' . $image->name ?>" data-width="700"
+                                                           data-height="700" class="product-image__body" target="_blank">
+                                                        <img class="product-image__img"
+                                                             src=" <?= '/product/' . $image->extra_extra_large ?> "
+                                                             alt="<?= $product->name ?>">
+                                                    <?php } ?>
                                                 </a>
                                             </div>
                                         <?php endforeach; ?>
