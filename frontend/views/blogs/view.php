@@ -1,11 +1,18 @@
 <?php
 
+use common\models\shop\ActivePages;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
+
+if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
+    $webp_support = true; // webp поддерживается
+} else {
+    $webp_support = false; // webp не поддерживается
+}
 
 ?>
 <!-- site__body -->
@@ -42,7 +49,11 @@ use yii\helpers\Url;
                                         <div class="post-card post-card--layout--list post-card--size--nl">
                                             <div class="post-card__image">
                                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
-                                                    <img src="/posts/<?= $post->image ?>" width="350" height="235" alt="<?= $post->title ?>">
+                                                    <?php if ($webp_support == true && isset($post->webp_extra_large)) { ?>
+                                                    <img src="/posts/<?= $post->webp_extra_large ?>" width="350" height="235" alt="<?= $post->title ?>">
+                                                    <?php } else { ?>
+                                                        <img src="/posts/<?= $post->extra_large ?>" width="350" height="235" alt="<?= $post->title ?>">
+                                                    <?php } ?>
                                                 </a>
                                             </div>
                                             <div class="post-card__info">

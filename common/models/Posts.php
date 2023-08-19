@@ -17,11 +17,17 @@ use yii\db\ActiveRecord;
  * @property string|null $medium Размер картинки
  * @property string|null $small Размер картинки
  *
+ * @property string|null $webp_extra_large Размер картинки
+ * @property string|null $webp_large Размер картинки
+ * @property string|null $webp_medium Размер картинки
+ * @property string|null $webp_small Размер картинки
+ *
  * @property string|null $seo_title Название
  * @property string|null $description Описание
  * @property string|null $seo_description Описание
  * @property string|null $date_public Дата публикации
  * @property string|null $image Картинка
+ * @property string|null $webp_image Картинка
  * @property string|null $slug Слаг
  */
 class Posts extends \yii\db\ActiveRecord
@@ -61,7 +67,10 @@ class Posts extends \yii\db\ActiveRecord
             [['description', 'seo_description'], 'string'],
             [['date_public'], 'string'],
             [['slug'], 'string'],
-            [['title', 'seo_title', 'image', 'extra_large', 'large', 'medium', 'small'], 'string', 'max' => 255],
+            [['title', 'seo_title', 'image',
+                'extra_large', 'large', 'medium',
+                'small', 'webp_image', 'webp_extra_large',
+                'webp_large', 'webp_medium', 'webp_small'], 'string', 'max' => 255],
         ];
     }
 

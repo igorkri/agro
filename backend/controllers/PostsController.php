@@ -89,24 +89,39 @@ class PostsController extends Controller
                 if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
                     $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
                     $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
-                    $cropPath = $dir  . '/' . $imageName . '.' . $file->extension;
+                    $cropPath = $dir . '/' . $imageName . '.' . $file->extension;
+                    $cropPathWebp = $dir . '/' . $imageName . '.' . 'webp';
                     //------------ Основная картинка
                     Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
+
                     // ----------- Нарезка картинок
                     Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+
+                    Image::resize($imagePath, 330, 222)->save($dir . '/webp_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 263, 177)->save($dir . '/webp_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 159, 107)->save($dir . '/webp_medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 90, 60)->save($dir . '/webp_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
                     //----------- End Нарезка картинок
-                    unlink($dir  . '/' . 'del-' . $imageName . '.' . $file->extension);
+
+                    unlink($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
                 } else {
-                    $file->saveAs($dir  . '/' . $imageName . '.' . $file->extension);
+                    $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
                 }
-                $model->image = $catalog .'/'. $imageName . '.' . $file->extension;
-                $model->extra_large = $catalog .'/'. 'extra_large-' . $imageName . '.' . $file->extension;
-                $model->large = $catalog .'/'. 'large-' . $imageName . '.' . $file->extension;
-                $model->medium = $catalog .'/'. 'medium-' . $imageName . '.' . $file->extension;
-                $model->small = $catalog .'/'. 'small-' . $imageName . '.' . $file->extension;
+                $model->image = $catalog . '/' . $imageName . '.' . $file->extension;
+                $model->extra_large = $catalog . '/' . 'extra_large-' . $imageName . '.' . $file->extension;
+                $model->large = $catalog . '/' . 'large-' . $imageName . '.' . $file->extension;
+                $model->medium = $catalog . '/' . 'medium-' . $imageName . '.' . $file->extension;
+                $model->small = $catalog . '/' . 'small-' . $imageName . '.' . $file->extension;
+
+                $model->webp_image = $catalog . '/' . $imageName . '.' . 'webp';
+                $model->webp_extra_large = $catalog . '/' . 'webp_extra_large-' . $imageName . '.' . $file->extension;
+                $model->webp_large = $catalog . '/' . 'webp_large-' . $imageName . '.' . $file->extension;
+                $model->webp_medium = $catalog . '/' . 'webp_medium-' . $imageName . '.' . $file->extension;
+                $model->webp_small = $catalog . '/' . 'webp_small-' . $imageName . '.' . $file->extension;
 
                 if ($model->save()) {
                     return $this->redirect(['index']);
@@ -138,14 +153,14 @@ class PostsController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             $post_file = $_FILES['Posts']['size']['image'];
-            if($post_file <= 0 ){
+            if ($post_file <= 0) {
                 $old = $this->findModel($id);
                 $model->image = $old->image;
                 $model->extra_large = $old->extra_large;
                 $model->large = $old->large;
                 $model->medium = $old->medium;
                 $model->small = $old->small;
-            }else {
+            } else {
                 $catalog = explode("/", $model->small);
                 $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog[0]);
                 $file = UploadedFile::getInstance($model, 'image');
@@ -153,28 +168,41 @@ class PostsController extends Controller
                 if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
                     $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
                     $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
-                    $cropPath = $dir  . '/' . $imageName . '.' . $file->extension;
+                    $cropPath = $dir . '/' . $imageName . '.' . $file->extension;
+                    $cropPathWebp = $dir . '/' . $imageName . '.' . 'webp';
                     //------------ Основная картинка
                     Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
                     // ----------- Нарезка картинок
                     Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+
+                    Image::resize($imagePath, 330, 222)->save($dir . '/webp_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 263, 177)->save($dir . '/webp_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 159, 107)->save($dir . '/webp_medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 90, 60)->save($dir . '/webp_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
                     //----------- End Нарезка картинок
-                    unlink($dir  . '/' . 'del-' . $imageName . '.' . $file->extension);
+                    unlink($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
                 } else {
-                    $file->saveAs($dir  . '/' . $imageName . '.' . $file->extension);
+                    $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
                 }
-                $model->image = $model->id . '/' . $imageName . '.' . $file->extension;
-                $model->extra_large = 'extra_large-' . $imageName . '.' . $file->extension;
-                $model->large = 'large-' . $imageName . '.' . $file->extension;
-                $model->medium = 'medium-' . $imageName . '.' . $file->extension;
-                $model->small = 'small-' . $imageName . '.' . $file->extension;
+                $model->image = $catalog[0] . '/' . $imageName . '.' . $file->extension;
+                $model->extra_large = $catalog[0] . '/' . 'extra_large-' . $imageName . '.' . $file->extension;
+                $model->large = $catalog[0] . '/' . 'large-' . $imageName . '.' . $file->extension;
+                $model->medium = $catalog[0] . '/' . 'medium-' . $imageName . '.' . $file->extension;
+                $model->small = $catalog[0] . '/' . 'small-' . $imageName . '.' . $file->extension;
+
+                $model->webp_image = $catalog[0] . '/' . $imageName . '.' . 'webp';
+                $model->webp_extra_large = $catalog[0] . '/' . 'webp_extra_large-' . $imageName . '.' . 'webp';
+                $model->webp_large = $catalog[0] . '/' . 'webp_large-' . $imageName . '.' . 'webp';
+                $model->webp_medium = $catalog[0] . '/' . 'webp_medium-' . $imageName . '.' . 'webp';
+                $model->webp_small = $catalog[0] . '/' . 'webp_small-' . $imageName . '.' . 'webp';
             }
-            if($model->save(false)) {
+            if ($model->save(false)) {
                 return $this->redirect(['index']);
-            }else{
+            } else {
                 debug($model->errors);
                 debug($model->image);
                 die;
@@ -197,17 +225,24 @@ class PostsController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb/posts/');
         $model = $this->findModel($id);
-            //----------- Удаление всех картинок продукта
-            (file_exists($dir  . $model->image)) ? unlink($dir  . $model->image) : '';
-            (file_exists($dir . $model->extra_large)) ? unlink($dir . $model->extra_large) : '';
-            (file_exists($dir . $model->large)) ? unlink($dir . $model->large) : '';
-            (file_exists($dir . $model->medium)) ? unlink($dir . $model->medium) : '';
-            (file_exists($dir . $model->small)) ? unlink($dir . $model->small) : '';
-            //----------- Удаление каталога продукта
-            $catalog = explode('/', $model->image);
-            $files = scandir($dir . $catalog[0]);
-            $files = array_diff($files, array('.', '..'));
-            (is_dir($dir . $catalog[0]) && empty($files)) ? FileHelper::removeDirectory($dir . $catalog[0]) : '';
+        //----------- Удаление всех картинок продукта
+        (file_exists($dir . $model->image)) ? unlink($dir . $model->image) : '';
+        (file_exists($dir . $model->extra_large)) ? unlink($dir . $model->extra_large) : '';
+        (file_exists($dir . $model->large)) ? unlink($dir . $model->large) : '';
+        (file_exists($dir . $model->medium)) ? unlink($dir . $model->medium) : '';
+        (file_exists($dir . $model->small)) ? unlink($dir . $model->small) : '';
+
+        (file_exists($dir . $model->webp_image)) ? unlink($dir . $model->webp_image) : '';
+        (file_exists($dir . $model->webp_extra_large)) ? unlink($dir . $model->webp_extra_large) : '';
+        (file_exists($dir . $model->webp_large)) ? unlink($dir . $model->webp_large) : '';
+        (file_exists($dir . $model->webp_medium)) ? unlink($dir . $model->webp_medium) : '';
+        (file_exists($dir . $model->webp_small)) ? unlink($dir . $model->webp_small) : '';
+
+        //----------- Удаление каталога продукта
+        $catalog = explode('/', $model->image);
+        $files = scandir($dir . $catalog[0]);
+        $files = array_diff($files, array('.', '..'));
+        (is_dir($dir . $catalog[0]) && empty($files)) ? FileHelper::removeDirectory($dir . $catalog[0]) : '';
 
         $model->delete();
         return $this->redirect(['index']);
