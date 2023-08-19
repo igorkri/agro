@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
  * @property int $id
  * @property int|null $parentId
  * @property string $name
+ * @property string $svg
  * @property string $pageTitle
  * @property string|null $slug
  * @property string|null $file
@@ -58,7 +59,7 @@ class Category extends \yii\db\ActiveRecord
             [['parentId'], 'integer'],
             [['name', 'pageTitle'], 'required'],
             [['description', 'metaDescription'], 'string'],
-            [['name', 'pageTitle', 'file', 'visibility'], 'string', 'max' => 255],
+            [['name', 'pageTitle', 'file', 'visibility', 'svg'], 'string', 'max' => 255],
             [['name', 'slug'], 'unique'],
             [['slug'], 'safe'],
         ];
@@ -79,6 +80,7 @@ class Category extends \yii\db\ActiveRecord
             'visibility' => 'Visibility',
             'description' => 'Description',
             'metaDescription' => 'Meta Description',
+            'svg' => 'SVG',
         ];
     }
 

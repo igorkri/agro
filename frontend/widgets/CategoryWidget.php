@@ -13,7 +13,7 @@ class CategoryWidget extends Widget
 
     public function run(){
 
-        $categories = Category::find()->select('id, parentId, slug, file, name, visibility')
+        $categories = Category::find()->select('id, parentId, slug, file, name, visibility, svg')
             ->with(['parents', 'parent', 'products'])
             ->where(['is', 'parentId', new Expression('null')])
 //            ->orderBy('name ASC')

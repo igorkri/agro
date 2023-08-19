@@ -18,8 +18,8 @@ use yii\helpers\Url;
                             <?php if ($category->parents): ?>
                                 <li class="departments__item">
                                     <a class="departments__item-link"
-                                       href="<?= Url::to(['/category/children', 'slug' => $category->slug]) ?>">
-                                        <i class="fas fa-seedling"></i>  <?= $category->name ?>
+                                       href="<?= Url::to(['/category/children', 'slug' => $category->slug]) ?>"><i class="bi-bug"></i>
+                                          <?= $category->svg . ' ' . $category->name ?>
                                         <svg class="departments__item-arrow" width="6px" height="9px">
                                             <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                         </svg>
@@ -34,7 +34,7 @@ use yii\helpers\Url;
                                                             <div class="col-3">
                                                                 <ul class="megamenu__links megamenu__links--level--0">
                                                                     <li class="megamenu__item  megamenu__item--with-submenu ">
-                                                                        <a href="<?= Url::to(['/category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->name ?></a>
+                                                                        <a href="<?= Url::to(['/category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->svg . ' ' . $parent->name ?></a>
                                                                         <ul class="megamenu__links megamenu__links--level--1">
                                                                             <?php if ($parent->products): ?>
                                                                                 <?php $i = 1;
@@ -69,7 +69,7 @@ use yii\helpers\Url;
                                 <li class="departments__item">
                                     <a class="departments__item-link"
                                        href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
-                                        <i class="fas fa-seedling"></i>  <?= $category->name ?>
+                                        <?= $category->svg . ' ' . $category->name ?>
                                     </a>
                                 </li>
                             <?php endif; ?>
