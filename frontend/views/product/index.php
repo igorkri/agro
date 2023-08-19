@@ -3,6 +3,7 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
+
 /** @var \common\models\shop\Review $model_review */
 
 use common\models\shop\ActivePages;
@@ -71,33 +72,32 @@ $this->title = $product->seo_title;
                     <div class="product__gallery">
                         <div class="product-gallery">
                             <?php if (!empty($product->images)) : ?>
-                                <div class="product-gallery__featured">
-                                    <button class="product-gallery__zoom" aria-label="Збільшити">
-                                        <svg width="24px" height="24px">
-                                            <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
-                                        </svg>
-                                    </button>
-                                    <div class="owl-carousel" id="product-image">
-                                        <?php foreach ($product->images as $image) : ?>
-
-                                                    <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
-                                                <div class="product-image product-image--location--gallery">
-                                                <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
-                                                data-height="700" class="product-image__body" target="_blank">
-                                                        <img class="product-image__img"
-                                                             src=" <?= '/product/' . $image->webp_extra_extra_large ?> "
-                                                             alt="<?= $product->name ?>">
-                                                    <?php }else{ ?>
-                                                    <div class="product-image product-image--location--gallery">
-                                                        <a href="<?= '/product/' . $image->name ?>" data-width="700"
-                                                           data-height="700" class="product-image__body" target="_blank">
-                                                        <img class="product-image__img"
-                                                             src=" <?= '/product/' . $image->extra_extra_large ?> "
-                                                             alt="<?= $product->name ?>">
+                            <div class="product-gallery__featured">
+                                <button class="product-gallery__zoom" aria-label="Збільшити">
+                                    <svg width="24px" height="24px">
+                                        <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
+                                    </svg>
+                                </button>
+                                <div class="owl-carousel" id="product-image">
+                                    <?php foreach ($product->images as $image) : ?>
+                                    <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
+                                    <div class="product-image product-image--location--gallery">
+                                        <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
+                                           data-height="700" class="product-image__body" target="_blank">
+                                            <img class="product-image__img"
+                                                 src=" <?= '/product/' . $image->webp_extra_extra_large ?> "
+                                                 alt="<?= $product->name ?>">
+                                            <?php }else{ ?>
+                                            <div class="product-image product-image--location--gallery">
+                                                <a href="<?= '/product/' . $image->name ?>" data-width="700"
+                                                   data-height="700" class="product-image__body" target="_blank">
+                                                    <img class="product-image__img"
+                                                         src=" <?= '/product/' . $image->extra_extra_large ?> "
+                                                         alt="<?= $product->name ?>">
                                                     <?php } ?>
                                                 </a>
                                             </div>
-                                        <?php endforeach; ?>
+                                            <?php endforeach; ?>
                                     </div>
                                 </div>
                                 <div class="product-gallery__carousel">
@@ -113,80 +113,81 @@ $this->title = $product->seo_title;
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
-                            <?php else : ?>
-                                <div class="product-gallery__featured">
-                                    <button class="product-gallery__zoom" aria-label="Збільшити">
-                                        <svg width="24px" height="24px">
-                                            <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
-                                        </svg>
-                                    </button>
-                                    <div class="owl-carousel" id="product-image">
-                                        <div class="product-image product-image--location--gallery">
-                                            <a href="/images/no-image.png" data-width="700" data-height="700"
-                                               class="product-image__body" target="_blank">
-                                                <img class="product-image__img" src="/images/no-image.png"
-                                                     alt="no image">
-                                            </a>
+                                <?php else : ?>
+                                    <div class="product-gallery__featured">
+                                        <button class="product-gallery__zoom" aria-label="Збільшити">
+                                            <svg width="24px" height="24px">
+                                                <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
+                                            </svg>
+                                        </button>
+                                        <div class="owl-carousel" id="product-image">
+                                            <div class="product-image product-image--location--gallery">
+                                                <a href="/images/no-image.png" data-width="700" data-height="700"
+                                                   class="product-image__body" target="_blank">
+                                                    <img class="product-image__img" src="/images/no-image.png"
+                                                         alt="no image">
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <!-- .product__gallery / end -->
-                    <!-- .product__info -->
-                    <div class="product__info">
-                        <h1 class="product__name"><?= $product->name ?></h1>
-                        <div class="product__rating">
-                            <div class="product__rating-stars">
-                                <?= $product->getRating($product->id) ?>
-                            </div>
-                            <div class="product__rating-legend">
-                                <?= $product->getRatingCount($product->id) ?>
-                            </div>
-                        </div>
-                        <div class="product__description">
-                            <?php if ($product_properties != null) { ?>
-                                <?php foreach ($product_properties as $property): ?>
-                                    <div class="spec__row">
-                                        <div class="spec__name"><?= $property->properties ?></div>
-                                        <div class="spec__value"><?= $property->value ?></div>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php } else { ?>
-                                <div class="spec__row">
-                                    <div class="spec__name">- - -</div>
-                                    <div class="spec__value">- - -</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">- - -</div>
-                                    <div class="spec__value">- - -</div>
-                                </div>
-                                <div class="spec__row">
-                                    <div class="spec__name">- - -</div>
-                                    <div class="spec__value">- - -</div>
-                                </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <!-- .product__info / end -->
-                    <!-- .product__sidebar -->
-                    <div class="product__sidebar">
-                        <!-- .product__options -->
-                        <div class="payment-methods">
-                            <div>
-                                <?php if ($product->brand_id != null): ?>
-                                    <img src="/frontend/web/brand/<?= $img_brand->file ?>" alt="<?= $img_brand->name ?>"
-                                         style="width: 100%;padding: 0px 0px 5px 0px;"">
                                 <?php endif; ?>
                             </div>
-                            <ul class="payment-methods__list">
-                                <li class="payment-methods__item"
-                                    style="background: #ffe484;padding: 10px;color: black;">
-                                    Артикул: <span style="margin-right: 10px;" id="sku"><?= $product->sku ?> </span>
-                                </li>
-                                <li class="payment-methods__item payment-methods__item--active">
-                                    <label class="payment-methods__item-header">
+                        </div>
+                        <!-- .product__gallery / end -->
+                        <!-- .product__info -->
+                        <div class="product__info">
+                            <h1 class="product__name"><?= $product->name ?></h1>
+                            <div class="product__rating">
+                                <div class="product__rating-stars">
+                                    <?= $product->getRating($product->id) ?>
+                                </div>
+                                <div class="product__rating-legend">
+                                    <?= $product->getRatingCount($product->id) ?>
+                                </div>
+                            </div>
+                            <div class="product__description">
+                                <?php if ($product_properties != null) { ?>
+                                    <?php foreach ($product_properties as $property): ?>
+                                        <div class="spec__row">
+                                            <div class="spec__name"><?= $property->properties ?></div>
+                                            <div class="spec__value"><?= $property->value ?></div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php } else { ?>
+                                    <div class="spec__row">
+                                        <div class="spec__name">- - -</div>
+                                        <div class="spec__value">- - -</div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">- - -</div>
+                                        <div class="spec__value">- - -</div>
+                                    </div>
+                                    <div class="spec__row">
+                                        <div class="spec__name">- - -</div>
+                                        <div class="spec__value">- - -</div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <!-- .product__info / end -->
+                        <!-- .product__sidebar -->
+                        <div class="product__sidebar">
+                            <!-- .product__options -->
+                            <div class="payment-methods">
+                                <div>
+                                    <?php if ($product->brand_id != null): ?>
+                                        <img src="/frontend/web/brand/<?= $img_brand->file ?>"
+                                             alt="<?= $img_brand->name ?>"
+                                             style="width: 100%;padding: 0px 0px 5px 0px;"">
+                                    <?php endif; ?>
+                                </div>
+                                <ul class="payment-methods__list">
+                                    <li class="payment-methods__item"
+                                        style="background: #ffe484;padding: 10px;color: black;">
+                                        Артикул: <span style="margin-right: 10px;" id="sku"><?= $product->sku ?> </span>
+                                    </li>
+                                    <li class="payment-methods__item payment-methods__item--active">
+                                        <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
                                                 <input class="input-radio__input" name="checkout_payment_method"
@@ -194,29 +195,29 @@ $this->title = $product->seo_title;
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                        <span class="delivery-methods__item-name"><i style="font-size: 28px"
-                                                                                     class="fas fa-truck"></i>
+                                            <span class="delivery-methods__item-name"><i style="font-size: 28px"
+                                                                                         class="fas fa-truck"></i>
                                             <span style="font-size:20px; margin:0px 20px">Доставка</span></span>
-                                    </label>
-                                    <div class="payment-methods__item-container" style="">
-                                        <div class="payment-methods__item-description text-muted">
-                                            <b>Новая почта</b>
-                                            <ul>
-                                                <li>
-                                                    Вартість доставки по тарифу <a
-                                                            href="https://novaposhta.ua/ru/basic_tariffs"
-                                                            target="_bank">перевізника</a>
-                                                </li>
-                                            </ul>
-                                            <b>Відвантаження з Полтави</b>
-                                            <ul>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted">
+                                                <b>Новая почта</b>
+                                                <ul>
+                                                    <li>
+                                                        Вартість доставки по тарифу <a
+                                                                href="https://novaposhta.ua/ru/basic_tariffs"
+                                                                target="_bank">перевізника</a>
+                                                    </li>
+                                                </ul>
+                                                <b>Відвантаження з Полтави</b>
+                                                <ul>
 
-                                            </ul>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="payment-methods__item">
-                                    <label class="payment-methods__item-header">
+                                    </li>
+                                    <li class="payment-methods__item">
+                                        <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
                                                 <input class="input-radio__input" name="checkout_payment_method"
@@ -224,24 +225,24 @@ $this->title = $product->seo_title;
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                        <span class="payment-methods__item-name"><i style="font-size: 28px"
-                                                                                    class="fas fa-credit-card"></i> <span
-                                                    style="font-size:20px; margin:0px 20px">Спосіб сплати</span></span>
-                                    </label>
-                                    <div class="payment-methods__item-container" style="">
-                                        <div class="payment-methods__item-description text-muted">
-                                            <ul>
-                                                <li>Сплатити Visa/Mastercard</li>
-                                                <li>Оплатити готівкою</li>
-                                                <li>Наложенний платіж</li>
-                                                <li>Сплатити на розрахунковий рахунок</li>
-                                                <hr>
-                                            </ul>
+                                            <span class="payment-methods__item-name"><i style="font-size: 28px"
+                                                                                        class="fas fa-credit-card"></i> <span
+                                                        style="font-size:20px; margin:0px 20px">Спосіб сплати</span></span>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted">
+                                                <ul>
+                                                    <li>Сплатити Visa/Mastercard</li>
+                                                    <li>Оплатити готівкою</li>
+                                                    <li>Наложенний платіж</li>
+                                                    <li>Сплатити на розрахунковий рахунок</li>
+                                                    <hr>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="payment-methods__item">
-                                    <label class="payment-methods__item-header">
+                                    </li>
+                                    <li class="payment-methods__item">
+                                        <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
                                                 <input class="input-radio__input" name="checkout_payment_method"
@@ -249,34 +250,34 @@ $this->title = $product->seo_title;
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                        <span class="shield-methods__item-name"><i style="font-size: 28px"
-                                                                                   class="fas fa-shield-alt"></i> <span
-                                                    style="font-size:20px; margin:0px 20px">Гарантия</span></span>
-                                    </label>
-                                    <div class="payment-methods__item-container" style="">
-                                        <div class="payment-methods__item-description text-muted">
-                                            Гарантія на повернення ознайомтесь будь ласка з<a
-                                                    href="/"
-                                                    target="_blank">_правилами</a>
+                                            <span class="shield-methods__item-name"><i style="font-size: 28px"
+                                                                                       class="fas fa-shield-alt"></i> <span
+                                                        style="font-size:20px; margin:0px 20px">Гарантия</span></span>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted">
+                                                Гарантія на повернення ознайомтесь будь ласка з<a
+                                                        href="/"
+                                                        target="_blank">_правилами</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- .product__options / end -->
-                    </div>
-                    <!-- .product__end -->
-                    <div class="product__footer">
-                        <div class="product__prices">
-                            <div class="tags tags--lg">
-                                <div class="tags__list">
-                                    <?php foreach ($product->tags as $brand): ?>
-                                        <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
-                                    <?php endforeach; ?>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <hr>
-                            <div class="form-group product__option">
+                            <!-- .product__options / end -->
+                        </div>
+                        <!-- .product__end -->
+                        <div class="product__footer">
+                            <div class="product__prices">
+                                <div class="tags tags--lg">
+                                    <div class="tags__list">
+                                        <?php foreach ($product->tags as $brand): ?>
+                                            <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group product__option">
                                 <span class="text-success" style="padding: 0px 12px">
                                 <?php
                                 if ($product->status_id == 1) {
@@ -307,74 +308,74 @@ $this->title = $product->seo_title;
                                 }
                                 ?>
                             </span>
-                            </div>
-                            <div class="product__actions">
-                                <?php if ($product->old_price == null) { ?>
-                                    <div class="product-card__prices" style="
+                                </div>
+                                <div class="product__actions">
+                                    <?php if ($product->old_price == null) { ?>
+                                        <div class="product-card__prices" style="
     padding: 0px 0px;
 ">
-                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                    </div>
-                                <?php } else { ?>
-                                    <div class="product-card__prices" style="
+                                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="product-card__prices" style="
     padding: 0px 0px;
 ">
-                                        <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                        <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                    </div>
-                                <?php } ?>
-                                <?php if ($product->status_id != 2) { ?>
-                                    <button class="btn btn-primary product-card__addtocart"
-                                            aria-label="В кошик"
-                                            type="button"
-                                            data-product-id="<?= $product->id ?>"
-                                            style="margin-top: 4px;
+                                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                            <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($product->status_id != 2) { ?>
+                                        <button class="btn btn-primary product-card__addtocart"
+                                                aria-label="В кошик"
+                                                type="button"
+                                                data-product-id="<?= $product->id ?>"
+                                                style="margin-top: 4px;
                                 margin-left: 5px;
                                 margin-right: -21px;
                                 padding: 9px 39px;
                                 height: 47px;">
-                                        <svg width="20px" height="20px" style="display: unset;">
-                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                        </svg>
-                                        <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
-                                    </button>
-                                <?php } else { ?>
-                                    <button class="btn btn-primary disabled"
-                                            type="button"
-                                            data-product-id=""
-                                            style="margin-top: 4px;
+                                            <svg width="20px" height="20px" style="display: unset;">
+                                                <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                            </svg>
+                                            <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
+                                        </button>
+                                    <?php } else { ?>
+                                        <button class="btn btn-primary disabled"
+                                                type="button"
+                                                data-product-id=""
+                                                style="margin-top: 4px;
                                 margin-left: 5px;
                                 margin-right: -21px;
                                 padding: 9px 39px;
                                 height: 47px;">
-                                        <svg width="20px" height="20px" style="display: unset;">
-                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                        </svg>
-                                        <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
-                                    </button>
-                                <?php } ?>
+                                            <svg width="20px" height="20px" style="display: unset;">
+                                                <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                            </svg>
+                                            <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
+                                        </button>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- description -->
+            <?= $this->render('description', [
+                'product' => $product,
+                'product_properties' => $product_properties,
+                'model_review' => $model_review
+            ]) ?>
+            <!-- description /end -->
         </div>
-        <!-- description -->
-        <?= $this->render('description', [
-            'product' => $product,
-            'product_properties' => $product_properties,
-            'model_review' => $model_review
-        ]) ?>
-        <!-- description /end -->
     </div>
-</div>
-<!-- .block-products-carousel -->
-<?php echo ProductsCarousel::widget() ?>
-<!-- .block-products-carousel / end -->
+    <!-- .block-products-carousel -->
+    <?php echo ProductsCarousel::widget() ?>
+    <!-- .block-products-carousel / end -->
 
-<!-- .block-products-carousel -->
-<?php echo RelatedProducts::widget() ?>
-<!-- .block-products-carousel / end -->
+    <!-- .block-products-carousel -->
+    <?php echo RelatedProducts::widget() ?>
+    <!-- .block-products-carousel / end -->
 </div>
 <!-- site__body / end -->
 
