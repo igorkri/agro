@@ -52,7 +52,6 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
-
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $currency = Settings::currencyRate();
@@ -92,6 +91,7 @@ class ProductController extends Controller
                 $post_product = $this->request->post('Product');
                 $model->sku = 'PRO-100' . $model->id;
                 $model->save(false);
+
                 if (isset($post_product['tags']) && $post_product['tags'] != null) {
                     //добавляем Tags
                     foreach ($post_product['tags'] as $tag_id) {
@@ -101,7 +101,6 @@ class ProductController extends Controller
                         $add_tag->save();
                     }
                 }
-
                 if (isset($post_product['grups']) && $post_product['grups'] != null) {
                     foreach ($post_product['grups'] as $grup_id) {
                         $add_grup = new ProductGrup();
@@ -196,7 +195,6 @@ class ProductController extends Controller
                         $g->delete();
                     }
                 }
-
                 foreach ($post_product['grups'] as $grup_id) {
                     $grup = ProductGrup::find()
                         ->where(['product_id' => $model->id])
@@ -337,8 +335,11 @@ class ProductController extends Controller
                     $file->saveAs($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
                     $imagePath = $dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension;
                     $cropPath = $dir . $directory . '/' . $imageName . '.' . $file->extension;
+                    $cropPathWebp = $dir . $directory . '/' . $imageName . '.' . 'webp';
                     //------------ Основная картинка
                     Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                    Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
+
                     // ----------- Нарезка картинок
                     Image::resize($imagePath, 350, 350)->save($dir . $stock->id . '/extra_extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 290, 290)->save($dir . $stock->id . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
@@ -347,7 +348,17 @@ class ProductController extends Controller
                     Image::resize($imagePath, 90, 90)->save($dir . $stock->id . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
                     Image::resize($imagePath, 64, 64)->save($dir . $stock->id . '/extra_small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
 
+                    // ----------- Нарезка картинок Webp
+                    Image::resize($imagePath, 350, 350)->save($dir . $stock->id . '/extra_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 290, 290)->save($dir . $stock->id . '/extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 195, 195)->save($dir . $stock->id . '/large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 150, 150)->save($dir . $stock->id . '/medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 90, 90)->save($dir . $stock->id . '/small-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                    Image::resize($imagePath, 64, 64)->save($dir . $stock->id . '/extra_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
+
+                    //------ Удаляем временные файлы
                     unlink($dir . $directory . '/' . 'del-' . $imageName . '.' . $file->extension);
+
                 } else {
                     $file->saveAs($dir . $directory . '/' . $imageName . '.' . $file->extension);
                 }
@@ -360,6 +371,14 @@ class ProductController extends Controller
                 $model->medium = $stock->id . '/medium-' . $imageName . '.' . $file->extension;
                 $model->small = $stock->id . '/small-' . $imageName . '.' . $file->extension;
                 $model->extra_small = $stock->id . '/extra_small-' . $imageName . '.' . $file->extension;
+
+                $model->webp_name = $directory . '/' . $imageName . '.' . 'webp';
+                $model->webp_extra_extra_large = $stock->id . '/extra_extra_large-' . $imageName . '.' . 'webp';
+                $model->webp_extra_large = $stock->id . '/extra_large-' . $imageName . '.' . 'webp';
+                $model->webp_large = $stock->id . '/large-' . $imageName . '.' . 'webp';
+                $model->webp_medium = $stock->id . '/medium-' . $imageName . '.' . 'webp';
+                $model->webp_small = $stock->id . '/small-' . $imageName . '.' . 'webp';
+                $model->webp_extra_small = $stock->id . '/extra_small-' . $imageName . '.' . 'webp';
 
                 if ($model->save() and file_exists($dir . $directory)) {
                     Yii::$app->getSession()->addFlash('success', "Файл: {$model->name} успешно добавлен");
@@ -398,6 +417,15 @@ class ProductController extends Controller
             (file_exists($dir . $image->medium)) ? unlink($dir . $image->medium) : '';
             (file_exists($dir . $image->small)) ? unlink($dir . $image->small) : '';
             (file_exists($dir . $image->extra_small)) ? unlink($dir . $image->extra_small) : '';
+
+            (file_exists($dir . $image->webp_name)) ? unlink($dir . $image->webp_name) : '';
+            (file_exists($dir . $image->webp_extra_extra_large)) ? unlink($dir . $image->webp_extra_extra_large) : '';
+            (file_exists($dir . $image->webp_extra_large)) ? unlink($dir . $image->webp_extra_large) : '';
+            (file_exists($dir . $image->webp_large)) ? unlink($dir . $image->webp_large) : '';
+            (file_exists($dir . $image->webp_medium)) ? unlink($dir . $image->webp_medium) : '';
+            (file_exists($dir . $image->webp_small)) ? unlink($dir . $image->webp_small) : '';
+            (file_exists($dir . $image->webp_extra_small)) ? unlink($dir . $image->webp_extra_small) : '';
+
             if ($image->delete()) {
                 return true;
             }

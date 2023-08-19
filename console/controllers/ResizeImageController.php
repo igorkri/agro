@@ -19,7 +19,6 @@ class ResizeImageController extends Controller
      */
     public function actionProduct()
     {
-
         $photos = ProductImage::find()->all();
 
         $dir = Yii::getAlias('@frontendWeb/product/');
@@ -43,6 +42,53 @@ class ResizeImageController extends Controller
                 $photo->extra_small = $photo->product_id . '/' . 'extra_small-' . $name;
                 if ($photo->save(false)) {
                     echo "\n " . $i . " | Успішно збережено: " . $name . PHP_EOL;
+                } else {
+                    print_r($photo->errors);
+                }
+                $i++;
+            } else {
+                echo "\n " . $i . " | Успішно існує: " . $photo['name'] . PHP_EOL;
+            }
+        }
+
+        echo "\nOk";
+    }
+
+    /**
+     * Обрізка зображення з оригіналу Webp;
+     */
+
+    public function actionWebpProduct()
+    {
+        $photos = ProductImage::find()->all();
+
+        $dir = Yii::getAlias('@frontendWeb/product/');
+        $i = 1;
+        foreach ($photos as $photo) {
+            $original = $dir . $photo['name'];
+            $is = ProductImage::find()->where(['webp_extra_extra_large' => 'webp_extra_extra_large-' . $original])->one();
+            if (!$is && file_exists($original)) {
+                $file_name = basename($photo['name']);
+                $parts = explode('.', $file_name);
+                $name = $parts[0]; // получаем первую часть до точки
+
+                Image::resize($original, 1640, 1080)->save($dir . $photo->product_id . '/webp_' . $name . '.webp', ['quality' => 70]);
+                Image::resize($original, 350, 350)->save($dir . $photo->product_id . '/webp_extra_extra_large-' . $name . '.webp', ['quality' => 70]);
+                Image::resize($original, 290, 290)->save($dir . $photo->product_id . '/webp_extra_large-' . $name . '.webp', ['quality' => 70]);
+                Image::resize($original, 195, 195)->save($dir . $photo->product_id . '/webp_large-' . $name . '.webp', ['quality' => 70]);
+                Image::resize($original, 150, 150)->save($dir . $photo->product_id . '/webp_medium-' . $name . '.webp', ['quality' => 70]);
+                Image::resize($original, 90, 90)->save($dir . $photo->product_id . '/webp_small-' . $name . '.webp', ['quality' => 70]);
+                Image::resize($original, 64, 64)->save($dir . $photo->product_id . '/webp_extra_small-' . $name . '.webp', ['quality' => 70]);
+
+                $photo->webp_name = $photo->product_id . '/' . 'webp_' . $name . '.webp';
+                $photo->webp_extra_extra_large = $photo->product_id . '/' . 'webp_extra_extra_large-' . $name . '.webp';
+                $photo->webp_extra_large = $photo->product_id . '/' . 'webp_extra_large-' . $name . '.webp';
+                $photo->webp_large = $photo->product_id . '/' . 'webp_large-' . $name . '.webp';
+                $photo->webp_medium = $photo->product_id . '/' . 'webp_medium-' . $name . '.webp';
+                $photo->webp_small = $photo->product_id . '/' . 'webp_small-' . $name . '.webp';
+                $photo->webp_extra_small = $photo->product_id . '/' . 'webp_extra_small-' . $name . '.webp';
+                if ($photo->save(false)) {
+                    echo "\n " . $i . " | Успішно збережено: " . $name . '.webp' . PHP_EOL;
                 } else {
                     print_r($photo->errors);
                 }
@@ -88,7 +134,6 @@ class ResizeImageController extends Controller
 
         echo "\nOk";
     }
-
 
     public function actionPostCatalog()
     {
