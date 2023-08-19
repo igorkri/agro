@@ -58,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!--                            <input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." />-->
                         <!--                        </th>-->
                         <th><?= Yii::t('app', 'Image') ?></th>
+                        <th><?= Yii::t('app', 'SVG') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Parent ID') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'name') ?></th>
                         <th><?= Yii::t('app', 'visibility') ?></th>
@@ -78,6 +79,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </a>
                                 </div>
+                            </td>
+                            <td>
+                                <?= $model->svg ?>
                             </td>
                             <td>
                                 <a href="<?= isset($model->parent) ? Url::to(['category/update', 'id' => $model->parent->id]) : '#' ?>"
