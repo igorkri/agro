@@ -44,7 +44,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
             <div class="col-12 col-lg-8">
                 <div class="block post post--layout--classic">
                     <div class="post__header post-header post-header--layout--classic">
-                        <h2 class="post-header__title"><?= $post->title ?></h2>
+                        <h1 class="post-header__title"><?= $post->title ?></h1>
                         <div class="post-header__meta">
                             <div class="post-header__meta-item">
                                 <a><?= Yii::$app->formatter->asDate($post->date_public) ?></a></div>
