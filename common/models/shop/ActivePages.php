@@ -73,9 +73,9 @@ class ActivePages extends \yii\db\ActiveRecord
                 return;
             }
         }
-        if (\Yii::$app->devicedetect->isMobile()){
-        $device = 'mobile';
-        }else{
+        if (\Yii::$app->devicedetect->isMobile()) {
+            $device = 'mobile';
+        } else {
             $device = 'desktop';
         }
 
@@ -147,5 +147,4 @@ class ActivePages extends \yii\db\ActiveRecord
 
         return count($res);
     }
-
 }

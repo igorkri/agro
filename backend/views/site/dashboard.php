@@ -9,6 +9,7 @@ use backend\widgets\RecentOrders;
 use backend\widgets\RecentReviews;
 use backend\widgets\TotalOrders;
 use backend\widgets\TotalSells;
+use backend\widgets\UserDevice;
 
 ?>
 
@@ -48,4 +49,8 @@ use backend\widgets\TotalSells;
     <!-- Recent reviews -->
     <?php echo RecentReviews::widget() ?>
     <!-- End Recent reviews -->
+
+    <!-- Brand orders -->
+    <?php echo UserDevice::widget() ?>
+    <!-- End Brand orders -->
 </div>
