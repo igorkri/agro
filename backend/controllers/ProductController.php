@@ -406,7 +406,6 @@ class ProductController extends Controller
         $image = ProductImage::find()->where(['id' => $id])->one();
 
         $dir = Yii::getAlias('@frontendWeb/product/');
-        $product = Product::find()->where(['id' => $image->product_id])->one();
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             //----------- Удаление основной картинки и нарезаных

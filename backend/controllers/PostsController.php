@@ -118,10 +118,10 @@ class PostsController extends Controller
                 $model->small = $catalog . '/' . 'small-' . $imageName . '.' . $file->extension;
 
                 $model->webp_image = $catalog . '/' . $imageName . '.' . 'webp';
-                $model->webp_extra_large = $catalog . '/' . 'webp_extra_large-' . $imageName . '.' . $file->extension;
-                $model->webp_large = $catalog . '/' . 'webp_large-' . $imageName . '.' . $file->extension;
-                $model->webp_medium = $catalog . '/' . 'webp_medium-' . $imageName . '.' . $file->extension;
-                $model->webp_small = $catalog . '/' . 'webp_small-' . $imageName . '.' . $file->extension;
+                $model->webp_extra_large = $catalog . '/' . 'webp_extra_large-' . $imageName . '.' . 'webp';
+                $model->webp_large = $catalog . '/' . 'webp_large-' . $imageName . '.' . 'webp';
+                $model->webp_medium = $catalog . '/' . 'webp_medium-' . $imageName . '.' . 'webp';
+                $model->webp_small = $catalog . '/' . 'webp_small-' . $imageName . '.' . 'webp';
 
                 if ($model->save()) {
                     return $this->redirect(['index']);
