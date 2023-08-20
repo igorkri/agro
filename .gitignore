@@ -50,3 +50,5 @@ phpunit.phar
 /backend/web/images/
 /frontend/web/product/
 /frontend/web/brand/
+/frontend/web/posts/
+/frontend/web/slider/

@@ -59,9 +59,9 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                             <?php } ?>
                         <?php } else { ?>
                             <?php if ($webp_support == true && isset($post->webp_image)) { ?>
-                                <img src="/posts/<?= $post->webp_image ?> " alt="<?= $post->title ?>">
+                                <img src="/posts/<?= $post->webp_image ?>" alt="<?= $post->title ?>">
                             <?php } else { ?>
-                                <img src="/posts/<?= $post->image ?> " alt="<?= $post->title ?>">
+                                <img src="/posts/<?= $post->image ?>" alt="<?= $post->title ?>">
                             <?php } ?>
                         <?php } ?>
                         </a>
@@ -120,7 +120,6 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                     <!--- Хмара тегів /end --->
                     <?php echo TagCloud::widget() ?>
                     <!--- Хмара тегів /end --->
-
                 </div>
             </div>
         </div>
