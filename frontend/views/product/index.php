@@ -195,7 +195,7 @@ $this->title = $product->seo_title;
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                            <span class="delivery-methods__item-name"><i style="font-size: 28px"
+                                            <span class="delivery-methods__item-name"><i style="font-size: 25px"
                                                                                          class="fas fa-truck"></i>
                                             <span style="font-size:20px; margin:0px 20px">Доставка</span></span>
                                         </label>
@@ -208,10 +208,12 @@ $this->title = $product->seo_title;
                                                                 href="https://novaposhta.ua/ru/basic_tariffs"
                                                                 target="_bank">перевізника</a>
                                                     </li>
-                                                </ul>
-                                                <b>Відвантаження з Полтави</b>
-                                                <ul>
-
+                                                    <li>
+                                                        Самовивіз
+                                                    </li>
+                                                    <li>
+                                                        Відвантаження з Полтави
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -225,18 +227,17 @@ $this->title = $product->seo_title;
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                            <span class="payment-methods__item-name"><i style="font-size: 28px"
+                                            <span class="payment-methods__item-name"><i style="font-size: 25px"
                                                                                         class="fas fa-credit-card"></i> <span
-                                                        style="font-size:20px; margin:0px 20px">Спосіб сплати</span></span>
+                                                        style="font-size:20px; margin:0px 20px">Оплата</span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
                                                 <ul>
-                                                    <li>Сплатити Visa/Mastercard</li>
+                                                    <li>Visa/Mastercard</li>
                                                     <li>Оплатити готівкою</li>
                                                     <li>Наложенний платіж</li>
-                                                    <li>Сплатити на розрахунковий рахунок</li>
-                                                    <hr>
+                                                    <li>Розрахунковий рахунок</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -250,15 +251,21 @@ $this->title = $product->seo_title;
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                            <span class="shield-methods__item-name"><i style="font-size: 28px"
+                                            <span class="shield-methods__item-name"><i style="font-size: 25px"
                                                                                        class="fas fa-shield-alt"></i> <span
-                                                        style="font-size:20px; margin:0px 20px">Гарантия</span></span>
+                                                        style="font-size:20px; margin:0px 12px">
+                                                    Повернення</span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
-                                                Гарантія на повернення ознайомтесь будь ласка з<a
-                                                        href="/"
-                                                        target="_blank">_правилами</a>
+                                                У нашому онлайн-магазині ми надаємо вам можливість повернути будь-який
+                                                придбаний товар.
+                                                Відповідно до "Закону про захист прав споживачів", протягом перших 14
+                                                днів після покупки у нас ви можете здійснити обмін або повернення
+                                                товару.
+                                                Важливо зазначити, що ми приймаємо на обмін або повернення лише новий
+                                                товар, який не має слідів використання і зберігає оригінальну
+                                                комплектацію та упаковку.
                                             </div>
                                         </div>
                                     </li>
