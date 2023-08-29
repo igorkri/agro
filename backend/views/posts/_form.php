@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
-
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container container--max--xl">
@@ -54,7 +52,9 @@ use yii\widgets\ActiveForm;
                                         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                                     </div>
                                     <div class="col-4 mb-4">
-                                        <!--                                    --><?php //= $form->field($model, 'date_public')->textInput(['value' => Yii::$app->formatter->asDate($model->date_public), 'disabled' => true]) ?>
+                                        <?php if (!$model->isNewRecord){ ?>
+                                        <?= $form->field($model, 'date_public')->textInput() ?>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <div class="mb-4">
