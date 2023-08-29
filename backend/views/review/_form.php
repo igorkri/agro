@@ -8,7 +8,6 @@ use yii\widgets\ActiveForm;
 /** @var common\models\shop\Review $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
 <?php $form = ActiveForm::begin(); ?>
 <div id="top" class="sa-app__body">
 <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
@@ -82,5 +81,4 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
 <?php ActiveForm::end(); ?>

@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reviews'), 'url' => 
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container container--max--xl">
