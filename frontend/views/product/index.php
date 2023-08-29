@@ -20,12 +20,10 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
 ActivePages::setActiveUser();
 
 $this->title = $product->seo_title;
-//$this->registerJs($schemaProduct, View::POS_HEAD);
-//$this->renderHeadHtml($schemaProduct);
+
 ?>
 
 <?php //exit('<pre>'.print_r($isset_to_cart['_quantity'],true).'</pre>'); ?>
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -68,7 +66,6 @@ $this->title = $product->seo_title;
         <div class="container">
             <div class="product product--layout--columnar" data-layout="columnar">
                 <div class="product__content">
-                    <!-- .product__gallery -->
                     <div class="product__gallery">
                         <div class="product-gallery">
                             <?php if (!empty($product->images)) : ?>
@@ -100,41 +97,9 @@ $this->title = $product->seo_title;
                                             <?php endforeach; ?>
                                     </div>
                                 </div>
-                                <div class="product-gallery__carousel">
-                                    <div class="owl-carousel" id="product-carousel">
-                                        <?php foreach ($product->images as $image) : ?>
-                                            <a class="product-image product-gallery__carousel-item">
-                                                <div class="product-image__body">
-                                                    <img class="product-image__img product-gallery__carousel-image"
-                                                         src="<?= '/product/' . $image->extra_small ?>"
-                                                         alt="<?= $product->name ?>">
-                                                </div>
-                                            </a>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                                <?php else : ?>
-                                    <div class="product-gallery__featured">
-                                        <button class="product-gallery__zoom" aria-label="Збільшити">
-                                            <svg width="24px" height="24px">
-                                                <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
-                                            </svg>
-                                        </button>
-                                        <div class="owl-carousel" id="product-image">
-                                            <div class="product-image product-image--location--gallery">
-                                                <a href="/images/no-image.png" data-width="700" data-height="700"
-                                                   class="product-image__body" target="_blank">
-                                                    <img class="product-image__img" src="/images/no-image.png"
-                                                         alt="no image">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <!-- .product__gallery / end -->
-                        <!-- .product__info -->
                         <div class="product__info">
                             <h1 class="product__name"><?= $product->name ?></h1>
                             <div class="product__rating">
@@ -169,10 +134,7 @@ $this->title = $product->seo_title;
                                 <?php } ?>
                             </div>
                         </div>
-                        <!-- .product__info / end -->
-                        <!-- .product__sidebar -->
                         <div class="product__sidebar">
-                            <!-- .product__options -->
                             <div class="payment-methods">
                                 <div>
                                     <?php if ($product->brand_id != null): ?>
@@ -271,9 +233,7 @@ $this->title = $product->seo_title;
                                     </li>
                                 </ul>
                             </div>
-                            <!-- .product__options / end -->
                         </div>
-                        <!-- .product__end -->
                         <div class="product__footer">
                             <div class="product__prices">
                                 <div class="tags tags--lg">
@@ -367,24 +327,16 @@ $this->title = $product->seo_title;
                     </div>
                 </div>
             </div>
-            <!-- description -->
             <?= $this->render('description', [
                 'product' => $product,
                 'product_properties' => $product_properties,
                 'model_review' => $model_review
             ]) ?>
-            <!-- description /end -->
         </div>
     </div>
-    <!-- .block-products-carousel -->
     <?php echo ProductsCarousel::widget() ?>
-    <!-- .block-products-carousel / end -->
-
-    <!-- .block-products-carousel -->
     <?php echo RelatedProducts::widget() ?>
-    <!-- .block-products-carousel / end -->
 </div>
-<!-- site__body / end -->
 
 <?php
 $js = <<<JS
