@@ -31,8 +31,7 @@ class ProductController extends Controller
             ->brand(Schema::brand()->name($product->brand ? $product->brand->name : 'Brand'))
             ->review(Schema::review()
                 ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
-                ->author(Schema::person()->name('Tatyana Khalimon'))
-            )
+                ->author(Schema::person()->name('Tatyana Khalimon')))
             ->aggregateRating(Schema::aggregateRating()
                 ->ratingValue($product->getSchemaRating($product->id))
                 ->reviewCount($product->getSchemaCountReviews($product->id)))
@@ -42,8 +41,7 @@ class ProductController extends Controller
                 ->price($product->getPrice())
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
                 ->itemCondition('https://schema.org/NewCondition')
-                ->availability("https://schema.org/InStock")
-            );
+                ->availability("https://schema.org/InStock"));
 
         Yii::$app->params['schema'] = $schemaProduct->toScript();
 
