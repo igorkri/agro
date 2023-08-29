@@ -122,5 +122,7 @@ return[
     'Messages' => 'Повідомлення',
     'Settings' => 'Сторінки | SEO',
     'Seo Pages' => 'Seo Сторінки',
+    'Product Reviews' => 'Товари',
+    'Posts Reviews' => 'Статті',
     //    '' => '',
 ];
