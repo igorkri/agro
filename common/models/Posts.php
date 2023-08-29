@@ -95,4 +95,34 @@ class Posts extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PostsReview::class, ['post_id' => 'id']);
     }
+
+    public function getSchemaRating($id)
+    {
+        $reviews = PostsReview::find()->where(['post_id' => $id])->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review->rating;
+        }
+        if (count($res) > 0) {
+            return array_sum($res) / count($res);
+
+        } else {
+            return '4.3';
+        }
+    }
+
+    public function getSchemaCountReviews($id)
+    {
+        $reviews = PostsReview::find()->where(['post_id' => $id])->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review;
+        }
+        if (count($res) > 0) {
+            return count($res);
+
+        } else {
+            return '17';
+        }
+    }
 }

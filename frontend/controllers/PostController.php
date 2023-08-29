@@ -26,15 +26,13 @@ class PostController extends Controller
             ->datePublished($schemaDate)
             ->author(Schema::person()->name('Tatyana Khalimon')
                 ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
-//            ->review(Schema::review()
-//                ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
-//                ->author(Schema::person()->name('Tatyana Khalimon')))
             ->image(Yii::$app->request->hostInfo . '/frontend/web/posts/' . $postItem->webp_image)
             ->articleBody($postItem->description)
-            ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug);
-//            ->aggregateRating(Schema::aggregateRating()
-//                ->ratingValue('4.3')
-//                ->reviewCount('27'));
+            ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug)
+            ->aggregateRating(Schema::aggregateRating()
+                ->ratingValue($postItem->getSchemaRating($postItem->id))
+                ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
+
         Yii::$app->params['schema'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
