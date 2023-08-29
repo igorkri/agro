@@ -1,30 +1,31 @@
 <?php
 
-namespace common\models\shop;
+namespace common\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "review".
+ * This is the model class for table "posts_review".
  *
  * @property int $id
- * @property int $viewed Перегляд
- * @property int|null $product_id Товар
- * @property int|null $created_at Дата публікації
- * @property float|null $rating Рейтинг
- * @property string|null $name Імя
- * @property string|null $email Email
- * @property string|null $message Текст
+ * @property int|null $post_id
+ * @property int|null $created_at
+ * @property float|null $rating
+ * @property string|null $name
+ * @property string|null $email
+ * @property string|null $message
+ * @property int $viewed
  */
-class Review extends \yii\db\ActiveRecord
+class PostsReview extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'review';
+        return 'posts_review';
     }
 
     public function behaviors()
@@ -45,9 +46,10 @@ class Review extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'created_at', 'viewed'], 'integer'],
+            [['post_id', 'created_at'], 'integer'],
             [['rating'], 'number'],
-            [['name', 'email', 'message'], 'string', 'max' => 255],
+            [['message'], 'string'],
+            [['name', 'email', 'viewed'], 'string', 'max' => 255],
         ];
     }
 
@@ -57,57 +59,26 @@ class Review extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'product_id' => 'Product ID',
-            'rating' => 'Rating',
-            'name' => 'Name',
-            'email' => 'Email',
-            'message' => 'Message',
-            'viewed' => 'Viewed',
-            'created_at' => 'Date'
+            'id' => Yii::t('app', 'ID'),
+            'post_id' => Yii::t('app', 'Post ID'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'rating' => Yii::t('app', 'Rating'),
+            'name' => Yii::t('app', 'Name'),
+            'email' => Yii::t('app', 'Email'),
+            'message' => Yii::t('app', 'Message'),
+            'viewed' => Yii::t('app', 'Viewed'),
         ];
     }
-
-    public function getProductName($id)
+    public function getPostName($id)
     {
+        $post = Posts::find()->where(['id' => $id])->one();
 
-        $products = Product::find()->where(['id' => $id])->one();
-
-        return $products->name;
+        return $post->title;
     }
-
-    public function getProductSlug($id)
-    {
-
-        $products = Product::find()->where(['id' => $id])->one();
-
-        return $products->slug;
-    }
-
-    public function getProductImage($id)
-    {
-        $products = ProductImage::find()->select('extra_small')->where(['product_id' => $id])->one();
-
-        if ($products !== null){
-
-        return $products->extra_small;
-
-        }else{
-
-            return 'no-image.png';
-        }
-
-    }
-
-    public function getReviewRating($rating)
-    {
-        return $rating / 5;
-    }
-
-//  новие отзивы меню админ
+    //  новие отзивы меню админ
     public static function reviewsNews()
     {
-        $reviews = Review::find()->all();
+        $reviews = PostsReview::find()->all();
         $total_res = [];
         foreach ($reviews as $review) {
             if ($review->viewed == 0)
@@ -127,4 +98,5 @@ class Review extends \yii\db\ActiveRecord
         }
         return $stars;
     }
+
 }

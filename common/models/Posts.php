@@ -90,4 +90,9 @@ class Posts extends \yii\db\ActiveRecord
             'seo_description' => Yii::t('app', 'SEO опис'),
         ];
     }
+
+    public function getReviews()
+    {
+        return $this->hasMany(PostsReview::class, ['post_id' => 'id']);
+    }
 }

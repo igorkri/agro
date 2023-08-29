@@ -1,18 +1,18 @@
 <?php
 
-use common\models\shop\Review;
+use common\models\PostsReview;
 use yii\bootstrap5\Breadcrumbs;
+use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
-/** @var backend\models\search\ReviewSearch $searchModel */
+/** @var backend\models\search\PostsReview $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Reviews');
+$this->title = Yii::t('app', 'Posts Reviews');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="top" class="sa-app__body">
@@ -63,10 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                             ],
                             [
-                                'attribute' => 'product_id',
+                                'attribute' => 'post_id',
 //                                'filter' => false,
                                 'value' => function ($model) {
-                                    return $model->getProductName($model->product_id);
+                                    return $model->getPostName($model->post_id);
                                 },
                             ],
 
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => false,
                                 'contentOptions' => ['style' => 'width: 115px'],
                                 'value' => function ($model) {
-                                   return $model->getStarRating($model->rating);
+                                    return $model->getStarRating($model->rating);
                                 },
                             ],
                             'name',
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             [
                                 'class' => ActionColumn::className(),
-                                'urlCreator' => function ($action, Review $model, $key, $index, $column) {
+                                'urlCreator' => function ($action, PostsReview $model, $key, $index, $column) {
                                     return Url::toRoute([$action, 'id' => $model->id]);
                                 }
                             ],
