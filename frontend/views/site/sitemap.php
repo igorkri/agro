@@ -17,7 +17,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     </url>
     <?php foreach ($urls as $url) { ?>
         <url>
-            <loc><?= $host .'/product'. $url['loc']; ?></loc>
+            <loc><?= $host . $url['loc']; ?></loc>
             <?php if (isset($url['lastmod'])) { ?>
                 <lastmod><?= $url['lastmod']; ?></lastmod>
                 <priority>0.80</priority>

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Posts;
 use common\models\SeoPages;
 use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
@@ -285,13 +286,26 @@ class SiteController extends Controller {
     {
         $arr = array();
 
-        $posts = Product::find()
+        $products = Product::find()
             ->select('slug')
             ->all();
+
+        $posts = Posts::find()
+            ->select('slug')
+            ->all();
+
+
+        foreach ($products as $product) {
+            $arr[] = array(
+                'loc' => '/product/' . $product->slug, // Ссылка
+                'lastmod' => date(DATE_W3C, time()), // Дата
+            );
+        }
+
         foreach ($posts as $post) {
             $arr[] = array(
-                'loc' => '/' . $post->slug, // Ссылка
-                'lastmod' => !empty($post->stock->update_date_sm_url_product) ? date(DATE_W3C, $post->stock->update_date_sm_url_product) : date(DATE_W3C, time()), // Дата
+                'loc' => '/post/' . $post->slug, // Ссылка
+                'lastmod' => date(DATE_W3C, time()), // Дата
             );
         }
 
