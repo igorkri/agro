@@ -9,12 +9,14 @@ use common\models\shop\ProductGrup;
 use common\models\shop\ProductImage;
 use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
-use yii\helpers\ArrayHelper;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use yii\helpers\FileHelper;
 use yii\imagine\Image;
 use Yii;
-use yii\base\BaseObject;
-use yii\bootstrap5\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -150,7 +152,7 @@ class ProductController extends Controller
                     $productProperty->value = $postData['value'];
                     $productProperty->sort = $sort;
                     $productProperty->category_id = $model->category_id;
-                }else{
+                } else {
                     $productProperty = new ProductProperties();
                     $productProperty->product_id = $model->id;
                     $productProperty->properties = $postData['properties'];
@@ -429,5 +431,92 @@ class ProductController extends Controller
                 return true;
             }
         }
+    }
+
+    public function actionExportToExcel()
+    {
+        $products = Product::find()->all();
+
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Название');
+        $sheet->setCellValue('B1', 'Цена');
+        $sheet->setCellValue('C1', 'Ст. Цена');
+        $sheet->setCellValue('D1', 'Наличие');
+        $sheet->setCellValue('E1', 'ID');
+
+        $cellStyleAE = $sheet->getStyle('A1:E1');
+        $cellStyleAE->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        $sheet->getColumnDimension('A')->setWidth(40);
+        $sheet->getColumnDimension('B')->setWidth(12);
+        $sheet->getColumnDimension('C')->setWidth(12);
+        $sheet->getColumnDimension('D')->setWidth(15);
+        $sheet->getColumnDimension('E')->setWidth(5);
+
+        $styleArray = [
+            'font' => [
+                'bold' => true,
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => '92d050', // Зеленый цвет
+                ],
+            ],
+        ];
+        $sheet->getStyle('A1:E1')->applyFromArray($styleArray);
+        $sheet->getStyle('A1:E1')->getFont()->setSize(14); // Установите размер шрифта
+
+        $row = 2; // начнем с второй строки
+        foreach ($products as $product) {
+            $sheet->setCellValue('A' . $row, $product->name);
+            $sheet->setCellValue('B' . $row, $product->price);
+            $sheet->setCellValue('C' . $row, $product->old_price);
+            $sheet->setCellValue('D' . $row, $product->status->name);
+            $sheet->setCellValue('E' . $row, $product->id);
+
+            $cellStyleAll = $sheet->getStyle('A' . $row . ':E' . $row);
+
+            if ($product->status_id == 1) {
+                $cellStyleAll->getFill()->setFillType(Fill::FILL_SOLID);
+                $cellStyleAll->getFill()->getStartColor()->setRGB('d8e4bc');
+            } elseif ($product->status_id == 2) {
+                $cellStyleAll->getFill()->setFillType(Fill::FILL_SOLID);
+                $cellStyleAll->getFill()->getStartColor()->setRGB('e6b8b7');
+            } elseif ($product->status_id == 3) {
+                $cellStyleAll->getFill()->setFillType(Fill::FILL_SOLID);
+                $cellStyleAll->getFill()->getStartColor()->setRGB('fde9d9');
+            } elseif ($product->status_id == 4) {
+                $cellStyleAll->getFill()->setFillType(Fill::FILL_SOLID);
+                $cellStyleAll->getFill()->getStartColor()->setRGB('b7dee8');
+            }
+
+            $cellStyleAll->getFont()->setSize(12);
+
+            $cellStyleAll->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
+            $cellStyleBE = $sheet->getStyle('B' . $row . ':E' . $row);
+
+            $cellStyleBE->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+            $row++;
+        }
+
+        // Настройте заголовки HTTP-ответа для скачивания файла Excel
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="agro_pro_products.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Создайте объект для записи в XLSX-файл
+        $writer = new Xlsx($spreadsheet);
+
+        // Выведите файл Excel в выходной поток
+        $writer->save('php://output');
+
+        // Завершите выполнение приложения Yii
+        Yii::$app->end();
     }
 }

@@ -37,6 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-auto d-flex">
                     <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'New +')?></a></div>
                 </div>
+                <div class="col-auto d-flex">
+                    <div class="col-auto d-flex"><a href="<?=Url::to(['product/export-to-excel'])?>" class="btn btn-primary"><?=Yii::t('app', 'Export Excel')?></a></div>
+                </div>
             </div>
         </div>
     </div>
@@ -194,4 +197,40 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<!-- sa-app__body / end -->
+
+<script>
+document.getElementById('excelFileInput').addEventListener('change', function () {
+// Получите выбранный файл
+const selectedFile = this.files[0];
+
+// Создайте объект FormData для отправки файла
+const formData = new FormData();
+formData.append('excelFile', selectedFile); // 'excelFile' - это имя поля на сервере
+
+// Отправьте файл на сервер с использованием Fetch API
+fetch('/upload-url', {
+method: 'POST',
+body: formData,
+})
+.then(response => {
+if (response.ok) {
+return response.text(); // Если загрузка прошла успешно, вы можете обработать ответ сервера
+}
+throw new Error('Ошибка при загрузке файла на сервер');
+})
+.then(responseText => {
+// Обработайте успешный ответ от сервера здесь
+console.log('Серверный ответ:', responseText);
+})
+.catch(error => {
+// Обработайте ошибку загрузки
+console.error('Ошибка загрузки:', error);
+});
+});
+
+document.querySelector('.btn.btn-primary').addEventListener('click', function () {
+// Симулируйте щелчок по скрытому полю для выбора файла
+document.getElementById('excelFileInput').click();
+});
+</script>
+
