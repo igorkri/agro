@@ -40,7 +40,8 @@
         "kartik-v/yii2-ipinfo": "dev-master",
         "kartik-v/yii2-popover-x": "dev-master",
         "yii2mod/yii2-sweet-alert": "*",
-        "skeeks/yii2-assets-auto-compress": "*"
+        "skeeks/yii2-assets-auto-compress": "*",
+        "phpoffice/phpspreadsheet": "^1.29"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -27,7 +27,8 @@ use yii\bootstrap5\ActiveForm;
                         <span class="form-check-label">Запам'ятай мене</span>
                     </label>
                 </div>
-                <div class="col-auto d-flex align-items-center"><a href="auth-forgot-password.html">Забули пароль?</a></div>
+<!--                <div class="col-auto d-flex align-items-center"><a href="auth-forgot-password.html">Забули пароль?</a></div>-->
+                <div class="col-auto d-flex align-items-center"><a href="/">Забули пароль?</a></div>
             </div>
             <div><button type="submit" class="btn btn-primary btn-lg w-100">Увійти</button></div>
         </div>
