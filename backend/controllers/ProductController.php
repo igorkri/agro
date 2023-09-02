@@ -9,6 +9,8 @@ use common\models\shop\ProductGrup;
 use common\models\shop\ProductImage;
 use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
+use common\models\UploadForm;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
@@ -519,4 +521,49 @@ class ProductController extends Controller
         // Завершите выполнение приложения Yii
         Yii::$app->end();
     }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->excelFile = UploadedFile::getInstance($model, 'excelFile');
+            $filePath = $model->upload();
+            if (file_exists($filePath)) {
+                $spreadsheet = IOFactory::load($filePath);
+                $worksheet = $spreadsheet->getActiveSheet();
+                $data = $worksheet->toArray();
+                unlink($filePath);
+                $headers = array_shift($data);
+                $resultArray = [];
+                foreach ($data as $row) {
+                    $resultArray[] = array_combine($headers, $row);
+                }
+                foreach ($resultArray as $item) {
+                    if ($item['Цена'] != null && is_numeric($item['Цена'])) {
+                        $product = Product::find()
+                            ->select(['id', 'name', 'price'])
+                            ->where(['id' => $item['ID']])
+                            ->one();
+
+                        $product->price = $item['Цена'];
+                        $product->old_price = $item['Ст. Цена'];
+
+                        if ($product->save(false)) {
+
+                        } else {
+                            print_r($product->errors);
+                        }
+                    } else {
+                        echo "Есть не заполненая цена";
+                    }
+                }
+            } else {
+                echo 'Файл не существует.';
+            }
+            return $this->redirect(['index']);
+        }
+        return $this->render('upload', ['model' => $model]);
+    }
+
 }

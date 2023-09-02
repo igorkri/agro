@@ -40,6 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-auto d-flex">
                     <div class="col-auto d-flex"><a href="<?=Url::to(['product/export-to-excel'])?>" class="btn btn-primary"><?=Yii::t('app', 'Export Excel')?></a></div>
                 </div>
+                <div class="col-auto d-flex">
+                    <div class="col-auto d-flex"><a href="<?=Url::to(['product/upload'])?>" class="btn btn-primary"><?=Yii::t('app', 'Import Excel')?></a></div>
+                </div>
             </div>
         </div>
     </div>
