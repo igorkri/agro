@@ -99,6 +99,15 @@ $this->title = $product->seo_title;
                                 </div>
                                 <?php endif; ?>
                             </div>
+                            <hr>
+                            <div class="tags tags--lg">
+                                <div class="tags__list">
+                                    <?php foreach ($product->tags as $brand): ?>
+                                        <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
                         <div class="product__info">
                             <h1 class="product__name"><?= $product->name ?></h1>
@@ -236,14 +245,6 @@ $this->title = $product->seo_title;
                         </div>
                         <div class="product__footer">
                             <div class="product__prices">
-                                <div class="tags tags--lg">
-                                    <div class="tags__list">
-                                        <?php foreach ($product->tags as $brand): ?>
-                                            <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                                <hr>
                                 <div class="form-group product__option">
                                     <span style="font-size: 18px; font-weight: 100">Наявність: </span>
                                     <span class="text-success" style="padding: 0px 12px">
