@@ -1,5 +1,5 @@
 <div class="form-group product__option">
-                                        <span class="text-success" style="padding: 3px 1px">
+                                        <span class="text-success" style="font-weight: 600;padding: 3px 1px">
                                 <?php
                                 if ($product->status_id == 1) {
                                     echo '<i style="font-size:1rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;

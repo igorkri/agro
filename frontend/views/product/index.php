@@ -245,7 +245,8 @@ $this->title = $product->seo_title;
                                 </div>
                                 <hr>
                                 <div class="form-group product__option">
-                                <span class="text-success" style="padding: 0px 12px">
+                                    <span style="font-size: 18px; font-weight: 100">Наявність: </span>
+                                    <span class="text-success" style="padding: 0px 12px">
                                 <?php
                                 if ($product->status_id == 1) {
                                     echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
@@ -277,20 +278,25 @@ $this->title = $product->seo_title;
                             </span>
                                 </div>
                                 <div class="product__actions">
+                                    <span style="margin: 0px 0px 0px 30px;font-size: 18px;font-weight: 100">Ціна: </span>
                                     <?php if ($product->old_price == null) { ?>
                                         <div class="product-card__prices" style="
-    padding: 0px 0px;
+   margin: 0px 19px;
 ">
                                             <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                         </div>
                                     <?php } else { ?>
                                         <div class="product-card__prices" style="
-    padding: 0px 0px;
+   margin: 0px 19px;
 ">
                                             <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
                                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                         </div>
                                     <?php } ?>
+                                </div>
+                                <div style="
+                                padding: 0px 0px 10px 90px;
+                                ">
                                     <?php if ($product->status_id != 2) { ?>
                                         <button class="btn btn-primary product-card__addtocart"
                                                 aria-label="В кошик"
@@ -321,21 +327,21 @@ $this->title = $product->seo_title;
                                             <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
                                     <?php } ?>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <?= $this->render('description', [
-                'product' => $product,
-                'product_properties' => $product_properties,
-                'model_review' => $model_review
-            ]) ?>
         </div>
+        <?= $this->render('description', [
+            'product' => $product,
+            'product_properties' => $product_properties,
+            'model_review' => $model_review
+        ]) ?>
     </div>
-    <?php echo ProductsCarousel::widget() ?>
-    <?php echo RelatedProducts::widget() ?>
+</div>
+<?php echo ProductsCarousel::widget() ?>
+<?php echo RelatedProducts::widget() ?>
 </div>
 
 <?php

@@ -46,8 +46,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="product-card__actions">
                             <div class="product-card__availability">
-                                   <span class="text-success">
-                                           <!-- status -->
+                                   <span class="text-success" style="font-weight: 600">
                                               <?php
                                               if ($products[0]->status_id == 1) {
                                                   echo '<i style="font-size:1rem; margin: 5px;" class="fas fa-check"></i> ' . $products[0]->status->name;
@@ -76,7 +75,6 @@ use yii\helpers\Url;
                                             '> " . $products[0]->status->name . " </span>";
                                               }
                                               ?>
-                                        <!-- status / end -->
                                         </span>
                             </div>
                             <?php if ($products[0]->old_price == null) { ?>
