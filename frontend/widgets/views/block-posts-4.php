@@ -38,18 +38,18 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                     <?php if (Yii::$app->devicedetect->isMobile()) { ?>
                                         <?php if ($webp_support == true && isset($post->webp_medium)) { ?>
                                             <img src="posts/<?= $post->webp_medium ?>" width="159" height="107"
-                                                 alt="<?= $post->title ?>">
+                                                 alt="<?= $post->title ?>" loading="lazy">
                                         <?php } else { ?>
                                             <img src="posts/<?= $post->medium ?>" width="159" height="107"
-                                                 alt="<?= $post->title ?>">
+                                                 alt="<?= $post->title ?>" loading="lazy">
                                         <?php } ?>
                                     <?php } else { ?>
                                         <?php if ($webp_support == true && isset($post->webp_large)) { ?>
                                             <img src="posts/<?= $post->webp_large ?>" width="263" height="177"
-                                                 alt="<?= $post->title ?>">
+                                                 alt="<?= $post->title ?>" loading="lazy">
                                         <?php } else { ?>
                                             <img src="posts/<?= $post->large ?>" width="263" height="177"
-                                                 alt="<?= $post->title ?>">
+                                                 alt="<?= $post->title ?>" loading="lazy">
                                         <?php } ?>
                                     <?php } ?>
                                 <?php endif ?>

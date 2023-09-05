@@ -18,9 +18,9 @@ use yii\helpers\Url;
                         <div class="category-card__body">
                             <div class="category-card__image">
                                 <?php if ($category->parentId == null) { ?>
-                                <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>"></a>
+                                <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>" loading="lazy"></a>
                                 <?php } else { ?>
-                                <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>"></a>
+                                <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>" loading="lazy"></a>
                                 <?php } ?>
                             </div>
                             <div class="category-card__content">
