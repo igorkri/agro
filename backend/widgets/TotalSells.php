@@ -1,6 +1,5 @@
 <?php
 
-
 namespace backend\widgets;
 
 use common\models\shop\Order;
@@ -8,7 +7,6 @@ use common\models\shop\OrderItem;
 use DateInterval;
 use DateTime;
 use yii\base\Widget;
-use yii\db\Expression;
 
 class TotalSells extends Widget
 {
@@ -19,7 +17,8 @@ class TotalSells extends Widget
 
     }
 
-    public function run() {
+    public function run()
+    {
 
         $summ = [];
         $orders = OrderItem::find()->all();
@@ -41,20 +40,58 @@ class TotalSells extends Widget
         $monthName = $months[$monthNumber];
         $formattedDate = $monthName . ' ' . $year;
 
-
-        $startOfMonth = strtotime('first day of this month');
-        $endOfMonth = strtotime('last day of this month 23:59:59');
-
-        // Выполняем запрос к базе данных для извлечения данных за текущий месяц
-        $data = Order::find()
-            ->where(['between', 'created_at', $startOfMonth, $endOfMonth])
+        $DaysAgo30 = strtotime('-30 days');
+        $orders = Order::find()
+            ->select('id')
+            ->andWhere(['>=', 'created_at', $DaysAgo30])
+            ->asArray()
             ->all();
+        $res_30 = [];
+        foreach ($orders as $order) {
+            $prices = OrderItem::find()->where(['order_id' => $order['id']])->all();
+            foreach ($prices as $price) {
+                $res_30[] = $price->price * $price->quantity;
+            }
+        }
+        $res_30 = array_sum($res_30);
 
-//        exit('<pre>'.print_r($data,true).'</pre>');
+
+        $DaysAgo60 = strtotime('-60 days');
+        $orders = Order::find()
+            ->select('id')
+            ->andWhere(['>=', 'created_at', $DaysAgo60])
+            ->asArray()
+            ->all();
+        $res_60 = [];
+        foreach ($orders as $order) {
+            $prices = OrderItem::find()->where(['order_id' => $order['id']])->all();
+            foreach ($prices as $price) {
+                $res_60[] = $price->price * $price->quantity;
+            }
+        }
+        $res_60 = array_sum($res_60);
+        $res_60 = $res_60 - $res_30;
+
+        $arrow = '';
+        if ($res_30 > $res_60){
+            $arrow = 'up';
+        }else{
+            $arrow = 'down';
+        }
+
+
+        $percentage = (($res_60 - $res_30) / $res_30) * 100;
+        $percentage = abs(round($percentage));
+
+
+//        exit('<pre>' . print_r($percentage, true) . '</pre>');
+
 
         return $this->render('total-sells', [
             'summ' => $summ,
-            'formattedDate' => $formattedDate
+            'formattedDate' => $formattedDate,
+            'arrow' => $arrow,
+            'percentage' => $percentage,
         ]);
     }
 
