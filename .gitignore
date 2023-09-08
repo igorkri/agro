@@ -52,3 +52,5 @@ phpunit.phar
 /frontend/web/brand/
 /frontend/web/posts/
 /frontend/web/slider/
+/frontend/web/descriptions/
+
