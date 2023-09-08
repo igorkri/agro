@@ -32,6 +32,10 @@ class SearchController extends Controller
             foreach ($val_products as $product) {
                 $id_prod[] = $product['product_id'];
             }
+            $sku_products = Product::find()->where(['like', 'sku', $q])->asArray()->all();
+            foreach ($sku_products as $product) {
+                $id_prod[] = $product['id'];
+            }
 
             $products = Product::find()
                 ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku'])
