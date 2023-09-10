@@ -1,15 +1,14 @@
 <?php
 
+use common\models\shop\ActivePages;
 use kartik\form\ActiveForm;
 use yii\helpers\Url;
-//use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 $this->title = 'Оформлення замовлення';
 ?>
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -37,7 +36,7 @@ $this->title = 'Оформлення замовлення';
             </div>
         </div>
     </div>
-    <?php $form = ActiveForm::begin(['options' => ['autocomplete'=>"off"]]); ?>
+    <?php $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
     <div class="checkout block">
         <div class="container">
             <div class="row">
@@ -48,12 +47,11 @@ $this->title = 'Оформлення замовлення';
                             <div class="form-row">
                                 <div class="form-group col-md-8">
                                     <?= $form->field($order, 'fio')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
-
                                 </div>
                                 <div class="form-group col-md-4">
                                     <?= $form->field($order, 'phone')->widget(MaskedInput::class, [
                                         'mask' => '(999)999 9999',
-                                    ])?>
+                                    ]) ?>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -63,7 +61,6 @@ $this->title = 'Оформлення замовлення';
                                 <?= $form->field($order, 'note')->textarea(['maxlength' => true, 'rows' => 4, 'class' => 'form-control']) ?>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
@@ -79,14 +76,12 @@ $this->title = 'Оформлення замовлення';
                                 </thead>
                                 <tbody class="checkout__totals-products">
                                 <?php foreach ($orders as $order): ?>
-
                                     <tr>
                                         <td><?= $order->name ?> × <?= $order->quantity ?></td>
                                         <td><?= Yii::$app->formatter->asCurrency($order->getPrice() * $order->quantity) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
-
                                 <tfoot class="checkout__totals-footer">
                                 <tr>
                                     <th>Загальна сума</th>
@@ -94,7 +89,6 @@ $this->title = 'Оформлення замовлення';
                                 </tr>
                                 </tfoot>
                             </table>
-
                             <div class="checkout__agree form-group">
                                 <div class="form-check">
                                     <span class="form-check-input input-check">
@@ -113,8 +107,9 @@ $this->title = 'Оформлення замовлення';
                                     </label>
                                 </div>
                             </div>
-                            <?php if ($total_summ != 0){ ?>
-                                <button type="submit" class="btn btn-primary btn-dec-xl btn-block">Зробити замовлення</button>
+                            <?php if ($total_summ != 0) { ?>
+                                <button type="submit" class="btn btn-primary btn-dec-xl btn-block">Зробити замовлення
+                                </button>
                             <?php } else { ?>
                                 <a class="btn btn-primary btn-dec-xl btn-block"
                                    href="<?= Url::to(['/']) ?>">Дивитись товари</a>
@@ -127,4 +122,3 @@ $this->title = 'Оформлення замовлення';
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-<!-- site__body / end -->
