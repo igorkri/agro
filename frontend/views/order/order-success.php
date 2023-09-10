@@ -1,12 +1,9 @@
 <?php
 
-//debug($order->orderItems);
-
 \common\models\shop\ActivePages::setActiveUser();
 
 ?>
 
-<!-- site__body -->
 <div class="site__body">
     <div class="block order-success">
         <div class="container">
@@ -102,4 +99,4 @@
         </div>
     </div>
 </div>
-<!-- site__body / end -->
+
