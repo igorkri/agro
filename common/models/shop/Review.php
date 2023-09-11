@@ -139,7 +139,6 @@ class Review extends \yii\db\ActiveRecord
                 return $firstLetter;
             }
         }
-
         return 'no';
     }
 
