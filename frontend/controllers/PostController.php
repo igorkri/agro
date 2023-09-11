@@ -27,7 +27,7 @@ class PostController extends Controller
             ->author(Schema::person()
                     ->name('Tatyana Khalimon')
                     ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
-            ->image(Yii::$app->request->hostInfo . '/frontend/web/posts/' . $postItem->webp_image)
+            ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
             ->articleBody($postItem->description)
             ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug)
             ->aggregateRating(Schema::aggregateRating()
@@ -41,7 +41,7 @@ class PostController extends Controller
         Yii::$app->metamaster
             ->setTitle($postItem->seo_title)
             ->setDescription($postItem->seo_description)
-            ->setImage(Yii::$app->request->hostInfo . '/frontend/web/posts/' . $postItem->webp_image)
+            ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
             ->register(Yii::$app->getView());
 
         return $this->render('view', [

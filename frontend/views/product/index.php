@@ -147,7 +147,7 @@ $this->title = $product->seo_title;
                             <div class="payment-methods">
                                 <div>
                                     <?php if ($product->brand_id != null): ?>
-                                        <img src="/frontend/web/brand/<?= $img_brand->file ?>"
+                                        <img src="/brand/<?= $img_brand->file ?>"
                                              alt="<?= $img_brand->name ?>"
                                              style="width: 100%;padding: 0px 0px 5px 0px;"">
                                     <?php endif; ?>

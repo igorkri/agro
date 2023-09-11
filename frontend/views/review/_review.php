@@ -1,4 +1,5 @@
 <?php
+
 use kartik\rating\StarRating;
 
 ?>
@@ -9,14 +10,14 @@ use kartik\rating\StarRating;
         ?>
         <li class="reviews-list__item">
             <div class="review">
-                <!--                                        <div class="review__avatar"><img src="/images/avatars/avatar-1.jpg" alt=""></div>-->
+                <div class="review__avatar"><img src="/images/avatars/avatar-1.jpg" alt=""></div>
                 <div class="review__content">
-                    <div class="review__author"><?=$review->name?></div>
+                    <div class="review__author"><?= $review->name ?></div>
                     <div class="review__rating">
                         <div class="rating">
                             <div class="rating__body">
-                                <?php if($rating != 0): ?>
-                                    <?php for($i = 1; $i <= $rating; $i++): ?>
+                                <?php if ($rating != 0): ?>
+                                    <?php for ($i = 1; $i <= $rating; $i++): ?>
                                         <svg class="rating__star rating__star--active" width="16px" height="15px">
                                             <g class="rating__fill">
                                                 <use xlink:href="/images/sprite.svg#star-normal"></use>
@@ -34,8 +35,8 @@ use kartik\rating\StarRating;
                                             </div>
                                         </div>
                                     <?php endfor; ?>
-                                    <?php if(5 - $rating != 0): ?>
-                                        <?php for($i = 1; $i <= 5 - $rating; $i++): ?>
+                                    <?php if (5 - $rating != 0): ?>
+                                        <?php for ($i = 1; $i <= 5 - $rating; $i++): ?>
                                             <svg class="rating__star " width="16px" height="15px">
                                                 <g class="rating__fill">
                                                     <use xlink:href="/images/sprite.svg#star-normal"></use>
@@ -55,7 +56,7 @@ use kartik\rating\StarRating;
                                         <?php endfor; ?>
                                     <?php endif; ?>
                                 <?php else: ?>
-                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
                                         <svg class="rating__star " width="16px" height="15px">
                                             <g class="rating__fill">
                                                 <use xlink:href="/images/sprite.svg#star-normal"></use>
@@ -77,7 +78,7 @@ use kartik\rating\StarRating;
                             </div>
                         </div>
                     </div>
-                    <div class="review__text"><?=$review->message?></div>
+                    <div class="review__text"><?= $review->message ?></div>
                     <div class="review__date"><?= Yii::$app->formatter->asDate($review->created_at) ?></div>
                 </div>
             </div>
