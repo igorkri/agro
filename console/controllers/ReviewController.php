@@ -106,7 +106,8 @@ class ReviewController extends \yii\console\Controller
         ];
 
         $minTimestamp = 1672567211;
-        $maxTimestamp = 1691485211;
+        $maxTimestamp = 1694592461;
+//        $maxTimestamp = time();
 
         $products = Product::find()->select('id')->all();
 

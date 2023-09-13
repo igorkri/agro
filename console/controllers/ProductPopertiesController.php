@@ -4,11 +4,11 @@ namespace console\controllers;
 
 use common\models\shop\Product;
 use common\models\shop\ProductProperties;
+use yii\console\Controller;
 
 
-class ProductPopertiesController extends \yii\console\Controller
+class ProductPopertiesController extends Controller
 {
-
     /**
      * Добавление ID Категории
      */
@@ -23,12 +23,8 @@ class ProductPopertiesController extends \yii\console\Controller
                 echo "\t" . $i . " Категория добавлена \n";
                 $i++;
             }
-
         }
-
-
     }
-
     /**
      * Добавление Сортировки
      */
@@ -73,11 +69,6 @@ class ProductPopertiesController extends \yii\console\Controller
                 echo "\t" . $i . " Порядок сортировки изменен \n";
                 $i++;
             }
-
         }
-
-
     }
-
-
 }
