@@ -654,5 +654,4 @@ class Product extends ActiveRecord implements CartPositionInterface
         }
         return $res;
     }
-
 }

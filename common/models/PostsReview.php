@@ -99,4 +99,16 @@ class PostsReview extends \yii\db\ActiveRecord
         return $stars;
     }
 
+    function getAvatar($id)
+    {
+        $dir = Yii::getAlias('@frontendWeb/images/avatars/');
+        $review = PostsReview::find()->where(['id' => $id])->one();
+        if ($review){
+            $firstLetter = mb_strtolower(mb_substr($review->name, 0, 1, 'UTF-8'));
+            if (file_exists($dir . $firstLetter .'.jpg')){
+                return $firstLetter;
+            }
+        }
+        return 'no';
+    }
 }

@@ -6,7 +6,6 @@ use kartik\rating\StarRating;
 
 $rating = 3;
 ?>
-
     <div class="product-tabs  product-tabs--sticky">
         <div class="product-tabs__list">
             <div class="product-tabs__list-body">
@@ -70,7 +69,7 @@ $rating = 3;
                                         ?>
                                         <li class="reviews-list__item">
                                             <div class="review">
-                                                <!-- <div class="review__avatar"><img src="/images/avatars/avatar-1.jpg" alt=""></div>-->
+                                                 <div class="review__avatar"><img src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg" alt=""></div>
                                                 <div class="review__content">
                                                     <div class="review__author"><?= $review->name ?></div>
                                                     <div class="review__rating">
