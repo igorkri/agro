@@ -8,8 +8,6 @@ use common\models\shop\Product;
 
 class ProductSkuController extends \yii\console\Controller
 {
-
-
     /**
      * Добавление SKU
      */
@@ -24,10 +22,6 @@ class ProductSkuController extends \yii\console\Controller
                 echo "\t" . $i . " Артикул добавлен \n";
                 $i++;
             }
-
         }
-
-
     }
-
 }

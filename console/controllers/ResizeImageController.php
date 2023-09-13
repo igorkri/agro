@@ -13,7 +13,6 @@ use yii\imagine\Image;
 
 class ResizeImageController extends Controller
 {
-
     /**
      * Обрізка зображення з оригіналу;
      */
@@ -53,7 +52,6 @@ class ResizeImageController extends Controller
 
         echo "\nOk";
     }
-
     /**
      * Обрізка зображення з оригіналу Webp;
      */
@@ -105,7 +103,6 @@ class ResizeImageController extends Controller
      */
     public function actionPost()
     {
-
         $photos = Posts::find()->all();
 
         $dir = Yii::getAlias('@frontendWeb/posts/');
