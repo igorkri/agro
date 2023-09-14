@@ -342,7 +342,7 @@ $this->title = $product->seo_title;
     </div>
 </div>
 <?php echo ProductsCarousel::widget() ?>
-<?php echo RelatedProducts::widget() ?>
+<?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
 </div>
 
 <?php

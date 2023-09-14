@@ -15,10 +15,11 @@ class RelatedProducts extends Widget  // Супутні товари
         parent::init();
 
     }
+    public $package;
 
     public function run()
     {
-
+        $package = $this->package;
         $products = Product::find()
             ->select([
                 'id',
@@ -29,8 +30,10 @@ class RelatedProducts extends Widget  // Супутні товари
                 'status_id',
                 'label_id',
                 'currency',
+                'package',
             ])
             ->where(['IN', 'status_id', [1, 3, 4]])
+            ->andWhere(['package' => $package])
             ->orderBy(new Expression('RAND()'))
             ->limit(10)
             ->all();

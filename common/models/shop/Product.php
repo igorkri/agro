@@ -488,8 +488,11 @@ class Product extends ActiveRecord implements CartPositionInterface
     static function productName($slug)
     {
         $product = Product::find()->where(['slug' => $slug])->one();
-
-        return $product->name;
+        if ($product) {
+            return $product->name;
+        } else {
+            return '';
+        }
     }
 
     public
@@ -663,7 +666,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         $footer_descr = Product::find()->select(['footer_description', 'name'])->where(['id' => $id])->one();
         if ($footer_descr->footer_description) {
-            $footer_descr = str_replace("(*name_product*)",'<b>' . $footer_descr->name . '</b>', $footer_descr->footer_description);
+            $footer_descr = str_replace("(*name_product*)", '<b>' . $footer_descr->name . '</b>', $footer_descr->footer_description);
             return $footer_descr;
         } else {
             return '';
