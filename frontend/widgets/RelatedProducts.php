@@ -35,7 +35,7 @@ class RelatedProducts extends Widget  // Супутні товари
             ->where(['IN', 'status_id', [1, 3, 4]])
             ->andWhere(['package' => $package])
             ->orderBy(new Expression('RAND()'))
-            ->limit(10)
+            ->limit(15)
             ->all();
 
         return $this->render('related-products', [
