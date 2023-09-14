@@ -20,6 +20,7 @@ use yz\shoppingcart\CartPositionTrait;
  * @property string $footer_description
  * @property string $short_description
  * @property string $currency
+ * @property string $package
  * @property float $price
  * @property float|null $old_price
  * @property string|null $seo_title
@@ -69,11 +70,11 @@ class Product extends ActiveRecord implements CartPositionInterface
     public function rules()
     {
         return [
-            [['name', 'description', 'short_description', 'seo_title', 'seo_description', 'price', 'status_id', 'category_id'], 'required'],
+            [['name', 'description', 'short_description', 'seo_title', 'seo_description', 'price', 'status_id', 'package', 'category_id'], 'required'],
             [['description', 'footer_description', 'short_description', 'currency'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id', 'brand_id'], 'safe'],
-            [['name', 'seo_title', 'seo_description', 'slug', 'sku'], 'string', 'max' => 255],
+            [['name', 'seo_title', 'seo_description', 'package', 'slug', 'sku'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];
     }
@@ -100,6 +101,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             'label_id' => Yii::t('app', 'Label'),
             'sku' => Yii::t('app', 'SKU'),
             'footer_description' => Yii::t('app', 'Footer Description'),
+            'package' => Yii::t('app', 'Package'),
         ];
     }
 

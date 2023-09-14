@@ -42,6 +42,33 @@ use yii\widgets\Pjax;
         <div class="card-body p-5">
             <div class="mb-5">
                 <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
+                            class="mb-0 fs-exact-18"><?= Yii::t('app', 'Package') ?></h2></span>
+            </div>
+            <div class="mb-4">
+                <?= $form->field($model, 'package')
+                    ->radioList(
+                        [
+                            'BIG' => 'Фермер',
+                            'SMALL' => 'Дачник',
+                        ],
+                        [
+                            'item' => function ($index, $label, $name, $checked, $value) {
+                                $return = '<label class="form-check">';
+                                $return .= '<input class="form-check-input" type="radio" name="' . $name . '" value="' . $value . '" ' . ($checked ? "checked" : "") . '>';
+                                $return .= ucwords($label);
+                                $return .= '</label>';
+                                return $return;
+                            },
+
+                        ],
+                    )->label(false); ?>
+            </div>
+        </div>
+    </div>
+    <div class="card w-100 mt-5">
+        <div class="card-body p-5">
+            <div class="mb-5">
+                <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Currency') ?></h2></span>
             </div>
             <div class="mb-4">
