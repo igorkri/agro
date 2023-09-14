@@ -41,8 +41,8 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
-
+        $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
+//        $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

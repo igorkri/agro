@@ -154,8 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td style="width: 10%">
                                 <div class="sa-price">
                                     <span class="sa-price__symbol">&#8372;</span>
-                                    <span class="sa-price__integer"><?= explode('.', $model->price)[0] ?></span>
-                                    <span class="sa-price__decimal">.<?= explode('.', $model->price)[1] ?></span>
+                                    <span class="sa-price__integer"><?= $model->getPrice() ?></span>
                                 </div>
                             </td>
                             <td>
