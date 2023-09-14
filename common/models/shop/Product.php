@@ -17,6 +17,7 @@ use yz\shoppingcart\CartPositionTrait;
  * @property string $slug
  * @property string $brand_id
  * @property string $description
+ * @property string $footer_description
  * @property string $short_description
  * @property string $currency
  * @property float $price
@@ -68,8 +69,8 @@ class Product extends ActiveRecord implements CartPositionInterface
     public function rules()
     {
         return [
-            [['name', 'description', 'short_description', 'price', 'status_id', 'category_id'], 'required'],
-            [['description', 'short_description', 'currency'], 'string'],
+            [['name', 'description', 'short_description', 'seo_title', 'seo_description', 'price', 'status_id', 'category_id'], 'required'],
+            [['description', 'footer_description', 'short_description', 'currency'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id', 'brand_id'], 'safe'],
             [['name', 'seo_title', 'seo_description', 'slug', 'sku'], 'string', 'max' => 255],
@@ -98,6 +99,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             'category_id' => Yii::t('app', 'Category'),
             'label_id' => Yii::t('app', 'Label'),
             'sku' => Yii::t('app', 'SKU'),
+            'footer_description' => Yii::t('app', 'Footer Description'),
         ];
     }
 
@@ -653,5 +655,16 @@ class Product extends ActiveRecord implements CartPositionInterface
                                                 </div>';
         }
         return $res;
+    }
+
+    public function getFooterDescription($id)
+    {
+        $footer_descr = Product::find()->select(['footer_description', 'name'])->where(['id' => $id])->one();
+        if ($footer_descr->footer_description) {
+            $footer_descr = str_replace("(*name_product*)",'<b>' . $footer_descr->name . '</b>', $footer_descr->footer_description);
+            return $footer_descr;
+        } else {
+            return '';
+        }
     }
 }

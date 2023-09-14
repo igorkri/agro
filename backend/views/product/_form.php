@@ -93,9 +93,23 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                         ],
                                     ]); ?>
                                 </div>
+                                <div class="mb-4">
+                                    <?= $form->field($model, 'footer_description')->widget(Widget::class, [
+                                        'defaultSettings' => [
+                                            'style' => 'position: unset;'
+                                        ],
+                                        'settings' => [
+                                            'lang' => 'uk',
+                                            'minHeight' => 100,
+                                            'plugins' => [
+                                                'fullscreen',
+                                                'table',
+                                            ],
+                                        ],
+                                    ]); ?>
+                                </div>
                             </div>
                         </div>
-
                         <!--------------  Product_properties  ------------------>
                         <?php if (!$model->isNewRecord): ?>
                             <div class="card mt-5">

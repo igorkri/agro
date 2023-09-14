@@ -23,6 +23,7 @@ $rating = 3;
                         <h3 class="spec__header">Опис товару</h3>
                         <?= $product->short_description ?>
                         <?= $product->description ?>
+                        <?= $product->getFooterDescription($product->id) ?>
                     </div>
                 </div>
                 <div class="product-tabs__pane" id="tab-specification">
