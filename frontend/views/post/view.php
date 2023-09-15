@@ -8,6 +8,9 @@ use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
+$request = Yii::$app->request;
+$currentUrl = $request->absoluteUrl;
+
 if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
     $webp_support = true; // webp поддерживается
 } else {
@@ -272,7 +275,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
         </div>
     </form>
 </div>
-
+<div id="additional-text" style="display: none;">Детальніше на: <?= $currentUrl ?></div>
 <style>
     .rating-md {
         font-size: 22px;
@@ -326,9 +329,16 @@ $js = <<<JS
      
       }    
      return false;
-     // }).on('submit', function(e){
-     // e.preventDefault();
-   
+});
+
+ document.addEventListener('copy', function(e) {
+    var selectedText = window.getSelection().toString();
+    var additionalText = document.getElementById('additional-text').innerText;
+    if (selectedText && additionalText) {
+        var copiedText = selectedText + ' ' + additionalText;
+        e.clipboardData.setData('text/plain', copiedText);
+        e.preventDefault();
+    }
 });
 
 JS;
