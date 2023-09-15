@@ -4,6 +4,9 @@ use kartik\rating\StarRating;
 
 /** @var \common\models\shop\Product $product */
 
+$request = Yii::$app->request;
+$currentUrl = $request->absoluteUrl;
+
 $rating = 3;
 ?>
     <div class="product-tabs  product-tabs--sticky">
@@ -213,6 +216,7 @@ $rating = 3;
             </div>
         </div>
     </div>
+    <div id="additional-text" style="display: none;">Детальніше на: <?= $currentUrl ?></div>
     <style>
         .rating-md {
             font-size: 22px;
@@ -252,7 +256,6 @@ $js = <<<JS
          success: function(data){
              $('#form-review')[0].reset();
               $('#success-message').fadeIn(); // Показать сообщение
-
     setTimeout(function() {
         $('#success-message').fadeOut(); // Скрыть сообщение после 2 секунд
     }, 2500);
@@ -265,9 +268,16 @@ $js = <<<JS
      
       }    
      return false;
-     // }).on('submit', function(e){
-     // e.preventDefault();
-   
+});
+
+   document.addEventListener('copy', function(e) {
+    var selectedText = window.getSelection().toString();
+    var additionalText = document.getElementById('additional-text').innerText;
+    if (selectedText && additionalText) {
+        var copiedText = selectedText + ' ' + additionalText;
+        e.clipboardData.setData('text/plain', copiedText);
+        e.preventDefault();
+    }
 });
 
 JS;
