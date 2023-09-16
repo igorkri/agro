@@ -13,30 +13,34 @@ class OrderController extends Controller
     {
 //        Yii::$app->cache->flush();
         $request = Yii::$app->request;
-        $order = new Order();
+        $item_cart = Yii::$app->cart->getPositions();
+        if ($item_cart) {
+            $order = new Order();
+            if ($order->load($this->request->post()) && $order->save()) {
+                foreach (Yii::$app->cart->getPositions() as $order_cart) {
 
-        if ($order->load($this->request->post()) && $order->save()) {
-            foreach (Yii::$app->cart->getPositions() as $order_cart) {
+                    $order_item = new OrderItem();
+                    $order_item->order_id = $order->id;
+                    $order_item->product_id = $order_cart->id;
+                    $order_item->price = $order_cart->getPrice();
+                    $order_item->quantity = strval($order_cart->quantity);
+                    if ($order_item->save()) {
 
-                $order_item = new OrderItem();
-                $order_item->order_id = $order->id;
-                $order_item->product_id = $order_cart->id;
-                $order_item->price = $order_cart->getPrice();
-                $order_item->quantity = strval($order_cart->quantity);
-                if ($order_item->save()) {
-
+                    }
                 }
+                \Yii::$app->cart->removeAll();
+                return $this->redirect(['order-success', 'order_id' => $order->id]);
             }
-            \Yii::$app->cart->removeAll();
-            return $this->redirect(['order-success', 'order_id' => $order->id]);
-        }
 
-        return $this->render('checkout', [
-            'order' => $order,
-            'orders' => Yii::$app->cart->getPositions(),
-            'total_summ' => Yii::$app->cart->getCost(),
-            'qty_cart' => \Yii::$app->cart->getCount(),
-        ]);
+            return $this->render('checkout', [
+                'order' => $order,
+                'orders' => Yii::$app->cart->getPositions(),
+                'total_summ' => Yii::$app->cart->getCost(),
+                'qty_cart' => \Yii::$app->cart->getCount(),
+            ]);
+        } else {
+            return $this->redirect(['/']);
+        }
     }
 
     public function actionOrderSuccess($order_id)
@@ -69,9 +73,9 @@ class OrderController extends Controller
 
             $order->sent_message = true;
             $order->save();
-        }else{
+        } else {
 
-            return $this->redirect(['/site/index']);
+            return $this->redirect(['/']);
         }
 
         return $this->render('order-success', ['order' => $order]);
