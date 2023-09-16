@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string|null $city Город
  * @property string|null $note Примітка
  * @property string|null $comment Примітка менеджера
+ * @property boolean|false $sent_message Повідомлення
  *
  * @property OrderItem[] $orderItems
  * @property OrderStatus $orderStatus
@@ -58,6 +59,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['fio', 'phone', 'city'], 'required'],
+            [['sent_message'], 'boolean'],
             [['created_at', 'updated_at', 'order_status_id', 'order_pay_ment_id', 'order_provider_id'], 'integer'],
             [['fio', 'phone', 'city'], 'string', 'max' => 255],
             [['note', 'comment'], 'string'],
@@ -83,6 +85,7 @@ class Order extends \yii\db\ActiveRecord
             'note' => 'Дані для відправки (коментар)',
             'order_provider_id' => 'Постачальник',
             'comment' => 'Коментар менеджера',
+            'sent_message' => 'Повідомлення менеджеру',
         ];
     }
 
