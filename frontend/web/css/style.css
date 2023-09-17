@@ -2445,6 +2445,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .post-card--layout--grid .post-card__content {
   width: 100%;
   margin-top: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
 }
 .post-card--layout--grid .post-card__read-more {
   width: 100%;
