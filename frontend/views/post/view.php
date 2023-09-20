@@ -123,7 +123,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
     </div>
 </div>
 <div class="container">
-    <?php echo ProductsCarousel::widget() ?>
+    <?php echo ProductsCarousel::widget(['slug' => $postItem->slug]) ?>
 </div>
 <div class="container reviews-view">
     <div class="reviews-view__list">
