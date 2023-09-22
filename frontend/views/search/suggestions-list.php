@@ -3,8 +3,6 @@
 use yii\helpers\Url;
 
 ?>
-
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -33,7 +31,6 @@ use yii\helpers\Url;
                     <div class="products-view">
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
-
                                 <div class="view-options__legend">Знайдено <?php echo count($products) ?> товарів</div>
                                 <div class="view-options__divider"></div>
                             </div>
@@ -117,5 +114,3 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-<!-- site__body / end -->
-<?php //echo $this->render('@frontend/widgets/views/info-params.php') ?>

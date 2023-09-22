@@ -3,7 +3,6 @@
 \common\models\shop\ActivePages::setActiveUser();
 
 ?>
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -49,9 +48,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <!-- message -->
                             <?= $this->render('message') ?>
-                            <!-- message / end -->
                         </div>
                     </div>
                 </div>
@@ -59,4 +56,3 @@
         </div>
     </div>
 </div>
-<!-- site__body / end -->

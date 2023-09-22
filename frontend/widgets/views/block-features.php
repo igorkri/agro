@@ -3,10 +3,7 @@
         <div class="block-features__list">
             <div class="block-features__item">
                 <div class="block-features__icon">
-<!--                    <svg width="48px" height="48px">-->
-<!--                        <use xlink:href="images/sprite.svg#fi-free-delivery-48"></use>-->
-<!--                    </svg>-->
-                    <img style="display: block;margin: -5px -13px 0px -10px; width: 63px; " src="/frontend/web/images/delivery.png" width="63" height="63" alt="Доставка">
+                    <img style="display: block;margin: -5px -13px 0px -10px; width: 63px; " src="/images/delivery.png" width="63" height="63" alt="Доставка">
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title">Доставка</div>
@@ -16,10 +13,7 @@
             <div class="block-features__divider"></div>
             <div class="block-features__item">
                 <div class="block-features__icon">
-<!--                    <svg width="48px" height="48px">-->
-<!--                        <use xlink:href="images/sprite.svg#fi-24-hours-48"></use>-->
-<!--                    </svg>-->
-                    <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/frontend/web/images/tell.png" width="50" height="50" alt="Телефонуйте">
+                    <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/images/tell.png" width="50" height="50" alt="Телефонуйте">
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title">Ми працюемо</div>
@@ -30,7 +24,7 @@
             <div class="block-features__item">
                 <div class="block-features__icon">
                     <svg width="48px" height="48px">
-                        <use xlink:href="images/sprite.svg#fi-payment-security-48"></use>
+                        <use xlink:href="/images/sprite.svg#fi-payment-security-48"></use>
                     </svg>
                 </div>
                 <div class="block-features__content">
@@ -42,7 +36,7 @@
             <div class="block-features__item">
                 <div class="block-features__icon">
                     <svg width="48px" height="48px">
-                        <use xlink:href="images/sprite.svg#fi-tag-48"></use>
+                        <use xlink:href="/images/sprite.svg#fi-tag-48"></use>
                     </svg>
                 </div>
                 <div class="block-features__content">

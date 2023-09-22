@@ -6,7 +6,6 @@ $tel_1 = '(066) 394-18-28';
 $tel_2 = '(068) 489-43-86';
 
 ?>
-
 <div class="mobilemenu">
     <div class="mobilemenu__backdrop"></div>
     <div class="mobilemenu__body">

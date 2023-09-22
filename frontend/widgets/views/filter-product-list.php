@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 
 ?>
-
 <div class="block-sidebar__item">
     <div class="widget-filters widget widget-filters--offcanvas--mobile" data-collapse
          data-collapse-opened-class="filter--opened">

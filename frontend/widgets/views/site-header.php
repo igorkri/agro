@@ -4,10 +4,8 @@ use frontend\widgets\CategoryWidget;
 use yii\helpers\Url;
 
 ?>
-
 <header class="site__header d-lg-block d-none">
     <div class="site-header">
-        <!-- .topbar -->
         <div class="site-header__topbar topbar">
             <div class="topbar__container container">
                 <div class="topbar__row">
@@ -43,7 +41,6 @@ use yii\helpers\Url;
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>
                                 </svg>
                             </button>
-
                         </div>
                     </div>
                     <div class="topbar__item">
@@ -66,14 +63,11 @@ use yii\helpers\Url;
                 </div>
             </div>
         </div>
-        <!-- .topbar / end -->
         <div class="site-header__middle container">
             <div class="site-header__logo">
                 <a href="/">
-                    <!-- logo -->
                         <img style="display: block;margin: -22px -12px 0px -28px;"
-                             src="/frontend/web/images/logos/logoagro.jpg" width="300" height="99" alt="Логотип">
-                    <!-- logo / end -->
+                             src="/images/logos/logoagro.jpg" width="300" height="99" alt="Логотип">
                 </a>
             </div>
             <div class="site-header__search">
@@ -109,11 +103,8 @@ use yii\helpers\Url;
                 <div class="nav-panel__container container">
                     <div class="nav-panel__row">
                         <div class="nav-panel__departments">
-                            <!-- .departments -->
                             <?= CategoryWidget::widget() ?>
-                            <!-- .departments / end -->
                         </div>
-                        <!-- .nav-links -->
                         <div class="nav-panel__nav-links nav-links">
                             <ul class="nav-links__list">
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
@@ -153,7 +144,6 @@ use yii\helpers\Url;
                                 </li>
                             </ul>
                         </div>
-                        <!-- .nav-links / end -->
                         <div class="nav-panel__indicators">
                             <div class="indicator indicator--trigger--click cart-header">
                                 <a href="#" class="indicator__button ">

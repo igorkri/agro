@@ -73,7 +73,9 @@ $rating = 3;
                                         ?>
                                         <li class="reviews-list__item">
                                             <div class="review">
-                                                 <div class="review__avatar"><img src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg" alt=""></div>
+                                                <div class="review__avatar"><img
+                                                            src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg"
+                                                            alt=""></div>
                                                 <div class="review__content">
                                                     <div class="review__author"><?= $review->name ?></div>
                                                     <div class="review__rating">
@@ -196,7 +198,8 @@ $rating = 3;
                                     <div class="form-group">
                                         <label for="review-text">Ваш відгук</label>
                                         <textarea class="form-control" name="message" id="review-text"
-                                                  rows="6" oninvalid="this.setCustomValidity('Напишіть будь ласка Ваш відгук')"
+                                                  rows="6"
+                                                  oninvalid="this.setCustomValidity('Напишіть будь ласка Ваш відгук')"
                                                   oninput="this.setCustomValidity('')"
                                                   required></textarea>
                                     </div>
@@ -204,7 +207,8 @@ $rating = 3;
                                         <button type="submit" id="review-form-submit" class="btn btn-primary btn-lg">
                                             Залишити відгук
                                         </button>
-                                        <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
+                                        <div class="alert alert-success" style="display: none;" id="success-message"
+                                             role="alert">
                                             Вітаемо Ваш відгук -- надіслано !!!
                                         </div>
                                     </div>
@@ -221,6 +225,7 @@ $rating = 3;
         .rating-md {
             font-size: 22px;
         }
+
         #success-message {
             position: absolute;
             top: -24%;

@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 
 ?>
-
 <div class="block-sidebar__item d-none d-lg-block">
     <div class="widget-products widget">
         <h4 class="widget__title">Може зацікавити</h4>
@@ -22,13 +21,11 @@ use yii\helpers\Url;
                     <div class="widget-products__name" style="font-weight: 550;">
                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
                     </div>
-
                     <div class="product-card__rating">
                         <div class="product-card__rating-stars">
                             <?= $product->getRating($product->id, 13, 12) ?>
                         </div>
                     </div>
-
                     <?php if ($product->old_price == null) { ?>
                     <div class="widget-products__prices" style="font-size: 15px;">
                         <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>

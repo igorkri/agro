@@ -25,7 +25,6 @@ use yii\helpers\Url;
                                         </svg>
                                     </a>
                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
-                                        <!-- .megamenu -->
                                         <div class="megamenu  megamenu--departments ">
                                             <div class="megamenu__body ">
                                                 <div class="row">
@@ -62,7 +61,6 @@ use yii\helpers\Url;
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- .megamenu / end -->
                                     </div>
                                 </li>
                             <?php else: ?>

@@ -5,7 +5,6 @@ use yii\helpers\Url;
 /** @var \common\models\shop\Product $products */
 
 ?>
-
 <div class="block block-products-carousel" data-layout="grid-5" data-mobile-grid-columns="2">
     <div class="container">
         <div class="block-header">

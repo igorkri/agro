@@ -104,7 +104,6 @@ use yii\helpers\Url;
                                     <div class="footer-newsletter__text footer-newsletter__text--social">
                                         Соціальні мережі
                                     </div>
-                                    <!-- social-links -->
                                     <div class="social-links footer-newsletter__social-links social-links--shape--circle">
                                         <ul class="social-links__list">
                                             <li class="social-links__item">
@@ -145,16 +144,13 @@ use yii\helpers\Url;
                                             </li>
                                         </ul>
                                     </div>
-                                    <!-- social-links / end -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="site-footer__bottom">
                         <div class="site-footer__copyright">
-                            <!-- copyright -->
                             © Copyright 2023 <a href="/" target="_blank">agropro.org.ua</a>
-                            <!-- copyright / end -->
                         </div>
                         <div class="site-footer__payments">
                             <img src="/images/payments.png" width="246" height="24" alt="AgroPro">

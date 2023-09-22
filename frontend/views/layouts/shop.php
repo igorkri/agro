@@ -11,7 +11,6 @@ use yii\helpers\Html;
 AppAsset::register($this);
 
 ?>
-
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>" dir="ltr">

@@ -5,7 +5,6 @@ use yii\helpers\Url;
 /** @var \common\models\shop\Product $products */
 
 ?>
-
 <div class="col-4">
     <div class="block-header">
         <a href="<?= Url::to(['product-list/gerbitsidi']) ?>"

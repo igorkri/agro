@@ -3,7 +3,6 @@
 \common\models\shop\ActivePages::setActiveUser();
 
 ?>
-<!-- site__body -->
 <div class="site__body">
     <div class="block">
         <div class="container">
@@ -27,4 +26,3 @@
         </div>
     </div>
 </div>
-<!-- site__body / end -->

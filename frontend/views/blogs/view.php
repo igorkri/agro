@@ -15,7 +15,6 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
 }
 
 ?>
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -41,7 +40,6 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
             <div class="col-12 col-lg-8">
                 <div class="block">
                     <div class="posts-view">
-                        <!-- Пости -->
                         <div class="posts-view__list posts-list posts-list--layout--list">
                             <div class="posts-list__body">
                                 <?php foreach ($blogs as $post): ?>
@@ -50,9 +48,11 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                             <div class="post-card__image">
                                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                                     <?php if ($webp_support == true && isset($post->webp_extra_large)) { ?>
-                                                    <img src="/posts/<?= $post->webp_extra_large ?>" width="350" height="235" alt="<?= $post->title ?>">
+                                                        <img src="/posts/<?= $post->webp_extra_large ?>" width="350"
+                                                             height="235" alt="<?= $post->title ?>">
                                                     <?php } else { ?>
-                                                        <img src="/posts/<?= $post->extra_large ?>" width="350" height="235" alt="<?= $post->title ?>">
+                                                        <img src="/posts/<?= $post->extra_large ?>" width="350"
+                                                             height="235" alt="<?= $post->title ?>">
                                                     <?php } ?>
                                                 </a>
                                             </div>
@@ -76,7 +76,6 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                 <?php endforeach; ?>
                             </div>
                         </div>
-                        <!-- Пости /end -->
                     </div>
                 </div>
             </div>
@@ -85,24 +84,22 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                     <div class="block-sidebar__item">
                         <div class="widget-search">
                             <form class="widget-search__body" action="/search/blogs">
-                                <input class="widget-search__input" name="f" placeholder="Пошук статтів..." type="text" autocomplete="off" spellcheck="false">
+                                <input class="widget-search__input" name="f" placeholder="Пошук статтів..." type="text"
+                                       autocomplete="off" spellcheck="false">
                                 <button class="search__button widget-search__button" type="submit">
                                     <svg width="20px" height="20px">
-                                        <use xlink:href="images/sprite.svg#search-20"></use>
+                                        <use xlink:href="/images/sprite.svg#search-20"></use>
                                     </svg>
                                 </button>
                             </form>
                         </div>
                     </div>
-                    <!-- Хмара тегів -->
                     <?php echo TagCloud::widget() ?>
-                    <!-- Хмара тегів /end -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Пагінація -->
 <div style="display: block; margin: 60px 0px 0px 0px;">
     <ul class="pagination justify-content-center">
         <li>
@@ -110,10 +107,6 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
         </li>
     </ul>
 </div>
-<!-- Пагінація /end -->
 <div class="container">
-    <!-- .block-products-carousel -->
     <?php echo ProductsCarousel::widget() ?>
-    <!-- .block-products-carousel / end -->
 </div>
-<!-- site__body / end -->

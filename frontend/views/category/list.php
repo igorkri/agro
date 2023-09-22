@@ -1,15 +1,13 @@
 <?php
 
-
+use common\models\shop\ActivePages;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $categories */
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 ?>
-
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -56,7 +54,6 @@ use yii\helpers\Url;
                                             </div>
                                         </div>
                                         <div class="product-card__actions">
-
                                         </div>
                                     </div>
                                 </div>
@@ -69,4 +66,3 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-<!-- site__body / end -->

@@ -6,8 +6,6 @@ use yii\helpers\Url;
 \common\models\shop\ActivePages::setActiveUser();
 
 ?>
-
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -57,7 +55,6 @@ use yii\helpers\Url;
                                             </div>
                                             <div class="product-card__actions">
                                                 <div class="product-card__availability">
-
                                                 </div>
                                             </div>
                                         </div>
@@ -71,5 +68,3 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-<!-- site__body / end -->
-

@@ -3,7 +3,6 @@
 \common\models\shop\ActivePages::setActiveUser();
 
 ?>
-
 <div class="site__body">
     <div class="block order-success">
         <div class="container">

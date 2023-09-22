@@ -83,7 +83,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                 <input class="widget-search__input" name="f" placeholder="Пошук статтів..." type="text" autocomplete="off" spellcheck="false">
                                 <button class="search__button widget-search__button" type="submit">
                                     <svg width="20px" height="20px">
-                                        <use xlink:href="images/sprite.svg#search-20"></use>
+                                        <use xlink:href="/images/sprite.svg#search-20"></use>
                                     </svg>
                                 </button>
                             </form>

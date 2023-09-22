@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 
 ?>
-
 <ul class="suggestions__list">
     <?php foreach ($products as $product): ?>
     <li class="suggestions__item">

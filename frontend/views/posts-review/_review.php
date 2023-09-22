@@ -2,7 +2,6 @@
 use kartik\rating\StarRating;
 
 ?>
-
 <ol class="reviews-list__content">
     <?php foreach ($res->reviews as $review):
         $rating = $review->rating;

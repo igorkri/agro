@@ -1,8 +1,8 @@
 <?php
-//debug($model);
+
 \common\models\shop\ActivePages::setActiveUser();
+
 ?>
-<!-- site__body -->
 <div class="site__body">
     <div class="block about-us">
         <div class="about-us__image"></div>
@@ -49,4 +49,3 @@
         </div>
     </div>
 </div>
-<!-- site__body / end -->

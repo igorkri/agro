@@ -7,7 +7,6 @@ use yii\helpers\Url;
 /** @var \common\models\shop\Product $products */
 
 ?>
-
 <div class="block block-products block-products--layout--large-first" data-mobile-grid-columns="2">
     <div class="container">
         <div class="block-header">

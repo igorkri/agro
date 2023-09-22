@@ -5,7 +5,6 @@
 use yii\helpers\Url;
 
 ?>
-
 <div class="block block--highlighted block-categories block-categories--layout--classic">
     <div class="container">
         <div class="block-header">
