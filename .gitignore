@@ -54,3 +54,4 @@ phpunit.phar
 /frontend/web/slider/
 /frontend/web/descriptions/
 
+/console/runtime/check-slug/
