@@ -17,7 +17,7 @@ ActivePages::setActiveUser();
                         <li class="breadcrumb-item">
                             <a href="/"> <i class="fas fa-home"></i> Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="/frontend/web/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Категорії</li>
@@ -59,6 +59,15 @@ ActivePages::setActiveUser();
                                 </div>
                                 <?php endforeach; ?>
                             </div>
+                             <div class="spec__disclaimer">
+                                 Знаходьте найкращі Захистні Засоби Рослин, Добрива, Посівний Матеріал та Боротьбу з Гризунами в
+                                 AgroPro – вашому надійному інтернет-магазині для сільського господарства та сільськогосподарських потреб.
+                                 Оптимізуйте врожаї та збільшуйте врожайність за допомогою наших високоякісних товарів. Доставка та консультації
+                                 експертів - завжди на вашому боці.
+                                 Придбайте Фуміганти та Родентициди для боротьби з шкідниками, а також найкращі Добрива та Посівний Матеріал
+                                 для успішного вирощування рослин.
+                                 Оберіть AgroPro для найкращого відповідного сільськогосподарського рішення!
+                             </div>
                         </div>
                     </div>
                 </div>

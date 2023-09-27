@@ -9,16 +9,15 @@ use yii\data\Pagination;
 use yii\db\Expression;
 use yii\web\Controller;
 
-
 class CategoryController extends Controller
 {
     public function actionList()
     {
-
         $categories = Category::find()->with(['products'])->where(['is', 'parentId', new \yii\db\Expression('null')])->all();
 
         Yii::$app->metamaster
-            ->setTitle("Категорії")
+            ->setTitle("Категорії Товарів | AgroPro")
+            ->setDescription("AgroPro - ваш інтернет-магазин для ЗЗР, добрив, посівного матеріалу та боротьби з гризунами. Оптимізуйте виробництво з нами!")
             ->register(Yii::$app->getView());
 
         return $this->render('list', ['categories' => $categories]);

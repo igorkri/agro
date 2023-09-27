@@ -7,8 +7,6 @@ use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
 ?>
-
-<!-- site__body -->
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
@@ -225,10 +223,12 @@ use yii\helpers\Url;
                                 </li>
                             </ul>
                         </div>
+                        <div class="spec__disclaimer">
+                            <?= $category->description ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- site__body / end -->

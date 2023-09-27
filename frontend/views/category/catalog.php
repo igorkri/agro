@@ -1,9 +1,10 @@
 <?php
 
+use common\models\shop\ActivePages;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Product $pages */
@@ -141,6 +142,9 @@ use yii\helpers\Url;
                                     <?= LinkPager::widget(['pagination' => $pages,]) ?>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="spec__disclaimer">
+                            <?= $category->description ?>
                         </div>
                     </div>
                 </div>
