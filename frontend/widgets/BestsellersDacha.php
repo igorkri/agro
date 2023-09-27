@@ -3,12 +3,11 @@
 
 namespace frontend\widgets;
 
-
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
 use yii\base\Widget;
 
-class Bestsellers extends Widget  // Товари для Фермера
+class BestsellersDacha extends Widget  // Товари для Дачі
 {
 
     public function init()
@@ -21,7 +20,7 @@ class Bestsellers extends Widget  // Товари для Фермера
 
         $products_grup = ProductGrup::find()
             ->select('product_id')
-            ->where(['grup_id' => 1])            //  Перша_Группа_Тест
+            ->where(['grup_id' => 7])
             ->column();
 
 
@@ -41,7 +40,7 @@ class Bestsellers extends Widget  // Товари для Фермера
             ->limit(7)
             ->all();
 
-        return $this->render('bestsellers', ['products' => $products]);
+        return $this->render('bestsellers-dacha', ['products' => $products]);
     }
 
 

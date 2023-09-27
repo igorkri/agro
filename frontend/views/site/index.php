@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 
 use common\models\shop\ActivePages;
+use frontend\widgets\BestsellersDacha;
 use frontend\widgets\FeaturedProduct;
 use frontend\widgets\PopularCategories;
 use frontend\widgets\Bestsellers;
@@ -26,6 +27,7 @@ ActivePages::setActiveUser();
     <?php echo BlockBanner::widget() ?>
     <?php echo Bestsellers::widget() ?>
     <?php echo PopularCategories::widget() ?>
+    <?php echo BestsellersDacha::widget() ?>
     <?php echo ProductsCarousel::widget() ?>
     <?php echo BlockPosts::widget() ?>
     <?php echo BlockBrands::widget() ?>
