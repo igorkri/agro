@@ -18,6 +18,7 @@ class AddTagInProductController extends \yii\console\Controller
         foreach ($tags as $tag) {
             $products = ProductProperties::find()
                 ->where(['LIKE', 'value', $tag->name])
+//                ->where(['LIKE', 'value', '%' . $tag['name'] . '%', false])
                 ->all();
             foreach ($products as $product) {
                 $product_tag = ProductTag::find()->where(['and', ['product_id' => $product->product_id], ['tag_id' => $tag->id]])->one();
@@ -30,8 +31,6 @@ class AddTagInProductController extends \yii\console\Controller
                    }
                 }
             }
-
         }
-
     }
 }
