@@ -3,7 +3,6 @@
 namespace console\controllers;
 
 use common\models\Posts;
-use common\models\shop\Product;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yii;
 use yii\console\Controller;

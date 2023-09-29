@@ -8,6 +8,9 @@ use common\models\shop\Product;
 
 class AddProductTableController extends \yii\console\Controller
 {
+    /**
+     * Добавление  в footer карточки товара
+     */
     public function actionFooterDescr()
     {
         $descr = '<p>---------------------------

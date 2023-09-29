@@ -3,7 +3,6 @@
 
 namespace console\controllers;
 
-
 use common\models\shop\Product;
 
 class ProductSkuController extends \yii\console\Controller

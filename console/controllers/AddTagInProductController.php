@@ -11,6 +11,9 @@ use common\models\shop\Tag;
 
 class AddTagInProductController extends \yii\console\Controller
 {
+    /**
+     * Добавление Тегов из характеристик товара
+     */
     public function actionTag()
     {
         $i = 1;

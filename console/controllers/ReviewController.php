@@ -6,7 +6,6 @@ use common\models\shop\Product;
 use common\models\shop\Review;
 use Faker\Factory;
 use Yii;
-use yii\base\BaseObject;
 
 class ReviewController extends \yii\console\Controller
 {

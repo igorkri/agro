@@ -3,12 +3,10 @@
 
 namespace console\controllers;
 
-
 use common\models\Posts;
 use common\models\shop\ProductImage;
 use Yii;
 use yii\console\Controller;
-use yii\helpers\FileHelper;
 use yii\imagine\Image;
 
 class ResizeImageController extends Controller
