@@ -12,7 +12,6 @@ use Spatie\SchemaOrg\Schema;
 
 class PostController extends Controller
 {
-
     public function actionView($slug)
     {
         $blogs = Posts::find()->limit(6)->orderBy('date_public DESC')->all();
