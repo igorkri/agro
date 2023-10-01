@@ -26,7 +26,7 @@ class ProductController extends Controller
             ->name($product->name)
             ->image($product->getSchemaImg($product->id))
             ->description($product->seo_description)
-            ->sku($product->id)
+            ->sku($product->sku)
             ->mpn($product->id . '-' . $product->id)
             ->brand(Schema::brand()->name($product->brand ? $product->brand->name : 'Brand'))
             ->review(Schema::review()
