@@ -3,7 +3,6 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
-
 /** @var \common\models\shop\Review $model_review */
 
 use common\models\shop\ActivePages;
@@ -11,18 +10,17 @@ use frontend\widgets\ProductsCarousel;
 use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
 
+ActivePages::setActiveUser();
+
 if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
     $webp_support = true; // webp поддерживается
 } else {
     $webp_support = false; // webp не поддерживается
 }
 
-ActivePages::setActiveUser();
-
 $this->title = $product->seo_title;
 
 ?>
-
 <?php //exit('<pre>'.print_r($isset_to_cart['_quantity'],true).'</pre>'); ?>
 <div class="site__body">
     <div class="page-header">
@@ -328,21 +326,21 @@ $this->title = $product->seo_title;
                                             <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
                                     <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <?= $this->render('description', [
+                'product' => $product,
+                'product_properties' => $product_properties,
+                'model_review' => $model_review
+            ]) ?>
         </div>
-        <?= $this->render('description', [
-            'product' => $product,
-            'product_properties' => $product_properties,
-            'model_review' => $model_review
-        ]) ?>
     </div>
-</div>
-<?php echo ProductsCarousel::widget() ?>
-<?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
+    <?php echo ProductsCarousel::widget() ?>
+    <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
 </div>
 
 <?php
