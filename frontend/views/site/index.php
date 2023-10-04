@@ -16,6 +16,7 @@ use frontend\widgets\BlockPosts;
 use frontend\widgets\BlockSlideshow;
 use frontend\widgets\BlockBrands;
 use frontend\widgets\BlockBanner;
+use frontend\widgets\ProductsCarouselGazon;
 
 ActivePages::setActiveUser();
 
@@ -23,6 +24,7 @@ ActivePages::setActiveUser();
 <div class="site__body">
     <?php echo BlockSlideshow::widget() ?>
     <?php echo BlockFeatures::widget() ?>
+    <?php echo ProductsCarouselGazon::widget() ?>
     <?php echo FeaturedProduct::widget() ?>
     <?php echo BlockBanner::widget() ?>
     <?php echo Bestsellers::widget() ?>
