@@ -3,8 +3,6 @@
 namespace common\models\shop;
 
 use Yii;
-use yii\behaviors\SluggableBehavior;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
