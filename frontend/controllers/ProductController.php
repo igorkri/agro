@@ -2,15 +2,15 @@
 
 namespace frontend\controllers;
 
-use common\models\shop\Brand;
 use common\models\shop\ProductProperties;
-use common\models\shop\Review;
 use Spatie\SchemaOrg\LocalBusiness;
+use common\models\shop\Product;
+use common\models\shop\Review;
+use common\models\shop\Brand;
 use Spatie\SchemaOrg\Schema;
-use Yii;
 use yii\i18n\Formatter;
 use yii\web\Controller;
-use common\models\shop\Product;
+use Yii;
 
 class ProductController extends Controller
 {
@@ -81,7 +81,12 @@ class ProductController extends Controller
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
                 ->seller($localBusiness)
                 ->itemCondition('https://schema.org/NewCondition')
-                ->availability("https://schema.org/InStock"));
+                ->availability("https://schema.org/InStock")
+                ->shippingDetails(Schema::offerShippingDetails()
+                    ->shippingLabel('Доставка по тарифу перевізника')
+                    ->deliveryTime('1-3 рабочих дня')
+                    ->shippingDestination('Україна')
+                    ->shippingRate('По тарифу перевізника')));
 
         Yii::$app->params['schema'] = $schemaProduct->toScript();
 
