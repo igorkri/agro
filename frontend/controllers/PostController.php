@@ -18,22 +18,27 @@ class PostController extends Controller
         $postItem = Posts::find()->where(['slug' => $slug])->one();
         $model_review = new PostsReview();
         $formatter = new Formatter();
+
         $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
         $schemaPost = Schema::blogPosting()
             ->headline($postItem->title)
             ->description($postItem->seo_description)
             ->datePublished($schemaDate)
             ->author(Schema::person()
-                    ->name('Tatyana Khalimon')
-                    ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
+                ->name('Tatyana Khalimon')
+                ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
             ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
             ->articleBody($postItem->description)
             ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug)
             ->aggregateRating(Schema::aggregateRating()
-                    ->itemReviewed(Schema::LocalBusiness()
-                            ->name($postItem->title))
-                    ->ratingValue($postItem->getSchemaRating($postItem->id))
-                    ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
+                ->itemReviewed(Schema::LocalBusiness()
+                    ->name($postItem->title)
+                    ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
+                    ->telephone('+3(066)394-18-28')
+                    ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
+                    ->priceRange("UAH"))
+                ->ratingValue($postItem->getSchemaRating($postItem->id))
+                ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
 
         Yii::$app->params['schema'] = $schemaPost->toScript();
 
