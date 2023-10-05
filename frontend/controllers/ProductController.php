@@ -8,11 +8,9 @@ use common\models\shop\Review;
 use Spatie\SchemaOrg\LocalBusiness;
 use Spatie\SchemaOrg\Schema;
 use Yii;
-use yii\base\BaseObject;
-use yii\helpers\Url;
+use yii\i18n\Formatter;
 use yii\web\Controller;
 use common\models\shop\Product;
-use yii\web\Response;
 
 class ProductController extends Controller
 {
@@ -35,18 +33,35 @@ class ProductController extends Controller
 
         $reviews = [];
         $product_reviews = Review::find()->where(['product_id' => $product->id])->all();
-        if ($product_reviews){
-            foreach ($product_reviews as $product_review){
-                $reviews[] = Schema::review()
-                    ->reviewRating(Schema::rating()->ratingValue($product_review->rating)->bestRating(5))
-                    ->author(Schema::person()->name($product_review->name));
-            }
-        }else{
-            $reviews[] = Schema::review()
-                ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
-                ->author(Schema::person()->name('Tatyana Khalimon'));
-        }
+        if ($product_reviews) {
+            foreach ($product_reviews as $product_review) {
+                $formatter = new Formatter();
+                $schemaDate = $formatter->asDatetime($product_review->created_at, 'php:Y-m-d\TH:i:sP');
 
+                $reviews[] = Schema::review()
+                    ->datePublished($schemaDate)
+                    ->reviewBody($product_review->message)
+                    ->author(Schema::person()
+                        ->name($product_review->name))
+                    ->reviewRating(Schema::rating()
+                        ->ratingValue($product_review->rating)
+                        ->bestRating(5)
+                        ->worstRating(1)
+                    );
+            }
+        } else {
+            $reviews[] = Schema::review()
+                ->author(Schema::person()
+                    ->name('Tatyana Khalimon')
+                    ->datePublished('2023-06-07')
+                    ->reviewBody('Все ОК. Гарний товар.')
+                    ->reviewRating(Schema::rating()
+                        ->ratingValue(4)
+                        ->bestRating(5)
+                        ->worstRating(1)
+                    )
+                );
+        }
 
         $schemaProduct = Schema::product()
             ->name($product->name)
