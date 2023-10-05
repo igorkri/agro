@@ -7,6 +7,7 @@ use common\models\SeoPages;
 use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
+use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -93,10 +94,32 @@ class SiteController extends Controller {
 
         $seo = SeoPages::find()->where(['slug' => 'home'])->one();
 
+        $localBusiness = Schema::LocalBusiness()
+            ->name('AgroPro')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
+            ->telephone('+3(066)394-18-28')
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
+            ->url('https://agropro.org.ua/')
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
+            ->priceRange("UAH");
+
+        $homepage = Schema::WebPage()
+            ->name($seo->title)
+            ->description($seo->description)
+            ->url(Yii::$app->request->absoluteUrl)
+            ->about($localBusiness);
+
+        Yii::$app->params['schema'] = $homepage->toScript();
+
         Yii::$app->metamaster
             ->setTitle($seo->title)
             ->setDescription($seo->description)
-            ->setImage('/frontend/web/images/logos/meta_logo.jpg')
+            ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
         return $this->render('index');
