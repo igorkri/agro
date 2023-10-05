@@ -137,5 +137,55 @@ class Category extends \yii\db\ActiveRecord
             return 0;
         }
     }
-    
+
+    public function getSchemaImg($id)
+    {
+        if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
+            $webp_support = true; // webp поддерживается
+        } else {
+            $webp_support = false; // webp не поддерживается
+        }
+        $product = Product::find()->with('images')->where(['id' => $id])->one();
+        $images = [];
+        foreach ($product->images as $image) {
+            if ($webp_support == true && isset($image->webp_name)) {
+                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->webp_name;
+            } else {
+                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->name;
+            }
+        }
+        return $images;
+    }
+
+    public function getSchemaRating($id)
+    {
+        $reviews = Review::find()->where(['product_id' => $id])->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review->rating;
+        }
+        if (count($res) > 0) {
+            return array_sum($res) / count($res);
+
+        } else {
+            return '4.4';
+        }
+    }
+
+    public function getSchemaCountReviews($id)
+    {
+        $reviews = Review::find()->where(['product_id' => $id])->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review;
+        }
+        if (count($res) > 0) {
+            return count($res);
+
+        } else {
+            return '28';
+        }
+    }
+
+
 }
