@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\shop\Brand;
 use common\models\shop\ProductProperties;
 use common\models\shop\Review;
+use Spatie\SchemaOrg\LocalBusiness;
 use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\base\BaseObject;
@@ -22,6 +23,31 @@ class ProductController extends Controller
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
 
+        $localBusiness = new LocalBusiness();
+        $localBusiness
+            ->name('AgroPro')
+            ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
+            ->telephone('+3(066)394-18-28')
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
+            ->url('https://agropro.org.ua/')
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
+            ->priceRange("UAH");
+
+        $reviews = [];
+        $product_reviews = Review::find()->where(['product_id' => $product->id])->all();
+        if ($product_reviews){
+            foreach ($product_reviews as $product_review){
+                $reviews[] = Schema::review()
+                    ->reviewRating(Schema::rating()->ratingValue($product_review->rating)->bestRating(5))
+                    ->author(Schema::person()->name($product_review->name));
+            }
+        }else{
+            $reviews[] = Schema::review()
+                ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
+                ->author(Schema::person()->name('Tatyana Khalimon'));
+        }
+
+
         $schemaProduct = Schema::product()
             ->name($product->name)
             ->image($product->getSchemaImg($product->id))
@@ -29,23 +55,16 @@ class ProductController extends Controller
             ->sku($product->sku)
             ->mpn($product->id . '-' . $product->id)
             ->brand(Schema::brand()->name($product->brand ? $product->brand->name : 'Brand'))
-            ->review(Schema::review()
-                ->reviewRating(Schema::rating()->ratingValue(4)->bestRating(5))
-                ->author(Schema::person()->name('Tatyana Khalimon')))
+            ->review($reviews)
             ->aggregateRating(Schema::aggregateRating()
                 ->ratingValue($product->getSchemaRating($product->id))
                 ->reviewCount($product->getSchemaCountReviews($product->id)))
-            ->itemReviewed(Schema::LocalBusiness()
-                ->name('AgroPro')
-                ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
-                ->telephone('+3(066)394-18-28')
-                ->image($product->getSchemaImg($product->id))
-                ->priceRange("UAH"))
             ->offers(Schema::offer()
                 ->url(Yii::$app->request->absoluteUrl)
                 ->priceCurrency("UAH")
                 ->price($product->getPrice())
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
+                ->seller($localBusiness)
                 ->itemCondition('https://schema.org/NewCondition')
                 ->availability("https://schema.org/InStock"));
 

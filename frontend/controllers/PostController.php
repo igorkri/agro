@@ -36,6 +36,8 @@ class PostController extends Controller
                     ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
                     ->telephone('+3(066)394-18-28')
                     ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
+                    ->url('https://agropro.org.ua/')
+                    ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
                     ->priceRange("UAH"))
                 ->ratingValue($postItem->getSchemaRating($postItem->id))
                 ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
