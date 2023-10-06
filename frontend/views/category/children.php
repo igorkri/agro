@@ -44,26 +44,29 @@ ActivePages::setActiveUser();
                              data-with-features="false" data-mobile-grid-columns="2">
                             <div class="products-list__body">
                                 <?php foreach ($category->parents as $parent): ?>
-                                    <div class="products-list__item">
-                                        <div class="product-card ">
-                                            <div class="product-card__image product-image">
-                                                <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>"
-                                                   class="product-image__body">
-                                                    <img class="product-image__img" src="/category/<?= $parent->file ?>"
-                                                         width="231" height="231" alt="<?= $parent->name ?>">
-                                                </a>
-                                            </div>
-                                            <div class="product-card__info">
-                                                <div class="product-card__name">
-                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->name ?></a>
+                                    <?php if ($parent->visibility == 1): ?>
+                                        <div class="products-list__item">
+                                            <div class="product-card ">
+                                                <div class="product-card__image product-image">
+                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>"
+                                                       class="product-image__body">
+                                                        <img class="product-image__img"
+                                                             src="/category/<?= $parent->file ?>"
+                                                             width="231" height="231" alt="<?= $parent->name ?>">
+                                                    </a>
                                                 </div>
-                                            </div>
-                                            <div class="product-card__actions">
-                                                <div class="product-card__availability">
+                                                <div class="product-card__info">
+                                                    <div class="product-card__name">
+                                                        <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->name ?></a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-card__actions">
+                                                    <div class="product-card__availability">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
                             <div class="spec__disclaimer">
