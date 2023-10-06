@@ -185,5 +185,26 @@ class Category extends \yii\db\ActiveRecord
         }
     }
 
+    public function getCategoryHighPrice($id)
+    {
+        $highPrice = Product::find()
+            ->where(['category_id' => $id])
+            ->orderBy(['price' => SORT_DESC])
+            ->one();
+
+        return $highPrice->price;
+
+    }
+
+    public function getCategoryLowPrice($id)
+    {
+        $lowPrice = Product::find()
+            ->where(['category_id' => $id])
+            ->orderBy(['price' => SORT_ASC])
+            ->one();
+
+        return $lowPrice->price;
+    }
+
 
 }
