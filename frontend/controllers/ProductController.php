@@ -21,10 +21,14 @@ class ProductController extends Controller
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
 
-        $localBusiness = new LocalBusiness();
-        $localBusiness
+        $localBusiness = Schema::LocalBusiness()
             ->name('AgroPro')
-            ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
             ->telephone('+3(066)394-18-28')
             ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
             ->url('https://agropro.org.ua/')
@@ -58,9 +62,7 @@ class ProductController extends Controller
                     ->reviewRating(Schema::rating()
                         ->ratingValue(4)
                         ->bestRating(5)
-                        ->worstRating(1)
-                    )
-                );
+                        ->worstRating(1)));
         }
 
         $schemaProduct = Schema::product()
