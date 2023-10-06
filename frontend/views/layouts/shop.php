@@ -19,7 +19,11 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-        <?= Yii::$app->params['schema'] ?? '' ?>
+        <?= Yii::$app->params['product'] ?? '' ?>
+        <?= Yii::$app->params['organization'] ?? '' ?>
+        <?= Yii::$app->params['webPage'] ?? '' ?>
+        <?= Yii::$app->params['blogPosting'] ?? '' ?>
+        <?= Yii::$app->params['productList'] ?? '' ?>
         <?php $this->head() ?>
     </head>
     <body>

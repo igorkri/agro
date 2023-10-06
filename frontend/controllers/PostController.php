@@ -19,6 +19,20 @@ class PostController extends Controller
         $model_review = new PostsReview();
         $formatter = new Formatter();
 
+        $organization = Schema::organization()
+            ->name('AgroPro')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
+            ->telephone('+3(066)394-18-28')
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
+            ->url('https://agropro.org.ua/')
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
+
         $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
         $schemaPost = Schema::blogPosting()
             ->headline($postItem->title)
@@ -31,18 +45,9 @@ class PostController extends Controller
             ->articleBody($postItem->description)
             ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug)
             ->aggregateRating(Schema::aggregateRating()
-                ->itemReviewed(Schema::LocalBusiness()
-                    ->name($postItem->title)
-                    ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
-                    ->telephone('+3(066)394-18-28')
-                    ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
-                    ->url('https://agropro.org.ua/')
-                    ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
-                    ->priceRange("UAH"))
                 ->ratingValue($postItem->getSchemaRating($postItem->id))
                 ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
-
-        Yii::$app->params['schema'] = $schemaPost->toScript();
+        Yii::$app->params['blogPosting'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
             ->setTitle($postItem->seo_title)

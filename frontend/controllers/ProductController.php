@@ -3,7 +3,6 @@
 namespace frontend\controllers;
 
 use common\models\shop\ProductProperties;
-use Spatie\SchemaOrg\LocalBusiness;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use common\models\shop\Brand;
@@ -21,15 +20,19 @@ class ProductController extends Controller
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
 
-        $localBusiness = new LocalBusiness();
-        $localBusiness
+        $organization = Schema::organization()
             ->name('AgroPro')
-            ->address('Україна Полтава вул.Зіньківська 35, ін:36000')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
             ->telephone('+3(066)394-18-28')
             ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
             ->url('https://agropro.org.ua/')
-            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
-            ->priceRange("UAH");
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
 
         $reviews = [];
         $product_reviews = Review::find()->where(['product_id' => $product->id])->all();
@@ -46,8 +49,7 @@ class ProductController extends Controller
                     ->reviewRating(Schema::rating()
                         ->ratingValue($product_review->rating)
                         ->bestRating(5)
-                        ->worstRating(1)
-                    );
+                        ->worstRating(1));
             }
         } else {
             $reviews[] = Schema::review()
@@ -58,9 +60,7 @@ class ProductController extends Controller
                     ->reviewRating(Schema::rating()
                         ->ratingValue(4)
                         ->bestRating(5)
-                        ->worstRating(1)
-                    )
-                );
+                        ->worstRating(1)));
         }
 
         $schemaProduct = Schema::product()
@@ -79,7 +79,6 @@ class ProductController extends Controller
                 ->priceCurrency("UAH")
                 ->price($product->getPrice())
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
-                ->seller($localBusiness)
                 ->itemCondition('https://schema.org/NewCondition')
                 ->availability("https://schema.org/InStock")
                 ->shippingDetails(Schema::offerShippingDetails()
@@ -87,8 +86,7 @@ class ProductController extends Controller
                     ->deliveryTime('1-3 рабочих дня')
                     ->shippingDestination('Україна')
                     ->shippingRate('По тарифу перевізника')));
-
-        Yii::$app->params['schema'] = $schemaProduct->toScript();
+        Yii::$app->params['product'] = $schemaProduct->toScript();
 
         Yii::$app->metamaster
             ->setTitle($product->seo_title)

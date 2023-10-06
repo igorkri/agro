@@ -109,7 +109,7 @@ class CategoryController extends Controller
             ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
             ->itemListElement($itemListElement);
 
-        Yii::$app->params['schema'] = $categorySchema->toScript();
+        Yii::$app->params['productList'] = $categorySchema->toScript();
 
 
         Yii::$app->metamaster

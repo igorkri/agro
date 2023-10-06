@@ -94,7 +94,7 @@ class SiteController extends Controller {
 
         $seo = SeoPages::find()->where(['slug' => 'home'])->one();
 
-        $localBusiness = Schema::LocalBusiness()
+        $organization = Schema::organization()
             ->name('AgroPro')
             ->address([
                 "@type" => "PostalAddress",
@@ -105,16 +105,14 @@ class SiteController extends Controller {
             ->telephone('+3(066)394-18-28')
             ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
             ->url('https://agropro.org.ua/')
-            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
-            ->priceRange("UAH");
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
 
         $homepage = Schema::WebPage()
             ->name($seo->title)
             ->description($seo->description)
-            ->url(Yii::$app->request->absoluteUrl)
-            ->about($localBusiness);
-
-        Yii::$app->params['schema'] = $homepage->toScript();
+            ->url(Yii::$app->request->absoluteUrl);
+        Yii::$app->params['webPage'] = $homepage->toScript();
 
         Yii::$app->metamaster
             ->setTitle($seo->title)
