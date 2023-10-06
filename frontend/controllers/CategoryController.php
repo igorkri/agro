@@ -16,6 +16,20 @@ class CategoryController extends Controller
     {
         $categories = Category::find()->with(['products'])->where(['is', 'parentId', new \yii\db\Expression('null')])->all();
 
+        $organization = Schema::organization()
+            ->name('AgroPro')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
+            ->telephone('+3(066)394-18-28')
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
+            ->url('https://agropro.org.ua/')
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
+
         Yii::$app->metamaster
             ->setTitle("Категорії Товарів | AgroPro")
             ->setDescription("AgroPro - ваш інтернет-магазин для ЗЗР, добрив, посівного матеріалу та боротьби з гризунами. Оптимізуйте виробництво з нами!")
@@ -30,6 +44,20 @@ class CategoryController extends Controller
         $category = Category::find()
             ->with(['parents', 'parent', 'products'])
             ->where(['slug' => $slug])->one();
+
+        $organization = Schema::organization()
+            ->name('AgroPro')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
+            ->telephone('+3(066)394-18-28')
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
+            ->url('https://agropro.org.ua/')
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
 
         Yii::$app->metamaster
             ->setTitle($category->pageTitle)
@@ -54,6 +82,19 @@ class CategoryController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
+        $organization = Schema::organization()
+            ->name('AgroPro')
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressCountry" => 'Україна'
+            ])
+            ->telephone('+3(066)394-18-28')
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
+            ->url('https://agropro.org.ua/')
+            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
 
         $offers = [];
         foreach ($results as $product){
