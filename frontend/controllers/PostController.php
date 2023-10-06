@@ -33,8 +33,19 @@ class PostController extends Controller
             ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
         Yii::$app->params['organization'] = $organization->toScript();
 
+        $schemaProduct = Schema::product()
+            ->name($postItem->title)
+            ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
+            ->description($postItem->seo_description)
+            ->sku($postItem->id)
+            ->brand(Schema::brand()->name('AgroPro'))
+            ->aggregateRating(Schema::aggregateRating()
+                ->ratingValue($postItem->getSchemaRating($postItem->id))
+                ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
+        Yii::$app->params['product'] = $schemaProduct->toScript();
+
         $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
-        $schemaPost = Schema::blogPosting()
+        $schemaPost = Schema::NewsArticle()
             ->headline($postItem->title)
             ->description($postItem->seo_description)
             ->datePublished($schemaDate)
@@ -43,11 +54,8 @@ class PostController extends Controller
                 ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
             ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
             ->articleBody($postItem->description)
-            ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug)
-            ->aggregateRating(Schema::aggregateRating()
-                ->ratingValue($postItem->getSchemaRating($postItem->id))
-                ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
-        Yii::$app->params['blogPosting'] = $schemaPost->toScript();
+            ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug);
+        Yii::$app->params['newsArticle'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
             ->setTitle($postItem->seo_title)
