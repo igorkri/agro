@@ -19,20 +19,6 @@ class PostController extends Controller
         $model_review = new PostsReview();
         $formatter = new Formatter();
 
-        $organization = Schema::organization()
-            ->name('AgroPro')
-            ->address([
-                "@type" => "PostalAddress",
-                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
-                "postalCode" => '36000',
-                "addressCountry" => 'Україна'
-            ])
-            ->telephone('+3(066)394-18-28')
-            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
-            ->url('https://agropro.org.ua/')
-            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
-        Yii::$app->params['organization'] = $organization->toScript();
-
         $schemaProduct = Schema::product()
             ->name($postItem->title)
             ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)

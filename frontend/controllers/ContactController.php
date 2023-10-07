@@ -19,7 +19,8 @@ class ContactController extends Controller
         $contacts = Contact::find()->one();
 
         $organization = Schema::organization()
-            ->name('AgroPro')
+            ->name('Інтернет-магазин | AgroPro')
+            ->description('Купуйте |️ Засоби захисту рослин |️ Посівний матеріал |️ Мікродобрива ⚡ За вигідними цінами в Україні в агромаркеті AgroPro.org.ua.')
             ->address([
                 "@type" => "PostalAddress",
                 "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
@@ -35,7 +36,7 @@ class ContactController extends Controller
         Yii::$app->metamaster
             ->setTitle($seo->title)
             ->setDescription($seo->description)
-            ->setImage('/frontend/web/images/logos/meta_logo.jpg')
+            ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
         return $this->render('view', ['contacts' => $contacts]);

@@ -95,7 +95,8 @@ class SiteController extends Controller {
         $seo = SeoPages::find()->where(['slug' => 'home'])->one();
 
         $organization = Schema::organization()
-            ->name('AgroPro')
+            ->name('Інтернет-магазин | AgroPro')
+            ->description('Купуйте |️ Засоби захисту рослин |️ Посівний матеріал |️ Мікродобрива ⚡ За вигідними цінами в Україні в агромаркеті AgroPro.org.ua.')
             ->address([
                 "@type" => "PostalAddress",
                 "streetAddress" => 'Україна Полтава вул.Зіньківська 35',

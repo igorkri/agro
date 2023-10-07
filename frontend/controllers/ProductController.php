@@ -20,20 +20,6 @@ class ProductController extends Controller
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
 
-        $organization = Schema::organization()
-            ->name('AgroPro')
-            ->address([
-                "@type" => "PostalAddress",
-                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
-                "postalCode" => '36000',
-                "addressCountry" => 'Україна'
-            ])
-            ->telephone('+3(066)394-18-28')
-            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
-            ->url('https://agropro.org.ua/')
-            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
-        Yii::$app->params['organization'] = $organization->toScript();
-
         $reviews = [];
         $product_reviews = Review::find()->where(['product_id' => $product->id])->all();
         if ($product_reviews) {
