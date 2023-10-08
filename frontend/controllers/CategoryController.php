@@ -26,7 +26,6 @@ class CategoryController extends Controller
 
     public function actionChildren($slug)
     {
-
         $category = Category::find()
             ->with(['parents', 'parent', 'products'])
             ->where(['slug' => $slug])

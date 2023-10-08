@@ -38,7 +38,7 @@ class PostController extends Controller
                     ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
                 )
             );
-        Yii::$app->params['schema'] = $schemaPost->toScript();
+        Yii::$app->params['post'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
             ->setTitle($postItem->seo_title)

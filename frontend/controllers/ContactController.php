@@ -31,7 +31,7 @@ class ContactController extends Controller
             ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
             ->url('https://agropro.org.ua/')
             ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
-        Yii::$app->params['schema'] = $organization->toScript();
+        Yii::$app->params['organization'] = $organization->toScript();
 
         Yii::$app->metamaster
             ->setTitle($seo->title)

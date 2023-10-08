@@ -23,7 +23,8 @@ AppAsset::register($this);
         <?= Yii::$app->params['product'] ?? '' ?>
         <?= Yii::$app->params['organization'] ?? '' ?>
         <?= Yii::$app->params['webPage'] ?? '' ?>
-        <?= Yii::$app->params['newsArticle'] ?? '' ?>
+        <?= Yii::$app->params['blog'] ?? '' ?>
+        <?= Yii::$app->params['post'] ?? '' ?>
         <?php $this->head() ?>
     </head>
     <body>

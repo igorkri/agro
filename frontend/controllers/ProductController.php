@@ -105,7 +105,7 @@ class ProductController extends Controller
                     )
                 )
             );
-        Yii::$app->params['schema'] = $schemaProduct->toScript();
+        Yii::$app->params['product'] = $schemaProduct->toScript();
 
         Yii::$app->metamaster
             ->setTitle($product->seo_title)

@@ -37,7 +37,7 @@ class BlogsController extends Controller
 
         $schemaBlog = Schema::Blog()
         ->blogPosts($blogPosting);
-        Yii::$app->params['schema'] = $schemaBlog->toScript();
+        Yii::$app->params['blog'] = $schemaBlog->toScript();
 
         Yii::$app->metamaster
             ->setTitle($seo->title)
