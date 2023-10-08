@@ -87,7 +87,6 @@ use yii\helpers\Url;
                             <?php } ?>
                             <div class="form-group product__option-widgets">
                                         <span class="text-success" style="padding: 3px 1px;font-size: 25px;">
-
                             </span>
                             </div>
                             <?php if ($products[0]->status_id != 2) { ?>
