@@ -204,7 +204,7 @@ class Category extends \yii\db\ActiveRecord
         }
     }
 
-    public function getCategoryHighPrice($id)
+    public function getCatalogHighPrice($id)
     {
         $highPrice = Product::find()
             ->where(['category_id' => $id])
@@ -214,7 +214,7 @@ class Category extends \yii\db\ActiveRecord
         return $highPrice->price;
     }
 
-    public function getCategoryLowPrice($id)
+    public function getCatalogLowPrice($id)
     {
         $lowPrice = Product::find()
             ->where(['category_id' => $id])
@@ -222,5 +222,75 @@ class Category extends \yii\db\ActiveRecord
             ->one();
 
         return $lowPrice->price;
+    }
+
+    public function getChildrenHighPrice($res)
+    {
+        $highPrice = Product::find()
+            ->where(['category_id' => $res])
+            ->orderBy(['price' => SORT_DESC])
+            ->one();
+
+        return $highPrice->price;
+    }
+
+    public function getChildrenLowPrice($res)
+    {
+        $lowPrice = Product::find()
+            ->where(['category_id' => $res])
+            ->orderBy(['price' => SORT_ASC])
+            ->one();
+
+        return $lowPrice->price;
+    }
+
+    public function getSchemaRatingChildren($res)
+    {
+        $products = Product::find()
+            ->select('id')
+            ->where(['category_id' => $res])
+            ->asArray()
+            ->all();
+        $flatArray = array_column($products, 'id');
+
+        $reviews = Review::find()
+            ->select('rating')
+            ->where(['product_id' => $flatArray])
+            ->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review->rating;
+        }
+        if (count($res) > 0) {
+            $average = array_sum($res) / count($res);
+            return round($average, 1);
+        } else {
+            return '4.4';
+        }
+    }
+
+    public function getSchemaCountReviewsChildren($res)
+    {
+        $products = Product::find()
+            ->select('id')
+            ->where(['category_id' => $res])
+            ->asArray()
+            ->all();
+        $flatArray = array_column($products, 'id');
+
+        $reviews = Review::find()
+            ->select('id')
+            ->where(['product_id' => $flatArray])
+            ->all();
+        $res = [];
+        foreach ($reviews as $review) {
+            $res[] = $review;
+        }
+        if (count($res) > 0) {
+            return count($res);
+
+        } else {
+            return '28';
+        }
     }
 }
