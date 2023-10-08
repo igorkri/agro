@@ -9889,6 +9889,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 .product__option {
   margin-bottom: 18px;
 }
+.product__option-widgets {
+  margin-bottom: -34px;
+}
 .product__option:last-child {
   margin-bottom: -8px;
 }

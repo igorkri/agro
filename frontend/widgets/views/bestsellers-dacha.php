@@ -85,7 +85,7 @@ use yii\helpers\Url;
                                     <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($products[0]->getOldPrice()) ?></span>
                                 </div>
                             <?php } ?>
-                            <div class="form-group product__option">
+                            <div class="form-group product__option-widgets">
                                         <span class="text-success" style="padding: 3px 1px;font-size: 25px;">
 
                             </span>
