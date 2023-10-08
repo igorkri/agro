@@ -31,6 +31,32 @@ class CategoryController extends Controller
             ->with(['parents', 'parent', 'products'])
             ->where(['slug' => $slug])->one();
 
+        debug_pr();
+
+        $offers = [];
+        foreach ($results as $product){
+            $offer = [
+                "url" => Yii::$app->request->hostInfo . '/product/' . $product->slug
+            ];
+            $offers[] = $offer;
+        }
+
+        $productList = Schema::Product()
+            ->name($category->name)
+            ->url(Yii::$app->request->hostInfo . '/product-list/' . $category->slug)
+            ->description($category->description)
+            ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
+            ->aggregateRating(Schema::aggregateRating()
+                ->ratingValue($category->getSchemaRatingCategory($category->id))
+                ->reviewCount($category->getSchemaCountReviewsCategory($category->id)))
+            ->offers(Schema::AggregateOffer()
+                ->highPrice($category->getCategoryHighPrice($category->id))
+                ->lowPrice($category->getCategoryLowPrice($category->id))
+                ->offerCount($products_all)
+                ->priceCurrency("UAH")
+                ->offers($offers));
+        Yii::$app->params['productList'] = $productList->toScript();
+
         Yii::$app->metamaster
             ->setTitle($category->pageTitle)
             ->setDescription($category->metaDescription)
@@ -68,8 +94,8 @@ class CategoryController extends Controller
             ->description($category->description)
             ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
             ->aggregateRating(Schema::aggregateRating()
-                ->ratingValue('4.7')
-                ->reviewCount('15'))
+                ->ratingValue($category->getSchemaRatingCategory($category->id))
+                ->reviewCount($category->getSchemaCountReviewsCategory($category->id)))
             ->offers(Schema::AggregateOffer()
                 ->highPrice($category->getCategoryHighPrice($category->id))
                 ->lowPrice($category->getCategoryLowPrice($category->id))

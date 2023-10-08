@@ -47,7 +47,6 @@ class Category extends \yii\db\ActiveRecord
         return 'category';
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -155,24 +154,44 @@ class Category extends \yii\db\ActiveRecord
         return $images;
     }
 
-    public function getSchemaRating($id)
+    public function getSchemaRatingCategory($id)
     {
-        $reviews = Review::find()->where(['product_id' => $id])->all();
+        $products = Product::find()
+            ->select('id')
+            ->where(['category_id' => $id])
+            ->asArray()
+            ->all();
+        $flatArray = array_column($products, 'id');
+
+        $reviews = Review::find()
+            ->select('rating')
+            ->where(['product_id' => $flatArray])
+            ->all();
         $res = [];
         foreach ($reviews as $review) {
             $res[] = $review->rating;
         }
         if (count($res) > 0) {
-            return array_sum($res) / count($res);
-
+            $average = array_sum($res) / count($res);
+            return round($average, 1);
         } else {
             return '4.4';
         }
     }
 
-    public function getSchemaCountReviews($id)
+    public function getSchemaCountReviewsCategory($id)
     {
-        $reviews = Review::find()->where(['product_id' => $id])->all();
+        $products = Product::find()
+            ->select('id')
+            ->where(['category_id' => $id])
+            ->asArray()
+            ->all();
+        $flatArray = array_column($products, 'id');
+
+        $reviews = Review::find()
+            ->select('id')
+            ->where(['product_id' => $flatArray])
+            ->all();
         $res = [];
         foreach ($reviews as $review) {
             $res[] = $review;
@@ -193,7 +212,6 @@ class Category extends \yii\db\ActiveRecord
             ->one();
 
         return $highPrice->price;
-
     }
 
     public function getCategoryLowPrice($id)
@@ -205,6 +223,4 @@ class Category extends \yii\db\ActiveRecord
 
         return $lowPrice->price;
     }
-
-
 }
