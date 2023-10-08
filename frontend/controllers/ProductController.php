@@ -97,7 +97,7 @@ class ProductController extends Controller
                     )
                     ->shippingDestination(Schema::definedRegion()
                         ->addressCountry('UA')
-                        ->addressRegion('PL')
+                        ->addressRegion(53)
                     )
                     ->shippingRate(Schema::monetaryAmount()
                         ->currency("UAH")
