@@ -19,29 +19,26 @@ class PostController extends Controller
         $model_review = new PostsReview();
         $formatter = new Formatter();
 
-        $schemaProduct = Schema::product()
-            ->name($postItem->title)
-            ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
-            ->description($postItem->seo_description)
-            ->sku($postItem->id)
-            ->brand(Schema::brand()->name('AgroPro'))
-            ->aggregateRating(Schema::aggregateRating()
-                ->ratingValue($postItem->getSchemaRating($postItem->id))
-                ->reviewCount($postItem->getSchemaCountReviews($postItem->id)));
-        Yii::$app->params['product'] = $schemaProduct->toScript();
-
         $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
-        $schemaPost = Schema::NewsArticle()
+        $schemaPost = Schema::BlogPosting()
             ->headline($postItem->title)
             ->description($postItem->seo_description)
-            ->datePublished($schemaDate)
-            ->author(Schema::person()
-                ->name('Tatyana Khalimon')
-                ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
             ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
+            ->datePublished($schemaDate)
+            ->dateModified($schemaDate)
             ->articleBody($postItem->description)
-            ->mainEntityOfPage(Yii::$app->request->hostInfo . '/post/' . $postItem->slug);
-        Yii::$app->params['newsArticle'] = $schemaPost->toScript();
+            ->mainEntityOfPage(Schema::WebPage()
+                ->id(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
+            ->author(Schema::person()
+                ->name('AgroPro')
+                ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
+            ->publisher(Schema::Organization()
+                ->name('AgroPro')
+                ->logo(Schema::imageObject()
+                    ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
+                )
+            );
+        Yii::$app->params['schema'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
             ->setTitle($postItem->seo_title)
