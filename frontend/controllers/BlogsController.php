@@ -47,7 +47,7 @@ class BlogsController extends Controller
 
         $posts = Posts::find();
 
-        $pages = new Pagination(['totalCount' => $posts->count(), 'pageSize' => 3]);
+        $pages = new Pagination(['totalCount' => $posts->count(), 'pageSize' => 4]);
         $blogs = $posts->offset($pages->offset)->limit($pages->limit)->orderBy('date_public DESC')->all();
 
         return $this->render('view',
