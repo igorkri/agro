@@ -50,21 +50,24 @@ class CategoryController extends Controller
 
         $products_all = count($offers);
 
-        $productList = Schema::Product()
-            ->name($category->name)
-            ->url(Yii::$app->request->hostInfo . '/catalog/' . $category->slug)
-            ->description($category->description)
-            ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
-            ->aggregateRating(Schema::aggregateRating()
-                ->ratingValue($category->getSchemaRatingChildren($res))
-                ->reviewCount($category->getSchemaCountReviewsChildren($res)))
-            ->offers(Schema::AggregateOffer()
-                ->highPrice($category->getChildrenHighPrice($res))
-                ->lowPrice($category->getChildrenLowPrice($res))
-                ->offerCount($products_all)
-                ->priceCurrency("UAH")
-                ->offers($offers));
-        Yii::$app->params['schema'] = $productList->toScript();
+
+        if ($res) {
+            $productList = Schema::Product()
+                ->name($category->name)
+                ->url(Yii::$app->request->hostInfo . '/catalog/' . $category->slug)
+                ->description($category->description)
+                ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
+                ->aggregateRating(Schema::aggregateRating()
+                    ->ratingValue($category->getSchemaRatingChildren($res))
+                    ->reviewCount($category->getSchemaCountReviewsChildren($res)))
+                ->offers(Schema::AggregateOffer()
+                    ->highPrice($category->getChildrenHighPrice($res))
+                    ->lowPrice($category->getChildrenLowPrice($res))
+                    ->offerCount($products_all)
+                    ->priceCurrency("UAH")
+                    ->offers($offers));
+            Yii::$app->params['schema'] = $productList->toScript();
+        }
 
         Yii::$app->metamaster
             ->setTitle($category->pageTitle)
