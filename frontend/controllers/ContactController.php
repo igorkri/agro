@@ -30,7 +30,9 @@ class ContactController extends Controller
             ->telephone('+3(066)394-18-28')
             ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
             ->url('https://agropro.org.ua/')
-            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+            ->logo(Schema::imageObject()
+                ->name('AgroPro')
+                ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg'));
         Yii::$app->params['organization'] = $organization->toScript();
 
         Yii::$app->metamaster
