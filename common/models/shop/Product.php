@@ -683,4 +683,15 @@ class Product extends ActiveRecord implements CartPositionInterface
             return '';
         }
     }
+    public function getAvailabilityProduct($status_id)
+    {
+        if ($status_id === 2){
+            $status = 'http://schema.org/OutOfStock';
+        }elseif ($status_id === 1){
+            $status = 'https://schema.org/InStock';
+        }else{
+            $status = 'https://schema.org/PreOrder';
+        }
+        return $status;
+    }
 }

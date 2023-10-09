@@ -68,7 +68,7 @@ class ProductController extends Controller
                 ->price($product->getPrice())
                 ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
                 ->itemCondition('https://schema.org/NewCondition')
-                ->availability("https://schema.org/InStock")
+                ->availability($product->getAvailabilityProduct($product->status_id))
                 ->hasMerchantReturnPolicy(Schema::merchantReturnPolicy()
                     ->name('Умови повернення')
                     ->description('У нашому онлайн-магазині ми надаємо вам можливість повернути будь-який придбаний товар. 
