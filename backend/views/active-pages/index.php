@@ -67,28 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             [
                                 'attribute' => 'ip_user',
-                                'label' => 'IP',
-                                'format' => 'raw',
-                                'filter' => false,
-                                'visible' => true,
-                                'value' => function($model){
-                                    return IpInfo::widget([
-                                        'ip' => $model->ip_user,
-                                        'popoverOptions' => [
-                                            'options' => [
-                                                'style' => 'display:none'
-                                            ],
-                                            'toggleButton' => ['class' => 'btn btn-secondary btn-default btn-lg'],
-                                            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
-                                        ]
-                                    ]);
-                                },
-                                'contentOptions' => ['style' => 'width: 110px; text-align: center; vertical-align: middle;'],
-                            ],
-
-                            [
-                                'attribute' => 'ip_user',
-                                'label' => 'Місто',
                                 'format' => 'raw',
                                 'visible' => true,
                                 'value' => function ($model) {
@@ -96,10 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return IpInfo::widget([
                                         'ip' => $model->ip_user,
                                         'showPopover' => false,
-                                        'template' => ['inlineContent' => '{city}'],
+                                        'template' => ['inlineContent' => '{flag} {city} {ip}'],
                                     ]);
                                 },
-                                'contentOptions' => ['style' => 'width: 150px; text-align: center; vertical-align: middle;'],
+                                'contentOptions' => ['style' => 'width: 150px'],
                             ],
                             [
                                 'attribute' => 'date_visit',
@@ -133,8 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return '<i class="fas fa-ban" style="width: 3.125em; font-size: 23px; color: #a72032"></i>';
                                     }
                                 },
-//                                'contentOptions' => ['style' => 'width: 62px'],
-                                'contentOptions' => ['style' => 'width: 62px; text-align: center; vertical-align: middle;'],
+                                'contentOptions' => ['style' => 'width: 62px'],
                             ],
                             [
                                 'class' => ActionColumn::className(),
