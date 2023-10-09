@@ -29,6 +29,12 @@ class TagController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
+        Yii::$app->metamaster
+            ->setTitle('Продукти тега ' . '[ ' . $tag_name->name . ' ]')
+            ->setDescription('На сторінці відображено товари які згруповані тегом ' . '[ ' . $tag_name->name . ' ]')
+            ->setImage('/images/logos/meta_logo.jpg')
+            ->register(Yii::$app->getView());
+
         return $this->render('view', ['products' => $products, 'products_all' => $products_all, 'tag_name' => $tag_name, 'pages' => $pages]);
     }
 
