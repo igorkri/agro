@@ -250,23 +250,34 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $isset_to_cart;
     }
 
+//    public function getSchemaImg($id)
+//    {
+//        if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
+//            $webp_support = true; // webp поддерживается
+//        } else {
+//            $webp_support = false; // webp не поддерживается
+//        }
+//        $product = Product::find()->with('images')->where(['id' => $id])->one();
+//        $images = [];
+//        foreach ($product->images as $image) {
+//            if ($webp_support == true && isset($image->webp_name)) {
+//                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->webp_name;
+//            } else {
+//                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->name;
+//            }
+//        }
+//        return $images;
+//    }
+
     public function getSchemaImg($id)
     {
-        if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
-            $webp_support = true; // webp поддерживается
-        } else {
-            $webp_support = false; // webp не поддерживается
-        }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        $images = [];
-        foreach ($product->images as $image) {
-            if ($webp_support == true && isset($image->webp_name)) {
-                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->webp_name;
-            } else {
-                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->name;
-            }
+        if (isset($product->images[0])) {
+            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->name;
+        } else {
+            $img = Yii::$app->request->hostInfo . "/images/no-image.png";
         }
-        return $images;
+        return $img;
     }
 
     public function getSchemaRating($id)
