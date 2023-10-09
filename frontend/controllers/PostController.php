@@ -20,10 +20,10 @@ class PostController extends Controller
         $formatter = new Formatter();
 
         $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
-        $schemaPost = Schema::BlogPosting()
+        $schemaPost = Schema::Article()
             ->headline($postItem->title)
             ->description($postItem->seo_description)
-            ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
+            ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
             ->datePublished($schemaDate)
             ->dateModified($schemaDate)
             ->articleBody($postItem->description)
@@ -35,6 +35,7 @@ class PostController extends Controller
             ->publisher(Schema::Organization()
                 ->name('AgroPro')
                 ->logo(Schema::imageObject()
+                    ->name('AgroPro')
                     ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
                 )
             );
@@ -43,7 +44,7 @@ class PostController extends Controller
         Yii::$app->metamaster
             ->setTitle($postItem->seo_title)
             ->setDescription($postItem->seo_description)
-            ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->webp_image)
+            ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
             ->register(Yii::$app->getView());
 
         return $this->render('view', [
