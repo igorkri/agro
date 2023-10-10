@@ -47,7 +47,7 @@
                 <thead>
                 <tr>
                     <th>Бренд</th>
-                    <th class="text-center">Замовлень</th>
+                    <th class="text-center">Товарів</th>
                     <th class="text-end">Сумма</th>
                 </tr>
                 </thead>

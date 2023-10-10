@@ -19,9 +19,20 @@ class TotalSells extends Widget
 
     public function run()
     {
+        $orders_pay = Order::find()
+            ->select('id')
+            ->where(['order_pay_ment_id' => 3])
+            ->asArray()
+            ->all();
+
+        $flatArray = array_map(function($item) {
+            return $item['id'];
+        }, $orders_pay);
 
         $summ = [];
-        $orders = OrderItem::find()->all();
+        $orders = OrderItem::find()
+            ->where(['order_id' => $flatArray])
+            ->all();
         foreach ($orders as $order) {
             $summ[] = $order->price * $order->quantity;
         }
@@ -72,20 +83,14 @@ class TotalSells extends Widget
         $res_60 = array_sum($res_60);
         $res_60 = $res_60 - $res_30;
 
-        $arrow = '';
         if ($res_30 > $res_60){
             $arrow = 'up';
         }else{
             $arrow = 'down';
         }
 
-
         $percentage = (($res_60 - $res_30) / $res_30) * 100;
         $percentage = abs(round($percentage));
-
-
-//        exit('<pre>' . print_r($percentage, true) . '</pre>');
-
 
         return $this->render('total-sells', [
             'summ' => $summ,

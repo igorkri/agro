@@ -36,12 +36,10 @@ class BrandOrders extends \yii\base\Widget
                     "value" => $brand->getIncomeOrderBrand($brand->id),
                     "color" => $brand->getColorBrand($i),
                     "orders" => $brand->getProductOrderBrand($brand->id),
-
                 ];
                 $i++;
             }
         }
-
 
         return $this->render('brand-orders', ['brands' => $brands, 'carts' => json_encode($carts)]);
     }

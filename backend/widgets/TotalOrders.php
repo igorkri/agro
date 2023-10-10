@@ -1,6 +1,5 @@
 <?php
 
-
 namespace backend\widgets;
 
 use common\models\shop\Order;
@@ -10,16 +9,19 @@ use yii\base\Widget;
 
 class TotalOrders extends Widget
 {
-
     public function init()
     {
         parent::init();
 
     }
 
-    public function run() {
+    public function run()
+    {
 
-        $orders = Order::find()->all();
+        $orders = Order::find()
+            ->where(['order_pay_ment_id' => 3])
+            ->all();
+
         $total_orders = count($orders);
 
         $currentDate = new DateTime();

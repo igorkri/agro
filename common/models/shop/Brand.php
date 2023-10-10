@@ -127,20 +127,45 @@ class Brand extends \yii\db\ActiveRecord
 
     public function getIncomeOrderBrand($id)
     {
-        $products = Product::find()->where(['brand_id' => $id])->all();
-        $total_res = [];
+        $orders_id = Order::find()
+            ->select('id')
+            ->where(['order_pay_ment_id' => 3])
+            ->asArray()
+            ->all();
+
+        $orders_id = array_map(function ($item) {
+            return $item['id'];
+        }, $orders_id);
+
+        $product_id = OrderItem::find()
+            ->select('product_id')
+            ->where(['order_id' => $orders_id])
+            ->asArray()
+            ->all();
+
+        $product_id = array_map(function ($item) {
+            return $item['product_id'];
+        }, $product_id);
+
+        $products = Product::find()
+            ->select('id')
+            ->where(['id' => $product_id])
+            ->andWhere(['brand_id' => $id])
+            ->asArray()
+            ->all();
+
+        $products = array_map(function ($item) {
+            return $item['id'];
+        }, $products);
+
         $total_income_brand = [];
-        $i = 0;
-        foreach ($products as $product) {
-            $total_res[] = $product->id;
-        }
-        foreach ($total_res as $total_order) {
-            $income_count = OrderItem::find()->where(['product_id' => $total_res[$i]])->all();
-            if ($income_count != null)
-                foreach ($income_count as $item) {
-                    $total_income_brand[] = $item->price * $item->quantity;
-                }
-            $i++;
+
+        $income_count = OrderItem::find()->where(['product_id' => $products])->all();
+
+        if ($income_count != null) {
+            foreach ($income_count as $item) {
+                $total_income_brand[] = $item->price * $item->quantity;
+            }
         }
         return array_sum($total_income_brand);
     }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace backend\widgets;
-
 
 use common\models\shop\Order;
 
@@ -17,8 +15,9 @@ class IncomeStatistics extends \yii\base\Widget
 
     public function run()
     {
-
-        $orders = Order::find()->all();
+        $orders = Order::find()
+            ->where(['order_pay_ment_id' => 3])
+            ->all();
 
         $carts = [];
         foreach ($orders as $order) {
