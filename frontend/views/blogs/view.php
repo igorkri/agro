@@ -64,7 +64,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                                 </div>
                                                 <div class="post-card__date"><?= Yii::$app->formatter->asDate($post->date_public) ?></div>
                                                 <div class="post-card__content">
-                                                    <?= $post->description ?>
+                                                    <?= strip_tags($post->description) ?>
                                                 </div>
                                                 <div class="post-card__read-more">
                                                     <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"
