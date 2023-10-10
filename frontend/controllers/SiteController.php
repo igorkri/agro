@@ -24,9 +24,11 @@ use yii\web\Response;
 /**
  * Site controller
  */
-class SiteController extends Controller {
+class SiteController extends Controller
+{
 
-    public function actionError() {
+    public function actionError()
+    {
 
         $exception = Yii::$app->errorHandler->exception;
         if ($exception !== null) {
@@ -40,7 +42,8 @@ class SiteController extends Controller {
     /**
      * {@inheritdoc}
      */
-    public function behaviors() {
+    public function behaviors()
+    {
 
         return [
             'access' => [
@@ -71,7 +74,8 @@ class SiteController extends Controller {
     /**
      * {@inheritdoc}
      */
-    public function actions() {
+    public function actions()
+    {
 
         return [
             'error' => [
@@ -89,23 +93,43 @@ class SiteController extends Controller {
      *
      * @return mixed
      */
-    public function actionIndex() {
-
+    public function actionIndex()
+    {
         $seo = SeoPages::find()->where(['slug' => 'home'])->one();
 
-        $organization = Schema::organization()
+        $organization = Schema::localBusiness()
+            ->url('https://agropro.org.ua/')
             ->name('Інтернет-магазин | AgroPro')
             ->description('Купуйте |️ Засоби захисту рослин |️ Посівний матеріал |️ Мікродобрива ⚡ За вигідними цінами в Україні в агромаркеті AgroPro.org.ua.')
+            ->email('nisatatyana@gmail.com')
+            ->telephone('+3(066)394-18-28')
+            ->priceRange('UAH')
+            ->contactPoint(Schema::contactPoint()
+                ->telephone('+3(066)394-18-28')
+                ->areaServed('UA')
+                ->contactType('customer service')
+                ->url(Yii::$app->request->absoluteUrl)
+                ->hoursAvailable(Schema::openingHoursSpecification()
+                    ->opens('9:00')
+                    ->closes('19:00')
+                    ->dayOfWeek([
+                        'http://schema.org/Monday',
+                        'http://schema.org/Tuesday',
+                        'http://schema.org/Wednesday',
+                        'http://schema.org/Thursday',
+                        'http://schema.org/Friday'
+                    ])
+                )
+            )
             ->address([
                 "@type" => "PostalAddress",
                 "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
                 "postalCode" => '36000',
+                "addressLocality" => 'Полтава',
+                "addressRegion" => 'Полтавська область',
                 "addressCountry" => 'Україна'
             ])
-            ->telephone('+3(066)394-18-28')
-            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg')
-            ->url('https://agropro.org.ua/')
-            ->logo(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg');
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg');
         Yii::$app->params['organization'] = $organization->toScript();
 
         $homepage = Schema::WebPage()
@@ -128,7 +152,8 @@ class SiteController extends Controller {
      *
      * @return mixed
      */
-    public function actionLogin() {
+    public function actionLogin()
+    {
 
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
