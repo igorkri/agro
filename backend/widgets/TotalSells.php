@@ -54,9 +54,11 @@ class TotalSells extends Widget
         $DaysAgo30 = strtotime('-30 days');
         $orders = Order::find()
             ->select('id')
+            ->where(['order_pay_ment_id' => 3])
             ->andWhere(['>=', 'created_at', $DaysAgo30])
             ->asArray()
             ->all();
+
         $res_30 = [];
         foreach ($orders as $order) {
             $prices = OrderItem::find()->where(['order_id' => $order['id']])->all();
@@ -66,13 +68,14 @@ class TotalSells extends Widget
         }
         $res_30 = array_sum($res_30);
 
-
         $DaysAgo60 = strtotime('-60 days');
         $orders = Order::find()
             ->select('id')
+            ->where(['order_pay_ment_id' => 3])
             ->andWhere(['>=', 'created_at', $DaysAgo60])
             ->asArray()
             ->all();
+
         $res_60 = [];
         foreach ($orders as $order) {
             $prices = OrderItem::find()->where(['order_id' => $order['id']])->all();
