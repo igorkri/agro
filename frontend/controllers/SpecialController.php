@@ -9,7 +9,6 @@ use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
 
-
 class SpecialController extends Controller
 {
     public function actionView()

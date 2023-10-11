@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use common\models\shop\Product;
 use common\models\shop\ProductTag;
 use common\models\shop\Tag;
-use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
