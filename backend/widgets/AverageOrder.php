@@ -1,6 +1,5 @@
 <?php
 
-
 namespace backend\widgets;
 
 use common\models\shop\OrderItem;
@@ -20,8 +19,20 @@ class AverageOrder extends Widget
 
     public function run()
     {
+        $orders_pay = Order::find()
+            ->select('id')
+            ->where(['order_pay_ment_id' => 3])
+            ->asArray()
+            ->all();
+
+        $orders_id = array_map(function ($item) {
+            return $item['id'];
+        }, $orders_pay);
+
         $order_summ = [];
-        $orderItems = OrderItem::find()->all();
+        $orderItems = OrderItem::find()
+            ->where(['order_id' => $orders_id])
+            ->all();
 
         foreach ($orderItems as $orderItem) {
             $items = $orderItem->order->orderItems;
@@ -47,7 +58,7 @@ class AverageOrder extends Widget
         return $this->render('average-order', [
             'average_cost' => $average_cost,
             'formattedDate' => $formattedDate
-            ]);
+        ]);
     }
 
 
