@@ -1,5 +1,6 @@
 <?php
 
+use bizley\quill\Quill;
 use common\models\shop\Category;
 use kartik\file\FileInput;
 use kartik\form\ActiveForm;
@@ -26,7 +27,6 @@ use yii\helpers\Url;
 //    ]
 ]); ?>
 
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container container--max--xl">
@@ -70,7 +70,7 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="mb-4">
 
-                                    <?= $form->field($model, 'description')->widget(\bizley\quill\Quill::class, [
+                                    <?= $form->field($model, 'description')->widget(Quill::class, [
                                         'toolbarOptions' => [
                                             [
                                                 ['font' => []],
@@ -271,7 +271,6 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-<!-- sa-app__body / end -->
 
 <?php ActiveForm::end(); ?>
 
