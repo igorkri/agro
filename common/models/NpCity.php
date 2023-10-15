@@ -1,0 +1,51 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "np_city".
+ *
+ * @property int $id
+ * @property string|null $city
+ * @property string|null $cityID
+ * @property string|null $ref
+ * @property string|null $area
+ * @property string|null $description
+ */
+class NpCity extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'np_city';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['city', 'cityID', 'ref', 'area', 'description'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'city' => Yii::t('app', 'City'),
+            'cityID' => Yii::t('app', 'City ID'),
+            'ref' => Yii::t('app', 'Ref'),
+            'area' => Yii::t('app', 'Area'),
+            'description' => Yii::t('app', 'Description'),
+        ];
+    }
+}

@@ -21,6 +21,8 @@ use yii\db\ActiveRecord;
  * @property string|null $phone Телефон
  * @property string|null $city Город
  * @property string|null $note Примітка
+ * @property string|null $area Область
+ * @property string|null $warehouses Відділення
  * @property string|null $comment Примітка менеджера
  * @property boolean|false $sent_message Повідомлення
  *
@@ -61,7 +63,7 @@ class Order extends \yii\db\ActiveRecord
             [['fio', 'phone', 'city'], 'required'],
             [['sent_message'], 'boolean'],
             [['created_at', 'updated_at', 'order_status_id', 'order_pay_ment_id', 'order_provider_id'], 'integer'],
-            [['fio', 'phone', 'city'], 'string', 'max' => 255],
+            [['fio', 'phone', 'city', 'area', 'warehouses'], 'string', 'max' => 255],
             [['note', 'comment'], 'string'],
             [['order_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderStatus::class, 'targetAttribute' => ['order_status_id' => 'id']],
             [['order_pay_ment_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderPayMent::class, 'targetAttribute' => ['order_pay_ment_id' => 'id']],
@@ -86,6 +88,8 @@ class Order extends \yii\db\ActiveRecord
             'order_provider_id' => 'Постачальник',
             'comment' => 'Коментар менеджера',
             'sent_message' => 'Повідомлення менеджеру',
+            'area' => 'Область',
+            'warehouses' => 'Відділення',
         ];
     }
 
