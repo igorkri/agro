@@ -1,8 +1,3 @@
-<?php
-
-use kartik\rating\StarRating;
-
-?>
 <ol class="reviews-list__content">
     <?php foreach ($product->reviews as $review):
         $rating = $review->rating;

@@ -270,7 +270,6 @@ $js = <<<JS
              console.log("error",data) 
          }
      });
-     
       }    
      return false;
 });
