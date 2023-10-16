@@ -2,9 +2,10 @@
 
 namespace common\models\shop;
 
+use common\models\NpAreas;
+use common\models\NpCity;
+use common\models\NpWarehouses;
 use common\models\OrderPayMent;
-use common\models\shop\OrderProvider;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -60,7 +61,7 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fio', 'phone', 'city'], 'required'],
+            [['fio', 'phone', 'area', 'city', 'warehouses'], 'required'],
             [['sent_message'], 'boolean'],
             [['created_at', 'updated_at', 'order_status_id', 'order_pay_ment_id', 'order_provider_id'], 'integer'],
             [['fio', 'phone', 'city', 'area', 'warehouses'], 'string', 'max' => 255],
@@ -84,7 +85,7 @@ class Order extends \yii\db\ActiveRecord
             'fio' => 'ПІБ',
             'phone' => 'Телефон',
             'city' => 'Місто',
-            'note' => 'Дані для відправки (коментар)',
+            'note' => 'Коментар (не обов’язково)',
             'order_provider_id' => 'Постачальник',
             'comment' => 'Коментар менеджера',
             'sent_message' => 'Повідомлення менеджеру',
@@ -216,6 +217,7 @@ class Order extends \yii\db\ActiveRecord
             return $order = 'Не вибрано';
         }
     }
+
 //  новый заказ в меню админ
     public static function orderNews()
     {
@@ -226,5 +228,35 @@ class Order extends \yii\db\ActiveRecord
                 $total_res[] = $order;
         }
         return count($total_res);
+    }
+
+    public function getNameArea($ref)
+    {
+        $area = NpAreas::find()->select('description')->where(['ref' => $ref])->one();
+        if ($area) {
+            return $area->description;
+        } else {
+            return '';
+        }
+    }
+
+    public function getNameCity($ref)
+    {
+        $city = NpCity::find()->select('description')->where(['ref' => $ref])->one();
+        if ($city) {
+            return $city->description;
+        } else {
+            return '';
+        }
+    }
+
+    public function getNameWarehouse($ref)
+    {
+        $warehouse = NpWarehouses::find()->select('description')->where(['ref' => $ref])->one();
+        if ($warehouse) {
+            return $warehouse->description;
+        } else {
+            return '';
+        }
     }
 }

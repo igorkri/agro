@@ -2,6 +2,7 @@
 
 use common\models\shop\ActivePages;
 use kartik\form\ActiveForm;
+use kartik\select2\Select2;
 use yii\helpers\Url;
 use yii\widgets\MaskedInput;
 
@@ -54,8 +55,109 @@ $this->title = 'Оформлення замовлення';
                                     ]) ?>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <?= $form->field($order, 'city')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                            <div class="payment-methods">
+                                <ul class="payment-methods__list">
+                                    <li class="payment-methods__item">
+                                        <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="beznal" type="radio">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                            <span class="payment-methods__item-name"><i style="font-size: 25px"
+                                                                                        class="fas fa-credit-card"></i> <span
+                                                        style="font-size:20px; margin:0px 20px">Самовивіз</span></span>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted">
+                                                ===============================================<br>
+                                                ===============================================<br>
+                                                ===============================================<br>
+                                                ===============================================<br>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="payment-methods__item payment-methods__item--active">
+                                        <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="" type="radio" checked="">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                            <span class="delivery-methods__item-name"><i style="font-size: 25px"
+                                                                                         class="fas fa-truck"></i>
+                                            <span style="font-size:20px; margin:0px 20px">Нова Пошта</span></span>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted">
+                                                <div class="form-group">
+                                                    <?php echo $form->field($order, 'area')->widget(Select2::classname(), [
+                                                        'data' => $areas,
+                                                        'theme' => Select2::THEME_DEFAULT,
+                                                        'maintainOrder' => true,
+                                                        'pluginLoading' => false,
+                                                        'options' => [
+                                                            'id' => 'order-areas',
+                                                            'placeholder' => 'Виберіть область...',
+                                                            'class' => 'sa-select2 form-select',
+                                                        ],
+                                                        'pluginOptions' => [
+                                                            'allowClear' => true,
+                                                            'width' => '100%',
+                                                            'max-width' => '550px',
+                                                            'margin' => '0 auto',
+                                                        ],
+                                                    ])->label('Область');
+                                                    ?>
+                                                </div>
+                                                <div class="form-group">
+                                                    <?php echo $form->field($order, 'city')->widget(Select2::classname(), [
+                                                        'data' => [],
+                                                        'theme' => Select2::THEME_DEFAULT,
+                                                        'maintainOrder' => true,
+                                                        'pluginLoading' => false,
+                                                        'options' => [
+                                                            'id' => 'order-city',
+                                                            'placeholder' => 'Виберіть місто...',
+                                                            'class' => 'sa-select2 form-select',
+                                                        ],
+                                                        'pluginOptions' => [
+                                                            'allowClear' => true,
+                                                            'width' => '100%',
+                                                            'max-width' => '550px',
+                                                            'margin' => '0 auto',
+                                                        ],
+                                                    ])->label('Місто');
+                                                    ?>
+                                                </div>
+                                                <div class="form-group">
+                                                    <?php echo $form->field($order, 'warehouses')->widget(Select2::classname(), [
+                                                        'data' => [],
+                                                        'theme' => Select2::THEME_DEFAULT,
+                                                        'maintainOrder' => true,
+                                                        'pluginLoading' => false,
+                                                        'options' => [
+                                                            'id' => 'order-warehouses',
+                                                            'placeholder' => 'Виберіть відділення...',
+                                                            'class' => 'sa-select2 form-select',
+                                                        ],
+                                                        'pluginOptions' => [
+                                                            'allowClear' => true,
+                                                            'width' => '100%',
+                                                            'max-width' => '550px',
+                                                            'margin' => '0 auto',
+                                                        ],
+                                                    ])->label('Відділення');
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="form-group">
                                 <?= $form->field($order, 'note')->textarea(['maxlength' => true, 'rows' => 4, 'class' => 'form-control']) ?>
@@ -122,3 +224,50 @@ $this->title = 'Оформлення замовлення';
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#order-areas').on('change', function () {
+            var areaId = $(this).val();
+            $.ajax({
+                url: '/n-p/cities',
+                type: 'POST',
+                data: {areaId: areaId},
+                success: function (data) {
+                    if (data.cities) {
+                        var citySelect = $('#order-city');
+                        citySelect.empty();
+                        $.each(data.cities, function (key, value) {
+                            citySelect.append(new Option(value, key, false, false));
+                        });
+                        citySelect.trigger('change');
+                    }
+                }
+            });
+        });
+        $('#order-city').on('change', function () {
+            var cityId = $(this).val();
+            $.ajax({
+                url: '/n-p/warehouses',
+                type: 'POST',
+                data: {cityId: cityId},
+                success: function (data) {
+                    if (data.warehouses) {
+                        var warehousesSelect = $('#order-warehouses');
+                        warehousesSelect.empty();
+                        $.each(data.warehouses, function (key, value) {
+                            warehousesSelect.append(new Option(value, key, false, false));
+                        });
+                        warehousesSelect.trigger('change');
+                    }
+                }
+            });
+        });
+        $('#order-areas').select2();
+        $('#order-city').select2();
+        $('#order-warehouses').select2();
+
+    });
+
+</script>

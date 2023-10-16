@@ -2,9 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\NpAreas;
+use common\models\NpCity;
 use common\models\shop\Order;
 use common\models\shop\OrderItem;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 class OrderController extends Controller
@@ -32,8 +35,13 @@ class OrderController extends Controller
                 return $this->redirect(['order-success', 'order_id' => $order->id]);
             }
 
+            $areas = ArrayHelper::map(NpAreas::find()
+                ->asArray()->all(), 'ref', 'description');
+
+//
             return $this->render('checkout', [
                 'order' => $order,
+                'areas' => $areas,
                 'orders' => Yii::$app->cart->getPositions(),
                 'total_summ' => Yii::$app->cart->getCost(),
                 'qty_cart' => \Yii::$app->cart->getCount(),
