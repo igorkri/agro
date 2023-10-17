@@ -2,8 +2,8 @@
 
 namespace frontend\controllers;
 
+use common\models\Contact;
 use common\models\NpAreas;
-use common\models\NpCity;
 use common\models\shop\Order;
 use common\models\shop\OrderItem;
 use Yii;
@@ -36,10 +36,13 @@ class OrderController extends Controller
             }
 
             $areas = ArrayHelper::map(NpAreas::find()
-                ->asArray()->all(), 'ref', 'description');
+                ->where(['not in', 'description', ['АРК', 'Луганська']])
+                ->asArray()
+                ->all(), 'ref', 'description');
 
-//
+            $contacts = Contact::find()->one();
             return $this->render('checkout', [
+                'contacts' => $contacts,
                 'order' => $order,
                 'areas' => $areas,
                 'orders' => Yii::$app->cart->getPositions(),

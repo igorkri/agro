@@ -61,7 +61,7 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fio', 'phone', 'area', 'city', 'warehouses'], 'required'],
+            [['fio', 'phone'], 'required'],
             [['sent_message'], 'boolean'],
             [['created_at', 'updated_at', 'order_status_id', 'order_pay_ment_id', 'order_provider_id'], 'integer'],
             [['fio', 'phone', 'city', 'area', 'warehouses'], 'string', 'max' => 255],

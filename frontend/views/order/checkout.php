@@ -72,10 +72,23 @@ $this->title = 'Оформлення замовлення';
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
-                                                ===============================================<br>
-                                                ===============================================<br>
-                                                ===============================================<br>
-                                                ===============================================<br>
+                                                <ul class="footer-contacts__contacts">
+                                                    <li>
+                                                        <i class="footer-contacts__icon fas fa-globe-americas"></i> <?= $contacts->address ?>
+                                                    </li>
+                                                    <li>
+                                                        <i class="footer-contacts__icon far fa-envelope"></i> <?= $contacts->email ?>
+                                                    </li>
+                                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <a
+                                                                href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_primary) ?>"><?= $contacts->tel_primary ?></a>
+                                                    </li>
+                                                    <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <a
+                                                                href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_second) ?>"><?= $contacts->tel_second ?></a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="footer-contacts__icon far fa-clock"></i> <?= $contacts->work_time_short ?>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </li>
@@ -228,46 +241,63 @@ $this->title = 'Оформлення замовлення';
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#order-areas').on('change', function () {
-            var areaId = $(this).val();
-            $.ajax({
-                url: '/n-p/cities',
-                type: 'POST',
-                data: {areaId: areaId},
-                success: function (data) {
-                    if (data.cities) {
-                        var citySelect = $('#order-city');
-                        citySelect.empty();
-                        $.each(data.cities, function (key, value) {
-                            citySelect.append(new Option(value, key, false, false));
-                        });
-                        citySelect.trigger('change');
-                    }
-                }
-            });
-        });
-        $('#order-city').on('change', function () {
-            var cityId = $(this).val();
-            $.ajax({
-                url: '/n-p/warehouses',
-                type: 'POST',
-                data: {cityId: cityId},
-                success: function (data) {
-                    if (data.warehouses) {
-                        var warehousesSelect = $('#order-warehouses');
-                        warehousesSelect.empty();
-                        $.each(data.warehouses, function (key, value) {
-                            warehousesSelect.append(new Option(value, key, false, false));
-                        });
-                        warehousesSelect.trigger('change');
-                    }
-                }
-            });
-        });
-        $('#order-areas').select2();
-        $('#order-city').select2();
-        $('#order-warehouses').select2();
 
+        var stock = $('input[name="checkout_payment_method"]:checked').val();
+
+        $('input[name="checkout_payment_method"]').change(function () {
+            stock = $(this).val(); // Обновляем значение переменной при изменении радиокнопки
+
+            // Если выбран "Самовывоз"
+            if (stock === "beznal") {
+                // Устанавливаем значение "Самовивіз" во всех трех select2 полях
+                $('#order-areas').val("Самовивіз").trigger("change");
+                $('#order-city').val("Самовивіз").trigger("change");
+                $('#order-warehouses').val("Самовивіз").trigger("change");
+            }
+        });
+
+        if (stock !== "beznal") {
+            $('#order-areas').on('change', function () {
+                var areaId = $(this).val();
+                $.ajax({
+                    url: '/n-p/cities',
+                    type: 'POST',
+                    data: {areaId: areaId},
+                    success: function (data) {
+                        if (data.cities) {
+                            var citySelect = $('#order-city');
+                            citySelect.empty();
+                            $.each(data.cities, function (key, value) {
+                                citySelect.append(new Option(value, key, false, false));
+                            });
+                            citySelect.trigger('change');
+                        }
+                    }
+                });
+            });
+
+            $('#order-city').on('change', function () {
+                var cityId = $(this).val();
+                $.ajax({
+                    url: '/n-p/warehouses',
+                    type: 'POST',
+                    data: {cityId: cityId},
+                    success: function (data) {
+                        if (data.warehouses) {
+                            var warehousesSelect = $('#order-warehouses');
+                            warehousesSelect.empty();
+                            $.each(data.warehouses, function (key, value) {
+                                warehousesSelect.append(new Option(value, key, false, false));
+                            });
+                            warehousesSelect.trigger('change');
+                        }
+                    }
+                });
+            });
+            $('#order-areas').select2();
+            $('#order-city').select2();
+            $('#order-warehouses').select2();
+        }
     });
 
 </script>
