@@ -63,12 +63,14 @@ class OrderController extends Controller
             Yii::$app->telegram->sendMessage([
                 'chat_id' => $chat_id,
                 'text' => "Нове замовлення: *#{$order->id}*\n" .
+                    "==========================\n" .
                     "піб: *{$order->fio}*\n" .
                     "телефон: *{$order->phone}*\n" .
                     "область: *{$order->getNameArea($order->area)}*\n" .
                     "місто: *{$order->getNameCity($order->city)}*\n" .
                     "відділ.: *{$order->getNameWarehouse($order->warehouses)}*\n" .
-                    "коментар: *{$order->note}*",
+                    "коментар: *{$order->note}*" .
+                    "==========================\n",
                 'parse_mode' => 'Markdown',
             ]);
 
