@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Замовлення', 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-    <!-- sa-app__body -->
+
 <?php \yii\widgets\Pjax::begin(
 //        ['id'=>"top"]
 ) ?>
@@ -125,9 +125,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <a href="#" class="fs-exact-14"></a>
                                 </div>
                                 <div class="card-body pt-4 fs-exact-14">
-                                    <div><?= $model->fio ?></div>
-                                    <div class="mt-1"><?= $model->city ?></div>
-                                    <div class="text-muted mt-1"><?= $model->phone ?></div>
+                                    <div></div>
+                                    <div class="text-muted mt-1">п.і.б.</div>
+                                    <div class="mt-1"><?= $model->fio ?></div>
+                                    <div class="text-muted mt-1">телефон</div>
+                                    <div class="mt-1"><?= $model->phone ?></div>
+                                    <div class="text-muted mt-1">область</div>
+                                    <div class="mt-1"><?=$model->getNameArea($model->area)?></div>
+                                    <div class="text-muted mt-1">місто</div>
+                                    <div class="mt-1"><?=$model->getNameCity($model->city)?></div>
+                                    <div class="text-muted mt-1">відділення</div>
+                                    <div class="mt-1"><?=$model->getNameWarehouse($model->warehouses)?></div>
                                 </div>
                             </div>
                             <div class="card mt-5">
