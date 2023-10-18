@@ -51,7 +51,7 @@ $this->title = 'Оформлення замовлення';
                                 </div>
                                 <div class="form-group col-md-4">
                                     <?= $form->field($order, 'phone')->widget(MaskedInput::class, [
-                                        'mask' => '(999)999 9999',
+                                        'mask' => '+38(999)999 9999',
                                     ]) ?>
                                 </div>
                             </div>

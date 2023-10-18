@@ -83,6 +83,10 @@
                                 <div class="address-card__badge address-card__badge--muted">Адреса доставки</div>
                                 <div class="address-card__name"><?=$order->fio?></div>
                                 <div class="address-card__row">
+                                    <div class="address-card__row-title">Телефон</div>
+                                    <div class="address-card__row-content"><?=$order->phone?></div>
+                                </div>
+                                <div class="address-card__row">
                                     <div class="address-card__row-title">Область</div>
                                     <div class="address-card__row-content"><?=$order->getNameArea($order->area)?></div>
                                 </div>
@@ -93,10 +97,6 @@
                                 <div class="address-card__row">
                                     <div class="address-card__row-title">Відділення</div>
                                     <div class="address-card__row-content"><?=$order->getNameWarehouse($order->warehouses)?></div>
-                                </div>
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">Телефон</div>
-                                    <div class="address-card__row-content"><?=$order->phone?></div>
                                 </div>
                                 <div class="address-card__row">
                                     <div class="address-card__row-title">Коментар</div>

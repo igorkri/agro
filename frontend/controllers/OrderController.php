@@ -63,10 +63,12 @@ class OrderController extends Controller
             Yii::$app->telegram->sendMessage([
                 'chat_id' => $chat_id,
                 'text' => "Нове замовлення: *#{$order->id}*\n" .
-                    "ПІБ: *{$order->fio}*\n" .
-                    "Телефон: *{$order->phone}*\n" .
-                    "Місто: *{$order->city}*\n" .
-                    "Коментар: *{$order->note}*",
+                    "піб: *{$order->fio}*\n" .
+                    "телефон: *{$order->phone}*\n" .
+                    "область: *{$order->getNameArea($order->area)}*\n" .
+                    "місто: *{$order->getNameCity($order->city)}*\n" .
+                    "відділ.: *{$order->getNameWarehouse($order->warehouses)}*\n" .
+                    "коментар: *{$order->note}*",
                 'parse_mode' => 'Markdown',
             ]);
 
@@ -75,13 +77,14 @@ class OrderController extends Controller
                 ->setFrom('jean1524@s6.uahosting.com.ua')
                 ->setSubject('Нове замовлення на AgroPro.org.ua !!!')
                 ->setHtmlBody('<h3>Нове замовлення: #' . $order->id . '</h3>' .
-                    '<p>ПІБ: ' . $order->fio . '</p>' .
-                    '<p>Телефон: ' . $order->phone . '</p>' .
-                    '<p>Місто: ' . $order->city . '</p>' .
-                    '<p>Коментар: ' . $order->note . '</p>'
+                    '<p>піб: ' . $order->fio . '</p>' .
+                    '<p>телефон: ' . $order->phone . '</p>' .
+                    '<p>область: ' . $order->getNameArea($order->area) . '</p>' .
+                    '<p>місто: ' . $order->getNameCity($order->city) . '</p>' .
+                    '<p>відділ.: ' . $order->getNameWarehouse($order->warehouses) . '</p>' .
+                    '<p>коментар: ' . $order->note . '</p>'
                 )
                 ->send();
-
             $order->sent_message = true;
             $order->save();
         } else {
