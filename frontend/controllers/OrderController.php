@@ -97,5 +97,9 @@ class OrderController extends Controller
         return $this->render('order-success', ['order' => $order]);
     }
 
+    public function actionConditions()
+    {
+        return $this->render('conditions');
+    }
 
 }

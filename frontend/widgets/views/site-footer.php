@@ -54,7 +54,7 @@ use yii\helpers\Url;
                                         </li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/contact/view']) ?>"
                                                                           class="footer-links__link">Контакти</a></li>
-                                        <li class="footer-links__item"><a href="/"
+                                        <li class="footer-links__item"><a href="<?= Url::to(['/order/conditions']) ?>"
                                                                           class="footer-links__link">Повернення</a>
                                         </li>
                                         <li class="footer-links__item"><a href="/" class="footer-links__link">Карта

@@ -217,8 +217,7 @@ $this->title = 'Оформлення замовлення';
                                         </span>
                                     </span>
                                     <label class="form-check-label" for="checkout-terms">Я прочитав і погоджуюся з
-                                        веб-сайтом <a target="_blank" href="terms-and-conditions.html">правила та
-                                            умови</a><span style="color: red">*</span>
+                                        веб-сайтом <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>"> умови повернення та обміну</a><span style="color: red">*</span>
                                     </label>
                                 </div>
                             </div>
