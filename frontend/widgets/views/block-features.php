@@ -1,7 +1,7 @@
 <div class="block block-features block-features--layout--classic">
     <div class="container">
         <div class="centered">
-            <h1 style="font-size: 24px;">AgroPro - Засоби захисту рослин, добрива, насіння</h1>
+            <h1 style="margin: 20px 0px;font-size: 24px;">AgroPro - Засоби захисту рослин, добрива, насіння</h1>
         </div>
         <div class="block-features__list">
             <div class="block-features__item">
