@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function actionCheckout()
     {
 //        Yii::$app->cache->flush();
-        $request = Yii::$app->request;
+//        $request = Yii::$app->request;
         $item_cart = Yii::$app->cart->getPositions();
         if ($item_cart) {
             $order = new Order();
@@ -64,12 +64,12 @@ class OrderController extends Controller
                 'chat_id' => $chat_id,
                 'text' => "Нове замовлення: *#{$order->id}*\n" .
                     "==========================\n" .
-                    "піб: *{$order->fio}*\n" .
-                    "телефон: *{$order->phone}*\n" .
-                    "область: *{$order->getNameArea($order->area)}*\n" .
-                    "місто: *{$order->getNameCity($order->city)}*\n" .
-                    "відділ.: *{$order->getNameWarehouse($order->warehouses)}*\n" .
-                    "коментар: *{$order->note}*" .
+                    "піб:      *{$order->fio}*\n" .
+                    "телефон:  *{$order->phone}*\n" .
+                    "область:  *{$order->getNameArea($order->area)}*\n" .
+                    "місто:    *{$order->getNameCity($order->city)}*\n" .
+                    "відділ.:  *{$order->getNameWarehouse($order->warehouses)}*\n" .
+                    "коментар: *{$order->note}*\n" .
                     "==========================\n",
                 'parse_mode' => 'Markdown',
             ]);
@@ -79,11 +79,11 @@ class OrderController extends Controller
                 ->setFrom('jean1524@s6.uahosting.com.ua')
                 ->setSubject('Нове замовлення на AgroPro.org.ua !!!')
                 ->setHtmlBody('<h3>Нове замовлення: #' . $order->id . '</h3>' .
-                    '<p>піб: ' . $order->fio . '</p>' .
-                    '<p>телефон: ' . $order->phone . '</p>' .
-                    '<p>область: ' . $order->getNameArea($order->area) . '</p>' .
-                    '<p>місто: ' . $order->getNameCity($order->city) . '</p>' .
-                    '<p>відділ.: ' . $order->getNameWarehouse($order->warehouses) . '</p>' .
+                    '<p>піб: '      . $order->fio . '</p>' .
+                    '<p>телефон: '  . $order->phone . '</p>' .
+                    '<p>область: '  . $order->getNameArea($order->area) . '</p>' .
+                    '<p>місто: '    . $order->getNameCity($order->city) . '</p>' .
+                    '<p>відділ.: '  . $order->getNameWarehouse($order->warehouses) . '</p>' .
                     '<p>коментар: ' . $order->note . '</p>'
                 )
                 ->send();

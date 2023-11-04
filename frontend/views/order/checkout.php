@@ -4,6 +4,7 @@ use common\models\shop\ActivePages;
 use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\widgets\MaskedInput;
 
 ActivePages::setActiveUser();
@@ -143,6 +144,18 @@ $this->title = 'Оформлення замовлення';
                                                             'width' => '100%',
                                                             'max-width' => '550px',
                                                             'margin' => '0 auto',
+                                                            'matcher' => new JsExpression("function(params, data) {
+                                                                if ($.trim(params.term) === '') {
+                                                                    return data;
+                                                                }
+                                                                var terms = params.term.split(' ');
+                                                                for (var i = 0; i < terms.length; i++) {
+                                                                    if (data.text.toUpperCase().indexOf(terms[i].toUpperCase()) === 0) {
+                                                                        return data;
+                                                                    }
+                                                                }
+                                                                return null;
+                                                            }"),
                                                         ],
                                                     ])->label('Місто');
                                                     ?>
@@ -217,7 +230,8 @@ $this->title = 'Оформлення замовлення';
                                         </span>
                                     </span>
                                     <label class="form-check-label" for="checkout-terms">Я прочитав і погоджуюся з
-                                        веб-сайтом <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>"> умови повернення та обміну</a><span style="color: red">*</span>
+                                        веб-сайтом <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
+                                            умови повернення та обміну</a><span style="color: red">*</span>
                                     </label>
                                 </div>
                             </div>
@@ -298,5 +312,4 @@ $this->title = 'Оформлення замовлення';
             $('#order-warehouses').select2();
         }
     });
-
 </script>
