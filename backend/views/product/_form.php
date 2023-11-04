@@ -52,122 +52,186 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                  data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                 <div class="sa-entity-layout__body">
                     <div class="sa-entity-layout__main">
-                        <div class="card">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button
+                                        class="nav-link active"
+                                        id="description-tab-1"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#description-tab-content-1"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="description-tab-content-1"
+                                        aria-selected="true"
+                                >
+                                    Основна інформація<span class="nav-link-sa-indicator"></span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                        class="nav-link"
+                                        id="properties-tab-1"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#properties-tab-content-1"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="properties-tab-content-1"
+                                        aria-selected="true"
+                                >
+                                    Специфікація<span class="nav-link-sa-indicator"></span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button
+                                        class="nav-link"
+                                        id="seo-tab-1"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#seo-tab-content-1"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="seo-tab-content-1"
+                                        aria-selected="true"
+                                >
+                                    Просунення в пошуку<span class="nav-link-sa-indicator"></span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-4">
+                            <div
+                                    class="tab-pane fade show active"
+                                    id="description-tab-content-1"
+                                    role="tabpanel"
+                                    aria-labelledby="description-tab-1"
+                            >
+                                <div class="card">
+                                    <div class="card-body p-5">
+                                        <div class="mb-5">
                                     <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
                                                 class="mb-0 fs-exact-18">Основна інформація</h2></span>
-                                </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
-                                </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'short_description')->widget(Widget::class, [
-                                        'defaultSettings' => [
-                                            'style' => 'position: unset;'
-                                        ],
-                                        'settings' => [
-                                            'lang' => 'uk',
-                                            'minHeight' => 100,
-                                            'plugins' => [
-                                                'fullscreen',
-                                                'table',
-                                            ],
-                                        ],
-                                    ]); ?>
-                                </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'description')->widget(Widget::class, [
-                                        'defaultSettings' => [
-                                            'style' => 'position: unset;'
-                                        ],
-                                        'settings' => [
-                                            'lang' => 'uk',
-                                            'minHeight' => 100,
-                                            'plugins' => [
-                                                'fullscreen',
-                                                'table',
-                                            ],
-                                        ],
-                                    ]); ?>
-                                </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'footer_description')->widget(Widget::class, [
-                                        'defaultSettings' => [
-                                            'style' => 'position: unset;'
-                                        ],
-                                        'settings' => [
-                                            'lang' => 'uk',
-                                            'minHeight' => 100,
-                                            'plugins' => [
-                                                'fullscreen',
-                                                'table',
-                                            ],
-                                        ],
-                                    ]); ?>
+                                        </div>
+                                        <div class="mb-4">
+                                            <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+                                        </div>
+                                        <div class="mb-4">
+                                            <?= $form->field($model, 'short_description')->widget(Widget::class, [
+                                                'defaultSettings' => [
+                                                    'style' => 'position: unset;'
+                                                ],
+                                                'settings' => [
+                                                    'lang' => 'uk',
+                                                    'minHeight' => 100,
+                                                    'plugins' => [
+                                                        'fullscreen',
+                                                        'table',
+                                                    ],
+                                                ],
+                                            ]); ?>
+                                        </div>
+                                        <div class="mb-4">
+                                            <?= $form->field($model, 'description')->widget(Widget::class, [
+                                                'defaultSettings' => [
+                                                    'style' => 'position: unset;'
+                                                ],
+                                                'settings' => [
+                                                    'lang' => 'uk',
+                                                    'minHeight' => 100,
+                                                    'plugins' => [
+                                                        'fullscreen',
+                                                        'table',
+                                                    ],
+                                                ],
+                                            ]); ?>
+                                        </div>
+                                        <div class="mb-4">
+                                            <?= $form->field($model, 'footer_description')->widget(Widget::class, [
+                                                'defaultSettings' => [
+                                                    'style' => 'position: unset;'
+                                                ],
+                                                'settings' => [
+                                                    'lang' => 'uk',
+                                                    'minHeight' => 100,
+                                                    'plugins' => [
+                                                        'fullscreen',
+                                                        'table',
+                                                    ],
+                                                ],
+                                            ]); ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--------------  Product_properties  ------------------>
-                        <?php if (!$model->isNewRecord): ?>
-                            <div class="card mt-5">
-                                <div class="card-body p-5">
-                                    <div class="mb-5">
+                            <div
+                                    class="tab-pane fade"
+                                    id="properties-tab-content-1"
+                                    role="tabpanel"
+                                    aria-labelledby="properties-tab-1"
+                            >
+                                <?php if (!$model->isNewRecord): ?>
+                                    <div class="card mt-5">
+                                        <div class="card-body p-5">
+                                            <div class="mb-5">
                                         <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
                                                     class="mb-0 fs-exact-18"><?= Yii::t('app', 'Properties') ?></h2></span>
-                                    </div>
-                                    <?php $data_product = ProductProperties::find()->where(['product_id' => $model->id])->orderBy('sort ASC')->all();
-
-                                    $data_category = ProductProperties::find()
-                                        ->select('properties')
-                                        ->distinct()
-                                        ->where(['category_id' => $model->category_id])
-                                        ->orderBy('sort ASC')
-                                        ->all();
-
-                                    $unique_properties = array_column($data_category, 'properties');
-                                    $diff_properties = array_diff($unique_properties, array_column($data_product, 'properties'));
-                                    $data = array_merge($data_product, array_filter($data_category, function ($item) use ($diff_properties) {
-                                        return in_array($item['properties'], $diff_properties);
-                                    }));
-                                    ?>
-                                    <div id="properties-container">
-                                        <?php $index = 0;
-                                        $uniqueArray = array_values($data);
-                                        ?>
-                                        <?php foreach ($uniqueArray as $productProperty): ?>
-                                            <div class="row g-4">
-                                                <div class="col-3">
-                                                    <?= $form->field($productProperty, "[$index]properties")->textInput(['readonly' => true])->label(false) ?>
-                                                </div>
-                                                <div class="col-9">
-                                                    <?= $form->field($productProperty, "[$index]value")->textInput()->label(false) ?>
-                                                </div>
                                             </div>
-                                            <?php $index++; ?>
-                                        <?php endforeach; ?>
+                                            <?php $data_product = ProductProperties::find()->where(['product_id' => $model->id])->orderBy('sort ASC')->all();
+
+                                            $data_category = ProductProperties::find()
+                                                ->select('properties')
+                                                ->distinct()
+                                                ->where(['category_id' => $model->category_id])
+                                                ->orderBy('sort ASC')
+                                                ->all();
+
+                                            $unique_properties = array_column($data_category, 'properties');
+                                            $diff_properties = array_diff($unique_properties, array_column($data_product, 'properties'));
+                                            $data = array_merge($data_product, array_filter($data_category, function ($item) use ($diff_properties) {
+                                                return in_array($item['properties'], $diff_properties);
+                                            }));
+                                            ?>
+                                            <div id="properties-container">
+                                                <?php $index = 0;
+                                                $uniqueArray = array_values($data);
+                                                ?>
+                                                <?php foreach ($uniqueArray as $productProperty): ?>
+                                                    <div class="row g-4">
+                                                        <div class="col-3">
+                                                            <?= $form->field($productProperty, "[$index]properties")->textInput(['readonly' => true])->label(false) ?>
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <?= $form->field($productProperty, "[$index]value")->textInput()->label(false) ?>
+                                                        </div>
+                                                    </div>
+                                                    <?php $index++; ?>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <div class="mt-3">
+                                                <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="mt-3">
-                                        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
-                                    </div>
-                                </div>
+                                <?php endif; ?>
                             </div>
-                        <?php endif; ?>
-                        <!-------------End Product properties  ----------------->
-                        <div class="card mt-5">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
+                            <div
+                                    class="tab-pane fade"
+                                    id="seo-tab-content-1"
+                                    role="tabpanel"
+                                    aria-labelledby="seo-tab-1"
+                            >
+                                <div class="card mt-5">
+                                    <div class="card-body p-5">
+                                        <div class="mb-5">
                                     <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"><h2
                                                 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2></span>
-                                </div>
-                                <div class="row g-4">
-                                    <?= $form->field($model, 'seo_title')->textInput() ?>
-                                    <?= $form->field($model, 'seo_description')->textarea(['rows' => '4', 'class' => "form-control"]) ?>
+                                        </div>
+                                        <div class="row g-4">
+                                            <?= $form->field($model, 'seo_title')->textInput() ?>
+                                            <?= $form->field($model, 'seo_description')->textarea(['rows' => '4', 'class' => "form-control"]) ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--                    render this side-->
                     <?= $this->render('sidebar', ['form' => $form, 'model' => $model]) ?>
                 </div>
             </div>
