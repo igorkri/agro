@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\PostProducts;
 use common\models\Posts;
 use backend\models\search\PostsSearch;
 use yii\helpers\FileHelper;
@@ -77,6 +78,7 @@ class PostsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                $post_product = $this->request->post('Posts');
 
                 // Создание директории с именем id модели
                 $catalog = time();
@@ -124,6 +126,17 @@ class PostsController extends Controller
                 $model->webp_small = $catalog . '/' . 'webp_small-' . $imageName . '.' . 'webp';
 
                 if ($model->save()) {
+
+                    if (isset($post_product['products']) && $post_product['products'] != null) {
+                        //добавляем products
+                        foreach ($post_product['products'] as $product_id) {
+                            $add_product = new PostProducts();
+                            $add_product->post_id = $model->id;
+                            $add_product->product_id = $product_id;
+                            $add_product->save();
+                        }
+                    }
+
                     return $this->redirect(['index']);
 
                 } else {
@@ -150,6 +163,30 @@ class PostsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $post_product = $this->request->post('Posts');
+        if (!empty($post_product['products'])) {
+            //удаляем существующие products
+            $posts = PostProducts::find()->where(['post_id' => $model->id])->all();
+            if ($posts) {
+                foreach ($posts as $t) {
+                    $t->delete();
+                }
+            }
+            //добавляем products
+            foreach ($post_product['products'] as $product_id) {
+                $product = PostProducts::find()
+                    ->where(['post_id' => $model->id])
+                    ->andWhere(['product_id' => $product_id])
+                    ->one();
+                if (!$product) {
+                    $add_product = new PostProducts();
+                    $add_product->post_id = $model->id;
+                    $add_product->product_id = $product_id;
+                    $add_product->save();
+                }
+            }
+        }
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             $post_file = $_FILES['Posts']['size']['image'];
@@ -225,6 +262,8 @@ class PostsController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb/posts/');
         $model = $this->findModel($id);
+        $posts = PostProducts::find()->where(['post_id' => $model->id])->all();
+
         //----------- Удаление всех картинок продукта
         (file_exists($dir . $model->image)) ? unlink($dir . $model->image) : '';
         (file_exists($dir . $model->extra_large)) ? unlink($dir . $model->extra_large) : '';
@@ -245,6 +284,11 @@ class PostsController extends Controller
         (is_dir($dir . $catalog[0]) && empty($files)) ? FileHelper::removeDirectory($dir . $catalog[0]) : '';
 
         $model->delete();
+
+        foreach ($posts as $post) {
+            $post->delete();
+        }
+
         return $this->redirect(['index']);
     }
 

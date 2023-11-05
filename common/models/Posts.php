@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\shop\Product;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveRecord;
@@ -89,6 +90,12 @@ class Posts extends \yii\db\ActiveRecord
             'seo_title' => Yii::t('app', 'SEO заголовок'),
             'seo_description' => Yii::t('app', 'SEO опис'),
         ];
+    }
+
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['id' => 'product_id'])
+            ->viaTable('post_products', ['post_id' => 'id']);
     }
 
     public function getReviews()
