@@ -1,14 +1,15 @@
 <?php
 
-
 namespace frontend\controllers;
 
+use common\models\PostProducts;
 use common\models\Posts;
 use common\models\PostsReview;
 use Yii;
 use yii\i18n\Formatter;
 use yii\web\Controller;
 use Spatie\SchemaOrg\Schema;
+use common\models\shop\Product;
 
 class PostController extends Controller
 {
@@ -16,6 +17,16 @@ class PostController extends Controller
     {
         $blogs = Posts::find()->limit(6)->orderBy('date_public DESC')->all();
         $postItem = Posts::find()->where(['slug' => $slug])->one();
+
+        $products_id = PostProducts::find()
+            ->select('product_id')
+            ->where(['post_id' => $postItem->id])
+            ->asArray()
+            ->all();
+        $products_id = array_column($products_id, 'product_id');
+
+        $products = Product::find()->where(['id' => $products_id])->all();
+
         $model_review = new PostsReview();
         $formatter = new Formatter();
 
@@ -51,6 +62,8 @@ class PostController extends Controller
             'postItem' => $postItem,
             'blogs' => $blogs,
             'model_review' => $model_review,
+            'products' => $products,
+            'products_id' => $products_id,
         ]);
     }
 
