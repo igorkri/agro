@@ -80,7 +80,8 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                     <div class="block-sidebar__item">
                         <div class="widget-search">
                             <form class="widget-search__body" action="/search/blogs">
-                                <input class="widget-search__input" name="f" placeholder="Пошук статтів..." type="text" autocomplete="off" spellcheck="false">
+                                <input class="widget-search__input" name="f" placeholder="Пошук статтів..." type="text"
+                                       autocomplete="off" spellcheck="false">
                                 <button class="search__button widget-search__button" type="submit">
                                     <svg width="20px" height="20px">
                                         <use xlink:href="/images/sprite.svg#search-20"></use>
@@ -90,45 +91,56 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                         </div>
                     </div>
                     <?php if ($products) { ?>
-                    <div class="block-sidebar__item">
-                        <div class="widget-posts widget">
-                            <h4 class="widget__title">Може зацікавити</h4>
-                            <div class="widget-products__list">
-                                <?php foreach ($products as $product): ?>
-                                    <hr>
-                                    <div class="widget-products__item">
-                                        <div class="widget-products__image">
-                                            <div class="product-image">
-                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>" class="product-image__body">
-                                                    <img class="product-image__img" src="<?= $product->getImgOneExtraSmal($product->getId()) ?>" alt="<?= $product->name ?>">
-                                                </a>
+                        <div class="block-sidebar__item">
+                            <div class="widget-posts widget">
+                                <h4 class="widget__title">Може зацікавити</h4>
+                                <div class="widget-products__list">
+                                    <?php foreach ($products as $product): ?>
+                                        <hr>
+                                        <div class="widget-products__item">
+                                            <div class="widget-products__image">
+                                                <div class="product-image">
+                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
+                                                       class="product-image__body">
+                                                        <img class="product-image__img"
+                                                             src="<?= $product->getImgOneExtraSmal($product->getId()) ?>"
+                                                             alt="<?= $product->name ?>">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="widget-products__info">
+                                                <div class="widget-products__name" style="font-weight: 550;">
+                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                                </div>
+                                                <div class="product-card__rating">
+                                                    <div class="product-card__rating-stars">
+                                                        <?= $product->getRating($product->id, 13, 12) ?>
+                                                    </div>
+                                                    <div class="product-card__rating-legend"><?= count($product->reviews) ?>
+                                                        відгуків
+                                                    </div>
+                                                </div>
+                                                <div class="product-card__availability">
+                                                         <span class="text-success">
+                                                 <?= $this->render('@frontend/widgets/views/status', ['product' => $product]) ?>
+                                                         </span>
+                                                </div>
+                                                <?php if ($product->old_price == null) { ?>
+                                                    <div class="widget-products__prices" style="font-size: 15px;">
+                                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="widget-products__prices">
+                                                        <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                                        <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
-                                        <div class="widget-products__info">
-                                            <div class="widget-products__name" style="font-weight: 550;">
-                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                            </div>
-                                            <div class="product-card__rating">
-                                                <div class="product-card__rating-stars">
-                                                    <?= $product->getRating($product->id, 13, 12) ?>
-                                                </div>
-                                            </div>
-                                            <?php if ($product->old_price == null) { ?>
-                                                <div class="widget-products__prices" style="font-size: 15px;">
-                                                    <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                                </div>
-                                            <?php } else { ?>
-                                                <div class="widget-products__prices">
-                                                    <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                                    <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                <?php endforeach ?>
+                                    <?php endforeach ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     <?php } ?>
                     <div class="block-sidebar__item">
                         <div class="widget-posts widget">
@@ -176,7 +188,8 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                     ?>
                     <li class="reviews-list__item">
                         <div class="review">
-                            <div class="review__avatar"><img src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg" alt=""></div>
+                            <div class="review__avatar"><img
+                                        src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg" alt=""></div>
                             <div class="review__content">
                                 <div class="review__author"><?= $review->name ?></div>
                                 <div class="review__rating">
