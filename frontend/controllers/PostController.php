@@ -24,7 +24,6 @@ class PostController extends Controller
             ->asArray()
             ->all();
         $products_id = array_column($products_id, 'product_id');
-
         $products = Product::find()->where(['id' => $products_id])->all();
 
         $model_review = new PostsReview();

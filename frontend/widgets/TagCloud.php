@@ -51,14 +51,9 @@ class TagCloud extends Widget
                     $result[] = $tag;
                 }
             }
-
         }
-
 
         $tags = $result;
         return $this->render('tag-cloud', ['tags' => $tags]);
-
     }
-
-
 }
