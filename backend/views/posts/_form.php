@@ -6,7 +6,6 @@ use vova07\imperavi\Widget;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -144,10 +143,6 @@ use yii\widgets\ActiveForm;
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5"><h2
@@ -157,9 +152,6 @@ use yii\widgets\ActiveForm;
                                     <div class="col-8 mb-4">
                                         <?php
                                         $data = ArrayHelper::map(\common\models\shop\Product::find()->orderBy('id')->asArray()->all(), 'id', 'name');
-
-//                                        debug_pr($data);
-
                                         echo $form->field($model, 'products')->widget(Select2::classname(), [
                                             'data' => $data,
                                             'theme' => \kartik\select2\Select2::THEME_DEFAULT,
@@ -182,7 +174,7 @@ use yii\widgets\ActiveForm;
                                                 'tags' => true,
                                                 'tokenSeparators' => [', ', ' '],
                                                 'maximumInputLength' => 10,
-                                                'width' => '900',
+                                                'width' => '100%',
                                             ],
                                         ])->label(false);
                                         ?>
@@ -190,9 +182,6 @@ use yii\widgets\ActiveForm;
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
