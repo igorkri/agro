@@ -87,7 +87,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'contentOptions' => ['style' => 'width: 200px'],
                             ],
-                            'url_page',
+                            [
+                                'attribute' => 'url_page',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    $decodedUrl = urldecode($model->url_page);
+                                    return $decodedUrl;
+                                },
+                            ],
                             [
                                 'attribute' => 'client_from',
                                 'format' => 'raw',
@@ -97,7 +104,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                             ],
 //                            'user_agent',
-                            //'status_serv',
                             [
                                 'attribute' => 'other',
                                 'filter' => false,
@@ -112,6 +118,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                 },
                                 'contentOptions' => ['style' => 'width: 62px'],
+                            ],
+                            [
+                                'attribute' => 'status_serv',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    if ($model->status_serv == '200') {
+                                        return '<i style="color: #398d05">'.$model->status_serv.'</i>';
+                                    } elseif ($model->status_serv == '500') {
+                                        return '<i style="color: #c86408">'.$model->status_serv.'</i>';
+                                    } elseif ($model->status_serv == '404') {
+                                        return '<i style="color: #c10518">'.$model->status_serv.'</i>';
+                                    } else {
+                                        return '<i style="color: #0c33be">' .$model->status_serv.'</i>';
+                                    }
+                                },
+                                'contentOptions' => ['style' => 'width: 40px; text-align: center;'],
                             ],
                             [
                                 'class' => ActionColumn::className(),
