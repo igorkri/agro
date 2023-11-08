@@ -2,13 +2,15 @@
 
 \common\models\shop\ActivePages::setActiveUser();
 
+$error_page = Yii::$app->response->statusCode;
+
 ?>
 <div class="site__body">
     <div class="block">
         <div class="container">
             <div class="not-found">
                 <div class="not-found__404">
-                    Oops! Error 404
+                    Oops! Error <?= $error_page ?>
                 </div>
                 <div class="not-found__content">
                     <h1 class="not-found__title">Сторінку Не Знайдено</h1>
