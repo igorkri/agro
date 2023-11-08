@@ -12,6 +12,7 @@ use Yii;
  * @property string $name
  * @property string $svg
  * @property string $pageTitle
+ * @property string $prefix
  * @property string|null $slug
  * @property string|null $file
  * @property string|null $visibility
@@ -56,7 +57,7 @@ class Category extends \yii\db\ActiveRecord
             [['parentId'], 'integer'],
             [['name', 'pageTitle'], 'required'],
             [['description', 'metaDescription'], 'string'],
-            [['name', 'pageTitle', 'file', 'visibility', 'svg'], 'string', 'max' => 255],
+            [['name', 'pageTitle', 'file', 'visibility', 'svg', 'prefix'], 'string', 'max' => 255],
             [['name', 'slug'], 'unique'],
             [['slug'], 'safe'],
         ];
@@ -78,6 +79,7 @@ class Category extends \yii\db\ActiveRecord
             'description' => 'Description',
             'metaDescription' => 'Meta Description',
             'svg' => 'SVG',
+            'prefix' => 'Prefix',
         ];
     }
 

@@ -108,7 +108,11 @@ $this->title = $product->seo_title;
                             <hr>
                         </div>
                         <div class="product__info">
-                            <h1 class="product__name"><?= $product->name ?></h1>
+                            <?php if ($product->category->prefix){ ?>
+                            <h1 class="product__name"><?= $product->category->prefix .' '. $product->name ?></h1>
+                            <?php }else{ ?>
+                                <h1 class="product__name"><?= $product->name ?></h1>
+                            <?php } ?>
                             <div class="product__rating">
                                 <div class="product__rating-stars">
                                     <?= $product->getRating($product->id) ?>

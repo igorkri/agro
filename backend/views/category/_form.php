@@ -65,11 +65,15 @@ use yii\helpers\Url;
                                 <div class="mb-5">
                                     <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></span>
                                 </div>
-                                <div class="mb-4">
+                                <div class="row">
+                                <div class="col-6 mb-4">
                                     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
                                 </div>
+                                <div class="col-6 mb-4">
+                                    <?= $form->field($model, 'prefix')->textInput(['maxlength' => true])->label(Yii::t('app', 'prefix')) ?>
+                                </div>
+                                    </div>
                                 <div class="mb-4">
-
                                     <?= $form->field($model, 'description')->widget(Quill::class, [
                                         'toolbarOptions' => [
                                             [
