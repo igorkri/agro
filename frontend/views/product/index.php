@@ -3,6 +3,7 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
+
 /** @var \common\models\shop\Review $model_review */
 
 use common\models\shop\ActivePages;
@@ -108,9 +109,12 @@ $this->title = $product->seo_title;
                             <hr>
                         </div>
                         <div class="product__info">
-                            <?php if ($product->category->prefix){ ?>
-                            <h1 class="product__name"><?= $product->category->prefix .' '. $product->name ?></h1>
-                            <?php }else{ ?>
+                            <?php if ($product->category->prefix) { ?>
+                                <h1 class="product__name">
+                                    <?= $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                    <?= $product->name ?>
+                                </h1>
+                            <?php } else { ?>
                                 <h1 class="product__name"><?= $product->name ?></h1>
                             <?php } ?>
                             <div class="product__rating">
@@ -231,7 +235,8 @@ $this->title = $product->seo_title;
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
-                                                <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>"> Умови повернення та обміну</a>
+                                                <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>"> Умови
+                                                    повернення та обміну</a>
                                             </div>
                                         </div>
                                     </li>
@@ -243,35 +248,35 @@ $this->title = $product->seo_title;
                                 <div class="form-group product__option">
                                     <span style="font-size: 18px; font-weight: 100">Наявність: </span>
                                     <span class="text-success" style="padding: 0px 12px">
-                                <?php
-                                if ($product->status_id == 1) {
-                                    echo '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i> ' . $product->status->name;
-                                } elseif ($product->status_id == 2) {
-                                    echo '<i style="font-size:1.5rem; color: #ff0000!important; margin: 5px;" class="fas fa-ban"></i> ';
-                                    echo "<span style='color: #ff0000 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                } elseif ($product->status_id == 3) {
-                                    echo '<i style="font-size:1.5rem; color: #ff8300!important; margin: 5px;" class="fas fa-truck"></i> ';
-                                    echo "<span style='color: #ff8300 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                } elseif ($product->status_id == 4) {
-                                    echo '<i style="font-size:1.5rem; color: #0331fc!important; margin: 5px;" class="fa fa-bars"></i> ';
-                                    echo "<span style='color: #0331fc !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                } else {
-                                    echo "<span style='color: #060505!important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $product->status->name . " </span>";
-                                }
-                                ?>
-                            </span>
+        <?php
+        $statusIcon = '';
+        $statusStyle = '';
+
+        switch ($product->status_id) {
+            case 1:
+                $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
+                $statusStyle = '';
+                break;
+            case 2:
+                $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
+                $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
+                break;
+            case 3:
+                $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
+                $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
+                break;
+            case 4:
+                $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
+                $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
+                break;
+            default:
+                $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
+                break;
+        }
+
+        echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
+        ?>
+    </span>
                                 </div>
                                 <div class="product__actions">
                                     <span style="margin: 0px 0px 0px 30px;font-size: 18px;font-weight: 100">Ціна: </span>
@@ -339,6 +344,12 @@ $this->title = $product->seo_title;
     <?php echo ProductsCarousel::widget() ?>
     <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
 </div>
+
+<style>
+    .category-prefix {
+        color: #a9a8a8;
+    }
+</style>
 
 <?php
 $js = <<<JS
