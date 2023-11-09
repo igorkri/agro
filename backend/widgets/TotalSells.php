@@ -25,7 +25,7 @@ class TotalSells extends Widget
             ->asArray()
             ->all();
 
-        $flatArray = array_map(function($item) {
+        $flatArray = array_map(function ($item) {
             return $item['id'];
         }, $orders_pay);
 
@@ -86,14 +86,18 @@ class TotalSells extends Widget
         $res_60 = array_sum($res_60);
         $res_60 = $res_60 - $res_30;
 
-        if ($res_30 > $res_60){
+        if ($res_30 > $res_60) {
             $arrow = 'up';
-        }else{
+        } else {
             $arrow = 'down';
         }
 
-        $percentage = (($res_60 - $res_30) / $res_30) * 100;
-        $percentage = abs(round($percentage));
+        if ($res_30 != 0) {
+            $percentage = (($res_60 - $res_30) / $res_30) * 100;
+            $percentage = abs(round($percentage));
+        } else {
+            $percentage = 1000;
+        }
 
         return $this->render('total-sells', [
             'summ' => $summ,
