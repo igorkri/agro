@@ -31,6 +31,7 @@ class RelatedProducts extends Widget  // Супутні товари
                 'label_id',
                 'currency',
                 'package',
+                'category_id',
             ])
             ->where(['IN', 'status_id', [1, 3, 4]])
             ->andWhere(['package' => $package])

@@ -35,6 +35,7 @@ class Bestsellers extends Widget  // Товари для Фермера
                 'status_id',
                 'label_id',
                 'currency',
+                'category_id',
             ])
             ->with('label')
             ->where(['id' => $products_grup])

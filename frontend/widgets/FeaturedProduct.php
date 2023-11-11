@@ -32,6 +32,7 @@ class FeaturedProduct extends Widget    // Популярні товари
                 'status_id',
                 'label_id',
                 'currency',
+                'category_id',
             ])
             ->where(['id' => $products_grup])
             ->limit(20)
