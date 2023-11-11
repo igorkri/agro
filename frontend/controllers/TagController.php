@@ -2,21 +2,26 @@
 
 namespace frontend\controllers;
 
-use common\models\shop\Product;
 use common\models\shop\ProductTag;
+use common\models\shop\Product;
 use common\models\shop\Tag;
-use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
+use yii\db\Expression;
+use Yii;
 
 class TagController extends Controller
 {
-    public function actionView($id) {
-
+    public function actionView($id)
+    {
         $tag_name = Tag::find()->where(['id' => $id])->one();
         $tags = ProductTag::find()->where(['tag_id' => $id])->all();
 
-        $query = Product::find()->where(['id' => []]);
+        $query = Product::find()
+            ->where(['id' => []])
+            ->orderBy([
+                new Expression('FIELD(status_id, 1, 3, 4, 2)')
+            ]);
         foreach ($tags as $tag) {
             $query->orWhere(['id' => $tag->product_id]);
         }
@@ -34,7 +39,11 @@ class TagController extends Controller
             ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
-        return $this->render('view', ['products' => $products, 'products_all' => $products_all, 'tag_name' => $tag_name, 'pages' => $pages]);
+        return $this->render('view', [
+            'products' => $products,
+            'products_all' => $products_all,
+            'tag_name' => $tag_name,
+            'pages' => $pages]);
     }
 
 }

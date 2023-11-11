@@ -79,6 +79,11 @@ ActivePages::setActiveUser();
                                                 </a>
                                             </div>
                                             <div class="product-card__info">
+                                                <?php if ($product->category->prefix) { ?>
+                                                    <div class="product-card__name">
+                                                        <?php  echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                                    </div>
+                                                <?php } ?>
                                                 <div class="product-card__name">
                                                     <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
                                                 </div>
@@ -152,3 +157,8 @@ ActivePages::setActiveUser();
         </div>
     </div>
 </div>
+<style>
+    .category-prefix {
+        color: #a9a8a8;
+    }
+</style>
