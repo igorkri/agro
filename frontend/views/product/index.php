@@ -159,16 +159,32 @@ $this->title = $product->seo_title;
                                     <?php endif; ?>
                                 </div>
                                 <ul class="payment-methods__list">
-                                    <li class="payment-methods__item"
-                                        style="background: #ffe484;padding: 10px;color: black;">
-                                        Артикул: <span style="margin-right: 10px;" id="sku"><?= $product->sku ?> </span>
-                                    </li>
                                     <li class="payment-methods__item payment-methods__item--active">
                                         <label class="payment-methods__item-header">
                                         <span class="payment-methods__item-radio input-radio">
                                             <span class="input-radio__body">
                                                 <input class="input-radio__input" name="checkout_payment_method"
                                                        value="" type="radio" checked="">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                            <span class="delivery-methods__item-name"><i style="font-size: 25px"
+                                                                                         class="fas fa-qrcode"></i>
+                                            <span style="font-size:20px; margin:0px 20px">Артикул</span></span>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted"
+                                                 style="text-align: center;">
+                                                <b><?= $product->sku ?></b>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="payment-methods__item">
+                                        <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="" type="radio">
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
