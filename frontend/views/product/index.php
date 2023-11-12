@@ -3,13 +3,12 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
-
 /** @var \common\models\shop\Review $model_review */
 
-use common\models\shop\ActivePages;
 use frontend\widgets\ProductsCarousel;
-use yii\helpers\Url;
 use frontend\widgets\RelatedProducts;
+use common\models\shop\ActivePages;
+use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
@@ -78,6 +77,11 @@ $this->title = $product->seo_title;
                                     <?php foreach ($product->images as $image) : ?>
                                     <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
                                     <div class="product-image product-image--location--gallery">
+                                        <div class="product-card__badges-list">
+                                            <?php if (isset($product->label->name)) : ?>
+                                                <div class="product-card__badge product-card__badge--sale"><?= $product->label->name ?></div>
+                                            <?php endif; ?>
+                                        </div>
                                         <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
                                            data-height="700" class="product-image__body" target="_blank">
                                             <img class="product-image__img"
@@ -85,6 +89,11 @@ $this->title = $product->seo_title;
                                                  alt="<?= $product->name ?>">
                                             <?php }else{ ?>
                                             <div class="product-image product-image--location--gallery">
+                                                <div class="product-card__badges-list">
+                                                    <?php if (isset($product->label->name)) : ?>
+                                                        <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
+                                                    <?php endif; ?>
+                                                </div>
                                                 <a href="<?= '/product/' . $image->name ?>" data-width="700"
                                                    data-height="700" class="product-image__body" target="_blank">
                                                     <img class="product-image__img"
