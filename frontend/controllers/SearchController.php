@@ -7,6 +7,7 @@ use common\models\shop\ProductTag;
 use common\models\shop\Product;
 use common\models\shop\Tag;
 use common\models\Posts;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\Response;
 use Yii;
@@ -41,7 +42,8 @@ class SearchController extends Controller
                 ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku', 'category_id'])
                 ->where(['like', 'name', $q])
                 ->orFilterWhere(['in', 'id', $id_prod])
-                ->limit(10)
+                ->limit(20)
+                ->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')])
                 ->all();
         }
         if (Yii::$app->request->isAjax) {
