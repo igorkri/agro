@@ -2,13 +2,13 @@
 
 namespace frontend\controllers;
 
-use common\models\Contact;
-use common\models\NpAreas;
-use common\models\shop\Order;
 use common\models\shop\OrderItem;
-use Yii;
+use common\models\shop\Order;
 use yii\helpers\ArrayHelper;
+use common\models\NpAreas;
+use common\models\Contact;
 use yii\web\Controller;
+use Yii;
 
 class OrderController extends Controller
 {
@@ -28,7 +28,6 @@ class OrderController extends Controller
                     $order_item->price = $order_cart->getPrice();
                     $order_item->quantity = strval($order_cart->quantity);
                     if ($order_item->save()) {
-
                     }
                 }
                 \Yii::$app->cart->removeAll();
@@ -57,6 +56,13 @@ class OrderController extends Controller
     public function actionOrderSuccess($order_id)
     {
         $order = Order::find()->with('orderItems')->where(['id' => $order_id])->one();
+
+        if (strpos($order->fio, '*') !== false){
+            $order->fio = str_replace('*', 'x', $order->fio);
+        }
+        if (strpos($order->note, '*') !== false){
+            $order->note = str_replace('*', 'x', $order->note);
+        }
 
         if (!$order->sent_message) {
             $chat_id = 6086317334;
