@@ -85,7 +85,6 @@ class ActivePages extends \yii\db\ActiveRecord
         $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
         $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
         $model->status_serv = strval(Yii::$app->response->statusCode) ?? "Не известно";
-//      $model->status_serv = $server['REDIRECT_STATUS'] ?? "Не известно";
         $model->other = $device ?? "Не известно";
 
         if ($model->save()) {

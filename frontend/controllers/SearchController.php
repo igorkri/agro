@@ -1,16 +1,15 @@
 <?php
 
-
 namespace frontend\controllers;
 
-use common\models\Posts;
-use common\models\shop\Product;
 use common\models\shop\ProductProperties;
 use common\models\shop\ProductTag;
+use common\models\shop\Product;
 use common\models\shop\Tag;
-use Yii;
+use common\models\Posts;
 use yii\web\Controller;
 use yii\web\Response;
+use Yii;
 
 class SearchController extends Controller
 {
@@ -39,9 +38,10 @@ class SearchController extends Controller
             }
 
             $products = Product::find()
-                ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku'])
+                ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku', 'category_id'])
                 ->where(['like', 'name', $q])
                 ->orFilterWhere(['in', 'id', $id_prod])
+                ->limit(10)
                 ->all();
         }
         if (Yii::$app->request->isAjax) {
