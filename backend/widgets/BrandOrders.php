@@ -1,11 +1,8 @@
 <?php
 
-
 namespace backend\widgets;
 
-
 use common\models\shop\Brand;
-use yii\helpers\VarDumper;
 
 class BrandOrders extends \yii\base\Widget
 {

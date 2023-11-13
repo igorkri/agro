@@ -75,34 +75,21 @@ class Brand extends \yii\db\ActiveRecord
 
     public function getColorBrand($i)
     {
-        $color = '';
+        $colors = [
+            10 => '#0cdd9d',
+            9  => '#bb43df',
+            8  => '#198754',
+            7  => '#6f42c1',
+            6  => '#f907ed',
+            5  => '#fd7e14',
+            4  => '#e62e2e',
+            3  => '#29cccc',
+            2  => '#3377ff',
+            1  => '#5dc728',
+            0  => '#ffd333',
+        ];
 
-        if ($i == 10)
-            $color = '#0cdd9d';
-        elseif ($i == 9)
-            $color = '#bb43df';
-        elseif ($i == 8)
-            $color = '#198754';
-        elseif ($i == 7)
-            $color = '#6f42c1';
-        elseif ($i == 6)
-            $color = '#f907ed';
-        elseif ($i == 5)
-            $color = '#fd7e14';
-        elseif ($i == 4)
-            $color = '#e62e2e';
-        elseif ($i == 3)
-            $color = '#29cccc';
-        elseif ($i == 2)
-            $color = '#3377ff';
-        elseif ($i == 1)
-            $color = '#5dc728';
-        elseif ($i == 0)
-            $color = '#ffd333';
-        else
-            $color = '#a79ea6';
-
-        return $color;
+        return $colors[$i] ?? '#a79ea6';
     }
 
     public function getProductOrderBrand($id)
