@@ -9015,7 +9015,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .category-card__products {
-  display: none;
+  /*display: none;*/
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {

@@ -13,26 +13,33 @@ use yii\helpers\Url;
         </div>
         <div class="block-categories__list">
             <?php foreach ($categories as $category): ?>
-                    <div class="block-categories__item category-card category-card--layout--classic">
-                        <div class="category-card__body">
-                            <div class="category-card__image">
+                <div class="block-categories__item category-card category-card--layout--classic">
+                    <div class="category-card__body">
+                        <div class="category-card__image">
+                            <?php if ($category->parentId == null) { ?>
+                                <a href="<?= Url::to(['/catalog/' . $category->slug]) ?>"><img
+                                            src="/category/<?= $category->file ?>" width="130" height="130"
+                                            alt="<?= $category->name ?>" loading="lazy"></a>
+                            <?php } else { ?>
+                                <a href="<?= Url::to(['/product-list/' . $category->slug]) ?>"><img
+                                            src="/category/<?= $category->file ?>" width="130" height="130"
+                                            alt="<?= $category->name ?>" loading="lazy"></a>
+                            <?php } ?>
+                        </div>
+                        <div class="category-card__content">
+                            <div class="category-card__name">
                                 <?php if ($category->parentId == null) { ?>
-                                <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>" loading="lazy"></a>
+                                    <a href="<?= Url::to(['/catalog/' . $category->slug]) ?>"><?= $category->name ?></a>
                                 <?php } else { ?>
-                                <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><img src="/category/<?= $category->file ?>" width="130" height="130" alt="<?= $category->name ?>" loading="lazy"></a>
+                                    <a href="<?= Url::to(['/product-list/' . $category->slug]) ?>"><?= $category->name ?></a>
                                 <?php } ?>
                             </div>
-                            <div class="category-card__content">
-                                <div class="category-card__name">
-                                    <?php if ($category->parentId == null) { ?>
-                                    <a href="<?= Url::to(['/catalog/'. $category->slug]) ?>"><?= $category->name ?></a>
-                                    <?php } else { ?>
-                                    <a href="<?= Url::to(['/product-list/'. $category->slug]) ?>"><?= $category->name ?></a>
-                                    <?php } ?>
-                                </div>
+                            <div class="category-card__products" style="color: #a9a8a8">
+                                <?= $category->getCountProductCategory($category->id) ?> Товарів
                             </div>
                         </div>
                     </div>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
