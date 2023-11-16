@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\Product;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
@@ -73,8 +74,47 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="card">
                                     <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
                                         <h2 class="mb-0 fs-exact-18 me-4">Товари</h2>
-                                        <div class="text-muted fs-exact-14"><a href="#">Редагувати</a></div>
+                                        <div class="text-muted fs-exact-14"><a href="#" data-bs-toggle="modal" data-bs-target="#addOrderItemModal"><i class="fas fa-plus"></i></a></div>
                                     </div>
+
+                                    <!-- Модальное окно для добавления товара -->
+                                    <div class="modal fade" id="addOrderItemModal" tabindex="-1" aria-labelledby="addOrderItemModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addOrderItemModalLabel">Добавить товар в заказ</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Форма для добавления товара в заказ -->
+                                                    <form id="addOrderItemForm" method="get" action="<?= Url::to(['order/add-order-item']) ?>">
+                                                        <input type="hidden" name="orderId" value="<?= $model->id ?>">
+
+                                                        <div class="mb-3">
+                                                            <label for="product-id" class="form-label">Товар</label>
+                                                            <!-- Добавьте список товаров, которые можно добавить в заказ -->
+                                                            <select class="form-select" id="product-id" name="productId" required>
+                                                                <?php
+                                                                $products = Product::find()->all();
+                                                                foreach ($products as $product) {
+                                                                    echo '<option value="' . $product->id . '">' . $product->name . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="quantity" class="form-label">Количество</label>
+                                                            <input type="text" class="form-control" id="quantity" name="quantity" required>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Добавить в заказ</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="table-responsive">
                                         <table class="sa-table">
                                             <tbody>
@@ -83,10 +123,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <tr>
                                                     <td class="min-w-20x">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="/product/<?= $orderItem->product->images[0]->name ?>"
-                                                                 class="me-4" width="40" height="40" alt=""/>
-                                                            <a href=""
-                                                               class="text-reset"><?= $orderItem->product->name ?></a>
+                                                            <img src="/product/<?= $orderItem->product->images[0]->name ?>" class="me-4" width="40" height="40" alt=""/>
+                                                            <span class="text-reset"><?= $orderItem->product->name ?></span>
                                                         </div>
                                                     </td>
                                                     <td class="text-end">
@@ -100,7 +138,46 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             <?= Yii::$app->formatter->asDecimal($orderItem->price * $orderItem->quantity, 2) ?>
                                                         </div>
                                                     </td>
+                                                    <td class="text-end">
+                                                        <div class="text-muted fs-exact-14">
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editOrderItemModal<?= $orderItem->id ?>">
+                                                                <i class="fas fa-pen"></i>
+                                                            </a>
+                                                        </div>
+                                                        <!-- Удаление товара из заказа -->
+                                                        <div class="text-muted fs-exact-14">
+                                                            <a href="<?= Url::to(['order/delete-order-item', 'id' => $orderItem->id]) ?>" class="text-danger" onclick="return confirm('Вы уверены, что хотите удалить этот товар из заказа?')">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
                                                 </tr>
+                                                <!-- Модальное окно для редактирования данных заказа -->
+                                                <div class="modal fade" id="editOrderItemModal<?= $orderItem->id ?>" tabindex="-1" aria-labelledby="editOrderItemModalLabel<?= $orderItem->id ?>" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editOrderItemModalLabel<?= $orderItem->id ?>">Редактировать товар</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Форма для редактирования данных заказа -->
+                                                                <form method="get" action="<?= Url::to(['order/update-order-item']) ?>"> <!-- Замените на реальный путь обработчика формы -->
+                                                                    <input type="hidden" name="orderItemId" value="<?= $orderItem->id ?>">
+                                                                    <div class="mb-3">
+                                                                        <label for="price<?= $orderItem->id ?>" class="form-label">Цена:</label>
+                                                                        <input type="text" class="form-control" id="price<?= $orderItem->id ?>" name="price" value="<?= $orderItem->price ?>">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="quantity<?= $orderItem->id ?>" class="form-label">Количество:</label>
+                                                                        <input type="text" class="form-control" id="quantity<?= $orderItem->id ?>" name="quantity" value="<?= $orderItem->quantity ?>">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <?php $i++; endforeach; ?>
                                             </tbody>
                                             <tbody>

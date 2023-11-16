@@ -4,8 +4,9 @@ namespace backend\controllers;
 
 use common\models\shop\Order;
 use backend\models\search\shop\OrderSearch;
+use common\models\shop\OrderItem;
 use Yii;
-use yii\bootstrap5\Html;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -129,11 +130,54 @@ class OrderController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if ($model->save()) {
                 return ['res' => 'Збережено', 'color' => '#00b52a'];
-            }else{
+            } else {
                 return ['res' => 'Не збережено', 'color' => '#FF1356'];
             }
         }
+    }
 
+    public function actionAddOrderItem()
+    {
+        $model = new OrderItem();
+        if (Yii::$app->request->isGet) {
+
+            $order_item = Yii::$app->request->get();
+
+            $model->order_id = $order_item['orderId'];
+            $model->product_id = $order_item['productId'];
+            $model->quantity = $order_item['quantity'];
+            $model->price = $model->getPrice($order_item['productId']);
+            $model->save(true);
+
+        }
+        return $this->redirect(['view', 'id' => $order_item['orderId']]);
+    }
+
+    public function actionUpdateOrderItem()
+    {
+        if (Yii::$app->request->isGet) {
+
+            $order_item = Yii::$app->request->get();
+            $item = OrderItem::find()->where(['id' => $order_item['orderItemId']])->one();
+
+            $item->quantity = $order_item['quantity'];
+            $item->price = $order_item['price'];
+            $item->save(true);
+
+            return $this->redirect(['view', 'id' => $item->order_id]);
+        }
+    }
+
+    public function actionDeleteOrderItem($id)
+    {
+        $orderItem = OrderItem::findOne($id);
+        if ($orderItem) {
+            $orderItem->delete();
+
+            return $this->redirect(['view', 'id' => $orderItem->order_id]);
+        } else {
+            throw new NotFoundHttpException('Товар не найден');
+        }
     }
 
     /**

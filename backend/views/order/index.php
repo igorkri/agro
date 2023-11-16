@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </ol>
                         </nav>
                     </div>
-<!--                    <div class="col-auto d-flex"><a href="app-order.html" class="btn btn-primary">New order</a></div>-->
+                    <div class="col-auto d-flex"><a href="<?=Url::to(['create'])?>" class="btn btn-primary"><?=Yii::t('app', 'New order')?></a></div>
                 </div>
             </div>
             <div class="card">
