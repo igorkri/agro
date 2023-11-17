@@ -121,7 +121,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </div>
                                 </div>
-
                                 <?php if ($model->orderItems): ?>
                                 <div class="table-responsive">
                                     <table class="sa-table">
