@@ -288,7 +288,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 <?php \yii\widgets\Pjax::end() ?>
-    <!-- sa-app__body / end -->
+
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
     "size" => Modal::SIZE_EXTRA_LARGE,
@@ -344,9 +344,7 @@ $( document ).ready(function() {
     return false;
     }).on('submit', function(e){
     e.preventDefault();
-
     });
-
 });
 
 JS;
