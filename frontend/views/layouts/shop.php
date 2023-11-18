@@ -1,11 +1,10 @@
 <?php
 /** @var yii\web\View $this */
-
 /** @var string $content */
 
-use frontend\assets\AppAsset;
-use frontend\widgets\SiteFooter;
 use frontend\widgets\SiteHeader;
+use frontend\widgets\SiteFooter;
+use frontend\assets\AppAsset;
 use yii\helpers\Html;
 
 AppAsset::register($this);
