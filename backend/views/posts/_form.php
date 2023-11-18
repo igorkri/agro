@@ -54,8 +54,8 @@ use yii\widgets\ActiveForm;
                                         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
                                     </div>
                                     <div class="col-4 mb-4">
-                                        <?php if (!$model->isNewRecord){ ?>
-                                        <?= $form->field($model, 'date_public')->textInput() ?>
+                                        <?php if (!$model->isNewRecord) { ?>
+                                            <?= $form->field($model, 'date_public')->textInput() ?>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -124,8 +124,24 @@ use yii\widgets\ActiveForm;
                                                     class="mb-0 fs-exact-18"><?= Yii::t('app', 'Seo') ?></h2></span>
                                     </div>
                                     <div class="row g-4">
-                                        <?= $form->field($model, 'seo_title')->textInput() ?>
-                                        <?= $form->field($model, 'seo_description')->textarea(['rows' => '4', 'class' => "form-control"]) ?>
+                                        <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true, 'id' => 'seo_title_id'])->label('SEO Тайтл' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountTitle" data-bs-toggle="tooltip"
+                               data-bs-placement="right"
+                               title="50 > 55 < 60"> 0</label>') ?>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                var textLength = $('#seo_title_id').val().length;
+                                                $('#charCountTitle').text(textLength);
+                                            });
+                                        </script>
+                                        <?= $form->field($model, 'seo_description')->textarea(['rows' => '4', 'class' => "form-control", 'id' => 'seo_description_id'])->label('SEO Опис' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountDescription" data-bs-toggle="tooltip"
+                               data-bs-placement="right"
+                               title="130 > 155 < 180"> 0</label>') ?>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                var textLength = $('#seo_description_id').val().length;
+                                                $('#charCountDescription').text(textLength);
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -191,6 +207,5 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
 <?php ActiveForm::end(); ?>
 
