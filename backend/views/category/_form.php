@@ -149,10 +149,42 @@ use yii\helpers\Url;
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <?= $form->field($model, 'pageTitle')->textInput(['maxlength' => true])->label(Yii::t('app', 'pageTitle')) ?>
-                                </div>
-                                <div>
-                                    <?= $form->field($model, 'metaDescription')->textarea(['maxlength' => true, 'rows' => 6])->label(Yii::t('app', 'Meta Description')) ?>
+                                    <?= $form->field($model, 'pageTitle')->textInput(['maxlength' => true, 'id' => 'seo_title_id'])->label('SEO Тайтл' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountTitle" data-bs-toggle="tooltip"
+                               data-bs-placement="right"
+                               title="50 > 55 < 60"> 0</label>') ?>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var textLength = $('#seo_title_id').val().length;
+                                            $('#charCountTitle').text(textLength);
+                                            if (textLength === 55) {
+                                                $('#charCountTitle').css('background-color', '#13bf3d87');
+                                            } else if (textLength >= 50 && textLength <= 54) {
+                                                $('#charCountTitle').css('background-color', '#eded248c');
+                                            } else if (textLength >= 56 && textLength <= 60) {
+                                                $('#charCountTitle').css('background-color', '#eded248c');
+                                            } else {
+                                                $('#charCountTitle').css('background-color', '#e53b3b9c');
+                                            }
+                                        });
+                                    </script>
+                                    <?= $form->field($model, 'metaDescription')->textarea(['rows' => '4', 'class' => "form-control", 'id' => 'seo_description_id'])->label('SEO Опис' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountDescription" data-bs-toggle="tooltip"
+                               data-bs-placement="right"
+                               title="130 > 155 < 180"> 0</label>') ?>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var textLength = $('#seo_description_id').val().length;
+                                            $('#charCountDescription').text(textLength);
+                                            if (textLength === 155) {
+                                                $('#charCountDescription').css('background-color', '#13bf3d87');
+                                            } else if (textLength >= 130 && textLength <= 154) {
+                                                $('#charCountDescription').css('background-color', '#eded248c');
+                                            } else if (textLength >= 156 && textLength <= 180) {
+                                                $('#charCountDescription').css('background-color', '#eded248c');
+                                            } else {
+                                                $('#charCountDescription').css('background-color', '#e53b3b9c');
+                                            }
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
