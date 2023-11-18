@@ -238,7 +238,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                     } else if (textLength >= 56 && textLength <= 60) {
                                                         $('#charCountTitle').css('background-color', '#eded248c');
                                                     } else {
-                                                        $('#charCountTitle').css('background-color', '#e53b3b9c'); // сброс цвета фона
+                                                        $('#charCountTitle').css('background-color', '#e53b3b9c');
                                                     }
                                                 });
                                             </script>
@@ -256,7 +256,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                     } else if (textLength >= 156 && textLength <= 180) {
                                                         $('#charCountDescription').css('background-color', '#eded248c');
                                                     } else {
-                                                        $('#charCountDescription').css('background-color', '#e53b3b9c'); // сброс цвета фона
+                                                        $('#charCountDescription').css('background-color', '#e53b3b9c');
                                                     }
                                                 });
                                             </script>
