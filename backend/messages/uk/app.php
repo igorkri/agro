@@ -1,6 +1,6 @@
 <?php
 
-return[
+return [
     'ID' => 'ID',
     'Parent ID' => 'Головна категорія',
     'name' => 'Назва',
@@ -124,5 +124,8 @@ return[
     'Seo Pages' => 'Seo Сторінки',
     'Product Reviews' => 'Товари',
     'Posts Reviews' => 'Статті',
+    'New order' => '+ Замовлення',
+    'SVG for menu' => 'SVG для меню',
+    'Product post' => 'Товари для статті',
     //    '' => '',
 ];
