@@ -166,6 +166,14 @@ class ProductController extends Controller
                 $sort++;
             }
 
+            $post_priority = $this->request->post('priority');
+            if (!empty($post_priority)) {
+                foreach ($post_priority as $key => $value) {
+                    $position = ProductImage::find()->where(['id' => $key])->one();
+                    $position->priority = $value;
+                    $position->save();
+                }
+            }
 
             $post_product = $this->request->post('Product');
             if (!empty($post_product['tags'])) {

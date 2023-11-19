@@ -336,9 +336,9 @@ use yii\widgets\Pjax;
                         <table class="sa-table">
                             <thead>
                             <tr>
-                                <th class="w-min"><?= Yii::t('app', 'Image') ?></th>
-                                <th class="min-w-10x"><?= Yii::t('app', 'Alt image') ?></th>
-                                <th class="w-min"></th>
+                                <th class="w-min">Карт.</th>
+                                <th class="min-w-10x">Назва</th>
+                                <th class="w-min">Поз.</th>
                             </tr>
                             </thead>
                             <?php Pjax::begin(['id' => 'images']); ?>
@@ -359,6 +359,11 @@ use yii\widgets\Pjax;
                                             <input type="text" name="alt[<?= $image->id ?>]"
                                                    class="form-control form-control-sm"
                                                    value="<?= $image->alt ? $image->alt : $model->name ?>"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="priority[<?= $image->id ?>]"
+                                                   class="form-control form-control-sm wx-4x"
+                                                   value="<?= $image->priority ? $image->priority : 0 ?>"/>
                                         </td>
                                         <td>
                                             <button class="btn btn-sa-muted btn-sm mx-n3"
