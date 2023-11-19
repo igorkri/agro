@@ -16,6 +16,11 @@ class ProductController extends Controller
     public function actionView($slug): string
     {
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
         $product_properties = ProductProperties::find()->where(['product_id' => $product->id])->orderBy('sort ASC')->all();
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
@@ -115,6 +120,7 @@ class ProductController extends Controller
 
         return $this->render('index', [
             'product' => $product,
+            'images' => $images,
             'isset_to_cart' => $product->getIssetToCart($product->id),
             'model_review' => $model_review,
             'product_properties' => $product_properties,

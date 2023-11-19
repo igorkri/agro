@@ -73,11 +73,6 @@ $this->title = $product->seo_title;
                                         <use xlink:href="/images/sprite.svg#zoom-in-24"></use>
                                     </svg>
                                 </button>
-
-                                <?php $images = $product->images;
-                                $priorities = array_column($images, 'priority');
-                                array_multisort($priorities, SORT_ASC, $images); ?>
-
                                 <div class="owl-carousel" id="product-image">
                                     <?php foreach ($images as $image) : ?>
                                     <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>

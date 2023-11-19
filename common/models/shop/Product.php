@@ -250,30 +250,16 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $isset_to_cart;
     }
 
-//    public function getSchemaImg($id)
-//    {
-//        if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
-//            $webp_support = true; // webp поддерживается
-//        } else {
-//            $webp_support = false; // webp не поддерживается
-//        }
-//        $product = Product::find()->with('images')->where(['id' => $id])->one();
-//        $images = [];
-//        foreach ($product->images as $image) {
-//            if ($webp_support == true && isset($image->webp_name)) {
-//                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->webp_name;
-//            } else {
-//                $images[] = Yii::$app->request->hostInfo . '/product/' . $image->name;
-//            }
-//        }
-//        return $images;
-//    }
-
     public function getSchemaImg($id)
     {
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->name;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->name;
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
         }
@@ -318,11 +304,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_name)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_name;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_name)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_name;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->name;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->name;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -338,11 +329,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_large)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_large;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_large)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_large;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->large;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->large;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -359,11 +355,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_extra_extra_large)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_extra_extra_large;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_extra_extra_large)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_extra_extra_large;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->extra_extra_large;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->extra_extra_large;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -380,11 +381,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_extra_large)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_extra_large;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_extra_large)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_extra_large;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->extra_large;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->extra_large;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -401,11 +407,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_large)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_large;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_large)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_large;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->large;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->large;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -422,11 +433,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_medium)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_medium;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_medium)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_medium;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->medium;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->medium;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -444,11 +460,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_small)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_small;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_small)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_small;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->small;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->small;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -466,11 +487,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             $webp_support = false; // webp не поддерживается
         }
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-        if (isset($product->images[0])) {
-            if ($webp_support == true && isset($product->images[0]->webp_extra_small)) {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->webp_extra_small;
+
+        $images = $product->images;
+        $priorities = array_column($images, 'priority');
+        array_multisort($priorities, SORT_ASC, $images);
+
+        if (isset($images[0])) {
+            if ($webp_support == true && isset($images[0]->webp_extra_small)) {
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_extra_small;
             } else {
-                $img = Yii::$app->request->hostInfo . '/product/' . $product->images[0]->extra_small;
+                $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->extra_small;
             }
         } else {
             $img = Yii::$app->request->hostInfo . "/images/no-image.png";
@@ -483,7 +509,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         $product = Product::find()->where(['slug' => $slug])->one();
         if ($product !== null) {
-            $product_image = ProductImage::find()->where(['product_id' => $product->id])->one();
+            $product_image = ProductImage::find()->where(['product_id' => $product->id])->orderBy('priority')->one();
 
             if ($product_image !== null && isset($product_image->extra_small)) {
                 return $product_image->extra_small;
