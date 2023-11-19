@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  * @property string|null $description Описание
  * @property string|null $seo_description Описание
  * @property string|null $date_public Дата публикации
+ * @property string|null $date_updated Дата редактирования
  * @property string|null $image Картинка
  * @property string|null $webp_image Картинка
  * @property string|null $slug Слаг
@@ -53,6 +54,7 @@ class Posts extends \yii\db\ActiveRecord
                 'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date_updated'],
                 ],
             ],
         ];
@@ -66,7 +68,7 @@ class Posts extends \yii\db\ActiveRecord
     {
         return [
             [['description', 'seo_description'], 'string'],
-            [['date_public'], 'string'],
+            [['date_public', 'date_updated'], 'string'],
             [['slug'], 'string'],
             [['title', 'seo_title', 'image',
                 'extra_large', 'large', 'medium',
@@ -85,6 +87,7 @@ class Posts extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Название'),
             'description' => Yii::t('app', 'Описание'),
             'date_public' => Yii::t('app', 'Дата публикации'),
+            'date_updated' => Yii::t('app', 'Дата редактирования'),
             'image' => Yii::t('app', 'Картинка'),
             'slug' => Yii::t('app', 'Слаг'),
             'seo_title' => Yii::t('app', 'SEO заголовок'),

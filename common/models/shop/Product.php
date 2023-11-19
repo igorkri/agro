@@ -28,6 +28,8 @@ use yz\shoppingcart\CartPositionTrait;
  * @property int $status_id
  * @property int $category_id
  * @property int $label_id
+ * @property string $date_public Дата публикации
+ * @property string|null $date_updated Дата редактирования
  *
  * @property ProductTag[] $productTags
  * @property Tag[] $tags
@@ -60,7 +62,14 @@ class Product extends ActiveRecord implements CartPositionInterface
                 'immutable' => false,
                 // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
                 'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
-            ]
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date_updated'],
+                ],
+            ],
         ];
     }
 
@@ -74,7 +83,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             [['description', 'footer_description', 'short_description', 'currency'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id', 'brand_id'], 'safe'],
-            [['name', 'seo_title', 'seo_description', 'package', 'slug', 'sku'], 'string', 'max' => 255],
+            [['name', 'seo_title', 'seo_description', 'package', 'slug', 'sku', 'date_public', 'date_updated'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];
     }
@@ -709,13 +718,14 @@ class Product extends ActiveRecord implements CartPositionInterface
             return '';
         }
     }
+
     public function getAvailabilityProduct($status_id)
     {
-        if ($status_id === 2){
+        if ($status_id === 2) {
             $status = 'http://schema.org/OutOfStock';
-        }elseif ($status_id === 1){
+        } elseif ($status_id === 1) {
             $status = 'https://schema.org/InStock';
-        }else{
+        } else {
             $status = 'https://schema.org/PreOrder';
         }
         return $status;
