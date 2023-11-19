@@ -130,7 +130,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <tr>
                                                 <td class="min-w-20x">
                                                     <div class="d-flex align-items-center">
-                                                        <img src="/product/<?= $orderItem->product->images[0]->name ?>"
+
+                                                        <?php $images = $orderItem->product->images;
+                                                        $priorities = array_column($images, 'priority');
+                                                        array_multisort($priorities, SORT_ASC, $images); ?>
+
+                                                        <img src="/product/<?= $images[0]->name ?>"
                                                              class="me-4" width="40" height="40" alt=""/>
                                                         <span class="text-reset"><?= $orderItem->product->name ?></span>
                                                     </div>
