@@ -333,25 +333,24 @@ class SiteController extends Controller
         $arr = array();
 
         $products = Product::find()
-            ->select('slug')
+            ->select(['slug', 'date_updated'])
             ->all();
 
         $posts = Posts::find()
-            ->select('slug')
+            ->select(['slug', 'date_updated'])
             ->all();
-
 
         foreach ($products as $product) {
             $arr[] = array(
                 'loc' => '/product/' . $product->slug, // Ссылка
-                'lastmod' => date(DATE_W3C, time()), // Дата
+                'lastmod' => !empty($product->date_updated) ? date(DATE_W3C, $product->date_updated): date(DATE_W3C, time()), // Дата
             );
         }
 
         foreach ($posts as $post) {
             $arr[] = array(
                 'loc' => '/post/' . $post->slug, // Ссылка
-                'lastmod' => date(DATE_W3C, time()), // Дата
+                'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated): date(DATE_W3C, time()),
             );
         }
 
