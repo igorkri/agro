@@ -32,7 +32,6 @@ $rating = 3;
                         <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">Приховати опис << </button>
                     </div>
                 </div>
-
                 <div class="product-tabs__pane" id="tab-specification">
                     <div class="spec">
                         <h3 class="spec__header">Специфікація товару</h3>
