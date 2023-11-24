@@ -8,6 +8,7 @@
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\RelatedProducts;
 use common\models\shop\ActivePages;
+use frontend\widgets\ViewProduct;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
@@ -366,8 +367,9 @@ $this->title = $product->seo_title;
             ]) ?>
         </div>
     </div>
-    <?php echo ProductsCarousel::widget() ?>
     <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
+    <?php echo ProductsCarousel::widget() ?>
+    <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
 
 <style>
