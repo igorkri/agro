@@ -22,13 +22,17 @@ $rating = 3;
         <div class="container">
             <div class="product-tabs__content">
                 <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
-                    <div class="typography">
+                    <div class="typography" id="product-description">
                         <h3 class="spec__header">Опис товару</h3>
-                        <?= $product->short_description ?>
-                        <?= $product->description ?>
-                        <?= $product->getFooterDescription($product->id) ?>
+                        <div class="short-description"><?= $product->short_description ?></div>
+                        <div class="full-description" style="display: none;"><?= $product->description ?></div>
+                        <div class="footer-description"
+                             style="display: none;"><?= $product->getFooterDescription($product->id) ?></div>
+                        <button class="btn btn-secondary" id="show-more-btn">Розгорнути опис >> </button>
+                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">Приховати опис << </button>
                     </div>
                 </div>
+
                 <div class="product-tabs__pane" id="tab-specification">
                     <div class="spec">
                         <h3 class="spec__header">Специфікація товару</h3>
@@ -283,6 +287,29 @@ $js = <<<JS
         e.preventDefault();
     }
 });
+   
+   $(document).ready(function () {
+        var fullDescription = $('.full-description');
+        var footerDescription = $('.footer-description');
+        var showMoreBtn = $('#show-more-btn');
+        var hideDescriptionBtn = $('#hide-description-btn');
+
+        fullDescription.hide();
+        footerDescription.hide();
+
+        showMoreBtn.click(function () {
+            fullDescription.fadeIn();
+            footerDescription.fadeIn();
+             hideDescriptionBtn.show();
+            showMoreBtn.hide();
+        });
+        hideDescriptionBtn.click(function () {
+            fullDescription.fadeOut();
+            footerDescription.fadeOut();
+            hideDescriptionBtn.hide();
+            showMoreBtn.show();
+        });
+    });
 
 JS;
 $this->registerJs($js);
