@@ -46,7 +46,8 @@ $rating = 3;
                             <div class="block-sidebar__item">
                                 <div class="widget-posts widget">
                                     <div class="widget-products__list">
-                                        <?php foreach ($products_analog as $product_analog): ?>
+                                        <?php $i = 1;
+                                        foreach ($products_analog as $product_analog): ?>
                                             <div class="widget-products__item">
                                                 <div class="widget-products__image">
                                                     <div class="product-image">
@@ -87,14 +88,17 @@ $rating = 3;
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <hr>
-                                        <?php endforeach ?>
+                                            <?php if ($products_analog_count != $i) { ?>
+                                                <hr>
+                                            <?php } ?>
+                                            <?php $i++; endforeach ?>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
                         <div class="spec__disclaimer">
-                            ----------------------------------
+                            Інформація про технічні характеристики, комплект поставки, країну виробника та зовнішній
+                            вигляд товару є довідковою та базується на актуальній на момент публікації інформації.
                         </div>
                     </div>
                 </div>
@@ -297,7 +301,7 @@ $rating = 3;
 
         .indicator-analog__value {
             height: 15px;
-            font-size: 20px;
+            font-size: 16px;
             padding: 0 5px;
             border-radius: 1000px;
             position: relative;
