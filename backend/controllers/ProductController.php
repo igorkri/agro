@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Settings;
+use common\models\shop\AnalogProducts;
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
 use common\models\shop\ProductGrup;
@@ -113,6 +114,14 @@ class ProductController extends Controller
                         $add_grup->save();
                     }
                 }
+                if (isset($post_product['analogs']) && $post_product['analogs'] != null) {
+                    foreach ($post_product['analogs'] as $analog_id) {
+                        $add_analog = new AnalogProducts();
+                        $add_analog->product_id = $model->id;
+                        $add_analog->analog_product_id = $analog_id;
+                        $add_analog->save();
+                    }
+                }
 
                 return $this->redirect(['update', 'id' => $model->id]);
             }
@@ -200,6 +209,84 @@ class ProductController extends Controller
             }
 
             $post_product = $this->request->post('Product');
+            if (!empty($post_product['analogs'])) {
+                //удаляем существующие analogs
+                $analogs = AnalogProducts::find()->where(['product_id' => $model->id])->all();
+                if ($analogs) {
+                    foreach ($analogs as $analog) {
+                        $analog->delete();
+                    }
+                }
+                $analogs = AnalogProducts::find()->where(['analog_product_id' => $model->id])->all();
+                if ($analogs) {
+                    foreach ($analogs as $analog) {
+                        $analog->delete();
+                    }
+                }
+
+                foreach ($post_product['analogs'] as $analog_id) {
+                    // Добавляем аналог к товару
+                    if ($model->id != $analog_id) {
+                        $analogToProduct = AnalogProducts::find()
+                            ->where(['product_id' => $model->id])
+                            ->andWhere(['analog_product_id' => $analog_id])
+                            ->one();
+
+                        if (!$analogToProduct) {
+                            $add_analog_to_product = new AnalogProducts();
+                            $add_analog_to_product->product_id = $model->id;
+                            $add_analog_to_product->analog_product_id = $analog_id;
+                            $add_analog_to_product->save();
+                        }
+                    }
+
+                    // Добавляем товар к аналогу
+                    if ($model->id != $analog_id) {
+                        $productToAnalog = AnalogProducts::find()
+                            ->where(['product_id' => $analog_id])
+                            ->andWhere(['analog_product_id' => $model->id])
+                            ->one();
+
+                        if (!$productToAnalog) {
+                            $add_product_to_analog = new AnalogProducts();
+                            $add_product_to_analog->product_id = $analog_id;
+                            $add_product_to_analog->analog_product_id = $model->id;
+                            $add_product_to_analog->save();
+                        }
+                    }
+
+                    // Добавляем связи между аналогами
+                    foreach ($post_product['analogs'] as $other_analog_id) {
+                        if ($analog_id != $other_analog_id && $analog_id != $model->id && $other_analog_id != $model->id) {
+                            $analogToOtherAnalog = AnalogProducts::find()
+                                ->where(['product_id' => $analog_id])
+                                ->andWhere(['analog_product_id' => $other_analog_id])
+                                ->one();
+
+                            if (!$analogToOtherAnalog) {
+                                $add_analog_to_other_analog = new AnalogProducts();
+                                $add_analog_to_other_analog->product_id = $analog_id;
+                                $add_analog_to_other_analog->analog_product_id = $other_analog_id;
+                                $add_analog_to_other_analog->save();
+                            }
+
+                            $otherAnalogToAnalog = AnalogProducts::find()
+                                ->where(['product_id' => $other_analog_id])
+                                ->andWhere(['analog_product_id' => $analog_id])
+                                ->one();
+
+                            if (!$otherAnalogToAnalog) {
+                                $add_other_analog_to_analog = new AnalogProducts();
+                                $add_other_analog_to_analog->product_id = $other_analog_id;
+                                $add_other_analog_to_analog->analog_product_id = $analog_id;
+                                $add_other_analog_to_analog->save();
+                            }
+                        }
+                    }
+                }
+            }
+
+            $post_product = $this->request->post('Product');
             if (!empty($post_product['grups'])) {
                 $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
                 if ($grups) {
@@ -253,6 +340,7 @@ class ProductController extends Controller
         $images = ProductImage::find()->where(['product_id' => $model->id])->all();
         $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
         $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
+        $analogs = AnalogProducts::find()->where(['product_id' => $model->id])->all();
         foreach ($images as $image) {
             //----------- Удаление всех картинок продукта
             (file_exists($dir . $image->name)) ? unlink($dir . $image->name) : '';
@@ -275,6 +363,10 @@ class ProductController extends Controller
 
         foreach ($grups as $grup) {
             $grup->delete();
+        }
+
+        foreach ($analogs as $analog) {
+            $analog->delete();
         }
 
         foreach ($properties as $property) {

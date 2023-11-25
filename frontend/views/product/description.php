@@ -1,6 +1,7 @@
 <?php
 
 use kartik\rating\StarRating;
+use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $product */
 
@@ -14,6 +15,10 @@ $rating = 3;
             <div class="product-tabs__list-body">
                 <div class="product-tabs__list-container container">
                     <a href="#tab-description" class="product-tabs__item product-tabs__item--active">Опис</a>
+                    <?php if ($products_analog_count != null) { ?>
+                        <a href="#tab-analog" class="product-tabs__item">Аналог <span
+                                    class="indicator-analog__value"> <?= $products_analog_count ?></span></a>
+                    <?php } ?>
                     <a href="#tab-specification" class="product-tabs__item">Специфікація</a>
                     <a href="#tab-reviews" class="product-tabs__item">Відгуки</a>
                 </div>
@@ -28,8 +33,69 @@ $rating = 3;
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
                              style="display: none;"><?= $product->getFooterDescription($product->id) ?></div>
-                        <button class="btn btn-secondary" id="show-more-btn">Розгорнути опис >> </button>
-                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">Приховати опис << </button>
+                        <button class="btn btn-secondary" id="show-more-btn">Розгорнути опис >></button>
+                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">Приховати
+                            опис <<
+                        </button>
+                    </div>
+                </div>
+                <div class="product-tabs__pane" id="tab-analog">
+                    <div class="spec">
+                        <h3 class="spec__header">Аналог товару</h3>
+                        <?php if ($products_analog) { ?>
+                            <div class="block-sidebar__item">
+                                <div class="widget-posts widget">
+                                    <div class="widget-products__list">
+                                        <?php foreach ($products_analog as $product_analog): ?>
+                                            <div class="widget-products__item">
+                                                <div class="widget-products__image">
+                                                    <div class="product-image">
+                                                        <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"
+                                                           class="product-image__body">
+                                                            <img class="product-image__img"
+                                                                 src="<?= $product_analog->getImgOneExtraSmal($product_analog->getId()) ?>"
+                                                                 alt="<?= $product_analog->name ?>">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-products__info">
+                                                    <div class="widget-products__name" style="font-weight: 550;">
+                                                        <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"><?= $product_analog->name ?></a>
+                                                    </div>
+                                                    <div class="product-card__rating">
+                                                        <div class="product-card__rating-stars">
+                                                            <?= $product_analog->getRating($product_analog->id, 13, 12) ?>
+                                                        </div>
+                                                        <div class="product-card__rating-legend"><?= count($product_analog->reviews) ?>
+                                                            відгуків
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-card__availability">
+                                                         <span class="text-success">
+                                                 <?= $this->render('@frontend/widgets/views/status', ['product' => $product_analog]) ?>
+                                                         </span>
+                                                    </div>
+                                                    <?php if ($product_analog->old_price == null) { ?>
+                                                        <div class="widget-products__prices" style="font-size: 15px;">
+                                                            <?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="widget-products__prices">
+                                                            <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?></span>
+                                                            <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product_analog->getOldPrice()) ?></span>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        <?php endforeach ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <div class="spec__disclaimer">
+                            ----------------------------------
+                        </div>
                     </div>
                 </div>
                 <div class="product-tabs__pane" id="tab-specification">
@@ -227,6 +293,18 @@ $rating = 3;
     <style>
         .rating-md {
             font-size: 22px;
+        }
+
+        .indicator-analog__value {
+            height: 15px;
+            font-size: 20px;
+            padding: 0 5px;
+            border-radius: 1000px;
+            position: relative;
+            top: -5px;
+            background: #fbe720;
+            color: #3d464d;
+            font-weight: 700;
         }
 
         #success-message {

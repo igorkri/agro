@@ -156,11 +156,27 @@ class Product extends ActiveRecord implements CartPositionInterface
             ->viaTable('product_grup', ['product_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[AnalogProducts]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnalogs()
+    {
+        return $this->hasMany(Product::class, ['id' => 'analog_product_id'])
+            ->viaTable('analog_products', ['product_id' => 'id']);
+    }
+
     public function getTag()
     {
         return $this->hasOne(Tag::class, ['id' => 'id']);
     }
 
+    /**
+     * Gets query for [[Grup]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getGrup()
     {
         return $this->hasOne(Grup::class, ['id' => 'id']);

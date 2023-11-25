@@ -3,6 +3,7 @@
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
+
 /** @var \common\models\shop\Review $model_review */
 
 use frontend\widgets\ProductsCarousel;
@@ -75,7 +76,9 @@ $this->title = $product->seo_title;
                                     </svg>
                                 </button>
                                 <div class="owl-carousel" id="product-image">
-                                    <?php foreach ($images as $image) : ?>
+                                    <?php foreach ($images
+
+                                    as $image) : ?>
                                     <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
                                     <div class="product-image product-image--location--gallery">
                                         <div class="product-card__badges-list">
@@ -363,7 +366,9 @@ $this->title = $product->seo_title;
             <?= $this->render('description', [
                 'product' => $product,
                 'product_properties' => $product_properties,
-                'model_review' => $model_review
+                'model_review' => $model_review,
+                'products_analog' => $products_analog,
+                'products_analog_count' => $products_analog_count,
             ]) ?>
         </div>
     </div>

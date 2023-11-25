@@ -2,11 +2,13 @@
 
 namespace frontend\controllers;
 
+use common\models\shop\AnalogProducts;
 use common\models\shop\ProductProperties;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use common\models\shop\Brand;
 use Spatie\SchemaOrg\Schema;
+use yii\helpers\ArrayHelper;
 use yii\i18n\Formatter;
 use yii\web\Controller;
 use Yii;
@@ -16,6 +18,14 @@ class ProductController extends Controller
     public function actionView($slug): string
     {
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
+
+
+        $analog = AnalogProducts::find()->select('analog_product_id')->where(['product_id' => $product->id])->asArray()->all();
+        $analog = ArrayHelper::getColumn($analog, 'analog_product_id');
+        $products_analog = Product::find()->with(['category.parent', 'images'])->where(['id' => $analog])->all();
+        $products_analog_count = count($products_analog);
+
+//        dd($analog);
 
         $images = $product->images;
         $priorities = array_column($images, 'priority');
@@ -124,7 +134,9 @@ class ProductController extends Controller
             'isset_to_cart' => $product->getIssetToCart($product->id),
             'model_review' => $model_review,
             'product_properties' => $product_properties,
-            'img_brand' => $img_brand
+            'img_brand' => $img_brand,
+            'products_analog' => $products_analog,
+            'products_analog_count' => $products_analog_count,
         ]);
     }
 
