@@ -32,7 +32,7 @@ class ActivePages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ip_user', 'url_page', 'user_agent', 'client_from', 'date_visit', 'status_serv', 'other'], 'string', 'max' => 255],
+            [['ip_user', 'url_page', 'user_agent', 'client_from', 'date_visit', 'status_serv', 'other'], 'string', 'max' => 455],
         ];
     }
 
