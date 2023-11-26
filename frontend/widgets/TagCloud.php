@@ -44,6 +44,7 @@ class TagCloud extends Widget
         } else {
             $tags = Tag::find()
                 ->orderBy(new Expression('RAND()'))
+                ->limit(65)
                 ->all();
 
             foreach ($tags as $tag) {

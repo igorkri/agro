@@ -11,20 +11,6 @@ use yii\helpers\Url;
         <div class="block-header">
             <h3 class="block-header__title">Нові надходження</h3>
             <div class="block-header__divider"></div>
-            <ul class="block-header__groups-list">
-                <li>
-                    <button type="button" class="block-header__group  block-header__group--active ">Всі</button>
-                </li>
-                <li>
-                    <button type="button" class="block-header__group ">Гербіциди</button>
-                </li>
-                <li>
-                    <button type="button" class="block-header__group ">Фунгіциди</button>
-                </li>
-                <li>
-                    <button type="button" class="block-header__group ">Інсектециди</button>
-                </li>
-            </ul>
             <div class="block-header__arrows-list">
                 <button class="block-header__arrow block-header__arrow--left" type="button" aria-label="Left">
                     <svg width="7px" height="11px">
