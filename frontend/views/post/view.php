@@ -180,7 +180,9 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
 </div>
 <div class="container reviews-view">
     <div class="reviews-view__list">
+        <?php if ($postItem->reviews) { ?>
         <h3 class="reviews-view__header">Відгуки читачів</h3>
+        <?php } ?>
         <div class="reviews-list">
             <ol class="reviews-list__content">
                 <?php foreach ($postItem->reviews as $review):
