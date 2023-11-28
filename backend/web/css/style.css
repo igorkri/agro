@@ -571,6 +571,11 @@ body {
   color: #ffffff;
 }
 
+.badge-sa-theme-analog {
+  background: rgb(247, 217, 81);
+  color: #151414;
+}
+
 /*
 // breadcrumb
 */

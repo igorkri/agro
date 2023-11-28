@@ -124,7 +124,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </a>
                                         <div>
                                             <a href="<?= Url::to(['product/update', 'id' => $model->id]) ?>"
-                                               class="text-reset"><?= $model->name . ' ' . $model->getNonParametr($model->id) ?></a>
+                                               class="text-reset"><?= $model->name ?>
+                                                <?php if ($model->getProductsAnalog($model->id)) { ?>
+                                                    <span data-bs-toggle="tooltip"
+                                                          data-bs-placement="top"
+                                                          title="Аналоги товару"
+                                                          style="border-radius: 50rem;  padding: 0.01em 0.4em"
+                                                          class="badge-sa-theme-analog">
+                                                    <?= $model->getProductsAnalog($model->id) ?>
+                                                </span>
+                                                <?php } ?>
+
+                                                <?= $model->getNonParametr($model->id) ?></a>
                                             <div class="sa-meta mt-0">
                                                 <ul class="sa-meta__list">
                                                     <li class="sa-meta__item">

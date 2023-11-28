@@ -643,6 +643,15 @@ class Product extends ActiveRecord implements CartPositionInterface
         }
     }
 
+    public function getProductsAnalog($id)
+    {
+        $analog = AnalogProducts::find()->where(['product_id' => $id])->all();
+        if ($analog){
+            $analog = count($analog);
+            return $analog;
+        }
+    }
+
     public
     function getRating($id, $w = 18, $h = 17)
     {
