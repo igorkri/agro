@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\Product;
 use kartik\rating\StarRating;
 use yii\helpers\Url;
 
@@ -44,52 +45,141 @@ $rating = 3;
                         <h3 class="spec__header">Аналог товару</h3>
                         <?php if ($products_analog) { ?>
                             <div class="block-sidebar__item">
-                                <div class="widget-posts widget">
+                                <div class="widget">
                                     <div class="widget-products__list">
                                         <?php $i = 1;
                                         foreach ($products_analog as $product_analog): ?>
-                                            <div class="widget-products__item">
-                                                <div class="widget-products__image">
-                                                    <div class="product-image">
-                                                        <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"
-                                                           class="product-image__body">
-                                                            <img class="product-image__img"
-                                                                 src="<?= $product_analog->getImgOneExtraSmal($product_analog->getId()) ?>"
-                                                                 alt="<?= $product_analog->name ?>">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-products__info">
-                                                    <div class="widget-products__name" style="font-weight: 550;">
-                                                        <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"><?= $product_analog->name ?></a>
-                                                    </div>
-                                                    <div class="product-card__rating">
-                                                        <div class="product-card__rating-stars">
-                                                            <?= $product_analog->getRating($product_analog->id, 13, 12) ?>
-                                                        </div>
-                                                        <div class="product-card__rating-legend"><?= count($product_analog->reviews) ?>
-                                                            відгуків
+                                            <?php if (\Yii::$app->devicedetect->isMobile()) { ?>
+                                                <div class="widget-products__item">
+                                                    <div class="widget-products__image">
+                                                        <div class="product-image">
+                                                            <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"
+                                                               class="product-image__body">
+                                                                <img class="product-image__img"
+                                                                     src="<?= $product_analog->getImgOneExtraSmal($product_analog->getId()) ?>"
+                                                                     alt="<?= $product_analog->name ?>">
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                    <div class="product-card__availability">
+                                                    <div class="widget-products__info">
+                                                        <div class="widget-products__name" style="font-weight: 550;">
+                                                            <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"><?= $product_analog->name ?></a>
+                                                        </div>
+                                                        <div class="product-card__rating">
+                                                            <div class="product-card__rating-stars">
+                                                                <?= $product_analog->getRating($product_analog->id, 13, 12) ?>
+                                                            </div>
+                                                            <div class="product-card__rating-legend"><?= count($product_analog->reviews) ?>
+                                                                відгуків
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-card__availability">
                                                          <span class="text-success">
                                                  <?= $this->render('@frontend/widgets/views/status', ['product' => $product_analog]) ?>
                                                          </span>
+                                                        </div>
+                                                        <?php if ($product_analog->old_price == null) { ?>
+                                                            <div class="widget-products__prices"
+                                                                 style="font-size: 15px;">
+                                                                <?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?>
+                                                            </div>
+                                                        <?php } else { ?>
+                                                            <div class="widget-products__prices">
+                                                                <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?></span>
+                                                                <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product_analog->getOldPrice()) ?></span>
+                                                            </div>
+                                                        <?php } ?>
                                                     </div>
-                                                    <?php if ($product_analog->old_price == null) { ?>
-                                                        <div class="widget-products__prices" style="font-size: 15px;">
-                                                            <?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <div class="widget-products__prices">
-                                                            <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?></span>
-                                                            <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product_analog->getOldPrice()) ?></span>
-                                                        </div>
-                                                    <?php } ?>
                                                 </div>
-                                            </div>
-                                            <?php if ($products_analog_count != $i) { ?>
-                                                <hr>
+                                                <?php if ($products_analog_count != $i) { ?>
+                                                    <hr>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <div class="products-view__list products-list" data-layout="list"
+                                                     data-with-features="false" data-mobile-grid-columns="2">
+                                                    <div class="products-list__body">
+                                                        <div class="products-list__item">
+                                                            <div class="product-card product-card--hidden-actions ">
+                                                                <?php if (isset($products_analog->label)): ?>
+                                                                    <div class="product-card__badges-list">
+                                                                        <div class="product-card__badge product-card__badge--new"><?= $products_analog->label->name ?></div>
+                                                                    </div>
+                                                                <?php endif; ?>
+                                                                <div class="product-card__image product-image">
+                                                                    <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"
+                                                                       class="product-image__body">
+                                                                        <img class="product-image__img"
+                                                                             src="<?= $product_analog->getImgOneExtraLarge($product_analog->getId()) ?>"
+                                                                             alt="<?= $product_analog->name ?>">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="product-card__info">
+                                                                    <div class="product-card__name">
+                                                                        <a href="<?= Url::to(['product/view', 'slug' => $product_analog->slug]) ?>"><?= $product_analog->name ?></a>
+                                                                    </div>
+                                                                    <div class="product-card__rating">
+                                                                        <div class="product-card__rating-stars">
+                                                                            <div class="rating">
+                                                                                <div class="rating__body">
+                                                                                    <?= $product_analog->getRating($product_analog->id, 13, 12) ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-card__rating-legend"><?= count($product_analog->reviews) ?>
+                                                                            відгуків
+                                                                        </div>
+                                                                    </div>
+                                                                    <ul class="product-card__features-list">
+                                                                        <?= Product::productParamsList($product_analog->id) ?>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="product-card__actions">
+                                                                    <div class="product-card__availability">
+                                                                     <span class="text-success">
+                                                                        <?= $this->render('@frontend/widgets/views/status', ['product' => $product_analog]) ?>
+                                                                     </span>
+                                                                    </div>
+                                                                    <?php if ($product_analog->old_price == null) { ?>
+                                                                        <div class="product-card__prices">
+                                                                            <?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?>
+                                                                        </div>
+                                                                    <?php } else { ?>
+                                                                        <div class="product-card__prices">
+                                                                            <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product_analog->getPrice()) ?></span>
+                                                                            <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product_analog->getOldPrice()) ?></span>
+                                                                        </div>
+                                                                    <?php } ?>
+
+                                                                    <?php if ($product_analog->status_id != 2) { ?>
+                                                                        <div class="product-card__buttons">
+                                                                            <button class="btn btn-primary product-card__addtocart "
+                                                                                    type="button"
+                                                                                    data-product-id="<?= $product_analog->id ?>">
+                                                                                <svg width="20px" height="20px"
+                                                                                     style="display: unset;">
+                                                                                    <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                                                                </svg>
+                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                                                            </button>
+                                                                        </div>
+                                                                    <?php } else { ?>
+                                                                        <div class="product-card__buttons">
+                                                                            <button class="btn btn-secondary disabled"
+                                                                                    type="button"
+                                                                                    data-product-id="<?= $product_analog->id ?>">
+                                                                                <svg width="20px" height="20px"
+                                                                                     style="display: unset;">
+                                                                                    <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                                                                </svg>
+                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                                                            </button>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             <?php } ?>
                                             <?php $i++; endforeach ?>
                                     </div>

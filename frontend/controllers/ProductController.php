@@ -19,13 +19,10 @@ class ProductController extends Controller
     {
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
 
-
         $analog = AnalogProducts::find()->select('analog_product_id')->where(['product_id' => $product->id])->asArray()->all();
         $analog = ArrayHelper::getColumn($analog, 'analog_product_id');
         $products_analog = Product::find()->with(['category.parent', 'images'])->where(['id' => $analog])->all();
         $products_analog_count = count($products_analog);
-
-//        dd($analog);
 
         $images = $product->images;
         $priorities = array_column($images, 'priority');
