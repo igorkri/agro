@@ -134,7 +134,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <?= $model->getProductsAnalog($model->id) ?>
                                                 </span>
                                                 <?php } ?>
-
                                                 <?= $model->getNonParametr($model->id) ?></a>
                                             <div class="sa-meta mt-0">
                                                 <ul class="sa-meta__list">
