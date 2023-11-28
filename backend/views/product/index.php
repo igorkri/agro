@@ -125,22 +125,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div>
                                             <a href="<?= Url::to(['product/update', 'id' => $model->id]) ?>"
                                                class="text-reset"><?= $model->name ?>
-                                                <?php if ($model->getProductsAnalog($model->id)) { ?>
-                                                    <span data-bs-toggle="tooltip"
-                                                          data-bs-placement="top"
-                                                          title="Аналоги товару"
-                                                          style="border-radius: 50rem;  padding: 0.01em 0.4em"
-                                                          class="badge-sa-theme-analog">
-                                                    <?= $model->getProductsAnalog($model->id) ?>
-                                                </span>
-                                                <?php } ?>
                                                 <?= $model->getNonParametr($model->id) ?></a>
                                             <div class="sa-meta mt-0">
                                                 <ul class="sa-meta__list">
+
                                                     <li class="sa-meta__item">
                                                         ID:
                                                         <span class="st-copy"><?= $model->id ?></span>
                                                     </li>
+                                                    <?php if ($model->getProductsAnalog($model->id)) { ?>
+                                                        <li class="sa-meta__item">
+                                                            АНАЛОГ:
+                                                            <span class="st-copy">
+                                                        <?php
+                                                        echo ' <span class="badge badge-sa-theme-analog">' . $model->getProductsAnalog($model->id) . '</span>';
+                                                        ?>
+                                                    </span>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <?php if ($model->grups) { ?>
                                                     <li class="sa-meta__item">
                                                         ГРУП:
                                                         <span class="st-copy">
@@ -151,20 +154,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ?>
                                                     </span>
                                                     </li>
-                                                    <li class="sa-meta__item">
-                                                        LABEL:
-                                                        <span class="st-copy"><?= isset($model->label) ? ' <span class="badge badge-sa-primary-label">' . $model->label->name . '</span>' : '' ?></span>
-                                                    </li>
-                                                    <li class="sa-meta__item">
-                                                        TAGS:
-                                                        <span class="st-copy">
+                                                    <?php } ?>
+                                                    <?php if (isset($model->label)) { ?>
+                                                        <li class="sa-meta__item">
+                                                            МІТКА:
+                                                            <span class="st-copy"><span
+                                                                        class="badge badge-sa-primary-label"><?= $model->label->name ?></span></span>
+                                                        </li>
+                                                    <?php } ?>
+                                                    <?php if ($model->tags) { ?>
+                                                        <li class="sa-meta__item">
+                                                            ТЕГИ:
+                                                            <span class="st-copy">
                                                         <?php
                                                         foreach ($model->tags as $tag) {
                                                             echo ' <span class="badge badge-sa-secondary">' . $tag->name . '</span>';
                                                         }
                                                         ?>
                                                     </span>
-                                                    </li>
+                                                        </li>
+                                                    <?php } ?>
                                                 </ul>
                                             </div>
                                         </div>
