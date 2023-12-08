@@ -1,6 +1,7 @@
 <?php
 
 use common\models\shop\Category;
+use common\models\shop\Product;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -27,10 +28,17 @@ use yii\widgets\ActiveForm;
                 <li class="sa-filters__item">
                     <div class="sa-filters__item-title">Ціна</div>
                     <div class="sa-filters__item-body">
-                        <div class="sa-filter-range" data-min="0" data-max="2000" data-from="0" data-to="2000">
+                        <?php
+                        $minPrice = round(Product::find()->min('price'), 2);
+                        $maxPrice = round(Product::find()->max('price'), 2);
+                        $submittedMinPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : $minPrice;
+                        $submittedMaxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : $maxPrice;
+                        ?>
+                        <div class="sa-filter-range" data-min="<?= $minPrice ?>" data-max="<?= $maxPrice ?>" data-from="<?= $submittedMinPrice ?>"
+                             data-to="<?= $submittedMaxPrice ?>">
                             <div class="sa-filter-range__slider"></div>
-                            <input type="hidden" value="0" class="sa-filter-range__input-from"/>
-                            <input type="hidden" value="2000" class="sa-filter-range__input-to"/>
+                            <input type="hidden" name="minPrice" id="minPrice" value="<?= $submittedMinPrice ?>" class="sa-filter-range__input-from"/>
+                            <input type="hidden" name="maxPrice" id="maxPrice" value="<?= $submittedMaxPrice ?>" class="sa-filter-range__input-to"/>
                         </div>
                     </div>
                 </li>
@@ -85,8 +93,8 @@ use yii\widgets\ActiveForm;
             </ul>
         </div>
         <div>
-        <button type="submit" class="btn btn-primary">Фільтрувати</button>
-        <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+            <button type="submit" class="btn btn-primary">Фільтрувати</button>
+            <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>

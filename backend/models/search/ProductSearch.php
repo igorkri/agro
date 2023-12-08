@@ -2,6 +2,7 @@
 
 namespace backend\models\search;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\shop\Product;
@@ -66,6 +67,11 @@ class ProductSearch extends Product
             'category_id' => $this->category_id,
             'label_id' => $this->label_id,
         ]);
+
+        $minPrice = Yii::$app->request->get('minPrice');
+        $maxPrice = Yii::$app->request->get('maxPrice');
+        $query->andFilterWhere(['>=', 'price', $minPrice])
+            ->andFilterWhere(['<=', 'price', $maxPrice]);
 
         if (isset($params['category'])) {
             $query->andFilterWhere(['category_id' => $params['category']]);
