@@ -42,7 +42,6 @@ class ProductSearch extends Product
     public function search($params)
     {
         $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
-//        $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -67,6 +66,14 @@ class ProductSearch extends Product
             'category_id' => $this->category_id,
             'label_id' => $this->label_id,
         ]);
+
+        if (isset($params['category'])) {
+            $query->andFilterWhere(['category_id' => $params['category']]);
+        }
+
+        if (isset($params['status'])) {
+            $query->andFilterWhere(['status_id' => $params['status']]);
+        }
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
