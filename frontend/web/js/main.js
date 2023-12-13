@@ -797,19 +797,19 @@
     /*
     // layout switcher
     */
-    $(function () {
-        $('.layout-switcher__button').on('click', function() {
-            const layoutSwitcher = $(this).closest('.layout-switcher');
-            const productsView = $(this).closest('.products-view');
-            const productsList = productsView.find('.products-list');
-
-            layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
-            $(this).addClass('layout-switcher__button--active');
-
-            productsList.attr('data-layout', $(this).attr('data-layout'));
-            productsList.attr('data-with-features', $(this).attr('data-with-features'));
-        });
-    });
+    // $(function () {
+    //     $('.layout-switcher__button').on('click', function() {
+    //         const layoutSwitcher = $(this).closest('.layout-switcher');
+    //         const productsView = $(this).closest('.products-view');
+    //         const productsList = productsView.find('.products-list');
+    //
+    //         layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
+    //         $(this).addClass('layout-switcher__button--active');
+    //
+    //         productsList.attr('data-layout', $(this).attr('data-layout'));
+    //         productsList.attr('data-with-features', $(this).attr('data-with-features'));
+    //     });
+    // });
 
 
     /*

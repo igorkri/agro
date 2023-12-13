@@ -1,6 +1,7 @@
 <?php
 
 use common\models\shop\ActivePages;
+use common\models\shop\Product;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
@@ -52,12 +53,59 @@ ActivePages::setActiveUser();
                     <div class="products-view">
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
+<!--                                <div class="view-options__filters-button">-->
+<!--                                    <button type="button" class="filters-button">-->
+<!--                                        <svg class="filters-button__icon" width="16px" height="16px">-->
+<!--                                            <use xlink:href="/images/sprite.svg#filters-16"></use>-->
+<!--                                        </svg>-->
+<!--                                        <span class="filters-button__title">Фільтр</span>-->
+<!--                                        <span class="filters-button__counter">3</span>-->
+<!--                                    </button>-->
+<!--                                </div>-->
                                 <div class="view-options__layout">
                                     <div class="layout-switcher">
+                                        <div class="layout-switcher__list">
+                                            <button data-layout="grid-4-full" data-with-features="false" title="Плитка" type="button" class="layout-switcher__button">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
+                                                </svg>
+                                            </button>
+                                            <button data-layout="list" data-with-features="false" title="Список" type="button" class="layout-switcher__button">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#layout-list-16x16"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="view-options__legend">Показано <?= count($products) ?> товарів з <?= $products_all ?></div>
                                 <div class="view-options__divider"></div>
+                                <div class="view-options__control">
+                                    <label for="">Сортувати</label>
+                                    <div>
+                                        <?php
+                                        echo \yii\helpers\Html::beginForm(['category/catalog'], 'get', ['class' => 'form-inline']);
+                                        echo \yii\helpers\Html::dropDownList('sort', Yii::$app->request->get('sort'), [
+                                            '' => 'Наявність',
+                                            'price_lowest' => 'Дешевші',
+                                            'price_highest' => 'Дорожчі',
+                                        ], ['class' => 'form-control form-control-sm', 'id' => 'sort-form']);
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="view-options__control">
+                                    <label for="">Показати</label>
+                                    <div>
+                                        <?php
+                                        echo \yii\helpers\Html::dropDownList('count', Yii::$app->request->get('count'), [
+                                        '12' => '12',
+                                        '24' => '24',
+                                        ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
+                                        echo \yii\helpers\Html::hiddenInput('slug', $category->slug);
+                                        echo \yii\helpers\Html::endForm();
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="products-view__list products-list" data-layout="grid-4-full"
@@ -95,6 +143,9 @@ ActivePages::setActiveUser();
                                                         відгуків
                                                     </div>
                                                 </div>
+                                                <ul class="product-card__features-list">
+                                                    <?= Product::productParamsList($product->id) ?>
+                                                </ul>
                                             </div>
                                             <div class="product-card__actions">
                                                 <div class="product-card__availability">
@@ -155,6 +206,73 @@ ActivePages::setActiveUser();
                 </div>
             </div>
         </div>
+
+
+        <div class="block block-sidebar block-sidebar--offcanvas--always">
+            <div class="block-sidebar__backdrop"></div>
+            <div class="block-sidebar__body">
+                <div class="block-sidebar__header">
+                    <div class="block-sidebar__title">Фільтр</div>
+                    <button class="block-sidebar__close" type="button">
+                        <svg width="20px" height="20px">
+                            <use xlink:href="/images/sprite.svg#cross-20"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="block-sidebar__item">
+                    <div class="widget-filters widget widget-filters--offcanvas--always" data-collapse data-collapse-opened-class="filter--opened">
+                        <h4 class="widget-filters__title widget__title">Фільтр</h4>
+                        <div class="widget-filters__list">
+
+                            <div class="widget-filters__item">
+                                <div class="filter filter--opened" data-collapse-item>
+                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                        Ціна
+                                        <svg class="filter__arrow" width="12px" height="7px">
+                                            <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="filter__body" data-collapse-content>
+                                        <div class="filter__container">
+                                            <div class="filter-price" data-min="<?php echo $minPrice ?>"
+                                                 data-max="<?php echo $maxPrice ?>"
+                                                 data-from="3000" data-to="12000">
+                                                <div class="filter-price__slider"></div>
+                                                <div class="filter-price__title">Ціна: ₴ <span
+                                                            class="filter-price__min-value"></span> – ₴ <span
+                                                            class="filter-price__max-value"></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-filters__item">
+                                <div class="filter filter--opened" data-collapse-item>
+                                    <button type="button" class="filter__title" data-collapse-trigger>
+                                        Бренд
+                                        <svg class="filter__arrow" width="12px" height="7px">
+                                            <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                        </svg>
+                                    </button>
+                                    <div class="filter__body" data-collapse-content>
+                                        <div class="filter__container">
+                                            <div class="filter-list">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-filters__actions d-flex">
+                            <button class="btn btn-primary btn-sm">Фільтрувати</button>
+                            <button class="btn btn-secondary btn-sm">Скинути</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <style>
@@ -162,3 +280,50 @@ ActivePages::setActiveUser();
         color: #a9a8a8;
     }
 </style>
+
+<?php
+$script = <<< JS
+
+$(document).ready(function () {
+    $('#sort-form, #count-form').change(function () {
+        console.log('Select changed!');
+        this.form.submit();
+    });
+});
+
+
+$(function () {
+    // Загрузка предыдущего выбранного макета из localStorage при загрузке страницы
+    const savedLayout = localStorage.getItem('selectedLayout');
+    if (savedLayout) {
+        const productsList = $('.products-view .products-list');
+        
+        // Установка предыдущего выбранного макета
+        productsList.attr('data-layout', savedLayout);
+        
+        // Пометка соответствующей кнопки как активной
+        $('.layout-switcher__button[data-layout="' + savedLayout + '"]').addClass('layout-switcher__button--active');
+    }
+
+    $('.layout-switcher__button').on('click', function() {
+        const selectedLayout = $(this).data('layout');
+        const layoutSwitcher = $(this).closest('.layout-switcher');
+        const productsView = $(this).closest('.products-view');
+        const productsList = productsView.find('.products-list');
+        
+        layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
+        $(this).addClass('layout-switcher__button--active');
+        
+        // Сохранение выбранного макета в localStorage
+        localStorage.setItem('selectedLayout', selectedLayout);
+
+        // Установка выбранного макета
+        productsList.attr('data-layout', selectedLayout);
+    });
+});
+
+
+JS;
+
+$this->registerJs($script, \yii\web\View::POS_END);
+?>
