@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\Product;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
@@ -21,12 +22,12 @@ use yii\helpers\Url;
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Теги продуктів</li>
+                        <li class="breadcrumb-item active" aria-current="page">Продукти запиту</li>
                     </ol>
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1>Продукти тега  "<?= $tag_name->name ?>"</h1>
+                <h1>Продукти запиту  "<?= $tag_name->name ?>"</h1>
             </div>
         </div>
     </div>
@@ -39,10 +40,48 @@ use yii\helpers\Url;
                             <div class="view-options view-options--offcanvas--always">
                                 <div class="view-options__layout">
                                     <div class="layout-switcher">
+                                        <div class="layout-switcher__list">
+                                            <button data-layout="grid-4-full" data-with-features="false" title="Плитка" type="button" class="layout-switcher__button">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
+                                                </svg>
+                                            </button>
+                                            <button data-layout="list" data-with-features="false" title="Список" type="button" class="layout-switcher__button">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#layout-list-16x16"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="view-options__legend">Показано <?= count($products) ?> товарів з <?= $products_all ?></div>
                                 <div class="view-options__divider"></div>
+                                <div class="view-options__control">
+                                    <label for="">Сортувати</label>
+                                    <div>
+                                        <?php
+                                        echo \yii\helpers\Html::beginForm(['tag/view'], 'get', ['class' => 'form-inline']);
+                                        echo \yii\helpers\Html::dropDownList('sort', Yii::$app->request->get('sort'), [
+                                            '' => 'Наявність',
+                                            'price_lowest' => 'Дешевші',
+                                            'price_highest' => 'Дорожчі',
+                                        ], ['class' => 'form-control form-control-sm', 'id' => 'sort-form']);
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="view-options__control">
+                                    <label for="">Показати</label>
+                                    <div>
+                                        <?php
+                                        echo \yii\helpers\Html::dropDownList('count', Yii::$app->request->get('count'), [
+                                            '12' => '12',
+                                            '24' => '24',
+                                        ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
+                                        echo \yii\helpers\Html::hiddenInput('id', $tag_name->id);
+                                        echo \yii\helpers\Html::endForm();
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
@@ -75,6 +114,9 @@ use yii\helpers\Url;
                                                     </div>
                                                     <div class="product-card__rating-legend"><?=count($product->reviews)?> відгуків</div>
                                                 </div>
+                                                <ul class="product-card__features-list">
+                                                    <?= Product::productParamsList($product->id) ?>
+                                                </ul>
                                             </div>
                                             <div class="product-card__actions">
                                                 <div class="product-card__availability">
@@ -139,3 +181,50 @@ use yii\helpers\Url;
         color: #a9a8a8;
     }
 </style>
+
+<?php
+$script = <<< JS
+
+$(document).ready(function () {
+    $('#sort-form, #count-form').change(function () {
+        console.log('Select changed!');
+        this.form.submit();
+    });
+});
+
+
+$(function () {
+    // Загрузка предыдущего выбранного макета из localStorage при загрузке страницы
+    const savedLayout = localStorage.getItem('selectedLayout');
+    if (savedLayout) {
+        const productsList = $('.products-view .products-list');
+        
+        // Установка предыдущего выбранного макета
+        productsList.attr('data-layout', savedLayout);
+        
+        // Пометка соответствующей кнопки как активной
+        $('.layout-switcher__button[data-layout="' + savedLayout + '"]').addClass('layout-switcher__button--active');
+    }
+
+    $('.layout-switcher__button').on('click', function() {
+        const selectedLayout = $(this).data('layout');
+        const layoutSwitcher = $(this).closest('.layout-switcher');
+        const productsView = $(this).closest('.products-view');
+        const productsList = productsView.find('.products-list');
+        
+        layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
+        $(this).addClass('layout-switcher__button--active');
+        
+        // Сохранение выбранного макета в localStorage
+        localStorage.setItem('selectedLayout', selectedLayout);
+
+        // Установка выбранного макета
+        productsList.attr('data-layout', selectedLayout);
+    });
+});
+
+
+JS;
+
+$this->registerJs($script, \yii\web\View::POS_END);
+?>
