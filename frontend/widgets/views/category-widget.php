@@ -19,8 +19,9 @@ use yii\helpers\Url;
                             <?php if ($category->parents): ?>
                                 <li class="departments__item">
                                     <a class="departments__item-link"
-                                       href="<?= Url::to(['/category/children', 'slug' => $category->slug]) ?>"><i class="bi-bug"></i>
-                                          <?= $category->svg . ' ' . $category->name ?>
+                                       href="<?= Url::to(['/category/children', 'slug' => $category->slug]) ?>"><i
+                                                class="bi-bug"></i>
+                                        <?= $category->svg . ' ' . $category->name ?>
                                         <svg class="departments__item-arrow" width="6px" height="9px">
                                             <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                         </svg>
@@ -75,32 +76,32 @@ use yii\helpers\Url;
                                             <div class="megamenu__body ">
                                                 <div class="row">
                                                     <?php $products_menu = Product::find()->where(['category_id' => $category->id])->all() ?>
-                                                            <div class="col-3">
-                                                                <ul class="megamenu__links megamenu__links--level--0">
-                                                                    <li class="megamenu__item  megamenu__item--with-submenu ">
-                                                                        <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>"><?= $category->svg . ' ' . $category->name ?></a>
-                                                                        <ul class="megamenu__links megamenu__links--level--1">
-                                                                            <?php if ($products_menu): ?>
-                                                                                <?php $i = 1;
-                                                                                foreach ($products_menu as $product): ?>
-                                                                                    <?php if ($i < 6): ?>
-                                                                                        <li class="megamenu__item"><a
-                                                                                                    href="<?= Url::to(['/product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                                                                        </li>
-                                                                                    <?php endif; ?>
-                                                                                    <?php if ($i == 6): ?>
-                                                                                        <li class="megamenu__item">
-                                                                                            <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
-                                                                                                <span style="color: #30b12b; ">Дивитись всі... </span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    <?php endif; ?>
-                                                                                    <?php $i++; endforeach; ?>
+                                                    <div class="col-3">
+                                                        <ul class="megamenu__links megamenu__links--level--0">
+                                                            <li class="megamenu__item  megamenu__item--with-submenu ">
+                                                                <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>"><?= $category->svg . ' ' . $category->name ?></a>
+                                                                <ul class="megamenu__links megamenu__links--level--1">
+                                                                    <?php if ($products_menu): ?>
+                                                                        <?php $i = 1;
+                                                                        foreach ($products_menu as $product): ?>
+                                                                            <?php if ($i < 6): ?>
+                                                                                <li class="megamenu__item"><a
+                                                                                            href="<?= Url::to(['/product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                                                                </li>
                                                                             <?php endif; ?>
-                                                                        </ul>
-                                                                    </li>
+                                                                            <?php if ($i == 6): ?>
+                                                                                <li class="megamenu__item">
+                                                                                    <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
+                                                                                        <span style="color: #30b12b; ">Дивитись всі... </span>
+                                                                                    </a>
+                                                                                </li>
+                                                                            <?php endif; ?>
+                                                                            <?php $i++; endforeach; ?>
+                                                                    <?php endif; ?>
                                                                 </ul>
-                                                            </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
