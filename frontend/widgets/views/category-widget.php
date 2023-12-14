@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\Product;
 use yii\helpers\Url;
 
 ?>
@@ -69,6 +70,41 @@ use yii\helpers\Url;
                                        href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
                                         <?= $category->svg . ' ' . $category->name ?>
                                     </a>
+                                    <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
+                                        <div class="megamenu  megamenu--departments ">
+                                            <div class="megamenu__body ">
+                                                <div class="row">
+                                                    <?php $products_menu = Product::find()->where(['category_id' => $category->id])->all() ?>
+                                                            <div class="col-3">
+                                                                <ul class="megamenu__links megamenu__links--level--0">
+                                                                    <li class="megamenu__item  megamenu__item--with-submenu ">
+                                                                        <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>"><?= $category->svg . ' ' . $category->name ?></a>
+                                                                        <ul class="megamenu__links megamenu__links--level--1">
+                                                                            <?php if ($products_menu): ?>
+                                                                                <?php $i = 1;
+                                                                                foreach ($products_menu as $product): ?>
+                                                                                    <?php if ($i < 6): ?>
+                                                                                        <li class="megamenu__item"><a
+                                                                                                    href="<?= Url::to(['/product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                                                                        </li>
+                                                                                    <?php endif; ?>
+                                                                                    <?php if ($i == 6): ?>
+                                                                                        <li class="megamenu__item">
+                                                                                            <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
+                                                                                                <span style="color: #30b12b; ">Дивитись всі... </span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    <?php endif; ?>
+                                                                                    <?php $i++; endforeach; ?>
+                                                                            <?php endif; ?>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             <?php endif; ?>
                         <?php endforeach; ?>
