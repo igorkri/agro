@@ -647,7 +647,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     function getNonBrand($id)
     {
         $res = '';
-        $product = Product::find()->where(['id' => $id])->one();
+        $product = Product::find()->select('brand_id')->where(['id' => $id])->one();
 
         if ($product->brand_id == null) {
             $res = '<a data-bs-toggle="tooltip"
