@@ -2,12 +2,11 @@
 
 use common\models\Settings;
 use common\models\shop\ActivePages;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
-$min_order = 100;  //минимальная сумма заказа
+$min_order = 50;  //минимальная сумма заказа
 
 if ($total_summ === 0) {
     $h = 'Ваш кошик порожній';
@@ -23,7 +22,6 @@ if ($total_summ === 0) {
         </svg>
     </button>
     <div class="product product--layout--quickview" data-layout="quickview">
-        <!-- site__body -->
         <div class="site__body">
             <div class="page-header">
                 <div class="page-header__container container">
@@ -126,7 +124,7 @@ if ($total_summ === 0) {
                                         <?php } ?>
                                     <?php } else { ?>
                                         <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                                           href="<?= Url::to(['/']) ?>">Дивитись товари</a>
+                                           href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -135,7 +133,6 @@ if ($total_summ === 0) {
                 </div>
             </div>
         </div>
-        <!-- site__body / end -->
     </div>
 </div>
 

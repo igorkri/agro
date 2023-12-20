@@ -1,12 +1,11 @@
 <?php
 
 use common\models\shop\ActivePages;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
-$min_order = 100;  //минимальная сумма заказа
+$min_order = 50;  //минимальная сумма заказа
 
 ?>
 
@@ -91,7 +90,7 @@ $min_order = 100;  //минимальная сумма заказа
                             <?php } ?>
                         <?php } else { ?>
                             <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                               href="<?= Url::to(['/']) ?>">Дивитись товари</a>
+                               href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
                         <?php } ?>
                     </div>
                 </div>
