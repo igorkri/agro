@@ -1,9 +1,9 @@
 <?php
+
 /** @var yii\web\View $this */
 /** @var \common\models\shop\Product $product */
 /** @var \common\models\shop\Brand $img_brand */
 /** @var \common\models\shop\Product $products */
-
 /** @var \common\models\shop\Review $model_review */
 
 use frontend\widgets\ProductsCarousel;
@@ -141,10 +141,12 @@ $this->title = $product->seo_title;
                             <div class="product__description">
                                 <?php if ($product_properties != null) { ?>
                                     <?php foreach ($product_properties as $property): ?>
-                                        <div class="spec__row">
-                                            <div class="spec__name"><?= $property->properties ?></div>
-                                            <div class="spec__value"><?= $property->value ?></div>
-                                        </div>
+                                        <?php if ($property->value): ?>
+                                            <div class="spec__row">
+                                                <div class="spec__name"><?= $property->properties ?></div>
+                                                <div class="spec__value"><?= $property->value ?></div>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 <?php } else { ?>
                                     <div class="spec__row">
