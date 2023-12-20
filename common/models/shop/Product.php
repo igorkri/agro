@@ -580,13 +580,15 @@ class Product extends ActiveRecord implements CartPositionInterface
         $title_param = '';
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
         foreach ($product_params as $params) {
-            $title_param .= '<li style="
+            if ($params->value) {
+                $title_param .= '<li style="
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 ">' . $params->properties . ' ' . '<b>' . $params->value . '</b></li>';
+            }
         }
         if ($title_param == '') {
             $title_param = '-------------------------<br>
@@ -662,7 +664,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public function getProductsAnalog($id)
     {
         $analog = AnalogProducts::find()->where(['product_id' => $id])->all();
-        if ($analog){
+        if ($analog) {
             $analog = count($analog);
             return $analog;
         }
