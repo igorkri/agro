@@ -580,7 +580,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         $title_param = '';
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
         foreach ($product_params as $params) {
-            if ($params->value) {
+            if ($params->value && $params->value != '*') {
                 $title_param .= '<li style="
     overflow: hidden;
     text-overflow: ellipsis;

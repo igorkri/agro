@@ -141,7 +141,7 @@ $this->title = $product->seo_title;
                             <div class="product__description">
                                 <?php if ($product_properties != null) { ?>
                                     <?php foreach ($product_properties as $property): ?>
-                                        <?php if ($property->value): ?>
+                                        <?php if ($property->value && $property->value != '*'): ?>
                                             <div class="spec__row">
                                                 <div class="spec__name"><?= $property->properties ?></div>
                                                 <div class="spec__value"><?= $property->value ?></div>
