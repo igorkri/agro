@@ -203,6 +203,10 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                     </div>
                                                     <?php $index++; ?>
                                                 <?php endforeach; ?>
+                                                <div style="color: #898787 ">
+                                                    <span>' ' - не заповнене поле не показуеться на сайті</span><br>
+                                                    <span>'*' - поле в товарі не використовуеться</span>
+                                                </div>
                                             </div>
                                             <div class="mt-3">
                                                 <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
