@@ -16,6 +16,7 @@ use frontend\widgets\BlockFeatures;
 use frontend\widgets\Bestsellers;
 use frontend\widgets\BlockBrands;
 use frontend\widgets\BlockBanner;
+use frontend\widgets\ViewProduct;
 use frontend\widgets\BlockPosts;
 
 ActivePages::setActiveUser();
@@ -36,11 +37,11 @@ ActivePages::setActiveUser();
     <div class="block block-product-columns d-lg-block d-none">
         <div class="container">
             <div class="row">
-   <?php echo ColumnsTopRated::widget() ?>
-   <?php echo ColumnsSpecialOffers::widget() ?>
-   <?php echo ColumnsBestsellers::widget() ?>
+                <?php echo ColumnsTopRated::widget() ?>
+                <?php echo ColumnsSpecialOffers::widget() ?>
+                <?php echo ColumnsBestsellers::widget() ?>
             </div>
         </div>
     </div>
+    <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
 </div>
-
