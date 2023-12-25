@@ -1,10 +1,12 @@
 <?php
 
+use common\models\shop\ActivePages;
 use common\models\shop\Product;
 use yii\bootstrap5\LinkPager;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Product $pages */
@@ -144,6 +146,17 @@ use yii\helpers\Url;
                                                             </svg>
                                                             <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                         </button>
+                                                        <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                            ['compare/add-to-compare', 'id' => $product->id],
+                                                            [
+                                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                'id' => 'add-from-compare-btn',
+                                                                'data-toggle' => 'tooltip',
+                                                                'title' => 'Додати в список порівняння',
+                                                            ]) ?>
                                                     </div>
                                                 <?php } else { ?>
                                                     <div class="product-card__buttons">
@@ -155,6 +168,17 @@ use yii\helpers\Url;
                                                             </svg>
                                                             <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                         </button>
+                                                        <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                            ['compare/add-to-compare', 'id' => $product->id],
+                                                            [
+                                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                'id' => 'add-from-compare-btn',
+                                                                'data-toggle' => 'tooltip',
+                                                                'title' => 'Додати в список порівняння',
+                                                            ]) ?>
                                                     </div>
                                                 <?php } ?>
                                             </div>
@@ -181,50 +205,3 @@ use yii\helpers\Url;
         color: #a9a8a8;
     }
 </style>
-
-<?php
-$script = <<< JS
-
-$(document).ready(function () {
-    $('#sort-form, #count-form').change(function () {
-        console.log('Select changed!');
-        this.form.submit();
-    });
-});
-
-
-$(function () {
-    // Загрузка предыдущего выбранного макета из localStorage при загрузке страницы
-    const savedLayout = localStorage.getItem('selectedLayout');
-    if (savedLayout) {
-        const productsList = $('.products-view .products-list');
-        
-        // Установка предыдущего выбранного макета
-        productsList.attr('data-layout', savedLayout);
-        
-        // Пометка соответствующей кнопки как активной
-        $('.layout-switcher__button[data-layout="' + savedLayout + '"]').addClass('layout-switcher__button--active');
-    }
-
-    $('.layout-switcher__button').on('click', function() {
-        const selectedLayout = $(this).data('layout');
-        const layoutSwitcher = $(this).closest('.layout-switcher');
-        const productsView = $(this).closest('.products-view');
-        const productsList = productsView.find('.products-list');
-        
-        layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
-        $(this).addClass('layout-switcher__button--active');
-        
-        // Сохранение выбранного макета в localStorage
-        localStorage.setItem('selectedLayout', selectedLayout);
-
-        // Установка выбранного макета
-        productsList.attr('data-layout', selectedLayout);
-    });
-});
-
-
-JS;
-
-$this->registerJs($script, \yii\web\View::POS_END);
-?>

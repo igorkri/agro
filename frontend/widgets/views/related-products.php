@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $products */
@@ -45,9 +46,9 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__info">
                                     <?php if ($product->category->prefix) { ?>
-                                    <div class="product-card__name">
-                                            <?php  echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
-                                    </div>
+                                        <div class="product-card__name">
+                                            <?php echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                        </div>
                                     <?php } ?>
                                     <div class="product-card__name">
                                         <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
@@ -77,6 +78,8 @@ use yii\helpers\Url;
                                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                         </div>
                                     <?php } ?>
+
+
                                     <?php if ($product->status_id != 2) { ?>
                                         <div class="product-card__buttons">
                                             <button class="btn btn-primary product-card__addtocart "
@@ -87,6 +90,17 @@ use yii\helpers\Url;
                                                 </svg>
                                                 <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                             </button>
+                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                ['compare/add-to-compare', 'id' => $product->id],
+                                                [
+                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                    'id' => 'add-from-compare-btn',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Додати в список порівняння',
+                                                ]) ?>
                                         </div>
                                     <?php } else { ?>
                                         <div class="product-card__buttons">
@@ -98,6 +112,17 @@ use yii\helpers\Url;
                                                 </svg>
                                                 <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                             </button>
+                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                ['compare/add-to-compare', 'id' => $product->id],
+                                                [
+                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                    'id' => 'add-from-compare-btn',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Додати в список порівняння',
+                                                ]) ?>
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -114,3 +139,29 @@ use yii\helpers\Url;
         color: #a9a8a8;
     }
 </style>
+<?php
+//$script = <<< JS
+//    $(document).on('click', '#add-from-compare-btn', function(e) {
+//    e.preventDefault();
+//    var compareIndicator = $('#compare-indicator');
+//    var url = $(this).attr('href');
+//    $.ajax({
+//        url: url,
+//        type: 'POST',
+//        dataType: 'json',
+//        success: function(response) {
+//    if (response.success) {
+//        compareIndicator.text(response.compareCount);
+//    } else {
+//        alert('Произошла ошибка при удалении товара из списка сравнения');
+//    }
+//},
+//        error: function() {
+//            alert('Произошла ошибка при выполнении AJAX-запроса');
+//        }
+//    });
+//});
+//JS;
+//// Регистрируем скрипт
+//$this->registerJs($script);
+//?>

@@ -1,10 +1,12 @@
 <?php
 
+use common\models\shop\ActivePages;
 use common\models\shop\ProductProperties;
 use yii\bootstrap5\LinkPager;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
-\common\models\shop\ActivePages::setActiveUser();
+ActivePages::setActiveUser();
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Product $pages */
@@ -103,6 +105,17 @@ use yii\helpers\Url;
                                                             </svg>
                                                             <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                         </button>
+                                                        <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                            ['compare/add-to-compare', 'id' => $product->id],
+                                                            [
+                                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                'id' => 'add-from-compare-btn',
+                                                                'data-toggle' => 'tooltip',
+                                                                'title' => 'Додати в список порівняння',
+                                                            ]) ?>
                                                     </div>
                                                 <?php } else { ?>
                                                     <div class="product-card__buttons">
@@ -114,6 +127,17 @@ use yii\helpers\Url;
                                                             </svg>
                                                             <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                         </button>
+                                                        <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                            ['compare/add-to-compare', 'id' => $product->id],
+                                                            [
+                                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                'id' => 'add-from-compare-btn',
+                                                                'data-toggle' => 'tooltip',
+                                                                'title' => 'Додати в список порівняння',
+                                                            ]) ?>
                                                     </div>
                                                 <?php } ?>
                                             </div>

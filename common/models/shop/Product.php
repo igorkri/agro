@@ -773,4 +773,14 @@ class Product extends ActiveRecord implements CartPositionInterface
         }
         return $status;
     }
+
+    public function getCompareProperty($id, $property)
+    {
+        $value = ProductProperties::find()
+            ->select('value')
+            ->where(['product_id' => $id, 'properties' => $property])
+            ->scalar();
+
+        return ($value && $value !== '*') ? $value : '---';
+    }
 }

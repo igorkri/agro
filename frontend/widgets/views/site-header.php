@@ -66,8 +66,8 @@ use yii\helpers\Url;
         <div class="site-header__middle container">
             <div class="site-header__logo">
                 <a href="/">
-                        <img style="display: block;margin: -22px -12px 0px -28px;"
-                             src="/images/logos/logoagro.jpg" width="300" height="99" alt="Логотип">
+                    <img style="display: block;margin: -22px -12px 0px -28px;"
+                         src="/images/logos/logoagro.jpg" width="300" height="99" alt="Логотип">
                 </a>
             </div>
             <div class="site-header__search">
@@ -76,7 +76,8 @@ use yii\helpers\Url;
                         <form class="search__form" action="/search/suggestions">
                             <input class="search__input" name="q" placeholder="Пошук товарів"
                                    aria-label="Site search" type="text" autocomplete="off">
-                            <button class="search__button search__button--type--submit" type="submit" aria-label="Site search">
+                            <button class="search__button search__button--type--submit" type="submit"
+                                    aria-label="Site search">
                                 <svg width="20px" height="20px">
                                     <use xlink:href="/images/sprite.svg#search-20"></use>
                                 </svg>
@@ -90,10 +91,12 @@ use yii\helpers\Url;
             <div class="site-header__phone">
                 <div class="site-header__phone-title">Номер для замовлення</div>
                 <div class="site-header__phone-number"
-                     style="margin: 0px 0px 6px 0px;"><i class="fas fa-mobile-alt"></i>  <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_primary) ?>"><?= $contacts->tel_primary ?></a>
+                     style="margin: 0px 0px 6px 0px;"><i class="fas fa-mobile-alt"></i> <a
+                            href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_primary) ?>"><?= $contacts->tel_primary ?></a>
                 </div>
                 <div class="site-header__phone-number"><i
-                            class="fas fa-mobile-alt"></i>  <a href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_second) ?>"><?= $contacts->tel_second ?></a>
+                            class="fas fa-mobile-alt"></i> <a
+                            href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_second) ?>"><?= $contacts->tel_second ?></a>
                 </div>
             </div>
         </div>
@@ -145,8 +148,20 @@ use yii\helpers\Url;
                             </ul>
                         </div>
                         <div class="nav-panel__indicators">
+                            <div class="indicator">
+                                <a href="<?= Url::to(['/compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
+                                   class="indicator__button">
+                                            <span class="indicator__area">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                    <span class="indicator__value"
+                                                          id="compare-indicator"><?= $compareList ?></span>
+                                            </span>
+                                </a>
+                            </div>
                             <div class="indicator indicator--trigger--click cart-header">
-                                <a href="#" class="indicator__button ">
+                                <a href="#" data-toggle="tooltip" title="Корзина" class="indicator__button">
                                     <span class="indicator__area">
                                         <svg width="20px" height="20px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>

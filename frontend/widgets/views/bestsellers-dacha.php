@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
@@ -104,6 +105,17 @@ use yii\helpers\Url;
                                         </svg>
                                         <?= !$products[0]->getIssetToCart($products[0]->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                     </button>
+                                    <?= Html::a('<svg width="20px" height="20px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                        ['compare/add-to-compare', 'id' => $products[0]->id],
+                                        [
+                                            'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                            'id' => 'add-from-compare-btn',
+                                            'data-toggle' => 'tooltip',
+                                            'title' => 'Додати в список порівняння',
+                                        ]) ?>
                                 </div>
                             <?php } else { ?>
                                 <div class="product-card__buttons">
@@ -115,6 +127,17 @@ use yii\helpers\Url;
                                         </svg>
                                         <?= !$products[0]->getIssetToCart($products[0]->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                     </button>
+                                    <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                        ['compare/add-to-compare', 'id' => $products[0]->id],
+                                        [
+                                            'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                            'id' => 'add-from-compare-btn',
+                                            'data-toggle' => 'tooltip',
+                                            'title' => 'Додати в список порівняння',
+                                        ]) ?>
                                 </div>
                             <?php } ?>
                         </div>
@@ -184,14 +207,17 @@ use yii\helpers\Url;
                                                 </svg>
                                                 <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                             </button>
-                                            <button class="btn btn-secondary product-card__addtocart product-card__addtocart--list"
-                                                    type="button"
-                                                    data-product-id="<?= $product->id ?>">
-                                                <svg width="20px" height="20px" style="display: unset;">
-                                                    <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
                                                 </svg>
-                                                <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
-                                            </button>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                ['compare/add-to-compare', 'id' => $product->id],
+                                                [
+                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                    'id' => 'add-from-compare-btn',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Додати в список порівняння',
+                                                ]) ?>
                                         </div>
                                     <?php } else { ?>
                                         <div class="product-card__buttons">
@@ -203,6 +229,17 @@ use yii\helpers\Url;
                                                 </svg>
                                                 <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                             </button>
+                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                ['compare/add-to-compare', 'id' => $product->id],
+                                                [
+                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                    'id' => 'add-from-compare-btn',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Додати в список порівняння',
+                                                ]) ?>
                                         </div>
                                     <?php } ?>
                                 </div>

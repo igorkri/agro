@@ -1,3 +1,12 @@
+<?php
+
+use yii\helpers\Url;
+
+$session = Yii::$app->session;
+$compareList = $session->get('compareList', []);
+$compareList = count($compareList);
+
+?>
 <header class="site__header d-lg-none">
     <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
     <div class="mobile-header mobile-header--sticky" data-sticky-mode="pullToShow">
@@ -42,6 +51,18 @@
                                             </svg>
                                         </span>
                             </button>
+                        </div>
+                        <div class="indicator">
+                            <a href="<?= Url::to(['/compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
+                               class="indicator__button">
+                                            <span class="indicator__area">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                    <span class="indicator__value"
+                                                          id="compare-indicator"><?= $compareList ?></span>
+                                            </span>
+                            </a>
                         </div>
                         <div class="indicator indicator--trigger--click cart-header">
                             <a href="#" class="indicator__button ">

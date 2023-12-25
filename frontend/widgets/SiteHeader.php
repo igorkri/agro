@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\models\Contact;
+use Yii;
 use yii\base\Widget;
 
 class SiteHeader extends Widget
@@ -16,8 +17,16 @@ class SiteHeader extends Widget
 
     public function run()
     {
+        $session = Yii::$app->session;
+        $compareList = $session->get('compareList', []);
+        $compareList = count($compareList);
+
         $contacts = Contact::find()->one();
-        return $this->render('site-header',['contacts' => $contacts]);
+        return $this->render('site-header',
+            [
+                'contacts' => $contacts,
+                'compareList' => $compareList,
+            ]);
     }
 
 
