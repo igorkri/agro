@@ -1,7 +1,10 @@
 <?php
 
+use common\models\shop\ActivePages;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+ActivePages::setActiveUser();
 
 ?>
 
@@ -12,7 +15,7 @@ use yii\helpers\Url;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Home</a>
+                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -178,11 +181,11 @@ $script = <<< JS
         compareListContainer.html(response.compareListHtml);
         compareIndicator.text(response.compareCount);
     } else {
-        alert('Произошла ошибка при удалении товара из списка сравнения');
+        console.log('Произошла ошибка при удалении товара из списка сравнения')
     }
 },
         error: function() {
-            alert('Произошла ошибка при выполнении AJAX-запроса');
+            console.log('Произошла ошибка при выполнении AJAX-запроса')
         }
     });
 });
