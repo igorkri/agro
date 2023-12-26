@@ -2,6 +2,7 @@
 
 use common\models\shop\Product;
 use kartik\rating\StarRating;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $product */
@@ -91,6 +92,17 @@ $rating = 3;
                                                         <?php } ?>
                                                     </div>
                                                 </div>
+                                                <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                ['compare/add-to-compare', 'id' => $product_analog->id],
+                                                [
+                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                    'id' => 'add-from-compare-btn',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Додати в список порівняння',
+                                                ]) ?>
                                                 <?php if ($products_analog_count != $i) { ?>
                                                     <hr>
                                                 <?php } ?>
@@ -161,6 +173,17 @@ $rating = 3;
                                                                                 </svg>
                                                                                 <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                                             </button>
+                                                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                                                ['compare/add-to-compare', 'id' => $product_analog->id],
+                                                                                [
+                                                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                                    'id' => 'add-from-compare-btn',
+                                                                                    'data-toggle' => 'tooltip',
+                                                                                    'title' => 'Додати в список порівняння',
+                                                                                ]) ?>
                                                                         </div>
                                                                     <?php } else { ?>
                                                                         <div class="product-card__buttons">
@@ -173,6 +196,17 @@ $rating = 3;
                                                                                 </svg>
                                                                                 <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                                             </button>
+                                                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                                                                ['compare/add-to-compare', 'id' => $product_analog->id],
+                                                                                [
+                                                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                                    'id' => 'add-from-compare-btn',
+                                                                                    'data-toggle' => 'tooltip',
+                                                                                    'title' => 'Додати в список порівняння',
+                                                                                ]) ?>
                                                                         </div>
                                                                     <?php } ?>
                                                                 </div>
@@ -200,10 +234,10 @@ $rating = 3;
                             <?php if ($product_properties != null) { ?>
                                 <?php foreach ($product_properties as $property): ?>
                                     <?php if ($property->value && $property->value != '*'): ?>
-                                    <div class="spec__row">
-                                        <div class="spec__name"><?= $property->properties ?></div>
-                                        <div class="spec__value"><?= $property->value ?></div>
-                                    </div>
+                                        <div class="spec__row">
+                                            <div class="spec__name"><?= $property->properties ?></div>
+                                            <div class="spec__value"><?= $property->value ?></div>
+                                        </div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php } else { ?>

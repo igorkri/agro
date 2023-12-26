@@ -10,6 +10,7 @@ use frontend\widgets\ProductsCarousel;
 use frontend\widgets\RelatedProducts;
 use common\models\shop\ActivePages;
 use frontend\widgets\ViewProduct;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
@@ -336,7 +337,7 @@ $this->title = $product->seo_title;
                                                 data-product-id="<?= $product->id ?>"
                                                 style="margin-top: 4px;
                                 margin-left: 5px;
-                                margin-right: -21px;
+                                margin-right: 10px;
                                 padding: 9px 39px;
                                 height: 47px;">
                                             <svg width="20px" height="20px" style="display: unset;">
@@ -344,13 +345,24 @@ $this->title = $product->seo_title;
                                             </svg>
                                             <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
+                                        <?= Html::a('<svg width="32px" height="32px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                            ['compare/add-to-compare', 'id' => $product->id],
+                                            [
+                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                'id' => 'add-from-compare-btn',
+                                                'data-toggle' => 'tooltip',
+                                                'title' => 'Додати в список порівняння',
+                                            ]) ?>
                                     <?php } else { ?>
                                         <button class="btn btn-primary disabled"
                                                 type="button"
                                                 data-product-id=""
                                                 style="margin-top: 4px;
                                 margin-left: 5px;
-                                margin-right: -21px;
+                                margin-right: 10px;
                                 padding: 9px 39px;
                                 height: 47px;">
                                             <svg width="20px" height="20px" style="display: unset;">
@@ -358,6 +370,17 @@ $this->title = $product->seo_title;
                                             </svg>
                                             <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
                                         </button>
+                                        <?= Html::a('<svg width="32px" height="32px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                                <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                            ['compare/add-to-compare', 'id' => $product->id],
+                                            [
+                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                'id' => 'add-from-compare-btn',
+                                                'data-toggle' => 'tooltip',
+                                                'title' => 'Додати в список порівняння',
+                                            ]) ?>
                                     <?php } ?>
                                 </div>
                             </div>
