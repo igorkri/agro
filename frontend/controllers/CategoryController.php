@@ -85,9 +85,6 @@ class CategoryController extends Controller
         $minPrice = Product::find()->min('price');
         $maxPrice = Product::find()->max('price');
 
-
-
-
         $count = intval($count);
 
         $category = Category::find()->where(['slug' => $slug])->one();
@@ -161,5 +158,4 @@ class CategoryController extends Controller
                 'maxPrice'
             ]));
     }
-
 }

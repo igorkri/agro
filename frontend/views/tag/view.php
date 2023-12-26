@@ -205,3 +205,50 @@ ActivePages::setActiveUser();
         color: #a9a8a8;
     }
 </style>
+
+<?php
+$script = <<< JS
+
+$(document).ready(function () {
+    $('#sort-form, #count-form').change(function () {
+        console.log('Select changed!');
+        this.form.submit();
+    });
+});
+
+
+$(function () {
+    // Загрузка предыдущего выбранного макета из localStorage при загрузке страницы
+    const savedLayout = localStorage.getItem('selectedLayout');
+    if (savedLayout) {
+        const productsList = $('.products-view .products-list');
+        
+        // Установка предыдущего выбранного макета
+        productsList.attr('data-layout', savedLayout);
+        
+        // Пометка соответствующей кнопки как активной
+        $('.layout-switcher__button[data-layout="' + savedLayout + '"]').addClass('layout-switcher__button--active');
+    }
+
+    $('.layout-switcher__button').on('click', function() {
+        const selectedLayout = $(this).data('layout');
+        const layoutSwitcher = $(this).closest('.layout-switcher');
+        const productsView = $(this).closest('.products-view');
+        const productsList = productsView.find('.products-list');
+        
+        layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
+        $(this).addClass('layout-switcher__button--active');
+        
+        // Сохранение выбранного макета в localStorage
+        localStorage.setItem('selectedLayout', selectedLayout);
+
+        // Установка выбранного макета
+        productsList.attr('data-layout', selectedLayout);
+    });
+});
+
+
+JS;
+
+$this->registerJs($script, \yii\web\View::POS_END);
+?>
