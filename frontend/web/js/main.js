@@ -803,7 +803,16 @@
     // tooltips
     */
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
+        $('[data-toggle="tooltip"]').tooltip({
+            animation: true,
+            // container: 'body',
+            container: 'window',
+            // delay: { show: 100, hide: 500 },
+            html: false,
+            placement: 'auto',
+            title: '',
+            trigger: 'hover'
+        });
     });
 
 
@@ -1018,6 +1027,12 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     compareIndicator.text(response.compareCount);
+                    $('#success-compare').fadeIn(); // Показать сообщение
+
+                    setTimeout(function() {
+                        $('#success-compare').fadeOut(); // Скрыть сообщение после 2 секунд
+                    }, 2500);
+
                 } else {
                     alert('Произошла ошибка при добавлении товара в список сравнения');
                 }

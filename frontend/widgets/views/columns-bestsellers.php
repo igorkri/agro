@@ -15,7 +15,6 @@ use yii\helpers\Url;
     </div>
     <div class="block-product-columns__column">
         <?php foreach ($products
-
                        as $product): ?>
             <div class="block-product-columns__item">
                 <div class="product-card product-card--hidden-actions product-card--layout--horizontal">
@@ -61,8 +60,8 @@ use yii\helpers\Url;
                                         'id' => 'add-from-compare-btn',
                                         'data-toggle' => 'tooltip',
                                         'title' => 'Додати в список порівняння',
-                                        'style' => 'width: 20px; height: 20px; margin-left: 80px;', // Установите нужные значения ширины и высоты
-                                    ]) ?>
+                                        'style' => 'width: 20px; height: 20px; margin-left: 80px;',
+                                        ]) ?>
                             </div>
                         <?php } else { ?>
                             <div class="product-card__prices">
