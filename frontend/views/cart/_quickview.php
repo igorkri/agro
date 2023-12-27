@@ -80,18 +80,17 @@ $min_order = 50;  //минимальная сумма заказа
                             </tr>
                             </tfoot>
                         </table>
-                        <?php if ($total_summ != 0){ ?>
+                        <?php if ($total_summ != 0) { ?>
                             <?php if ($total_summ < $min_order) { ?>
-                                <a class="btn btn-primary btn-xl btn-block disabled cart__checkout-button"
-                                   href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                <a class="btn btn-primary btn-lg btn-block disabled cart__checkout-button" style="font-size: 16px"
+                                   href="<?= Url::to(['/order/checkout']) ?>">Оформити замовлення</a>
                             <?php } else { ?>
-                                <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                                   href="<?= Url::to(['/order/checkout']) ?>">Замовити</a>
+                                <a class="btn btn-primary btn-lg btn-block cart__checkout-button" style="font-size: 16px"
+                                   href="<?= Url::to(['/order/checkout']) ?>">Оформити замовлення</a>
                             <?php } ?>
-                        <?php } else { ?>
-                            <a class="btn btn-primary btn-xl btn-block cart__checkout-button"
-                               href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
                         <?php } ?>
+                            <a class="btn btn-warning btn-lg btn-block cart__checkout-button" style="font-size: 16px"
+                               href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
                     </div>
                 </div>
             </div>
