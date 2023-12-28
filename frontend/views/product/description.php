@@ -186,7 +186,7 @@ $rating = 3;
                                                                             <?= Html::a('<svg width="16px" height="16px">
                                                     <use xlink:href="/images/sprite.svg#wishlist-16"></use>
                                                 </svg>',
-                                                                                ['wish/add-to-wish', 'id' => $product->id],
+                                                                                ['wish/add-to-wish', 'id' => $product_analog->id],
                                                                                 [
                                                                                     'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
                                                                                     'id' => 'add-from-wish-btn',
@@ -219,7 +219,7 @@ $rating = 3;
                                                                             <?= Html::a('<svg width="16px" height="16px">
                                                     <use xlink:href="/images/sprite.svg#wishlist-16"></use>
                                                 </svg>',
-                                                                                ['wish/add-to-wish', 'id' => $product->id],
+                                                                                ['wish/add-to-wish', 'id' => $product_analog->id],
                                                                                 [
                                                                                     'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
                                                                                     'id' => 'add-from-wish-btn',

@@ -25,7 +25,7 @@ ActivePages::setActiveUser();
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1>Порівняння</h1>
+                <h1>Порівняння товарів</h1>
             </div>
         </div>
     </div>
