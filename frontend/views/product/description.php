@@ -93,6 +93,16 @@ $rating = 3;
                                                     </div>
                                                 </div>
                                                 <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>',
+                                                ['wish/add-to-wish', 'id' => $product->id],
+                                                [
+                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                    'id' => 'add-from-wish-btn',
+                                                    'data-toggle' => 'tooltip',
+                                                    'title' => 'Додати в список бажань',
+                                                ]) ?>
+                                                <?= Html::a('<svg width="16px" height="16px">
                                                     <use xlink:href="/images/sprite.svg#compare-16"></use>
                                                 </svg>
                                                 <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
@@ -174,6 +184,16 @@ $rating = 3;
                                                                                 <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                                             </button>
                                                                             <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>',
+                                                                                ['wish/add-to-wish', 'id' => $product->id],
+                                                                                [
+                                                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                                    'id' => 'add-from-wish-btn',
+                                                                                    'data-toggle' => 'tooltip',
+                                                                                    'title' => 'Додати в список бажань',
+                                                                                ]) ?>
+                                                                            <?= Html::a('<svg width="16px" height="16px">
                                                     <use xlink:href="/images/sprite.svg#compare-16"></use>
                                                 </svg>
                                                 <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
@@ -196,6 +216,16 @@ $rating = 3;
                                                                                 </svg>
                                                                                 <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'Уже в кошику' ?>
                                                                             </button>
+                                                                            <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>',
+                                                                                ['wish/add-to-wish', 'id' => $product->id],
+                                                                                [
+                                                                                    'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                                                                    'id' => 'add-from-wish-btn',
+                                                                                    'data-toggle' => 'tooltip',
+                                                                                    'title' => 'Додати в список бажань',
+                                                                                ]) ?>
                                                                             <?= Html::a('<svg width="16px" height="16px">
                                                     <use xlink:href="/images/sprite.svg#compare-16"></use>
                                                 </svg>
@@ -221,7 +251,7 @@ $rating = 3;
                             </div>
                         <?php } ?>
                         <div class="spec__disclaimer">
-                            Інформація про технічні характеристики, комплект поставки, країну виробника та зовнішній
+                            Інформація про характеристики, комплект поставки, країну виробника та зовнішній
                             вигляд товару є довідковою та базується на актуальній на момент публікації інформації.
                         </div>
                     </div>
