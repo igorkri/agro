@@ -143,7 +143,7 @@ ActivePages::setActiveUser();
                                     <td>
                                         <?= Html::a('<i class="fas fa-trash-alt"></i> Видалити', ['compare/delete-from-compare', 'id' => $product->id], [
                                             'class' => 'btn btn-dark btn-sm',
-                                            'id' => 'delete-from-compare-btn', // добавляем идентификатор кнопки
+                                            'id' => 'delete-from-compare-btn',
                                         ]) ?>
                                     </td>
                                 <?php endforeach; ?>

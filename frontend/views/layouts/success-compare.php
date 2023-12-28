@@ -1,13 +1,13 @@
 <div class="alert alert-warning" style="display: none;" id="success-compare" role="alert">
-    <i class="fas fa-bell"> </i> <strong> Товар у списку порівняння</strong>
+    <i class="fas fa-bell"> </i> <strong> | Товар у списку порівняння <i class="fas fa-chart-bar"></i> </strong>
 
 </div>
 <style>
     #success-compare {
         position: fixed;
-        top: 10%;
+        top: 5%;
         right: 0;
-        transform: translateX(-20%);
+        width: 300px;
         z-index: 1000;
     }
 </style>

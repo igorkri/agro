@@ -127,7 +127,7 @@ use yii\helpers\Url;
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="<?= Url::to(['/delivery/view']) ?>">
                                         <div class="nav-links__item-body">
-                                            Доставка та оплата
+                                            Доставка
                                         </div>
                                     </a>
                                 </li>
@@ -148,6 +148,18 @@ use yii\helpers\Url;
                             </ul>
                         </div>
                         <div class="nav-panel__indicators">
+                            <div class="indicator">
+                                <a href="<?= Url::to(['/wish/view']) ?>" data-toggle="tooltip" title="Бажання"
+                                   class="indicator__button">
+                                            <span class="indicator__area">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>
+                                                    <span class="indicator__value"
+                                                          id="wish-indicator"><?= $wishList ?></span>
+                                            </span>
+                                </a>
+                            </div>
                             <div class="indicator">
                                 <a href="<?= Url::to(['/compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
                                    class="indicator__button">

@@ -6,6 +6,9 @@ $session = Yii::$app->session;
 $compareList = $session->get('compareList', []);
 $compareList = count($compareList);
 
+$wishList = $session->get('wishList', []);
+$wishList = count($wishList);
+
 ?>
 <header class="site__header d-lg-none">
     <!-- data-sticky-mode - one of [pullToShow, alwaysOnTop] -->
@@ -51,6 +54,18 @@ $compareList = count($compareList);
                                             </svg>
                                         </span>
                             </button>
+                        </div>
+                        <div class="indicator">
+                            <a href="<?= Url::to(['/wish/view']) ?>" data-toggle="tooltip" title="Бажання"
+                               class="indicator__button">
+                                            <span class="indicator__area">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>
+                                                    <span class="indicator__value"
+                                                          id="wish-indicator"><?= $wishList ?></span>
+                                            </span>
+                            </a>
                         </div>
                         <div class="indicator">
                             <a href="<?= Url::to(['/compare/view']) ?>" data-toggle="tooltip" title="Порівняння"

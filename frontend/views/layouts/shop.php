@@ -41,6 +41,7 @@ AppAsset::register($this);
     <?= $this->render('photoswipe') ?>
     <?= $this->render('quickview-modal') ?>
     <?= $this->render('success-compare') ?>
+    <?= $this->render('success-wish') ?>
     <?php $this->endBody() ?>
     </body>
     </html>

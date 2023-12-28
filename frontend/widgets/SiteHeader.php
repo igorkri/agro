@@ -20,12 +20,16 @@ class SiteHeader extends Widget
         $session = Yii::$app->session;
         $compareList = $session->get('compareList', []);
         $compareList = count($compareList);
+        $wishList = $session->get('wishList', []);
+        $wishList = count($wishList);
+
 
         $contacts = Contact::find()->one();
         return $this->render('site-header',
             [
                 'contacts' => $contacts,
                 'compareList' => $compareList,
+                'wishList' => $wishList,
             ]);
     }
 

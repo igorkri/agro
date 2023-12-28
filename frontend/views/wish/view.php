@@ -1,0 +1,211 @@
+<?php
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+?>
+
+    <div class="site__body">
+        <div class="page-header">
+            <div class="page-header__container container">
+                <div class="page-header__breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/">Home</a>
+                                <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                    <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                </svg>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="">Breadcrumb</a>
+                                <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                    <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                </svg>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Список бажань</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="page-header__title">
+                    <h1>Список Бажань</h1>
+                </div>
+            </div>
+        </div>
+        <?php if ($products) { ?>
+        <div class="block" id="wish-list">
+            <div class="container">
+                <table class="wishlist">
+                    <thead class="wishlist__head">
+                    <tr class="wishlist__row">
+                        <th class="wishlist__column wishlist__column--image">Зображення</th>
+                        <th class="wishlist__column wishlist__column--product">Назва</th>
+                        <th class="wishlist__column wishlist__column--stock">Наявність</th>
+                        <th class="wishlist__column wishlist__column--price">Ціна</th>
+                        <th class="wishlist__column wishlist__column--tocart"></th>
+                        <th class="wishlist__column wishlist__column--remove"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="wishlist__body">
+                    <?php foreach ($products as $product): ?>
+                        <tr class="wishlist__row">
+                            <td class="wishlist__column wishlist__column--image">
+                                <div class="product-image">
+                                    <a class="product-image__body"
+                                       href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>">
+                                        <img class="product-image__img"
+                                             src="<?= $product->getImgOneLarge($product->getId()) ?>"
+                                             alt="<?= $product->name ?>">
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="wishlist__column wishlist__column--product">
+                                <?php if ($product->category->prefix) { ?>
+                                    <div class="product-card__name">
+                                        <?php echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                    </div>
+                                <?php } ?>
+                                <div class="product-card__name">
+                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                </div>
+                                <div class="wishlist__product-rating">
+                                    <div class="rating">
+                                        <?= $product->getRating($product->id, 13, 12) ?>
+                                    </div>
+                                    <div class="wishlist__product-rating-legend"><?= count($product->reviews) ?>
+                                        відгуків
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="wishlist__column wishlist__column--stock">
+                            <span class="product-card__availability text-success"> <?php
+                                $statusIcon = '';
+                                $statusStyle = '';
+
+                                switch ($product->status_id) {
+                                    case 1:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
+                                        $statusStyle = '';
+                                        break;
+                                    case 2:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
+                                        $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                    case 3:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
+                                        $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                    case 4:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
+                                        $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                    default:
+                                        $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                }
+
+                                echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
+                                ?></span>
+                            </td>
+                            <td class="wishlist__column wishlist__column--price">
+                                <?php if ($product->old_price == null) { ?>
+                                    <div class="product-card__prices">
+                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="product-card__prices">
+                                        <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                        <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                    </div>
+                                <?php } ?>
+                            </td>
+                            <td class="wishlist__column wishlist__column--tocart">
+                                <?php if ($product->status_id != 2) { ?>
+                                    <button class="btn btn-primary btn-sm product-card__addtocart"
+                                            type="button"
+                                            data-product-id="<?= $product->id ?>">
+                                        <svg width="20px" height="20px" style="display: unset;">
+                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                        </svg>
+                                        <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                    </button>
+                                <?php } else { ?>
+                                    <button class="btn btn-secondary btn-sm disabled"
+                                            type="button"
+                                            data-product-id="<?= $product->id ?>">
+                                        <svg width="20px" height="20px" style="display: unset;">
+                                            <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                        </svg>
+                                        <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                    </button>
+                                <?php } ?>
+                            </td>
+                            <td class="wishlist__column wishlist__column--remove">
+                                <?= Html::a('<svg width="12px" height="12px">
+                                    <use xlink:href="/images/sprite.svg#cross-12"></use>
+                                </svg>', ['wish/delete-from-wish', 'id' => $product->id], [
+                                    'class' => 'btn btn-light btn-sm btn-svg-icon',
+                                    'id' => 'delete-from-wish-btn',
+                                ]) ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php } else { ?>
+            <div class="block">
+                <div class="container">
+                    <div class="not-found">
+                        <div class="not-found__content">
+                            <h2 class="not-found__title">Список бажань порожній!</h2>
+                            <p class="not-found__text">
+                                Додайте товари до списку бажань.
+                                <br>
+                                Спробуйте скористатися пошуком.
+                            </p>
+                            <img src="/images/no-wish.jpg" alt="Сторінку Не Знайдено">
+                            <p class="not-found__text">
+                                Або перейдіть на головну сторінку, щоб почати все спочатку.
+                            </p>
+                            <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <style>
+        .category-prefix {
+            color: #a9a8a8;
+        }
+    </style>
+<?php
+$script = <<< JS
+    $(document).on('click', '#delete-from-wish-btn', function(e) {
+    e.preventDefault();
+    var wishIndicator = $('#wish-indicator');
+    var wishListContainer = $('#wish-list');
+    var url = $(this).attr('href');
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+    if (response.success) {
+        wishListContainer.html(response.wishListHtml);
+        wishIndicator.text(response.wishCount);
+    } else {
+        console.log('Произошла ошибка при удалении товара из списка сравнения')
+    }
+},
+        error: function() {
+            console.log('Произошла ошибка при выполнении AJAX-запроса')
+        }
+    });
+});
+JS;
+// Регистрируем скрипт
+$this->registerJs($script);
+?>

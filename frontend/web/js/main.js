@@ -1043,3 +1043,37 @@ $(document).ready(function () {
         });
     });
 });
+
+
+/*
+  // Add wish list
+  */
+$(document).ready(function () {
+    $(document).on('click', '#add-from-wish-btn', function (e) {
+        e.preventDefault();
+        var wishIndicator = $('#wish-indicator');
+        var url = $(this).attr('href');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    wishIndicator.text(response.wishCount);
+                    $('#success-wish').fadeIn(); // Показать сообщение
+
+                    setTimeout(function() {
+                        $('#success-wish').fadeOut(); // Скрыть сообщение после 2 секунд
+                    }, 2500);
+
+                } else {
+                    alert('Произошла ошибка при добавлении товара в список сравнения');
+                }
+            },
+            error: function () {
+                alert('Произошла ошибка при выполнении AJAX-запроса');
+            }
+        });
+    });
+});
