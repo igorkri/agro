@@ -2,8 +2,8 @@
 
 use common\models\shop\Category;
 use common\models\shop\Product;
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\ProductSearch $model */
@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <div class="sa-layout__sidebar">
         <div class="sa-layout__sidebar-header">
-            <div class="sa-layout__sidebar-title">Фільтер</div>
+            <div class="sa-layout__sidebar-title">Фільтр</div>
             <button type="button" class="sa-close sa-layout__sidebar-close" aria-label="Close"
                     data-sa-layout-sidebar-close=""></button>
         </div>
@@ -34,23 +34,41 @@ use yii\widgets\ActiveForm;
                         $submittedMinPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : $minPrice;
                         $submittedMaxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : $maxPrice;
                         ?>
-                        <div class="sa-filter-range" data-min="<?= $minPrice ?>" data-max="<?= $maxPrice ?>" data-from="<?= $submittedMinPrice ?>"
+                        <div class="sa-filter-range" data-min="<?= $minPrice ?>" data-max="<?= $maxPrice ?>"
+                             data-from="<?= $submittedMinPrice ?>"
                              data-to="<?= $submittedMaxPrice ?>">
                             <div class="sa-filter-range__slider"></div>
-                            <input type="hidden" name="minPrice" id="minPrice" value="<?= $submittedMinPrice ?>" class="sa-filter-range__input-from"/>
-                            <input type="hidden" name="maxPrice" id="maxPrice" value="<?= $submittedMaxPrice ?>" class="sa-filter-range__input-to"/>
+                            <input type="hidden" name="minPrice" id="minPrice" value="<?= $submittedMinPrice ?>"
+                                   class="sa-filter-range__input-from"/>
+                            <input type="hidden" name="maxPrice" id="maxPrice" value="<?= $submittedMaxPrice ?>"
+                                   class="sa-filter-range__input-to"/>
                         </div>
+                    </div>
+                </li>
+                <li class="sa-filters__item">
+                    <div>
+                        <button type="submit" class="btn btn-primary">Фільтрувати</button>
+                        <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
                     </div>
                 </li>
                 <li class="sa-filters__item">
                     <div class="sa-filters__item-title">Категорії</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
-                            <?php $categories = Category::find()
+                            <?php
+                            $productBrandIds = Product::find()
+                                ->select('category_id')
+                                ->distinct()
+                                ->andWhere(['IS NOT', 'category_id', null])
+                                ->column();
+
+                            $categories = Category::find()
                                 ->select(['name', 'id'])
-                                ->andWhere(['IS NOT', 'parentId', null])
+                                ->andWhere(['id' => $productBrandIds])
                                 ->andWhere(['visibility' => 1])
-                                ->all(); ?>
+                                ->all();
+                            ?>
+
                             <?php foreach ($categories as $category) { ?>
                                 <li>
                                     <label class="d-flex align-items-center pt-2">
@@ -90,11 +108,13 @@ use yii\widgets\ActiveForm;
                         </ul>
                     </div>
                 </li>
+                <li class="sa-filters__item">
+                    <div>
+                        <button type="submit" class="btn btn-primary">Фільтрувати</button>
+                        <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+                    </div>
+                </li>
             </ul>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-primary">Фільтрувати</button>
-            <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
