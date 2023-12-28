@@ -50,22 +50,16 @@ use yii\helpers\Url;
                             <div class="product-card__prices">
                                 <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                 <?= Html::a('<svg width="16px" height="16px">
-                <use xlink:href="/images/sprite.svg#compare-16"></use>
-            </svg>
-            <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
-                                    ['compare/add-to-compare', 'id' => $product->id],
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>',
+                                    ['wish/add-to-wish', 'id' => $product->id],
                                     [
                                         'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
-                                        'id' => 'add-from-compare-btn',
+                                        'id' => 'add-from-wish-btn',
                                         'data-toggle' => 'tooltip',
-                                        'title' => 'Додати в список порівняння',
-                                        'style' => 'width: 20px; height: 20px; margin-left: 80px;', // Установите нужные значения ширины и высоты
+                                        'title' => 'Додати в список бажань',
+                                        'style' => 'width: 20px; height: 20px; margin-left: 80px;',
                                     ]) ?>
-                            </div>
-                        <?php } else { ?>
-                            <div class="product-card__prices">
-                                <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                 <?= Html::a('<svg width="16px" height="16px">
                 <use xlink:href="/images/sprite.svg#compare-16"></use>
             </svg>
@@ -76,7 +70,35 @@ use yii\helpers\Url;
                                         'id' => 'add-from-compare-btn',
                                         'data-toggle' => 'tooltip',
                                         'title' => 'Додати в список порівняння',
-                                        'style' => 'width: 20px; height: 20px; margin-left: 10px;', // Установите нужные значения ширины и высоты
+                                        'style' => 'width: 20px; height: 20px;', // Установите нужные значения ширины и высоты
+                                    ]) ?>
+                            </div>
+                        <?php } else { ?>
+                            <div class="product-card__prices">
+                                <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                <?= Html::a('<svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>',
+                                    ['wish/add-to-wish', 'id' => $product->id],
+                                    [
+                                        'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                        'id' => 'add-from-wish-btn',
+                                        'data-toggle' => 'tooltip',
+                                        'title' => 'Додати в список бажань',
+                                        'style' => 'width: 20px; height: 20px; margin-left: 10px;',
+                                    ]) ?>
+                                <?= Html::a('<svg width="16px" height="16px">
+                <use xlink:href="/images/sprite.svg#compare-16"></use>
+            </svg>
+            <span class="fake-svg-icon fake-svg-icon--compare-16"></span>',
+                                    ['compare/add-to-compare', 'id' => $product->id],
+                                    [
+                                        'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
+                                        'id' => 'add-from-compare-btn',
+                                        'data-toggle' => 'tooltip',
+                                        'title' => 'Додати в список порівняння',
+                                        'style' => 'width: 20px; height: 20px;', // Установите нужные значения ширины и высоты
                                     ]) ?>
                             </div>
                         <?php } ?>
