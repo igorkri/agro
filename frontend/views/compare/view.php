@@ -174,7 +174,7 @@ ActivePages::setActiveUser();
                                 <br>
                                 Спробуйте скористатися пошуком.
                             </p>
-                            <img src="/images/no-compare.jpg" alt="Сторінку Не Знайдено">
+                            <img src="/images/no-compare.jpg" alt="Список порівняння порожній">
                             <p class="not-found__text">
                                 Або перейдіть на головну сторінку, щоб почати все спочатку.
                             </p>

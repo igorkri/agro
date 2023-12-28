@@ -32,8 +32,9 @@ use yii\helpers\Url;
                 </div>
             </div>
         </div>
+        <div id="wish-list">
         <?php if ($products) { ?>
-        <div class="block" id="wish-list">
+        <div class="block">
             <div class="container">
                 <table class="wishlist">
                     <thead class="wishlist__head">
@@ -165,7 +166,7 @@ use yii\helpers\Url;
                                 <br>
                                 Спробуйте скористатися пошуком.
                             </p>
-                            <img src="/images/no-wish.jpg" alt="Сторінку Не Знайдено">
+                            <img src="/images/no-wish.jpg" alt="Список бажань порожній">
                             <p class="not-found__text">
                                 Або перейдіть на головну сторінку, щоб почати все спочатку.
                             </p>
@@ -175,6 +176,7 @@ use yii\helpers\Url;
                 </div>
             </div>
         <?php } ?>
+        </div>
     </div>
     <style>
         .category-prefix {

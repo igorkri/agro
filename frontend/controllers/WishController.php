@@ -58,7 +58,7 @@ class WishController extends \yii\web\Controller
 
             return $this->asJson([
                 'success' => true,
-                'wishListHtml' => $this->renderPartial('_wishList',
+                'wishListHtml' => $this->renderPartial('_wishlist',
                     [
                         'wishList' => $wishList,
                         'products' => $products,
