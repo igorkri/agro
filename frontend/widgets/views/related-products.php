@@ -78,11 +78,9 @@ use yii\helpers\Url;
                                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                         </div>
                                     <?php } ?>
-
-
                                     <?php if ($product->status_id != 2) { ?>
                                         <div class="product-card__buttons">
-                                            <button class="btn btn-primary product-card__addtocart "
+                                            <button class="btn btn-primary product-card__addtocart"
                                                     type="button"
                                                     data-product-id="<?= $product->id ?>">
                                                 <svg width="20px" height="20px" style="display: unset;">
@@ -139,29 +137,3 @@ use yii\helpers\Url;
         color: #a9a8a8;
     }
 </style>
-<?php
-//$script = <<< JS
-//    $(document).on('click', '#add-from-compare-btn', function(e) {
-//    e.preventDefault();
-//    var compareIndicator = $('#compare-indicator');
-//    var url = $(this).attr('href');
-//    $.ajax({
-//        url: url,
-//        type: 'POST',
-//        dataType: 'json',
-//        success: function(response) {
-//    if (response.success) {
-//        compareIndicator.text(response.compareCount);
-//    } else {
-//        alert('Произошла ошибка при удалении товара из списка сравнения');
-//    }
-//},
-//        error: function() {
-//            alert('Произошла ошибка при выполнении AJAX-запроса');
-//        }
-//    });
-//});
-//JS;
-//// Регистрируем скрипт
-//$this->registerJs($script);
-//?>
