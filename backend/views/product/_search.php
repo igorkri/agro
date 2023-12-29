@@ -2,6 +2,7 @@
 
 use common\models\shop\Category;
 use common\models\shop\Product;
+use common\models\shop\Status;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
@@ -14,7 +15,7 @@ use yii\helpers\Html;
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
-        'method' => 'get',
+        'method' => 'post',
     ]); ?>
 
     <div class="sa-layout__sidebar">
@@ -31,8 +32,10 @@ use yii\helpers\Html;
                         <?php
                         $minPrice = round(Product::find()->min('price'), 2);
                         $maxPrice = round(Product::find()->max('price'), 2);
-                        $submittedMinPrice = isset($_GET['minPrice']) ? $_GET['minPrice'] : $minPrice;
-                        $submittedMaxPrice = isset($_GET['maxPrice']) ? $_GET['maxPrice'] : $maxPrice;
+
+                        $request = \Yii::$app->request;
+                        $submittedMinPrice = $request->post('minPrice', $minPrice);
+                        $submittedMaxPrice = $request->post('maxPrice', $maxPrice);
                         ?>
                         <div class="sa-filter-range" data-min="<?= $minPrice ?>" data-max="<?= $maxPrice ?>"
                              data-from="<?= $submittedMinPrice ?>"
@@ -46,17 +49,11 @@ use yii\helpers\Html;
                     </div>
                 </li>
                 <li class="sa-filters__item">
-                    <div>
-                        <button type="submit" class="btn btn-primary">Фільтрувати</button>
-                        <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
-                    </div>
-                </li>
-                <li class="sa-filters__item">
                     <div class="sa-filters__item-title">Категорії</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
                             <?php
-                            $productBrandIds = Product::find()
+                            $productCatIds = Product::find()
                                 ->select('category_id')
                                 ->distinct()
                                 ->andWhere(['IS NOT', 'category_id', null])
@@ -64,7 +61,7 @@ use yii\helpers\Html;
 
                             $categories = Category::find()
                                 ->select(['name', 'id'])
-                                ->andWhere(['id' => $productBrandIds])
+                                ->andWhere(['id' => $productCatIds])
                                 ->andWhere(['visibility' => 1])
                                 ->all();
                             ?>
@@ -77,7 +74,7 @@ use yii\helpers\Html;
                                                 class="form-check-input m-0 me-3 fs-exact-16"
                                                 name="category[]"
                                                 value="<?= Html::encode($category->id) ?>"
-                                            <?= in_array($category->id, Yii::$app->request->get('category', [])) ? 'checked' : '' ?>
+                                            <?= in_array($category->id, Yii::$app->request->post('category', [])) ? 'checked' : '' ?>
                                         />
                                         <?= $category->name ?>
                                     </label>
@@ -90,7 +87,7 @@ use yii\helpers\Html;
                     <div class="sa-filters__item-title">Статус</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
-                            <?php $status = \common\models\shop\Status::find()->all() ?>
+                            <?php $status = Status::find()->all() ?>
                             <?php foreach ($status as $stat) { ?>
                                 <li>
                                     <label class="d-flex align-items-center pt-2">
@@ -99,7 +96,7 @@ use yii\helpers\Html;
                                                 class="form-check-input m-0 me-3 fs-exact-16"
                                                 name="status"
                                                 value="<?= Html::encode($stat->id) ?>"
-                                            <?= Yii::$app->request->get('status') == $stat->id ? 'checked' : '' ?>
+                                            <?= Yii::$app->request->post('status') == $stat->id ? 'checked' : '' ?>
                                         />
                                         <?= $stat->name ?>
                                     </label>
@@ -109,9 +106,11 @@ use yii\helpers\Html;
                     </div>
                 </li>
                 <li class="sa-filters__item">
-                    <div>
-                        <button type="submit" class="btn btn-primary">Фільтрувати</button>
-                        <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+                    <div class="sa-filters__item-body">
+                        <ul class="list-unstyled m-0 mt-n2">
+                            <button type="submit" class="btn btn-primary">Фільтрувати</button>
+                            <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+                        </ul>
                     </div>
                 </li>
             </ul>

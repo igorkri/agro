@@ -40,8 +40,11 @@ class ProductSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search()
     {
+        $request = \Yii::$app->request;
+        $params = $request->post();
+
         $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
         // add conditions that should always apply here
 
@@ -68,8 +71,8 @@ class ProductSearch extends Product
             'label_id' => $this->label_id,
         ]);
 
-        $minPrice = Yii::$app->request->get('minPrice');
-        $maxPrice = Yii::$app->request->get('maxPrice');
+        $minPrice = Yii::$app->request->post('minPrice');
+        $maxPrice = Yii::$app->request->post('maxPrice');
         $query->andFilterWhere(['>=', 'price', $minPrice])
             ->andFilterWhere(['<=', 'price', $maxPrice]);
 
