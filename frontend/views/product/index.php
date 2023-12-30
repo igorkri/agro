@@ -343,28 +343,24 @@ $this->title = $product->seo_title;
                                             <svg width="20px" height="20px" style="display: unset;">
                                                 <use xlink:href="/images/sprite.svg#cart-20"></use>
                                             </svg>
-                                            <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
+                                            <?= !$isset_to_cart ? 'В Кошик' : 'В кошику' ?>
                                         </button>
-                                        <?= Html::a('<svg width="32px" height="32px">
-                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                                </svg>',
-                                            ['wish/add-to-wish', 'id' => $product->id],
-                                            [
-                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
-                                                'id' => 'add-from-wish-btn',
-                                                'data-toggle' => 'tooltip',
-                                                'title' => 'Додати в список бажань',
-                                            ]) ?>
-                                        <?= Html::a('<svg width="32px" height="32px">
-                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                                </svg>',
-                                            ['compare/add-to-compare', 'id' => $product->id],
-                                            [
-                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
-                                                'id' => 'add-from-compare-btn',
-                                                'data-toggle' => 'tooltip',
-                                                'title' => 'Додати в список порівняння',
-                                            ]) ?>
+                                        <button type="button"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                id="add-from-wish-btn"
+                                                data-wish-product-id="<?= $product->id ?>">
+                                            <svg width="32px" height="32px">
+                                            <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                            </svg>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                id="add-from-compare-btn"
+                                                data-compare-product-id="<?= $product->id ?>">
+                                            <svg width="32px" height="32px">
+                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                            </svg>
+                                        </button>
                                     <?php } else { ?>
                                         <button class="btn btn-primary disabled"
                                                 type="button"
@@ -377,28 +373,24 @@ $this->title = $product->seo_title;
                                             <svg width="20px" height="20px" style="display: unset;">
                                                 <use xlink:href="/images/sprite.svg#cart-20"></use>
                                             </svg>
-                                            <?= !$isset_to_cart ? 'В Кошик' : 'Уже в кошику' ?>
+                                            <?= !$isset_to_cart ? 'В Кошик' : 'В кошику' ?>
                                         </button>
-                                        <?= Html::a('<svg width="32px" height="32px">
-                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                                </svg>',
-                                            ['wish/add-to-wish', 'id' => $product->id],
-                                            [
-                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
-                                                'id' => 'add-from-wish-btn',
-                                                'data-toggle' => 'tooltip',
-                                                'title' => 'Додати в список бажань',
-                                            ]) ?>
-                                        <?= Html::a('<svg width="32px" height="32px">
-                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                                </svg>',
-                                            ['compare/add-to-compare', 'id' => $product->id],
-                                            [
-                                                'class' => 'btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare',
-                                                'id' => 'add-from-compare-btn',
-                                                'data-toggle' => 'tooltip',
-                                                'title' => 'Додати в список порівняння',
-                                            ]) ?>
+                                        <button type="button"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                id="add-from-wish-btn"
+                                                data-wish-product-id="<?= $product->id ?>">
+                                            <svg width="32px" height="32px">
+                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                            </svg>
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                id="add-from-compare-btn"
+                                                data-compare-product-id="<?= $product->id ?>">
+                                            <svg width="32px" height="32px">
+                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                            </svg>
+                                        </button>
                                     <?php } ?>
                                 </div>
                             </div>

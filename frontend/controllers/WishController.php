@@ -19,8 +19,10 @@ class WishController extends \yii\web\Controller
             ]);
     }
 
-    public function actionAddToWish($id)
+    public function actionAddToWish()
     {
+        $id = \Yii::$app->request->post('id');
+
         $session = Yii::$app->session;
 
         // Инициализируем массив сравнения в сессии, если его еще нет

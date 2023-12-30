@@ -1005,12 +1005,12 @@ $(document).ready(function () {
     $(document).on('click', '#add-from-compare-btn', function (e) {
         e.preventDefault();
         var compareIndicator = $('#compare-indicator');
-        var url = $(this).attr('href');
-
+        var productId = $(this).data('compare-product-id');
+        var url = '/compare/add-to-compare';
         $.ajax({
             url: url,
             type: 'POST',
-            dataType: 'json',
+            data: { id: productId },
             success: function (response) {
                 if (response.success) {
                     compareIndicator.text(response.compareCount);
@@ -1038,12 +1038,12 @@ $(document).ready(function () {
     $(document).on('click', '#add-from-wish-btn', function (e) {
         e.preventDefault();
         var wishIndicator = $('#wish-indicator');
-        var url = $(this).attr('href');
-
+        var productId = $(this).data('wish-product-id');
+        var url = '/wish/add-to-wish';
         $.ajax({
             url: url,
             type: 'POST',
-            dataType: 'json',
+            data: { id: productId },
             success: function (response) {
                 if (response.success) {
                     wishIndicator.text(response.wishCount);

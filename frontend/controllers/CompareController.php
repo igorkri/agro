@@ -44,8 +44,10 @@ class CompareController extends \yii\web\Controller
             ]);
     }
 
-    public function actionAddToCompare($id)
+    public function actionAddToCompare()
     {
+        $id = \Yii::$app->request->post('id');
+
         $session = Yii::$app->session;
 
         // Инициализируем массив сравнения в сессии, если его еще нет
