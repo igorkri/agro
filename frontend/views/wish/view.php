@@ -122,7 +122,7 @@ use yii\helpers\Url;
                                         <svg width="20px" height="20px" style="display: unset;">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                        <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                     </button>
                                 <?php } else { ?>
                                     <button class="btn btn-secondary btn-sm disabled"
@@ -131,17 +131,19 @@ use yii\helpers\Url;
                                         <svg width="20px" height="20px" style="display: unset;">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                        <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                     </button>
                                 <?php } ?>
                             </td>
                             <td class="wishlist__column wishlist__column--remove">
-                                <?= Html::a('<svg width="12px" height="12px">
-                                    <use xlink:href="/images/sprite.svg#cross-12"></use>
-                                </svg>', ['wish/delete-from-wish', 'id' => $product->id], [
-                                    'class' => 'btn btn-light btn-sm btn-svg-icon',
-                                    'id' => 'delete-from-wish-btn',
-                                ]) ?>
+                                <button type="button"
+                                        class="btn btn-light btn-sm btn-svg-icon"
+                                        id="delete-from-wish-btn"
+                                        data-wish-product-id="<?= $product->id ?>">
+                                    <svg width="12px" height="12px">
+                                        <use xlink:href="/images/sprite.svg#cross-12"></use>
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -183,11 +185,12 @@ $script = <<< JS
     e.preventDefault();
     var wishIndicator = $('#wish-indicator');
     var wishListContainer = $('#wish-list');
-    var url = $(this).attr('href');
+    var productId = $(this).data('wish-product-id');
+    var url = '/wish/delete-from-wish';
     $.ajax({
         url: url,
         type: 'POST',
-        dataType: 'json',
+        data: { id: productId },
         success: function(response) {
     if (response.success) {
         wishListContainer.html(response.wishListHtml);

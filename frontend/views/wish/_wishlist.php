@@ -100,7 +100,7 @@ use yii\helpers\Url;
                                     <svg width="20px" height="20px" style="display: unset;">
                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                     </svg>
-                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                 </button>
                             <?php } else { ?>
                                 <button class="btn btn-secondary btn-sm disabled"
@@ -109,17 +109,19 @@ use yii\helpers\Url;
                                     <svg width="20px" height="20px" style="display: unset;">
                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                     </svg>
-                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                 </button>
                             <?php } ?>
                         </td>
                         <td class="wishlist__column wishlist__column--remove">
-                            <?= Html::a('<svg width="12px" height="12px">
+                            <button type="button"
+                                    class="btn btn-light btn-sm btn-svg-icon"
+                                    id="delete-from-wish-btn"
+                                    data-wish-product-id="<?= $product->id ?>">
+                                <svg width="12px" height="12px">
                                     <use xlink:href="/images/sprite.svg#cross-12"></use>
-                                </svg>', ['wish/delete-from-wish', 'id' => $product->id], [
-                                'class' => 'btn btn-light btn-sm btn-svg-icon',
-                                'id' => 'delete-from-wish-btn',
-                            ]) ?>
+                                </svg>
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>

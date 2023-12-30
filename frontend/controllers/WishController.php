@@ -43,8 +43,10 @@ class WishController extends \yii\web\Controller
             ]);
     }
 
-    public function actionDeleteFromWish($id)
+    public function actionDeleteFromWish()
     {
+        $id = \Yii::$app->request->post('id');
+
         $session = Yii::$app->session;
         $wishList = $session->get('wishList', []);
 
