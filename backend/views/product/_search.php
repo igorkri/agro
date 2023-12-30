@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\Brand;
 use common\models\shop\Category;
 use common\models\shop\Product;
 use common\models\shop\Status;
@@ -99,6 +100,28 @@ use yii\helpers\Html;
                                             <?= Yii::$app->request->post('status') == $stat->id ? 'checked' : '' ?>
                                         />
                                         <?= $stat->name ?>
+                                    </label>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sa-filters__item">
+                    <div class="sa-filters__item-title">Бренди</div>
+                    <div class="sa-filters__item-body">
+                        <ul class="list-unstyled m-0 mt-n2">
+                            <?php $brands = Brand::find()->all() ?>
+                            <?php foreach ($brands as $brand) { ?>
+                                <li>
+                                    <label class="d-flex align-items-center pt-2">
+                                        <input
+                                                type="radio"
+                                                class="form-check-input m-0 me-3 fs-exact-16"
+                                                name="brand"
+                                                value="<?= Html::encode($brand->id) ?>"
+                                            <?= Yii::$app->request->post('brand') == $brand->id ? 'checked' : '' ?>
+                                        />
+                                        <?= $brand->name ?>
                                     </label>
                                 </li>
                             <?php } ?>

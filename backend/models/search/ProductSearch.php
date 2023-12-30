@@ -45,6 +45,8 @@ class ProductSearch extends Product
         $request = \Yii::$app->request;
         $params = $request->post();
 
+//        dd($params);
+
         $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
         // add conditions that should always apply here
 
@@ -69,6 +71,7 @@ class ProductSearch extends Product
             'status_id' => $this->status_id,
             'category_id' => $this->category_id,
             'label_id' => $this->label_id,
+            'brand_id' => $this->brand_id,
         ]);
 
         $minPrice = Yii::$app->request->post('minPrice');
@@ -82,6 +85,10 @@ class ProductSearch extends Product
 
         if (isset($params['status'])) {
             $query->andFilterWhere(['status_id' => $params['status']]);
+        }
+
+        if (isset($params['brand'])) {
+            $query->andFilterWhere(['brand_id' => $params['brand']]);
         }
 
         $query->andFilterWhere(['like', 'name', $this->name])
