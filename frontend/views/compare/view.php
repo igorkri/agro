@@ -121,7 +121,7 @@ ActivePages::setActiveUser();
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
-                                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                                 </button>
                                             </div>
                                         <?php } else { ?>
@@ -131,7 +131,7 @@ ActivePages::setActiveUser();
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
-                                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'Уже в кошику' ?>
+                                                    <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                                 </button>
                                         <?php } ?>
                                     </td>
@@ -141,10 +141,12 @@ ActivePages::setActiveUser();
                                 <th></th>
                                 <?php foreach ($products as $product): ?>
                                     <td>
-                                        <?= Html::a('<i class="fas fa-trash-alt"></i> Видалити', ['compare/delete-from-compare', 'id' => $product->id], [
-                                            'class' => 'btn btn-dark btn-sm',
-                                            'id' => 'delete-from-compare-btn',
-                                        ]) ?>
+                                        <button type="button"
+                                                class="btn btn-dark btn-sm"
+                                                id="delete-from-compare-btn"
+                                                data-compare-product-id="<?= $product->id ?>">
+                                            <i class="fas fa-trash-alt"></i> Видалити
+                                        </button>
                                     </td>
                                 <?php endforeach; ?>
                             </tr>
@@ -198,11 +200,12 @@ $script = <<< JS
     e.preventDefault();
     var compareIndicator = $('#compare-indicator');
     var compareListContainer = $('#compare-list');
-    var url = $(this).attr('href');
+    var productId = $(this).data('compare-product-id');
+    var url = '/compare/delete-from-compare';
     $.ajax({
         url: url,
         type: 'POST',
-        dataType: 'json',
+        data: { id: productId },
         success: function(response) {
     if (response.success) {
         compareListContainer.html(response.compareListHtml);

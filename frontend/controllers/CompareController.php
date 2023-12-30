@@ -68,8 +68,10 @@ class CompareController extends \yii\web\Controller
             ]);
     }
 
-    public function actionDeleteFromCompare($id)
+    public function actionDeleteFromCompare()
     {
+        $id = \Yii::$app->request->post('id');
+
         $session = Yii::$app->session;
         $compareList = $session->get('compareList', []);
 
