@@ -1,15 +1,12 @@
 <?php
 
-
 namespace frontend\controllers;
 
-
-use common\models\shop\Product;
-use Yii;
-use yii\helpers\Html;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use common\models\shop\Product;
+use yii\web\Controller;
 use yii\web\Response;
+use Yii;
 
 class CartController extends Controller
 {
@@ -18,6 +15,9 @@ class CartController extends Controller
         $cart = Yii::$app->cart;
 
         $model = Product::find()->select(['id', 'price', 'name', 'slug', 'currency'])->where(['id' => $id])->one();
+
+        !$model->getIssetToCart($model->id) ? '' : $qty = 0;
+
         if ($model) {
             $cart->put($model, $qty);
             return $this->renderPartial('quickview', [
@@ -27,7 +27,6 @@ class CartController extends Controller
             ]);
         }
         throw new NotFoundHttpException();
-
     }
 
     public function actionQuickviewAll(){
@@ -37,7 +36,6 @@ class CartController extends Controller
             'total_summ' => Yii::$app->cart->getCost(),
             'qty_cart' => \Yii::$app->cart->getCount(),
         ]);
-
     }
 
     public function actionRemove($id)
@@ -75,7 +73,5 @@ class CartController extends Controller
             'total_summ' => Yii::$app->cart->getCost(),
             'qty_cart' => \Yii::$app->cart->getCount(),
         ]);
-
     }
-
 }
