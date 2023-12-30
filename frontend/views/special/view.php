@@ -107,6 +107,7 @@ ActivePages::setActiveUser();
                                                         </button>
                                                         <button type="button"
                                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                                aria-label="add wish list"
                                                                 id="add-from-wish-btn"
                                                                 data-wish-product-id="<?= $product->id ?>">
                                                             <svg width="16px" height="16px">
@@ -115,6 +116,7 @@ ActivePages::setActiveUser();
                                                         </button>
                                                         <button type="button"
                                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                                aria-label="add compare list"
                                                                 id="add-from-compare-btn"
                                                                 data-compare-product-id="<?= $product->id ?>">
                                                             <svg width="16px" height="16px">
@@ -134,6 +136,7 @@ ActivePages::setActiveUser();
                                                         </button>
                                                         <button type="button"
                                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                                aria-label="add wish list"
                                                                 id="add-from-wish-btn"
                                                                 data-wish-product-id="<?= $product->id ?>">
                                                             <svg width="16px" height="16px">
@@ -142,6 +145,7 @@ ActivePages::setActiveUser();
                                                         </button>
                                                         <button type="button"
                                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                                aria-label="add compare list"
                                                                 id="add-from-compare-btn"
                                                                 data-compare-product-id="<?= $product->id ?>">
                                                             <svg width="16px" height="16px">

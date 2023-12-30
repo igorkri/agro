@@ -69,6 +69,7 @@ use yii\helpers\Url;
                                             <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                             <button type="button"
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                    aria-label="add wish list"
                                                     style="width: 20px; height: 20px; margin-left: 80px;"
                                                     id="add-from-wish-btn"
                                                     data-wish-product-id="<?= $product->id ?>">
@@ -78,6 +79,7 @@ use yii\helpers\Url;
                                             </button>
                                             <button type="button"
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                    aria-label="add compare list"
                                                     style="width: 20px; height: 20px;"
                                                     id="add-from-compare-btn"
                                                     data-compare-product-id="<?= $product->id ?>">
@@ -92,6 +94,7 @@ use yii\helpers\Url;
                                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                             <button type="button"
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                    aria-label="add wish list"
                                                     style="width: 20px; height: 20px; margin-left: 10px;"
                                                     id="add-from-wish-btn"
                                                     data-wish-product-id="<?= $product->id ?>">
@@ -101,6 +104,7 @@ use yii\helpers\Url;
                                             </button>
                                             <button type="button"
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                    aria-label="add compare list"
                                                     style="width: 20px; height: 20px;"
                                                     id="add-from-compare-btn"
                                                     data-compare-product-id="<?= $product->id ?>">
