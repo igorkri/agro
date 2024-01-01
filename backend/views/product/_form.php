@@ -110,10 +110,10 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                 class="mb-0 fs-exact-18">Основна інформація</h2></span>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-9 mb-4">
+                                            <div class="col-md-8 mb-4">
                                                 <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
                                             </div>
-                                            <div class="col-md-3 mb-4">
+                                            <div class="col-md-4 mb-4">
                                                 <?= $form->field($model, 'date_updated')->textInput([
                                                     'maxlength' => true,
                                                     'class' => 'form-control',
@@ -122,7 +122,6 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                 ]) ?>
                                             </div>
                                         </div>
-
                                         <div class="mb-4">
                                             <?= $form->field($model, 'short_description')->widget(Widget::class, [
                                                 'defaultSettings' => [
