@@ -91,6 +91,14 @@ class ProductSearch extends Product
             $query->andFilterWhere(['brand_id' => $params['brand']]);
         }
 
+        if (isset($params['date-update'])) {
+            if ($params['date-update'] == 22) {
+                $query->orderBy(['date_updated' => SORT_DESC]);
+            } else {
+                $query->orderBy(['date_updated' => SORT_ASC]);
+            }
+        }
+
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'short_description', $this->short_description])

@@ -50,6 +50,14 @@ use yii\helpers\Html;
                     </div>
                 </li>
                 <li class="sa-filters__item">
+                    <div class="sa-filters__item-body">
+                        <ul class="list-unstyled m-0 mt-n2">
+                            <button type="submit" class="btn btn-primary">Фільтрувати</button>
+                            <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sa-filters__item">
                     <div class="sa-filters__item-title">Категорії</div>
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
@@ -103,6 +111,37 @@ use yii\helpers\Html;
                                     </label>
                                 </li>
                             <?php } ?>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sa-filters__item">
+                    <div class="sa-filters__item-title">Дата оновлення</div>
+                    <div class="sa-filters__item-body">
+                        <ul class="list-unstyled m-0 mt-n2">
+                            <li>
+                                <label class="d-flex align-items-center pt-2">
+                                    <input
+                                            type="radio"
+                                            class="form-check-input m-0 me-3 fs-exact-16"
+                                            name="date-update"
+                                            value="11"
+                                        <?= Yii::$app->request->post('date-update') == 11 ? 'checked' : '' ?>
+                                    />
+                                    Від давніх
+                                </label>
+                            </li>
+                            <li>
+                                <label class="d-flex align-items-center pt-2">
+                                    <input
+                                            type="radio"
+                                            class="form-check-input m-0 me-3 fs-exact-16"
+                                            name="date-update"
+                                            value="22"
+                                        <?= Yii::$app->request->post('date-update') == 22 ? 'checked' : '' ?>
+                                    />
+                                    Від останніх
+                                </label>
+                            </li>
                         </ul>
                     </div>
                 </li>
