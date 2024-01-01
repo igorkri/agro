@@ -111,6 +111,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             'sku' => Yii::t('app', 'SKU'),
             'footer_description' => Yii::t('app', 'Footer Description'),
             'package' => Yii::t('app', 'Package'),
+            'date_updated' => Yii::t('app', 'Date Updated'),
         ];
     }
 

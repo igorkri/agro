@@ -1,5 +1,12 @@
 <?php
 
+use common\models\shop\Brand;
+use common\models\shop\Category;
+use common\models\shop\Grup;
+use common\models\shop\Label;
+use common\models\shop\Product;
+use common\models\shop\Status;
+use common\models\shop\Tag;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -70,8 +77,7 @@ use yii\widgets\Pjax;
                     </div>
                     <?php
                     Pjax::begin(['id' => "category"]);
-                    $data = ArrayHelper::map(\common\models\shop\Category::find()
-//                ->where(['NOT', ['parentId' => null]])
+                    $data = ArrayHelper::map(Category::find()
                         ->orderBy('name')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'category_id')->widget(Select2::classname(), [
                         'data' => $data,
@@ -100,7 +106,7 @@ use yii\widgets\Pjax;
                     <div class="mb-4">
                         <?= $form->field($model, 'status_id')
                             ->radioList(
-                                ArrayHelper::map(\common\models\shop\Status::find()->orderBy('id')->asArray()->all(), 'id', 'name'),
+                                ArrayHelper::map(Status::find()->orderBy('id')->asArray()->all(), 'id', 'name'),
                                 [
                                     'item' => function ($index, $label, $name, $checked, $value) {
                                         $return = '<label class="form-check">';
@@ -203,7 +209,7 @@ use yii\widgets\Pjax;
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Tag') ?></h2></span>
                     </div>
                     <?php
-                    $data = ArrayHelper::map(\common\models\shop\Tag::find()->orderBy('id')->asArray()->all(), 'id', 'name');
+                    $data = ArrayHelper::map(Tag::find()->orderBy('id')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'tags')->widget(Select2::classname(), [
                         'data' => $data,
                         'theme' => \kartik\select2\Select2::THEME_DEFAULT,
@@ -239,7 +245,7 @@ use yii\widgets\Pjax;
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Group') ?></h2></span>
                     </div>
                     <?php
-                    $data = ArrayHelper::map(\common\models\shop\Grup::find()->orderBy('id')->asArray()->all(), 'id', 'name');
+                    $data = ArrayHelper::map(Grup::find()->orderBy('id')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'grups')->widget(Select2::classname(), [
                         'data' => $data,
                         'theme' => \kartik\select2\Select2::THEME_DEFAULT,
@@ -275,7 +281,7 @@ use yii\widgets\Pjax;
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Brand') ?></h2></span>
                     </div>
                     <?php
-                    $data = ArrayHelper::map(\common\models\shop\Brand::find()->orderBy('id')->asArray()->all(), 'id', 'name');
+                    $data = ArrayHelper::map(Brand::find()->orderBy('id')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'brand_id')->widget(Select2::classname(), [
                         'data' => $data,
                         'theme' => Select2::THEME_DEFAULT,
@@ -299,7 +305,7 @@ use yii\widgets\Pjax;
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Label') ?></h2></span>
                     </div>
                     <?php
-                    $data = ArrayHelper::map(\common\models\shop\Label::find()
+                    $data = ArrayHelper::map(Label::find()
                         ->orderBy('name')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'label_id')->widget(Select2::classname(), [
                         'data' => $data,
@@ -325,7 +331,7 @@ use yii\widgets\Pjax;
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Analog') ?></h2></span>
                     </div>
                     <?php
-                    $data = ArrayHelper::map(\common\models\shop\Product::find()->orderBy('id')->asArray()->all(), 'id', 'name');
+                    $data = ArrayHelper::map(Product::find()->orderBy('id')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'analogs')->widget(Select2::classname(), [
                         'data' => $data,
                         'theme' => \kartik\select2\Select2::THEME_DEFAULT,

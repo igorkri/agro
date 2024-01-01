@@ -127,5 +127,6 @@ return[
     'New order' => '+ Замовлення',
     'SVG for menu' => 'SVG для меню',
     'Product post' => 'Товари для статті',
+    'Date Updated' => 'Останне редагування',
     //  '' => '',
 ];
