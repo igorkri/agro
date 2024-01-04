@@ -18,7 +18,7 @@ class CategoryController extends Controller
         $categories = Category::find()->with(['products'])->where(['is', 'parentId', new \yii\db\Expression('null')])->all();
 
         Yii::$app->metamaster
-            ->setTitle("Категорії Товарів | AgroPro")
+            ->setTitle("Категорії Товарів інтернет-магазину | AgroPro")
             ->setDescription("AgroPro - ваш інтернет-магазин для ЗЗР, добрив, посівного матеріалу та боротьби з гризунами. Оптимізуйте виробництво з нами!")
             ->register(Yii::$app->getView());
 
