@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-auto d-flex">
                     <div class="col-auto d-flex"><a href="<?= Url::to(['product/upload']) ?>"
+                                                    id="excelFileInput"
                                                     class="btn btn-primary"><?= Yii::t('app', 'Import Excel') ?></a>
                     </div>
                 </div>
