@@ -8,7 +8,10 @@ use kartik\rating\StarRating;
         ?>
         <li class="reviews-list__item">
             <div class="review">
-                <div class="review__avatar"><img src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg" alt=""></div>
+                <div class="review__avatar">
+                    <?php $avatar = $review->getAvatar($review->id) ?>
+                    <img src="/images/avatars/<?= $avatar ?>.jpg" alt="<?= $avatar ?>">
+                </div>
                 <div class="review__content">
                     <div class="review__author"><?=$review->name?></div>
                     <div class="review__rating">

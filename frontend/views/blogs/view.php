@@ -32,6 +32,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                 </nav>
             </div>
             <div class="page-header__title">
+                <h1>Статті та поради</h1>
             </div>
         </div>
     </div>

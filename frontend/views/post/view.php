@@ -181,7 +181,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
 <div class="container reviews-view">
     <div class="reviews-view__list">
         <?php if ($postItem->reviews) { ?>
-        <h3 class="reviews-view__header">Відгуки читачів</h3>
+            <h3 class="reviews-view__header">Відгуки читачів</h3>
         <?php } ?>
         <div class="reviews-list">
             <ol class="reviews-list__content">
@@ -190,8 +190,10 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                     ?>
                     <li class="reviews-list__item">
                         <div class="review">
-                            <div class="review__avatar"><img
-                                        src="/images/avatars/<?= $review->getAvatar($review->id) ?>.jpg" alt=""></div>
+                            <div class="review__avatar">
+                                <?php $avatar = $review->getAvatar($review->id) ?>
+                                <img src="/images/avatars/<?= $avatar ?>.jpg" alt="<?= $avatar ?>">
+                            </div>
                             <div class="review__content">
                                 <div class="review__author"><?= $review->name ?></div>
                                 <div class="review__rating">
