@@ -29,24 +29,47 @@ class AddProductTableController extends \yii\console\Controller
                 $product->footer_description = $descr;
                 $product->save();
                 echo "\t" . $product->id . " Footer описание добавлено! \t" . $product->category_id . "\n";
-            }else{
+            } else {
                 echo "\t" . $product->id . " Footer описание НЕ добавлено! \t" . $product->category_id . "\n";
             }
         }
     }
-    public function actionPackage(){
+
+    public function actionPackage()
+    {
         $products = Product::find()->all();
         $categories = [22, 23, 24, 25];
-        foreach ($products as $product){
-            if (!in_array($product->category_id, $categories)){
+        foreach ($products as $product) {
+            if (!in_array($product->category_id, $categories)) {
                 $product->package = 'BIG';
                 $product->save();
                 echo "\t" . $product->id . " BIG добавлено! \t" . $product->category_id . "\n";
-            }else{
+            } else {
                 $product->package = 'SMALL';
                 $product->save();
                 echo "\t" . $product->id . " SMALL добавлено! \t" . $product->category_id . "\n";
             }
         }
+    }
+
+    public function actionFindAndReplace()
+    {
+        $products = Product::find()
+            ->where(['like', 'description', '%<h2>%', false]) // false означает, что чувствительность к регистру отключена
+            ->all();
+
+        if ($products) {
+            foreach ($products as $product) {
+
+                $product->description = str_replace('<h2>', '<h4>', $product->description);
+                $product->description = str_replace('</h2>', '</h4>', $product->description);
+
+                $product->save(false); // false отключает валидацию, использовать осторожно
+                echo "\t" . $product->name . " Teg добавлено! \t" . "\n";
+            }
+        } else {
+            echo "\t" . " Не работает! \t" . "\n";
+        }
+
     }
 }
