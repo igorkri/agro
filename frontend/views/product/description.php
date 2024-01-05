@@ -441,12 +441,8 @@ $rating = 3;
             </div>
         </div>
     </div>
-    <div id="additional-text" style="display: none;">Детальніше на: <?= $currentUrl ?></div>
+    <div id="additional-text" style="display: none;"><?= $currentUrl ?></div>
     <style>
-        .rating-md {
-            font-size: 22px;
-        }
-
         .indicator-analog__value {
             height: 15px;
             font-size: 16px;
@@ -509,9 +505,15 @@ $js = <<<JS
 
    document.addEventListener('copy', function(e) {
     var selectedText = window.getSelection().toString();
-    var additionalText = document.getElementById('additional-text').innerText;
-    if (selectedText && additionalText) {
-        var copiedText = selectedText + ' ' + additionalText;
+    var additionalText = document.getElementById('additional-text').textContent;
+    var link1 = '<a href="';
+    var link2 = '">';
+    var link3 = '</a>';
+    
+    if (selectedText && additionalText && selectedText.length > 20) {
+        var copiedText = selectedText + link1 + additionalText 
+        + link2 + ' Детальніше на: ' + additionalText + link3 ;
+        e.clipboardData.setData('text/html', copiedText);
         e.clipboardData.setData('text/plain', copiedText);
         e.preventDefault();
     }
