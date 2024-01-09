@@ -204,6 +204,7 @@ class Category extends \yii\db\ActiveRecord
 
         return $res;
     }
+    //Для фильтра frontend ---- End
 
 
     public function getCountProductCategory($id)
