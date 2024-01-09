@@ -63,6 +63,17 @@ class Brand extends \yii\db\ActiveRecord
         ];
     }
 
+    //Для фильтра frontend
+    public function getBrandProductCountFilter($brandId, $categoryId)
+    {
+        $productCount = Product::find()
+            ->where(['brand_id' => $brandId])
+            ->andWhere(['category_id' => $categoryId])
+            ->count();
+
+        return $productCount;
+    }
+
     public function getProductBrand($id)
     {
         $products = Product::find()->where(['brand_id' => $id])->all();

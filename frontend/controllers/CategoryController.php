@@ -2,9 +2,9 @@
 
 namespace frontend\controllers;
 
-use common\models\shop\Brand;
 use common\models\shop\Category;
 use common\models\shop\Product;
+use common\models\shop\ProductProperties;
 use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\data\Pagination;
@@ -77,44 +77,81 @@ class CategoryController extends Controller
             ->register(Yii::$app->getView());
 
         return $this->render('children', ['category' => $category]);
-
     }
 
-    public function actionCatalog($slug, $sort = null, $count = '12')
+    public function actionCatalog($slug)
     {
-        $minPrice = Product::find()->min('price');
-        $maxPrice = Product::find()->max('price');
 
-        $count = intval($count);
+//        Yii::$app->session->removeAll();
+
+        if (!Yii::$app->session->has('sort')) {
+            Yii::$app->session->set('sort', '');
+        }else{
+            if (Yii::$app->request->post('sort') !== null){
+                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
+            }
+        }
+        $sort = Yii::$app->session->get('sort');
+
+        if (!Yii::$app->session->has('count')) {
+            Yii::$app->session->set('count', 8);
+        }else{
+            if (Yii::$app->request->post('count') !== null){
+                Yii::$app->session->set('count', Yii::$app->request->post('count'));
+            }
+        }
+        $count = intval(Yii::$app->session->get('count'));
+
+        $brandCheck = Yii::$app->request->post('brandCheck');
+        $substanceCheck = Yii::$app->request->post('substanceCheck');
+        $packageCheck = Yii::$app->request->post('packageCheck');
+        $minPrice = Yii::$app->request->post('minPrice');
+        $maxPrice = Yii::$app->request->post('maxPrice');
+
+        Yii::$app->session->set('brandCheckFilter', $brandCheck);
+        Yii::$app->session->set('substanceCheckFilter', $substanceCheck);
+        Yii::$app->session->set('packageCheckFilter', $packageCheck);
+        Yii::$app->session->set('minPriceFilter', $minPrice);
+        Yii::$app->session->set('maxPriceFilter', $maxPrice);
+
 
         $category = Category::find()->where(['slug' => $slug])->one();
 
         $query = Product::find()->where(['category_id' => $category->id]);
 
+        $query->andFilterWhere(['>=', 'price', $minPrice])
+            ->andFilterWhere(['<=', 'price', $maxPrice]);
 
-        $brands_id = Product::find()->select('brand_id')->where(['category_id' => $category->id])->asArray()->all();
-
-        $id = [];
-
-        foreach ($brands_id as $item) {
-            $id[] = $item['brand_id'];
+        if ($packageCheck !== null) {
+            $productsId = ProductProperties::find()->select('product_id')->where(['value' => $packageCheck])->column();
+            $query->andFilterWhere(['in', 'id', $productsId]);
         }
 
-        $id = array_values(array_unique($id));
+        if ($substanceCheck !== null) {
+            $productsId = ProductProperties::find()->select('product_id')->where(['value' => $substanceCheck])->column();
+            $query->andFilterWhere(['in', 'id', $productsId]);
+        }
 
+        if ($brandCheck !== null) {
+            $query->andFilterWhere(['in', 'brand_id', $brandCheck]);
+        }
 
-        $brands = Brand::find()->where(['id' => $id])->all();
 
         if ($sort === 'price_lowest') {
             $query->orderBy(['price' => SORT_ASC]);
         } elseif ($sort === 'price_highest') {
             $query->orderBy(['price' => SORT_DESC]);
+        } elseif ($sort === 'name_a') {
+            $query->orderBy(['name' => SORT_ASC]);
+        } elseif ($sort === 'name_z') {
+            $query->orderBy(['name' => SORT_DESC]);
         } else {
             $query->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
         }
 
         $results = $query->all();
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $count]);
+
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
@@ -152,10 +189,8 @@ class CategoryController extends Controller
             compact([
                 'products',
                 'category',
-                'pages', 'products_all',
-                'brands',
-                'minPrice',
-                'maxPrice'
+                'pages',
+                'products_all',
             ]));
     }
 }

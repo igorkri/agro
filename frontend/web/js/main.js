@@ -808,6 +808,7 @@
     /*
     // price filter
     */
+
     $(function () {
         $('.filter-price').each(function (i, element) {
             const min = $(element).data('min');
@@ -833,6 +834,10 @@
 
             slider.noUiSlider.on('update', function (values, handle) {
                 titleValues[handle].innerHTML = values[handle];
+
+                $('#minPrice').val(values[0]);
+                $('#maxPrice').val(values[1]);
+
             });
         });
     });

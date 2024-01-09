@@ -83,6 +83,7 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
+    //Возвращает родительскую категорию
     public function getParent()
     {
         return $this->hasOne(Category::class, ['id' => 'parentId']);
@@ -93,10 +94,117 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(Category::class, ['parentId' => 'id']);
     }
 
+    //Возвращает продукты категории
     public function getProducts()
     {
         return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
+
+    //Для фильтра frontend
+    public function getCountProductCategoryFilter($id)
+    {
+        $cat = [];
+        $categories = Category::find()->select('id')->where(['parentId' => $id])->all();
+        foreach ($categories as $category) {
+            $cat[] = $category->id;
+        }
+        $products = Product::find()
+            ->select('id')
+            ->where(['category_id' => $cat])
+            ->orWhere(['category_id' => $id])
+            ->all();
+        $res = [];
+        foreach ($products as $product) {
+            $res[] = $product;
+        }
+        if (count($res) > 0) {
+            return count($res);
+
+        } else {
+            return 0;
+        }
+    }
+
+    public function getCategoryChildFilter($id)
+    {
+        $categories = Category::find()->select(['id', 'name', 'slug'])
+            ->where(['parentId' => $id])
+            ->andWhere(['visibility' => 1])
+            ->all();
+        return $categories;
+    }
+
+    public function getBrandsCategoryFilter($id)
+    {
+        $brandsId = Product::find()->select('brand_id')
+            ->where(['category_id' => $id])
+            ->asArray()
+            ->column();
+
+        $brands = Brand::find()->where(['id' => $brandsId])->all();
+
+        return $brands;
+    }
+
+    public function getActiveSubstanceFilter($id)
+    {
+        $productId = Product::find()->select('id')
+            ->where(['category_id' => $id])
+            ->asArray()
+            ->column();
+
+        $substance = ProductProperties::find()
+            ->select('value')
+            ->where(['product_id' => $productId])
+            ->andWhere(['properties' => 'діюча речовина:'])
+            ->distinct()
+            ->column();
+
+        return $substance;
+    }
+
+    public function getPackageFilter($id)
+    {
+        $productId = Product::find()->select('id')
+            ->where(['category_id' => $id])
+            ->asArray()
+            ->column();
+
+        $package = ProductProperties::find()
+            ->select('value')
+            ->where(['product_id' => $productId])
+            ->andWhere(['properties' => 'тара:'])
+            ->distinct()
+            ->column();
+
+        return $package;
+    }
+
+    public function getCounterFilter()
+    {
+        $brandCheck = Yii::$app->session->get('brandCheckFilter');
+        if ($brandCheck == null){
+            $brandCheck = [];
+        }
+        $substanceCheck = Yii::$app->session->get('substanceCheckFilter');
+        if ($substanceCheck == null){
+            $substanceCheck = [];
+        }
+        $packageCheck = Yii::$app->session->get('packageCheckFilter');
+        if ($packageCheck == null){
+            $packageCheck = [];
+        }
+
+
+        $res = count($brandCheck) + count($substanceCheck) + count($packageCheck);
+
+
+        $minPrice = Yii::$app->session->get('minPriceFilter');
+        $maxPrice = Yii::$app->session->get('maxPriceFilter');
+
+        return $res;
+    }
+
 
     public function getCountProductCategory($id)
     {
@@ -137,6 +245,47 @@ class Category extends \yii\db\ActiveRecord
         }
     }
 
+    public function getCatalogHighPrice($id)
+    {
+        $highPrice = Product::find()
+            ->where(['category_id' => $id])
+            ->orderBy(['price' => SORT_DESC])
+            ->one();
+
+        return $highPrice->price;
+    }
+
+    public function getCatalogLowPrice($id)
+    {
+        $lowPrice = Product::find()
+            ->where(['category_id' => $id])
+            ->orderBy(['price' => SORT_ASC])
+            ->one();
+
+        return $lowPrice->price;
+    }
+
+    public function getChildrenHighPrice($res)
+    {
+        $highPrice = Product::find()
+            ->where(['category_id' => $res])
+            ->orderBy(['price' => SORT_DESC])
+            ->one();
+
+        return $highPrice->price;
+    }
+
+    public function getChildrenLowPrice($res)
+    {
+        $lowPrice = Product::find()
+            ->where(['category_id' => $res])
+            ->orderBy(['price' => SORT_ASC])
+            ->one();
+
+        return $lowPrice->price;
+    }
+
+    // Schema.org для микро разметки
     public function getSchemaImg($id)
     {
         if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
@@ -204,46 +353,6 @@ class Category extends \yii\db\ActiveRecord
         } else {
             return '28';
         }
-    }
-
-    public function getCatalogHighPrice($id)
-    {
-        $highPrice = Product::find()
-            ->where(['category_id' => $id])
-            ->orderBy(['price' => SORT_DESC])
-            ->one();
-
-        return $highPrice->price;
-    }
-
-    public function getCatalogLowPrice($id)
-    {
-        $lowPrice = Product::find()
-            ->where(['category_id' => $id])
-            ->orderBy(['price' => SORT_ASC])
-            ->one();
-
-        return $lowPrice->price;
-    }
-
-    public function getChildrenHighPrice($res)
-    {
-        $highPrice = Product::find()
-            ->where(['category_id' => $res])
-            ->orderBy(['price' => SORT_DESC])
-            ->one();
-
-        return $highPrice->price;
-    }
-
-    public function getChildrenLowPrice($res)
-    {
-        $lowPrice = Product::find()
-            ->where(['category_id' => $res])
-            ->orderBy(['price' => SORT_ASC])
-            ->one();
-
-        return $lowPrice->price;
     }
 
     public function getSchemaRatingChildren($res)
