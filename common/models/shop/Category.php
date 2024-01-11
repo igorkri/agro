@@ -146,66 +146,53 @@ class Category extends \yii\db\ActiveRecord
         return $brands;
     }
 
-    public function getActiveSubstanceFilter($id)
-    {
-        $productId = Product::find()->select('id')
-            ->where(['category_id' => $id])
-            ->asArray()
-            ->column();
-
-        $substance = ProductProperties::find()
-            ->select('value')
-            ->where(['product_id' => $productId])
-            ->andWhere(['properties' => 'діюча речовина:'])
-            ->distinct()
-            ->column();
-
-        return $substance;
-    }
-
-    public function getPackageFilter($id)
-    {
-        $productId = Product::find()->select('id')
-            ->where(['category_id' => $id])
-            ->asArray()
-            ->column();
-
-        $package = ProductProperties::find()
-            ->select('value')
-            ->where(['product_id' => $productId])
-            ->andWhere(['properties' => 'тара:'])
-            ->distinct()
-            ->column();
-
-        return $package;
-    }
-
     public function getCounterFilter()
     {
         $brandCheck = Yii::$app->session->get('brandCheckFilter');
-        if ($brandCheck == null){
+        if ($brandCheck == null) {
             $brandCheck = [];
         }
-        $substanceCheck = Yii::$app->session->get('substanceCheckFilter');
-        if ($substanceCheck == null){
-            $substanceCheck = [];
-        }
-        $packageCheck = Yii::$app->session->get('packageCheckFilter');
-        if ($packageCheck == null){
-            $packageCheck = [];
+        $propertiesCheck = Yii::$app->session->get('propertiesCheckFilter');
+        if ($propertiesCheck == null) {
+            $propertiesCheck = [];
         }
 
-
-        $res = count($brandCheck) + count($substanceCheck) + count($packageCheck);
-
+        $res = count($brandCheck) + count($propertiesCheck);
 
         $minPrice = Yii::$app->session->get('minPriceFilter');
         $maxPrice = Yii::$app->session->get('maxPriceFilter');
 
         return $res;
     }
-    //Для фильтра frontend ---- End
 
+    public function getPropertiesFilter($id, $value)
+    {
+        $productId = Product::find()->select('id')
+            ->where(['category_id' => $id])
+            ->asArray()
+            ->column();
+
+        $properties = ProductProperties::find()
+            ->select('value')
+            ->where(['product_id' => $productId])
+            ->andWhere(['properties' => $value])
+            ->distinct()
+            ->column();
+
+        $property = [];
+        foreach ($properties as $item) {
+            if ($item != '*') {
+                $subArray = explode(', ', $item);
+                $property = array_merge($property, $subArray);
+                $property = array_map('trim', $property);
+                $property = array_unique($property);
+                sort($property);
+            }
+        }
+
+        return $property;
+    }
+    //Для фильтра frontend ---- End
 
     public function getCountProductCategory($id)
     {

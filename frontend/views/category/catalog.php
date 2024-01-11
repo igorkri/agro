@@ -384,29 +384,30 @@ ActivePages::setActiveUser();
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="widget-filters__item">
-                                                    <div class="filter" data-collapse-item>
-                                                        <button type="button" class="filter__title"
-                                                                data-collapse-trigger>
-                                                            Діюча речовина
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <div class="filter__container">
-                                                                <div class="filter-list">
-                                                                    <div class="filter-list__list">
-                                                                        <?php $activeSubstances = $category->getActiveSubstanceFilter($category->id) ?>
-                                                                        <?php foreach ($activeSubstances as $substance): ?>
-                                                                            <label class="filter-list__item ">
+                                                <?php foreach ($propertiesFilter as $value): ?>
+                                                    <div class="widget-filters__item">
+                                                        <div class="filter" data-collapse-item>
+                                                            <button type="button" class="filter__title"
+                                                                    data-collapse-trigger>
+                                                                <?= $value ?>
+                                                                <svg class="filter__arrow" width="12px" height="7px">
+                                                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
+                                                                </svg>
+                                                            </button>
+                                                            <div class="filter__body" data-collapse-content>
+                                                                <div class="filter__container">
+                                                                    <div class="filter-list">
+                                                                        <div class="filter-list__list">
+                                                                            <?php $properties = $category->getPropertiesFilter($category->id, $value) ?>
+                                                                            <?php foreach ($properties as $property): ?>
+                                                                                <label class="filter-list__item ">
                                                                 <span class="filter-list__input input-check">
                                                                     <span class="input-check__body">
                                                                         <input class="input-check__input"
                                                                                type="checkbox"
-                                                                               name="substanceCheck[]"
-                                                                               value="<?= Html::encode($substance) ?>"
-                                                                               <?= in_array($substance, Yii::$app->request->post('substanceCheck', [])) ? 'checked' : '' ?>
+                                                                               name="propertiesCheck[]"
+                                                                               value="<?= Html::encode($property) ?>"
+                                                                               <?= in_array($property, Yii::$app->request->post('propertiesCheck', [])) ? 'checked' : '' ?>
                                                                                >
                                                                         <span class="input-check__box"></span>
                                                                         <svg class="input-check__icon" width="9px"
@@ -415,61 +416,19 @@ ActivePages::setActiveUser();
                                                                         </svg>
                                                                     </span>
                                                                 </span>
-                                                                                <span class="filter-list__title">
-                                                                  <?= $substance ?>
+                                                                                    <span class="filter-list__title">
+                                                                  <?= $property ?>
                                                                 </span>
-<!--                                                                                <span class="filter-list__counter">7</span>-->
-                                                                            </label>
-                                                                        <?php endforeach; ?>
+                                                                                    <!--                                                                                    <span class="filter-list__counter">7</span>-->
+                                                                                </label>
+                                                                            <?php endforeach; ?>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="widget-filters__item">
-                                                    <div class="filter" data-collapse-item>
-                                                        <button type="button" class="filter__title"
-                                                                data-collapse-trigger>
-                                                            Тара
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <div class="filter__container">
-                                                                <div class="filter-list">
-                                                                    <div class="filter-list__list">
-                                                                        <?php $packages = $category->getPackageFilter($category->id) ?>
-                                                                        <?php foreach ($packages as $package): ?>
-                                                                            <label class="filter-list__item ">
-                                                                <span class="filter-list__input input-check">
-                                                                    <span class="input-check__body">
-                                                                        <input class="input-check__input"
-                                                                               type="checkbox"
-                                                                               name="packageCheck[]"
-                                                                               value="<?= Html::encode($package) ?>"
-                                                                               <?= in_array($package, Yii::$app->request->post('packageCheck', [])) ? 'checked' : '' ?>
-                                                                               >
-                                                                        <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px"
-                                                                             height="7px">
-                                                                            <use xlink:href="/images/sprite.svg#check-9x7"></use>
-                                                                        </svg>
-                                                                    </span>
-                                                                </span>
-                                                                                <span class="filter-list__title">
-                                                                   <?= $package ?>
-                                                                </span>
-<!--                                                                                <span class="filter-list__counter">7</span>-->
-                                                                            </label>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <?php endforeach; ?>
                                             </div>
                                             <div class="widget-filters__actions d-flex">
                                                 <button type="submit" class="btn btn-primary btn-sm">Фільтрувати

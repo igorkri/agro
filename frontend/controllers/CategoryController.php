@@ -86,8 +86,8 @@ class CategoryController extends Controller
 
         if (!Yii::$app->session->has('sort')) {
             Yii::$app->session->set('sort', '');
-        }else{
-            if (Yii::$app->request->post('sort') !== null){
+        } else {
+            if (Yii::$app->request->post('sort') !== null) {
                 Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
             }
         }
@@ -95,47 +95,58 @@ class CategoryController extends Controller
 
         if (!Yii::$app->session->has('count')) {
             Yii::$app->session->set('count', 8);
-        }else{
-            if (Yii::$app->request->post('count') !== null){
+        } else {
+            if (Yii::$app->request->post('count') !== null) {
                 Yii::$app->session->set('count', Yii::$app->request->post('count'));
             }
         }
         $count = intval(Yii::$app->session->get('count'));
 
         $brandCheck = Yii::$app->request->post('brandCheck');
-        $substanceCheck = Yii::$app->request->post('substanceCheck');
-        $packageCheck = Yii::$app->request->post('packageCheck');
+        $propertiesCheck = Yii::$app->request->post('propertiesCheck');
         $minPrice = Yii::$app->request->post('minPrice');
         $maxPrice = Yii::$app->request->post('maxPrice');
 
         Yii::$app->session->set('brandCheckFilter', $brandCheck);
-        Yii::$app->session->set('substanceCheckFilter', $substanceCheck);
-        Yii::$app->session->set('packageCheckFilter', $packageCheck);
+        Yii::$app->session->set('propertiesCheckFilter', $propertiesCheck);
         Yii::$app->session->set('minPriceFilter', $minPrice);
         Yii::$app->session->set('maxPriceFilter', $maxPrice);
 
-
         $category = Category::find()->where(['slug' => $slug])->one();
+
+        $propertiesFilter = ProductProperties::find()
+            ->select(['properties'])
+            ->distinct()
+            ->where(['category_id' => $category->id])
+            ->orderBy(['sort' => SORT_ASC])
+            ->column();
 
         $query = Product::find()->where(['category_id' => $category->id]);
 
         $query->andFilterWhere(['>=', 'price', $minPrice])
             ->andFilterWhere(['<=', 'price', $maxPrice]);
 
-        if ($packageCheck !== null) {
-            $productsId = ProductProperties::find()->select('product_id')->where(['value' => $packageCheck])->column();
-            $query->andFilterWhere(['in', 'id', $productsId]);
-        }
+        if ($propertiesCheck !== null) {
+            $queryProdId = ProductProperties::find()
+                ->select('product_id')
+                ->where(['category_id' => $category->id]);
 
-        if ($substanceCheck !== null) {
-            $productsId = ProductProperties::find()->select('product_id')->where(['value' => $substanceCheck])->column();
+            foreach ($propertiesCheck as $value) {
+                $subQuery = ProductProperties::find()
+                    ->select('product_id')
+                    ->where(['category_id' => $category->id])
+                    ->andWhere(['like', 'value', $value]);
+
+                $queryProdId->andWhere(['in', 'product_id', $subQuery]);
+            }
+            $productsId = $queryProdId->column();
+
             $query->andFilterWhere(['in', 'id', $productsId]);
         }
 
         if ($brandCheck !== null) {
             $query->andFilterWhere(['in', 'brand_id', $brandCheck]);
         }
-
 
         if ($sort === 'price_lowest') {
             $query->orderBy(['price' => SORT_ASC]);
@@ -191,6 +202,7 @@ class CategoryController extends Controller
                 'category',
                 'pages',
                 'products_all',
+                'propertiesFilter',
             ]));
     }
 }
