@@ -272,7 +272,11 @@ ActivePages::setActiveUser();
                                                                                  height="9px">
                                                                                 <use xlink:href="/images/sprite.svg#arrow-rounded-left-6x9"></use>
                                                                             </svg>
-                                                                            <a href=""><?= ($category->parent) ? $category->parent->name : $category->name; ?></a>
+                                                                            <?php if ($category->parent) { ?>
+                                                                                <a href="<?= Url::to(['category/children', 'slug' => $category->parent->slug]) ?>"><?= $category->parent->name ?></a>
+                                                                            <?php } else { ?>
+                                                                                <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>"><?= $category->name ?></a>
+                                                                            <?php } ?>
                                                                             <div class="filter-categories__counter">
                                                                                 <?= ($category->parent) ? $category->getCountProductCategoryFilter($category->parent->id) : $category->getCountProductCategoryFilter($category->id); ?>
                                                                             </div>
