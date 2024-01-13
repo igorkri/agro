@@ -192,6 +192,17 @@ class Category extends \yii\db\ActiveRecord
 
         return $property;
     }
+
+    public function getPropertiesCountPruductFilter($id, $property)
+    {
+        $propertyCount = ProductProperties::find()
+            ->select('id')
+            ->where(['category_id' => $id])
+            ->andWhere(['like', 'value', $property])
+            ->count();
+
+        return $propertyCount;
+    }
     //Для фильтра frontend ---- End
 
     public function getCountProductCategory($id)

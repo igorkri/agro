@@ -423,7 +423,10 @@ ActivePages::setActiveUser();
                                                                                     <span class="filter-list__title">
                                                                   <?= $property ?>
                                                                 </span>
-                                                                                    <!--                                                                                    <span class="filter-list__counter">7</span>-->
+                                                                                    <span class="filter-list__counter">
+                                                                                        <?= $category->getPropertiesCountPruductFilter
+                                                                                        ($category->id, $property) ?>
+                                                                                    </span>
                                                                                 </label>
                                                                             <?php endforeach; ?>
                                                                         </div>
