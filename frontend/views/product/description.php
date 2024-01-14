@@ -177,7 +177,7 @@ $rating = 3;
                                                                                      style="display: unset;">
                                                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                                                 </svg>
-                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'В кошику' ?>
+                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'Купити' : 'В кошику' ?>
                                                                             </button>
                                                                             <button type="button"
                                                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
@@ -207,7 +207,7 @@ $rating = 3;
                                                                                      style="display: unset;">
                                                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                                                 </svg>
-                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'В Кошик' : 'В кошику' ?>
+                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'Купити' : 'В кошику' ?>
                                                                             </button>
                                                                             <button type="button"
                                                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"

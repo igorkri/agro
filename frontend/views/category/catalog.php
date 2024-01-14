@@ -182,7 +182,7 @@ ActivePages::setActiveUser();
                                                                 <svg width="20px" height="20px" style="display: unset;">
                                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                                 </svg>
-                                                                <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
+                                                                <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
                                                             </button>
                                                             <button type="button"
                                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
@@ -211,7 +211,7 @@ ActivePages::setActiveUser();
                                                                 <svg width="20px" height="20px" style="display: unset;">
                                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                                 </svg>
-                                                                <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
+                                                                <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
                                                             </button>
                                                             <button type="button"
                                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"

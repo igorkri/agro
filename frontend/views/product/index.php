@@ -346,7 +346,7 @@ $this->title = $product->seo_title;
                                             <svg width="20px" height="20px" style="display: unset;">
                                                 <use xlink:href="/images/sprite.svg#cart-20"></use>
                                             </svg>
-                                            <?= !$isset_to_cart ? 'В Кошик' : 'В кошику' ?>
+                                            <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
                                         </button>
                                         <button type="button"
                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
@@ -378,7 +378,7 @@ $this->title = $product->seo_title;
                                             <svg width="20px" height="20px" style="display: unset;">
                                                 <use xlink:href="/images/sprite.svg#cart-20"></use>
                                             </svg>
-                                            <?= !$isset_to_cart ? 'В Кошик' : 'В кошику' ?>
+                                            <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
                                         </button>
                                         <button type="button"
                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
