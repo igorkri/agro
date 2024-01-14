@@ -1,14 +1,12 @@
 <?php
 
-
 namespace frontend\widgets;
 
-
 use common\models\shop\Product;
-use common\models\shop\ProductProperties;
+use yii\base\Widget;
 use yii\db\Expression;
 
-class LatestProduct extends \yii\base\Widget
+class LatestProduct extends Widget
 {
     public function init()
     {

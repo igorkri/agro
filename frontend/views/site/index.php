@@ -29,7 +29,7 @@ ActivePages::setActiveUser();
     <?php echo FeaturedProduct::widget() ?>
     <?php echo BlockBanner::widget() ?>
     <?php echo Bestsellers::widget() ?>
-    <?php if (!\Yii::$app->devicedetect->isMobile()) echo PopularCategories::widget(); ?>
+    <?php if (!Yii::$app->devicedetect->isMobile()) echo PopularCategories::widget(); ?>
     <?php echo BestsellersDacha::widget() ?>
     <?php echo ProductsCarousel::widget() ?>
     <?php echo BlockPosts::widget() ?>

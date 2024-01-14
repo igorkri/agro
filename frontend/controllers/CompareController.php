@@ -3,12 +3,12 @@
 
 namespace frontend\controllers;
 
-
 use common\models\shop\Product;
 use common\models\shop\ProductProperties;
 use Yii;
+use yii\web\Controller;
 
-class CompareController extends \yii\web\Controller
+class CompareController extends Controller
 {
     public function actionView()
     {
@@ -46,7 +46,7 @@ class CompareController extends \yii\web\Controller
 
     public function actionAddToCompare()
     {
-        $id = \Yii::$app->request->post('id');
+        $id = Yii::$app->request->post('id');
 
         $session = Yii::$app->session;
 
@@ -72,7 +72,7 @@ class CompareController extends \yii\web\Controller
 
     public function actionDeleteFromCompare()
     {
-        $id = \Yii::$app->request->post('id');
+        $id = Yii::$app->request->post('id');
 
         $session = Yii::$app->session;
         $compareList = $session->get('compareList', []);

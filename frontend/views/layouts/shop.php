@@ -1,6 +1,6 @@
 <?php
-/** @var yii\web\View $this */
 
+/** @var yii\web\View $this */
 /** @var string $content */
 
 use frontend\widgets\SiteHeader;
@@ -30,7 +30,7 @@ AppAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
     <div class="site">
-        <?php if (\Yii::$app->devicedetect->isMobile()): ?>
+        <?php if (Yii::$app->devicedetect->isMobile()): ?>
             <?= $this->render('mobile-site-header') ?>
         <?php endif; ?>
         <?php echo SiteHeader::widget() ?>

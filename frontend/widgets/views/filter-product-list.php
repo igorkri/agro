@@ -81,7 +81,7 @@ use yii\helpers\Url;
                         <div class="filter__container">
                             <div class="filter-list">
                                 <div class="filter-list__list">
-                                    <? foreach ($brands as $brand): ?>
+                                    <?php foreach ($brands as $brand): ?>
                                         <?php if ($brand->getProductBrand($brand->id) > 0) { ?>
                                             <label class="filter-list__item ">
                                                 <span class="filter-list__input input-radio">

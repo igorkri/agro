@@ -1,6 +1,8 @@
 <?php
 
-\common\models\shop\ActivePages::setActiveUser();
+use common\models\shop\ActivePages;
+
+ActivePages::setActiveUser();
 
 ?>
 <div class="site__body">
@@ -37,7 +39,7 @@
                                         <?= $contacts->address ?><br>
                                         Email: <?= $contacts->email ?><br>
                                         Телефон: <?= $contacts->tel_primary ?><br>
-                                    <p style="padding-left: 72px; margin-top: -15px;"> <?= $contacts->tel_second ?></p>
+                                    <span style="padding-left: 75px; margin-top: -15px;"> <?= $contacts->tel_second ?></span>
                                     </p>
                                     <p>
                                         <strong>Години роботи</strong><br>

@@ -4,8 +4,9 @@ namespace frontend\controllers;
 
 use common\models\shop\Product;
 use Yii;
+use yii\web\Controller;
 
-class WishController extends \yii\web\Controller
+class WishController extends Controller
 {
     public function actionView()
     {
@@ -21,7 +22,7 @@ class WishController extends \yii\web\Controller
 
     public function actionAddToWish()
     {
-        $id = \Yii::$app->request->post('id');
+        $id = Yii::$app->request->post('id');
 
         $session = Yii::$app->session;
 
@@ -47,7 +48,7 @@ class WishController extends \yii\web\Controller
 
     public function actionDeleteFromWish()
     {
-        $id = \Yii::$app->request->post('id');
+        $id = Yii::$app->request->post('id');
 
         $session = Yii::$app->session;
         $wishList = $session->get('wishList', []);

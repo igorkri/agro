@@ -37,6 +37,7 @@ class SiteController extends Controller
             else
                 return $this->render('404', ['exception' => $exception]);
         }
+        return null;
     }
 
     /**
@@ -95,6 +96,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+//                Yii::$app->session->removeAll();
+
         $seo = SeoPages::find()->where(['slug' => 'home'])->one();
 
         $organization = Schema::localBusiness()

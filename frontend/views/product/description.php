@@ -2,7 +2,6 @@
 
 use common\models\shop\Product;
 use kartik\rating\StarRating;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $product */
@@ -50,7 +49,7 @@ $rating = 3;
                                     <div class="widget-products__list">
                                         <?php $i = 1;
                                         foreach ($products_analog as $product_analog): ?>
-                                            <?php if (\Yii::$app->devicedetect->isMobile()) { ?>
+                                            <?php if (Yii::$app->devicedetect->isMobile()) { ?>
                                                 <div class="widget-products__item">
                                                     <div class="widget-products__image">
                                                         <div class="product-image">

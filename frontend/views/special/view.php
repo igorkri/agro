@@ -1,9 +1,7 @@
 <?php
 
 use common\models\shop\ActivePages;
-use common\models\shop\ProductProperties;
 use yii\bootstrap5\LinkPager;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();

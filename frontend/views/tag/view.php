@@ -5,6 +5,7 @@ use common\models\shop\Product;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 ActivePages::setActiveUser();
 
@@ -62,8 +63,8 @@ ActivePages::setActiveUser();
                                     <label for="">Сортувати</label>
                                     <div>
                                         <?php
-                                        echo \yii\helpers\Html::beginForm(['tag/view'], 'get', ['class' => 'form-inline']);
-                                        echo \yii\helpers\Html::dropDownList('sort', Yii::$app->request->get('sort'), [
+                                        echo Html::beginForm(['tag/view'], 'get', ['class' => 'form-inline']);
+                                        echo Html::dropDownList('sort', Yii::$app->request->get('sort'), [
                                             '' => 'Наявність',
                                             'price_lowest' => 'Дешевші',
                                             'price_highest' => 'Дорожчі',
@@ -75,12 +76,12 @@ ActivePages::setActiveUser();
                                     <label for="">Показати</label>
                                     <div>
                                         <?php
-                                        echo \yii\helpers\Html::dropDownList('count', Yii::$app->request->get('count'), [
+                                        echo Html::dropDownList('count', Yii::$app->request->get('count'), [
                                             '12' => '12',
                                             '24' => '24',
                                         ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
-                                        echo \yii\helpers\Html::hiddenInput('id', $tag_name->id);
-                                        echo \yii\helpers\Html::endForm();
+                                        echo Html::hiddenInput('id', $tag_name->id);
+                                        echo Html::endForm();
                                         ?>
                                     </div>
                                 </div>
@@ -263,5 +264,5 @@ $(function () {
 
 JS;
 
-$this->registerJs($script, \yii\web\View::POS_END);
+$this->registerJs($script, View::POS_END);
 ?>

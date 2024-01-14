@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\shop\Product;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "slider".
@@ -17,7 +18,7 @@ use Yii;
  * @property int|null $visible Показ на странице
  * @property int|null $sort Порядок вывода
  */
-class Slider extends \yii\db\ActiveRecord
+class Slider extends ActiveRecord
 {
     /**
      * {@inheritdoc}

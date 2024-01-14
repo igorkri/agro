@@ -1,14 +1,13 @@
 <?php
 
-
 namespace frontend\widgets;
-
 
 use common\models\shop\Brand;
 use common\models\shop\Category;
 use common\models\shop\Product;
+use yii\base\Widget;
 
-class FilterProductList extends \yii\base\Widget
+class FilterProductList extends Widget
 {
 
     public function init()

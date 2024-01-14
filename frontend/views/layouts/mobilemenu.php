@@ -48,7 +48,7 @@ $tel_2 = '(068) 489-43-86';
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/contact/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-phone-square-alt"></i></i> Зв'язок з нами</a>
+                        <a href="<?= Url::to(['/contact/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-phone-square-alt"></i> Зв'язок з нами</a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>

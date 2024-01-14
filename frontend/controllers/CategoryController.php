@@ -15,7 +15,7 @@ class CategoryController extends Controller
 {
     public function actionList()
     {
-        $categories = Category::find()->with(['products'])->where(['is', 'parentId', new \yii\db\Expression('null')])->all();
+        $categories = Category::find()->with(['products'])->where(['is', 'parentId', new Expression('null')])->all();
 
         Yii::$app->metamaster
             ->setTitle("Категорії Товарів інтернет-магазину | AgroPro")

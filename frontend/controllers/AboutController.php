@@ -4,7 +4,6 @@ namespace frontend\controllers;
 
 use common\models\About;
 use common\models\SeoPages;
-use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\web\Controller;
 

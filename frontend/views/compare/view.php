@@ -1,7 +1,6 @@
 <?php
 
 use common\models\shop\ActivePages;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
@@ -123,7 +122,6 @@ ActivePages::setActiveUser();
                                                     </svg>
                                                     <?= !$product->getIssetToCart($product->id) ? 'В Кошик' : 'В кошику' ?>
                                                 </button>
-                                            </div>
                                         <?php } else { ?>
                                                 <button class="btn btn-secondary btn-sm disabled"
                                                         type="button"

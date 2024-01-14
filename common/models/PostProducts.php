@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "post_products".
@@ -11,7 +12,7 @@ use Yii;
  * @property int|null $post_id
  * @property int|null $product_id
  */
-class PostProducts extends \yii\db\ActiveRecord
+class PostProducts extends ActiveRecord
 {
     /**
      * {@inheritdoc}

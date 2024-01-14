@@ -86,7 +86,7 @@ $wishList = count($wishList);
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
                                         <span class="indicator__value"
-                                              id="desc-qty-cart"><?= \Yii::$app->cart->getCount() ?></span>
+                                              id="desc-qty-cart"><?= Yii::$app->cart->getCount() ?></span>
                                     </span>
                             </a>
                         </div>

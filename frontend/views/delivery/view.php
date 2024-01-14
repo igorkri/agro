@@ -1,6 +1,8 @@
 <?php
 
-\common\models\shop\ActivePages::setActiveUser();
+use common\models\shop\ActivePages;
+
+ActivePages::setActiveUser();
 
 ?>
 <div class="site__body">

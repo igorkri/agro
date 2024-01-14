@@ -5,7 +5,7 @@ use yii\helpers\Url;
 ?>
 <footer class="site__footer">
     <div class="site-footer">
-        <?php if (\Yii::$app->devicedetect->isMobile()){ ?>
+        <?php if (Yii::$app->devicedetect->isMobile()){ ?>
         <div class="container">
             <div class="site-footer__widgets">
                 <?php }else{ ?>

@@ -5,10 +5,11 @@ namespace frontend\controllers;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use Yii;
+use yii\web\Controller;
 use yii\web\Response;
 
 
-class ReviewController extends \yii\web\Controller
+class ReviewController extends Controller
 {
     public function actionCreate()
     {
@@ -28,8 +29,10 @@ class ReviewController extends \yii\web\Controller
                     'product' => $product
                 ]);
             }else{
-                return $product->reviews;
+                return null;
+//                return $product->reviews;
             }
         }
+        return null;
     }
 }

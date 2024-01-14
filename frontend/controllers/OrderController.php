@@ -30,7 +30,7 @@ class OrderController extends Controller
                     if ($order_item->save()) {
                     }
                 }
-                \Yii::$app->cart->removeAll();
+                Yii::$app->cart->removeAll();
                 return $this->redirect(['order-success', 'order_id' => $order->id]);
             }
 
@@ -46,7 +46,7 @@ class OrderController extends Controller
                 'areas' => $areas,
                 'orders' => Yii::$app->cart->getPositions(),
                 'total_summ' => Yii::$app->cart->getCost(),
-                'qty_cart' => \Yii::$app->cart->getCount(),
+                'qty_cart' => Yii::$app->cart->getCount(),
             ]);
         } else {
             return $this->redirect(['/']);

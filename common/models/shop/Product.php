@@ -677,6 +677,7 @@ class Product extends ActiveRecord implements CartPositionInterface
                 }
             }
         }
+        return null;
     }
 
     public
@@ -693,6 +694,7 @@ class Product extends ActiveRecord implements CartPositionInterface
 </svg> </a>';
             return $res;
         }
+        return null;
     }
 
     public function getProductsAnalog($id)
@@ -702,6 +704,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             $analog = count($analog);
             return $analog;
         }
+        return null;
     }
 
     public

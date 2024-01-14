@@ -4,7 +4,6 @@ namespace frontend\controllers;
 
 use common\models\SeoPages;
 use common\models\shop\Product;
-use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\data\Pagination;
 use yii\db\Expression;

@@ -23,7 +23,7 @@ class CartController extends Controller
             return $this->renderPartial('quickview', [
                 'orders' => Yii::$app->cart->getPositions(),
                 'total_summ' => Yii::$app->cart->getCost(),
-                'qty_cart' => \Yii::$app->cart->getCount(),
+                'qty_cart' => Yii::$app->cart->getCount(),
             ]);
         }
         throw new NotFoundHttpException();
@@ -34,7 +34,7 @@ class CartController extends Controller
         return $this->renderPartial('quickview', [
             'orders' => Yii::$app->cart->getPositions(),
             'total_summ' => Yii::$app->cart->getCost(),
-            'qty_cart' => \Yii::$app->cart->getCount(),
+            'qty_cart' => Yii::$app->cart->getCount(),
         ]);
     }
 
@@ -42,16 +42,17 @@ class CartController extends Controller
     {
         $product = Product::findOne($id);
         if ($product) {
-            \Yii::$app->cart->remove($product);
+            Yii::$app->cart->remove($product);
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $this->renderAjax('_quickview', [
                     'orders' => Yii::$app->cart->getPositions(),
                     'total_summ' => Yii::$app->cart->getCost(),
-                    'qty_cart' => \Yii::$app->cart->getCount(),
+                    'qty_cart' => Yii::$app->cart->getCount(),
                 ]);
             }
         }
+        return null;
     }
 
     public function actionQtyCart(){
@@ -66,12 +67,12 @@ class CartController extends Controller
     public function actionUpdate($id, $qty = null)
     {
         $product = Product::findOne($id);
-        \Yii::$app->cart->update($product, $qty);
+        Yii::$app->cart->update($product, $qty);
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $this->renderAjax('_quickview', [
             'orders' => Yii::$app->cart->getPositions(),
             'total_summ' => Yii::$app->cart->getCost(),
-            'qty_cart' => \Yii::$app->cart->getCount(),
+            'qty_cart' => Yii::$app->cart->getCount(),
         ]);
     }
 }

@@ -66,7 +66,6 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                 <img src="/posts/<?= $postItem->image ?>" alt="<?= $postItem->title ?>">
                             <?php } ?>
                         <?php } ?>
-                        </a>
                     </div>
                     <div class="post__content typography ">
                         <p>

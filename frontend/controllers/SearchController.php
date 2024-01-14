@@ -65,5 +65,6 @@ class SearchController extends Controller
                 'blogs' => $blogs
             ]);
         }
+        return null;
     }
 }

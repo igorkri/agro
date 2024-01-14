@@ -1,6 +1,8 @@
 <?php
 
-\common\models\shop\ActivePages::setActiveUser();
+use common\models\shop\ActivePages;
+
+ActivePages::setActiveUser();
 
 ?>
 <div class="site__body">
@@ -59,8 +61,7 @@
                                     </div>
                                 </td>
                                 <td class="order-list__column-product">
-                                <?=$orderItem->product->name?></a>
-
+                                <?=$orderItem->product->name?>
                                 </td>
                                 <td class="order-list__column-quantity" data-title="К-ть:"><?=$orderItem->quantity?></td>
                                 <td class="order-list__column-total"><?= $orderItem->price * $orderItem->quantity ?></td>

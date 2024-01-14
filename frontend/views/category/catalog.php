@@ -5,11 +5,14 @@ use common\models\shop\Product;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 ActivePages::setActiveUser();
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Product $pages */
+/** @var \common\models\shop\Product $products_all */
+/** @var \common\models\shop\Product $propertiesFilter */
 
 ?>
     <div class="site__body">
@@ -317,7 +320,7 @@ ActivePages::setActiveUser();
                                                             $minPrice = round(Product::find()->min('price'), 2);
                                                             $maxPrice = round(Product::find()->max('price'), 2);
 
-                                                            $request = \Yii::$app->request;
+                                                            $request = Yii::$app->request;
                                                             $submittedMinPrice = $request->post('minPrice', $minPrice);
                                                             $submittedMaxPrice = $request->post('maxPrice', $maxPrice);
                                                             ?>
@@ -517,5 +520,5 @@ $(function () {
 
 JS;
 
-$this->registerJs($script, \yii\web\View::POS_END);
+$this->registerJs($script, View::POS_END);
 ?>

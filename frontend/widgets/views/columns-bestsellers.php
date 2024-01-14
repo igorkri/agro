@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $products */
@@ -8,7 +7,7 @@ use yii\helpers\Url;
 ?>
 <div class="col-4">
     <div class="block-header">
-        <a href="<?= Url::to(['product-list/insektitsidi']) ?>"
+        <a href="<?= Url::to(['product-list/insektitsidi']) ?>">
         <h3 class="block-header__title">Інсектициди</h3>
         </a>
         <div class="block-header__divider"></div>

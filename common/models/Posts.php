@@ -32,7 +32,7 @@ use yii\db\ActiveRecord;
  * @property string|null $webp_image Картинка
  * @property string|null $slug Слаг
  */
-class Posts extends \yii\db\ActiveRecord
+class Posts extends ActiveRecord
 {
     /**
      * {@inheritdoc}

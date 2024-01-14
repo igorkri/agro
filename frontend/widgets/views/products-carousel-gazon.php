@@ -1,7 +1,6 @@
 <?php
 
 use common\models\shop\Product;
-use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var Product $products */

@@ -1,5 +1,4 @@
 <?php
-use kartik\rating\StarRating;
 
 ?>
 <ol class="reviews-list__content">

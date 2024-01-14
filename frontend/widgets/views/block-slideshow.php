@@ -18,7 +18,7 @@ use yii\helpers\Url;
                                      style="background-image: url('slider/<?= $slide->image_mob ?>')"></div>
                                 <div class="block-slideshow__slide-content">
                                     <div class="block-slideshow__slide-title"><?php echo $slide->title ?></div>
-                                    <?php if (\Yii::$app->devicedetect->isMobile()) { ?>
+                                    <?php if (Yii::$app->devicedetect->isMobile()) { ?>
                                         <div class="col-10 block-slideshow__slide-text"
                                              style="margin: 25px 0px 0px 70px;"><?php echo $slide->description ?></div>
                                     <?php } else { ?>
