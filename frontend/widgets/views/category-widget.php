@@ -32,7 +32,7 @@ use yii\helpers\Url;
                                                 <div class="row">
                                                     <?php foreach ($category->parents as $parent): ?>
                                                         <?php if ($parent->products): ?>
-                                                            <div class="col-3">
+                                                            <div class="col-4">
                                                                 <ul class="megamenu__links megamenu__links--level--0">
                                                                     <li class="megamenu__item  megamenu__item--with-submenu ">
                                                                         <a href="<?= Url::to(['/category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->svg . ' ' . $parent->name ?></a>
