@@ -54,7 +54,7 @@
                 <tbody>
                 <?php $i = 0;
                 foreach ($brands as $brand): ?>
-                    <?php if ($brand->getProductOrderBrand($brand->id) != 0): ?>
+                    <?php if ($brand->getProductOrderBrand($brand->id) != 0 && $brand->getIncomeOrderBrand($brand->id) != 0): ?>
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">

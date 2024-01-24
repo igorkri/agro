@@ -27,7 +27,7 @@ class BrandOrders extends \yii\base\Widget
         $carts = [];
         $i = 0;
         foreach ($brands as $brand) {
-            if ($brand->getProductOrderBrand($brand->id) != 0) {
+            if ($brand->getProductOrderBrand($brand->id) != 0 && $brand->getIncomeOrderBrand($brand->id) != 0) {
                 $carts[] = [
                     "label" => $brand->name,
                     "value" => $brand->getIncomeOrderBrand($brand->id),
