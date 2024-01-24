@@ -160,7 +160,7 @@ class CategoryController extends Controller
             $query->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
         }
 
-        $results = $query->all();
+        $results = Product::find()->where(['category_id' => $category->id])->all();
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $count]);
 
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();

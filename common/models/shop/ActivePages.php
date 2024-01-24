@@ -63,6 +63,10 @@ class ActivePages extends \yii\db\ActiveRecord
             'Google-InspectionTool',
         ];
 
+        $botIps = [          // Ip которые не пишутся в статистику
+            '*',
+        ];
+
         $server = $_SERVER;
         $userAgent = $server['HTTP_USER_AGENT'] ?? "Не известно";
 
@@ -72,6 +76,15 @@ class ActivePages extends \yii\db\ActiveRecord
                 return;
             }
         }
+
+        $userIp = $server['REMOTE_ADDR'] ?? "Не известно";
+        foreach ($botIps as $botIp) {
+            if ($userIp === $botIp) {
+
+                return;
+            }
+        }
+
         if (\Yii::$app->devicedetect->isMobile()) {
             $device = 'mobile';
         } else {
