@@ -62,10 +62,7 @@ return [
                 'catalog' => 'category/list',
                 'catalog/<slug:[\w+-]*\w+>' => 'category/children',
                 'product-list/<slug:[\w+-]*\w+>' => 'category/catalog',
-
-//                'catalog/<slug:[\w+-]*\w+>/<page:\d+>' => 'category/index', //pagination
-//                'catalog/<slug:[\w+-]*\w+>/<brand:[\w+-]*\w+>' => 'category/index',
-//                'catalog/<slug:[\w+-]*\w+>' => 'category/index',
+                'auxiliary-product-list/<slug:[\w+-]*\w+>' => 'category/auxiliary-catalog',
 
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
                 'post/<slug:[\w+-]*\w+>' => 'post/view',
@@ -83,7 +80,6 @@ return [
                 ],
             ],
         ],
-        
     ],
     'params' => $params,
 ];
