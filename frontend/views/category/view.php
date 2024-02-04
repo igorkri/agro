@@ -219,6 +219,9 @@ ActivePages::setActiveUser();
                                     </li>
                                 </ul>
                             </div>
+                            <div class="spec__disclaimer">
+                                <?= $category->description ?>
+                            </div>
                         </div>
                     </div>
                 </div>
