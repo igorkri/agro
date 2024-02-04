@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "auxiliary_categories".
@@ -36,7 +37,14 @@ class AuxiliaryCategories extends \yii\db\ActiveRecord
                 'immutable' => false,
                 // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
                 'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
-            ]
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date_updated'],
+                ],
+            ],
         ];
     }
 
