@@ -28,7 +28,7 @@ class Category extends \yii\db\ActiveRecord
             'slug' => [
                 'class' => 'Zelenin\yii\behaviors\Slug',
                 'slugAttribute' => 'slug',
-                'attribute' => 'pageTitle',
+                'attribute' => 'name',
                 // optional params
                 'ensureUnique' => true,
                 'replacement' => '-',

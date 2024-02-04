@@ -28,7 +28,7 @@ class AuxiliaryCategories extends \yii\db\ActiveRecord
             'slug' => [
                 'class' => 'Zelenin\yii\behaviors\Slug',
                 'slugAttribute' => 'slug',
-                'attribute' => 'pageTitle',
+                'attribute' => 'name',
                 // optional params
                 'ensureUnique' => true,
                 'replacement' => '-',
@@ -55,7 +55,8 @@ class AuxiliaryCategories extends \yii\db\ActiveRecord
     {
         return [
             [['parentId'], 'integer'],
-            [['name', 'pageTitle', 'slug', 'image', 'visibility', 'description', 'metaDescription', 'svg', 'prefix', 'object'], 'string', 'max' => 255],
+            [['description'], 'string'],
+            [['name', 'pageTitle', 'slug', 'image', 'visibility', 'metaDescription', 'svg', 'prefix', 'object'], 'string', 'max' => 255],
         ];
     }
 

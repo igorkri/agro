@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-//
+
                 $dir = Yii::getAlias('@frontendWeb/category');
 
                 $file = UploadedFile::getInstance($model, 'file');

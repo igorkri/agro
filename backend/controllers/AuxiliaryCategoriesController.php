@@ -104,21 +104,27 @@ class AuxiliaryCategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
 
+            $post_file = $_FILES['AuxiliaryCategories']['size']['image'];
+            if($post_file <= 0 ){
+                $old = $this->findModel($id);
+                $model->image = $old->image;
+            }else {
                 $dir = Yii::getAlias('@frontendWeb/auxiliary-categories');
+
                 $image = UploadedFile::getInstance($model, 'image');
                 $imageName = uniqid();
                 $image->saveAs($dir . '/' . $imageName . '.' . $image->extension);
                 $model->image = $imageName . '.' . $image->extension;
-
-                if ($model->save()) {
-                    return $this->redirect(['update', 'id' => $model->id]);
-                }
             }
-        } else {
-            $model->loadDefaultValues();
+            if($model->save(false)) {
+                return $this->redirect(['update', 'id' => $model->id]);
+            }else{
+                debug($model->errors);
+                debug($model->image);
+                die;
+            }
         }
 
         return $this->render('update', [
