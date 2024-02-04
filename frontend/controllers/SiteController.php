@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Posts;
 use common\models\SeoPages;
+use common\models\shop\AuxiliaryCategories;
 use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -344,6 +345,10 @@ class SiteController extends Controller
             ->select(['slug', 'date_updated'])
             ->all();
 
+        $auxCategories = AuxiliaryCategories::find()
+            ->select(['slug', 'date_updated'])
+            ->all();
+
         foreach ($products as $product) {
             $arr[] = array(
                 'loc' => '/product/' . $product->slug, // Ссылка
@@ -355,6 +360,13 @@ class SiteController extends Controller
             $arr[] = array(
                 'loc' => '/post/' . $post->slug, // Ссылка
                 'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated): date(DATE_W3C, time()),
+            );
+        }
+
+        foreach ($auxCategories as $auxCategory) {
+            $arr[] = array(
+                'loc' => '/auxiliary-product-list/' . $auxCategory->slug, // Ссылка
+                'lastmod' => !empty($auxCategory->date_updated) ? date(DATE_W3C, $auxCategory->date_updated): date(DATE_W3C, time()),
             );
         }
 
