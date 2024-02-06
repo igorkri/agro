@@ -144,4 +144,20 @@ class AuxiliaryCategories extends \yii\db\ActiveRecord
 
         return $lowPrice->price;
     }
+
+    public function getCategopyName($id)
+    {
+        $category = Category::find()->select('name')->where(['id' => $id])->one();
+
+        return $category->name;
+    }
+
+    public function getDateUpdated($timeStamp)
+    {
+        if ($timeStamp) {
+            return Yii::$app->formatter->asDatetime($timeStamp, 'medium');
+        } else {
+            return '-----';
+        }
+    }
 }

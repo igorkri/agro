@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th><?= Yii::t('app', 'Image') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Parent ID') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'name') ?></th>
+                        <th class="min-w-15x"><?= Yii::t('app', 'Date updated') ?></th>
                         <th><?= Yii::t('app', 'visibility') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
@@ -75,13 +76,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </td>
                             <td>
-                                <a href="<?= isset($model->parent) ? Url::to(['auxiliary-categories/update', 'id' => $model->parent->id]) : '#' ?>"
-                                   class="text-reset"><?= isset($model->parent) ? $model->parent->name : '-' ?>
-                                </a>
+                                <?php echo $model->getCategopyName($model->parentId)?>
                             </td>
                             <td>
                                 <a href="<?= Url::to(['auxiliary-categories/update', 'id' => $model->id]) ?>"
                                    class="text-reset"><?= $model->name ?></a></td>
+                            <td>
+                                <?php echo $model->getDateUpdated($model->date_updated)?>
+                            </td>
                             <td>
                                 <?php if ($model->visibility == 1): ?>
                                     <div class="badge badge-sa-success">Показувати</div>
