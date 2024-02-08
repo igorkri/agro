@@ -1,11 +1,8 @@
 <?php
 
-use common\models\shop\AuxiliaryCategories;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\AuxiliaryCategories $searchModel */
@@ -76,13 +73,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </td>
                             <td>
-                                <?php echo $model->getCategopyName($model->parentId)?>
+                                <?php echo $model->getCategopyName($model->parentId) ?>
                             </td>
                             <td>
                                 <a href="<?= Url::to(['auxiliary-categories/update', 'id' => $model->id]) ?>"
                                    class="text-reset"><?= $model->name ?></a></td>
                             <td>
-                                <?php echo $model->getDateUpdated($model->date_updated)?>
+                                <?php echo $model->getDateUpdated($model->date_updated) ?>
                             </td>
                             <td>
                                 <?php if ($model->visibility == 1): ?>
