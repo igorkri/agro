@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Posts;
 use common\models\SeoPages;
 use common\models\shop\AuxiliaryCategories;
+use common\models\shop\Category;
 use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -340,34 +341,45 @@ class SiteController extends Controller
         $products = Product::find()
             ->select(['slug', 'date_updated'])
             ->all();
+        foreach ($products as $product) {
+            $arr[] = array(
+                'loc' => '/product/' . $product->slug, // Ссылка
+                'lastmod' => !empty($product->date_updated) ? date(DATE_W3C, $product->date_updated) : date(DATE_W3C, time()), // Дата
+            );
+        }
 
         $posts = Posts::find()
             ->select(['slug', 'date_updated'])
             ->all();
+        foreach ($posts as $post) {
+            $arr[] = array(
+                'loc' => '/post/' . $post->slug, // Ссылка
+                'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated) : date(DATE_W3C, time()),
+            );
+        }
+
 
         $auxCategories = AuxiliaryCategories::find()
             ->select(['slug', 'date_updated'])
             ->all();
-
-        foreach ($products as $product) {
-            $arr[] = array(
-                'loc' => '/product/' . $product->slug, // Ссылка
-                'lastmod' => !empty($product->date_updated) ? date(DATE_W3C, $product->date_updated): date(DATE_W3C, time()), // Дата
-            );
-        }
-
-        foreach ($posts as $post) {
-            $arr[] = array(
-                'loc' => '/post/' . $post->slug, // Ссылка
-                'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated): date(DATE_W3C, time()),
-            );
-        }
-
         foreach ($auxCategories as $auxCategory) {
             $arr[] = array(
                 'loc' => '/auxiliary-product-list/' . $auxCategory->slug, // Ссылка
-                'lastmod' => !empty($auxCategory->date_updated) ? date(DATE_W3C, $auxCategory->date_updated): date(DATE_W3C, time()),
+                'lastmod' => !empty($auxCategory->date_updated) ? date(DATE_W3C, $auxCategory->date_updated) : date(DATE_W3C, time()),
             );
+        }
+
+        $categories = Category::find()
+            ->select(['id', 'slug', 'date_updated', 'visibility'])
+            ->all();
+        foreach ($categories as $category) {
+            if ($category->visibility == 1) {
+                $catalog = $category->getCategoryStatus($category->id);
+                $arr[] = array(
+                    'loc' => $catalog . $category->slug, // Ссылка
+                    'lastmod' => !empty($category->date_updated) ? date(DATE_W3C, $category->date_updated) : date(DATE_W3C, time()),
+                );
+            }
         }
 
         // Отправляем данные на отображение без шаблона

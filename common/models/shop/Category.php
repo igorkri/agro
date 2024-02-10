@@ -213,7 +213,6 @@ class Category extends \yii\db\ActiveRecord
 
         return $propertyCount;
     }
-
     //Для фильтра frontend ---- End
 
     public function getCountProductCategory($id)
@@ -412,6 +411,19 @@ class Category extends \yii\db\ActiveRecord
 
         } else {
             return '28';
+        }
+    }
+
+    // Для site.map
+    public function getCategoryStatus($id)
+    {
+        $category = Category::find()->where(['id' => $id])->one();
+        $productCategory = Product::find()->where(['category_id' => $id])->one();
+
+        if ($category->parentId != null or $productCategory != null){
+            return '/product-list/';
+        }else{
+            return '/catalog/';
         }
     }
 }
