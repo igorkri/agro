@@ -64,14 +64,22 @@ use yii\widgets\ActiveForm;
                                     <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></span>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6 mb-4">
+                                    <div class="col-4 mb-4">
                                         <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
                                     </div>
 <!--                                    <div class="col-6 mb-4">-->
 <!--                                        --><?php //= $form->field($model, 'prefix')->textInput(['maxlength' => true])->label(Yii::t('app', 'prefix')) ?>
 <!--                                    </div>-->
-                                    <div class="col-6 mb-4">
+                                    <div class="col-4 mb-4">
                                         <?= $form->field($model, 'object')->textInput(['maxlength' => true])->label(Yii::t('app', 'object')) ?>
+                                    </div>
+                                    <div class="col-4 mb-4">
+                                        <?= $form->field($model, 'date_updated')->textInput([
+                                            'maxlength' => true,
+                                            'class' => 'form-control',
+                                            'value' => Yii::$app->formatter->asDatetime($model->date_updated),
+                                            'readonly' => true,
+                                        ])->label(Yii::t('app', 'Date Updated')) ?>
                                     </div>
                                 </div>
                                 <div class="mb-4">
