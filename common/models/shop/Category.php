@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "category".
@@ -18,6 +19,8 @@ use Yii;
  * @property string|null $visibility
  * @property string|null $description
  * @property string|null $metaDescription
+ * @property int $date_public Дата публикации
+ * @property int $date_updated Дата редактирования
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -36,7 +39,14 @@ class Category extends \yii\db\ActiveRecord
                 'immutable' => false,
                 // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
                 'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
-            ]
+            ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date_updated'],
+                ],
+            ],
         ];
     }
 
@@ -54,7 +64,7 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parentId'], 'integer'],
+            [['parentId', 'date_public', 'date_updated'], 'integer'],
             [['name', 'pageTitle'], 'required'],
             [['description', 'metaDescription'], 'string'],
             [['name', 'pageTitle', 'file', 'visibility', 'svg', 'prefix'], 'string', 'max' => 255],
@@ -203,6 +213,7 @@ class Category extends \yii\db\ActiveRecord
 
         return $propertyCount;
     }
+
     //Для фильтра frontend ---- End
 
     public function getCountProductCategory($id)

@@ -20,6 +20,8 @@ use yii\db\ActiveRecord;
  * @property string|null $svg
  * @property string|null $prefix
  * @property string|null $object
+ * @property int $date_public Дата публикации
+ * @property int $date_updated Дата редактирования
  */
 class AuxiliaryCategories extends \yii\db\ActiveRecord
 {
@@ -62,7 +64,7 @@ class AuxiliaryCategories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parentId'], 'integer'],
+            [['parentId', 'date_public', 'date_updated'], 'integer'],
             [['description'], 'string'],
             [['name', 'pageTitle', 'slug', 'image', 'visibility', 'metaDescription', 'svg', 'prefix', 'object'], 'string', 'max' => 255],
         ];
