@@ -19,8 +19,8 @@ use yii\db\ActiveRecord;
  * @property string|null $visibility
  * @property string|null $description
  * @property string|null $metaDescription
- * @property int $date_public Дата публикации
- * @property int $date_updated Дата редактирования
+ * @property string $date_public Дата публикации
+ * @property string $date_updated Дата редактирования
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -64,10 +64,10 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parentId', 'date_public', 'date_updated'], 'integer'],
+            [['parentId'], 'integer'],
             [['name', 'pageTitle'], 'required'],
             [['description', 'metaDescription'], 'string'],
-            [['name', 'pageTitle', 'file', 'visibility', 'svg', 'prefix'], 'string', 'max' => 255],
+            [['name', 'pageTitle', 'file', 'visibility', 'svg', 'prefix', 'date_public', 'date_updated'], 'string', 'max' => 255],
             [['name', 'slug'], 'unique'],
             [['slug'], 'safe'],
         ];
