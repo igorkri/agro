@@ -8,6 +8,7 @@ ActivePages::setActiveUser();
 
 /** @var \common\models\shop\Product $products */
 /** @var \common\models\shop\Product $pages */
+/** @var \common\models\shop\Product $products_all */
 
 ?>
 <div class="site__body">
@@ -42,11 +43,15 @@ ActivePages::setActiveUser();
                                     <div class="layout-switcher">
                                     </div>
                                 </div>
-                                <div class="view-options__legend">Показано <?= count($products) ?> товарів з <?= $products_all ?></div>
+                                <div class="view-options__legend">Показано
+                                    <?= count($products) ?> товарів
+                                    з <?= $products_all ?>
+                                </div>
                                 <div class="view-options__divider"></div>
                             </div>
                         </div>
-                        <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
+                        <div class="products-view__list products-list" data-layout="grid-4-full"
+                             data-with-features="false" data-mobile-grid-columns="2">
                             <div class="products-list__body">
                                 <?php foreach ($products as $product): ?>
                                     <div class="products-list__item">
@@ -57,14 +62,17 @@ ActivePages::setActiveUser();
                                                 </div>
                                             <?php endif; ?>
                                             <div class="product-card__image product-image">
-                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>" class="product-image__body">
-                                                    <img class="product-image__img" src="<?= $product->getImgOneExtraLarge($product->getId()) ?>" alt="<?= $product->name ?>">
+                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
+                                                   class="product-image__body">
+                                                    <img class="product-image__img"
+                                                         src="<?= $product->getImgOneExtraLarge($product->getId()) ?>"
+                                                         alt="<?= $product->name ?>">
                                                 </a>
                                             </div>
                                             <div class="product-card__info">
                                                 <?php if ($product->category->prefix) { ?>
                                                     <div class="product-card__name">
-                                                        <?php  echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                                        <?php echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
                                                     </div>
                                                 <?php } ?>
                                                 <div class="product-card__name">
@@ -72,9 +80,11 @@ ActivePages::setActiveUser();
                                                 </div>
                                                 <div class="product-card__rating">
                                                     <div class="product-card__rating-stars">
-                                                        <?=$product->getRating($product->id, 13, 12)?>
+                                                        <?= $product->getRating($product->id, 13, 12) ?>
                                                     </div>
-                                                    <div class="product-card__rating-legend"><?=count($product->reviews)?> відгуків</div>
+                                                    <div class="product-card__rating-legend"><?= count($product->reviews) ?>
+                                                        відгуків
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="product-card__actions">
@@ -176,3 +186,17 @@ ActivePages::setActiveUser();
         color: #a9a8a8;
     }
 </style>
+
+<script>
+
+</script>
+
+<?php
+//$js = <<<JS
+//var num;
+//num = $product->id;
+//console.log(num);
+//
+//JS;
+//$this->registerJs($js);
+?>
