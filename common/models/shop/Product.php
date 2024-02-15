@@ -711,19 +711,18 @@ class Product extends ActiveRecord implements CartPositionInterface
     function getRating($id, $w = 18, $h = 17)
     {
         $product = Product::find()->with('reviews')->where(['id' => $id])->one();
-        $res = '';
+
+        $res = '
+            <div class="rating">
+                                                    <div class="rating__body">';
         if ($product->reviews) {
             $s = [];
             foreach ($product->reviews as $review) {
                 $s[] = $review->rating;
             }
             $rating = round(array_sum($s) / count($product->reviews));
-            $count = count($product->reviews);
 
-            $res = '
-            <div class="rating">
-                                                    <div class="rating__body">';
-            if ($rating != 0) {
+            if ($rating != null) {
                 for ($i = 1; $i <= $rating; $i++) {
                     $res .= '<svg class="rating__star rating__star--active" width="' . $w . 'px" height="' . $h . 'px">
                                                                     <g class="rating__fill">
@@ -762,9 +761,11 @@ class Product extends ActiveRecord implements CartPositionInterface
                                                                     </div>';
                     }
                 }
-            } else {
-                for ($i = 1; $i <= 5; $i++) {
-                    $res .= '<svg class="rating__star " width="' . $w . 'px" height="' . $h . 'px">
+            }
+
+        } else {
+            for ($i = 1; $i <= 5; $i++) {
+                $res .= '<svg class="rating__star " width="' . $w . 'px" height="' . $h . 'px">
                                                                     <g class="rating__fill">
                                                                         <use xlink:href="/images/sprite.svg#star-normal"></use>
                                                                     </g>
@@ -780,11 +781,11 @@ class Product extends ActiveRecord implements CartPositionInterface
                                                                     <div class="fake-svg-icon"></div>
                                                                 </div>
                                                             </div>';
-                }
             }
-            $res .= '</div>
-                                                </div>';
         }
+        $res .= '</div>
+                                                </div>';
+
         return $res;
     }
 

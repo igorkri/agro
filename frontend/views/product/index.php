@@ -24,10 +24,8 @@ if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
     $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
 }
 
-$this->title = $product->seo_title;
-
 ?>
-<?php //exit('<pre>'.print_r($isset_to_cart['_quantity'],true).'</pre>'); ?>
+
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">
