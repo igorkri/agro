@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "product_image".
@@ -17,11 +18,10 @@ use Yii;
  * @property string|null $medium
  * @property string|null $small
  * @property string|null $extra_small
-
  * @property string|null $alt
  * @property int|null $priority
  */
-class ProductImage extends \yii\db\ActiveRecord
+class ProductImage extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -54,5 +54,19 @@ class ProductImage extends \yii\db\ActiveRecord
             'alt' => Yii::t('app', 'Alt'),
             'priority' => Yii::t('app', 'Priority'),
         ];
+    }
+
+    public static function imageWebp()
+    {
+        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
+            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
+                $webp_support = true; // webp поддерживается
+            } else {
+                $webp_support = false; // webp не поддерживается
+            }
+        } else {
+            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
+        }
+        return $webp_support;
     }
 }

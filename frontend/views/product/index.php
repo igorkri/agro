@@ -8,24 +8,16 @@
 
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\RelatedProducts;
+use common\models\shop\ProductImage;
 use common\models\shop\ActivePages;
 use frontend\widgets\ViewProduct;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
-if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-    if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-        $webp_support = true; // webp поддерживается
-    } else {
-        $webp_support = false; // webp не поддерживается
-    }
-} else {
-    $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-}
+$webp_support = ProductImage::imageWebp();
 
 ?>
-
 <div class="site__body">
     <div class="page-header">
         <div class="page-header__container container">

@@ -318,21 +318,13 @@ class Product extends ActiveRecord implements CartPositionInterface
             return count($res);
 
         } else {
-            return '28';
+            return '3';
         }
     }
 
     public function getImgOne($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -353,15 +345,7 @@ class Product extends ActiveRecord implements CartPositionInterface
 
     public function getImgSeo($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
 
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
@@ -384,15 +368,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     // 350 * 350
     public function getImgOneExtraExtraLarge($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -414,15 +390,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     // 290 * 290
     public function getImgOneExtraLarge($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -444,15 +412,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     //  195 * 195
     public function getImgOneLarge($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -474,15 +434,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     // 150 * 150
     public function getImgOneMedium($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -505,15 +457,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     function getImgOneSmall($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -536,15 +480,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     function getImgOneExtraSmal($id)
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-            if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-                $webp_support = true; // webp поддерживается
-            } else {
-                $webp_support = false; // webp не поддерживается
-            }
-        } else {
-            $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-        }
+        $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
@@ -637,7 +573,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     function getRatingCount($id)
     {
         $product = Product::find()->with('reviews')->where(['id' => $id])->one();
-        $res = '<a href="#review-form"> 0 (Не оцінювалось)</a>';
+        $res = '<a href="#tab-reviews"> 0 (Не оцінювалось)</a>';
         if ($product->reviews) {
             $s = [];
             foreach ($product->reviews as $review) {
@@ -645,7 +581,7 @@ class Product extends ActiveRecord implements CartPositionInterface
             }
             $res = array_sum($s) / count($product->reviews);
             $count = count($product->reviews);
-            $res = '<a href="#review-form"> ' . Yii::$app->formatter->asDecimal($res, 1) . ' (' . $count . ' оцінок)</a>';
+            $res = '<a href="#tab-reviews"> ' . Yii::$app->formatter->asDecimal($res, 1) . ' (' . $count . ' оцінок)</a>';
         }
         return $res;
     }
@@ -653,7 +589,6 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     function getNonParametr($id)
     {
-        $res = '';
         $parametrs = ProductProperties::find()->where(['product_id' => $id])->all();
 
         if ($parametrs == null) {
