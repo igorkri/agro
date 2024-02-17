@@ -7,8 +7,10 @@ use common\models\shop\ProductProperties;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use common\models\shop\Brand;
+use Spatie\SchemaOrg\ListItem;
 use Spatie\SchemaOrg\Schema;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\web\Controller;
 use Yii;
@@ -117,6 +119,26 @@ class ProductController extends Controller
                     )
                 )
             );
+        $schemaBreadcrumb = Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()
+                    ->position(1)
+                    ->item(Schema::thing()->name('Головна')
+                        ->url(Yii::$app->homeUrl)
+                        ->setProperty('id', Yii::$app->homeUrl)),
+                Schema::listItem()
+                    ->position(2)
+                    ->item(Schema::thing()->name($product->category->name)
+                        ->url(Url::to(['category/catalog', 'slug' => $product->category->slug]))
+                        ->setProperty('id', Url::to(['category/catalog', 'slug' => $product->category->slug]))),
+                Schema::listItem()
+                    ->position(3)
+                    ->item(Schema::thing()->name($product->name)
+                        ->url(Url::to(['product/view', 'slug' => $product->slug]))
+                        ->setProperty('id', Url::to(['product/view', 'slug' => $product->slug]))),
+            ]);
+
+        Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['product'] = $schemaProduct->toScript();
 
         Yii::$app->metamaster

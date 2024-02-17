@@ -25,6 +25,7 @@ AppAsset::register($this);
         <?= Yii::$app->params['webPage'] ?? '' ?>
         <?= Yii::$app->params['blog'] ?? '' ?>
         <?= Yii::$app->params['post'] ?? '' ?>
+        <?= Yii::$app->params['breadcrumb'] ?? '' ?>
         <?php $this->head() ?>
     </head>
     <body>
