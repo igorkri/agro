@@ -6,6 +6,7 @@ use common\models\PostProducts;
 use common\models\Posts;
 use common\models\PostsReview;
 use Yii;
+use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\web\Controller;
 use Spatie\SchemaOrg\Schema;
@@ -49,6 +50,27 @@ class PostController extends Controller
                     ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
                 )
             );
+
+        $schemaBreadcrumb = Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()
+                    ->position(1)
+                    ->item(Schema::thing()->name('Головна')
+                        ->url(Yii::$app->homeUrl)
+                        ->setProperty('id', Yii::$app->homeUrl)),
+                Schema::listItem()
+                    ->position(2)
+                    ->item(Schema::thing()->name('Статті')
+                        ->url(Url::to(['blogs/view']))
+                        ->setProperty('id', Url::to(['blogs/view']))),
+                Schema::listItem()
+                    ->position(3)
+                    ->item(Schema::thing()->name($postItem->title)
+                        ->url(Url::to(['post/view', 'slug' => $postItem->slug]))
+                        ->setProperty('id', Url::to(['post/view', 'slug' => $postItem->slug]))),
+            ]);
+
+        Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['post'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
