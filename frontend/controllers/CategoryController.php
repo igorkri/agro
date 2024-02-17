@@ -8,6 +8,7 @@ use common\models\shop\Category;
 use common\models\shop\Product;
 use Spatie\SchemaOrg\Schema;
 use yii\data\Pagination;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\db\Expression;
 use Yii;
@@ -192,6 +193,48 @@ class CategoryController extends Controller
                 ->offerCount($products_all)
                 ->priceCurrency("UAH")
                 ->offers($offers));
+
+        if (isset($category->parent->name)) {
+            $schemaBreadcrumb = Schema::breadcrumbList()
+                ->itemListElement([
+                    Schema::listItem()
+                        ->position(1)
+                        ->item(Schema::thing()->name('Головна')
+                            ->url(Yii::$app->homeUrl)
+                            ->setProperty('id', Yii::$app->homeUrl)),
+                    Schema::listItem()
+                        ->position(2)
+                        ->item(Schema::thing()->name($category->parent->name)
+                            ->url(Url::to(['category/children', 'slug' => $category->parent->slug]))
+                            ->setProperty('id', Url::to(['category/children', 'slug' => $category->parent->slug]))),
+                    Schema::listItem()
+                        ->position(3)
+                        ->item(Schema::thing()->name($category->name)
+                            ->url(Url::to(['category/catalog', 'slug' => $category->slug]))
+                            ->setProperty('id', Url::to(['category/catalog', 'slug' => $category->slug]))),
+                ]);
+        } else {
+            $schemaBreadcrumb = Schema::breadcrumbList()
+                ->itemListElement([
+                    Schema::listItem()
+                        ->position(1)
+                        ->item(Schema::thing()->name('Головна')
+                            ->url(Yii::$app->homeUrl)
+                            ->setProperty('id', Yii::$app->homeUrl)),
+                    Schema::listItem()
+                        ->position(2)
+                        ->item(Schema::thing()->name('Категорії')
+                            ->url(Url::to(['category/list']))
+                            ->setProperty('id', Url::to(['category/list']))),
+                    Schema::listItem()
+                        ->position(3)
+                        ->item(Schema::thing()->name($category->name)
+                            ->url(Url::to(['category/catalog', 'slug' => $category->slug]))
+                            ->setProperty('id', Url::to(['category/catalog', 'slug' => $category->slug]))),
+                ]);
+        }
+
+        Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['schema'] = $productList->toScript();
 
         Yii::$app->metamaster
@@ -244,7 +287,6 @@ class CategoryController extends Controller
 //        Yii::$app->session->set('propertiesCheckFilter', $propertiesCheck);
 //        Yii::$app->session->set('minPriceFilter', $minPrice);
 //        Yii::$app->session->set('maxPriceFilter', $maxPrice);
-
 
 
         $category = AuxiliaryCategories::find()->where(['slug' => $slug])->one();
@@ -334,6 +376,27 @@ class CategoryController extends Controller
                 ->offerCount($products_all)
                 ->priceCurrency("UAH")
                 ->offers($offers));
+
+        $schemaBreadcrumb = Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()
+                    ->position(1)
+                    ->item(Schema::thing()->name('Головна')
+                        ->url(Yii::$app->homeUrl)
+                        ->setProperty('id', Yii::$app->homeUrl)),
+                Schema::listItem()
+                    ->position(2)
+                    ->item(Schema::thing()->name($breadcrumbCategory->name)
+                        ->url(Url::to(['category/catalog', 'slug' => $breadcrumbCategory->slug]))
+                        ->setProperty('id', Url::to(['category/catalog', 'slug' => $breadcrumbCategory->slug]))),
+                Schema::listItem()
+                    ->position(3)
+                    ->item(Schema::thing()->name($category->name)
+                        ->url(Url::to(['category/auxiliary-catalog', 'slug' => $category->slug]))
+                        ->setProperty('id', Url::to(['category/auxiliary-catalog', 'slug' => $category->slug]))),
+            ]);
+
+        Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['schema'] = $productList->toScript();
 
         Yii::$app->metamaster
