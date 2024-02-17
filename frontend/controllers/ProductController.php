@@ -115,7 +115,7 @@ class ProductController extends Controller
                     )
                     ->shippingRate(Schema::monetaryAmount()
                         ->currency("UAH")
-                        ->value(100)
+//                        ->value(100)
                     )
                 )
             );
