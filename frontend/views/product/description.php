@@ -298,7 +298,10 @@ $rating = 3;
                                             <div class="review">
                                                 <div class="review__avatar">
                                                     <?php $avatar = $review->getAvatar($review->id) ?>
-                                                    <img src="/images/avatars/<?= $avatar ?>.jpg" alt="<?= $avatar ?>">
+                                                    <img src="/images/avatars/<?= $avatar ?>.jpg"
+                                                         width="70" height="70"
+                                                         alt="<?= $avatar ?>"
+                                                         loading="lazy">
                                                 </div>
                                                 <div class="review__content">
                                                     <div class="review__author"><?= $review->name ?></div>
