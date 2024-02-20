@@ -52,7 +52,8 @@ ActivePages::setActiveUser();
                                                        class="product-image__body">
                                                         <img class="product-image__img"
                                                              src="/category/<?= $parent->file ?>"
-                                                             width="231" height="231" alt="<?= $parent->name ?>">
+                                                             width="231" height="231"
+                                                             alt="<?= $parent->name ?>">
                                                     </a>
                                                 </div>
                                                 <div class="product-card__info">

@@ -52,6 +52,7 @@ if ($total_summ === 0) {
                                            class="product-image__body">
                                             <img class="product-image__img"
                                                  src="<?= $order->getImgOne($order->getId()) ?>"
+                                                 width="80" height="80"
                                                  alt="<?= $order->name ?>">
                                         </a>
                                     </div>

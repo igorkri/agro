@@ -53,11 +53,13 @@ if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
                                             <div class="post-card__image">
                                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                                     <?php if ($webp_support == true && isset($post->webp_extra_large)) { ?>
-                                                        <img src="/posts/<?= $post->webp_extra_large ?>" width="350"
-                                                             height="235" alt="<?= $post->title ?>">
+                                                        <img src="/posts/<?= $post->webp_extra_large ?>"
+                                                             width="350" height="235"
+                                                             alt="<?= $post->title ?>">
                                                     <?php } else { ?>
-                                                        <img src="/posts/<?= $post->extra_large ?>" width="350"
-                                                             height="235" alt="<?= $post->title ?>">
+                                                        <img src="/posts/<?= $post->extra_large ?>"
+                                                             width="350" height="235"
+                                                             alt="<?= $post->title ?>">
                                                     <?php } ?>
                                                 </a>
                                             </div>

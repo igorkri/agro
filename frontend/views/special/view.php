@@ -66,6 +66,7 @@ ActivePages::setActiveUser();
                                                    class="product-image__body">
                                                     <img class="product-image__img"
                                                          src="<?= $product->getImgOneExtraLarge($product->getId()) ?>"
+                                                         width="231" height="231"
                                                          alt="<?= $product->name ?>">
                                                 </a>
                                             </div>

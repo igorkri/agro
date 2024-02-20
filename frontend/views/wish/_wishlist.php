@@ -27,6 +27,7 @@ use yii\helpers\Url;
                                    href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>">
                                     <img class="product-image__img"
                                          src="<?= $product->getImgOneLarge($product->getId()) ?>"
+                                         width="80" height="80"
                                          alt="<?= $product->name ?>">
                                 </a>
                             </div>

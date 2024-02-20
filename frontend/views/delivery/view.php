@@ -23,21 +23,21 @@ ActivePages::setActiveUser();
                                 <div class="owl-carousel">
                                     <div class="teammates__item teammate">
                                         <div class="teammate__avatar">
-                                            <img src="/images/delivery_1.jpg" alt="Доставка">
+                                            <img src="/images/delivery_1.jpg" width="224" height="300" alt="Доставка">
                                         </div>
                                         <!--                                        <div class="teammate__name">Michael Russo</div>-->
                                         <!--                                        <div class="teammate__position text-muted">Chief Executive Officer</div>-->
                                     </div>
                                     <div class="teammates__item teammate">
                                         <div class="teammate__avatar">
-                                            <img src="/images/delivery_2.jpg" alt="Доставка">
+                                            <img src="/images/delivery_2.jpg" width="224" height="300" alt="Доставка">
                                         </div>
                                         <!--                                        <div class="teammate__name">Katherine Miller</div>-->
                                         <!--                                        <div class="teammate__position text-muted">Marketing Officer</div>-->
                                     </div>
                                     <div class="teammates__item teammate">
                                         <div class="teammate__avatar">
-                                            <img src="/images/delivery_3.jpg" alt="Доставка">
+                                            <img src="/images/delivery_3.jpg" width="224" height="300" alt="Доставка">
                                         </div>
                                         <!--                                        <div class="teammate__name">Anthony Harris</div>-->
                                         <!--                                        <div class="teammate__position text-muted">Finance Director</div>-->

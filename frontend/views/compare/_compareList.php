@@ -20,6 +20,7 @@ use yii\helpers\Url;
                                         <div class="product-image__body">
                                             <img class="product-image__img"
                                                  src="<?= $product->getImgOneLarge($product->getId()) ?>"
+                                                 width="131" height="131"
                                                  alt="<?= $product->name ?>">
                                         </div>
                                     </div>

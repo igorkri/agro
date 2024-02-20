@@ -29,7 +29,10 @@ $min_order = 50;  //минимальная сумма заказа
                         <div class="product-image">
                             <a href="<?= Url::to(['product/view', 'slug' => $order->slug]) ?>"
                                class="product-image__body">
-                                <img class="product-image__img" src="<?= $order->getImgOne($order->getId()) ?>" alt="<?= $order->name ?>">
+                                <img class="product-image__img"
+                                     src="<?= $order->getImgOne($order->getId()) ?>"
+                                     width="80" height="80"
+                                     alt="<?= $order->name ?>">
                             </a>
                         </div>
                     </td>

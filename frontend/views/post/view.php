@@ -103,6 +103,7 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                                        class="product-image__body">
                                                         <img class="product-image__img"
                                                              src="<?= $product->getImgOneExtraSmal($product->getId()) ?>"
+                                                             width="50" height="50"
                                                              alt="<?= $product->name ?>">
                                                     </a>
                                                 </div>
@@ -151,9 +152,12 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                                             <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>">
                                                 <?php if ($webp_support == true && isset($post->webp_small)) { ?>
                                                     <img src="/posts/<?= $post->webp_small ?>"
+                                                         width="89" height="60"
                                                          alt="<?= $post->title ?>">
                                                 <?php } else { ?>
-                                                    <img src="/posts/<?= $post->small ?>" alt="<?= $post->title ?>">
+                                                    <img src="/posts/<?= $post->small ?>"
+                                                         width="89" height="60"
+                                                         alt="<?= $post->title ?>">
                                                 <?php } ?>
                                             </a>
                                         </div>
@@ -191,7 +195,9 @@ if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['
                         <div class="review">
                             <div class="review__avatar">
                                 <?php $avatar = $review->getAvatar($review->id) ?>
-                                <img src="/images/avatars/<?= $avatar ?>.jpg" alt="<?= $avatar ?>">
+                                <img src="/images/avatars/<?= $avatar ?>.jpg"
+                                     width="70" height="70"
+                                     alt="<?= $avatar ?>">
                             </div>
                             <div class="review__content">
                                 <div class="review__author"><?= $review->name ?></div>
