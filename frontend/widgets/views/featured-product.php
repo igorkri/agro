@@ -39,7 +39,10 @@ use yii\helpers\Url;
                                     <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
                                        class="product-image__body">
                                         <img class="product-image__img"
-                                             src="<?= $product->getImgOneLarge($product->getId()) ?>" alt="<?= $product->name ?>" loading="lazy">
+                                             src="<?= $product->getImgOneLarge($product->getId()) ?>"
+                                             width="180" height="180"
+                                             alt="<?= $product->name ?>"
+                                             loading="lazy">
                                     </a>
                                 </div>
                                 <div class="product-card__info">

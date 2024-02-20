@@ -26,7 +26,9 @@ use yii\helpers\Url;
                                class="product-image__body">
                                 <img class="product-image__img"
                                      src="<?= $products[0]->getImgOneExtraExtraLarge($products[0]->getId()) ?>"
-                                     alt="<?= $products[0]->name ?>" loading="lazy">
+                                     width="348" height="348"
+                                     alt="<?= $products[0]->name ?>"
+                                     loading="lazy">
                             </a>
                         </div>
                         <div class="product-card__info">
@@ -173,7 +175,9 @@ use yii\helpers\Url;
                                        class="product-image__body">
                                         <img class="product-image__img"
                                              src="<?= $product->getImgOneLarge($product->getId()) ?>"
-                                             alt="<?= $product->name ?>" loading="lazy">
+                                             width="193" height="193"
+                                             alt="<?= $product->name ?>"
+                                             loading="lazy">
                                     </a>
                                 </div>
                                 <div class="product-card__info">

@@ -41,7 +41,9 @@ use yii\helpers\Url;
                                        class="product-image__body">
                                         <img class="product-image__img"
                                              src="<?= $product->getImgOneSmall($product->getId()) ?>"
-                                             alt="<?= $product->name ?>" loading="lazy">
+                                             width="88" height="88"
+                                             alt="<?= $product->name ?>"
+                                             loading="lazy">
                                     </a>
                                 </div>
                                 <div class="product-card__info">
