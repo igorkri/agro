@@ -1,21 +1,17 @@
 <?php
 
 use common\models\shop\ActivePages;
+use common\models\shop\ProductImage;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use kartik\rating\StarRating;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
-
+$webp_support = ProductImage::imageWebp();
 $request = Yii::$app->request;
 $currentUrl = $request->absoluteUrl;
 
-if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], ' Chrome/') !== false) {
-    $webp_support = true; // webp поддерживается
-} else {
-    $webp_support = false; // webp не поддерживается
-}
 ?>
 <div class="site__body">
     <div class="page-header">
