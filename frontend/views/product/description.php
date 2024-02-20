@@ -57,7 +57,9 @@ $rating = 3;
                                                                class="product-image__body">
                                                                 <img class="product-image__img"
                                                                      src="<?= $product_analog->getImgOneExtraSmal($product_analog->getId()) ?>"
-                                                                     alt="<?= $product_analog->name ?>">
+                                                                     width="50" height="50"
+                                                                     alt="<?= $product_analog->name ?>"
+                                                                     loading="lazy">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -128,7 +130,9 @@ $rating = 3;
                                                                        class="product-image__body">
                                                                         <img class="product-image__img"
                                                                              src="<?= $product_analog->getImgOneExtraLarge($product_analog->getId()) ?>"
-                                                                             alt="<?= $product_analog->name ?>">
+                                                                             width="162" height="162"
+                                                                             alt="<?= $product_analog->name ?>"
+                                                                             loading="lazy">
                                                                     </a>
                                                                 </div>
                                                                 <div class="product-card__info">

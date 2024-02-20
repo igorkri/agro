@@ -84,6 +84,7 @@ $webp_support = ProductImage::imageWebp();
                                            data-height="700" class="product-image__body" target="_blank">
                                             <img class="product-image__img"
                                                  src=" <?= '/product/' . $image->webp_extra_extra_large ?> "
+                                                 width="336" height="336"
                                                  alt="<?= $product->name ?>">
                                             <?php }else{ ?>
                                             <div class="product-image product-image--location--gallery">
@@ -96,6 +97,7 @@ $webp_support = ProductImage::imageWebp();
                                                    data-height="700" class="product-image__body" target="_blank">
                                                     <img class="product-image__img"
                                                          src=" <?= '/product/' . $image->extra_extra_large ?> "
+                                                         width="336" height="336"
                                                          alt="<?= $product->name ?>">
                                                     <?php } ?>
                                                 </a>
@@ -163,8 +165,10 @@ $webp_support = ProductImage::imageWebp();
                                 <div>
                                     <?php if ($product->brand_id != null): ?>
                                         <img src="/brand/<?= $img_brand->file ?>"
+                                             width="330" height="78"
                                              alt="<?= $img_brand->name ?>"
-                                             style="width: 100%;padding: 0px 0px 5px 0px;"">
+                                             loading="lazy"
+                                             style="width: 100%;padding: 0px 0px 5px 0px;">
                                     <?php endif; ?>
                                 </div>
                                 <ul class="payment-methods__list">
