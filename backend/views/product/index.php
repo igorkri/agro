@@ -127,6 +127,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <a href="<?= Url::to(['product/update', 'id' => $model->id]) ?>"
                                                class="text-reset"><?= $model->name ?>
                                                 <?= $model->getNonParametr($model->id) ?>
+                                                <?= $model->getNonDescription($model->id) ?>
+                                                <?= $model->getNonShortDescr($model->id) ?>
                                                 <?= $model->getNonBrand($model->id) ?>
                                             </a>
                                             <div class="sa-meta mt-0">

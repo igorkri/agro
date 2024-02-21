@@ -132,6 +132,12 @@ AppAsset::register($this);
                             </svg>
                         </button>
                     </div>
+
+                    <div class="sa-toolbar__item dropdown">
+
+                    </div>
+
+
                     <div class="sa-toolbar__item dropdown">
                         <i class="fas fa-dollar-sign"></i><?= Yii::$app->formatter->asDecimal(Settings::currencyRate(), 2) ?>
                     </div>
