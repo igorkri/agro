@@ -20,7 +20,7 @@ $rating = 3;
                         <a href="#tab-analog" class="product-tabs__item">Аналог <span
                                     class="indicator-analog__value"> <?= $products_analog_count ?></span></a>
                     <?php } ?>
-                    <a href="#tab-specification" class="product-tabs__item">Специфікація</a>
+                    <a href="#tab-specification" class="product-tabs__item">Характеристики</a>
                     <a href="#tab-reviews" class="product-tabs__item">Відгуки</a>
                 </div>
             </div>
@@ -29,7 +29,7 @@ $rating = 3;
             <div class="product-tabs__content">
                 <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
                     <div class="typography" id="product-description">
-                        <h3 class="spec__header">Опис товару</h3>
+                        <h3 class="spec__header"><?= 'Опис товару' . ' ' . $product->name ?></h3>
                         <div class="short-description"><?= $product->short_description ?></div>
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
@@ -42,7 +42,7 @@ $rating = 3;
                 </div>
                 <div class="product-tabs__pane" id="tab-analog">
                     <div class="spec">
-                        <h3 class="spec__header">Аналог товару</h3>
+                        <h3 class="spec__header"><?= 'Аналог товару' . ' ' . $product->name ?></h3>
                         <?php if ($products_analog) { ?>
                             <div class="block-sidebar__item">
                                 <div class="widget">
@@ -252,9 +252,9 @@ $rating = 3;
                 </div>
                 <div class="product-tabs__pane" id="tab-specification">
                     <div class="spec">
-                        <h3 class="spec__header">Специфікація товару</h3>
+                        <h3 class="spec__header"><?= 'Характеристики' . ' ' . $product->name ?></h3>
                         <div class="spec__section">
-                            <h4 class="spec__section-title">Загальна</h4>
+                            <h4 class="spec__section-title">Загальні</h4>
                             <?php if ($product_properties != null) { ?>
                                 <?php foreach ($product_properties as $property): ?>
                                     <?php if ($property->value && $property->value != '*'): ?>

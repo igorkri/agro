@@ -70,9 +70,7 @@ $webp_support = ProductImage::imageWebp();
                                     </svg>
                                 </button>
                                 <div class="owl-carousel" id="product-image">
-                                    <?php foreach ($images
-
-                                    as $image) : ?>
+                                    <?php foreach ($images as $image) : ?>
                                     <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
                                     <div class="product-image product-image--location--gallery">
                                         <div class="product-card__badges-list">
