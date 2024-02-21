@@ -288,7 +288,9 @@ $rating = 3;
                 <div class="product-tabs__pane" id="tab-reviews">
                     <div class="reviews-view">
                         <div class="reviews-view__list">
+                            <?php if ($product->reviews): ?>
                             <h3 class="reviews-view__header">Відгуки покупців</h3>
+                            <?php endif; ?>
                             <div class="reviews-list">
                                 <ol class="reviews-list__content">
                                     <?php foreach ($product->reviews as $review):
