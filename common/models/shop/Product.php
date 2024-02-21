@@ -586,6 +586,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $res;
     }
 
+    // Особое внимание к продуктам
     public
     function getNonParametr($id)
     {
@@ -642,7 +643,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         if ($product != null) {
             $res = '<a data-bs-toggle="tooltip"
                                data-bs-placement="top"
-                               title="Короткий опис < 150 знаків"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #ff7300">
+                               title="Короткий опис < 150 знаків"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #40ff00">
   <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 </svg> </a>';
             return $res;
@@ -661,13 +662,53 @@ class Product extends ActiveRecord implements CartPositionInterface
         if ($product != null) {
             $res = '<a data-bs-toggle="tooltip"
                                data-bs-placement="top"
-                               title="Опис < 1000 знаків"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #ff4000">
+                               title="Опис < 1000 знаків"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #02ade1">
   <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 </svg> </a>';
             return $res;
         }
         return null;
     }
+
+    public
+    function getNonSeoTitle($id)
+    {
+        $product = Product::find()
+            ->select('seo_title')
+            ->where(['id' => $id])
+            ->andWhere('CHAR_LENGTH(seo_title) < 50 OR CHAR_LENGTH(seo_title) > 60')
+            ->one();
+
+        if ($product != null) {
+            $res = '<a data-bs-toggle="tooltip"
+                               data-bs-placement="top"
+                               title="SEO Тайтл < 50 или > 60"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #9607f5">
+  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg> </a>';
+            return $res;
+        }
+        return null;
+    }
+
+    public
+    function getNonSeoDescr($id)
+    {
+        $product = Product::find()
+            ->select('seo_description')
+            ->where(['id' => $id])
+            ->andWhere('CHAR_LENGTH(seo_description) < 130 OR CHAR_LENGTH(seo_description) > 180')
+            ->one();
+        if ($product != null) {
+            $res = '<a data-bs-toggle="tooltip"
+                               data-bs-placement="top"
+                               title="SEO Дескрип < 130 или > 180"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #e1029e">
+  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg> </a>';
+            return $res;
+        }
+        return null;
+    }
+//     End Особое внимание к продуктам
 
     public function getProductsAnalog($id)
     {

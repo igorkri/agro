@@ -130,6 +130,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?= $model->getNonDescription($model->id) ?>
                                                 <?= $model->getNonShortDescr($model->id) ?>
                                                 <?= $model->getNonBrand($model->id) ?>
+                                                <?= $model->getNonSeoTitle($model->id) ?>
+                                                <?= $model->getNonSeoDescr($model->id) ?>
                                             </a>
                                             <div class="sa-meta mt-0">
                                                 <ul class="sa-meta__list">
