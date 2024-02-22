@@ -519,7 +519,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     static function productName($slug)
     {
-        $product = Product::find()->where(['slug' => $slug])->one();
+        $product = Product::find()->select('name')->where(['slug' => $slug])->one();
         if ($product) {
             return $product->name;
         } else {
@@ -590,7 +590,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     function getNonParametr($id)
     {
-        $parametrs = ProductProperties::find()->where(['product_id' => $id])->all();
+        $parametrs = ProductProperties::find()->select('value')->where(['product_id' => $id])->all();
 
         if ($parametrs == null) {
             $res = '<a data-bs-toggle="tooltip"
@@ -620,7 +620,6 @@ class Product extends ActiveRecord implements CartPositionInterface
     function getNonBrand($id)
     {
         $product = Product::find()->select('brand_id')->where(['id' => $id])->one();
-
         if ($product->brand_id == null) {
             $res = '<a data-bs-toggle="tooltip"
                                data-bs-placement="top"
@@ -635,12 +634,13 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     function getNonShortDescr($id)
     {
-        $product = Product::find()
+        $productShortDescription = Product::find()
             ->select('short_description')
             ->where(['id' => $id])
-            ->andWhere('CHAR_LENGTH(short_description) < 150')
-            ->one();
-        if ($product != null) {
+            ->andWhere(['<=', 'CHAR_LENGTH(short_description)', 150])
+            ->scalar();
+
+        if ($productShortDescription !== false) {
             $res = '<a data-bs-toggle="tooltip"
                                data-bs-placement="top"
                                title="Короткий опис < 150 знаків"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 18 18" style="color: #40ff00">

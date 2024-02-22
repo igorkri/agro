@@ -140,27 +140,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         ID:
                                                         <span class="st-copy"><?= $model->id ?></span>
                                                     </li>
-                                                    <?php if ($model->getProductsAnalog($model->id)) { ?>
+                                                    <?php $analogProducts = $model->getProductsAnalog($model->id);
+                                                    if (!empty($analogProducts)) { ?>
                                                         <li class="sa-meta__item">
                                                             АНАЛОГ:
                                                             <span class="st-copy">
                                                         <?php
-                                                        echo ' <span class="badge badge-sa-theme-analog">' . $model->getProductsAnalog($model->id) . '</span>';
+                                                        echo ' <span class="badge badge-sa-theme-analog">' . $analogProducts . '</span>';
                                                         ?>
                                                     </span>
                                                         </li>
                                                     <?php } ?>
                                                     <?php if ($model->grups) { ?>
-                                                    <li class="sa-meta__item">
-                                                        ГРУП:
-                                                        <span class="st-copy">
+                                                        <li class="sa-meta__item">
+                                                            ГРУП:
+                                                            <span class="st-copy">
                                                         <?php
                                                         foreach ($model->grups as $grup) {
                                                             echo ' <span class="badge badge-sa-secondary-grup">' . $grup->name . '</span>';
                                                         }
                                                         ?>
                                                     </span>
-                                                    </li>
+                                                        </li>
                                                     <?php } ?>
                                                     <?php if (isset($model->label)) { ?>
                                                         <li class="sa-meta__item">
