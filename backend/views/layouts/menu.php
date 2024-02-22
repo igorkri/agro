@@ -28,8 +28,9 @@ use yii\helpers\Url;
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Orders') ?></span>
-                        <?php if (Order::orderNews() != 0) { ?>
-                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Order::orderNews() ?></span>
+                        <?php $orderNews = Order::orderNews() ?>
+                        <?php if ($orderNews != 0) { ?>
+                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= $orderNews ?></span>
                         <?php } ?>
                     </a>
                 </li>
@@ -220,8 +221,9 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Messages') ?></span>
-                        <?php if (Messages::messagesNews() != 0) { ?>
-                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Messages::messagesNews() ?></span>
+                        <?php $messagesNews = Messages::messagesNews() ?>
+                        <?php if ($messagesNews != 0) { ?>
+                            <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= $messagesNews ?></span>
                         <?php } ?>
                     </a>
                 </li>
@@ -239,7 +241,10 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Reviews') ?></span>
-                        <?php if (Review::reviewsNews() != 0 || PostsReview::reviewsNews() != 0) { ?>
+                        <?php $reviewsNews = Review::reviewsNews() ?>
+                        <?php $reviewsPostNews = PostsReview::reviewsNews() ?>
+
+                        <?php if ($reviewsNews != 0 || $reviewsPostNews != 0) { ?>
                             <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"
                                   style="font-size: 16px">!</span>
                         <?php } else { ?>
@@ -263,8 +268,8 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                                 <span class="sa-nav__title"><?= Yii::t('app', 'Product Reviews') ?></span>
-                                <?php if (Review::reviewsNews() != 0) { ?>
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= Review::reviewsNews() ?></span>
+                                <?php if ($reviewsNews != 0) { ?>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= $reviewsNews ?></span>
                                 <?php } ?>
                             </a>
                         </li>
@@ -277,8 +282,8 @@ use yii\helpers\Url;
 </svg>
                                             </span>
                                 <span class="sa-nav__title"><?= Yii::t('app', 'Posts Reviews') ?></span>
-                                <?php if (PostsReview::reviewsNews() != 0) { ?>
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= PostsReview::reviewsNews() ?></span>
+                                <?php if ($reviewsPostNews != 0) { ?>
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme"><?= $reviewsPostNews ?></span>
                                 <?php } ?>
                             </a>
                         </li>

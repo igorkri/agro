@@ -108,7 +108,7 @@ class Review extends \yii\db\ActiveRecord
 //  новие отзивы меню админ
     public static function reviewsNews()
     {
-        $reviews = Review::find()->all();
+        $reviews = Review::find()->select('viewed')->all();
         $total_res = [];
         foreach ($reviews as $review) {
             if ($review->viewed == 0)
