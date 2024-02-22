@@ -1,6 +1,5 @@
 <?php
 
-
 namespace frontend\controllers;
 
 use common\models\shop\Product;

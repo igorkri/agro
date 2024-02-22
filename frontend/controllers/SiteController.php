@@ -119,11 +119,11 @@ class SiteController extends Controller
                     ->opens('9:00')
                     ->closes('19:00')
                     ->dayOfWeek([
-                        'http://schema.org/Monday',
-                        'http://schema.org/Tuesday',
-                        'http://schema.org/Wednesday',
-                        'http://schema.org/Thursday',
-                        'http://schema.org/Friday'
+                        'Monday',
+                        'Tuesday',
+                        'Wednesday',
+                        'Thursday',
+                        'Friday'
                     ])
                 )
             )

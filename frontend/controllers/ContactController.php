@@ -17,46 +17,8 @@ class ContactController extends Controller
         $seo = SeoPages::find()->where(['slug' => 'contact'])->one();
         $contacts = Contact::find()->one();
 
-        $organization = Schema::localBusiness()
-            ->url('https://agropro.org.ua/')
-            ->name('Інтернет-магазин | AgroPro')
-            ->description('Купуйте |️ Засоби захисту рослин |️ Посівний матеріал |️ Мікродобрива ⚡ За вигідними цінами в Україні в агромаркеті AgroPro.org.ua.')
-            ->email('nisatatyana@gmail.com')
-            ->telephone('+3(066)394-18-28')
-            ->priceRange('UAH')
-            ->contactPoint(Schema::contactPoint()
-                ->telephone('+3(066)394-18-28')
-                ->areaServed('UA')
-                ->contactType('customer service')
-                ->url(Yii::$app->request->absoluteUrl)
-                ->hoursAvailable(Schema::openingHoursSpecification()
-                    ->opens('9:00')
-                    ->closes('19:00')
-                    ->dayOfWeek([
-                        'http://schema.org/Monday',
-                        'http://schema.org/Tuesday',
-                        'http://schema.org/Wednesday',
-                        'http://schema.org/Thursday',
-                        'http://schema.org/Friday'
-                    ])
-                )
-            )
-            ->address([
-                "@type" => "PostalAddress",
-                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
-                "postalCode" => '36000',
-                "addressLocality" => 'Полтава',
-                "addressRegion" => 'Полтавська область',
-                "addressCountry" => 'Україна'
-            ])
-            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg');
-        Yii::$app->params['organization'] = $organization->toScript();
-
-        Yii::$app->metamaster
-            ->setTitle($seo->title)
-            ->setDescription($seo->description)
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
+        $this->setSchemaLocalBusiness();
+        $this->setProductMetadata($seo);
 
         return $this->render('view', ['contacts' => $contacts]);
 
@@ -85,5 +47,55 @@ class ContactController extends Controller
             }
         }
         return null;
+    }
+
+    protected function setSchemaLocalBusiness()
+    {
+        $opens[] = '9:00';
+        $closes[] = '19:00';
+        $dayOfWeek = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday'
+        ];
+        $organization = Schema::localBusiness()
+            ->url('https://agropro.org.ua/')
+            ->name('Інтернет-магазин | AgroPro')
+            ->description('Купуйте |️ Засоби захисту рослин |️ Посівний матеріал |️ Мікродобрива ⚡ За вигідними цінами в Україні в агромаркеті AgroPro.org.ua.')
+            ->email('nisatatyana@gmail.com')
+            ->telephone('+3(066)394-18-28')
+            ->priceRange('UAH')
+            ->contactPoint(Schema::contactPoint()
+                ->telephone('+3(066)394-18-28')
+                ->areaServed('UA')
+                ->contactType('customer service')
+                ->url(Yii::$app->request->absoluteUrl)
+                ->hoursAvailable(Schema::openingHoursSpecification()
+                    ->opens($opens)
+                    ->closes($closes)
+                    ->dayOfWeek($dayOfWeek)
+                )
+            )
+            ->address([
+                "@type" => "PostalAddress",
+                "streetAddress" => 'Україна Полтава вул.Зіньківська 35',
+                "postalCode" => '36000',
+                "addressLocality" => 'Полтава',
+                "addressRegion" => 'Полтавська область',
+                "addressCountry" => 'Україна'
+            ])
+            ->image(Yii::$app->request->hostInfo . '/images/logos/meta_logo.jpg');
+        Yii::$app->params['organization'] = $organization->toScript();
+    }
+
+    protected function setProductMetadata($seo)
+    {
+        Yii::$app->metamaster
+            ->setTitle($seo->title)
+            ->setDescription($seo->description)
+            ->setImage('/images/logos/meta_logo.jpg')
+            ->register(Yii::$app->getView());
     }
 }
