@@ -1,17 +1,26 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var \common\models\shop\Product $product */
-/** @var \common\models\shop\Brand $img_brand */
-/** @var \common\models\shop\Product $products */
-/** @var \common\models\shop\Review $model_review */
-
+use common\models\shop\ProductProperties;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\RelatedProducts;
 use common\models\shop\ProductImage;
 use common\models\shop\ActivePages;
 use frontend\widgets\ViewProduct;
+use common\models\shop\Product;
+use common\models\shop\Review;
+use common\models\shop\Brand;
 use yii\helpers\Url;
+
+/** @var ProductProperties $product_properties */
+/** @var Product $products_analog_count */
+/** @var Product $products_analog */
+/** @var Product $isset_to_cart */
+/** @var Review $model_review */
+/** @var yii\web\View $this */
+/** @var Product $products */
+/** @var Product $product */
+/** @var Brand $img_brand */
+/** @var Product $images */
 
 ActivePages::setActiveUser();
 
@@ -166,7 +175,7 @@ $webp_support = ProductImage::imageWebp();
                                              width="330" height="78"
                                              alt="<?= $img_brand->name ?>"
                                              loading="lazy"
-                                             style="width: 100%;padding: 0px 0px 5px 0px;">
+                                             style="width: 100%;padding: 0 0 5px 0;">
                                     <?php endif; ?>
                                 </div>
                                 <ul class="payment-methods__list">
@@ -181,7 +190,7 @@ $webp_support = ProductImage::imageWebp();
                                         </span>
                                             <span class="delivery-methods__item-name"><i style="font-size: 25px"
                                                                                          class="fas fa-qrcode"></i>
-                                            <span style="font-size:20px; margin:0px 20px">Артикул</span></span>
+                                            <span style="font-size:20px; margin:0 20px">Артикул</span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted"
@@ -201,7 +210,7 @@ $webp_support = ProductImage::imageWebp();
                                         </span>
                                             <span class="delivery-methods__item-name"><i style="font-size: 25px"
                                                                                          class="fas fa-truck"></i>
-                                            <span style="font-size:20px; margin:0px 20px">Доставка</span></span>
+                                            <span style="font-size:20px; margin:0 20px">Доставка</span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
@@ -233,7 +242,7 @@ $webp_support = ProductImage::imageWebp();
                                         </span>
                                             <span class="payment-methods__item-name"><i style="font-size: 25px"
                                                                                         class="fas fa-credit-card"></i> <span
-                                                        style="font-size:20px; margin:0px 20px">Оплата</span></span>
+                                                        style="font-size:20px; margin:0 20px">Оплата</span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
@@ -257,7 +266,7 @@ $webp_support = ProductImage::imageWebp();
                                         </span>
                                             <span class="shield-methods__item-name"><i style="font-size: 25px"
                                                                                        class="fas fa-shield-alt"></i> <span
-                                                        style="font-size:20px; margin:0px 12px">
+                                                        style="font-size:20px; margin:0 12px">
                                                     Повернення</span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
@@ -274,7 +283,7 @@ $webp_support = ProductImage::imageWebp();
                             <div class="product__prices">
                                 <div class="form-group product__option">
                                     <span style="font-size: 18px; font-weight: 100">Наявність: </span>
-                                    <span class="text-success" style="padding: 0px 12px">
+                                    <span class="text-success" style="padding: 0 12px">
         <?php
         $statusIcon = '';
         $statusStyle = '';
@@ -306,15 +315,15 @@ $webp_support = ProductImage::imageWebp();
     </span>
                                 </div>
                                 <div class="product__actions">
-                                    <span style="margin: 0px 0px 0px 30px;font-size: 18px;font-weight: 100">Ціна: </span>
+                                    <span style="margin: 0 0 0 30px;font-size: 18px;font-weight: 100">Ціна: </span>
                                     <?php $price = Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                     <?php if ($product->old_price == null) { ?>
-                                        <div class="product-card__prices" style="margin: 0px 19px;">
+                                        <div class="product-card__prices" style="margin: 0 19px;">
                                             <?= $price ?>
                                         </div>
                                     <?php } else { ?>
                                         <div class="product-card__prices" style="
-   margin: 0px 19px;
+   margin: 0 19px;
 ">
                                             <span class="product-card__new-price"><?= $price ?></span>
                                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
@@ -322,7 +331,7 @@ $webp_support = ProductImage::imageWebp();
                                     <?php } ?>
                                 </div>
                                 <div style="
-                                padding: 0px 0px 10px 90px;
+                                padding: 0 0 10px 90px;
                                 ">
                                     <?php if ($product->status_id != 2) { ?>
                                         <button class="btn btn-primary product-card__addtocart"

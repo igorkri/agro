@@ -2,17 +2,16 @@
 
 namespace frontend\controllers;
 
-use common\models\shop\AnalogProducts;
 use common\models\shop\ProductProperties;
+use common\models\shop\AnalogProducts;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use common\models\shop\Brand;
-use Spatie\SchemaOrg\ListItem;
 use Spatie\SchemaOrg\Schema;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\web\Controller;
+use yii\helpers\Url;
 use Yii;
 
 class ProductController extends Controller
@@ -34,12 +33,63 @@ class ProductController extends Controller
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
 
+        $this->setProductSchemaBreadcrumb($product);
+        $this->setSchemaProduct($product);
+        $this->setProductMetadata($product);
+
+        return $this->render('index', [
+            'product' => $product,
+            'images' => $images,
+            'isset_to_cart' => $product->getIssetToCart($product->id),
+            'model_review' => $model_review,
+            'product_properties' => $product_properties,
+            'img_brand' => $img_brand,
+            'products_analog' => $products_analog,
+            'products_analog_count' => $products_analog_count,
+        ]);
+    }
+
+    protected function setProductMetadata($product)
+    {
+        Yii::$app->metamaster
+            ->setTitle($product->seo_title)
+            ->setDescription($product->seo_description)
+            ->setImage($product->getImgSeo($product->id))
+            ->register(Yii::$app->getView());
+    }
+
+    protected function setProductSchemaBreadcrumb($product)
+    {
+        $schemaBreadcrumb = Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()
+                    ->position(1)
+                    ->item(Schema::thing()->name('Головна')
+                        ->url(Yii::$app->homeUrl)
+                        ->setProperty('id', Yii::$app->homeUrl)),
+                Schema::listItem()
+                    ->position(2)
+                    ->item(Schema::thing()->name($product->category->name)
+                        ->url(Url::to(['category/catalog', 'slug' => $product->category->slug]))
+                        ->setProperty('id', Url::to(['category/catalog', 'slug' => $product->category->slug]))),
+                Schema::listItem()
+                    ->position(3)
+                    ->item(Schema::thing()->name($product->name)
+                        ->url(Url::to(['product/view', 'slug' => $product->slug]))
+                        ->setProperty('id', Url::to(['product/view', 'slug' => $product->slug]))),
+            ]);
+        Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
+    }
+
+    protected function setSchemaProduct($product)
+    {
         $reviews = [];
         $product_reviews = Review::find()->where(['product_id' => $product->id])->all();
         if ($product_reviews) {
             foreach ($product_reviews as $product_review) {
                 $formatter = new Formatter();
-                $schemaDate = $formatter->asDatetime($product_review->created_at, 'php:Y-m-d\TH:i:sP');
+                $schemaDate = [];
+                $schemaDate[] = $formatter->asDatetime($product_review->created_at, 'php:Y-m-d\TH:i:sP');
 
                 $reviews[] = Schema::review()
                     ->datePublished($schemaDate)
@@ -62,7 +112,11 @@ class ProductController extends Controller
                         ->bestRating(5)
                         ->worstRating(1)));
         }
-
+        $itemCondition[] = 'NewCondition';
+        $returnFees[] = 'FreeReturn';
+        $returnPolicyCategory[] = 'MerchantReturnFiniteReturnWindow';
+        $returnMethod[] = 'ReturnByMail';
+        $priceValidUntil[] = date('Y-m-d', strtotime("+1 month"));
         $schemaProduct = Schema::product()
             ->name($product->name)
             ->url(Yii::$app->request->absoluteUrl)
@@ -80,8 +134,8 @@ class ProductController extends Controller
                 ->image($product->getSchemaImg($product->id))
                 ->priceCurrency("UAH")
                 ->price($product->getPrice())
-                ->priceValidUntil(date('Y-m-d', strtotime("+1 month")))
-                ->itemCondition('https://schema.org/NewCondition')
+                ->priceValidUntil($priceValidUntil)
+                ->itemCondition($itemCondition)
                 ->availability($product->getAvailabilityProduct($product->status_id))
                 ->hasMerchantReturnPolicy(Schema::merchantReturnPolicy()
                     ->name('Умови повернення')
@@ -90,10 +144,10 @@ class ProductController extends Controller
                     протягом перших 14 днів після покупки у нас ви можете здійснити обмін або повернення товару. 
                     Важливо зазначити, що ми приймаємо на обмін або повернення лише новий товар, 
                     який не має слідів використання і зберігає оригінальну комплектацію та упаковку.')
-                    ->returnMethod("ReturnByMail")
+                    ->returnMethod($returnMethod)
                     ->merchantReturnDays(14)
-                    ->returnFees("http://schema.org/FreeReturn")
-                    ->returnPolicyCategory("http://schema.org/MerchantReturnFiniteReturnWindow")
+                    ->returnFees($returnFees)
+                    ->returnPolicyCategory($returnPolicyCategory)
                     ->applicableCountry('UA')
                 )
                 ->shippingDetails(Schema::offerShippingDetails()
@@ -119,44 +173,6 @@ class ProductController extends Controller
                     )
                 )
             );
-        $schemaBreadcrumb = Schema::breadcrumbList()
-            ->itemListElement([
-                Schema::listItem()
-                    ->position(1)
-                    ->item(Schema::thing()->name('Головна')
-                        ->url(Yii::$app->homeUrl)
-                        ->setProperty('id', Yii::$app->homeUrl)),
-                Schema::listItem()
-                    ->position(2)
-                    ->item(Schema::thing()->name($product->category->name)
-                        ->url(Url::to(['category/catalog', 'slug' => $product->category->slug]))
-                        ->setProperty('id', Url::to(['category/catalog', 'slug' => $product->category->slug]))),
-                Schema::listItem()
-                    ->position(3)
-                    ->item(Schema::thing()->name($product->name)
-                        ->url(Url::to(['product/view', 'slug' => $product->slug]))
-                        ->setProperty('id', Url::to(['product/view', 'slug' => $product->slug]))),
-            ]);
-
-        Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['product'] = $schemaProduct->toScript();
-
-        Yii::$app->metamaster
-            ->setTitle($product->seo_title)
-            ->setDescription($product->seo_description)
-            ->setImage($product->getImgSeo($product->id))
-            ->register(Yii::$app->getView());
-
-        return $this->render('index', [
-            'product' => $product,
-            'images' => $images,
-            'isset_to_cart' => $product->getIssetToCart($product->id),
-            'model_review' => $model_review,
-            'product_properties' => $product_properties,
-            'img_brand' => $img_brand,
-            'products_analog' => $products_analog,
-            'products_analog_count' => $products_analog_count,
-        ]);
     }
-
 }
