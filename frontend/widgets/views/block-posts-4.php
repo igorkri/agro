@@ -1,16 +1,11 @@
 <?php
 
+use common\models\shop\ProductImage;
 use yii\helpers\Url;
 
-if (isset($_SERVER['HTTP_ACCEPT']) && isset($_SERVER['HTTP_USER_AGENT'])) {
-    if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome/') !== false) {
-        $webp_support = true; // webp поддерживается
-    } else {
-        $webp_support = false; // webp не поддерживается
-    }
-} else {
-    $webp_support = false; // webp не поддерживается (или установите значение по умолчанию)
-}
+/** @var \common\models\Posts $posts */
+
+$webp_support = ProductImage::imageWebp();
 
 ?>
 <div class="block block-posts" data-layout="grid-4" data-mobile-columns="2">

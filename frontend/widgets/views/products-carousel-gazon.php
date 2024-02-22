@@ -1,9 +1,8 @@
 <?php
 
-use common\models\shop\Product;
 use yii\helpers\Url;
 
-/** @var Product $products */
+/** @var common\models\shop\Product $products */
 
 ?>
 <div class="block block-products-carousel" data-layout="horizontal" data-mobile-grid-columns="2">

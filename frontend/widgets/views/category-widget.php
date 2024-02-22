@@ -3,6 +3,8 @@
 use common\models\shop\Product;
 use yii\helpers\Url;
 
+/** @var \common\models\shop\Category $categories */
+
 ?>
 <?php if (Yii::$app->request->pathInfo == '') : ?>
 <div class="departments  departments--open departments--fixed " data-departments-fixed-by=".block-slideshow">
@@ -123,3 +125,4 @@ use yii\helpers\Url;
             </svg>
         </button>
     </div>
+

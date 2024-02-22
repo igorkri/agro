@@ -2,6 +2,8 @@
 
 use yii\helpers\Url;
 
+/** @var \common\models\shop\Tag $tags */
+
 ?>
 <div class="block-sidebar__item">
     <div class="widget-tags widget">

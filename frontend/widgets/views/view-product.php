@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 
-/** @var \common\models\shop\Product $products */
+/** @var \common\models\shop\Product $viewedProducts */
 
 ?>
 <div class="block block-products-carousel" data-layout="grid-5" data-mobile-grid-columns="2">

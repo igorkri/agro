@@ -1,3 +1,9 @@
+<?php
+
+/** @var \common\models\shop\Product $product */
+
+?>
+
 <div class="form-group product__option">
                                         <span class="text-success" style="font-weight: 600;padding: 3px 1px">
                                 <?php

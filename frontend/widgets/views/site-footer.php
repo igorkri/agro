@@ -2,6 +2,8 @@
 
 use yii\helpers\Url;
 
+/** @var \common\models\Contact $contacts */
+
 ?>
 <footer class="site__footer">
     <div class="site-footer">

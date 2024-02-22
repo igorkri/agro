@@ -2,6 +2,8 @@
 
 use yii\helpers\Url;
 
+/** @var \common\models\Slider $slides */
+
 ?>
 <div class="block-slideshow block-slideshow--layout--with-departments block">
     <div class="container">
