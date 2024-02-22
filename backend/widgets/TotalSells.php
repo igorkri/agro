@@ -10,7 +10,6 @@ use yii\base\Widget;
 
 class TotalSells extends Widget
 {
-
     public function init()
     {
         parent::init();
@@ -106,6 +105,4 @@ class TotalSells extends Widget
             'percentage' => $percentage,
         ]);
     }
-
-
 }

@@ -37,9 +37,10 @@
         </div>
         <ul class="list-group list-group-flush">
             <?php foreach ($reviews as $review): ?>
+            <?php $productSlug = $review->getProductSlug($review->product_id) ?>
                 <li class="list-group-item py-2">
                     <div class="d-flex align-items-center py-3">
-                        <a href="/product/<?= $review->getProductSlug($review->product_id) ?>" class="me-4">
+                        <a href="/product/<?= $productSlug ?>" class="me-4">
                             <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
                                 <img src="/product/<?= $review->getProductImage($review->product_id) ?>" width="40"
                                      height="40" alt=""/>
@@ -47,12 +48,12 @@
                         </a>
                         <div class="d-flex align-items-center flex-grow-1 flex-wrap">
                             <div class="col">
-                                <a href="/product/<?= $review->getProductSlug($review->product_id) ?>"
+                                <a href="/product/<?= $productSlug ?>"
                                    class="text-reset fs-exact-14"><?= $review->getProductName($review->product_id) ?></a>
 
                                 <div class="text-muted fs-exact-13">
                                     Відгук від
-                                    <a href="/product/<?= $review->getProductSlug($review->product_id) ?>"
+                                    <a href="/product/<?= $productSlug ?>"
                                        class="text-reset"><?= $review->name ?></a>
                                 </div>
                             </div>

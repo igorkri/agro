@@ -16,7 +16,7 @@ class RecentReviews extends \yii\base\Widget
 
     public function run() {
 
-        $reviews = Review::find()->orderBy('id DESC')->limit(6)->all();
+        $reviews = Review::find()->select(['product_id', 'name', 'message'])->orderBy('id DESC')->limit(6)->all();
 
         return $this->render('recent-reviews', ['reviews' => $reviews]);
     }

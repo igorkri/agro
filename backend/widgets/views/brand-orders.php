@@ -54,7 +54,9 @@
                 <tbody>
                 <?php $i = 0;
                 foreach ($brands as $brand): ?>
-                    <?php if ($brand->getProductOrderBrand($brand->id) != 0 && $brand->getIncomeOrderBrand($brand->id) != 0): ?>
+                    <?php $productOrderBrand = $brand->getProductOrderBrand($brand->id) ?>
+                    <?php $incomeOrderBrand = $brand->getIncomeOrderBrand($brand->id) ?>
+                    <?php if ($productOrderBrand != 0 && $incomeOrderBrand != 0): ?>
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">
@@ -63,10 +65,12 @@
                                     <div class="ps-2"><?= $brand->name ?></div>
                                 </div>
                             </td>
-                            <td class="text-center"><span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= $brand->getProductOrderBrand($brand->id) ?></span></td>
+                            <td class="text-center"><span
+                                        class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= $productOrderBrand ?></span>
+                            </td>
                             <td class="text-end">
                                 <div class="sa-price">
-                                    <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($brand->getIncomeOrderBrand($brand->id), 'UAH') ?></span>
+                                    <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($incomeOrderBrand, 'UAH') ?></span>
                                 </div>
                             </td>
                         </tr>

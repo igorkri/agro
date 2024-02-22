@@ -9,7 +9,7 @@ use common\models\shop\Product;
     <div class="card flex-grow-1">
         <div class="card-body">
             <div class="sa-widget-header mb-4">
-                <h2 class="sa-widget-header__title">Переглянуті користувачами товарі</h2>
+                <h2 class="sa-widget-header__title">Переглянуті користувачами товари</h2>
                 <div class="sa-widget-header__actions">
                     <div class="dropdown">
                         <button
@@ -37,16 +37,17 @@ use common\models\shop\Product;
                     </div>
                 </div>
             </div>
-
             <ul class="list-group list-group-flush">
-                <?php $i = 0; foreach ($result as $value): ?>
-                    <?php if ( Product::productImage($value['url']) != null and $i < 6) { ?>
+                <?php $i = 0;
+                foreach ($result as $value): ?>
+                    <?php $productImage = Product::productImage($value['url']) ?>
+                    <?php if ($productImage != null and $i < 6) { ?>
                         <li class="list-group-item py-2">
                             <div class="d-flex align-items-center py-3">
                                 <a href="/product/<?= $value['url'] ?>" class="me-4">
                                     <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
 
-                                        <img src="/product/<?= Product::productImage($value['url']) ?>"
+                                        <img src="/product/<?= $productImage ?>"
                                              width="40"
                                              height="40" alt=""/>
                                     </div>
@@ -55,9 +56,10 @@ use common\models\shop\Product;
                                     <div class="col">
                                         <a href="/product/<?= $value['url'] ?>"
                                            class="text-reset fs-exact-14"><?= Product::productName($value['url']) ?></a>
-                                                                            <div class="text-muted fs-exact-13">
-                                                                                Переглядів: <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::productCountViews($value['url']) ?></span>
-                                                                            </div>
+                                        <div class="text-muted fs-exact-13">
+                                            Переглядів: <span
+                                                    class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::productCountViews($value['url']) ?></span>
+                                        </div>
                                     </div>
                                     <div class="col-12 col-sm-auto">
                                         <div class="sa-rating ms-sm-3 my-2 my-sm-0">
@@ -67,10 +69,10 @@ use common\models\shop\Product;
                                 </div>
                             </div>
                         </li>
-                    <?php $i++; } ?>
-                 <?php endforeach; ?>
+                        <?php $i++;
+                    } ?>
+                <?php endforeach; ?>
             </ul>
-
         </div>
     </div>
 </div>

@@ -17,12 +17,9 @@ class TotalOrders extends Widget
 
     public function run()
     {
-
-        $orders = Order::find()
+        $total_orders = Order::find()
             ->where(['order_pay_ment_id' => 3])
-            ->all();
-
-        $total_orders = count($orders);
+            ->count();
 
         $currentDate = new DateTime();
         $interval = new DateInterval('P1M');

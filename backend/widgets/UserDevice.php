@@ -1,12 +1,11 @@
 <?php
 
-
 namespace backend\widgets;
 
 use common\models\shop\ActivePages;
-use yii\helpers\VarDumper;
+use kartik\base\Widget;
 
-class UserDevice extends \yii\base\Widget
+class UserDevice extends Widget
 {
     public function init()
     {
@@ -20,7 +19,7 @@ class UserDevice extends \yii\base\Widget
         $mobil = [];
         $desktop = [];
         $no_detect = [];
-        $count_devices = ActivePages::find()->all();
+        $count_devices = ActivePages::find()->select('other')->all();
         foreach ($count_devices as $count_device){
             if ($count_device->other == 'mobile'){
                 $mobil[] = $count_device->other;
@@ -65,5 +64,4 @@ class UserDevice extends \yii\base\Widget
             'no_detect' => $no_detect,
         ]);
     }
-
 }

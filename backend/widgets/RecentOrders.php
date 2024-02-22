@@ -1,12 +1,11 @@
 <?php
 
-
 namespace backend\widgets;
 
-
 use common\models\shop\Order;
+use yii\base\Widget;
 
-class RecentOrders extends \yii\base\Widget
+class RecentOrders extends Widget
 {
     public function init() {
 
@@ -16,9 +15,8 @@ class RecentOrders extends \yii\base\Widget
 
     public function run() {
 
-        $orders = Order::find()->orderBy('id DESC')->limit(10)->all();
+        $orders = Order::find()->select(['id', 'fio', 'created_at'])->orderBy('id DESC')->limit(10)->all();
 
         return $this->render('recent-orders', ['orders' => $orders]);
     }
-
 }
