@@ -132,7 +132,7 @@ class Posts extends ActiveRecord
             return count($res);
 
         } else {
-            return '17';
+            return '3';
         }
     }
 }

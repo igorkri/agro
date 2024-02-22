@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\SeoPages;
 use backend\models\search\SeoPagesSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
