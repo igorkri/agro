@@ -84,6 +84,11 @@ class ProductController extends Controller
     protected function setSchemaProduct($product)
     {
         $reviews = [];
+        $itemCondition[] = 'NewCondition';
+        $returnFees[] = 'FreeReturn';
+        $returnPolicyCategory[] = 'MerchantReturnFiniteReturnWindow';
+        $returnMethod[] = 'ReturnByMail';
+        $priceValidUntil[] = date('Y-m-d', strtotime("+1 month"));
         $product_reviews = Review::find()->where(['product_id' => $product->id])->all();
         if ($product_reviews) {
             foreach ($product_reviews as $product_review) {
@@ -112,11 +117,6 @@ class ProductController extends Controller
                         ->bestRating(5)
                         ->worstRating(1)));
         }
-        $itemCondition[] = 'NewCondition';
-        $returnFees[] = 'FreeReturn';
-        $returnPolicyCategory[] = 'MerchantReturnFiniteReturnWindow';
-        $returnMethod[] = 'ReturnByMail';
-        $priceValidUntil[] = date('Y-m-d', strtotime("+1 month"));
         $schemaProduct = Schema::product()
             ->name($product->name)
             ->url(Yii::$app->request->absoluteUrl)
