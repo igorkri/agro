@@ -307,17 +307,16 @@ $webp_support = ProductImage::imageWebp();
                                 </div>
                                 <div class="product__actions">
                                     <span style="margin: 0px 0px 0px 30px;font-size: 18px;font-weight: 100">Ціна: </span>
+                                    <?php $price = Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                     <?php if ($product->old_price == null) { ?>
-                                        <div class="product-card__prices" style="
-   margin: 0px 19px;
-">
-                                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                        <div class="product-card__prices" style="margin: 0px 19px;">
+                                            <?= $price ?>
                                         </div>
                                     <?php } else { ?>
                                         <div class="product-card__prices" style="
    margin: 0px 19px;
 ">
-                                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
+                                            <span class="product-card__new-price"><?= $price ?></span>
                                             <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                         </div>
                                     <?php } ?>
@@ -346,7 +345,7 @@ $webp_support = ProductImage::imageWebp();
                                                 id="add-from-wish-btn"
                                                 data-wish-product-id="<?= $product->id ?>">
                                             <svg width="32px" height="32px">
-                                            <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
                                             </svg>
                                         </button>
                                         <button type="button"
