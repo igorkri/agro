@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "grup".
@@ -10,7 +11,7 @@ use Yii;
  * @property int $id
  * @property string|null $name Назва
  */
-class Grup extends \yii\db\ActiveRecord
+class Grup extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -41,13 +42,10 @@ class Grup extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProductGrup($id){
+    public function getProductGrup($id)
+    {
+        $productCount = ProductGrup::find()->where(['grup_id' => $id])->count();
 
-        $products = ProductGrup::find()->where(['grup_id' => $id])->all();
-        $total_res = [];
-        foreach ($products as $product){
-            $total_res[] = $product;
-        }
-        return count($total_res);
+        return $productCount;
     }
 }

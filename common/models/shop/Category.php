@@ -113,26 +113,13 @@ class Category extends \yii\db\ActiveRecord
     //Для фильтра frontend
     public function getCountProductCategoryFilter($id)
     {
-        $cat = [];
-        $categories = Category::find()->select('id')->where(['parentId' => $id])->all();
-        foreach ($categories as $category) {
-            $cat[] = $category->id;
-        }
-        $products = Product::find()
-            ->select('id')
-            ->where(['category_id' => $cat])
-            ->orWhere(['category_id' => $id])
-            ->all();
-        $res = [];
-        foreach ($products as $product) {
-            $res[] = $product;
-        }
-        if (count($res) > 0) {
-            return count($res);
+        $subCategories = Category::find()->select('id')->where(['parentId' => $id])->column();
+        $allCategories = Category::find()->select('id')->where(['id' => $subCategories])->column();
+        $allCategories[] = $id;
 
-        } else {
-            return 0;
-        }
+        $productCount = Product::find()->where(['category_id' => $allCategories])->count();
+
+        return $productCount;
     }
 
     public function getCategoryChildFilter($id)
