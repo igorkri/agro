@@ -105,66 +105,27 @@ class Brand extends \yii\db\ActiveRecord
 
     public function getProductOrderBrand($id)
     {
-        $products = Product::find()->where(['brand_id' => $id])->all();
-        $total_res = [];
-        $total_order_brand = [];
-        $i = 0;
-        foreach ($products as $product) {
-            $total_res[] = $product->id;
-        }
-        foreach ($total_res as $total_order) {
-            $order_count = OrderItem::find()->where(['product_id' => $total_res[$i]])->all();
-            if ($order_count != null)
-                foreach ($order_count as $item) {
-                    $total_order_brand[] = $item->quantity;
-                }
-            $i++;
-        }
-        return array_sum($total_order_brand);
+        $totalOrderQuantity = OrderItem::find()
+            ->joinWith('product')
+            ->where(['product.brand_id' => $id])
+            ->sum('quantity');
+
+        return $totalOrderQuantity;
     }
 
     public function getIncomeOrderBrand($id)
     {
-        $orders_id = Order::find()
-            ->select('id')
-            ->where(['order_pay_ment_id' => 3])
-            ->asArray()
-            ->all();
+        $orderIds = Order::find()->select('id')->where(['order_pay_ment_id' => 3])->column();
 
-        $orders_id = array_map(function ($item) {
-            return $item['id'];
-        }, $orders_id);
+        $totalIncome = OrderItem::find()
+            ->select(['SUM(order_item.price * order_item.quantity)'])
+            ->leftJoin('product', 'order_item.product_id = product.id')
+            ->where(['order_item.order_id' => $orderIds])
+            ->andWhere(['product.brand_id' => $id])
+            ->scalar();
 
-        $product_id = OrderItem::find()
-            ->select('product_id')
-            ->where(['order_id' => $orders_id])
-            ->asArray()
-            ->all();
-
-        $product_id = array_map(function ($item) {
-            return $item['product_id'];
-        }, $product_id);
-
-        $products = Product::find()
-            ->select('id')
-            ->where(['id' => $product_id])
-            ->andWhere(['brand_id' => $id])
-            ->asArray()
-            ->all();
-
-        $products = array_map(function ($item) {
-            return $item['id'];
-        }, $products);
-
-        $total_income_brand = [];
-
-        $income_count = OrderItem::find()->where(['product_id' => $products])->all();
-
-        if ($income_count != null) {
-            foreach ($income_count as $item) {
-                $total_income_brand[] = $item->price * $item->quantity;
-            }
-        }
-        return array_sum($total_income_brand);
+        return $totalIncome;
     }
+
+
 }
