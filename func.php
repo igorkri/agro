@@ -1,7 +1,10 @@
 <?php
+
+use yii\helpers\VarDumper;
+
 function debug_vd($arr)
 {
-    \yii\helpers\VarDumper::dump($arr, 10, true);
+    VarDumper::dump($arr, 10, true);
 }
 
 function debug_pr($arr)

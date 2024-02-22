@@ -1,3 +1,8 @@
+<?php
+
+/** @var \common\models\shop\Brand $brands */
+
+?>
 <div class="block block-brands">
     <div class="container">
         <div class="block-brands__slider">
