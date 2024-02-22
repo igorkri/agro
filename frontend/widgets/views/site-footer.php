@@ -42,43 +42,43 @@ use yii\helpers\Url;
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
                                 <div class="site-footer__widget footer-links">
-                                    <h5 class="footer-links__title">Інформація</h5>
+                                    <h4 class="footer-links__title">Інформація</h4>
                                     <ul class="footer-links__list">
                                         <li class="footer-links__item"><a href="<?= Url::to(['/about/view']) ?>"
                                                                           class="footer-links__link">Про нас</a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
                                                                           class="footer-links__link">Про доставку</a>
                                         </li>
-                                        <li class="footer-links__item"><a href="/"
-                                                                          class="footer-links__link">Конфіденційність</a>
-                                        </li>
-                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Бренди</a>
-                                        </li>
+<!--                                        <li class="footer-links__item"><a href="/"-->
+<!--                                                                          class="footer-links__link">Конфіденційність</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Бренди</a>-->
+<!--                                        </li>-->
                                         <li class="footer-links__item"><a href="<?= Url::to(['/contact/view']) ?>"
                                                                           class="footer-links__link">Контакти</a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/order/conditions']) ?>"
                                                                           class="footer-links__link">Повернення</a>
                                         </li>
-                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Карта
-                                                сайту</a>
-                                        </li>
+<!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Карта-->
+<!--                                                сайту</a>-->
+<!--                                        </li>-->
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
                                 <div class="site-footer__widget footer-links">
-                                    <h5 class="footer-links__title">Товари</h5>
+                                    <h4 class="footer-links__title">Товари</h4>
                                     <ul class="footer-links__list">
-                                        <li class="footer-links__item"><a href="/"
-                                                                          class="footer-links__link">Розпродаж</a>
-                                        </li>
-                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Нові
-                                                надходження</a></li>
-                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Лідери
-                                                продажу</a>
-                                        </li>
-                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Популярні
-                                                Категорії</a></li>
+<!--                                        <li class="footer-links__item"><a href="/"-->
+<!--                                                                          class="footer-links__link">Розпродаж</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Нові-->
+<!--                                                надходження</a></li>-->
+<!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Лідери-->
+<!--                                                продажу</a>-->
+<!--                                        </li>-->
+<!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Популярні-->
+<!--                                                Категорії</a></li>-->
                                         <li class="footer-links__item"><a href="<?= Url::to(['/category/list']) ?>"
                                                                           class="footer-links__link">Каталог</a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/special/view']) ?>"
@@ -89,65 +89,65 @@ use yii\helpers\Url;
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-12 col-lg-4">
-                                <div class="site-footer__widget footer-newsletter">
-                                    <h5 class="footer-newsletter__title">Новини</h5>
-                                    <div class="footer-newsletter__text">
-                                        Підпишіться на нашу розсилку новин.
-                                    </div>
-                                    <form action="" class="footer-newsletter__form">
-                                        <label class="sr-only" for="footer-newsletter-address">Електронна
-                                            адреса...</label>
-                                        <input type="text" class="footer-newsletter__form-input form-control"
-                                               id="footer-newsletter-address" placeholder="Електронна адреса...">
-                                        <button class="footer-newsletter__form-button btn btn-primary">Підписатись
-                                        </button>
-                                    </form>
-                                    <div class="footer-newsletter__text footer-newsletter__text--social">
-                                        Соціальні мережі
-                                    </div>
-                                    <div class="social-links footer-newsletter__social-links social-links--shape--circle">
-                                        <ul class="social-links__list">
-                                            <li class="social-links__item">
-                                                <a class="social-links__link social-links__link--type--rss" href="/"
-                                                   target="_blank">
-                                                    <span class="sr-only">Офіційна сторінка RSS</span>
-                                                    <i class="fas fa-rss" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="social-links__item">
-                                                <a class="social-links__link social-links__link--type--youtube" href="/"
-                                                   target="_blank">
-                                                    <span class="sr-only">Офіційна сторінка Youtube</span>
-                                                    <i class="fab fa-youtube" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="social-links__item">
-                                                <a class="social-links__link social-links__link--type--facebook"
-                                                   href="/"
-                                                   target="_blank">
-                                                    <span class="sr-only">Офіційна сторінка Facebook</span>
-                                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="social-links__item">
-                                                <a class="social-links__link social-links__link--type--twitter" href="/"
-                                                   target="_blank">
-                                                    <span class="sr-only">Офіційна сторінка Twitter</span>
-                                                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="social-links__item">
-                                                <a class="social-links__link social-links__link--type--instagram"
-                                                   href="/" target="_blank">
-                                                    <span class="sr-only">Офіційна сторінка Instagram</span>
-                                                    <i class="fab fa-instagram" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="col-12 col-md-12 col-lg-4">-->
+<!--                                <div class="site-footer__widget footer-newsletter">-->
+<!--                                    <h5 class="footer-newsletter__title">Новини</h5>-->
+<!--                                    <div class="footer-newsletter__text">-->
+<!--                                        Підпишіться на нашу розсилку новин.-->
+<!--                                    </div>-->
+<!--                                    <form action="" class="footer-newsletter__form">-->
+<!--                                        <label class="sr-only" for="footer-newsletter-address">Електронна-->
+<!--                                            адреса...</label>-->
+<!--                                        <input type="text" class="footer-newsletter__form-input form-control"-->
+<!--                                               id="footer-newsletter-address" placeholder="Електронна адреса...">-->
+<!--                                        <button class="footer-newsletter__form-button btn btn-primary">Підписатись-->
+<!--                                        </button>-->
+<!--                                    </form>-->
+<!--                                    <div class="footer-newsletter__text footer-newsletter__text--social">-->
+<!--                                        Соціальні мережі-->
+<!--                                    </div>-->
+<!--                                    <div class="social-links footer-newsletter__social-links social-links--shape--circle">-->
+<!--                                        <ul class="social-links__list">-->
+<!--                                            <li class="social-links__item">-->
+<!--                                                <a class="social-links__link social-links__link--type--rss" href="/"-->
+<!--                                                   target="_blank">-->
+<!--                                                    <span class="sr-only">Офіційна сторінка RSS</span>-->
+<!--                                                    <i class="fas fa-rss" aria-hidden="true"></i>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                            <li class="social-links__item">-->
+<!--                                                <a class="social-links__link social-links__link--type--youtube" href="/"-->
+<!--                                                   target="_blank">-->
+<!--                                                    <span class="sr-only">Офіційна сторінка Youtube</span>-->
+<!--                                                    <i class="fab fa-youtube" aria-hidden="true"></i>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                            <li class="social-links__item">-->
+<!--                                                <a class="social-links__link social-links__link--type--facebook"-->
+<!--                                                   href="/"-->
+<!--                                                   target="_blank">-->
+<!--                                                    <span class="sr-only">Офіційна сторінка Facebook</span>-->
+<!--                                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                            <li class="social-links__item">-->
+<!--                                                <a class="social-links__link social-links__link--type--twitter" href="/"-->
+<!--                                                   target="_blank">-->
+<!--                                                    <span class="sr-only">Офіційна сторінка Twitter</span>-->
+<!--                                                    <i class="fab fa-twitter" aria-hidden="true"></i>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                            <li class="social-links__item">-->
+<!--                                                <a class="social-links__link social-links__link--type--instagram"-->
+<!--                                                   href="/" target="_blank">-->
+<!--                                                    <span class="sr-only">Офіційна сторінка Instagram</span>-->
+<!--                                                    <i class="fab fa-instagram" aria-hidden="true"></i>-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     </div>
                     <div class="site-footer__bottom">
