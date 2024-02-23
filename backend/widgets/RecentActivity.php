@@ -16,27 +16,36 @@ class RecentActivity extends \yii\base\Widget
 
     public function run()
     {
-        $result = [];
-        $uniqueUrls = [];
-
-        $pages = ActivePages::find()->where(['like', 'url_page', '/product/'])->all();
+        $url = [];
+        $pages = ActivePages::find()->all();
 
         foreach ($pages as $page) {
-            $url = $page->url_page;
-            $date = $page->date_visit;
+            $url[] = [
+                'url' => $page->url_page,
+                'date' => $page->date_visit,
+            ];
+        }
 
-            if (!in_array($url, $uniqueUrls)) {
-                $uniqueUrls[] = $url;
-                $result[] = [
-                    'url' => str_replace('/product/', '', $url),
-                    'date' => $date,
-                ];
-            } else {
-                $existingIndex = array_search($url, array_column($result, 'url'));
-                if ($date > $result[$existingIndex]['date']) {
-                    $result[$existingIndex]['date'] = $date;
+        $uniqueUrls = [];
+        $result = [];
+        foreach ($url as $item) {
+            $url = $item['url'];
+            $date = $item['date'];
+            if (strpos($url, '/product/') !== false) {
+                if (in_array($url, $uniqueUrls)) {
+                    $existingIndex = array_search($url, $uniqueUrls);
+                    if ($date > $result[$existingIndex]['date']) {
+                        $result[$existingIndex] = $item;
+                    }
+                } else {
+                    $uniqueUrls[] = $url;
+                    $result[] = $item;
                 }
             }
+        }
+        foreach ($result as $key => $item) {
+            $updatedUrl = str_replace('/product/', '', $item['url']);
+            $result[$key]['url'] = $updatedUrl;
         }
 
         ArrayHelper::multisort($result, ['date'], [SORT_DESC]);
