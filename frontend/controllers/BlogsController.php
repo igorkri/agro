@@ -34,7 +34,6 @@ class BlogsController extends Controller
             ];
             $blogPosting[] = $blogPost;
         }
-
         $schemaBlog = Schema::Blog()
         ->blogPosts($blogPosting);
         Yii::$app->params['blog'] = $schemaBlog->toScript();
