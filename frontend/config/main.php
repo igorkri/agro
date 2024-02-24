@@ -15,6 +15,7 @@ return [
     'layout' => 'shop',
     'name' => 'AgroPro',
     'language' => 'uk-UA',
+    'timeZone' => 'Europe/Kiev',
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/site',
     'components' => [
