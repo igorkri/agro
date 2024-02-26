@@ -1,31 +1,21 @@
 <?php
 
-use bizley\quill\Quill;
 use common\models\shop\Category;
 use kartik\file\FileInput;
 use kartik\form\ActiveForm;
 use kartik\select2\Select2;
+use vova07\imperavi\Widget;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 
 /** @var yii\web\View $this */
 /** @var common\models\shop\Category $model */
 /** @var ActiveForm $form */
 ?>
 
-<?php $form = ActiveForm::begin([
-//     'enableClientValidation' => true,
-//     'enableAjaxValidation'   => true,
-    // 'id' => 'form-view-modal',
-//    'fieldConfig' => [
-//        'options' => [
-//            'tag' => false,
-//        ]
-//    ]
-]); ?>
+<?php $form = ActiveForm::begin(); ?>
 
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
@@ -83,59 +73,20 @@ use yii\helpers\Url;
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <?= $form->field($model, 'description')->widget(Quill::class, [
-                                        'toolbarOptions' => [
-                                            [
-                                                ['font' => []],
-                                                [
-                                                    'size' => [
-                                                        'small',
-                                                        false,
-                                                        'large',
-                                                        'huge',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                'bold',
-                                                'italic',
-                                                'underline',
-                                                'strike',
-                                            ],
-                                            [
-                                                ['color' => []],
-                                                ['background' => []],
-                                            ],
-                                            [
-                                                ['script' => 'sub'],
-                                                ['script' => 'super'],
-                                            ],
-                                            [
-                                                ['header' => 1],
-                                                ['header' => 2],
-                                                'blockquote',
-                                                'code-block',
-                                            ],
-                                            [
-                                                ['list' => 'ordered'],
-                                                ['list' => 'bullet'],
-                                                ['indent' => '-1'],
-                                                ['indent' => '+1'],
-                                            ],
-                                            [
-                                                ['direction' => 'rtl'],
-                                                ['align' => []],
-                                            ],
-                                            [
-                                                'link',
-                                                'image',
-                                                'video',
-                                            ],
-                                            [
-                                                'clean',
+                                    <?= $form->field($model, 'description')->widget(Widget::class, [
+                                        'defaultSettings' => [
+                                            'style' => 'position: unset;'
+                                        ],
+                                        'settings' => [
+                                            'lang' => 'uk',
+                                            'minHeight' => 100,
+                                            'plugins' => [
+                                                'fullscreen',
+                                                'table',
+                                                'fontcolor',
                                             ],
                                         ],
-                                    ])->label(Yii::t('app', 'Description')) ?>
+                                    ]); ?>
                                 </div>
                             </div>
                         </div>

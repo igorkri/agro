@@ -1,10 +1,10 @@
 <?php
 
 use bizley\quill\Quill;
-use common\models\shop\AuxiliaryCategories;
 use common\models\shop\Category;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
+use vova07\imperavi\Widget;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -15,16 +15,7 @@ use yii\widgets\ActiveForm;
 /** @var common\models\shop\AuxiliaryCategories $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-<?php $form = ActiveForm::begin([
-//     'enableClientValidation' => true,
-//     'enableAjaxValidation'   => true,
-    // 'id' => 'form-view-modal',
-//    'fieldConfig' => [
-//        'options' => [
-//            'tag' => false,
-//        ]
-//    ]
-]); ?>
+<?php $form = ActiveForm::begin(); ?>
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container container--max--xl">
@@ -83,72 +74,34 @@ use yii\widgets\ActiveForm;
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <?= $form->field($model, 'description')->widget(Quill::class, [
-                                        'toolbarOptions' => [
-                                            [
-                                                ['font' => []],
-                                                [
-                                                    'size' => [
-                                                        'small',
-                                                        false,
-                                                        'large',
-                                                        'huge',
-                                                    ],
-                                                ],
-                                            ],
-                                            [
-                                                'bold',
-                                                'italic',
-                                                'underline',
-                                                'strike',
-                                            ],
-                                            [
-                                                ['color' => []],
-                                                ['background' => []],
-                                            ],
-                                            [
-                                                ['script' => 'sub'],
-                                                ['script' => 'super'],
-                                            ],
-                                            [
-                                                ['header' => 1],
-                                                ['header' => 2],
-                                                'blockquote',
-                                                'code-block',
-                                            ],
-                                            [
-                                                ['list' => 'ordered'],
-                                                ['list' => 'bullet'],
-                                                ['indent' => '-1'],
-                                                ['indent' => '+1'],
-                                            ],
-                                            [
-                                                ['direction' => 'rtl'],
-                                                ['align' => []],
-                                            ],
-                                            [
-                                                'link',
-                                                'image',
-                                                'video',
-                                            ],
-                                            [
-                                                'clean',
+                                    <?= $form->field($model, 'description')->widget(Widget::class, [
+                                        'defaultSettings' => [
+                                            'style' => 'position: unset;'
+                                        ],
+                                        'settings' => [
+                                            'lang' => 'uk',
+                                            'minHeight' => 100,
+                                            'buttonSource' => true,
+                                            'plugins' => [
+                                                'fullscreen',
+                                                'table',
+                                                'fontcolor',
                                             ],
                                         ],
-                                    ])->label(Yii::t('app', 'Description')) ?>
+                                    ]); ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mt-5">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18"><?= Yii::t('app', 'SVG for menu') ?></h2></span>
-                                </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'svg')->textInput(['maxlength' => true])->label(Yii::t('app', 'SVG')) ?>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="card mt-5">-->
+<!--                            <div class="card-body p-5">-->
+<!--                                <div class="mb-5">-->
+<!--                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2 class="mb-0 fs-exact-18">--><?//= Yii::t('app', 'SVG for menu') ?><!--</h2></span>-->
+<!--                                </div>-->
+<!--                                <div class="mb-4">-->
+<!--                                    --><?php //echo $form->field($model, 'svg')->textInput(['maxlength' => true])->label(Yii::t('app', 'SVG')) ?>
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="card mt-5">
                             <div class="card-body p-5">
                                 <div class="mb-5">
