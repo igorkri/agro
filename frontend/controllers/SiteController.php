@@ -394,4 +394,23 @@ class SiteController extends Controller
 
         return $xml_array;
     }
+
+    //Продукты сайта. Выводит в виде XML файла.
+    public function actionSiteProductsMerchant()
+    {
+        $products = Product::find()
+            ->with('images', 'brand', 'category')
+            ->all();
+
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('site-products-merchant', [
+            'products' => $products
+        ]);
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+
+        return $xml_array;
+    }
 }

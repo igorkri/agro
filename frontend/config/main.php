@@ -79,6 +79,11 @@ return [
                     'route' => 'site/sitemap',
                     'suffix' => '.xml'
                 ],
+                [
+                    'pattern' => 'site-products-merchant',
+                    'route' => 'site/site-products-merchant',
+                    'suffix' => '.xml'
+                ],
             ],
         ],
     ],
