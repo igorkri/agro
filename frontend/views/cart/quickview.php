@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
-$min_order = 50;  //минимальная сумма заказа
+$min_order = 5;  //минимальная сумма заказа
 
 if ($total_summ === 0) {
     $h = 'Ваш кошик порожній';

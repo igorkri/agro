@@ -5,7 +5,7 @@ use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
-$min_order = 50;  //минимальная сумма заказа
+$min_order = 5;  //минимальная сумма заказа
 
 ?>
 
