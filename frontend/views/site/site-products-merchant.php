@@ -1,6 +1,9 @@
 <?php
 
 use common\models\shop\ActivePages;
+use common\models\shop\Product;
+
+/** @var Product $products */
 
 ActivePages::setActiveUser();
 
@@ -23,18 +26,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                         <![CDATA[<?= $product->short_description ?>]]>
                 </g:description>
                 <g:price><?= $product->price ?> UAH</g:price>
-
-                <?php if (!empty($product->images)) : ?>
-                    <g:image_link><?= Yii::$app->request->hostInfo . '/product/' . $product->images[0]->name ?></g:image_link>
-                    <?php $i = 1;
-                    foreach ($product->images as $image) : ?>
-                        <?php if ($i > 1): ?>
-                            <g:additional_image_link><?= Yii::$app->request->hostInfo . '/product/' . $image->name ?></g:additional_image_link>
-                        <?php endif; ?>
-                        <?php $i++; endforeach; ?>
-                <?php else: ?>
-                    <g:image_link><?= Yii::$app->request->hostInfo . '/images/no-image.png' ?></g:image_link>
-                <?php endif; ?>
+                <g:image_link><?= $product->getImgOne($product->id) ?></g:image_link>
                 <?php if (isset($product->brand->name)) : ?>
                     <g:brand><?= $product->brand->name ?></g:brand>
                 <?php endif; ?>
