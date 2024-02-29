@@ -80,19 +80,19 @@ class OrderController extends Controller
                 'parse_mode' => 'Markdown',
             ]);
 
-            Yii::$app->mailer->compose()
-                ->setTo(['mikitenko@i.ua', 'mikitenkoivan361@gmail.com'])
-                ->setFrom('jean1524@s6.uahosting.com.ua')
-                ->setSubject('Нове замовлення на AgroPro.org.ua !!!')
-                ->setHtmlBody('<h3>Нове замовлення: #' . $order->id . '</h3>' .
-                    '<p>піб: '      . $order->fio . '</p>' .
-                    '<p>телефон: '  . $order->phone . '</p>' .
-                    '<p>область: '  . $order->getNameArea($order->area) . '</p>' .
-                    '<p>місто: '    . $order->getNameCity($order->city) . '</p>' .
-                    '<p>відділ.: '  . $order->getNameWarehouse($order->warehouses) . '</p>' .
-                    '<p>коментар: ' . $order->note . '</p>'
-                )
-                ->send();
+//            Yii::$app->mailer->compose()
+//                ->setTo(['mikitenko@i.ua', 'mikitenkoivan361@gmail.com'])
+//                ->setFrom('jean1524@s6.uahosting.com.ua')
+//                ->setSubject('Нове замовлення на AgroPro.org.ua !!!')
+//                ->setHtmlBody('<h3>Нове замовлення: #' . $order->id . '</h3>' .
+//                    '<p>піб: '      . $order->fio . '</p>' .
+//                    '<p>телефон: '  . $order->phone . '</p>' .
+//                    '<p>область: '  . $order->getNameArea($order->area) . '</p>' .
+//                    '<p>місто: '    . $order->getNameCity($order->city) . '</p>' .
+//                    '<p>відділ.: '  . $order->getNameWarehouse($order->warehouses) . '</p>' .
+//                    '<p>коментар: ' . $order->note . '</p>'
+//                )
+//                ->send();
             $order->sent_message = true;
             $order->save();
         } else {
