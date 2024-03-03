@@ -58,7 +58,7 @@ class ProductController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->search();
         $currency = Settings::currencyRate();
 
         return $this->render('index', [

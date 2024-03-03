@@ -1,11 +1,8 @@
 <?php
 
-use common\models\shop\Product;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\ProductSearch $searchModel */
@@ -27,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'label' => Yii::t('app', 'Home'),
                                     'url' => Yii::$app->homeUrl,
                                 ],
-                                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                'links' => $this->params['breadcrumbs'] ?? [],
                             ]);
                             ?>
                         </ol>
@@ -70,6 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </button>
                             </div>
                             <div class="col">
+                                <label for="table-search"></label>
                                 <input
                                         type="text"
                                         placeholder="<?= Yii::t('app', 'Start typing to search for products') ?>"
@@ -112,7 +110,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 <?php $images = $model->images;
                                                 $priorities = array_column($images, 'priority');
-                                                array_multisort($priorities, SORT_ASC, $images); ?>
+                                                array_multisort($priorities, SORT_ASC, $images);
+                                                ?>
 
                                                 <?php if (isset($images[0])): ?>
                                                     <img src="<?= Yii::$app->request->hostInfo . '/product/' . $images[0]->extra_small ?>"
