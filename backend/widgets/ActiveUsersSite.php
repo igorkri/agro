@@ -17,6 +17,7 @@ class ActiveUsersSite extends Widget
     public function run()
     {
         $users = ActivePages::find()
+            ->select('date_visit')
             ->orderBy(['date_visit' => SORT_ASC])
             ->all();
 
