@@ -1,5 +1,6 @@
 <?php
-//exit('<pre>'.print_r($resultArray,true).'</pre>');
+
+/** @var \common\models\shop\ActivePages $resultArray  */
 
 ?>
 
