@@ -1,6 +1,7 @@
 <?php
 
 use backend\widgets\ActiveUsers;
+use backend\widgets\ActiveUsersSite;
 use backend\widgets\AverageOrder;
 use backend\widgets\BrandOrders;
 use backend\widgets\IncomeStatistics;
@@ -53,4 +54,8 @@ use backend\widgets\UserDevice;
     <!-- Brand orders -->
     <?php echo UserDevice::widget() ?>
     <!-- End Brand orders -->
+
+    <!-- Income statistics -->
+    <?php echo ActiveUsersSite::widget() ?>
+    <!-- End Income statistics -->
 </div>

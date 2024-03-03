@@ -2,10 +2,10 @@
 
 namespace backend\widgets;
 
-use common\models\shop\Order;
+use common\models\shop\ActivePages;
 use yii\base\Widget;
 
-class IncomeStatistics extends Widget
+class ActiveUsersSite extends Widget
 {
     public function init()
     {
@@ -16,18 +16,17 @@ class IncomeStatistics extends Widget
 
     public function run()
     {
-        $orders = Order::find()
-            ->where(['order_pay_ment_id' => 3])
+        $users = ActivePages::find()
+            ->orderBy(['date_visit' => SORT_ASC])
             ->all();
 
         $carts = [];
-        foreach ($orders as $order) {
+        foreach ($users as $user) {
             $carts[] = [
-                "label" => date('M', $order->created_at),
-                "value" => $order->getOrderIncomeTotal($order->id),
+                "label" => date('M', $user->date_visit),
+                "value" => 1,
             ];
         }
-
         $resultArray = [];
         foreach ($carts as $item) {
             $label = $item['label'];
@@ -44,7 +43,7 @@ class IncomeStatistics extends Widget
         }
         $resultArray = array_values($resultArray);
 
-        return $this->render('income-statistics', ['resultArray' => json_encode($resultArray)]);
+        return $this->render('active-users-site', ['resultArray' => json_encode($resultArray)]);
     }
 
 }
