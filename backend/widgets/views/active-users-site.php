@@ -1,11 +1,13 @@
 <?php
 //exit('<pre>'.print_r($resultArray,true).'</pre>');
+
 ?>
 
 <div class="col-12 col-lg-8 col-xxl-9 d-flex">
     <div
         class="card flex-grow-1 saw-chart"
         data-sa-data='<?= $resultArray ?>'
+        data-sumb-data='🏃'
     >
         <div class="sa-widget-header saw-chart__header">
             <h2 class="sa-widget-header__title">Активність на сайті</h2>

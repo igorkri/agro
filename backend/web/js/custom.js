@@ -230,6 +230,7 @@
     (function() {
         $('.saw-chart[data-sa-data]').each(function() {
             const data = $(this).data('sa-data');
+            const sumb = $(this).data('sumb-data');
             const labels = data.map(function(item) { return item.label; });
             const values = data.map(function(item) { return item.value; });
             const canvas = $(this).find('canvas')[0];
@@ -264,7 +265,11 @@
                                 fontSize: 13,
                                 fontColor: '#828f99',
                                 callback: function (value) {
+                                   if (sumb){
+                                       return sumb + ' ' + value;
+                                   }else {
                                     return '₴ ' + value;
+                                   }
                                 },
                             },
                             gridLines: {
