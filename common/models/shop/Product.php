@@ -237,7 +237,7 @@ class Product extends ActiveRecord implements CartPositionInterface
 
     public function getReviews()
     {
-        return $this->hasMany(Review::class, ['product_id' => 'id']);
+        return $this->hasMany(Review::class, ['product_id' => 'id'])->orderBy(['created_at' => SORT_ASC]);
     }
 
     public function getPrice()
