@@ -7,6 +7,7 @@ use common\models\shop\ProductTag;
 use common\models\shop\Product;
 use common\models\shop\Tag;
 use common\models\Posts;
+use yii\data\Pagination;
 use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\Response;
@@ -17,7 +18,6 @@ class SearchController extends Controller
 
     public function actionSuggestions($q = null)
     {
-        $products = [];
         if ($q) {
             $pr_tags = Tag::find()->where(['like', 'name', $q])->asArray()->all();
             $id_tag = [];
@@ -37,23 +37,35 @@ class SearchController extends Controller
             foreach ($sku_products as $product) {
                 $id_prod[] = $product['id'];
             }
-
+        }
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
             $products = Product::find()
                 ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku', 'category_id'])
                 ->where(['like', 'name', $q])
                 ->orFilterWhere(['in', 'id', $id_prod])
-                ->limit(20)
+                ->limit(15)
                 ->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')])
                 ->all();
-        }
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+
             return $this->renderAjax('suggestions', [
                 'products' => $products
             ]);
         }
+        $query = Product::find()
+            ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku', 'category_id'])
+            ->where(['like', 'name', $q])
+            ->orFilterWhere(['in', 'id', $id_prod])
+            ->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
+
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 12]);
+        $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $products_all = $query->count();
+
         return $this->render('/search/suggestions-list', [
-            'products' => $products
+            'products' => $products,
+            'pages' => $pages,
+            'products_all' => $products_all,
         ]);
     }
 

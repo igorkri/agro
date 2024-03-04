@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
 ?>
@@ -20,7 +21,7 @@ use yii\helpers\Url;
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1>Знайдено <?php echo count($products) ?> товарів за пошуковим запитом "<?=Yii::$app->request->get('q')?>"</h1>
+                <h1>Знайдено <?php echo $products_all ?> товарів за пошуковим запитом "<?=Yii::$app->request->get('q')?>"</h1>
             </div>
         </div>
     </div>
@@ -31,7 +32,7 @@ use yii\helpers\Url;
                     <div class="products-view">
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
-                                <div class="view-options__legend">Знайдено <?php echo count($products) ?> товарів</div>
+                                <div class="view-options__legend">Знайдено <?php echo $products_all ?> товарів</div>
                                 <div class="view-options__divider"></div>
                             </div>
                         </div>
@@ -91,6 +92,13 @@ use yii\helpers\Url;
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                        </div>
+                        <div style="display: block;margin: 60px 0px 0px 0px;">
+                            <ul class="pagination justify-content-center">
+                                <li>
+                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

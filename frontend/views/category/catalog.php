@@ -1,5 +1,6 @@
 <?php
 
+use common\models\shop\AuxiliaryCategories;
 use common\models\shop\ActivePages;
 use common\models\shop\Product;
 use yii\bootstrap5\LinkPager;
@@ -9,11 +10,11 @@ use yii\web\View;
 
 ActivePages::setActiveUser();
 
-/** @var \common\models\shop\Product $products */
-/** @var \common\models\shop\Product $pages */
-/** @var \common\models\shop\Product $products_all */
-/** @var \common\models\shop\Product $propertiesFilter */
-/** @var \common\models\shop\AuxiliaryCategories $auxiliaryCategories */
+/** @var Product $products */
+/** @var Product $pages */
+/** @var Product $products_all */
+/** @var Product $propertiesFilter */
+/** @var AuxiliaryCategories $auxiliaryCategories */
 
 ?>
     <div class="site__body">
