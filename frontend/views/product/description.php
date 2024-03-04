@@ -4,7 +4,10 @@ use common\models\shop\Product;
 use kartik\rating\StarRating;
 use yii\helpers\Url;
 
-/** @var \common\models\shop\Product $product */
+/** @var Product $product */
+/** @var Product $products_analog_count */
+/** @var Product $products_analog */
+/** @var common\models\shop\ProductProperties $product_properties */
 
 $request = Yii::$app->request;
 $currentUrl = $request->absoluteUrl;
@@ -29,7 +32,7 @@ $rating = 3;
             <div class="product-tabs__content">
                 <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
                     <div class="typography" id="product-description">
-                        <h3 class="spec__header"><?= 'Опис товару' . ' ' . $product->name ?></h3>
+                        <h2 class="spec__header"><?= 'Опис, інструкція товару' . ' ' . $product->name ?></h2>
                         <div class="short-description"><?= $product->short_description ?></div>
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
@@ -42,7 +45,7 @@ $rating = 3;
                 </div>
                 <div class="product-tabs__pane" id="tab-analog">
                     <div class="spec">
-                        <h3 class="spec__header"><?= 'Аналог товару' . ' ' . $product->name ?></h3>
+                        <h2 class="spec__header"><?= 'Аналог товару' . ' ' . $product->name ?></h2>
                         <?php if ($products_analog) { ?>
                             <div class="block-sidebar__item">
                                 <div class="widget">
@@ -252,7 +255,7 @@ $rating = 3;
                 </div>
                 <div class="product-tabs__pane" id="tab-specification">
                     <div class="spec">
-                        <h3 class="spec__header"><?= 'Характеристики' . ' ' . $product->name ?></h3>
+                        <h2 class="spec__header"><?= 'Характеристики' . ' ' . $product->name ?></h2>
                         <div class="spec__section">
                             <h4 class="spec__section-title">Загальні</h4>
                             <?php if ($product_properties != null) { ?>
@@ -289,7 +292,14 @@ $rating = 3;
                     <div class="reviews-view">
                         <div class="reviews-view__list">
                             <?php if ($product->reviews): ?>
-                            <h3 class="reviews-view__header">Відгуки покупців</h3>
+                                <?php if ($product->category->prefix) { ?>
+                                    <h2 class="reviews-view__header">Відгуки про
+                                        <?= $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                        <?= $product->name ?>
+                                    </h2>
+                                <?php } else { ?>
+                                    <h2 class="reviews-view__header"><?= $product->name ?></h2>
+                                <?php } ?>
                             <?php endif; ?>
                             <div class="reviews-list">
                                 <ol class="reviews-list__content">
