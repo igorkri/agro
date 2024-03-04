@@ -125,6 +125,26 @@ $webp_support = ProductImage::imageWebp();
                             <hr>
                         </div>
                         <div class="product__info">
+                            <div class="product__wishlist-compare">
+                                <button type="button"
+                                        class="btn btn-sm btn-light btn-svg-icon"
+                                        aria-label="add wish list"
+                                        id="add-from-wish-btn"
+                                        data-wish-product-id="<?= $product->id ?>">
+                                    <svg width="16px" height="16px">
+                                        <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                    </svg>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-light btn-svg-icon"
+                                        aria-label="add compare list"
+                                        id="add-from-compare-btn"
+                                        data-compare-product-id="<?= $product->id ?>">
+                                    <svg width="16px" height="16px">
+                                        <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                    </svg>
+                                </button>
+                            </div>
                             <?php if ($product->category->prefix) { ?>
                                 <h1 class="product__name">
                                     <?= $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
@@ -168,16 +188,103 @@ $webp_support = ProductImage::imageWebp();
                             </div>
                         </div>
                         <div class="product__sidebar">
-                            <div class="payment-methods">
-                                <div>
-                                    <?php if ($product->brand_id != null): ?>
-                                        <img src="/brand/<?= $img_brand->file ?>"
-                                             width="330" height="78"
-                                             alt="<?= $img_brand->name ?>"
-                                             loading="lazy"
-                                             style="width: 100%;padding: 0 0 5px 0;">
-                                    <?php endif; ?>
+                            <div class="product__availability">
+                                <span class="text-success" style="font-size: 1.5rem; font-weight: 600; margin-left: 7px">
+                                <?php
+                                $statusIcon = '';
+                                $statusStyle = '';
+
+                                switch ($product->status_id) {
+                                    case 1:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
+                                        $statusStyle = '';
+                                        break;
+                                    case 2:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
+                                        $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                    case 3:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
+                                        $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                    case 4:
+                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
+                                        $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                    default:
+                                        $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
+                                        break;
+                                }
+
+                                echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
+                                ?>
+                                </span>
+                            </div>
+                            <div class="product__prices" style="margin-left: 14px">
+                                <?php $price = Yii::$app->formatter->asCurrency($product->getPrice()) ?>
+                                <?php if ($product->old_price == null) { ?>
+                                    <div class="product-card__prices">
+                                        <?= $price ?>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="product-card__prices">
+                                        <span class="product-card__new-price"><?= $price ?></span>
+                                        <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <div class="product__options">
+                                <div class="form-group product__option">
+                                    <div class="product__actions">
+                                        <div class="product__actions-item product__actions-item--addtocart">
+                                            <?php if ($product->status_id != 2) { ?>
+                                                <button class="btn btn-primary btn-lg product-card__addtocart"
+                                                        aria-label="В кошик"
+                                                        type="button"
+                                                        data-product-id="<?= $product->id ?>">
+                                                    <svg width="20px" height="20px" style="display: unset;">
+                                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                                    </svg>
+                                                    <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
+                                                </button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-primary disabled"
+                                                        type="button"
+                                                        data-product-id="">
+                                                    <svg width="20px" height="20px" style="display: unset;">
+                                                        <use xlink:href="/images/sprite.svg#cart-20"></use>
+                                                    </svg>
+                                                    <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+
+                                        <div class="product__actions-item product__actions-item--wishlist">
+                                        <button type="button"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                aria-label="add wish list"
+                                                id="add-from-wish-btn"
+                                                data-wish-product-id="<?= $product->id ?>">
+                                            <svg width="32px" height="32px">
+                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                            </svg>
+                                        </button>
+                                        </div>
+                                        <div class="product__actions-item product__actions-item--compare">
+                                        <button type="button"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                aria-label="add compare list"
+                                                id="add-from-compare-btn"
+                                                data-compare-product-id="<?= $product->id ?>">
+                                            <svg width="32px" height="32px">
+                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                            </svg>
+                                        </button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="payment-methods">
                                 <ul class="payment-methods__list">
                                     <li class="payment-methods__item payment-methods__item--active">
                                         <label class="payment-methods__item-header">
@@ -277,129 +384,17 @@ $webp_support = ProductImage::imageWebp();
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="product__footer">
-                            <div class="product__prices">
-                                <div class="form-group product__option">
-                                    <span style="font-size: 18px; font-weight: 100">Наявність: </span>
-                                    <span class="text-success" style="padding: 0 12px">
-        <?php
-        $statusIcon = '';
-        $statusStyle = '';
-
-        switch ($product->status_id) {
-            case 1:
-                $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
-                $statusStyle = '';
-                break;
-            case 2:
-                $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
-                $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
-                break;
-            case 3:
-                $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
-                $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
-                break;
-            case 4:
-                $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
-                $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
-                break;
-            default:
-                $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
-                break;
-        }
-
-        echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
-        ?>
-    </span>
+                                <?php if (!Yii::$app->devicedetect->isMobile()):?>
+                                <div>
+                                    <?php if ($product->brand_id != null): ?>
+                                        <img src="/brand/<?= $img_brand->file ?>"
+                                             width="330" height="54"
+                                             alt="<?= $img_brand->name ?>"
+                                             loading="lazy"
+                                             style="width: 100%; margin-top: 10px;">
+                                    <?php endif; ?>
                                 </div>
-                                <div class="product__actions">
-                                    <span style="margin: 0 0 0 30px;font-size: 18px;font-weight: 100">Ціна: </span>
-                                    <?php $price = Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                    <?php if ($product->old_price == null) { ?>
-                                        <div class="product-card__prices" style="margin: 0 19px;">
-                                            <?= $price ?>
-                                        </div>
-                                    <?php } else { ?>
-                                        <div class="product-card__prices" style="
-   margin: 0 19px;
-">
-                                            <span class="product-card__new-price"><?= $price ?></span>
-                                            <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                                <div style="
-                                padding: 0 0 10px 90px;
-                                ">
-                                    <?php if ($product->status_id != 2) { ?>
-                                        <button class="btn btn-primary product-card__addtocart"
-                                                aria-label="В кошик"
-                                                type="button"
-                                                data-product-id="<?= $product->id ?>"
-                                                style="margin-top: 4px;
-                                margin-left: 5px;
-                                margin-right: 10px;
-                                padding: 9px 39px;
-                                height: 47px;">
-                                            <svg width="20px" height="20px" style="display: unset;">
-                                                <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                            </svg>
-                                            <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
-                                        </button>
-                                        <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                                aria-label="add wish list"
-                                                id="add-from-wish-btn"
-                                                data-wish-product-id="<?= $product->id ?>">
-                                            <svg width="32px" height="32px">
-                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                            </svg>
-                                        </button>
-                                        <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                                aria-label="add compare list"
-                                                id="add-from-compare-btn"
-                                                data-compare-product-id="<?= $product->id ?>">
-                                            <svg width="32px" height="32px">
-                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                            </svg>
-                                        </button>
-                                    <?php } else { ?>
-                                        <button class="btn btn-primary disabled"
-                                                type="button"
-                                                data-product-id=""
-                                                style="margin-top: 4px;
-                                margin-left: 5px;
-                                margin-right: 10px;
-                                padding: 9px 39px;
-                                height: 47px;">
-                                            <svg width="20px" height="20px" style="display: unset;">
-                                                <use xlink:href="/images/sprite.svg#cart-20"></use>
-                                            </svg>
-                                            <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
-                                        </button>
-                                        <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                                aria-label="add wish list"
-                                                id="add-from-wish-btn"
-                                                data-wish-product-id="<?= $product->id ?>">
-                                            <svg width="32px" height="32px">
-                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                            </svg>
-                                        </button>
-                                        <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                                aria-label="add compare list"
-                                                id="add-from-compare-btn"
-                                                data-compare-product-id="<?= $product->id ?>">
-                                            <svg width="32px" height="32px">
-                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                            </svg>
-                                        </button>
-                                    <?php } ?>
-                                </div>
+                                <?php endif;?>
                             </div>
                         </div>
                     </div>

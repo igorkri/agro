@@ -8034,6 +8034,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .payment-methods {
+  margin-top: 20px;
   margin-bottom: 30px;
 }
 
@@ -9863,7 +9864,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 
 .product__availability {
-  display: none;
+  /*display: none;*/
 }
 
 .product__prices {
@@ -10151,9 +10152,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-origin {
 }
 @media (min-width: 992px) {
   .product--layout--columnar .product__prices {
-    margin-top: -15px;
-    margin-bottom: -5px;
+    margin-top: 20px;
+    margin-bottom: 24px;
     line-height: 28px;
+    /*margin-top: -15px;*/
+    /*margin-bottom: -5px;*/
+    /*line-height: 28px;*/
   }
 }
 @media (min-width: 992px) {
