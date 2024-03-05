@@ -339,45 +339,61 @@ class SiteController extends Controller
         $arr = array();
 
         $products = Product::find()
-            ->select(['slug', 'date_updated'])
+            ->select(['id', 'slug', 'date_updated', 'name', 'category_id'])
+            ->with(['category', 'images'])
             ->all();
         foreach ($products as $product) {
             $arr[] = array(
-                'loc' => '/product/' . $product->slug, // Ссылка
-                'lastmod' => !empty($product->date_updated) ? date(DATE_W3C, $product->date_updated) : date(DATE_W3C, time()), // Дата
+                'loc' => '/product/' . $product->slug,
+                'lastmod' => !empty($product->date_updated) ? date(DATE_W3C, $product->date_updated) : date(DATE_W3C, time()),
+                'image' => '/product/' . $product->images[0]->webp_name,
+                'caption' => $product->category->prefix . ' ' . $product->name,
+                'priority' => '0.8',
+                'changefreq' => 'daily',
             );
         }
 
         $posts = Posts::find()
-            ->select(['slug', 'date_updated'])
+            ->select(['slug', 'date_updated', 'title', 'webp_image'])
             ->all();
         foreach ($posts as $post) {
             $arr[] = array(
-                'loc' => '/post/' . $post->slug, // Ссылка
+                'loc' => '/post/' . $post->slug,
                 'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated) : date(DATE_W3C, time()),
+                'image' => '/posts/' . $post->webp_image,
+                'caption' => $post->title,
+                'priority' => '0.6',
+                'changefreq' => 'monthly',
             );
         }
 
-
         $auxCategories = AuxiliaryCategories::find()
-            ->select(['slug', 'date_updated'])
+            ->select(['slug', 'date_updated', 'name', 'image'])
             ->all();
         foreach ($auxCategories as $auxCategory) {
             $arr[] = array(
-                'loc' => '/auxiliary-product-list/' . $auxCategory->slug, // Ссылка
+                'loc' => '/auxiliary-product-list/' . $auxCategory->slug,
                 'lastmod' => !empty($auxCategory->date_updated) ? date(DATE_W3C, $auxCategory->date_updated) : date(DATE_W3C, time()),
+                'image' => '/auxiliary-categories/' . $auxCategory->image,
+                'caption' => $auxCategory->name,
+                'priority' => '0.7',
+                'changefreq' => 'Weekly',
             );
         }
 
         $categories = Category::find()
-            ->select(['id', 'slug', 'date_updated', 'visibility'])
+            ->select(['id', 'slug', 'date_updated', 'visibility', 'name', 'file'])
             ->all();
         foreach ($categories as $category) {
             if ($category->visibility == 1) {
                 $catalog = $category->getCategoryStatus($category->id);
                 $arr[] = array(
-                    'loc' => $catalog . $category->slug, // Ссылка
+                    'loc' => $catalog . $category->slug,
                     'lastmod' => !empty($category->date_updated) ? date(DATE_W3C, $category->date_updated) : date(DATE_W3C, time()),
+                    'image' => '/category/' . $category->file,
+                    'caption' => $category->name,
+                    'priority' => '0.7',
+                    'changefreq' => 'Weekly',
                 );
             }
         }

@@ -232,7 +232,7 @@ class Product extends ActiveRecord implements CartPositionInterface
      */
     public function getImages()
     {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id'])->orderBy(['priority' => SORT_ASC]);
     }
 
     public function getReviews()
