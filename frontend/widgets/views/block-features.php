@@ -3,7 +3,9 @@
         <div class="block-features__list">
             <div class="block-features__item">
                 <div class="block-features__icon">
-                    <img style="display: block;margin: -5px -13px 0px -10px; width: 63px; " src="/images/delivery.png" width="63" height="63" alt="Доставка">
+                    <svg width="48px" height="48px">
+                        <use xlink:href="/images/sprite.svg#delivery-48"></use>
+                    </svg>
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title">Доставка</div>
@@ -13,7 +15,9 @@
             <div class="block-features__divider"></div>
             <div class="block-features__item">
                 <div class="block-features__icon">
-                    <img style="display: block;margin: -1px -13px 0px -4px; width: 50px; " src="/images/tell.png" width="50" height="50" alt="Телефонуйте">
+                    <svg width="48px" height="48px">
+                        <use xlink:href="/images/sprite.svg#tell-48"></use>
+                    </svg>
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title">Ми працюемо</div>
@@ -47,11 +51,3 @@
         </div>
     </div>
 </div>
-<style>
-    .centered {
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
