@@ -56,7 +56,9 @@ use yii\helpers\Url;
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
-                                <img src="/images/ua.svg" width="21px" height="20px" alt="Flag">
+                                <svg width="20px" height="15px">
+                                    <use xlink:href="/images/sprite.svg#flag-icons-ua"></use>
+                                </svg>
                             </button>
                         </div>
                     </div>
