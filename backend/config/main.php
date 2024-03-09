@@ -25,7 +25,9 @@ return [
         ]
     ],
     'components' => [
-
+        'devicedetect' => [
+            'class' => 'alexandernst\devicedetect\DeviceDetect'
+        ],
 //        'defaultRoute' => 'main/index',
         'i18n' => [
             'translations' => [

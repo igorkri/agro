@@ -1,11 +1,11 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
+use common\models\shop\ActivePages;
+
+ActivePages::setActiveUser();
 
 ?>
-
 <div class="min-h-100 p-0 p-sm-6 d-flex align-items-stretch">
     <div class="card w-25x flex-grow-1 flex-sm-grow-0 m-sm-auto">
         <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>

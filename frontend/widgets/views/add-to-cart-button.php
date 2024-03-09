@@ -1,3 +1,11 @@
+<?php
+
+/** @var Product $product */
+
+use common\models\shop\Product;
+
+?>
+
 <?php if ($product->status_id != 2) { ?>
     <div class="product-card__buttons">
         <button class="btn btn-primary product-card__addtocart "
@@ -35,7 +43,7 @@
             <svg width="20px" height="20px" style="display: unset;">
                 <use xlink:href="/images/sprite.svg#cart-20"></use>
             </svg>
-            <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
+            Купити
         </button>
         <button type="button"
                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"

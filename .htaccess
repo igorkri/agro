@@ -6,7 +6,7 @@
      RewriteCond %{REQUEST_URI} ^/(admin)
      RewriteRule ^admin(\/?.*)$ backend/web/$1 [L]
 
-     # RewriteCond %{REQUEST_URI} ^/(shop-admin)     
+     # RewriteCond %{REQUEST_URI} ^/(shop-admin)
      # RewriteRule ^shop-admin(\/?.*)$ ecommerce/web/$1 [L]
 
      # RewriteCond %{REQUEST_URI} ^/(api)
@@ -37,7 +37,7 @@
 # AddType application/x-javascript .js
 # AddType text/css .css
 # AddType text/xml .xml
-# AddType application/octet-stream .doc .mov .avi .pdf .xls 
+# AddType application/octet-stream .doc .mov .avi .pdf .xls
 # # ForceType application/x-httpd-php
 
 # <ifModule mod_deflate.c>
@@ -96,7 +96,7 @@
 
 
 #AddDefaultCharset UTF-8
- 
+
 #Options -Indexes
 
 #RewriteEngine On
@@ -104,7 +104,7 @@
 #RewriteCond %{REQUEST_URI} ^/(admin)
 #RewriteRule ^admin(\/?.*)$ backend/web/$1 [L]
 
-# RewriteCond %{REQUEST_URI} ^/(shop-admin)     
+# RewriteCond %{REQUEST_URI} ^/(shop-admin)
 # RewriteRule ^shop-admin(\/?.*)$ ecommerce/web/$1 [L]
 
 # RewriteCond %{REQUEST_URI} ^/(api)

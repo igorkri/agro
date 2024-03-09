@@ -129,17 +129,3 @@ ActivePages::setActiveUser();
         color: #a9a8a8;
     }
 </style>
-
-<script>
-
-</script>
-
-<?php
-//$js = <<<JS
-//var num;
-//num = $product->id;
-//console.log(num);
-//
-//JS;
-//$this->registerJs($js);
-?>
