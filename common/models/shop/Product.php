@@ -281,9 +281,6 @@ class Product extends ActiveRecord implements CartPositionInterface
         $product = Product::find()->with('images')->where(['id' => $id])->one();
 
         $images = $product->images;
-        $priorities = array_column($images, 'priority');
-        array_multisort($priorities, SORT_ASC, $images);
-
         if (isset($images[0])) {
             $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->name;
         } else {
@@ -326,11 +323,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         $webp_support = ProductImage::imageWebp();
         $product = Product::find()->with('images')->where(['id' => $id])->one();
-
         $images = $product->images;
-        $priorities = array_column($images, 'priority');
-        array_multisort($priorities, SORT_ASC, $images);
-
         if (isset($images[0])) {
             if ($webp_support == true && isset($images[0]->webp_name)) {
                 $img = Yii::$app->request->hostInfo . '/product/' . $images[0]->webp_name;
@@ -614,7 +607,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         return null;
     }
 
-      public
+    public
     function getNonBrand($id)
     {
         $product = Product::find()->select('brand_id')->where(['id' => $id])->one();
@@ -706,6 +699,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         }
         return null;
     }
+
 //     End Особое внимание к продуктам
 
     public function getProductsAnalog($id)
