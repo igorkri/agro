@@ -3,21 +3,13 @@
 /** @var yii\web\View $this */
 
 use frontend\widgets\ProductsCarouselGazon;
-use frontend\widgets\ColumnsSpecialOffers;
-use frontend\widgets\ColumnsBestsellers;
-use frontend\widgets\PopularCategories;
-use frontend\widgets\BestsellersDacha;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\FeaturedProduct;
-use frontend\widgets\ColumnsTopRated;
 use frontend\widgets\BlockSlideshow;
 use common\models\shop\ActivePages;
 use frontend\widgets\BlockFeatures;
-use frontend\widgets\Bestsellers;
-use frontend\widgets\BlockBrands;
 use frontend\widgets\BlockBanner;
 use frontend\widgets\ViewProduct;
-use frontend\widgets\BlockPosts;
 
 ActivePages::setActiveUser();
 
@@ -28,24 +20,13 @@ ActivePages::setActiveUser();
         <?php echo ProductsCarouselGazon::widget() ?>
         <?php echo FeaturedProduct::widget() ?>
         <?php echo BlockBanner::widget() ?>
-        <?php echo Bestsellers::widget() ?>
-        <?php if (!Yii::$app->devicedetect->isMobile()) echo PopularCategories::widget(); ?>
-        <?php echo BestsellersDacha::widget() ?>
+        <div id="bestsellers-container" data-widget="bestsellers"></div>
+        <div id="popular-categories-container" data-widget="popular-categories"></div>
+        <div id="bestsellers-dacha-container" data-widget="bestsellers-dacha"></div>
         <?php echo ProductsCarousel::widget() ?>
-        <?php echo BlockPosts::widget() ?>
-        <?php echo BlockBrands::widget() ?>
-        <div class="block block-product-columns d-lg-block d-none">
-            <div class="container">
-                <div class="row">
-                    <?php echo ColumnsTopRated::widget() ?>
-                    <?php echo ColumnsSpecialOffers::widget() ?>
-                    <?php echo ColumnsBestsellers::widget() ?>
-                </div>
-            </div>
-        </div>
+        <div id="columns-container" data-widget="columns"></div>
         <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
     </div>
-
     <div class="container" id="home-description">
         <hr>
         <h1 style="text-align: center;">Інтернет-магазин засобів захисту рослин AgroPro</h1>
@@ -109,9 +90,41 @@ ActivePages::setActiveUser();
             </button>
         </div>
     </div>
-
 <?php
 $js = <<<JS
+    
+var containersInfo = [
+    { selector: '#bestsellers-container', loaded: false },
+    { selector: '#popular-categories-container', loaded: false },
+    { selector: '#bestsellers-dacha-container', loaded: false },
+    { selector: '#columns-container', loaded: false }
+];
+
+function loadContent(containerInfo, containerTop) {
+    if ($(window).scrollTop() >= containerTop - $(window).height() && !containerInfo.loaded) {
+        var widgetName = $(containerInfo.selector).data('widget');
+        $.ajax({
+            url: 'site/load-content',
+            type: 'GET',
+            dataType: 'json',
+            data: { widgetName: widgetName },
+            success: function(response) {
+                if (response.success && !containerInfo.loaded) {
+                    $(containerInfo.selector).append(response.content);
+                    containerInfo.loaded = true;
+                }
+            }
+        });
+    }
+}
+
+$(window).scroll(function() {
+    containersInfo.forEach(function(containerInfo) {
+        var containerTop = $(containerInfo.selector).offset().top;
+        loadContent(containerInfo, containerTop);
+    });
+});
+
     
    $(document).ready(function () {
         var fullDescription = $('.full-description');

@@ -429,4 +429,34 @@ class SiteController extends Controller
 
         return $xml_array;
     }
+
+    public function actionLoadContent()
+    {
+        $name = Yii::$app->request->get('widgetName');
+
+        switch ($name) {
+            case 'bestsellers':
+                $content = $this->renderPartial('_load-bestsellers-widgets');
+                break;
+            case 'popular-categories':
+                $content = $this->renderPartial('_load-popular-categories-widgets');
+                break;
+            case 'bestsellers-dacha':
+                $content = $this->renderPartial('_load-bestsellers-dacha-widgets');
+                break;
+            case 'columns':
+                $content = $this->renderPartial('_load-columns-widgets');
+                break;
+            default:
+                // Обработка ситуации, когда значение widgetName не соответствует ожидаемым
+                $content = 'Unknown widgetName';
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            'success' => true,
+            'content' => $content,
+        ];
+
+    }
 }
