@@ -1,6 +1,5 @@
 <?php
 
-
 namespace frontend\widgets;
 
 use common\models\shop\Brand;

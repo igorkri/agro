@@ -127,18 +127,18 @@ $webp_support = ProductImage::imageWebp();
                         <div class="product__info">
                             <div class="product__wishlist-compare">
                                 <button type="button"
-                                        class="btn btn-sm btn-light btn-svg-icon"
+                                        class="btn btn-sm btn-light btn-svg-icon product-card__wish"
                                         aria-label="add wish list"
-                                        id="add-from-wish-btn"
+                                        id="add-from-wish-btn-<?= $product->id ?>"
                                         data-wish-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#wishlist-16"></use>
                                     </svg>
                                 </button>
                                 <button type="button"
-                                        class="btn btn-sm btn-light btn-svg-icon"
+                                        class="btn btn-sm btn-light btn-svg-icon product-card__compare"
                                         aria-label="add compare list"
-                                        id="add-from-compare-btn"
+                                        id="add-from-compare-btn-<?= $product->id ?>"
                                         data-compare-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#compare-16"></use>
@@ -254,16 +254,15 @@ $webp_support = ProductImage::imageWebp();
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
-                                                    <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
+                                                    Купити
                                                 </button>
                                             <?php } ?>
                                         </div>
-
                                         <div class="product__actions-item product__actions-item--wishlist">
                                         <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
                                                 aria-label="add wish list"
-                                                id="add-from-wish-btn"
+                                                id="add-from-wish-btn-<?= $product->id ?>"
                                                 data-wish-product-id="<?= $product->id ?>">
                                             <svg width="32px" height="32px">
                                                 <use xlink:href="/images/sprite.svg#wishlist-16"></use>
@@ -274,7 +273,7 @@ $webp_support = ProductImage::imageWebp();
                                         <button type="button"
                                                 class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
                                                 aria-label="add compare list"
-                                                id="add-from-compare-btn"
+                                                id="add-from-compare-btn-<?= $product->id ?>"
                                                 data-compare-product-id="<?= $product->id ?>">
                                             <svg width="32px" height="32px">
                                                 <use xlink:href="/images/sprite.svg#compare-16"></use>

@@ -1056,7 +1056,7 @@
     // Add wish list
      */
     $(document).ready(function () {
-        $(document).on('click', '#add-from-wish-btn', function (e) {
+        $(document).on('click', '.product-card__wish', function (e) {
             e.preventDefault();
             var wishIndicator = $('#wish-indicator');
             var productId = $(this).data('wish-product-id');
@@ -1089,7 +1089,7 @@
 // Add compare list
 */
     $(document).ready(function () {
-        $(document).on('click', '#add-from-compare-btn', function (e) {
+        $(document).on('click', '.product-card__compare', function (e) {
             e.preventDefault();
             var compareIndicator = $('#compare-indicator');
             var productId = $(this).data('compare-product-id');

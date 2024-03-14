@@ -2,6 +2,8 @@
 
 /** @var yii\web\View $this */
 
+use frontend\widgets\BlockBrands;
+use frontend\widgets\BlockPosts;
 use frontend\widgets\ProductsCarouselGazon;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\FeaturedProduct;
@@ -24,6 +26,8 @@ ActivePages::setActiveUser();
         <div id="popular-categories-container" data-widget="popular-categories"></div>
         <div id="bestsellers-dacha-container" data-widget="bestsellers-dacha"></div>
         <?php echo ProductsCarousel::widget() ?>
+        <?php echo BlockPosts::widget() ?>
+        <?php echo BlockBrands::widget() ?>
         <div id="columns-container" data-widget="columns"></div>
         <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
     </div>

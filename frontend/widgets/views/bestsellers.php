@@ -34,7 +34,7 @@ use yii\helpers\Url;
                         <div class="product-card__info">
                             <?php if ($products[0]->category->prefix) { ?>
                                 <div class="product-card__name">
-                                    <?php  echo $products[0]->category->prefix ? '<span class="category-prefix">' . $products[0]->category->prefix . '</span>' : '' ?>
+                                    <?php echo $products[0]->category->prefix ? '<span class="category-prefix">' . $products[0]->category->prefix . '</span>' : '' ?>
                                 </div>
                             <?php } ?>
                             <div class="product-card__name">
@@ -96,8 +96,8 @@ use yii\helpers\Url;
                                         <span class="text-success" style="padding: 3px 1px;font-size: 25px;">
                             </span>
                             </div>
-                            <?php if ($products[0]->status_id != 2) { ?>
-                                <div class="product-card__buttons">
+                            <div class="product-card__buttons">
+                                <?php if ($products[0]->status_id != 2) { ?>
                                     <button class="btn btn-primary product-card__addtocart "
                                             type="button"
                                             data-product-id="<?= $products[0]->id ?>">
@@ -106,55 +106,33 @@ use yii\helpers\Url;
                                         </svg>
                                         <?= !$products[0]->getIssetToCart($products[0]->id) ? 'Купити' : 'В кошику' ?>
                                     </button>
-                                    <button type="button"
-                                            class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                            aria-label="add wish list"
-                                            id="add-from-wish-btn"
-                                            data-wish-product-id="<?= $products[0]->id ?>">
-                                        <svg width="20px" height="20px">
-                                            <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                        </svg>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                            aria-label="add compare list"
-                                            id="add-from-compare-btn"
-                                            data-compare-product-id="<?= $products[0]->id ?>">
-                                        <svg width="20px" height="20px">
-                                            <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                        </svg>
-                                    </button>
-                                </div>
-                            <?php } else { ?>
-                                <div class="product-card__buttons">
+                                <?php } else { ?>
                                     <button class="btn btn-secondary disabled"
                                             type="button"
                                             data-product-id="<?= $products[0]->id ?>">
                                         <svg width="20px" height="20px" style="display: unset;">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        <?= !$products[0]->getIssetToCart($products[0]->id) ? 'Купити' : 'В кошику' ?>
+                                        Купити
                                     </button>
-                                    <button type="button"
-                                            class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                            aria-label="add wish list"
-                                            id="add-from-wish-btn"
-                                            data-wish-product-id="<?= $products[0]->id ?>">
-                                        <svg width="20px" height="20px">
-                                            <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                        </svg>
-                                    </button>
-                                    <button type="button"
-                                            class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                            aria-label="add compare list"
-                                            id="add-from-compare-btn"
-                                            data-compare-product-id="<?= $products[0]->id ?>">
-                                        <svg width="20px" height="20px">
-                                            <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                        </svg>
-                                    </button>
-                                </div>
-                            <?php } ?>
+                                <?php } ?>
+                                <button type="button"
+                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
+                                        aria-label="add wish list"
+                                        data-wish-product-id="<?= $products[0]->id ?>">
+                                    <svg width="20px" height="20px">
+                                        <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                    </svg>
+                                </button>
+                                <button type="button"
+                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                        aria-label="add compare list"
+                                        data-compare-product-id="<?= $products[0]->id ?>">
+                                    <svg width="20px" height="20px">
+                                        <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -183,7 +161,7 @@ use yii\helpers\Url;
                                 <div class="product-card__info">
                                     <?php if ($product->category->prefix) { ?>
                                         <div class="product-card__name">
-                                            <?php  echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
+                                            <?php echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
                                         </div>
                                     <?php } ?>
                                     <div class="product-card__name">

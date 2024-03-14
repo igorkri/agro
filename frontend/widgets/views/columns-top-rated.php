@@ -8,7 +8,7 @@ use yii\helpers\Url;
 <div class="col-4">
     <div class="block-header">
         <a href="<?= Url::to(['product-list/gerbitsidi']) ?>">
-        <h3 class="block-header__title">Гербіциди</h3>
+            <h3 class="block-header__title">Гербіциди</h3>
         </a>
         <div class="block-header__divider"></div>
     </div>
@@ -48,14 +48,13 @@ use yii\helpers\Url;
                                         <?= $this->render('status', ['product' => $product]) ?>
                                         </span>
                         </div>
-                        <?php if ($product->old_price == null) { ?>
-                            <div class="product-card__prices">
+                        <div class="product-card__prices">
+                            <?php if ($product->old_price == null) { ?>
                                 <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                 <button type="button"
-                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
                                         aria-label="add wish list"
                                         style="width: 20px; height: 20px; margin-left: 80px;"
-                                        id="add-from-wish-btn"
                                         data-wish-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#wishlist-16"></use>
@@ -65,22 +64,18 @@ use yii\helpers\Url;
                                         class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
                                         aria-label="add compare list"
                                         style="width: 20px; height: 20px;"
-                                        id="add-from-compare-btn"
                                         data-compare-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#compare-16"></use>
                                     </svg>
                                 </button>
-                            </div>
-                        <?php } else { ?>
-                            <div class="product-card__prices">
+                            <?php } else { ?>
                                 <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
                                 <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
                                 <button type="button"
-                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                        class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
                                         aria-label="add wish list"
                                         style="width: 20px; height: 20px; margin-left: 10px;"
-                                        id="add-from-wish-btn"
                                         data-wish-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#wishlist-16"></use>
@@ -90,14 +85,13 @@ use yii\helpers\Url;
                                         class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
                                         aria-label="add compare list"
                                         style="width: 20px; height: 20px;"
-                                        id="add-from-compare-btn"
                                         data-compare-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#compare-16"></use>
                                     </svg>
                                 </button>
-                            </div>
-                        <?php } ?>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>
