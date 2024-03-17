@@ -16,9 +16,10 @@ class PopularCategories extends Widget  // Популярні Категорії
 
     public function run()
     {
-        $cat_id = [6, 7, 8, 5, 3, 24];
+        $cat_id = [6, 7, 8, 5, 3, 9];
         $categories = Category::find()
             ->where(['id' => $cat_id])
+            ->andWhere(['visibility' => 1])
 //            ->limit(6)
             ->all();
 

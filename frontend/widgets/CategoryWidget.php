@@ -16,6 +16,7 @@ class CategoryWidget extends Widget
         $categories = Category::find()->select('id, parentId, slug, file, name, visibility, svg')
             ->with(['parents', 'parent', 'products'])
             ->where(['is', 'parentId', new Expression('null')])
+            ->andWhere(['visibility' => 1])
 //            ->orderBy('name ASC')
 //            ->asArray()
             ->all();
