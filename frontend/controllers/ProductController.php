@@ -18,6 +18,8 @@ class ProductController extends Controller
 {
     public function actionView($slug): string
     {
+
+
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
 
         $analog = AnalogProducts::find()->select('analog_product_id')->where(['product_id' => $product->id])->asArray()->all();

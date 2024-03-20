@@ -63,14 +63,13 @@ ActivePages::setActiveUser();
                                             </div>
                                         </div>
                                     </div>
+                                    <?php echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);?>
                                     <div class="view-options__legend">Показано <?= count($products) ?> товарів з <?= $products_all ?></div>
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control">
                                         <label for="">Сортувати</label>
                                         <div>
-                                            <?php
-                                            echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);
-                                            echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
+                                            <?php echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
                                                 '' => 'Наявність',
                                                 'price_lowest' => 'Ціна Дешевші',
                                                 'price_highest' => 'Ціна Дорожчі',

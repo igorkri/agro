@@ -665,5 +665,4 @@ class ProductController extends Controller
         }
         return $this->render('upload', ['model' => $model]);
     }
-
 }

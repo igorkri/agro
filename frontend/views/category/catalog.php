@@ -58,6 +58,18 @@ ActivePages::setActiveUser();
                 <div class="col-12">
                     <div class="block">
                         <div class="products-view">
+                            <?php if (!Yii::$app->devicedetect->isMobile()): ?>
+                                <?php if (isset($auxiliaryCategories) and $auxiliaryCategories != null): ?>
+                                    <div class="tags tags--lg">
+                                        <div class="tags__list">
+                                            <?php foreach ($auxiliaryCategories as $auxiliaryCategory): ?>
+                                                <a href="<?= Url::to(['category/auxiliary-catalog', 'slug' => $auxiliaryCategory->slug]) ?>"><?php echo $auxiliaryCategory->name ?></a>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                <?php endif; ?>
+                            <?php endif; ?>
                             <div class="products-view__options">
                                 <div class="view-options view-options--offcanvas--always">
                                     <div class="view-options__filters-button">

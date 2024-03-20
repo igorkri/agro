@@ -17,7 +17,11 @@ class CategoryController extends Controller
 {
     public function actionList()
     {
-        $categories = Category::find()->with(['products'])->where(['is', 'parentId', new Expression('null')])->all();
+        $categories = Category::find()
+            ->with(['products'])
+            ->where(['is', 'parentId', new Expression('null')])
+            ->andWhere(['visibility' => 1])
+            ->all();
 
         Yii::$app->metamaster
             ->setTitle("Категорії Товарів інтернет-магазину | AgroPro")
@@ -44,24 +48,9 @@ class CategoryController extends Controller
     public function actionCatalog($slug)
     {
 //        Yii::$app->session->removeAll();
-
-        if (!Yii::$app->session->has('sort')) {
-            Yii::$app->session->set('sort', '');
-        } else {
-            if (Yii::$app->request->post('sort') !== null) {
-                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
-            }
-        }
-        $sort = Yii::$app->session->get('sort');
-
-        if (!Yii::$app->session->has('count')) {
-            Yii::$app->session->set('count', 12);
-        } else {
-            if (Yii::$app->request->post('count') !== null) {
-                Yii::$app->session->set('count', Yii::$app->request->post('count'));
-            }
-        }
-        $count = intval(Yii::$app->session->get('count'));
+        $result = $this->getSortVariableSession();
+        $sort = $result['sort'];
+        $count = $result['count'];
 
         $brandCheck = Yii::$app->request->post('brandCheck');
         $propertiesCheck = Yii::$app->request->post('propertiesCheck');
@@ -75,7 +64,10 @@ class CategoryController extends Controller
 
         $category = Category::find()->where(['slug' => $slug])->one();
 
-        $auxiliaryCategories = AuxiliaryCategories::find()->where(['parentId' => $category->id])->all();
+        $auxiliaryCategories = AuxiliaryCategories::find()
+            ->where(['parentId' => $category->id])
+            ->andWhere(['visibility' => 1])
+            ->all();
 
         $propertiesFilter = ProductProperties::find()
             ->select(['properties'])
@@ -136,25 +128,9 @@ class CategoryController extends Controller
     public function actionAuxiliaryCatalog($slug)
     {
 //        Yii::$app->session->removeAll();
-
-        if (!Yii::$app->session->has('sort')) {
-            Yii::$app->session->set('sort', '');
-        } else {
-            if (Yii::$app->request->post('sort') !== null) {
-                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
-            }
-        }
-        $sort = Yii::$app->session->get('sort');
-
-        if (!Yii::$app->session->has('count')) {
-            Yii::$app->session->set('count', 8);
-        } else {
-            if (Yii::$app->request->post('count') !== null) {
-                Yii::$app->session->set('count', Yii::$app->request->post('count'));
-            }
-        }
-
-        $count = intval(Yii::$app->session->get('count'));
+        $result = $this->getSortVariableSession();
+        $sort = $result['sort'];
+        $count = $result['count'];
 
 //        $brandCheck = Yii::$app->request->post('brandCheck');
 //        $propertiesCheck = Yii::$app->request->post('propertiesCheck');
@@ -235,6 +211,29 @@ class CategoryController extends Controller
 //                'propertiesFilter',
 //                'auxiliaryCategories',
             ]));
+    }
+
+    protected function getSortVariableSession()
+    {
+        if (!Yii::$app->session->has('sort')) {
+            Yii::$app->session->set('sort', '');
+        } else {
+            if (Yii::$app->request->post('sort') !== null) {
+                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
+            }
+        }
+        $sort = Yii::$app->session->get('sort');
+
+        if (!Yii::$app->session->has('count')) {
+            Yii::$app->session->set('count', 12);
+        } else {
+            if (Yii::$app->request->post('count') !== null) {
+                Yii::$app->session->set('count', Yii::$app->request->post('count'));
+            }
+        }
+        $count = intval(Yii::$app->session->get('count'));
+
+        return ['sort' => $sort, 'count' => $count];
     }
 
     protected function getProductsSort($sort, $query)
