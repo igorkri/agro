@@ -28,17 +28,18 @@ use yii\helpers\Html;
                             </svg>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="widget-context-menu-8">
-<!--                            <li><a class="dropdown-item" href="/#">Settings</a></li>-->
-<!--                            <li><a class="dropdown-item" href="/#">Move</a></li>-->
-<!--                            <li>-->
-<!--                                <hr class="dropdown-divider"/>-->
-<!--                            </li>-->
-                            <li><?= Html::a('All products', ['product/activity-product'], ['class' => 'dropdown-item']) ?>
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <hr class="dropdown-divider"/>-->
-<!--                            </li>-->
-<!--                            <li><a class="dropdown-item text-danger" href="/#">Remove</a></li>-->
+                            <!--                            <li><a class="dropdown-item" href="/#">Settings</a></li>-->
+                            <!--                            <li><a class="dropdown-item" href="/#">Move</a></li>-->
+                            <!--                            <li>-->
+                            <!--                                <hr class="dropdown-divider"/>-->
+                            <!--                            </li>-->
+                            <li><?= Html::a(Yii::t('app', 'All products'), ['product/activity-product'], ['class' => 'dropdown-item']) ?>
+
+                                <!--                            </li>-->
+                                <!--                            <li>-->
+                                <!--                                <hr class="dropdown-divider"/>-->
+                                <!--                            </li>-->
+                                <!--                            <li><a class="dropdown-item text-danger" href="/#">Remove</a></li>-->
                         </ul>
                     </div>
                 </div>

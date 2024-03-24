@@ -45,10 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <table class="sa-datatables-init" data-order='[[ 1, "asc" ]]' data-sa-search-input="#table-search">
                     <thead>
                     <tr>
-                        <th><?= Yii::t('app', 'image') ?></th>
-                        <th class="min-w-10x"><?= Yii::t('app', 'name') ?></th>
-                        <th class="min-w-10x"><?= Yii::t('app', 'data') ?></th>
-                        <th class="min-w-5x"><?= Yii::t('app', 'Count') ?></th>
+                        <th><?= Yii::t('app', 'Image') ?></th>
+                        <th class="min-w-10x"><?= Yii::t('app', 'Name') ?></th>
+                        <th class="min-w-10x"><?= Yii::t('app', 'Data last view') ?></th>
+                        <th class="min-w-5x"><?= Yii::t('app', 'Count view') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'Slug') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Status') ?></th>
                         <th class="w-min" data-orderable="false"></th>
