@@ -679,7 +679,6 @@ class ProductController extends Controller
                 'date' => $page->date_visit,
             ];
         }
-
         $uniqueUrls = [];
         $result = [];
         foreach ($url as $item) {
@@ -700,9 +699,12 @@ class ProductController extends Controller
         foreach ($result as $key => $item) {
             $updatedUrl = str_replace('/product/', '', $item['url']);
             $result[$key]['slug'] = $updatedUrl;
+            $result[$key]['id'] = Product::productId($result[$key]['slug']);
             $result[$key]['count'] = ActivePages::productCountViews($result[$key]['slug']);
             $result[$key]['name'] = Product::productName($result[$key]['slug']);
             $result[$key]['image'] = Product::productImage($result[$key]['slug']);
+            $result[$key]['status_id'] = Product::productStatusId($result[$key]['slug']);
+            $result[$key]['status_name'] = Product::productStatusName($result[$key]['slug']);
         }
 
 //        ArrayHelper::multisort($result, ['date'], [SORT_DESC]);

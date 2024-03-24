@@ -28,17 +28,17 @@ use yii\helpers\Html;
                             </svg>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="widget-context-menu-8">
-                            <li><a class="dropdown-item" href="/#">Settings</a></li>
-                            <li><a class="dropdown-item" href="/#">Move</a></li>
-                            <li>
-                                <hr class="dropdown-divider"/>
-                            </li>
-                            <li><?= Html::a('All', ['product/activity-product'], ['class' => 'dropdown-item']) ?>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider"/>
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="/#">Remove</a></li>
+<!--                            <li><a class="dropdown-item" href="/#">Settings</a></li>-->
+<!--                            <li><a class="dropdown-item" href="/#">Move</a></li>-->
+<!--                            <li>-->
+<!--                                <hr class="dropdown-divider"/>-->
+<!--                            </li>-->
+                            <li><?= Html::a('All products', ['product/activity-product'], ['class' => 'dropdown-item']) ?>
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <hr class="dropdown-divider"/>-->
+<!--                            </li>-->
+<!--                            <li><a class="dropdown-item text-danger" href="/#">Remove</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -61,6 +61,7 @@ use yii\helpers\Html;
                                 <div class="d-flex align-items-center flex-grow-1 flex-wrap">
                                     <div class="col">
                                         <a href="/product/<?= $value['url'] ?>"
+                                           target="_blank"
                                            class="text-reset fs-exact-14"><?= Product::productName($value['url']) ?></a>
                                         <div class="text-muted fs-exact-13">
                                             Переглядів: <span

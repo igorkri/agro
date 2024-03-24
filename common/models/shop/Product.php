@@ -521,6 +521,40 @@ class Product extends ActiveRecord implements CartPositionInterface
     }
 
     public
+    static function productId($slug)
+    {
+        $product = Product::find()->select('id')->where(['slug' => $slug])->one();
+        if ($product) {
+            return $product->id;
+        } else {
+            return '';
+        }
+    }
+
+    public
+    static function productStatusId($slug)
+    {
+        $product = Product::find()->select('status_id')->where(['slug' => $slug])->one();
+        if ($product) {
+            return $product->status_id;
+        } else {
+            return '';
+        }
+    }
+
+    public
+    static function productStatusName($slug)
+    {
+        $product = Product::find()->select('status_id')->where(['slug' => $slug])->one();
+        if ($product) {
+        $status = Status::find()->select('name')->where(['id' => $product->status_id])->one();
+            return $status->name;
+        } else {
+            return '';
+        }
+    }
+
+    public
     static function productParams($id)
     {
         $title_param = '';
