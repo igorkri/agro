@@ -2,14 +2,11 @@
 
 use common\models\shop\ProductProperties;
 use kartik\form\ActiveForm;
-use kartik\select2\Select2;
 use vova07\imperavi\Widget;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
 /** @var common\models\shop\Product $model */
@@ -131,8 +128,9 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                     'lang' => 'uk',
                                                     'minHeight' => 100,
                                                     'plugins' => [
-                                                        'fullscreen',
                                                         'table',
+                                                        'fontcolor',
+                                                        'fullscreen',
                                                     ],
                                                 ],
                                             ]); ?>
@@ -146,9 +144,10 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                                     'lang' => 'uk',
                                                     'minHeight' => 100,
                                                     'plugins' => [
-                                                        'fullscreen',
                                                         'table',
+                                                        'fontcolor',
                                                         'clips',
+                                                        'fullscreen',
                                                     ],
                                                     'clips' => [
                                                         ['All h3 Descr...', '
