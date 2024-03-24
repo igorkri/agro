@@ -1,11 +1,8 @@
 <?php
 
-use common\models\shop\Status;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\StatusSearch $searchModel */
@@ -14,7 +11,6 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Statuses');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
@@ -108,4 +104,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<!-- sa-app__body / end -->

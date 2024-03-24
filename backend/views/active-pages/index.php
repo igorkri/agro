@@ -2,10 +2,6 @@
 
 use common\models\shop\ActivePages;
 use kartik\ipinfo\IpInfo;
-use kartik\popover\PopoverX;
-
-//use yii\bootstrap5\ActiveForm;
-use yii\widgets\ActiveForm;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -20,7 +16,6 @@ use yii\bootstrap5\LinkPager;
 $this->title = Yii::t('app', 'Active Pages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
@@ -56,7 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            'maxButtonCount' => 5,
                         ],
                         'columns' => [
-
                             [
                                 'class' => 'yii\grid\CheckboxColumn',
                                 'checkboxOptions' => function ($model) {
@@ -64,7 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                             ],
                             ['class' => 'yii\grid\SerialColumn'],
-
                             [
                                 'attribute' => 'ip_user',
                                 'format' => 'raw',
@@ -143,9 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-
                     <?= Html::submitButton('<i class="fas fa-trash-alt"></i> Вибрані', ['class' => 'btn btn-danger mb-4']) ?>
-
                     <?php echo Html::endForm(); ?>
                 </div>
             </div>
