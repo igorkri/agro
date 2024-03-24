@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Settings;
+use common\models\shop\ActivePages;
 use common\models\shop\AnalogProducts;
 use common\models\shop\Product;
 use backend\models\search\ProductSearch;
@@ -17,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\imagine\Image;
 use Yii;
@@ -664,5 +666,48 @@ class ProductController extends Controller
             return $this->redirect(['index']);
         }
         return $this->render('upload', ['model' => $model]);
+    }
+
+    public function actionActivityProduct()
+    {
+        $url = [];
+        $pages = ActivePages::find()->where(['like', 'url_page', '/product/'])->all();
+
+        foreach ($pages as $page) {
+            $url[] = [
+                'url' => $page->url_page,
+                'date' => $page->date_visit,
+            ];
+        }
+
+        $uniqueUrls = [];
+        $result = [];
+        foreach ($url as $item) {
+            $url = $item['url'];
+            $date = $item['date'];
+            if (strpos($url, '/product/') !== false) {
+                if (in_array($url, $uniqueUrls)) {
+                    $existingIndex = array_search($url, $uniqueUrls);
+                    if ($date > $result[$existingIndex]['date']) {
+                        $result[$existingIndex] = $item;
+                    }
+                } else {
+                    $uniqueUrls[] = $url;
+                    $result[] = $item;
+                }
+            }
+        }
+        foreach ($result as $key => $item) {
+            $updatedUrl = str_replace('/product/', '', $item['url']);
+            $result[$key]['slug'] = $updatedUrl;
+            $result[$key]['count'] = ActivePages::productCountViews($result[$key]['slug']);
+            $result[$key]['name'] = Product::productName($result[$key]['slug']);
+            $result[$key]['image'] = Product::productImage($result[$key]['slug']);
+        }
+
+//        ArrayHelper::multisort($result, ['date'], [SORT_DESC]);
+        ArrayHelper::multisort($result, ['count'], [SORT_DESC]);
+
+        return $this->render('all-activity-product', ['result' => $result]);
     }
 }

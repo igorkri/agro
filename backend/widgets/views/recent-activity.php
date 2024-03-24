@@ -2,6 +2,7 @@
 
 use common\models\shop\ActivePages;
 use common\models\shop\Product;
+use yii\helpers\Html;
 
 ?>
 
@@ -29,6 +30,11 @@ use common\models\shop\Product;
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="widget-context-menu-8">
                             <li><a class="dropdown-item" href="/#">Settings</a></li>
                             <li><a class="dropdown-item" href="/#">Move</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li><?= Html::a('All', ['product/activity-product'], ['class' => 'dropdown-item']) ?>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider"/>
                             </li>
