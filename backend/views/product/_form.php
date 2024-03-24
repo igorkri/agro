@@ -75,7 +75,7 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                         aria-controls="properties-tab-content-1"
                                         aria-selected="true"
                                 >
-                                    Специфікація<span class="nav-link-sa-indicator"></span>
+                                    Характеристики<span class="nav-link-sa-indicator"></span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
