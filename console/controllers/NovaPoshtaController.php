@@ -97,39 +97,38 @@ class NovaPoshtaController extends Controller
     {
         $np = new NovaPoshtaApi2(
             self::KEY,
-            'ru', // Язык возвращаемых данных: ru (default) | ua | en
+            'ua', // Язык возвращаемых данных: ru (default) | ua | en
             FALSE, // При ошибке в запросе выбрасывать Exception: FALSE (default) | TRUE
             'file_get_content' // Используемый механизм запроса: curl (defalut) | file_get_content
         );
 
-        $cities = NpCity::find()->select('ref, area, cityID')->asArray()->all();
+        $cities = NpCity::find()->select('ref')->column();
         if ($cities) {
             $i = 1;
             $n = 1;
             foreach ($cities as $city) {
-                $cityRef = $city['ref'];
-                $warehouses = $np->getWarehouses($cityRef);
+                $warehouses = $np->getWarehouses($city);
                 if (!empty($warehouses)) {
                     if (isset($warehouses['data'])) {
                         foreach ($warehouses['data'] as $warehouse) {
                             $model = NpWarehouses::find()->where(['ref' => $warehouse['Ref']])->one();
                             if (!$model) {
-                                $warehousesdb = new NpWarehouses();
-                                $warehousesdb->description = $warehouse['Description'];
-                                $warehousesdb->ref = $warehouse['Ref'];
-                                $warehousesdb->Number = $warehouse['Number'];
-                                $warehousesdb->cityRef = $warehouse['CityRef'];
-                                $warehousesdb->shortAddress = $warehouse['ShortAddress'];
-                                if ($warehousesdb->save(false)) {
-                                    echo "|# " . $i . " | " . $warehousesdb->description . "\n";
-                                    echo "\r+-----+----------------------------------------------------------------------------------------+\n";
+                                $warehouses_db = new NpWarehouses();
+                                $warehouses_db->description = $warehouse['Description'];
+                                $warehouses_db->ref = $warehouse['Ref'];
+                                $warehouses_db->Number = $warehouse['Number'];
+                                $warehouses_db->cityRef = $warehouse['CityRef'];
+                                $warehouses_db->shortAddress = $warehouse['ShortAddress'];
+                                if ($warehouses_db->save(false)) {
+                                    echo "\033[0;31m" . "|# " . $i . " | " . $warehouses_db->description . "\n";
+                                    echo "\r+--------------------------------------------------------------------------------------------------------+\n";
                                     $i++;
                                 } else {
-                                    print_r($warehousesdb->errors);
+                                    print_r($warehouses_db->errors);
                                 }
                             } else {
-                                echo "|- " . $n . " | " . $model->description . " Сущесвует\n";
-                                echo "\r+-----+----------------------------------------------------------------------------------------+\n";
+                                echo "\033[0;32m" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
+                                echo "\r+--------------------------------------------------------------------------------------------------------+\n";
                                 $n++;
                             }
                         }
@@ -137,8 +136,8 @@ class NovaPoshtaController extends Controller
                 } else {
                     echo PHP_EOL . 'error warehouses' . PHP_EOL;
                     print_r($warehouses);
-                    echo PHP_EOL . 'error cityRef' . PHP_EOL;
-                    print_r($cityRef);
+                    echo PHP_EOL . 'error city' . PHP_EOL;
+                    print_r($city);
                 }
             }
         }
@@ -149,7 +148,6 @@ class NovaPoshtaController extends Controller
      */
     public function actionTruncateCities()
     {
-
         $rm_cities = Yii::$app->db->createCommand()->truncateTable('npCity')->execute();
         if ($rm_cities) {
             echo "\n очищено таблицу городов {`npCities`} НП \n";
@@ -161,7 +159,6 @@ class NovaPoshtaController extends Controller
      */
     public function actionTruncateWarehouses()
     {
-
         $rm_warehouses = Yii::$app->db->createCommand()->truncateTable('npWarehouses')->execute();
         if ($rm_warehouses) {
             echo "\n очищено таблицу отделения {`npWarehouses`} НП \n";
@@ -173,13 +170,11 @@ class NovaPoshtaController extends Controller
      */
     public function actionTruncateAreas()
     {
-
         $rm_warehouses = Yii::$app->db->createCommand()->truncateTable('npAreas')->execute();
         if ($rm_warehouses) {
             echo "\n очищено таблицу области {`npAreas`} НП \n";
         }
     }
-
 }
 
 
