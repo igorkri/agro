@@ -183,6 +183,33 @@ $this->title = 'Оформлення замовлення';
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="payment-methods__item">
+                                        <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                       value="ukrpost" type="radio">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                            <span class="payment-methods__item-name"><i style="font-size: 25px"
+                                                                                        class="fas fa-envelope"></i> <span
+                                                        style="font-size:20px; margin:0px 20px">Укрпошта</span></span>
+                                        </label>
+                                        <div class="payment-methods__item-container" style="">
+                                            <div class="payment-methods__item-description text-muted">
+                                            <p style="font-weight: 600">Для доставки "Укрпошта" введіть в полі коментар такі дані:</p>
+                                                <ul style="margin-bottom: 1rem">
+                                                    <li>Індекс</li>
+                                                    <li>Область</li>
+                                                    <li>Район</li>
+                                                    <li>Місто/Смт (село)</li>
+                                                </ul>
+                                                <p style="font-weight: 600">Для прикладу:</p>
+                                                <p>36502, Полтавська, Кременчуцький, м.Кременчук</p>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="form-group">
@@ -251,8 +278,8 @@ $this->title = 'Оформлення замовлення';
     <?php ActiveForm::end(); ?>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+<?php
+$js = <<<JS
     $(document).ready(function () {
 
         var stock = $('input[name="checkout_payment_method"]:checked').val();
@@ -266,6 +293,12 @@ $this->title = 'Оформлення замовлення';
                 $('#order-areas').val("Самовивіз").trigger("change");
                 $('#order-city').val("Самовивіз").trigger("change");
                 $('#order-warehouses').val("Самовивіз").trigger("change");
+            }
+            if (stock === "ukrpost") {
+                // Устанавливаем значение "Укрпошта" во всех трех select2 полях
+                $('#order-areas').val("Укрпошта").trigger("change");
+                $('#order-city').val("Укрпошта").trigger("change");
+                $('#order-warehouses').val("Укрпошта").trigger("change");
             }
         });
 
@@ -312,4 +345,6 @@ $this->title = 'Оформлення замовлення';
             $('#order-warehouses').select2();
         }
     });
-</script>
+JS;
+$this->registerJs($js);
+?>
