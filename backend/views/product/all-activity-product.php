@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-10x"><?= Yii::t('app', 'Name') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'Data last view') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Count view') ?></th>
-                        <th class="min-w-10x"><?= Yii::t('app', 'Slug') ?></th>
+<!--                        <th class="min-w-10x">--><?php //= Yii::t('app', 'Slug') ?><!--</th>-->
                         <th class="min-w-5x"><?= Yii::t('app', 'Status') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
@@ -81,12 +81,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td><?= $value['name'] ?></td>
                             <td><?= Yii::$app->formatter->asDatetime(($value['date']), 'medium') ?></td>
-                            <td>
+                            <td style="width: 5%">
                                 <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"
                                       style="font-size: 15px"
                                 ><?= $value['count'] ?></span>
                             </td>
-                            <td><?= $value['slug'] ?></td>
+<!--                            <td>--><?php //= $value['slug'] ?><!--</td>-->
                             <td><div class="badge badge-sa-<?= $color ?>"><?= $value['status_name'] ?></div></td>
                             <td>
                                 <div class="dropdown">
