@@ -24,19 +24,19 @@ ActivePages::setActiveUser();
                     <ul class="order-success__meta-list">
                         <li class="order-success__meta-item">
                             <span class="order-success__meta-title">№ Замовлення:</span>
-                            <span class="order-success__meta-value">#<?=$order->id?></span>
+                            <span class="order-success__meta-value">#<?= $order->id ?></span>
                         </li>
                         <li class="order-success__meta-item">
                             <span class="order-success__meta-title">Дата:</span>
-                            <span class="order-success__meta-value"><?=Yii::$app->formatter->asDate($order->created_at)?></span>
+                            <span class="order-success__meta-value"><?= Yii::$app->formatter->asDate($order->created_at) ?></span>
                         </li>
                         <li class="order-success__meta-item">
                             <span class="order-success__meta-title">К-ть:</span>
-                            <span class="order-success__meta-value"><?=$order->getTotalQty($order->id)?></span>
+                            <span class="order-success__meta-value"><?= $order->getTotalQty($order->id) ?></span>
                         </li>
                         <li class="order-success__meta-item">
                             <span class="order-success__meta-title">Сума:</span>
-                            <span class="order-success__meta-value"><?=Yii::$app->formatter->asCurrency($order->getTotalSumm($order->id))?></span>
+                            <span class="order-success__meta-value"><?= Yii::$app->formatter->asCurrency($order->getTotalSumm($order->id)) ?></span>
                         </li>
                     </ul>
                 </div>
@@ -52,26 +52,29 @@ ActivePages::setActiveUser();
                             </thead>
                             <tbody class="order-list__products">
                             <?php foreach ($order->orderItems as $orderItem): ?>
-                            <tr>
-                                <td class="order-list__column-image">
-                                    <div class="product-image">
-                                        <a href="" class="product-image__body">
-                                            <img class="product-image__img" src="<?= $orderItem->product->getImgOne($orderItem->product->getId())?>" alt="<?=$orderItem->product->name?>">
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="order-list__column-product">
-                                <?=$orderItem->product->name?>
-                                </td>
-                                <td class="order-list__column-quantity" data-title="К-ть:"><?=$orderItem->quantity?></td>
-                                <td class="order-list__column-total"><?= $orderItem->price * $orderItem->quantity ?></td>
-                            </tr>
+                                <tr>
+                                    <td class="order-list__column-image">
+                                        <div class="product-image">
+                                            <a href="" class="product-image__body">
+                                                <img class="product-image__img"
+                                                     src="<?= $orderItem->product->getImgOne($orderItem->product->getId()) ?>"
+                                                     alt="<?= $orderItem->product->name ?>">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="order-list__column-product">
+                                        <?= $orderItem->product->name ?>
+                                    </td>
+                                    <td class="order-list__column-quantity"
+                                        data-title="К-ть:"><?= $orderItem->quantity ?></td>
+                                    <td class="order-list__column-total"><?= Yii::$app->formatter->asCurrency($orderItem->price * $orderItem->quantity) ?></td>
+                                </tr>
                             <?php endforeach; ?>
                             </tbody>
                             <tfoot class="order-list__footer">
                             <tr>
                                 <th class="order-list__column-label" colspan="3">Всього</th>
-                                <td class="order-list__column-total"><?=Yii::$app->formatter->asCurrency($order->getTotalSumm($order->id))?></td>
+                                <td class="order-list__column-total"><?= Yii::$app->formatter->asCurrency($order->getTotalSumm($order->id)) ?></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -82,27 +85,31 @@ ActivePages::setActiveUser();
                         <div class="card address-card">
                             <div class="address-card__body">
                                 <div class="address-card__badge address-card__badge--muted">Адреса доставки</div>
-                                <div class="address-card__name"><?=$order->fio?></div>
+                                <div class="address-card__name"><?= $order->fio ?></div>
                                 <div class="address-card__row">
                                     <div class="address-card__row-title">Телефон</div>
-                                    <div class="address-card__row-content"><?=$order->phone?></div>
+                                    <div class="address-card__row-content"><?= $order->phone ?></div>
                                 </div>
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">Область</div>
-                                    <div class="address-card__row-content"><?=$order->getNameArea($order->area)?></div>
-                                </div>
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">Місто</div>
-                                    <div class="address-card__row-content"><?=$order->getNameCity($order->city)?></div>
-                                </div>
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">Відділення</div>
-                                    <div class="address-card__row-content"><?=$order->getNameWarehouse($order->warehouses)?></div>
-                                </div>
-                                <div class="address-card__row">
-                                    <div class="address-card__row-title">Коментар</div>
-                                    <div class="address-card__row-content"><?=$order->note?></div>
-                                </div>
+                                <?php if ($order->area): ?>
+                                    <div class="address-card__row">
+                                        <div class="address-card__row-title">Область</div>
+                                        <div class="address-card__row-content"><?= $order->getNameArea($order->area) ?></div>
+                                    </div>
+                                    <div class="address-card__row">
+                                        <div class="address-card__row-title">Місто</div>
+                                        <div class="address-card__row-content"><?= $order->getNameCity($order->city) ?></div>
+                                    </div>
+                                    <div class="address-card__row">
+                                        <div class="address-card__row-title">Відділення</div>
+                                        <div class="address-card__row-content"><?= $order->getNameWarehouse($order->warehouses) ?></div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($order->note): ?>
+                                    <div class="address-card__row">
+                                        <div class="address-card__row-title">Коментар</div>
+                                        <div class="address-card__row-content"><?= $order->note ?></div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
