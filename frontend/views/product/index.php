@@ -79,7 +79,9 @@ $webp_support = ProductImage::imageWebp();
                                     </svg>
                                 </button>
                                 <div class="owl-carousel" id="product-image">
-                                    <?php foreach ($images as $image) : ?>
+                                    <?php foreach ($images
+
+                                    as $image) : ?>
                                     <?php if ($webp_support == true && isset($image->webp_extra_extra_large)){ ?>
                                     <div class="product-image product-image--location--gallery">
                                         <div class="product-card__badges-list">
@@ -189,7 +191,8 @@ $webp_support = ProductImage::imageWebp();
                         </div>
                         <div class="product__sidebar">
                             <div class="product__availability">
-                                <span class="text-success" style="font-size: 1.5rem; font-weight: 600; margin-left: 7px">
+                                <span class="text-success"
+                                      style="font-size: 1.5rem; font-weight: 600; margin-left: 7px">
                                 <?php
                                 $statusIcon = '';
                                 $statusStyle = '';
@@ -259,26 +262,26 @@ $webp_support = ProductImage::imageWebp();
                                             <?php } ?>
                                         </div>
                                         <div class="product__actions-item product__actions-item--wishlist">
-                                        <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
-                                                aria-label="add wish list"
-                                                id="add-from-wish-btn-<?= $product->id ?>"
-                                                data-wish-product-id="<?= $product->id ?>">
-                                            <svg width="32px" height="32px">
-                                                <use xlink:href="/images/sprite.svg#wishlist-16"></use>
-                                            </svg>
-                                        </button>
+                                            <button type="button"
+                                                    class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
+                                                    aria-label="add wish list"
+                                                    id="add-from-wish-btn-<?= $product->id ?>"
+                                                    data-wish-product-id="<?= $product->id ?>">
+                                                <svg width="32px" height="32px">
+                                                    <use xlink:href="/images/sprite.svg#wishlist-16"></use>
+                                                </svg>
+                                            </button>
                                         </div>
                                         <div class="product__actions-item product__actions-item--compare">
-                                        <button type="button"
-                                                class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
-                                                aria-label="add compare list"
-                                                id="add-from-compare-btn-<?= $product->id ?>"
-                                                data-compare-product-id="<?= $product->id ?>">
-                                            <svg width="32px" height="32px">
-                                                <use xlink:href="/images/sprite.svg#compare-16"></use>
-                                            </svg>
-                                        </button>
+                                            <button type="button"
+                                                    class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
+                                                    aria-label="add compare list"
+                                                    id="add-from-compare-btn-<?= $product->id ?>"
+                                                    data-compare-product-id="<?= $product->id ?>">
+                                                <svg width="32px" height="32px">
+                                                    <use xlink:href="/images/sprite.svg#compare-16"></use>
+                                                </svg>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -320,16 +323,30 @@ $webp_support = ProductImage::imageWebp();
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
-                                                <b>Новая почта</b>
+                                                <b>Нова пошта</b>
                                                 <ul>
                                                     <li>
-                                                        Вартість доставки по тарифу <a
-                                                                href="https://novaposhta.ua/ru/basic_tariffs"
-                                                                target="_bank">перевізника</a>
+                                                        Від 70 грн.
                                                     </li>
                                                     <li>
-                                                        Самовивіз
+                                                        Тарифи <a
+                                                                href="https://novaposhta.ua/basic_tariffs"
+                                                                target="_bank">перевізника</a>
                                                     </li>
+                                                </ul>
+                                                <b>Укрпошта</b>
+                                                <ul>
+                                                    <li>
+                                                        Від 35 грн.
+                                                    </li>
+                                                    <li>
+                                                        Тарифи <a
+                                                                href="https://www.ukrposhta.ua/ua/taryfy-ukrposhta-standart"
+                                                                target="_bank">перевізника</a>
+                                                    </li>
+                                                </ul>
+                                                <b>Самовивіз</b>
+                                                <ul>
                                                     <li>
                                                         Відвантаження з Полтави
                                                     </li>
@@ -377,23 +394,28 @@ $webp_support = ProductImage::imageWebp();
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
-                                                <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>"> Умови
-                                                    повернення та обміну</a>
+                                                <ul>
+                                                    <li>
+                                                        Умови повернення та
+                                                        <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
+                                                            обміну</a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
-                                <?php if (!Yii::$app->devicedetect->isMobile()):?>
-                                <div>
-                                    <?php if ($product->brand_id != null): ?>
-                                        <img src="/brand/<?= $img_brand->file ?>"
-                                             width="330" height="54"
-                                             alt="<?= $img_brand->name ?>"
-                                             loading="lazy"
-                                             style="width: 100%; margin-top: 10px;">
-                                    <?php endif; ?>
-                                </div>
-                                <?php endif;?>
+                                <?php if (!Yii::$app->devicedetect->isMobile()): ?>
+                                    <div>
+                                        <?php if ($product->brand_id != null): ?>
+                                            <img src="/brand/<?= $img_brand->file ?>"
+                                                 width="330" height="54"
+                                                 alt="<?= $img_brand->name ?>"
+                                                 loading="lazy"
+                                                 style="width: 100%; margin-top: 10px;">
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
