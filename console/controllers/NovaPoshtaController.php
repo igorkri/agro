@@ -106,42 +106,73 @@ class NovaPoshtaController extends Controller
         if ($cities) {
             $i = 1;
             $n = 1;
+            $j = 1;
             foreach ($cities as $city) {
-                $warehouses = $np->getWarehouses($city);
-                if (!empty($warehouses)) {
-                    if (isset($warehouses['data'])) {
-                        foreach ($warehouses['data'] as $warehouse) {
-                            $model = NpWarehouses::find()->where(['ref' => $warehouse['Ref']])->one();
-                            if (!$model) {
-                                $warehouses_db = new NpWarehouses();
-                                $warehouses_db->description = $warehouse['Description'];
-                                $warehouses_db->ref = $warehouse['Ref'];
-                                $warehouses_db->Number = $warehouse['Number'];
-                                $warehouses_db->cityRef = $warehouse['CityRef'];
-                                $warehouses_db->shortAddress = $warehouse['ShortAddress'];
-                                if ($warehouses_db->save(false)) {
-                                    echo "\033[0;31m" . "|# " . $i . " | " . $warehouses_db->description . "\n";
-                                    echo "\r+--------------------------------------------------------------------------------------------------------+\n";
-                                    $i++;
+                if ($j >= 1) {
+                    $warehouses = $np->getWarehouses($city);
+                    if (!empty($warehouses)) {
+                        if ($warehouses['data'] != null) {
+                            foreach ($warehouses['data'] as $warehouse) {
+                                $model = NpWarehouses::find()->where(['ref' => $warehouse['Ref']])->one();
+                                if (!$model) {
+                                    $warehouses_db = new NpWarehouses();
+                                    $warehouses_db->description = $warehouse['Description'];
+                                    $warehouses_db->ref = $warehouse['Ref'];
+                                    $warehouses_db->Number = $warehouse['Number'];
+                                    $warehouses_db->cityRef = $warehouse['CityRef'];
+                                    $warehouses_db->shortAddress = $warehouse['ShortAddress'];
+                                    if ($warehouses_db->save(false)) {
+                                        echo "\033[0;31m" . "|# " . $i . " | " . $warehouses_db->description . "\n";
+                                        echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+                                        $i++;
+                                    } else {
+                                        print_r($warehouses_db->errors);
+                                    }
                                 } else {
-                                    print_r($warehouses_db->errors);
+                                    echo "\033[0;32m" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
+                                    echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+                                    $n++;
                                 }
-                            } else {
-                                echo "\033[0;32m" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
-                                echo "\r+--------------------------------------------------------------------------------------------------------+\n";
-                                $n++;
                             }
                         }
+                    } else {
+                        echo PHP_EOL . 'error warehouses' . PHP_EOL;
+                        print_r($warehouses);
+                        echo PHP_EOL . 'error city' . PHP_EOL;
+                        print_r($city);
                     }
-                } else {
-                    echo PHP_EOL . 'error warehouses' . PHP_EOL;
-                    print_r($warehouses);
-                    echo PHP_EOL . 'error city' . PHP_EOL;
-                    print_r($city);
                 }
+                $j++;
             }
         }
     }
+
+    /**
+     * Города без отделений отделений НП
+     */
+    public function actionNoCitiesWarehouses()
+    {
+        $np = new NovaPoshtaApi2(
+            self::KEY,
+            'ua', // Язык возвращаемых данных: ru (default) | ua | en
+            FALSE, // При ошибке в запросе выбрасывать Exception: FALSE (default) | TRUE
+            'file_get_content' // Используемый механизм запроса: curl (defalut) | file_get_content
+        );
+
+        $cities = NpCity::find()->all();
+        $i = 1;
+        foreach ($cities as $city) {
+//            $warehouses = $np->getWarehouses($city->ref);
+            $warehouses = $np->getWarehouses('38861002-de39-11ea-80fb-b8830365bd04');
+            dd($warehouses);
+            if ($warehouses['data'] == null) {
+                echo "\033[0;32m" . "|- " . $i . " | " . $city->ref . '<>' . $city->description . " Без отделений\n";
+                echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+                $i++;
+            }
+        }
+    }
+
 
     /**
      * Очистить талицу городов Новая Почта
