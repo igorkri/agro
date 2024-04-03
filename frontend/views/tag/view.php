@@ -2,6 +2,7 @@
 
 use common\models\shop\ActivePages;
 use common\models\shop\Product;
+use frontend\widgets\ViewProduct;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -63,11 +64,13 @@ ActivePages::setActiveUser();
                                     <label for="">Сортувати</label>
                                     <div>
                                         <?php
-                                        echo Html::beginForm(['tag/view'], 'get', ['class' => 'form-inline']);
-                                        echo Html::dropDownList('sort', Yii::$app->request->get('sort'), [
+                                        echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);
+                                        echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
                                             '' => 'Наявність',
-                                            'price_lowest' => 'Дешевші',
-                                            'price_highest' => 'Дорожчі',
+                                            'price_lowest' => 'Ціна Дешевші',
+                                            'price_highest' => 'Ціна Дорожчі',
+                                            'name_a' => 'Назва A-я',
+                                            'name_z' => 'Назва Я-а',
                                         ], ['class' => 'form-control form-control-sm', 'id' => 'sort-form']);
                                         ?>
                                     </div>
@@ -76,9 +79,12 @@ ActivePages::setActiveUser();
                                     <label for="">Показати</label>
                                     <div>
                                         <?php
-                                        echo Html::dropDownList('count', Yii::$app->request->get('count'), [
+                                        echo Html::dropDownList('count', Yii::$app->session->get('count'), [
+                                            '4' => '4',
+                                            '8' => '8',
                                             '12' => '12',
                                             '24' => '24',
+                                            '32' => '32',
                                         ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
                                         echo Html::hiddenInput('id', $tag_name->id);
                                         echo Html::endForm();
@@ -154,6 +160,8 @@ ActivePages::setActiveUser();
                                 </li>
                             </ul>
                         </div>
+                        <br>
+                        <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
                     </div>
                 </div>
             </div>

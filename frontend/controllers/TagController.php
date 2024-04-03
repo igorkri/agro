@@ -12,9 +12,26 @@ use Yii;
 
 class TagController extends Controller
 {
-    public function actionView($id, $sort = null, $count = '12')
+    public function actionView($id)
     {
-        $count = intval($count);
+
+        if (!Yii::$app->session->has('sort')) {
+            Yii::$app->session->set('sort', '');
+        } else {
+            if (Yii::$app->request->post('sort') !== null) {
+                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
+            }
+        }
+        $sort = Yii::$app->session->get('sort');
+
+        if (!Yii::$app->session->has('count')) {
+            Yii::$app->session->set('count', 12);
+        } else {
+            if (Yii::$app->request->post('count') !== null) {
+                Yii::$app->session->set('count', Yii::$app->request->post('count'));
+            }
+        }
+        $count = intval(Yii::$app->session->get('count'));
 
         $tag_name = Tag::find()->where(['id' => $id])->one();
         $tags = ProductTag::find()->where(['tag_id' => $id])->all();
@@ -25,6 +42,10 @@ class TagController extends Controller
             $query->orderBy(['price' => SORT_ASC]);
         } elseif ($sort === 'price_highest') {
             $query->orderBy(['price' => SORT_DESC]);
+        } elseif ($sort === 'name_a') {
+            $query->orderBy(['name' => SORT_ASC]);
+        } elseif ($sort === 'name_z') {
+            $query->orderBy(['name' => SORT_DESC]);
         } else {
             $query->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
         }
