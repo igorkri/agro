@@ -1,7 +1,10 @@
 <?php
 
+use common\models\shop\Product;
+use frontend\widgets\ViewProduct;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
+use yii\web\View;
 
 ?>
 <div class="site__body">
@@ -32,6 +35,22 @@ use yii\helpers\Url;
                     <div class="products-view">
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
+                                <div class="view-options__layout">
+                                    <div class="layout-switcher">
+                                        <div class="layout-switcher__list">
+                                            <button data-layout="grid-4-full" data-with-features="false" title="Плитка" type="button" class="layout-switcher__button">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
+                                                </svg>
+                                            </button>
+                                            <button data-layout="list" data-with-features="false" title="Список" type="button" class="layout-switcher__button">
+                                                <svg width="16px" height="16px">
+                                                    <use xlink:href="/images/sprite.svg#layout-list-16x16"></use>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="view-options__legend">Знайдено <?php echo $products_all ?> товарів</div>
                                 <div class="view-options__divider"></div>
                             </div>
@@ -69,6 +88,9 @@ use yii\helpers\Url;
                                                     </div>
                                                     <div class="product-card__rating-legend"><?=count($product->reviews)?> відгуків</div>
                                                 </div>
+                                                <ul class="product-card__features-list">
+                                                    <?= Product::productParamsList($product->id) ?>
+                                                </ul>
                                             </div>
                                             <div class="product-card__actions">
                                                 <div class="product-card__availability">
@@ -100,6 +122,8 @@ use yii\helpers\Url;
                                 </li>
                             </ul>
                         </div>
+                        <br>
+                        <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
                     </div>
                 </div>
             </div>
@@ -111,3 +135,50 @@ use yii\helpers\Url;
         color: #a9a8a8;
     }
 </style>
+
+<?php
+$script = <<< JS
+
+$(document).ready(function () {
+    $('#sort-form, #count-form').change(function () {
+        console.log('Select changed!');
+        this.form.submit();
+    });
+});
+
+
+$(function () {
+    // Загрузка предыдущего выбранного макета из localStorage при загрузке страницы
+    const savedLayout = localStorage.getItem('selectedLayout');
+    if (savedLayout) {
+        const productsList = $('.products-view .products-list');
+        
+        // Установка предыдущего выбранного макета
+        productsList.attr('data-layout', savedLayout);
+        
+        // Пометка соответствующей кнопки как активной
+        $('.layout-switcher__button[data-layout="' + savedLayout + '"]').addClass('layout-switcher__button--active');
+    }
+
+    $('.layout-switcher__button').on('click', function() {
+        const selectedLayout = $(this).data('layout');
+        const layoutSwitcher = $(this).closest('.layout-switcher');
+        const productsView = $(this).closest('.products-view');
+        const productsList = productsView.find('.products-list');
+        
+        layoutSwitcher.find('.layout-switcher__button').removeClass('layout-switcher__button--active');
+        $(this).addClass('layout-switcher__button--active');
+        
+        // Сохранение выбранного макета в localStorage
+        localStorage.setItem('selectedLayout', selectedLayout);
+
+        // Установка выбранного макета
+        productsList.attr('data-layout', selectedLayout);
+    });
+});
+
+
+JS;
+
+$this->registerJs($script, View::POS_END);
+?>
