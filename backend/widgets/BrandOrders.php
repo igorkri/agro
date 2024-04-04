@@ -33,14 +33,22 @@ class BrandOrders extends \yii\base\Widget
                 $carts[] = [
                     "label" => $brand->name,
                     "value" => $incomeOrderBrand,
-                    "color" => $brand->getColorBrand($i),
                     "orders" => $productOrderBrand,
                 ];
-                $i++;
             }
         }
+        usort($carts, function($a, $b) {
+            return floatval($b['value']) - floatval($a['value']);
+        });
+        $carts = array_slice($carts, 0, 10);
+        foreach ($carts as &$cart){
+            $cart['color'] = $brand->getColorBrand($i);
+            $i++;
+        }
+        unset($cart);
 
-        return $this->render('brand-orders', ['brands' => $brands, 'carts' => json_encode($carts)]);
+
+        return $this->render('brand-orders', ['brands' => $carts, 'carts' => json_encode($carts)]);
     }
 
 }

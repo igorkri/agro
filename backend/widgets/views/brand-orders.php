@@ -54,27 +54,24 @@
                 <tbody>
                 <?php $i = 0;
                 foreach ($brands as $brand): ?>
-                    <?php $productOrderBrand = $brand->getProductOrderBrand($brand->id) ?>
-                    <?php $incomeOrderBrand = $brand->getIncomeOrderBrand($brand->id) ?>
-                    <?php if ($productOrderBrand != 0 && $incomeOrderBrand != 0): ?>
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="saw-chart-circle__symbol"
-                                         style="--saw-chart-circle__symbol--color: <?= $brand->getColorBrand($i) ?>"></div>
-                                    <div class="ps-2"><?= $brand->name ?></div>
+                                         style="--saw-chart-circle__symbol--color: <?= $brand['color'] ?>"></div>
+                                    <div class="ps-2"><?= $brand['label'] ?></div>
                                 </div>
                             </td>
                             <td class="text-center"><span
-                                        class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= $productOrderBrand ?></span>
+                                        class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= $brand['orders'] ?></span>
                             </td>
                             <td class="text-end">
                                 <div class="sa-price">
-                                    <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($incomeOrderBrand, 'UAH') ?></span>
+                                    <span class="sa-price__integer"><?= Yii::$app->formatter->asCurrency($brand['value'], 'UAH') ?></span>
                                 </div>
                             </td>
                         </tr>
-                        <?php $i++; endif; ?>
+                        <?php $i++; ?>
                 <?php endforeach; ?>
                 </tbody>
             </table>

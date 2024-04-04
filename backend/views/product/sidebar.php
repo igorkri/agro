@@ -281,7 +281,7 @@ use yii\widgets\Pjax;
                             class="mb-0 fs-exact-18"><?= Yii::t('app', 'Brand') ?></h2></span>
                     </div>
                     <?php
-                    $data = ArrayHelper::map(Brand::find()->orderBy('id')->asArray()->all(), 'id', 'name');
+                    $data = ArrayHelper::map(Brand::find()->orderBy('name')->asArray()->all(), 'id', 'name');
                     echo $form->field($model, 'brand_id')->widget(Select2::classname(), [
                         'data' => $data,
                         'theme' => Select2::THEME_DEFAULT,
