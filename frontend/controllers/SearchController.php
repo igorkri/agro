@@ -52,13 +52,44 @@ class SearchController extends Controller
                 'products' => $products
             ]);
         }
+
+        if (!Yii::$app->session->has('sort')) {
+            Yii::$app->session->set('sort', '');
+        } else {
+            if (Yii::$app->request->post('sort') !== null) {
+                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
+            }
+        }
+        $sort = Yii::$app->session->get('sort');
+
+        if (!Yii::$app->session->has('count')) {
+            Yii::$app->session->set('count', 12);
+        } else {
+            if (Yii::$app->request->post('count') !== null) {
+                Yii::$app->session->set('count', Yii::$app->request->post('count'));
+            }
+        }
+        $count = intval(Yii::$app->session->get('count'));
+
         $query = Product::find()
             ->select(['id', 'slug', 'name', 'price', 'currency', 'status_id', 'sku', 'category_id'])
             ->where(['like', 'name', $q])
             ->orFilterWhere(['in', 'id', $id_prod])
             ->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
 
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 12]);
+        if ($sort === 'price_lowest') {
+            $query->orderBy(['price' => SORT_ASC]);
+        } elseif ($sort === 'price_highest') {
+            $query->orderBy(['price' => SORT_DESC]);
+        } elseif ($sort === 'name_a') {
+            $query->orderBy(['name' => SORT_ASC]);
+        } elseif ($sort === 'name_z') {
+            $query->orderBy(['name' => SORT_DESC]);
+        } else {
+            $query->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
+        }
+
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $count]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
