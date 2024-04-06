@@ -57,10 +57,7 @@ class ActivePages extends \yii\db\ActiveRecord
     {
 
         $botAgents = [          // Агенты которые не пишутся в статистику
-            'Googlebot',
-            'Chrome-Lighthouse',
-            'WebCrawler',
-            'Google-InspectionTool',
+            '*',
         ];
 
         $botIps = [          // Ip которые не пишутся в статистику
@@ -77,6 +74,10 @@ class ActivePages extends \yii\db\ActiveRecord
             }
         }
 
+        $clientFrom = $server['HTTP_REFERER'] ?? "Не известно";
+        $parts = explode('&', $clientFrom);
+        $clientFrom = $parts[0];
+
         $userIp = $server['REMOTE_ADDR'] ?? "Не известно";
         foreach ($botIps as $botIp) {
             if ($userIp === $botIp) {
@@ -85,7 +86,7 @@ class ActivePages extends \yii\db\ActiveRecord
             }
         }
 
-        if (\Yii::$app->devicedetect->isMobile()) {
+        if (Yii::$app->devicedetect->isMobile()) {
             $device = 'mobile';
         } else {
             $device = 'desktop';
@@ -95,7 +96,7 @@ class ActivePages extends \yii\db\ActiveRecord
         $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
         $model->url_page = $server['REQUEST_URI'] ?? "Не известно";
         $model->user_agent = $userAgent;
-        $model->client_from = $server['HTTP_REFERER'] ?? "Не известно";
+        $model->client_from = $clientFrom;
         $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
         $model->status_serv = strval(Yii::$app->response->statusCode) ?? "Не известно";
         $model->other = $device ?? "Не известно";
