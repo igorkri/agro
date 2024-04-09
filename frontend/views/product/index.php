@@ -323,7 +323,12 @@ $webp_support = ProductImage::imageWebp();
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
-                                                <b>Нова пошта</b>
+                                                <div style="display: flex; align-items: center;">
+                                                    <svg width="24px" height="24px" style="margin-right: 5px;">
+                                                        <use xlink:href="/images/sprite.svg#novaposhta"></use>
+                                                    </svg>
+                                                    <b>Нова пошта</b>
+                                                </div>
                                                 <ul>
                                                     <li>
                                                         Від 70 грн.
@@ -334,7 +339,12 @@ $webp_support = ProductImage::imageWebp();
                                                                 target="_bank">перевізника</a>
                                                     </li>
                                                 </ul>
-                                                <b>Укрпошта</b>
+                                                <div style="display: flex; align-items: center;">
+                                                    <svg width="24px" height="24px" style="margin-right: 5px;">
+                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>
+                                                    </svg>
+                                                    <b>Укрпошта</b>
+                                                </div>
                                                 <ul>
                                                     <li>
                                                         Від 35 грн.
@@ -345,7 +355,12 @@ $webp_support = ProductImage::imageWebp();
                                                                 target="_bank">перевізника</a>
                                                     </li>
                                                 </ul>
-                                                <b>Самовивіз</b>
+                                                <div style="display: flex; align-items: center;">
+                                                    <svg width="24px" height="24px" style="margin-right: 5px;">
+                                                        <use xlink:href="/images/sprite.svg#delivery-48" style="fill: #47991f;"></use>
+                                                    </svg>
+                                                    <b>Самовивіз</b>
+                                                </div>
                                                 <ul>
                                                     <li>
                                                         Відвантаження з Полтави
