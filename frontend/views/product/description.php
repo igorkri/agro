@@ -489,7 +489,12 @@ $rating = 3;
 $js = <<<JS
 $(document).ready(function() {
     $('table').addClass("table table-bordered table-responsive")
-              .find('tr').first().css("background-color", "rgb(210 247 203 / 55%)");
+              .find('tr').first().css("background-color", "rgb(210 247 203 / 50%)");
+    $('#tab-description').find('h3').css({
+    "background-color": "rgb(243 209 5 / 20%)",
+    "padding-left": "10px",
+    "border-radius": "5px"
+});
     
     $(document).on('click', '#review-form-submit', function(event) {
         event.preventDefault();
