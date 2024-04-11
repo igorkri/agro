@@ -464,7 +464,7 @@ $rating = 3;
         .indicator-analog__value {
             height: 15px;
             font-size: 16px;
-            padding: 0 5px;
+            padding: 3px 7px;
             border-radius: 1000px;
             position: relative;
             top: -5px;

@@ -88,6 +88,9 @@ $webp_support = ProductImage::imageWebp();
                                             <?php if (isset($product->label->name)) : ?>
                                                 <div class="product-card__badge product-card__badge--sale"><?= $product->label->name ?></div>
                                             <?php endif; ?>
+                                            <?php if ($products_analog_count > 0) : ?>
+                                                <div class="product-card__badge product-card__badge--analog"><?='Є аналоги ' . $products_analog_count ?></div>
+                                            <?php endif; ?>
                                         </div>
                                         <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
                                            data-height="700" class="product-image__body" target="_blank">
@@ -190,7 +193,7 @@ $webp_support = ProductImage::imageWebp();
                             </div>
                         </div>
                         <div class="product__sidebar">
-                            <div class="product__availability">
+                            <div class="product__availability" style="text-align: center">
                                 <span class="text-success"
                                       style="font-size: 1.5rem; font-weight: 600; margin-left: 7px">
                                 <?php
@@ -223,7 +226,10 @@ $webp_support = ProductImage::imageWebp();
                                 ?>
                                 </span>
                             </div>
-                            <div class="product__prices" style="margin-left: 14px">
+                            <?php if ($products_analog_count > 0 && $product->status_id == 2) : ?>
+                                <div class="product-card__badge--analog" style="text-align: center"><?='Але є аналоги ' . $products_analog_count ?></div>
+                            <?php endif; ?>
+                            <div class="product__prices" style="text-align: center">
                                 <?php $price = Yii::$app->formatter->asCurrency($product->getPrice()) ?>
                                 <?php if ($product->old_price == null) { ?>
                                     <div class="product-card__prices">
@@ -238,7 +244,7 @@ $webp_support = ProductImage::imageWebp();
                             </div>
                             <div class="product__options">
                                 <div class="form-group product__option">
-                                    <div class="product__actions">
+                                    <div class="product__actions" style="text-align: center">
                                         <div class="product__actions-item product__actions-item--addtocart">
                                             <?php if ($product->status_id != 2) { ?>
                                                 <button class="btn btn-primary btn-lg product-card__addtocart"
@@ -251,7 +257,7 @@ $webp_support = ProductImage::imageWebp();
                                                     <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
                                                 </button>
                                             <?php } else { ?>
-                                                <button class="btn btn-primary disabled"
+                                                <button class="btn btn-primary btn-lg disabled"
                                                         type="button"
                                                         data-product-id="">
                                                     <svg width="20px" height="20px" style="display: unset;">
@@ -453,5 +459,10 @@ $webp_support = ProductImage::imageWebp();
 <style>
     .category-prefix {
         color: #a9a8a8;
+    }
+    .product-card__badge--analog {
+        background: #fbe720;
+        color: #3d464d;
+        font-weight: 600;
     }
 </style>
