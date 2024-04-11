@@ -487,80 +487,79 @@ $rating = 3;
 
 <?php
 $js = <<<JS
-     $('#review-form-submit').click(function(event) {
-        event.preventDefault();
-     var productId = $('input[name=product_id]').val();
-     var star = $('input[name=starrating]').val();
-     var name = $('input[name=name]').val();
-     var email = $('input[name=email]').val();
-     var mess = $('textarea[name=message]').val();
-     if(name != ''){
-     $.ajax({
-         url: '/review/create',
-         type: 'post',
-         data: {
-             id: productId,
-             rating: star,
-             name: name,
-             email: email,
-             mess: mess
-             },
-         success: function(data){
-             $('#form-review')[0].reset();
-              $('#success-message').fadeIn(); // Показать сообщение
-    setTimeout(function() {
-        $('#success-message').fadeOut(); // Скрыть сообщение после 2 секунд
-    }, 2500);
-             $('.reviews-list__content').html(data);
-         },
-         error: function(data){
-             console.log("error",data) 
-         }
-     });
-      }    
-     return false;
-});
-
-   document.addEventListener('copy', function(e) {
-    var selectedText = window.getSelection().toString();
-    var additionalText = document.getElementById('additional-text').textContent;
-    var link1 = '<a href="';
-    var link2 = '">';
-    var link3 = '</a>';
+$(document).ready(function() {
+    $('table').addClass("table table-bordered table-responsive")
+              .find('tr').first().css("background-color", "rgb(210 247 203 / 55%)");
     
-    if (selectedText && additionalText && selectedText.length > 20) {
-        var copiedText = selectedText + link1 + additionalText 
-        + link2 + ' Детальніше на: ' + additionalText + link3 ;
-        e.clipboardData.setData('text/html', copiedText);
-        e.clipboardData.setData('text/plain', copiedText);
-        e.preventDefault();
-    }
-});
-   
-   $(document).ready(function () {
-        var fullDescription = $('.full-description');
-        var footerDescription = $('.footer-description');
-        var showMoreBtn = $('#show-more-btn');
-        var hideDescriptionBtn = $('#hide-description-btn');
+    $(document).on('click', '#review-form-submit', function(event) {
+        event.preventDefault();
+        var productId = $('input[name=product_id]').val();
+        var star = $('input[name=starrating]').val();
+        var name = $('input[name=name]').val();
+        var email = $('input[name=email]').val();
+        var mess = $('textarea[name=message]').val();
+        if (name != '') {
+            $.ajax({
+                url: '/review/create',
+                type: 'post',
+                data: {
+                    id: productId,
+                    rating: star,
+                    name: name,
+                    email: email,
+                    mess: mess
+                },
+                success: function(data) {
+                    $('#form-review')[0].reset();
+                    $('#success-message').fadeIn(); // Показать сообщение
+                    setTimeout(function() {
+                        $('#success-message').fadeOut(); // Скрыть сообщение после 2 секунд
+                    }, 2500);
+                    $('.reviews-list__content').html(data);
+                },
+                error: function(data) {
+                    console.log("error", data)
+                }
+            });
+        }
+        return false;
+    });
+    
+    document.addEventListener('copy', function(e) {
+        var selectedText = window.getSelection().toString();
+        var additionalText = document.getElementById('additional-text').textContent;
+        var link = '<a href="' + additionalText + '"> Детальніше на: ' + additionalText + '</a>';
 
-        fullDescription.hide();
-        footerDescription.hide();
+        if (selectedText && additionalText && selectedText.length > 20) {
+            var copiedText = selectedText + link;
+            e.clipboardData.setData('text/html', copiedText);
+            e.clipboardData.setData('text/plain', copiedText);
+            e.preventDefault();
+        }
+    });
+    
+    var fullDescription = $('.full-description');
+    var footerDescription = $('.footer-description');
+    var showMoreBtn = $('#show-more-btn');
+    var hideDescriptionBtn = $('#hide-description-btn');
 
-        showMoreBtn.click(function () {
-            fullDescription.fadeIn();
-            footerDescription.fadeIn();
-             hideDescriptionBtn.show();
-            showMoreBtn.hide();
-        });
-        hideDescriptionBtn.click(function () {
-            fullDescription.fadeOut();
-            footerDescription.fadeOut();
-            hideDescriptionBtn.hide();
-            showMoreBtn.show();
-        });
+    fullDescription.hide();
+    footerDescription.hide();
+
+    showMoreBtn.click(function() {
+        fullDescription.fadeIn();
+        footerDescription.fadeIn();
+        hideDescriptionBtn.show();
+        showMoreBtn.hide();
     });
 
+    hideDescriptionBtn.click(function() {
+        fullDescription.fadeOut();
+        footerDescription.fadeOut();
+        hideDescriptionBtn.hide();
+        showMoreBtn.show();
+    });
+});
 JS;
 $this->registerJs($js);
-
 ?>

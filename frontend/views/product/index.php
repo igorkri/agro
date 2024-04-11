@@ -455,16 +455,3 @@ $webp_support = ProductImage::imageWebp();
         color: #a9a8a8;
     }
 </style>
-
-<?php
-$js = <<<JS
-$( document ).ready(function() {
-
-      $('table').each(function() {
-              $( this ).addClass( "table table-bordered table-responsive" );
-      });
-});
-
-JS;
-$this->registerJs($js);
-?>
