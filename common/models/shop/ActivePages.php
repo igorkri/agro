@@ -132,18 +132,11 @@ class ActivePages extends \yii\db\ActiveRecord
         return count($res);
     }
 
-    public
-    static function productCountViews($url)
+    public static function productCountViews($url)
     {
-        $res = [];
-        $pages = ActivePages::find()
-            ->where(['like', 'url_page', '%' . $url . '%', false])
-            ->asArray()
-            ->all();
-        foreach ($pages as $page) {
-            $res[] = $page['url_page'];
-        }
-        return count($res);
+        return ActivePages::find()
+            ->where(['like', 'url_page', $url])
+            ->count();
     }
 
     public

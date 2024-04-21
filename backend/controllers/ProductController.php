@@ -697,14 +697,15 @@ class ProductController extends Controller
             }
         }
         foreach ($result as $key => $item) {
-            $updatedUrl = str_replace('/product/', '', $item['url']);
-            $result[$key]['slug'] = $updatedUrl;
-            $result[$key]['id'] = Product::productId($result[$key]['slug']);
-            $result[$key]['count'] = ActivePages::productCountViews($result[$key]['slug']);
-            $result[$key]['name'] = Product::productName($result[$key]['slug']);
-            $result[$key]['image'] = Product::productImage($result[$key]['slug']);
-            $result[$key]['status_id'] = Product::productStatusId($result[$key]['slug']);
-            $result[$key]['status_name'] = Product::productStatusName($result[$key]['slug']);
+            $slugProduct = str_replace('/product/', '', $item['url']);
+            $idProduct = Product::productId($slugProduct);
+            $result[$key]['slug'] = $slugProduct;
+            $result[$key]['id'] = $idProduct;
+            $result[$key]['count'] = ActivePages::productCountViews($slugProduct);
+            $result[$key]['name'] = Product::productName($slugProduct);
+            $result[$key]['image'] = Product::productImage($slugProduct);
+            $result[$key]['status_id'] = Product::productStatusId($slugProduct);
+            $result[$key]['status_name'] = Product::productStatusName($slugProduct);
         }
 
 //        ArrayHelper::multisort($result, ['date'], [SORT_DESC]);
