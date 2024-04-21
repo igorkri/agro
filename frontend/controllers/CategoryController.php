@@ -24,6 +24,8 @@ class CategoryController extends Controller
             ->all();
 
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle("Категорії Товарів інтернет-магазину | AgroPro")
             ->setDescription("AgroPro - ваш інтернет-магазин для ЗЗР, добрив, 
             посівного матеріалу та боротьби з гризунами. Оптимізуйте виробництво з нами!")
@@ -294,6 +296,8 @@ class CategoryController extends Controller
     protected function setChildrenMetamaster($category)
     {
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($category->pageTitle)
             ->setDescription($category->metaDescription)
             ->setImage('/category/' . $category->file)
@@ -376,6 +380,8 @@ class CategoryController extends Controller
     protected function setCatalogMetamaster($category)
     {
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($category->pageTitle)
             ->setDescription($category->metaDescription)
             ->setImage('/category/' . $category->file)
@@ -438,6 +444,8 @@ class CategoryController extends Controller
     protected function setAuxiliaryCatalogMetamaster($category)
     {
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($category->pageTitle)
             ->setDescription($category->metaDescription)
             ->setImage('/auxiliary-categories/' . $category->image)

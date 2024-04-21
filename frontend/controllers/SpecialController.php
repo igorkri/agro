@@ -56,6 +56,8 @@ class SpecialController extends Controller
         $products_all = $query->count();
 
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($seo->title)
             ->setDescription($seo->description)
             ->setImage('/images/logos/meta_logo.jpg')

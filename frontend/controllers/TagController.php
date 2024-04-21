@@ -74,6 +74,8 @@ class TagController extends Controller
     protected function setProductMetadata($tag_name)
     {
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle('Продукти які відповідають запиту ' . '[ ' . $tag_name->name . ' ]')
             ->setDescription('На сторінці відображено товари які згруповані запитом ' . '[ ' . $tag_name->name . ' ]')
             ->setImage('/images/logos/meta_logo.jpg')

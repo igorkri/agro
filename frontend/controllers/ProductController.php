@@ -54,8 +54,10 @@ class ProductController extends Controller
     protected function setProductMetadata($product)
     {
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
             ->setTitle($product->seo_title)
             ->setDescription($product->seo_description)
+            ->setType('product')
             ->setImage($product->getImgSeo($product->id))
             ->register(Yii::$app->getView());
     }

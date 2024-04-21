@@ -145,6 +145,8 @@ class SiteController extends Controller
         Yii::$app->params['webPage'] = $homepage->toScript();
 
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($seo->title)
             ->setDescription($seo->description)
             ->setImage('/images/logos/meta_logo.jpg')

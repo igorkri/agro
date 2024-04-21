@@ -74,6 +74,7 @@ class PostController extends Controller
         Yii::$app->params['post'] = $schemaPost->toScript();
 
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
             ->setTitle($postItem->seo_title)
             ->setDescription($postItem->seo_description)
             ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)

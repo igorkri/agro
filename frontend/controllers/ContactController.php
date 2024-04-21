@@ -93,6 +93,8 @@ class ContactController extends Controller
     protected function setProductMetadata($seo)
     {
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($seo->title)
             ->setDescription($seo->description)
             ->setImage('/images/logos/meta_logo.jpg')

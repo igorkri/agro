@@ -16,6 +16,8 @@ class AboutController extends Controller
         $seo = SeoPages::find()->where(['slug' => 'about'])->one();
 
         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
             ->setTitle($seo->title)
             ->setDescription($seo->description)
             ->setImage('/images/logos/meta_logo.jpg')
