@@ -5,6 +5,7 @@ namespace frontend\widgets;
 use common\models\Contact;
 use Yii;
 use yii\base\Widget;
+use yii\caching\DbDependency;
 
 class SiteHeader extends Widget
 {
@@ -23,8 +24,17 @@ class SiteHeader extends Widget
         $wishList = $session->get('wishList', []);
         $wishList = count($wishList);
 
+        $cacheKey = 'contact_cache_key';
+        $contacts = Yii::$app->cache->get($cacheKey);
 
-        $contacts = Contact::find()->one();
+        if ($contacts === false) {
+            $contacts = Contact::find()->one();
+
+            Yii::$app->cache->set($cacheKey, $contacts, 3600, new DbDependency([
+                'sql' => 'SELECT COUNT(*) FROM contacts',
+            ]));
+        }
+
         return $this->render('site-header',
             [
                 'contacts' => $contacts,
@@ -32,6 +42,4 @@ class SiteHeader extends Widget
                 'wishList' => $wishList,
             ]);
     }
-
-
 }

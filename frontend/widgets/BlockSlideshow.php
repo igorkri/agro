@@ -3,7 +3,9 @@
 namespace frontend\widgets;
 
 use common\models\Slider;
+use Yii;
 use yii\base\Widget;
+use yii\caching\DbDependency;
 
 class BlockSlideshow extends Widget  // Головний слайдер
 {
@@ -16,12 +18,19 @@ class BlockSlideshow extends Widget  // Головний слайдер
 
     public function run()
     {
-        $slides = Slider::find()
-            ->where(['visible' => 1])
-            ->all();
+        $cacheKey = 'sliders_cache_key';
+        $sliders = Yii::$app->cache->get($cacheKey);
 
-        return $this->render('block-slideshow', ['slides' => $slides]);
+        if ($sliders === false) {
+            $sliders = Slider::find()
+                ->where(['visible' => 1])
+                ->all();
+
+            Yii::$app->cache->set($cacheKey, $sliders, 3600, new DbDependency([
+                'sql' => 'SELECT COUNT(*) FROM slider',
+            ]));
+        }
+
+        return $this->render('block-slideshow', ['slides' => $sliders]);
     }
-
-
 }
