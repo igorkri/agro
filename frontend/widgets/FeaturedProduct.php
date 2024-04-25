@@ -19,9 +19,13 @@ class FeaturedProduct extends Widget    // Популярні товари
     public function run()
     {
         $cacheKey = 'featuredProduct_cache_key';
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(date_updated) FROM product',
+        ]);
+
         $products = Yii::$app->cache->get($cacheKey);
 
-        if ($products === false) {
+        if ($products === false || !Yii::$app->cache->get($cacheKey . '_db')) {
             $products_grup = ProductGrup::find()
                 ->select('product_id')
                 ->where(['grup_id' => 2])            //  Друга_Группа_Тест
@@ -43,13 +47,10 @@ class FeaturedProduct extends Widget    // Популярні товари
                 ->limit(20)
                 ->all();
 
-            Yii::$app->cache->set($cacheKey, $products, 3600, new DbDependency([
-                'sql' => 'SELECT COUNT(*) FROM product',
-            ]));
+            Yii::$app->cache->set($cacheKey, $products, 3600, $dependency);
+            Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
 
         return $this->render('featured-product', ['products' => $products]);
     }
-
-
 }

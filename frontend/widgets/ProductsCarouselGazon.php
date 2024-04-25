@@ -18,9 +18,13 @@ class ProductsCarouselGazon extends Widget   // Газонна Трава
     public function run()
     {
         $cacheKey = 'productsCarouselGazon_cache_key';
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(date_updated) FROM product',
+        ]);
+
         $products = Yii::$app->cache->get($cacheKey);
 
-        if ($products === false) {
+        if ($products === false || !Yii::$app->cache->get($cacheKey . '_db')) {
             $products_grup = ProductGrup::find()
                 ->select('product_id')
                 ->where(['grup_id' => 8])            //  Газонна Трава
@@ -42,11 +46,10 @@ class ProductsCarouselGazon extends Widget   // Газонна Трава
                 ->limit(20)
                 ->all();
 
-            Yii::$app->cache->set($cacheKey, $products, 3600, new DbDependency([
-                'sql' => 'SELECT COUNT(*) FROM product',
-            ]));
+            Yii::$app->cache->set($cacheKey, $products, 3600, $dependency);
+            Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency); // Помечаем кэш базы данных как актуальный
         }
 
-            return $this->render('products-carousel-gazon', ['products' => $products]);
+        return $this->render('products-carousel-gazon', ['products' => $products]);
     }
 }
