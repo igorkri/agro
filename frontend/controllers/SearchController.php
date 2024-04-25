@@ -18,6 +18,7 @@ class SearchController extends Controller
 
     public function actionSuggestions($q = null)
     {
+        $id_prod = [];
         if ($q) {
             $pr_tags = Tag::find()->where(['like', 'name', $q])->asArray()->all();
             $id_tag = [];
@@ -38,6 +39,7 @@ class SearchController extends Controller
                 $id_prod[] = $product['id'];
             }
         }
+
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             $products = Product::find()
