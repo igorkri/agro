@@ -1,15 +1,15 @@
 <?php
 
-
 namespace frontend\widgets;
 
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
+use Yii;
+use yii\caching\DbDependency;
 use yii\base\Widget;
 
 class ProductsCarousel extends Widget   // Нові надходження
 {
-    public $slug;
 
     public function init()
     {
@@ -19,24 +19,14 @@ class ProductsCarousel extends Widget   // Нові надходження
 
     public function run()
     {
-        if ($this->slug === 'rekomendacii-sodo-borotbi-zi-slimakami-v-pogrebi-ta-pidvali') {
-            $ids = [122, 136, 137, 219, 248, 249];
-            $products = Product::find()
-                ->select([
-                    'id',
-                    'name',
-                    'slug',
-                    'price',
-                    'old_price',
-                    'status_id',
-                    'label_id',
-                    'currency',
-                ])
-                ->where(['id' => $ids])
-                ->all();
-            return $this->render('products-carousel', ['products' => $products]);
+        $cacheKey = 'productsCarousel_cache_key';
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(date_updated) FROM product',
+        ]);
 
-        } else {
+        $products = Yii::$app->cache->get($cacheKey);
+
+        if ($products === false || !Yii::$app->cache->get($cacheKey . '_db')) {
 
             $products_grup = ProductGrup::find()
                 ->select('product_id')
@@ -59,9 +49,10 @@ class ProductsCarousel extends Widget   // Нові надходження
                 ->limit(20)
                 ->all();
 
-            return $this->render('products-carousel', ['products' => $products]);
+            Yii::$app->cache->set($cacheKey, $products, 3600, $dependency);
+            Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
+
+            return $this->render('products-carousel', ['products' => $products]);
     }
-
-
 }

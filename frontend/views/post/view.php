@@ -175,7 +175,7 @@ $currentUrl = $request->absoluteUrl;
     </div>
 </div>
 <div class="container">
-    <?php echo ProductsCarousel::widget(['slug' => $postItem->slug]) ?>
+    <?php echo ProductsCarousel::widget() ?>
 </div>
 <div class="container reviews-view">
     <div class="reviews-view__list">
