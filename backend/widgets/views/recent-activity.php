@@ -48,7 +48,7 @@ use yii\helpers\Html;
                 <?php $i = 0;
                 foreach ($result as $value): ?>
                     <?php $productImage = Product::productImage($value['url']) ?>
-                    <?php if ($productImage != null and $i < 6) { ?>
+                    <?php if ($productImage != null and $i < 10) { ?>
                         <li class="list-group-item py-2">
                             <div class="d-flex align-items-center py-3">
                                 <a href="/product/<?= $value['url'] ?>" class="me-4">
