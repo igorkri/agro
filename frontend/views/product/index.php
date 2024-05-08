@@ -89,7 +89,7 @@ $webp_support = ProductImage::imageWebp();
                                                 <div class="product-card__badge product-card__badge--sale"><?= $product->label->name ?></div>
                                             <?php endif; ?>
                                             <?php if ($products_analog_count > 0) : ?>
-                                                <div class="product-card__badge product-card__badge--analog"><?='Є аналоги ' . $products_analog_count ?></div>
+                                                <div class="product-card__badge product-card__badge--analog"><?= 'Є аналоги ' . $products_analog_count ?></div>
                                             <?php endif; ?>
                                         </div>
                                         <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
@@ -227,7 +227,8 @@ $webp_support = ProductImage::imageWebp();
                                 </span>
                             </div>
                             <?php if ($products_analog_count > 0 && $product->status_id == 2) : ?>
-                                <div class="product-card__badge--analog" style="text-align: center"><?='Але є аналоги ' . $products_analog_count ?></div>
+                                <div class="product-card__badge--analog"
+                                     style="text-align: center"><?= 'Але є аналоги ' . $products_analog_count ?></div>
                             <?php endif; ?>
                             <div class="product__prices" style="text-align: center">
                                 <?php $price = Yii::$app->formatter->asCurrency($product->getPrice()) ?>
@@ -363,7 +364,8 @@ $webp_support = ProductImage::imageWebp();
                                                 </ul>
                                                 <div style="display: flex; align-items: center;">
                                                     <svg width="24px" height="24px" style="margin-right: 5px;">
-                                                        <use xlink:href="/images/sprite.svg#delivery-48" style="fill: #47991f;"></use>
+                                                        <use xlink:href="/images/sprite.svg#delivery-48"
+                                                             style="fill: #47991f;"></use>
                                                     </svg>
                                                     <b>Самовивіз</b>
                                                 </div>
@@ -452,7 +454,9 @@ $webp_support = ProductImage::imageWebp();
         </div>
     </div>
     <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
-    <?php echo ProductsCarousel::widget() ?>
+    <?php if (!Yii::$app->devicedetect->isMobile()): ?>
+        <?php echo ProductsCarousel::widget() ?>
+    <?php endif; ?>
     <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
 
@@ -460,6 +464,7 @@ $webp_support = ProductImage::imageWebp();
     .category-prefix {
         color: #a9a8a8;
     }
+
     .product-card__badge--analog {
         background: #fbe720;
         color: #3d464d;
