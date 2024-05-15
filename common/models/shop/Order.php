@@ -182,8 +182,11 @@ class Order extends \yii\db\ActiveRecord
                 case 3:
                     $status = '<span class="badge badge-sa-success me-2">' . $order->orderStatus->name . '</span>';
                     break;
-                default;
+                case 4:
                     $status = '<span class="badge badge-sa-info me-2">' . $order->orderStatus->name . '</span>';
+                    break;
+                default;
+                    $status = '<span class="badge badge-sa-dark me-2">' . $order->orderStatus->name . '</span>';
                     break;
             }
         }
