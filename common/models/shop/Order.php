@@ -68,6 +68,7 @@ class Order extends \yii\db\ActiveRecord
             [['note', 'comment'], 'string'],
             [['order_status_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderStatus::class, 'targetAttribute' => ['order_status_id' => 'id']],
             [['order_pay_ment_id'], 'exist', 'skipOnError' => true, 'targetClass' => OrderPayMent::class, 'targetAttribute' => ['order_pay_ment_id' => 'id']],
+            ['phone', 'match', 'pattern' => '/^\+38\(\d{3}\)\d{3} \d{4}$/', 'message' => 'Номер не корректный.'],
         ];
     }
 
