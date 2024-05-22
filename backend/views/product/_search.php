@@ -34,7 +34,7 @@ use yii\helpers\Html;
                         $minPrice = round(Product::find()->min('price'), 2);
                         $maxPrice = round(Product::find()->max('price'), 2);
 
-                        $request = \Yii::$app->request;
+                        $request = Yii::$app->request;
                         $submittedMinPrice = $request->post('minPrice', $minPrice);
                         $submittedMaxPrice = $request->post('maxPrice', $maxPrice);
                         ?>
