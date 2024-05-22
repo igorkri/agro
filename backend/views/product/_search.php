@@ -59,7 +59,7 @@ use yii\helpers\Html;
                 </li>
                 <li class="sa-filters__item">
                     <div class="sa-filters__item-title">Категорії</div>
-                    <div class="sa-filters__item-body">
+                    <div class="sa-filters__item-body scrollable-container">
                         <ul class="list-unstyled m-0 mt-n2">
                             <?php
                             $productCatIds = Product::find()
@@ -147,7 +147,7 @@ use yii\helpers\Html;
                 </li>
                 <li class="sa-filters__item">
                     <div class="sa-filters__item-title">Бренди</div>
-                    <div class="sa-filters__item-body">
+                    <div class="sa-filters__item-body scrollable-container">
                         <ul class="list-unstyled m-0 mt-n2">
                             <?php $brands = Brand::find()->all() ?>
                             <?php foreach ($brands as $brand) { ?>
@@ -180,3 +180,9 @@ use yii\helpers\Html;
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+<style>
+    .scrollable-container {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+</style>
