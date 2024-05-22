@@ -1,9 +1,13 @@
 <?php
 
 use common\models\OrderPayMent;
+use common\models\shop\OrderProvider;
+use common\models\shop\OrderStatus;
 use yii\bootstrap5\Breadcrumbs;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
 /** @var yii\web\View $this */
 /** @var common\models\shop\Order $model */
@@ -47,23 +51,25 @@ use yii\widgets\ActiveForm;
                             <div class="row">
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
-                                        \yii\helpers\ArrayHelper::map(OrderPayMent::find()->all(), 'id', 'name')
+                                        ArrayHelper::map(OrderPayMent::find()->all(), 'id', 'name')
                                     ) ?>
                                 </div>
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'order_status_id')->dropDownList(
-                                        \yii\helpers\ArrayHelper::map(\common\models\shop\OrderStatus::find()->all(), 'id', 'name')
+                                        ArrayHelper::map(OrderStatus::find()->all(), 'id', 'name')
                                     ) ?>
                                 </div>
                                 <div class="col-4 mb-4">
                                     <?= $form->field($model, 'order_provider_id')->dropDownList(
-                                        \yii\helpers\ArrayHelper::map(\common\models\shop\OrderProvider::find()->all(), 'id', 'name')
+                                        ArrayHelper::map(OrderProvider::find()->all(), 'id', 'name')
                                     ) ?>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4 sm-2 mb-4">
-                                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+                                    <?= $form->field($model, 'phone')->widget(MaskedInput::class, [
+                                        'mask' => '+38(999)999 9999',
+                                    ]) ?>
                                 </div>
                                 <div class="col-4 sm-5 mb-4">
                                     <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
@@ -87,6 +93,5 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
 <?php ActiveForm::end(); ?>
 
