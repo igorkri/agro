@@ -41,7 +41,7 @@
         "kartik-v/yii2-popover-x": "dev-master",
         "yii2mod/yii2-sweet-alert": "*",
         "skeeks/yii2-assets-auto-compress": "*",
-        "phpoffice/phpspreadsheet": "^1.29",
+        "phpoffice/phpspreadsheet": "^2.1",
         "swiftmailer/swiftmailer": "^5.4",
         "aki/yii2-bot-telegram": "*",
         "lis-dev/nova-poshta-api-2": "^0.1.6",
