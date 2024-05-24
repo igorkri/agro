@@ -2,32 +2,32 @@
 
 namespace backend\controllers;
 
-use common\models\Settings;
-use common\models\shop\ActivePages;
-use common\models\shop\AnalogProducts;
-use common\models\shop\Product;
-use backend\models\search\ProductSearch;
-use common\models\shop\ProductGrup;
-use common\models\shop\ProductImage;
-use common\models\shop\ProductProperties;
-use common\models\shop\ProductTag;
-use common\models\UploadForm;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use yii\helpers\ArrayHelper;
-use yii\helpers\FileHelper;
-use yii\imagine\Image;
 use Yii;
 use yii\helpers\Url;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\imagine\Image;
+use yii\web\Controller;
 use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
+use yii\filters\VerbFilter;
+use common\models\Settings;
+use yii\helpers\ArrayHelper;
+use common\models\UploadForm;
+use common\models\shop\Product;
+use yii\web\NotFoundHttpException;
+use common\models\shop\ActivePages;
+use common\models\shop\ProductGrup;
+use common\models\shop\ProductTag;
+use common\models\shop\ProductImage;
+use common\models\shop\AnalogProducts;
+use backend\models\search\ProductSearch;
+use common\models\shop\ProductProperties;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 /**
  * ProductController implements the CRUD actions for Product model.
