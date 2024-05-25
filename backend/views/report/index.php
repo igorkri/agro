@@ -49,8 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <table class="sa-datatables-init" data-order='[[ 1, "asc" ]]' data-sa-search-input="#table-search">
                     <thead>
                     <tr style="background-color: rgba(111,190,79,0.53)">
-                        <th><?= Yii::t('app', 'ID') ?></th>
 
+                        <th class="min-w-5x"><?= Yii::t('app', 'Number Order') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Platform') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Order Status') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Summa') ?></th>
@@ -63,8 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-phone"><?= Yii::t('app', 'Phone') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Delivery Service') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'TTH') ?></th>
-                        <th class="min-w-5x"><?= Yii::t('app', 'Number Order') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Number Order 1c') ?></th>
+                        <th><?= Yii::t('app', 'ID') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -76,28 +76,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php } else { ?>
                             <tr>
                         <?php } ?>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <span class="me-4"><?= $model->id ?></span>
-                            </div>
-                        </td>
+
+                        <td><?= $model->number_order ?></td>
                         <td><?= $model->platform ?></td>
                         <td><?= $model->getExecutionStatus($model->order_status_id) ?></td>
                         <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
                         <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"
                                class="text-reset"><?= $model->fio ?></a></td>
                         <td><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
-
-                        <td style="align-content: center"><?= $model->getCountOrders($model->tel_number) ?></td>
+                        <td><?= $model->getCountOrders($model->tel_number) ?></td>
                         <td><?= $model->date_delivery ?></td>
                         <td><?= $model->type_payment ?></td>
                         <td><?= $model->address ?></td>
                         <td><?= $model->tel_number ?></td>
                         <td><?= $model->delivery_service ?></td>
                         <td><?= $model->ttn ?></td>
-                        <td><?= $model->number_order ?></td>
                         <td><?= $model->number_order_1c ?></td>
-
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <span class="me-4"><?= $model->id ?></span>
+                            </div>
+                        </td>
                         <td>
                             <div class="dropdown">
                                 <button
