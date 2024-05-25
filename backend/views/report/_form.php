@@ -49,7 +49,7 @@ use yii\widgets\MaskedInput;
 
 
                                 <div class="row mb-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <?= $form->field($model, 'platform')->dropDownList(
                                             $platformName = [
                                                 'Агропроцвіт' => 'Агропроцвіт',
@@ -65,15 +65,10 @@ use yii\widgets\MaskedInput;
                                                 'class' => 'form-control custom-class',  // CSS-класс
                                             ])->label('Платформа') ?>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <?= $form->field($model, 'number_order')->textInput(['maxlength' => true])->label('Номер Замовлення') ?>
                                     </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-md-6">
-                                        <?= $form->field($model, 'number_order_1c')->textInput(['maxlength' => true])->label('Номер 1С') ?>
-                                    </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <?= $form->field($model, 'date_order')->input('date')->label('Дата Замовлення') ?>
                                     </div>
                                 </div>
@@ -81,9 +76,9 @@ use yii\widgets\MaskedInput;
                                     <div class="col-md-6">
                                         <?= $form->field($model, 'order_status_id')->dropDownList(
                                             $orderStatus = [
-                                                'Очікуеться' => 'Очікуеться',
-                                                'Комплектуеться' => 'Комплектуеться',
-                                                'Доставляеться' => 'Доставляеться',
+                                                'Очікується' => 'Очікується',
+                                                'Комплектується' => 'Комплектується',
+                                                'Доставляється' => 'Доставляється',
                                                 'Відміна' => 'Відміна',
                                                 'Одержано' => 'Одержано',
                                                 'Повернення' => 'Повернення',
@@ -91,22 +86,27 @@ use yii\widgets\MaskedInput;
                                             [
                                                 'prompt' => '', // Подсказка
                                                 'class' => 'form-control custom-class',  // CSS-класс
+                                                'id' => 'order-status-dropdown', // Уникальный идентификатор
                                             ])->label('Статус Замовлення') ?>
+                                        <div class="mt-3">
+                                            <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
+                                                $orderStatus = [
+                                                    'Оплачено' => 'Оплачено',
+                                                    'Не оплачено' => 'Не оплачено',
+                                                ],
+                                                [
+                                                    'prompt' => '', // Подсказка
+
+                                                    'id' => 'order-payment-status-dropdown', // Уникальный идентификатор
+                                                    'class' => 'form-control custom-class',
+                                                ])->label('Статус Оплати') ?>
+                                        </div>
                                     </div>
+
                                     <div class="col-md-6">
-                                        <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
-                                            $orderStatus = [
-                                                'Оплачено' => 'Оплачено',
-                                                'Не оплачено' => 'Не оплачено',
-                                            ],
-                                            [
-                                                'prompt' => '', // Подсказка
-                                                'class' => 'form-control custom-class',  // CSS-класс
-                                            ])->label('Статус Оплати') ?>
+                                        <?= $form->field($model, 'comments')->textarea(['rows' => '4', 'class' => "form-control"])->label('Коментар') ?>
                                     </div>
-                                </div>
-                                <div>
-                                    <?= $form->field($model, 'comments')->textarea(['rows' => '4', 'class' => "form-control"])->label('Коментар') ?>
+
                                 </div>
                             </div>
                         </div>
@@ -118,15 +118,15 @@ use yii\widgets\MaskedInput;
                                 <div class="row mb-4">
                                     <div class="col-md-6">
                                         <?= $form->field($model, 'fio')->textInput(['maxlength' => true])->label('П.І.Б') ?>
+                                        <div class="mt-3">
+                                            <?= $form->field($model, 'tel_number')->widget(MaskedInput::class, [
+                                                'mask' => '+38(999)999 9999',
+                                            ])->label('Телефон') ?>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <?= $form->field($model, 'tel_number')->widget(MaskedInput::class, [
-                                            'mask' => '+38(999)999 9999',
-                                        ])->label('Телефон') ?>
+                                        <?= $form->field($model, 'address')->textarea(['rows' => '4', 'class' => "form-control"]) ?>
                                     </div>
-                                </div>
-                                <div>
-                                    <?= $form->field($model, 'address')->textarea(['rows' => '4', 'class' => "form-control"]) ?>
                                 </div>
                             </div>
                         </div>
@@ -225,6 +225,12 @@ use yii\widgets\MaskedInput;
                                 <?= $form->field($model, 'date_payment')->input('date')->label('Дата Оплати') ?>
                             </div>
                         </div>
+                        <div class="card w-100 mt-5">
+                            <div class="card-body p-5">
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Накладна 1С</h2></div>
+                                <?= $form->field($model, 'number_order_1c')->textInput(['maxlength' => true])->label('Номер 1С') ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -245,3 +251,53 @@ use yii\widgets\MaskedInput;
 </div>
 <!-- sa-app__footer / end -->
 <?php ActiveForm::end(); ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var paymentDropdown = document.getElementById('order-payment-status-dropdown');
+        var orderDropdown = document.getElementById('order-status-dropdown');
+
+        var updatePaymentBackgroundColor = function() {
+            if (paymentDropdown.value === 'Оплачено') {
+                paymentDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Оплачено"
+            } else if (paymentDropdown.value === 'Не оплачено') {
+                paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
+            } else {
+                paymentDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
+            }
+        };
+
+        var updateOrderBackgroundColor = function() {
+            switch (orderDropdown.value) {
+                case 'Очікується':
+                    orderDropdown.style.backgroundColor = '#f0e68c5c'; // Желтый цвет для "Очікується"
+                    break;
+                case 'Комплектується':
+                    orderDropdown.style.backgroundColor = '#add8e65c'; // Голубой цвет для "Комплектується"
+                    break;
+                case 'Доставляється':
+                    orderDropdown.style.backgroundColor = '#ffa5005c'; // Оранжевый цвет для "Доставляється"
+                    break;
+                case 'Відміна':
+                    orderDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Відміна"
+                    break;
+                case 'Одержано':
+                    orderDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Одержано"
+                    break;
+                case 'Повернення':
+                    orderDropdown.style.backgroundColor = '#d3d3d35c'; // Серый цвет для "Повернення"
+                    break;
+                default:
+                    orderDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
+            }
+        };
+
+        // Обработчики события изменения значения
+        paymentDropdown.addEventListener('change', updatePaymentBackgroundColor);
+        orderDropdown.addEventListener('change', updateOrderBackgroundColor);
+
+        // Вызовем функции для установки начального цвета при загрузке страницы
+        updatePaymentBackgroundColor();
+        updateOrderBackgroundColor();
+    });
+</script>

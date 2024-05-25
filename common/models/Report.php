@@ -109,7 +109,7 @@ class Report extends \yii\db\ActiveRecord
     {
             switch ($order_status) {
 
-                case 'Доставляеться':
+                case 'Доставляється':
                     $status = '<span class="badge me-2" style="background-color: rgba(249,115,4,0.84)">' . $order_status . '</span>';
                     break;
                 case 'Відміна':
@@ -118,13 +118,13 @@ class Report extends \yii\db\ActiveRecord
                 case 'Повернення':
                     $status = '<span class="badge badge-sa-danger me-2">' . $order_status . '</span>';
                     break;
-                case 'Комплектуеться':
+                case 'Комплектується':
                     $status = '<span class="badge badge-sa-warning me-2">' . $order_status . '</span>';
                     break;
                 case 'Одержано':
                     $status = '<span class="badge badge-sa-success me-2">' . $order_status . '</span>';
                     break;
-                case 'Очікуеться':
+                case 'Очікується':
                     $status = '<span class="badge badge-sa-info me-2">' . $order_status . '</span>';
                     break;
                 default;
