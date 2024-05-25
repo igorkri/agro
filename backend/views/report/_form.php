@@ -125,7 +125,7 @@ use yii\widgets\MaskedInput;
                             <div class="card-body p-5">
                                 <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-barcode"></i> Інформація про доставку</h2></div>
                                 <div class="row mb-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
 
                                         <?= $form->field($model, 'delivery_service')->dropDownList(
                                             $deliveryServices = [
@@ -138,16 +138,14 @@ use yii\widgets\MaskedInput;
                                                 'class' => 'form-control custom-class',  // CSS-класс
                                             ])->label('Служба Доставки') ?>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
 
                                         <?= $form->field($model, 'ttn')->textInput(['maxlength' => true])->label('ТТН') ?>
                                     </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <?= $form->field($model, 'date_delivery')->input('date')->label('Дата Відправки') ?>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <?= $form->field($model, 'price_delivery')->textInput()->label('Ціна Доставки') ?>
                                     </div>
                                 </div>
