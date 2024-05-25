@@ -146,5 +146,7 @@ return [
     'Phone' => 'Телефон',
     'Delivery Service' => 'Доставка',
     'Number Order 1c' => 'Накладна 1С',
+    'Report' => 'Звіт',
+    'Reports' => 'Звіт',
     //    '' => '',
 ];
