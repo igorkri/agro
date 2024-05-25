@@ -144,7 +144,7 @@ class ReportController extends Controller
     }
 
     /**
-     * Форматирование Платформы в базе
+     * Форматирование Номера в базе
      */
 
     public function actionPhoneReport()
@@ -212,6 +212,35 @@ class ReportController extends Controller
                 echo "\t" . " ID нет в таблице Report " . $item . " ! \n";
             } else {
                 echo "\t" . " ID есть в таблице Report " . $item . " ! \n";
+            }
+        }
+    }
+
+    /**
+     * Форматирование Тип оплаты в базе
+     */
+
+    public function actionTypePayment()
+    {
+        $i = 1;
+        $word = 'нк';
+        $newWord = 'Наложка карта У';
+
+        $payments = Report::find()->select(['type_payment', 'id'])->asArray()->all();
+
+        foreach ($payments as $item) {
+
+            $id = $item['id'];
+            $typePayment = $item['type_payment'];
+
+            if ($typePayment){
+                if ($typePayment === $word){
+                    $model = Report::find()->where(['id' => $id])->one();
+                    $model->type_payment = $newWord;
+                    $model->save(false);
+                    echo "\t" . $i . " Слово  " . $word . "  перезаписано словом  " . $newWord . " ! \n";
+                    $i++;
+                }
             }
         }
     }
