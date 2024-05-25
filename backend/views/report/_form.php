@@ -11,7 +11,7 @@ use yii\widgets\MaskedInput;
 ?>
 <?php $form = ActiveForm::begin(); ?>
 <!-- sa-app__body -->
-<div id="top" class="sa-app__body">
+<div id="top" class="sa-app__body" style="padding-top: 0px">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
             <div class="py-5">
@@ -30,10 +30,7 @@ use yii\widgets\MaskedInput;
                                 ?>
                             </ol>
                         </nav>
-                        <h1 class="h3 m-0">Редагування Замовлення # <?= $model->id ?></h1>
                     </div>
-
-
                     <div class="col-auto d-flex">
                         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
                     </div>
@@ -45,9 +42,7 @@ use yii\widgets\MaskedInput;
                     <div class="sa-entity-layout__main">
                         <div class="card">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Основна Інформація</h2></div>
-
-
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-info-circle"></i> Основна Інформація</h2></div>
                                 <div class="row mb-4">
                                     <div class="col-md-4">
                                         <?= $form->field($model, 'platform')->dropDownList(
@@ -73,7 +68,7 @@ use yii\widgets\MaskedInput;
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <?= $form->field($model, 'order_status_id')->dropDownList(
                                             $orderStatus = [
                                                 'Очікується' => 'Очікується',
@@ -88,33 +83,29 @@ use yii\widgets\MaskedInput;
                                                 'class' => 'form-control custom-class',  // CSS-класс
                                                 'id' => 'order-status-dropdown', // Уникальный идентификатор
                                             ])->label('Статус Замовлення') ?>
-                                        <div class="mt-3">
-                                            <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
-                                                $orderStatus = [
-                                                    'Оплачено' => 'Оплачено',
-                                                    'Не оплачено' => 'Не оплачено',
-                                                ],
-                                                [
-                                                    'prompt' => '', // Подсказка
-
-                                                    'id' => 'order-payment-status-dropdown', // Уникальный идентификатор
-                                                    'class' => 'form-control custom-class',
-                                                ])->label('Статус Оплати') ?>
-                                        </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
+                                            $orderStatus = [
+                                                'Оплачено' => 'Оплачено',
+                                                'Не оплачено' => 'Не оплачено',
+                                            ],
+                                            [
+                                                'prompt' => '', // Подсказка
 
+                                                'id' => 'order-payment-status-dropdown', // Уникальный идентификатор
+                                                'class' => 'form-control custom-class',
+                                            ])->label('Статус Оплати') ?>
+                                    </div>
                                     <div class="col-md-6">
-                                        <?= $form->field($model, 'comments')->textarea(['rows' => '4', 'class' => "form-control"])->label('Коментар') ?>
+                                        <?= $form->field($model, 'comments')->textarea(['rows' => '2', 'class' => "form-control"])->label('Коментар') ?>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="card mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Дані Замовника</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-user-secret"></i> Дані Замовника</h2></div>
                                 <div class="row mb-4">
                                     <div class="col-md-6">
                                         <?= $form->field($model, 'fio')->textInput(['maxlength' => true])->label('П.І.Б') ?>
@@ -130,10 +121,9 @@ use yii\widgets\MaskedInput;
                                 </div>
                             </div>
                         </div>
-
                         <div class="card mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Інформація про доставку</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-barcode"></i> Інформація про доставку</h2></div>
                                 <div class="row mb-4">
                                     <div class="col-md-6">
 
@@ -163,12 +153,11 @@ use yii\widgets\MaskedInput;
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="sa-entity-layout__sidebar">
+                    <div class="sa-entity-layout__sidebar" style="max-width: 15rem">
                         <div class="card w-100">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Тип Оплати</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-money-bill-wave"></i> Тип Оплати</h2></div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'type_payment')
                                         ->radioList(
@@ -198,36 +187,15 @@ use yii\widgets\MaskedInput;
                                 </div>
                             </div>
                         </div>
-
-<!--                        <div class="card w-100 mt-5">-->
-<!--                            <div class="card-body p-5">-->
-<!--                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Variable</h2></div>-->
-<!--                                <div class="mb-4">-->
-<!--                                    <label class="form-check">-->
-<!--                                        <input type="radio" class="form-check-input" name="status"/>-->
-<!--                                        <span class="form-check-label">Published</span>-->
-<!--                                    </label>-->
-<!--                                    <label class="form-check">-->
-<!--                                        <input type="radio" class="form-check-input" name="status" checked=""/>-->
-<!--                                        <span class="form-check-label">Scheduled</span>-->
-<!--                                    </label>-->
-<!--                                    <label class="form-check mb-0">-->
-<!--                                        <input type="radio" class="form-check-input" name="status"/>-->
-<!--                                        <span class="form-check-label">Hidden</span>-->
-<!--                                    </label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Дата оплати</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="far fa-calendar-alt"></i> Дата оплати</h2></div>
                                 <?= $form->field($model, 'date_payment')->input('date')->label('Дата Оплати') ?>
                             </div>
                         </div>
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18">Накладна 1С</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="far fa-calendar-check"></i> Накладна 1С</h2></div>
                                 <?= $form->field($model, 'number_order_1c')->textInput(['maxlength' => true])->label('Номер 1С') ?>
                             </div>
                         </div>
@@ -238,18 +206,6 @@ use yii\widgets\MaskedInput;
     </div>
 </div>
 <!-- sa-app__body / end -->
-<!-- sa-app__footer -->
-<div class="sa-app__footer d-block d-md-flex">
-    <!-- copyright -->
-    Stroyka Admin — eCommerce Dashboard Template © 2021
-    <div class="m-auto"></div>
-    <div>
-        Powered by HTML — Design by
-        <a href="https://themeforest.net/user/kos9/portfolio">Kos</a>
-    </div>
-    <!-- copyright / end -->
-</div>
-<!-- sa-app__footer / end -->
 <?php ActiveForm::end(); ?>
 
 <script>

@@ -4,7 +4,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\DetailView;
+
 
 /** @var yii\web\View $this */
 /** @var common\models\Report $model */
