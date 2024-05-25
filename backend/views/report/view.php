@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="sa-entity-layout__main">
                                     <div class="card">
                                         <div class="card-body px-5 py-4 d-flex align-items-center justify-content-between">
-                                            <h2 class="mb-0 fs-exact-18 me-4">Товари</h2>
+                                            <h2 class="mb-0 fs-exact-18 me-4"><i class="fas fa-seedling"></i> Товари</h2>
                                             <div class="text-muted fs-exact-14"><a href="#" data-bs-toggle="modal"
                                                                                    data-bs-target="#addReportItemModal"><i
                                                             class="fas fa-plus"></i></a></div>
@@ -214,7 +214,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </tbody>
                                                 <tbody>
                                                 <tr>
-                                                    <td colspan="3">Загальна сума</td>
+                                                    <td colspan="3"><i class="fas fa-money-bill-wave"></i> Загальна сума</td>
                                                     <td class="text-end">
                                                         <div class="sa-price" style="font-weight: bold">
                                                             <?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?>
@@ -281,12 +281,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="sa-entity-layout__sidebar">
                                     <div class="card">
                                         <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
-                                            <h2 class="fs-exact-16 mb-0">Замовник</h2>
+                                            <h2 class="fs-exact-16 mb-0"><i class="fas fa-users"></i> Замовник</h2>
                                             <a href="#" class="fs-exact-14">Edit</a>
                                         </div>
                                         <div class="card-body d-flex align-items-center pt-4">
@@ -308,7 +306,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="card mt-5">
                                         <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
-                                            <h2 class="fs-exact-16 mb-0">Контактна Особа</h2>
+                                            <h2 class="fs-exact-16 mb-0"><i class="fas fa-user-check"></i> Контактна Особа</h2>
                                             <a href="#" class="fs-exact-14">Edit</a>
                                         </div>
                                         <div class="card-body pt-4 fs-exact-14">
@@ -319,7 +317,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="card mt-5">
                                         <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
-                                            <h2 class="fs-exact-16 mb-0">Адреса Доставки</h2>
+                                            <h2 class="fs-exact-16 mb-0"><i class="far fa-address-card"></i> Адреса Доставки</h2>
                                             <a href="#" class="fs-exact-14">Edit</a>
                                         </div>
                                         <div class="card-body pt-4 fs-exact-14">
@@ -328,7 +326,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="card mt-5">
                                         <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
-                                            <h2 class="fs-exact-16 mb-0">Накладна ТТН</h2>
+                                            <h2 class="fs-exact-16 mb-0"><i class="fas fa-barcode"></i> Накладна ТТН</h2>
                                             <a href="#" class="fs-exact-14">Edit</a>
                                         </div>
                                         <div class="card-body pt-4 fs-exact-14">
@@ -337,7 +335,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <div class="card mt-5">
                                         <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
-                                            <h2 class="fs-exact-16 mb-0">Коментар</h2>
+                                            <h2 class="fs-exact-16 mb-0"><i class="fas fa-comment-dots"></i> Коментар</h2>
                                             <a href="#" class="fs-exact-14">Edit</a>
                                         </div>
                                         <div class="card-body pt-4 fs-exact-14">
@@ -351,19 +349,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-            <!-- sa-app__body / end -->
-            <!-- sa-app__footer -->
-            <div class="sa-app__footer d-block d-md-flex">
-                <!-- copyright -->
-                Stroyka Admin — eCommerce Dashboard Template © 2021
-                <div class="m-auto"></div>
-                <div>
-                    Powered by HTML — Design by
-                    <a href="https://themeforest.net/user/kos9/portfolio">Kos</a>
-                </div>
-                <!-- copyright / end -->
-            </div>
-            <!-- sa-app__footer / end -->
         </div>
         <!-- sa-app__content / end -->
         <!-- sa-app__toasts -->

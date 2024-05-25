@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
-        <div class="container">
+        <div class="container" style="max-width: 1623px">
             <div class="py-5">
                 <div class="row g-4 align-items-center">
                     <div class="col">
@@ -59,9 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-count"><?= Yii::t('app', 'Count Orders') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Date Delivery') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Type Payment') ?></th>
-                        <th class="min-w-15x"><?= Yii::t('app', 'Address') ?></th>
                         <th class="min-w-phone"><?= Yii::t('app', 'Phone') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Delivery Service') ?></th>
+                        <th class="min-w-15x"><?= Yii::t('app', 'Address') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'TTH') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Number Order 1c') ?></th>
                         <th><?= Yii::t('app', 'ID') ?></th>
@@ -87,9 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= $model->getCountOrders($model->tel_number) ?></td>
                         <td><?= $model->date_delivery ?></td>
                         <td><?= $model->type_payment ?></td>
-                        <td><?= $model->address ?></td>
                         <td><?= $model->tel_number ?></td>
                         <td><?= $model->delivery_service ?></td>
+                        <td><?= $model->address ?></td>
                         <td><?= $model->ttn ?></td>
                         <td><?= $model->number_order_1c ?></td>
                         <td>
