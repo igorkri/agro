@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "report".
@@ -25,7 +26,7 @@ use Yii;
  * @property int|null $order_status_id
  * @property int|null $order_pay_ment_id
  */
-class Report extends \yii\db\ActiveRecord
+class Report extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -90,70 +91,69 @@ class Report extends \yii\db\ActiveRecord
     public function getTotalSumm($report_id)
     {
         $order = Report::find()->with('reportItems')->where(['id' => $report_id])->one();
-        $total_res = [];
-        foreach ($order->reportItems as $orderItem) {
-            $total_res[] = $orderItem->price * $orderItem->quantity;
+        if ($order->order_status_id != 'Повернення') {
+            $total_res = [];
+            foreach ($order->reportItems as $orderItem) {
+                $total_res[] = $orderItem->price * $orderItem->quantity;
+            }
+            return array_sum($total_res);
+        } else {
+            if ($order->price_delivery) {
+                return $order->price_delivery;
+            } else {
+                return 0;
+            }
         }
-        return array_sum($total_res);
     }
 
     public function getCountOrders($phone)
     {
-        if ($phone){
-        return Report::find()->where(['tel_number' => $phone])->count();
+        if ($phone) {
+            return Report::find()->where(['tel_number' => $phone])->count();
         }
-        return 1 ;
+        return 1;
     }
 
     public function getExecutionStatus($order_status)
     {
-            switch ($order_status) {
+        switch ($order_status) {
 
-                case 'Доставляється':
-                    $status = '<span class="badge me-2" style="background-color: rgba(249,115,4,0.84)">' . $order_status . '</span>';
-                    break;
-                case 'Відміна':
-                    $status = '<span class="badge badge-sa-secondary me-2">' . $order_status . '</span>';
-                    break;
-                case 'Повернення':
-                    $status = '<span class="badge badge-sa-danger me-2">' . $order_status . '</span>';
-                    break;
-                case 'Комплектується':
-                    $status = '<span class="badge badge-sa-warning me-2">' . $order_status . '</span>';
-                    break;
-                case 'Одержано':
-                    $status = '<span class="badge badge-sa-success me-2">' . $order_status . '</span>';
-                    break;
-                case 'Очікується':
-                    $status = '<span class="badge badge-sa-info me-2">' . $order_status . '</span>';
-                    break;
-                default;
-                    $status = '<span class="badge badge-sa-dark me-2">' . 'Відсутній' . '</span>';
-                    break;
-            }
+            case 'Доставляється':
+                $status = '<span class="badge me-2" style="background-color: rgba(249,115,4,0.84)">' . $order_status . '</span>';
+                break;
+            case 'Відміна':
+                $status = '<span class="badge badge-sa-secondary me-2">' . $order_status . '</span>';
+                break;
+            case 'Повернення':
+                $status = '<span class="badge badge-sa-danger me-2">' . $order_status . '</span>';
+                break;
+            case 'Комплектується':
+                $status = '<span class="badge badge-sa-warning me-2">' . $order_status . '</span>';
+                break;
+            case 'Одержано':
+                $status = '<span class="badge badge-sa-success me-2">' . $order_status . '</span>';
+                break;
+            case 'Очікується':
+                $status = '<span class="badge badge-sa-info me-2">' . $order_status . '</span>';
+                break;
+            default;
+                $status = '<span class="badge badge-sa-dark me-2">' . 'Відсутній' . '</span>';
+                break;
+        }
 
         return $status;
     }
 
-    public function getPayMentStatus($order_status)
+    public function getPayMentStatus($order_status): string
     {
         switch ($order_status) {
 
-//            case 'Відміна':
-//                $status = '<span class="badge badge-sa-secondary me-2">' . $order_status . '</span>';
-//                break;
             case 'Не оплачено':
                 $status = '<span class="badge badge-sa-danger me-2">' . $order_status . '</span>';
                 break;
-//            case 'Комплектуеться':
-//                $status = '<span class="badge badge-sa-warning me-2">' . $order_status . '</span>';
-//                break;
             case 'Оплачено':
                 $status = '<span class="badge badge-sa-success me-2">' . $order_status . '</span>';
                 break;
-//            case 'Очікуеться':
-//                $status = '<span class="badge badge-sa-info me-2">' . $order_status . '</span>';
-//                break;
             default;
                 $status = '<span class="badge badge-sa-dark me-2">' . 'Відсутній' . '</span>';
                 break;

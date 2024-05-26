@@ -77,10 +77,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             <tr>
                         <?php } ?>
 
+                        <?php $orderStatus = $model->getExecutionStatus($model->order_status_id) ?>
+
                         <td><?= $model->number_order ?></td>
                         <td><?= $model->platform ?></td>
-                        <td><?= $model->getExecutionStatus($model->order_status_id) ?></td>
-                        <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                        <td><?= $orderStatus ?></td>
+                        <?php if ($model->order_status_id === 'Повернення') { ?>
+                            <td style="font-weight: bold; color: red">
+                                -<?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                        <?php } else { ?>
+                            <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                        <?php } ?>
                         <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"
                                class="text-reset"><?= $model->fio ?></a></td>
                         <td><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
@@ -147,10 +154,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <style>
-    .min-w-phone{
+    .min-w-phone {
         min-width: 8rem;
     }
-    .min-w-count{
+
+    .min-w-count {
         min-width: 3rem;
     }
 </style>
