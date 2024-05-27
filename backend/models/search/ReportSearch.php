@@ -40,7 +40,8 @@ class ReportSearch extends Report
      */
     public function search($params)
     {
-        $query = Report::find()->orderBy('id DESC');
+//        $query = Report::find()->orderBy('id DESC');
+        $query = Report::find();
 
         // add conditions that should always apply here
 

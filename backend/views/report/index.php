@@ -46,14 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     />
                 </div>
                 <div class="sa-divider"></div>
-                <table class="sa-datatables-init" data-order='[[ 1, "asc" ]]' data-sa-search-input="#table-search">
+                <table class="sa-datatables-init" data-ordering='true' data-order='[[ 15, "desc" ]]'
+                       data-sa-search-input="#table-search">
                     <thead>
                     <tr style="background-color: rgba(111,190,79,0.53)">
 
-                        <th class="min-w-5x"><?= Yii::t('app', 'Number Order') ?></th>
+                        <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Number Order') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Platform') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Order Status') ?></th>
-                        <th class="min-w-5x"><?= Yii::t('app', 'Summa') ?></th>
+                        <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Summa') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Package') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Fio') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Payment Status') ?></th>
@@ -61,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-5x"><?= Yii::t('app', 'Date Delivery') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Type Payment') ?></th>
                         <th class="min-w-phone"><?= Yii::t('app', 'Phone') ?></th>
-                        <th class="min-w-5x"><?= Yii::t('app', 'Delivery Service') ?></th>
+                        <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Delivery Service') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Address') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'TTH') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Number Order 1c') ?></th>
