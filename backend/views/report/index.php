@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-5x"><?= Yii::t('app', 'Platform') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Order Status') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Summa') ?></th>
+                        <th class="min-w-5x"><?= Yii::t('app', 'Package') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Fio') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Payment Status') ?></th>
                         <th class="min-w-count"><?= Yii::t('app', 'Count Orders') ?></th>
@@ -88,10 +89,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php } else { ?>
                             <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
                         <?php } ?>
+                        <td class="text-center"><?= $model->getPackage($model->id) ?></td>
                         <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"
                                class="text-reset"><?= $model->fio ?></a></td>
                         <td><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
-                        <td><?= $model->getCountOrders($model->tel_number) ?></td>
+                        <td class="text-center"><?= $model->getCountOrders($model->tel_number) ?></td>
                         <td><?= $model->date_delivery ?></td>
                         <td><?= $model->type_payment ?></td>
                         <td><?= $model->tel_number ?></td>

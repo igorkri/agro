@@ -161,4 +161,19 @@ class Report extends ActiveRecord
 
         return $status;
     }
+
+    public function getPackage($id)
+    {
+        $query = ReportItem::find()->select('package')->where(['order_id' => $id]);
+        $packages = $query->column();
+
+        $uniquePackages = array_unique($packages);
+        $count = count($uniquePackages);
+
+        if ($count === 1) {
+            return $uniquePackages[0] == 'BIG' ? 'Фермерська' : 'Дрібна';
+        } else {
+            return 'Фермерська + Дрібна';
+        }
+    }
 }
