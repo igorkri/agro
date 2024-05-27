@@ -177,6 +177,18 @@ class Report extends ActiveRecord
         }
     }
 
+    public function getPackageForView($package)
+    {
+        $big = '<svg width="32px" height="32px">
+                                                        <use xlink:href="/images/sprite.svg#tractor"></use>
+                                                    </svg>';
+        $small = '<svg width="28px" height="28px">
+                                                        <use xlink:href="/images/sprite.svg#vily"></use>
+                                                    </svg>';
+            return $package == 'BIG' ? $big : $small;
+
+    }
+
     public function getDeliveryLogo($delivery_name)
     {
         switch ($delivery_name) {

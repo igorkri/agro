@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <span class="text-reset"><?= $reportItem->product_name ?></span>
                                                             </div>
                                                         </td>
-                                                        <td><?= $reportItem->package ?></td>
+                                                        <td><?= $model->getPackageForView($reportItem->package) ?></td>
                                                         <td class="text-end">
                                                             <div class="sa-price">
                                                                 <span class="sa-price__symbol"><?= Yii::$app->formatter->asDecimal($reportItem->price, 2) ?></span>
