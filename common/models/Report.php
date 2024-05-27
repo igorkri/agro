@@ -185,7 +185,7 @@ class Report extends ActiveRecord
         $small = '<svg width="28px" height="28px">
                                                         <use xlink:href="/images/sprite.svg#vily"></use>
                                                     </svg>';
-            return $package == 'BIG' ? $big : $small;
+        return $package == 'BIG' ? $big : $small;
 
     }
 
@@ -210,9 +210,39 @@ class Report extends ActiveRecord
                                                     </svg>';
                 break;
             default;
-                $status = '<i class="far fa-times-circle" style="font-size: 26px"></i>';
+                $status = '<i class="far fa-times-circle" style="font-size: 22px"></i>';
                 break;
         }
         return $status;
+    }
+
+    public function getCountItemsOrder($id)
+    {
+        $items = ReportItem::find()->where(['order_id' => $id])->count();
+        if ($items != 0) {
+            return $items;
+        } else {
+            return 0;
+        }
+    }
+
+    public function getItemsDiscount($id)
+    {
+        $discounts = ReportItem::find()->select('discount')->where(['order_id' => $id])->column();
+        if ($discounts){
+            return array_sum($discounts);
+        }else{
+            return 0;
+        }
+    }
+
+    public function getItemsPlatformPrice($id)
+    {
+        $platforms = ReportItem::find()->select('platform_price')->where(['order_id' => $id])->column();
+        if ($platforms){
+            return array_sum($platforms);
+        }else{
+            return 0;
+        }
     }
 }
