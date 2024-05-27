@@ -94,14 +94,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                    value="<?= $model->id ?>">
 
                                                             <div class="mb-3">
-                                                                <label for="product" class="form-label">Товар</label>
+                                                                <label for="product" class="form-label"><i class="fas fa-seedling"></i> Товар:</label>
                                                                 <input type="text" class="form-control" id="product-id"
                                                                        name="productName" required>
                                                             </div>
 
                                                             <div class="mb-3">
                                                                 <label for="package"
-                                                                       class="form-label">Пакування</label>
+                                                                       class="form-label"><i class="fas fa-box"></i> Пакування:</label>
                                                                 <select class="form-control" id="package" name="package" required>
                                                                     <option value="" disabled selected hidden>Виберіть пакування...</option>
                                                                     <option value="BIG">Фермер</option>
@@ -111,19 +111,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                             <div class="mb-3">
                                                                 <label for="quantity"
-                                                                       class="form-label">Кількість</label>
+                                                                       class="form-label"><i class="far fa-calendar-plus"></i> Кількість:</label>
                                                                 <input type="text" class="form-control" id="quantity"
                                                                        name="quantity" required>
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="price" class="form-label">Ціна</label>
+                                                                <label for="price" class="form-label"><i class="fas fa-money-bill-wave"></i> Ціна:</label>
                                                                 <input type="text" class="form-control" id="price"
                                                                        name="price" required>
                                                             </div>
 
                                                             <div class="mt-5 d-flex justify-content-end">
-                                                                <button type="submit" class="btn btn-primary">Добавить в заказ</button>
+                                                                <button type="submit" class="btn btn-primary">Додати в заказ</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -144,6 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <span class="text-reset"><?= $reportItem->product_name ?></span>
                                                             </div>
                                                         </td>
+                                                        <td><?= $reportItem->package ?></td>
                                                         <td class="text-end">
                                                             <div class="sa-price">
                                                                 <span class="sa-price__symbol"><?= Yii::$app->formatter->asDecimal($reportItem->price, 2) ?></span>
@@ -183,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
                                                                         id="editReportItemModalLabel<?= $reportItem->id ?>">
-                                                                        Редактировать товар</h5>
+                                                                        Редагувати товар</h5>
                                                                     <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
@@ -197,7 +198,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                value="<?= $reportItem->id ?>">
                                                                         <div class="mb-3">
                                                                             <label for="price<?= $reportItem->id ?>"
-                                                                                   class="form-label">Цена:</label>
+                                                                                   class="form-label"> Ціна:</label>
                                                                             <input type="text" class="form-control"
                                                                                    id="price<?= $reportItem->id ?>"
                                                                                    name="price"
@@ -205,14 +206,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="quantity<?= $reportItem->id ?>"
-                                                                                   class="form-label">Количество:</label>
+                                                                                   class="form-label"> Кількість:</label>
                                                                             <input type="text" class="form-control"
                                                                                    id="quantity<?= $reportItem->id ?>"
                                                                                    name="quantity"
                                                                                    value="<?= $reportItem->quantity ?>">
                                                                         </div>
                                                                         <div class="mb-3">
-                                                                            <label for="package<?= $reportItem->id ?>" class="form-label">Пакування</label>
+                                                                            <label for="package<?= $reportItem->id ?>" class="form-label"> Пакування:</label>
                                                                             <select class="form-control" id="package<?= $reportItem->id ?>" name="package">
                                                                                 <?php
                                                                                 $selectedItem = $reportItem->package == 'BIG' ? 'Фермер' : 'Дрібна';
