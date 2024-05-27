@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= $model->date_delivery ?></td>
                         <td><?= $model->type_payment ?></td>
                         <td><?= $model->tel_number ?></td>
-                        <td><?= $model->delivery_service ?></td>
+                        <td class="text-center"><?= $model->getDeliveryLogo($model->delivery_service) ?></td>
                         <td><?= $model->address ?></td>
                         <td><?= $model->ttn ?></td>
                         <td><?= $model->number_order_1c ?></td>

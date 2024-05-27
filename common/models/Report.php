@@ -176,4 +176,31 @@ class Report extends ActiveRecord
             return 'Фермерська + Дрібна';
         }
     }
+
+    public function getDeliveryLogo($delivery_name)
+    {
+        switch ($delivery_name) {
+
+            case 'Нова Пошта':
+                $status = '<svg width="32px" height="32px">
+                                                        <use xlink:href="/images/sprite.svg#novaposhta"></use>
+                                                    </svg>';
+                break;
+            case 'УкрПошта':
+                $status = '<svg width="32px" height="32px">
+                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>
+                                                    </svg>';
+                break;
+            case 'Самовивіз':
+                $status = '<svg width="32px" height="32px">
+                                                        <use xlink:href="/images/sprite.svg#delivery-48"
+                                                             style="fill: #47991f;"></use>
+                                                    </svg>';
+                break;
+            default;
+                $status = '<i class="far fa-times-circle" style="font-size: 26px"></i>';
+                break;
+        }
+        return $status;
+    }
 }
