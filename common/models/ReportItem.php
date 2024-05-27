@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "report_item".
@@ -13,13 +14,14 @@ use Yii;
  * @property int|null $price
  * @property string|null $volume
  * @property string|null $unit
+ * @property string|null $package
  * @property int|null $quantity
  * @property int|null $kurs
  * @property int|null $entry_price
  * @property int|null $platform_price
  * @property int|null $discount
  */
-class ReportItem extends \yii\db\ActiveRecord
+class ReportItem extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -40,6 +42,7 @@ class ReportItem extends \yii\db\ActiveRecord
             [['product_name'], 'string', 'max' => 255],
             [['volume'], 'string', 'max' => 10],
             [['unit'], 'string', 'max' => 20],
+            [['package'], 'string', 'max' => 6],
         ];
     }
 
@@ -60,6 +63,7 @@ class ReportItem extends \yii\db\ActiveRecord
             'entry_price' => Yii::t('app', 'Entry Price'),
             'platform_price' => Yii::t('app', 'Platform Price'),
             'discount' => Yii::t('app', 'Discount'),
+            'package' => Yii::t('app', 'Package'),
         ];
     }
 }

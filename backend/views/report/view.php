@@ -100,6 +100,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             </div>
 
                                                             <div class="mb-3">
+                                                                <label for="package"
+                                                                       class="form-label">Пакування</label>
+                                                                <select class="form-control" id="package" name="package" required>
+                                                                    <option value="" disabled selected hidden>Виберіть пакування...</option>
+                                                                    <option value="BIG">Фермер</option>
+                                                                    <option value="SMALL">Дрібна</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="mb-3">
                                                                 <label for="quantity"
                                                                        class="form-label">Кількість</label>
                                                                 <input type="text" class="form-control" id="quantity"
@@ -112,9 +122,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                        name="price" required>
                                                             </div>
 
-                                                            <button type="submit" class="btn btn-primary">Добавить в
-                                                                заказ
-                                                            </button>
+                                                            <div class="mt-5 d-flex justify-content-end">
+                                                                <button type="submit" class="btn btn-primary">Добавить в заказ</button>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -201,10 +211,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                    name="quantity"
                                                                                    value="<?= $reportItem->quantity ?>">
                                                                         </div>
-                                                                        <button type="submit" class="btn btn-primary">
-                                                                            Сохранить
-                                                                            изменения
-                                                                        </button>
+                                                                        <div class="mb-3">
+                                                                            <label for="package<?= $reportItem->id ?>" class="form-label">Пакування</label>
+                                                                            <select class="form-control" id="package<?= $reportItem->id ?>" name="package">
+                                                                                <?php
+                                                                                $selectedItem = $reportItem->package == 'BIG' ? 'Фермер' : 'Дрібна';
+                                                                                ?>
+                                                                                <option value="<?= $reportItem->package ?>" selected><?= $selectedItem ?></option>
+                                                                                <option value="BIG" <?= $reportItem->package == 'BIG' ? 'disabled' : '' ?>>Фермер</option>
+                                                                                <option value="SMALL" <?= $reportItem->package == 'SMALL' ? 'disabled' : '' ?>>Дрібна</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="mt-5 d-flex justify-content-end">
+                                                                            <button type="submit" class="btn btn-primary">Сохранить
+                                                                                изменения</button>
+                                                                        </div>
                                                                     </form>
                                                                 </div>
                                                             </div>
