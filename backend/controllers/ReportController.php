@@ -176,6 +176,170 @@ class ReportController extends Controller
         }
     }
 
+    public function actionPeriodReport()
+    {
+        $i = 0;
+
+        $periodStart = Report::find()
+            ->select(['date_delivery'])
+            ->min('date_delivery');
+
+        $periodEnd = Report::find()
+            ->select(['date_delivery'])
+            ->max('date_delivery');
+
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            if (isset($_GET['periodStart'])) {
+                $periodStart = $_GET['periodStart'];
+                $periodEnd = $_GET['periodEnd'];
+            }
+
+
+        }
+
+        $bigQty = [];
+        $smallQty = [];
+
+        $bigSum = [];
+        $smallSum = [];
+
+        $bigIncomingPriceSum = [];
+        $smallIncomingPriceSum = [];
+
+        $bigDiscount = [];
+        $smallDiscount = [];
+
+        $bigDelivery = [];
+        $smallDelivery = [];
+
+        $bigPlatform = [];
+        $smallPlatform = [];
+
+        $models = Report::find()
+            ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
+            ->where(['between', 'date_delivery', $periodStart, $periodEnd])
+            ->all();
+
+        foreach ($models as $model) {
+            $package = $model->getPackage($model->id);
+
+            if ($model->order_pay_ment_id == 'Оплачено') {
+
+                switch ($package) {
+
+                    case 'Фермерська':
+                        $bigQty[] = $package;
+                        $bigSum[] = $model->getTotalSumm($model->id);
+                        $bigIncomingPriceSum[] = $model->getItemsIncomingPrice($model->id);
+                        $bigDiscount[] = $model->getItemsDiscount($model->id);
+                        $bigPlatform[] = $model->getItemsPlatformPrice($model->id);
+                        $bigDelivery[] = $model->price_delivery;
+
+                        break;
+                    case 'Дрібна':
+                        $smallQty[] = $package;
+                        $smallSum[] = $model->getTotalSumm($model->id);
+                        $smallIncomingPriceSum[] = $model->getItemsIncomingPrice($model->id);
+                        $smallDiscount[] = $model->getItemsDiscount($model->id);
+                        $smallPlatform[] = $model->getItemsPlatformPrice($model->id);
+                        $smallDelivery[] = $model->price_delivery;
+
+                        break;
+                    case 'Фермерська + Дрібна':
+                        $bigQty[] = 'BIG';
+                        $smallQty[] = 'SMALL';
+                        $smallDelivery[] = $model->price_delivery;
+                        $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
+                        foreach ($items as $item) {
+                            if ($item['package'] == 'BIG') {
+                                $bigSum[] = $item['price'] * $item['quantity'];
+                                $bigIncomingPriceSum[] = $item['entry_price'] * $item['quantity'];
+                                $bigDiscount[] = $item['discount'];
+                                $bigPlatform[] = $item['platform_price'];
+                            } else {
+                                $smallSum[] = $item['price'] * $item['quantity'];
+                                $smallIncomingPriceSum[] = $item['entry_price'] * $item['quantity'];
+                                $smallDiscount[] = $item['discount'];
+                                $smallPlatform[] = $item['platform_price'];
+                            }
+                        }
+
+                        break;
+                    default;
+                        $noPackage[] = 'Не визначено';
+                        break;
+                }
+            }elseif ($model->order_status_id == 'Повернення'){
+
+                switch ($package) {
+
+                    case 'Фермерська':
+
+                        $bigDelivery[] = $model->price_delivery;
+
+                        break;
+                    case 'Дрібна':
+
+                        $smallDelivery[] = $model->price_delivery;
+
+                        break;
+                    case 'Фермерська + Дрібна':
+
+                        $smallDelivery[] = $model->price_delivery;
+
+                        break;
+                    default;
+                        $noPackage[] = 'Не визначено';
+                        break;
+                }
+            } else {
+                $i++;
+            }
+        }
+        $bigQty = count($bigQty);
+        $smallQty = count($smallQty);
+
+        $bigSum = array_sum($bigSum);
+        $smallSum = array_sum($smallSum);
+
+        $bigIncomingPriceSum = array_sum($bigIncomingPriceSum);
+        $smallIncomingPriceSum = array_sum($smallIncomingPriceSum);
+
+        $bigDiscount = array_sum($bigDiscount);
+        $smallDiscount = array_sum($smallDiscount);
+
+        $bigDelivery = array_sum($bigDelivery);
+        $smallDelivery = array_sum($smallDelivery);
+
+        $bigPlatform = array_sum($bigPlatform);
+        $smallPlatform = array_sum($smallPlatform);
+
+        return $this->render('period-report', [
+            'model' => $models,
+
+            'periodStart' => $periodStart,
+            'periodEnd' => $periodEnd,
+
+            'bigQty' => $bigQty,
+            'smallQty' => $smallQty,
+
+            'bigSum' => $bigSum,
+            'smallSum' => $smallSum,
+
+            'bigIncomingPriceSum' => $bigIncomingPriceSum,
+            'smallIncomingPriceSum' => $smallIncomingPriceSum,
+
+            'bigDiscount' => $bigDiscount,
+            'smallDiscount' => $smallDiscount,
+
+            'bigDelivery' => $bigDelivery,
+            'smallDelivery' => $smallDelivery,
+
+            'bigPlatform' => $bigPlatform,
+            'smallPlatform' => $smallPlatform,
+        ]);
+    }
+
     /**
      * Finds the Report model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

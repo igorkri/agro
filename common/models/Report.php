@@ -248,4 +248,20 @@ class Report extends ActiveRecord
             return 0;
         }
     }
+
+    public function getItemsIncomingPrice($id)
+    {
+        $incomingsSum = [];
+        $incomings = ReportItem::find()->select(['entry_price', 'quantity'])->where(['order_id' => $id])->asArray()->all();
+        if ($incomings){
+            foreach ($incomings as $incoming){
+                if ($incoming['entry_price']){
+                    $incomingsSum[] = $incoming['entry_price'] * $incoming['quantity'];
+                }
+            }
+            return array_sum($incomingsSum);
+        }else{
+            return 0;
+        }
+    }
 }

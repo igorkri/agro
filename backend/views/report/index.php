@@ -32,8 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             </ol>
                         </nav>
                     </div>
-                    <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
-                                                    class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a></div>
+                    <div class="col-auto d-flex">
+                        <?= Html::a(Yii::t('app', 'Period Report'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
+                        <a href="<?= Url::to(['create']) ?>" class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
+<!--                        --><?//= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
+                    </div>
                 </div>
             </div>
             <div class="card">
