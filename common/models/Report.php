@@ -154,6 +154,9 @@ class Report extends ActiveRecord
             case 'Оплачено':
                 $status = '<span class="badge badge-sa-success me-2">' . $order_status . '</span>';
                 break;
+            case 'Повернення':
+                $status = '<span class="badge me-2" style="background-color: red">' . $order_status . '</span>';
+                break;
             default;
                 $status = '<span class="badge badge-sa-dark me-2">' . 'Відсутній' . '</span>';
                 break;
