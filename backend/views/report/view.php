@@ -17,6 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 
 $sumItemOrder = $model->getTotalSumm($model->id);
+$itemPlatformPrice = $model->getItemsPlatformPrice($model->id);
+$itemDiscount = $model->getItemsDiscount($model->id);
+$incomingPriceSum = $model->getItemsIncomingPrice($model->id);
 
 if ($model->price_delivery) {
     $deliveryPrice = $model->price_delivery;
@@ -24,6 +27,7 @@ if ($model->price_delivery) {
     $deliveryPrice = 0;
 }
 
+$totalOrderPrice = $sumItemOrder - $incomingPriceSum - $itemDiscount - $itemPlatformPrice - $deliveryPrice;
 
 ?>
 <?php Pjax::begin(
@@ -391,6 +395,22 @@ if ($model->price_delivery) {
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <?php if ($incomingPriceSum != 0): ?>
+                                                        <tr>
+                                                            <td colspan="3">Сума Входу
+                                                                <div class="text-muted fs-exact-13">сума всіх вхідних
+                                                                    цін
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <div class="sa-price">
+                                                                    <?= Yii::$app->formatter->asDecimal($incomingPriceSum, 2) ?>
+                                                                    <span class="sa-price__symbol"> ₴</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                    <?php if ($itemDiscount != 0): ?>
                                                     <tr>
                                                         <td colspan="3">Знижка
                                                             <div class="text-muted fs-exact-13">знажка всіх товарів
@@ -399,52 +419,53 @@ if ($model->price_delivery) {
                                                         <td class="text-end text-danger">
                                                             <div class="sa-price">
                                                                 <span class="sa-price__symbol">-</span>
-                                                                <?php $itemDiscount = $model->getItemsDiscount($model->id) ?>
                                                                 <?= Yii::$app->formatter->asDecimal($itemDiscount, 2) ?>
                                                                 <span class="sa-price__symbol"> ₴</span>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td colspan="3">Площадка
-                                                            <div class="text-muted fs-exact-13">зписання коштів з
-                                                                площадок
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-end text-danger">
-                                                            <div class="sa-price">
-                                                                <span class="sa-price__symbol">-</span>
-                                                                <?php $itemPlatformPrice = $model->getItemsPlatformPrice($model->id) ?>
-                                                                <?= Yii::$app->formatter->asDecimal($itemPlatformPrice, 2) ?>
-                                                                <span class="sa-price__symbol"> ₴</span>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            Доставка
-                                                            <div class="text-muted fs-exact-13">витрати на доставку
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-end text-danger">
-                                                            <div class="sa-price">
-                                                                <span class="sa-price__symbol">-</span>
-                                                                <?= Yii::$app->formatter->asDecimal($deliveryPrice, 2) ?>
-                                                                <span class="sa-price__symbol"> ₴</span>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <?php endif; ?>
+                                                    <?php if ($itemPlatformPrice != 0): ?>
+                                                        <tr>
+                                                            <td colspan="3">Площадка
+                                                                <div class="text-muted fs-exact-13">зписання коштів з
+                                                                    площадок
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-end text-danger">
+                                                                <div class="sa-price">
+                                                                    <span class="sa-price__symbol">-</span>
+                                                                    <?= Yii::$app->formatter->asDecimal($itemPlatformPrice, 2) ?>
+                                                                    <span class="sa-price__symbol"> ₴</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                    <?php if ($deliveryPrice != 0): ?>
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                Доставка
+                                                                <div class="text-muted fs-exact-13">витрати на доставку
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-end text-danger">
+                                                                <div class="sa-price">
+                                                                    <span class="sa-price__symbol">-</span>
+                                                                    <?= Yii::$app->formatter->asDecimal($deliveryPrice, 2) ?>
+                                                                    <span class="sa-price__symbol"> ₴</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
                                                     </tbody>
                                                     <tbody>
                                                     <tr>
-                                                        <td colspan="3"><i class="fas fa-money-bill-wave"></i> Загальна
-                                                            сума
+                                                        <td colspan="3"><i class="fas fa-money-bill-wave"></i> Прибуток
                                                             <div class="text-muted fs-exact-13">загальна сума з
                                                                 урахуванням витрат
                                                         </td>
                                                         <td class="text-end text-success">
                                                             <div class="sa-price" style="font-weight: bold">
-                                                                <?php $totalOrderPrice = $sumItemOrder - $itemDiscount - $itemPlatformPrice - $deliveryPrice ?>
                                                                 <?= Yii::$app->formatter->asDecimal($totalOrderPrice, 2) ?>
                                                                 <span class="sa-price__symbol"> ₴</span>
                                                             </div>
@@ -545,52 +566,3 @@ if ($model->price_delivery) {
     "footer" => "", // always need it for jquery plugin
 ]) ?>
 <?php Modal::end(); ?>
-
-<?php
-$js = <<<JS
-$( document ).ready(function() {
-    $('#report-note').change(function(){
-        var note = $('#report-note').val();
-        var id = $('#report-note').data('id');
-        var land = $('#report-note').data('land');
-
-    $.ajax({
-        url: "/admin/"+ land +"/report/update-note",
-        type: 'post',
-        data: {
-            'id': id,
-            'note': note
-        },
-        success: function(data){
-            $.toast({
-                    loader: false,
-                    hideAfter: 1000,
-                    position: 'top-right',
-                    // heading: 'OK',
-                    text: data.res,
-                    bgColor: data.color,
-                    textColor: 'white',
-                    icon: 'success'
-                });
-        },
-        error: function(data){
-            $.toast({
-                    loader: false,
-                    hideAfter: 1000,
-                    position: 'top-right',
-                    // heading: 'OK',
-                    text: data.res,
-                    bgColor: data.color,
-                    textColor: 'white',
-                    icon: 'success'
-                });
-        }
-    });
-    return false;
-    }).on('submit', function(e){
-    e.preventDefault();
-    });
-});
-
-JS;
-$this->registerJs($js);
