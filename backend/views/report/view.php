@@ -186,7 +186,7 @@ if ($model->price_delivery) {
                                         <?php if ($model->reportItems): ?>
                                             <div class="table-responsive">
                                                 <table class="sa-table">
-                                                    <thead>
+                                                    <thead style="background-color: #4ce7354f">
                                                     <tr>
                                                         <th class="text-left">№</th>
                                                         <th></th>
