@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'Period Report'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
                         <a href="<?= Url::to(['create']) ?>" class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
-<!--                        --><?//= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
                     </div>
                 </div>
             </div>
@@ -49,11 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     />
                 </div>
                 <div class="sa-divider"></div>
-                <table class="sa-datatables-init" data-ordering='true' data-order='[[ 15, "desc" ]]'
+                <table class="table table-striped sa-datatables-init" data-ordering='true' data-order='[[ 15, "desc" ]]'
                        data-sa-search-input="#table-search">
                     <thead>
                     <tr style="background-color: rgba(111,190,79,0.53)">
-
                         <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Number Order') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Platform') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Order Status') ?></th>
@@ -76,81 +74,78 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tbody>
                     <?php $i = 1 ?>
                     <?php foreach ($dataProvider->models as $model): ?>
-                        <?php if ($i % 2 === 0) { ?>
-                            <tr style="background-color: rgba(224,233,224,0.78)">
-                        <?php } else { ?>
-                            <tr>
-                        <?php } ?>
+                        <tr>
+                            <?php $orderStatus = $model->getExecutionStatus($model->order_status_id) ?>
 
-                        <?php $orderStatus = $model->getExecutionStatus($model->order_status_id) ?>
-
-                        <td><?= $model->number_order ?></td>
-                        <td><?= $model->platform ?></td>
-                        <td><?= $orderStatus ?></td>
-                        <?php if ($model->order_status_id === 'Повернення') { ?>
-                            <td style="font-weight: bold; color: red">
-                                -<?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
-                        <?php } else { ?>
-                            <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
-                        <?php } ?>
-                        <td class="text-center"><?= $model->getPackage($model->id) ?></td>
-                        <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"
-                               class="text-reset"><?= $model->fio ?></a></td>
-                        <td><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
-                        <td class="text-center"><?= $model->getCountOrders($model->tel_number) ?></td>
-                        <td><?= $model->date_delivery ?></td>
-                        <td><?= $model->type_payment ?></td>
-                        <td><?= $model->tel_number ?></td>
-                        <td class="text-center"><?= $model->getDeliveryLogo($model->delivery_service) ?></td>
-                        <td><?= $model->address ?></td>
-                        <td><?= $model->ttn ?></td>
-                        <td><?= $model->number_order_1c ?></td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <span class="me-4"><?= $model->id ?></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button
-                                        class="btn btn-sa-muted btn-sm"
-                                        type="button"
-                                        id="category-context-menu-0"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        aria-label="More"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="3" height="13" fill="currentColor">
-                                        <path
-                                                d="M1.5,8C0.7,8,0,7.3,0,6.5S0.7,5,1.5,5S3,5.7,3,6.5S2.3,8,1.5,8z M1.5,3C0.7,3,0,2.3,0,1.5S0.7,0,1.5,0 S3,0.7,3,1.5S2.3,3,1.5,3z M1.5,10C2.3,10,3,10.7,3,11.5S2.3,13,1.5,13S0,12.3,0,11.5S0.7,10,1.5,10z"
-                                        ></path>
-                                    </svg>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="category-context-menu-0">
-                                    <li>
-                                        <?= Html::a(Yii::t('app', 'View'), ['report/view', 'id' => $model->id], [
-                                            'class' => 'dropdown-item text-info',
-                                        ]) ?>
-                                    </li>
-                                    <li>
-                                        <?= Html::a(Yii::t('app', 'Update'), ['report/update', 'id' => $model->id], [
-                                            'class' => 'dropdown-item text-warning',
-                                        ]) ?>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider"/>
-                                    </li>
-                                    <li>
-                                        <?= Html::a(Yii::t('app', 'Delete'), ['report/delete', 'id' => $model->id], ['class' => "dropdown-item text-danger",
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                'method' => 'post'
-                                            ]
-                                        ]) ?>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                            <td><?= $model->number_order ?></td>
+                            <td><?= $model->platform ?></td>
+                            <td><?= $orderStatus ?></td>
+                            <?php if ($model->order_status_id === 'Повернення') { ?>
+                                <td style="font-weight: bold; color: red">
+                                    -<?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                            <?php } else { ?>
+                                <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                            <?php } ?>
+                            <td class="text-center"><?= $model->getPackage($model->id) ?></td>
+                            <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"
+                                   class="text-reset"><?= $model->fio ?></a></td>
+                            <td><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
+                            <td class="text-center"><?= $model->getCountOrders($model->tel_number) ?></td>
+                            <td><?= $model->date_delivery ?></td>
+                            <td><?= $model->type_payment ?></td>
+                            <td><?= $model->tel_number ?></td>
+                            <td class="text-center"><?= $model->getDeliveryLogo($model->delivery_service) ?></td>
+                            <td><?= $model->address ?></td>
+                            <td><?= $model->ttn ?></td>
+                            <td><?= $model->number_order_1c ?></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-4"><?= $model->id ?></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button
+                                            class="btn btn-sa-muted btn-sm"
+                                            type="button"
+                                            id="category-context-menu-0"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            aria-label="More"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="13"
+                                             fill="currentColor">
+                                            <path
+                                                    d="M1.5,8C0.7,8,0,7.3,0,6.5S0.7,5,1.5,5S3,5.7,3,6.5S2.3,8,1.5,8z M1.5,3C0.7,3,0,2.3,0,1.5S0.7,0,1.5,0 S3,0.7,3,1.5S2.3,3,1.5,3z M1.5,10C2.3,10,3,10.7,3,11.5S2.3,13,1.5,13S0,12.3,0,11.5S0.7,10,1.5,10z"
+                                            ></path>
+                                        </svg>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end"
+                                        aria-labelledby="category-context-menu-0">
+                                        <li>
+                                            <?= Html::a(Yii::t('app', 'View'), ['report/view', 'id' => $model->id], [
+                                                'class' => 'dropdown-item text-info',
+                                            ]) ?>
+                                        </li>
+                                        <li>
+                                            <?= Html::a(Yii::t('app', 'Update'), ['report/update', 'id' => $model->id], [
+                                                'class' => 'dropdown-item text-warning',
+                                            ]) ?>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider"/>
+                                        </li>
+                                        <li>
+                                            <?= Html::a(Yii::t('app', 'Delete'), ['report/delete', 'id' => $model->id], ['class' => "dropdown-item text-danger",
+                                                'data' => [
+                                                    'confirm' => 'Are you sure you want to delete this item?',
+                                                    'method' => 'post'
+                                                ]
+                                            ]) ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         <?php $i++; endforeach; ?>
                     </tbody>

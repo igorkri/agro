@@ -40,7 +40,7 @@ $totalOrderPrice = $sumItemOrder
             <div id="top" class="sa-app__body">
                 <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
                     <div class="container container--max--xl" style="max-width: 1623px">
-                        <div class="py-5">
+                        <div class="py-4">
                             <div class="row g-4 align-items-center">
                                 <div class="col">
                                     <nav class="mb-2" aria-label="breadcrumb">
@@ -56,19 +56,16 @@ $totalOrderPrice = $sumItemOrder
                                             ?>
                                         </ol>
                                     </nav>
-                                    <h1 class="h3 m-0">Замовлення # <?= $model->id ?></h1>
                                 </div>
                                 <div class="col-auto d-flex">
-                                    <?php echo Html::a('Редагувати', Url::to(['update', 'id' => $model->id]), [
-                                        'class' => "btn btn-primary",
-                                    ]) ?>
+
                                 </div>
                             </div>
                         </div>
                         <div class="sa-page-meta mb-5">
                             <div class="sa-page-meta__body">
                                 <div class="sa-page-meta__list">
-                                    <div class="sa-page-meta__item">October 7, 2020 at 9:08 pm</div>
+                                    <div class="sa-page-meta__item"><h5 class="m-0">Замовлення # <?= $model->number_order ?></h5></div>
                                     <div class="sa-page-meta__item">
                                         Позицій: <?= $model->getCountItemsOrder($model->id) ?></div>
                                     <div class="sa-page-meta__item">
@@ -87,6 +84,13 @@ $totalOrderPrice = $sumItemOrder
                                     <div class="sa-page-meta__item d-flex align-items-center fs-6"
                                          style="width: 20px; height: 20px">
                                         <?= $model->getDeliveryLogo($model->delivery_service) ?>
+                                    </div>
+                                    <div class="sa-page-meta__item d-flex align-items-center fs-6">
+                                        <div class="col-auto d-flex">
+                                            <?php echo Html::a('Редагувати', Url::to(['update', 'id' => $model->id]), [
+                                                'class' => "btn btn-primary btn-sm",
+                                            ]) ?>
+                                        </div>
                                     </div>
                                     <div class="sa-page-meta__item"></div>
                                 </div>
@@ -490,7 +494,8 @@ $totalOrderPrice = $sumItemOrder
                                                      width="60" height="60" alt=""/>
                                             </div>
                                             <div class="ms-3 ps-2">
-                                                <div class="fs-exact-14 fw-medium"><?= $model->fio ?></div>
+                                                <div class="fs-exact-14 fw-medium"><a href="<?= Url::to(['update', 'id' => $model->id]) ?>"
+                                                                                      class="text-reset"><?= $model->fio ?></a></div>
                                                 <?php $countOrders = $model->getCountOrders($model->tel_number) ?>
                                                 <?php if ($countOrders < 2) { ?>
                                                     <div class="fs-exact-13 text-muted">Це перше замовлення</div>
@@ -508,7 +513,8 @@ $totalOrderPrice = $sumItemOrder
                                             <a href="#" class="fs-exact-14">Edit</a>
                                         </div>
                                         <div class="card-body pt-4 fs-exact-14">
-                                            <div><?= $model->fio ?></div>
+                                            <div><a href="<?= Url::to(['update', 'id' => $model->id]) ?>"
+                                                    class="text-reset"><?= $model->fio ?></a></div>
                                             <div class="mt-1"><a href="#">moore@example.com</a></div>
                                             <div class="text-muted mt-1"><?= $model->tel_number ?></div>
                                         </div>
