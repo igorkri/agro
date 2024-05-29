@@ -233,14 +233,50 @@ class ReportController extends Controller
             $id = $item['id'];
             $typePayment = $item['type_payment'];
 
-            if ($typePayment){
-                if ($typePayment === $word){
+            if ($typePayment) {
+                if ($typePayment === $word) {
                     $model = Report::find()->where(['id' => $id])->one();
                     $model->type_payment = $newWord;
                     $model->save(false);
                     echo "\t" . $i . " Слово  " . $word . "  перезаписано словом  " . $newWord . " ! \n";
                     $i++;
                 }
+            }
+        }
+    }
+
+    /**
+     * Добавить Доставку НП если ТТН ХХХХ
+     */
+
+    public function actionAddDeliveryNewPost()
+    {
+        $i = 1;
+        $ttn = '5900';
+        $delivery = 'Нова Пошта';
+        $orders = Report::find()->all();
+
+        foreach ($orders as $order) {
+            if ($order->ttn) {
+                $firstFourChars = mb_substr($order->ttn, 0, 4);
+                if ($firstFourChars == $ttn) {
+                    if (!$order->delivery_service){
+                        $order->delivery_service = $delivery;
+
+                    if (!$order->save(true)) {
+                        Yii::error("Order ID {$order->id} could not be saved.");
+                    }
+                        echo "\t" . $i . " Заказ № " . $order->id . " Записана служба доставки \n";
+                        $i++;
+                    }else{
+                        echo "\t" . " Заказ № " . $order->id . " Cлужба доставки вже Записана !!!  \n";
+                    }
+
+                }else{
+                    echo "\t" . " ТТН № " . $order->ttn . " Не соответствует условию! " . $firstFourChars. " не равно " . $ttn . "\n";
+                }
+            }else{
+                echo "\t" . " Заказ № " . $order->id . " Не заполнен! \n";
             }
         }
     }
