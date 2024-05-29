@@ -90,6 +90,7 @@ use yii\widgets\MaskedInput;
                                                 'Оплачено' => 'Оплачено',
                                                 'Не оплачено' => 'Не оплачено',
                                                 'Повернення' => 'Повернення',
+                                                'Відміна' => 'Відміна',
                                             ],
                                             [
                                                 'prompt' => '', // Подсказка
@@ -219,6 +220,8 @@ use yii\widgets\MaskedInput;
                 paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
             } else if (paymentDropdown.value === 'Повернення') {
                 paymentDropdown.style.backgroundColor = 'rgba(247,15,5,0.86)'; // Красный цвет для "Не оплачено"
+            } else if (paymentDropdown.value === 'Відміна') {
+                paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
             } else {
                 paymentDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
             }
@@ -230,7 +233,7 @@ use yii\widgets\MaskedInput;
                     orderDropdown.style.backgroundColor = '#f0e68c5c'; // Желтый цвет для "Очікується"
                     break;
                 case 'Комплектується':
-                    orderDropdown.style.backgroundColor = '#add8e65c'; // Голубой цвет для "Комплектується"
+                    orderDropdown.style.backgroundColor = 'rgba(231, 195, 6, 0.7)'; // Голубой цвет для "Комплектується"
                     break;
                 case 'Доставляється':
                     orderDropdown.style.backgroundColor = '#ffa5005c'; // Оранжевый цвет для "Доставляється"
