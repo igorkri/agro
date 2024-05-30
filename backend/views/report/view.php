@@ -1,5 +1,6 @@
 <?php
 
+use Detection\MobileDetect;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
@@ -510,7 +511,25 @@ $totalOrderPrice = $sumItemOrder
                                         <div class="card-body d-flex align-items-center justify-content-between pb-0 pt-4">
                                             <h2 class="fs-exact-16 mb-0"><i class="fas fa-user-check"></i> Контактна
                                                 Особа</h2>
-                                            <a href="#" class="fs-exact-14">Edit</a>
+                                            <?php
+                                            $det = new MobileDetect();
+                                            $device_mob = $det->isMobile();
+                                            if ($device_mob) {
+                                                $znak = '%2B';
+                                            } else {
+                                                $znak = '+';
+                                            }
+                                            $call = str_replace(array('(', ')', ' ', '+'), '', $model->tel_number);
+                                            $viberSms = 'viber://chat?number=' . $znak . $call;
+                                            $button3 = Html::a("<i class=\"fab fa-viber\"></i>", $viberSms, [
+                                                'title' => 'Написать в Viber',
+                                                'class' => 'pull-left detail-button',
+                                                'style' => 'margin-right: 20px; font-size:22px; color:#7159e2;'
+                                            ]);
+                                            ?>
+                                            <div class="sa-page-meta__item" style="text-align: end;">
+                                                <?= $button3 ?>
+                                            </div>
                                         </div>
                                         <div class="card-body pt-4 fs-exact-14">
                                             <div><a href="<?= Url::to(['update', 'id' => $model->id]) ?>"
