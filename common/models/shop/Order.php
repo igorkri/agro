@@ -160,8 +160,14 @@ class Order extends \yii\db\ActiveRecord
                 case 3:
                     $status = '<span class="badge badge-sa-success me-2">' . $order->orderPayMent->name . '</span>';
                     break;
+                case 4:
+                    $status = '<span class="badge me-2" style="background-color: rgba(188,177,177,0.93)">' . $order->orderPayMent->name . '</span>';
+                    break;
+                case 5:
+                    $status = '<span class="badge me-2" style="background-color: rgba(215,36,30,0.56)">' . $order->orderPayMent->name . '</span>';
+                    break;
                 default;
-                    $status = '<span class="badge badge-sa-info me-2">' . $order->orderPayMent->name . '</span>';
+                    $status = '<span class="badge badge-sa-dark me-2">' . $order->orderPayMent->name . '</span>';
                     break;
             }
         }
@@ -175,7 +181,7 @@ class Order extends \yii\db\ActiveRecord
         if ($order->order_status_id != null) {
             switch ($order->order_status_id) {
                 case 1:
-                    $status = '<span class="badge badge-sa-danger me-2">' . $order->orderStatus->name . '</span>';
+                    $status = '<span class="badge badge-sa-info me-2">' . $order->orderStatus->name . '</span>';
                     break;
                 case 2:
                     $status = '<span class="badge badge-sa-warning me-2">' . $order->orderStatus->name . '</span>';
@@ -184,7 +190,13 @@ class Order extends \yii\db\ActiveRecord
                     $status = '<span class="badge badge-sa-success me-2">' . $order->orderStatus->name . '</span>';
                     break;
                 case 4:
-                    $status = '<span class="badge badge-sa-info me-2">' . $order->orderStatus->name . '</span>';
+                    $status = '<span class="badge me-2" style="background-color: rgba(215,36,30,0.56)">' . $order->orderStatus->name . '</span>';
+                    break;
+                case 5:
+                    $status = '<span class="badge me-2" style="background-color: rgba(188,177,177,0.93)">' . $order->orderStatus->name . '</span>';
+                    break;
+                case 6:
+                    $status = '<span class="badge me-2" style="background-color: rgba(249,115,4,0.84)">' . $order->orderStatus->name . '</span>';
                     break;
                 default;
                     $status = '<span class="badge badge-sa-dark me-2">' . $order->orderStatus->name . '</span>';
