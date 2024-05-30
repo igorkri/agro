@@ -57,12 +57,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-5x"><?= Yii::t('app', 'Order Status') ?></th>
                         <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Summa') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Package') ?></th>
-                        <th class="min-w-15x"><?= Yii::t('app', 'Fio') ?></th>
+                        <th class="min-w-5x"><?= Yii::t('app', 'Fio') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Payment Status') ?></th>
-                        <th class="min-w-count"><?= Yii::t('app', 'Count Orders') ?></th>
+                        <th class="min-w"><?= Yii::t('app', 'Count Orders') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Date Delivery') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Type Payment') ?></th>
-                        <th class="min-w-phone"><?= Yii::t('app', 'Phone') ?></th>
+                        <th class="min-w-5x"><?= Yii::t('app', 'Phone') ?></th>
                         <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Delivery Service') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Address') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'TTH') ?></th>
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <td><?= $model->number_order ?></td>
                             <td><?= $model->platform ?></td>
-                            <td><?= $orderStatus ?></td>
+                            <td class="text-center"><?= $orderStatus ?></td>
                             <?php if ($model->order_status_id === 'Повернення') { ?>
                                 <td style="font-weight: bold; color: red">
                                     -<?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
@@ -88,8 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php } ?>
                             <td class="text-center"><?= $model->getPackage($model->id) ?></td>
                             <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"
-                                   class="text-reset"><?= $model->fio ?></a></td>
-                            <td><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
+                                   class="text-reset text-nowrap"><?= $model->fio ?></a></td>
+                            <td class="text-center"><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
                             <td class="text-center"><?= $model->getCountOrders($model->tel_number) ?></td>
                             <td><?= $model->date_delivery ?></td>
                             <td><?= $model->type_payment ?></td>
@@ -154,12 +154,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<style>
-    .min-w-phone {
-        min-width: 8rem;
-    }
-
-    .min-w-count {
-        min-width: 3rem;
-    }
-</style>
