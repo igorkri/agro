@@ -277,4 +277,68 @@ class Report extends ActiveRecord
         }
         return '';
     }
+
+    // Assistant
+    static public function StatusDeliveryNotSelected()
+    {
+        $orderNumbers = Report::find()
+            ->select('number_order')
+            ->where(['or', ['order_status_id' => null], ['order_status_id' => '']])
+            ->column();
+
+        return implode(' --- ', $orderNumbers);
+    }
+
+    static public function StatusPaymentNotSelected()
+    {
+        $orderNumbers = Report::find()
+            ->select('number_order')
+            ->where(['or', ['order_pay_ment_id' => null], ['order_pay_ment_id' => '']])
+            ->column();
+
+        return implode(' --- ', $orderNumbers);
+    }
+
+    static public function TtnNot()
+    {
+        $orderNumbers = Report::find()
+            ->select('number_order')
+            ->where(['order_status_id' => 'Доставляється'])
+            ->andWhere(['or', ['ttn' => null], ['ttn' => '']])
+            ->column();
+
+        return implode(' --- ', $orderNumbers);
+    }
+
+    static public function NunberNot()
+    {
+        $orderNumbers = Report::find()
+            ->select('id')
+            ->where(['or', ['number_order' => null], ['number_order' => '']])
+            ->column();
+
+        return 'ID = ' . implode(' --- ', $orderNumbers);
+    }
+
+    static public function DatePaymentNot()
+    {
+        $orderNumbers = Report::find()
+            ->select('number_order')
+            ->where(['order_pay_ment_id' => 'Оплачено'])
+            ->andWhere(['or', ['date_payment' => null], ['date_payment' => '']])
+            ->column();
+
+        return implode(' --- ', $orderNumbers);
+    }
+
+    static public function TypePaymentNot()
+    {
+        $orderNumbers = Report::find()
+            ->select('number_order')
+            ->where(['order_pay_ment_id' => 'Оплачено'])
+            ->andWhere(['or', ['type_payment' => null], ['type_payment' => '']])
+            ->column();
+
+        return implode(' --- ', $orderNumbers);
+    }
 }

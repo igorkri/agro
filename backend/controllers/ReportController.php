@@ -340,6 +340,11 @@ class ReportController extends Controller
         ]);
     }
 
+    public function actionAssistant()
+    {
+        return $this->render('assistant');
+    }
+
     /**
      * Finds the Report model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

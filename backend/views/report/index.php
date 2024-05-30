@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'Period Report'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
+                        <?= Html::a(Yii::t('app', 'Assistant'), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) ?>
                         <a href="<?= Url::to(['create']) ?>" class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
                     </div>
                 </div>
