@@ -11,7 +11,6 @@ use yii\helpers\Url;
 $this->title = Yii::t('app', 'Reports');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container" style="max-width: 1623px">
@@ -41,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="p-4">
                     <input
+                            aria-label="table-search"
                             type="text"
                             placeholder="<?= Yii::t('app', 'Start typing to search for statuses') ?>"
                             class="form-control form-control--search mx-auto"
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td class="text-center"><?= $model->getCountOrders($model->tel_number) ?></td>
                             <td><?= $model->date_delivery ?></td>
                             <td><?= $model->type_payment ?></td>
-                            <td><?= $model->tel_number ?></td>
+                            <td><?= $model->getPhoneCut($model->tel_number) ?></td>
                             <td class="text-center"><?= $model->getDeliveryLogo($model->delivery_service) ?></td>
                             <td><?= $model->address ?></td>
                             <td><?= $model->ttn ?></td>

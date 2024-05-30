@@ -140,7 +140,7 @@ return [
     'Summa' => 'Сумма',
     'Fio' => 'П.І.Б.',
     'Payment Status' => 'Статус Оплати',
-    'Count Orders' => 'Кількість Замов.',
+    'Count Orders' => 'К-ть Замов.',
     'Date Delivery' => 'Дата Відправки',
     'Type Payment' => 'Спосіб Оплати',
     'Phone' => 'Телефон',

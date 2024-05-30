@@ -267,4 +267,14 @@ class Report extends ActiveRecord
             return 0;
         }
     }
+
+    public function getPhoneCut($phone)
+    {
+        if ($phone) {
+            $cleanedPhoneNumber = preg_replace('/\D/', '', $phone);
+
+            return substr($cleanedPhoneNumber, 2);
+        }
+        return '';
+    }
 }
