@@ -66,7 +66,8 @@ $totalOrderPrice = $sumItemOrder
                         <div class="sa-page-meta mb-5">
                             <div class="sa-page-meta__body">
                                 <div class="sa-page-meta__list">
-                                    <div class="sa-page-meta__item"><h5 class="m-0">Замовлення # <?= $model->number_order ?></h5></div>
+                                    <div class="sa-page-meta__item"><h5 class="m-0">Замовлення
+                                            # <?= $model->number_order ?></h5></div>
                                     <div class="sa-page-meta__item">
                                         Позицій: <?= $model->getCountItemsOrder($model->id) ?></div>
                                     <div class="sa-page-meta__item">
@@ -129,7 +130,8 @@ $totalOrderPrice = $sumItemOrder
                                                             <div class="mb-3">
                                                                 <label for="product" class="form-label"><i
                                                                             class="fas fa-seedling"></i> Товар:</label>
-                                                                <input type="text" class="form-control" id="product-id"
+                                                                <input aria-label="productName"
+                                                                       type="text" class="form-control" id="product-id"
                                                                        name="productName" required>
                                                             </div>
                                                             <div class="mb-3">
@@ -495,8 +497,9 @@ $totalOrderPrice = $sumItemOrder
                                                      width="60" height="60" alt=""/>
                                             </div>
                                             <div class="ms-3 ps-2">
-                                                <div class="fs-exact-14 fw-medium"><a href="<?= Url::to(['update', 'id' => $model->id]) ?>"
-                                                                                      class="text-reset"><?= $model->fio ?></a></div>
+                                                <div class="fs-exact-14 fw-medium"><a
+                                                            href="<?= Url::to(['update', 'id' => $model->id]) ?>"
+                                                            class="text-reset"><?= $model->fio ?></a></div>
                                                 <?php $countOrders = $model->getCountOrders($model->tel_number) ?>
                                                 <?php if ($countOrders < 2) { ?>
                                                     <div class="fs-exact-13 text-muted">Це перше замовлення</div>
