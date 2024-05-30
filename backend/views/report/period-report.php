@@ -1,8 +1,32 @@
 <?php
 
-$bigProfit = $bigSum - $bigIncomingPriceSum - $bigDiscount - $bigDelivery - $bigPlatform;
+/** @var common\models\Report $model */
+/** @var common\models\Report $bigSum */
+/** @var common\models\Report $bigIncomingPriceSum */
+/** @var common\models\Report $bigDiscount */
+/** @var common\models\Report $bigDelivery */
+/** @var common\models\Report $bigPlatform */
+/** @var common\models\Report $smallSum */
+/** @var common\models\Report $smallIncomingPriceSum */
+/** @var common\models\Report $smallDiscount */
+/** @var common\models\Report $smallDelivery */
+/** @var common\models\Report $smallPlatform */
+/** @var common\models\Report $periodStart */
+/** @var common\models\Report $periodEnd */
+/** @var common\models\Report $bigQty */
+/** @var common\models\Report $smallQty */
 
-$smallProfit = $smallSum - $smallIncomingPriceSum - $smallDiscount - $smallDelivery - $smallPlatform;
+$bigProfit = $bigSum
+    - $bigIncomingPriceSum
+    - $bigDiscount
+    - $bigDelivery
+    - $bigPlatform;
+
+$smallProfit = $smallSum
+    - $smallIncomingPriceSum
+    - $smallDiscount
+    - $smallDelivery
+    - $smallPlatform;
 
 ?>
 
