@@ -162,6 +162,7 @@ class ReportController extends Controller
 
             return $this->redirect(['view', 'id' => $item->order_id]);
         }
+        return $this->redirect('index');
     }
 
     public function actionDeleteReportItem($id)
@@ -178,41 +179,19 @@ class ReportController extends Controller
 
     public function actionPeriodReport()
     {
-        $i = 0;
+        $periodStart = Report::find()->min('date_delivery');
+        $periodEnd = Report::find()->max('date_delivery');
 
-        $periodStart = Report::find()
-            ->select(['date_delivery'])
-            ->min('date_delivery');
-
-        $periodEnd = Report::find()
-            ->select(['date_delivery'])
-            ->max('date_delivery');
-
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            if (isset($_GET['periodStart'])) {
-                $periodStart = $_GET['periodStart'];
-                $periodEnd = $_GET['periodEnd'];
-            }
+        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
+            $periodStart = $_GET['periodStart'];
+            $periodEnd = $_GET['periodEnd'];
         }
 
-        $bigQty = [];
-        $bigSum = [];
-        $smallQty = [];
-        $smallSum = [];
-        $bigAllQty = [];
-        $bigAllSum = [];
-        $bigDiscount = [];
-        $bigDelivery = [];
-        $bigPlatform = [];
-        $smallAllQty = [];
-        $smallAllSum = [];
-        $smallDiscount = [];
-        $smallDelivery = [];
-        $smallPlatform = [];
-        $bigAllReturnQty = [];
-        $smallAllReturnQty = [];
-        $bigIncomingPriceSum = [];
-        $smallIncomingPriceSum = [];
+        $bigQty = $bigSum = $bigAllQty = $bigAllSum = $bigDiscount = $bigDelivery = $bigPlatform = [];
+        $smallQty = $smallSum = $smallAllQty = $smallAllSum = $smallDiscount = $smallDelivery = $smallPlatform = [];
+        $bigAllReturnQty = $smallAllReturnQty = $bigIncomingPriceSum = $smallIncomingPriceSum = [];
+        $noPackage = [];
+        $i = 0;
 
         $models = Report::find()
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
@@ -221,149 +200,148 @@ class ReportController extends Controller
 
         foreach ($models as $model) {
             $package = $model->getPackage($model->id);
+            $isPaid = $model->order_pay_ment_id == 'Оплачено';
+            $isReturn = $model->order_status_id == 'Повернення' || $model->order_pay_ment_id == 'Повернення';
+            $totalSum = $model->getTotalSumm($model->id);
+            $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
+            $discount = $model->getItemsDiscount($model->id);
+            $platformPrice = $model->getItemsPlatformPrice($model->id);
+            $priceDelivery = $model->price_delivery;
 
-            switch ($package) {
-
-                case 'Фермерська':
-                    $bigAllQty[] = $package;
-                    $bigAllSum[] = $model->getTotalSumm($model->id);
-
-                    break;
-                case 'Дрібна':
-                    $smallAllQty[] = $package;
-                    $smallAllSum[] = $model->getTotalSumm($model->id);
-
-                    break;
-                case 'Фермерська + Дрібна':
-                    $bigAllQty[] = 'BIG';
-                    $smallAllQty[] = 'SMALL';
-                    $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
-                    foreach ($items as $item) {
-                        if ($item['package'] == 'BIG') {
-                            $bigAllSum[] = $item['price'] * $item['quantity'];
+            if ($isPaid || $isReturn) {
+                switch ($package) {
+                    case 'Фермерська':
+                        if ($isPaid) {
+                            $bigQty[] = $package;
+                            $bigSum[] = $totalSum;
+                            $bigIncomingPriceSum[] = $incomingPriceSum;
+                            $bigDiscount[] = $discount;
+                            $bigPlatform[] = $platformPrice;
+                            $bigDelivery[] = $priceDelivery;
                         } else {
-                            $smallAllSum[] = $item['price'] * $item['quantity'];
+                            $bigAllReturnQty[] = 'BIG';
+                            $bigDelivery[] = $priceDelivery;
                         }
-                    }
-
-                    break;
-                default;
-                    $noPackage[] = 'Не визначено';
-                    break;
-            }
-
-            if ($model->order_pay_ment_id == 'Оплачено') {
-
-                switch ($package) {
-
-                    case 'Фермерська':
-                        $bigQty[] = $package;
-                        $bigSum[] = $model->getTotalSumm($model->id);
-                        $bigIncomingPriceSum[] = $model->getItemsIncomingPrice($model->id);
-                        $bigDiscount[] = $model->getItemsDiscount($model->id);
-                        $bigPlatform[] = $model->getItemsPlatformPrice($model->id);
-                        $bigDelivery[] = $model->price_delivery;
-
                         break;
                     case 'Дрібна':
-                        $smallQty[] = $package;
-                        $smallSum[] = $model->getTotalSumm($model->id);
-                        $smallIncomingPriceSum[] = $model->getItemsIncomingPrice($model->id);
-                        $smallDiscount[] = $model->getItemsDiscount($model->id);
-                        $smallPlatform[] = $model->getItemsPlatformPrice($model->id);
-                        $smallDelivery[] = $model->price_delivery;
-
+                        if ($isPaid) {
+                            $smallQty[] = $package;
+                            $smallSum[] = $totalSum;
+                            $smallIncomingPriceSum[] = $incomingPriceSum;
+                            $smallDiscount[] = $discount;
+                            $smallPlatform[] = $platformPrice;
+                            $smallDelivery[] = $priceDelivery;
+                        } else {
+                            $smallAllReturnQty[] = 'SMALL';
+                            $smallDelivery[] = $priceDelivery;
+                        }
                         break;
                     case 'Фермерська + Дрібна':
-                        $bigQty[] = 'BIG';
-                        $smallQty[] = 'SMALL';
-                        $smallDelivery[] = $model->price_delivery;
-                        $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
-                        foreach ($items as $item) {
-                            if ($item['package'] == 'BIG') {
-                                $bigSum[] = $item['price'] * $item['quantity'];
-                                $bigIncomingPriceSum[] = $item['entry_price'] * $item['quantity'];
-                                $bigDiscount[] = $item['discount'];
-                                $bigPlatform[] = $item['platform_price'];
-                            } else {
-                                $smallSum[] = $item['price'] * $item['quantity'];
-                                $smallIncomingPriceSum[] = $item['entry_price'] * $item['quantity'];
-                                $smallDiscount[] = $item['discount'];
-                                $smallPlatform[] = $item['platform_price'];
+                        if ($isPaid) {
+                            $bigQty[] = 'BIG';
+                            $smallQty[] = 'SMALL';
+                            $smallDelivery[] = $priceDelivery;
+                            $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
+                            foreach ($items as $item) {
+                                $quantity = $item['quantity'];
+                                if ($item['package'] == 'BIG') {
+                                    $bigSum[] = $item['price'] * $quantity;
+                                    $bigIncomingPriceSum[] = $item['entry_price'] * $quantity;
+                                    $bigDiscount[] = $item['discount'];
+                                    $bigPlatform[] = $item['platform_price'];
+                                } else {
+                                    $smallSum[] = $item['price'] * $quantity;
+                                    $smallIncomingPriceSum[] = $item['entry_price'] * $quantity;
+                                    $smallDiscount[] = $item['discount'];
+                                    $smallPlatform[] = $item['platform_price'];
+                                }
                             }
+                        } else {
+                            $bigAllReturnQty[] = 'BIG';
+                            $smallAllReturnQty[] = 'SMALL';
+                            $smallDelivery[] = $priceDelivery;
                         }
-
                         break;
-                    default;
-                        $noPackage[] = 'Не визначено';
-                        break;
-                }
-            } elseif ($model->order_status_id == 'Повернення' or $model->order_pay_ment_id == 'Повернення') {
-
-                switch ($package) {
-
-                    case 'Фермерська':
-                        $bigAllReturnQty[] = 'BIG';
-                        $bigDelivery[] = $model->price_delivery;
-
-                        break;
-                    case 'Фермерська + Дрібна':
-                    case 'Дрібна':
-                        $smallAllReturnQty[] = 'SMALL';
-                        $smallDelivery[] = $model->price_delivery;
-
-                        break;
-                    default;
+                    default:
                         $noPackage[] = 'Не визначено';
                         break;
                 }
             } else {
                 $i++;
             }
+
+            switch ($package) {
+                case 'Фермерська':
+                    $bigAllQty[] = $package;
+                    $bigAllSum[] = $totalSum;
+                    break;
+                case 'Дрібна':
+                    $smallAllQty[] = $package;
+                    $smallAllSum[] = $totalSum;
+                    break;
+                case 'Фермерська + Дрібна':
+                    $bigAllQty[] = 'BIG';
+                    $smallAllQty[] = 'SMALL';
+                    $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
+                    foreach ($items as $item) {
+                        $quantity = $item['quantity'];
+                        if ($item['package'] == 'BIG') {
+                            $bigAllSum[] = $item['price'] * $quantity;
+                        } else {
+                            $smallAllSum[] = $item['price'] * $quantity;
+                        }
+                    }
+                    break;
+                default:
+                    $noPackage[] = 'Не визначено';
+                    break;
+            }
         }
-        $bigQty = count($bigQty);
-        $bigSum = array_sum($bigSum);
-        $smallQty = count($smallQty);
-        $bigAllQty = count($bigAllQty);
-        $smallSum = array_sum($smallSum);
-        $bigAllSum = array_sum($bigAllSum);
-        $smallAllQty = count($smallAllQty);
-        $bigDiscount = array_sum($bigDiscount);
-        $bigDelivery = array_sum($bigDelivery);
-        $bigPlatform = array_sum($bigPlatform);
-        $smallAllSum = array_sum($smallAllSum);
-        $bigAllReturnQty = count($bigAllReturnQty);
-        $smallDiscount = array_sum($smallDiscount);
-        $smallDelivery = array_sum($smallDelivery);
-        $smallPlatform = array_sum($smallPlatform);
-        $smallAllReturnQty = count($smallAllReturnQty);
-        $bigIncomingPriceSum = array_sum($bigIncomingPriceSum);
-        $smallIncomingPriceSum = array_sum($smallIncomingPriceSum);
+
+        $bigQtyCount = count($bigQty);
+        $bigSumTotal = array_sum($bigSum);
+        $smallQtyCount = count($smallQty);
+        $smallSumTotal = array_sum($smallSum);
+        $bigAllQtyCount = count($bigAllQty);
+        $bigAllSumTotal = array_sum($bigAllSum);
+        $smallAllQtyCount = count($smallAllQty);
+        $smallAllSumTotal = array_sum($smallAllSum);
+        $bigDiscountTotal = array_sum($bigDiscount);
+        $bigDeliveryTotal = array_sum($bigDelivery);
+        $bigPlatformTotal = array_sum($bigPlatform);
+        $smallDiscountTotal = array_sum($smallDiscount);
+        $smallDeliveryTotal = array_sum($smallDelivery);
+        $smallPlatformTotal = array_sum($smallPlatform);
+        $bigAllReturnQtyCount = count($bigAllReturnQty);
+        $smallAllReturnQtyCount = count($smallAllReturnQty);
+        $bigIncomingPriceSumTotal = array_sum($bigIncomingPriceSum);
+        $smallIncomingPriceSumTotal = array_sum($smallIncomingPriceSum);
 
         return $this->render('period-report', [
             'model' => $models,
-            'bigQty' => $bigQty,
-            'bigSum' => $bigSum,
-            'smallQty' => $smallQty,
-            'smallSum' => $smallSum,
+            'bigQty' => $bigQtyCount,
+            'bigSum' => $bigSumTotal,
+            'smallQty' => $smallQtyCount,
+            'smallSum' => $smallSumTotal,
             'periodEnd' => $periodEnd,
-            'bigAllQty' => $bigAllQty,
-            'bigAllSum' => $bigAllSum,
+            'bigAllQty' => $bigAllQtyCount,
+            'bigAllSum' => $bigAllSumTotal,
             'periodStart' => $periodStart,
-            'smallAllQty' => $smallAllQty,
-            'smallAllSum' => $smallAllSum,
-            'bigDiscount' => $bigDiscount,
-            'bigDelivery' => $bigDelivery,
-            'bigPlatform' => $bigPlatform,
-            'smallDiscount' => $smallDiscount,
-            'smallDelivery' => $smallDelivery,
-            'smallPlatform' => $smallPlatform,
-            'bigAllReturnQty' => $bigAllReturnQty,
-            'smallAllReturnQty' => $smallAllReturnQty,
-            'bigIncomingPriceSum' => $bigIncomingPriceSum,
-            'smallIncomingPriceSum' => $smallIncomingPriceSum,
+            'smallAllQty' => $smallAllQtyCount,
+            'smallAllSum' => $smallAllSumTotal,
+            'bigDiscount' => $bigDiscountTotal,
+            'bigDelivery' => $bigDeliveryTotal,
+            'bigPlatform' => $bigPlatformTotal,
+            'smallDiscount' => $smallDiscountTotal,
+            'smallDelivery' => $smallDeliveryTotal,
+            'smallPlatform' => $smallPlatformTotal,
+            'bigAllReturnQty' => $bigAllReturnQtyCount,
+            'smallAllReturnQty' => $smallAllReturnQtyCount,
+            'bigIncomingPriceSum' => $bigIncomingPriceSumTotal,
+            'smallIncomingPriceSum' => $smallIncomingPriceSumTotal,
         ]);
     }
+
 
     public function actionAssistant()
     {
