@@ -3,6 +3,9 @@
 use common\models\Report;
 use yii\bootstrap5\Breadcrumbs;
 
+$this->title = Yii::t('app', 'Асистент');
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div id="top" class="sa-app__body">
@@ -48,42 +51,60 @@ use yii\bootstrap5\Breadcrumbs;
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $statusDelivery = Report::StatusDeliveryNotSelected()  ?>
+                    <?php if ($statusDelivery): ?>
                         <tr>
                             <td>Статус Доставки не вказано</td>
                             <td>
-                                <?= Report::StatusDeliveryNotSelected()?>
+                                <?= $statusDelivery ?>
                             </td>
                         </tr>
+                    <?php endif; ?>
+                    <?php $statusPayment = Report::StatusPaymentNotSelected() ?>
+                    <?php if ($statusPayment): ?>
                         <tr>
                             <td>Статус Оплати не вказано</td>
                             <td>
-                                <?= Report::StatusPaymentNotSelected()?>
+                                <?= $statusPayment ?>
                             </td>
                         </tr>
+                    <?php endif; ?>
+                    <?php $ttn = Report::TtnNot() ?>
+                    <?php if ($ttn): ?>
                         <tr>
                             <td>Статус Доставляєть нема ТТН</td>
                             <td>
-                                <?= Report::TtnNot()?>
+                                <?= $ttn ?>
                             </td>
                         </tr>
+                    <?php endif; ?>
+                    <?php $number = Report::NunberNot() ?>
+                    <?php if ($number): ?>
                         <tr>
                             <td>Відсутній № замовлення</td>
                             <td>
-                                <?= Report::NunberNot()?>
+                                <?= $number ?>
                             </td>
                         </tr>
+                    <?php endif; ?>
+                    <?php $dataPayment = Report::DatePaymentNot() ?>
+                    <?php if ($dataPayment): ?>
                         <tr>
                             <td>Статус Оплачено нема дати</td>
                             <td>
-                                <?= Report::DatePaymentNot()?>
+                                <?= $dataPayment ?>
                             </td>
                         </tr>
+                    <?php endif; ?>
+                    <?php $typePayment = Report::TypePaymentNot() ?>
+                    <?php if ($typePayment): ?>
                         <tr>
                             <td>Статус Оплачено нема Способу Оплати</td>
                             <td>
-                                <?= Report::TypePaymentNot()?>
+                                <?= $typePayment ?>
                             </td>
                         </tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>

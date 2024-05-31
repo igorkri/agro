@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Report;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -10,6 +11,20 @@ use yii\helpers\Url;
 
 $this->title = Yii::t('app', 'Reports');
 $this->params['breadcrumbs'][] = $this->title;
+
+$reportFields = [
+    Report::StatusDeliveryNotSelected(),
+    Report::StatusPaymentNotSelected(),
+    Report::TtnNot(),
+    Report::NunberNot(),
+    Report::DatePaymentNot(),
+    Report::TypePaymentNot()
+];
+
+$orderProblem = '<span class="indicator-analog__value"> !!! </span>';
+$orderNoProblem = '';
+
+$assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orderProblem : $orderNoProblem;
 
 ?>
 <div id="top" class="sa-app__body">
@@ -33,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </nav>
                     </div>
                     <div class="col-auto d-flex">
-                        <?= Html::a(Yii::t('app', 'Period Report'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
-                        <?= Html::a(Yii::t('app', 'Assistant'), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) ?>
+                        <?= Html::a(Yii::t('app', 'Звіт за Період'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
+                        <?= Html::a(Yii::t('app', 'Асистент ' . $assistFlag), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) ?>
                         <a href="<?= Url::to(['create']) ?>" class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
                     </div>
                 </div>
@@ -156,3 +171,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<style>
+    .indicator-analog__value {
+        height: 15px;
+        font-size: 16px;
+        padding: 3px 7px;
+        border-radius: 1000px;
+        position: relative;
+        background: #fbe720;
+        color: #3d464d;
+        font-weight: 700;
+    }
+</style>

@@ -285,8 +285,10 @@ class Report extends ActiveRecord
             ->select('number_order')
             ->where(['or', ['order_status_id' => null], ['order_status_id' => '']])
             ->column();
-
-        return implode(' --- ', $orderNumbers);
+        if ($orderNumbers){
+            return implode(' --- ', $orderNumbers);
+        }
+        return null;
     }
 
     static public function StatusPaymentNotSelected()
@@ -295,8 +297,10 @@ class Report extends ActiveRecord
             ->select('number_order')
             ->where(['or', ['order_pay_ment_id' => null], ['order_pay_ment_id' => '']])
             ->column();
-
-        return implode(' --- ', $orderNumbers);
+        if ($orderNumbers){
+            return implode(' --- ', $orderNumbers);
+        }
+        return null;
     }
 
     static public function TtnNot()
@@ -306,8 +310,10 @@ class Report extends ActiveRecord
             ->where(['order_status_id' => 'Доставляється'])
             ->andWhere(['or', ['ttn' => null], ['ttn' => '']])
             ->column();
-
-        return implode(' --- ', $orderNumbers);
+        if ($orderNumbers){
+            return implode(' --- ', $orderNumbers);
+        }
+        return null;
     }
 
     static public function NunberNot()
@@ -316,8 +322,10 @@ class Report extends ActiveRecord
             ->select('id')
             ->where(['or', ['number_order' => null], ['number_order' => '']])
             ->column();
-
-        return 'ID = ' . implode(' --- ', $orderNumbers);
+        if ($orderNumbers){
+            return 'ID = ' . implode(' --- ', $orderNumbers);
+        }
+        return null;
     }
 
     static public function DatePaymentNot()
@@ -327,8 +335,10 @@ class Report extends ActiveRecord
             ->where(['order_pay_ment_id' => 'Оплачено'])
             ->andWhere(['or', ['date_payment' => null], ['date_payment' => '']])
             ->column();
-
-        return implode(' --- ', $orderNumbers);
+        if ($orderNumbers){
+            return implode(' --- ', $orderNumbers);
+        }
+        return null;
     }
 
     static public function TypePaymentNot()
@@ -338,7 +348,9 @@ class Report extends ActiveRecord
             ->where(['order_pay_ment_id' => 'Оплачено'])
             ->andWhere(['or', ['type_payment' => null], ['type_payment' => '']])
             ->column();
-
-        return implode(' --- ', $orderNumbers);
+        if ($orderNumbers){
+            return implode(' --- ', $orderNumbers);
+        }
+        return null;
     }
 }
