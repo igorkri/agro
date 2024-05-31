@@ -30,7 +30,6 @@ $totalOrderPrice = $sumItemOrder
     - $itemPlatformPrice
     - $deliveryPrice;
 
-
 ?>
 <?php Pjax::begin(
 //        ['id'=>"top"]
@@ -69,9 +68,12 @@ $totalOrderPrice = $sumItemOrder
                                     <div class="sa-page-meta__item"><h5 class="m-0">Замовлення
                                             # <?= $model->number_order ?></h5></div>
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
-                                       <span class="text-muted" style="font-size: 14px">Позицій: </span><?= $model->getCountItemsOrder($model->id) ?></div>
+                                        <span class="text-muted"
+                                              style="font-size: 14px">Позицій: </span><?= $model->getCountItemsOrder($model->id) ?>
+                                    </div>
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
-                                       <span class="text-muted" style="font-size: 14px">Сума: </span><?php if ($model->order_status_id === 'Повернення') { ?>
+                                        <span class="text-muted"
+                                              style="font-size: 14px">Сума: </span><?php if ($model->order_status_id === 'Повернення') { ?>
                                             <td style="font-weight: bold; color: red">
                                                 -<?= Yii::$app->formatter->asDecimal($sumItemOrder, 2) ?></td>
                                         <?php } else { ?>
@@ -397,7 +399,8 @@ $totalOrderPrice = $sumItemOrder
                                                             <div class="text-muted fs-exact-13">сума всіх товарів</div>
                                                         </td>
                                                         <td class="text-end text-nowrap">
-                                                            <div class="sa-price" style="font-weight: bold; font-size: 20px">
+                                                            <div class="sa-price"
+                                                                 style="font-weight: bold; font-size: 20px">
                                                                 <?= Yii::$app->formatter->asDecimal($sumItemOrder, 2) ?>
                                                                 <span class="sa-price__symbol"> ₴</span>
                                                             </div>
@@ -472,7 +475,7 @@ $totalOrderPrice = $sumItemOrder
                                                             <div class="text-muted fs-exact-13">загальна сума з
                                                                 урахуванням витрат
                                                         </td>
-                                                        <td class="text-end text-nowrap text-success">
+                                                        <td class="text-end text-nowrap <?= $totalOrderPrice < 0 ? 'text-danger' : 'text-success' ?>">
                                                             <div class="sa-price" style="font-weight: bold">
                                                                 <?= Yii::$app->formatter->asDecimal($totalOrderPrice, 2) ?>
                                                                 <span class="sa-price__symbol"> ₴</span>
