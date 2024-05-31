@@ -193,27 +193,26 @@ class ReportController extends Controller
                 $periodStart = $_GET['periodStart'];
                 $periodEnd = $_GET['periodEnd'];
             }
-
-
         }
 
         $bigQty = [];
-        $smallQty = [];
-
         $bigSum = [];
+        $smallQty = [];
         $smallSum = [];
-
+        $bigAllQty = [];
+        $bigAllSum = [];
+        $bigDiscount = [];
+        $bigDelivery = [];
+        $bigPlatform = [];
+        $smallAllQty = [];
+        $smallAllSum = [];
+        $smallDiscount = [];
+        $smallDelivery = [];
+        $smallPlatform = [];
+        $bigAllReturnQty = [];
+        $smallAllReturnQty = [];
         $bigIncomingPriceSum = [];
         $smallIncomingPriceSum = [];
-
-        $bigDiscount = [];
-        $smallDiscount = [];
-
-        $bigDelivery = [];
-        $smallDelivery = [];
-
-        $bigPlatform = [];
-        $smallPlatform = [];
 
         $models = Report::find()
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
@@ -222,6 +221,36 @@ class ReportController extends Controller
 
         foreach ($models as $model) {
             $package = $model->getPackage($model->id);
+
+            switch ($package) {
+
+                case 'Фермерська':
+                    $bigAllQty[] = $package;
+                    $bigAllSum[] = $model->getTotalSumm($model->id);
+
+                    break;
+                case 'Дрібна':
+                    $smallAllQty[] = $package;
+                    $smallAllSum[] = $model->getTotalSumm($model->id);
+
+                    break;
+                case 'Фермерська + Дрібна':
+                    $bigAllQty[] = 'BIG';
+                    $smallAllQty[] = 'SMALL';
+                    $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
+                    foreach ($items as $item) {
+                        if ($item['package'] == 'BIG') {
+                            $bigAllSum[] = $item['price'] * $item['quantity'];
+                        } else {
+                            $smallAllSum[] = $item['price'] * $item['quantity'];
+                        }
+                    }
+
+                    break;
+                default;
+                    $noPackage[] = 'Не визначено';
+                    break;
+            }
 
             if ($model->order_pay_ment_id == 'Оплачено') {
 
@@ -269,22 +298,18 @@ class ReportController extends Controller
                         $noPackage[] = 'Не визначено';
                         break;
                 }
-            }elseif ($model->order_status_id == 'Повернення'){
+            } elseif ($model->order_status_id == 'Повернення' or $model->order_pay_ment_id == 'Повернення') {
 
                 switch ($package) {
 
                     case 'Фермерська':
-
+                        $bigAllReturnQty[] = 'BIG';
                         $bigDelivery[] = $model->price_delivery;
 
                         break;
-                    case 'Дрібна':
-
-                        $smallDelivery[] = $model->price_delivery;
-
-                        break;
                     case 'Фермерська + Дрібна':
-
+                    case 'Дрібна':
+                        $smallAllReturnQty[] = 'SMALL';
                         $smallDelivery[] = $model->price_delivery;
 
                         break;
@@ -297,46 +322,46 @@ class ReportController extends Controller
             }
         }
         $bigQty = count($bigQty);
-        $smallQty = count($smallQty);
-
         $bigSum = array_sum($bigSum);
+        $smallQty = count($smallQty);
+        $bigAllQty = count($bigAllQty);
         $smallSum = array_sum($smallSum);
-
+        $bigAllSum = array_sum($bigAllSum);
+        $smallAllQty = count($smallAllQty);
+        $bigDiscount = array_sum($bigDiscount);
+        $bigDelivery = array_sum($bigDelivery);
+        $bigPlatform = array_sum($bigPlatform);
+        $smallAllSum = array_sum($smallAllSum);
+        $bigAllReturnQty = count($bigAllReturnQty);
+        $smallDiscount = array_sum($smallDiscount);
+        $smallDelivery = array_sum($smallDelivery);
+        $smallPlatform = array_sum($smallPlatform);
+        $smallAllReturnQty = count($smallAllReturnQty);
         $bigIncomingPriceSum = array_sum($bigIncomingPriceSum);
         $smallIncomingPriceSum = array_sum($smallIncomingPriceSum);
 
-        $bigDiscount = array_sum($bigDiscount);
-        $smallDiscount = array_sum($smallDiscount);
-
-        $bigDelivery = array_sum($bigDelivery);
-        $smallDelivery = array_sum($smallDelivery);
-
-        $bigPlatform = array_sum($bigPlatform);
-        $smallPlatform = array_sum($smallPlatform);
-
         return $this->render('period-report', [
             'model' => $models,
-
-            'periodStart' => $periodStart,
-            'periodEnd' => $periodEnd,
-
             'bigQty' => $bigQty,
-            'smallQty' => $smallQty,
-
             'bigSum' => $bigSum,
+            'smallQty' => $smallQty,
             'smallSum' => $smallSum,
-
+            'periodEnd' => $periodEnd,
+            'bigAllQty' => $bigAllQty,
+            'bigAllSum' => $bigAllSum,
+            'periodStart' => $periodStart,
+            'smallAllQty' => $smallAllQty,
+            'smallAllSum' => $smallAllSum,
+            'bigDiscount' => $bigDiscount,
+            'bigDelivery' => $bigDelivery,
+            'bigPlatform' => $bigPlatform,
+            'smallDiscount' => $smallDiscount,
+            'smallDelivery' => $smallDelivery,
+            'smallPlatform' => $smallPlatform,
+            'bigAllReturnQty' => $bigAllReturnQty,
+            'smallAllReturnQty' => $smallAllReturnQty,
             'bigIncomingPriceSum' => $bigIncomingPriceSum,
             'smallIncomingPriceSum' => $smallIncomingPriceSum,
-
-            'bigDiscount' => $bigDiscount,
-            'smallDiscount' => $smallDiscount,
-
-            'bigDelivery' => $bigDelivery,
-            'smallDelivery' => $smallDelivery,
-
-            'bigPlatform' => $bigPlatform,
-            'smallPlatform' => $smallPlatform,
         ]);
     }
 
