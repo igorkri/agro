@@ -132,16 +132,16 @@ use yii\helpers\Url;
 <?php } else { ?>
     <div class="block">
         <div class="container">
-            <div class="not-found">
-                <div class="not-found__content">
-                    <h2 class="not-found__title">Список бажань порожній!</h2>
-                    <p class="not-found__text">
+            <div class="wishlist-not-products">
+                <div class="wishlist-not-products__content">
+                    <h2 class="wishlist-not-products__title">Список бажань порожній!</h2>
+                    <p class="wishlist-not-products__text">
                         Додайте товари до списку бажань.
                         <br>
                         Спробуйте скористатися пошуком.
                     </p>
                     <img src="/images/no-wish.jpg" alt="Список бажань порожній">
-                    <p class="not-found__text">
+                    <p class="wishlist-not-products__text">
                         Або перейдіть на головну сторінку, щоб почати все спочатку.
                     </p>
                     <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>

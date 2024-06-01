@@ -142,16 +142,16 @@ use yii\helpers\Url;
 <?php } else { ?>
     <div class="block">
         <div class="container">
-            <div class="not-found">
-                <div class="not-found__content">
-                    <h2 class="not-found__title">Список порівняння порожній!</h2>
-                    <p class="not-found__text">
+            <div class="compare-not-products">
+                <div class="compare-not-products__content">
+                    <h2 class="compare-not-products__title">Список порівняння порожній!</h2>
+                    <p class="compare-not-products__text">
                         Додайте товари для порівняння.
                         <br>
                         Спробуйте скористатися пошуком.
                     </p>
                     <img src="/images/no-compare.jpg" alt="Список порівняння порожній">
-                    <p class="not-found__text">
+                    <p class="compare-not-products__text">
                         Або перейдіть на головну сторінку, щоб почати все спочатку.
                     </p>
                     <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>

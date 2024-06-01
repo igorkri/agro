@@ -167,16 +167,16 @@ ActivePages::setActiveUser();
         <?php } else { ?>
             <div class="block">
                 <div class="container">
-                    <div class="not-found">
-                        <div class="not-found__content">
-                            <h2 class="not-found__title">Список порівняння порожній!</h2>
-                            <p class="not-found__text">
+                    <div class="compare-not-products">
+                        <div class="compare-not-products__content">
+                            <h2 class="compare-not-products__title">Список порівняння порожній!</h2>
+                            <p class="compare-not-products__text">
                                 Додайте товари для порівняння.
                                 <br>
                                 Спробуйте скористатися пошуком.
                             </p>
                             <img src="/images/no-compare.jpg" alt="Список порівняння порожній">
-                            <p class="not-found__text">
+                            <p class="compare-not-products__text">
                                 Або перейдіть на головну сторінку, щоб почати все спочатку.
                             </p>
                             <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>
@@ -190,6 +190,20 @@ ActivePages::setActiveUser();
 <style>
     .category-prefix {
         color: #a9a8a8;
+    }
+    .compare-not-products {
+        text-align: center;
+    }
+    .compare-not-products__content{
+        width: 480px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    .compare-not-products__title{
+        margin-bottom: 30px;
+    }
+    .compare-not-products__text{
+        margin-bottom: 20px;
     }
 </style>
 
@@ -219,6 +233,5 @@ $script = <<< JS
     });
 });
 JS;
-// Регистрируем скрипт
 $this->registerJs($script);
 ?>
