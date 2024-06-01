@@ -218,6 +218,5 @@ $script = <<< JS
     });
 });
 JS;
-// Регистрируем скрипт
 $this->registerJs($script);
 ?>
