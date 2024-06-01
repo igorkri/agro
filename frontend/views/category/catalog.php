@@ -3,11 +3,13 @@
 use common\models\shop\AuxiliaryCategories;
 use common\models\shop\ActivePages;
 use common\models\shop\Product;
+use frontend\assets\CategoryCatalogPageAsset;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
+CategoryCatalogPageAsset::register($this);
 ActivePages::setActiveUser();
 
 /** @var Product $products */
