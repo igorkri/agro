@@ -1,6 +1,11 @@
 <?php
 
+use common\models\shop\ActivePages;
+use frontend\assets\WishListPageAsset;
 use yii\helpers\Url;
+
+ActivePages::setActiveUser();
+WishListPageAsset::register($this);
 
 ?>
     <div class="site__body">
