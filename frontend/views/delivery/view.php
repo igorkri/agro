@@ -1,7 +1,9 @@
 <?php
 
 use common\models\shop\ActivePages;
+use frontend\assets\DeliveryPageAsset;
 
+DeliveryPageAsset::register($this);
 ActivePages::setActiveUser();
 
 ?>

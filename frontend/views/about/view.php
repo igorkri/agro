@@ -1,7 +1,9 @@
 <?php
 
 use common\models\shop\ActivePages;
+use frontend\assets\AboutPageAsset;
 
+AboutPageAsset::register($this);
 ActivePages::setActiveUser();
 
 ?>
