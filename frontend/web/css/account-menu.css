@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+/*
+// .account-menu
+*/
+.account-menu {
+    -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    color: #3d464d;
+    width: 280px;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .account-menu {
+        -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.account-menu__form {
+    padding: 0 30px 32px;
+}
+.account-menu__form .form-group {
+    margin-bottom: 1rem;
+}
+
+.account-menu__form-title {
+    text-align: center;
+    padding: 30px 0 26px;
+    font-weight: 700;
+}
+
+.account-menu__form-button {
+    margin-top: 32px;
+    text-align: center;
+}
+.account-menu__form-button .btn {
+    padding-left: 28px;
+    padding-right: 28px;
+}
+
+.account-menu__form-link {
+    font-size: 14px;
+    text-align: center;
+}
+.account-menu__form-link a {
+    color: #6c757d;
+    -webkit-transition: color 0.1s;
+    transition: color 0.1s;
+}
+.account-menu__form-link a:hover {
+    color: inherit;
+}
+
+.account-menu__form-forgot {
+    position: relative;
+}
+
+.account-menu__form-forgot-link {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    background: transparent;
+    color: #3d464d;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 7px;
+    -webkit-transition: background 0.1s, color 0.1s;
+    transition: background 0.1s, color 0.1s;
+}
+[dir=ltr] .account-menu__form-forgot-link {
+    right: 5px;
+}
+[dir=rtl] .account-menu__form-forgot-link {
+    left: 5px;
+}
+.account-menu__form-forgot-link:hover {
+    background: #f0f0f0;
+    color: #3d464d;
+}
+.account-menu__form-forgot-link:active {
+    background: #e5e5e5;
+    color: #3d464d;
+}
+
+.account-menu__divider {
+    height: 1px;
+    background: #ebebeb;
+}
+
+.account-menu__user {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 14px 20px;
+    color: inherit;
+}
+.account-menu__user:hover {
+    color: inherit;
+    background: #f2f2f2;
+}
+
+.account-menu__user-avatar {
+    width: 44px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+[dir=ltr] .account-menu__user-avatar {
+    margin-right: 14px;
+}
+[dir=rtl] .account-menu__user-avatar {
+    margin-left: 14px;
+}
+.account-menu__user-avatar img {
+    border-radius: 100%;
+    max-width: 100%;
+}
+
+.account-menu__user-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.account-menu__user-name {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.account-menu__user-email {
+    font-size: 14px;
+    line-height: 18px;
+    color: #999;
+    margin-top: 1px;
+}
+
+.account-menu__links {
+    list-style: none;
+    padding: 12px 0;
+    margin: 0;
+}
+.account-menu__links a {
+    display: block;
+    color: inherit;
+    font-size: 15px;
+    padding: 5px 20px;
+    font-weight: 500;
+}
+.account-menu__links a:hover {
+    background: #f2f2f2;
+}
