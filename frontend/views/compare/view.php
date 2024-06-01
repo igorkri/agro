@@ -1,8 +1,10 @@
 <?php
 
 use common\models\shop\ActivePages;
+use frontend\assets\ComparePageAsset;
 use yii\helpers\Url;
 
+ComparePageAsset::register($this);
 ActivePages::setActiveUser();
 
 ?>
