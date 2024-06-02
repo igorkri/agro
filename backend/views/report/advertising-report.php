@@ -1,13 +1,11 @@
 <?php
 
 /** @var common\models\Report $model */
-/** @var common\models\Report $bigAllSum */
 /** @var common\models\Report $bigSum */
 /** @var common\models\Report $bigIncomingPriceSum */
 /** @var common\models\Report $bigDiscount */
 /** @var common\models\Report $bigDelivery */
 /** @var common\models\Report $bigPlatform */
-/** @var common\models\Report $smallAllSum */
 /** @var common\models\Report $smallSum */
 /** @var common\models\Report $smallIncomingPriceSum */
 /** @var common\models\Report $smallDiscount */
@@ -15,11 +13,7 @@
 /** @var common\models\Report $smallPlatform */
 /** @var common\models\Report $periodStart */
 /** @var common\models\Report $periodEnd */
-/** @var common\models\Report $bigAllQty */
-/** @var common\models\Report $bigAllReturnQty */
 /** @var common\models\Report $bigQty */
-/** @var common\models\Report $smallAllQty */
-/** @var common\models\Report $smallAllReturnQty */
 /** @var common\models\Report $smallQty */
 
 use yii\bootstrap5\Breadcrumbs;
@@ -63,8 +57,8 @@ $smallProfit = $smallSum
                     </nav>
                 </div>
                 <div class="col-auto d-flex">
+                    <?= Html::a(Yii::t('app', 'Звіт за Період'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
                     <?= Html::a(Yii::t('app', 'Звіт по Prom'), Url::to(['report/prom-report']), ['class' => 'btn btn-prom me-3']) ?>
-                    <?= Html::a(Yii::t('app', 'Звіт по Рекламі'), Url::to(['report/advertising-report']), ['class' => 'btn btn-success me-3']) ?>
                     <?= Html::a(Yii::t('app', 'Таблиця'), Url::to(['index']), ['class' => 'btn btn-primary me-3']) ?>
                 </div>
             </div>
@@ -72,9 +66,9 @@ $smallProfit = $smallSum
         <div class="sa-invoice__card">
             <div class="sa-invoice__header">
                 <div class="sa-invoice__meta">
-                    <div class="sa-invoice__title title-report mb-5">Звіт за Період</div>
+                    <div class="sa-invoice__title title-report mb-5">Звіт по Рекламі</div>
                     <div class="sa-invoice__meta-items">
-                        <form action="period-report" method="get">
+                        <form action="advertising-report" method="get">
                             <span style="margin-right: 8px;">Початок:</span>
                             <label for="periodStart"></label>
                             <input type="date" id="periodStart" name="periodStart"
@@ -157,62 +151,8 @@ $smallProfit = $smallSum
                     <!-- invoice-logo / end -->
                 </div>
             </div>
-            <div class="sa-invoice__sides">
-                <div class="sa-invoice__table-container">
-                    <h4> Всі замовлення за період: </h4>
-                    <br>
-                    <table class="sa-invoice__table">
-                        <thead class="sa-invoice__table-head">
-                        <tr>
-                            <th class="sa-invoice__table-column--type--product">Відділ / Пакування</th>
-                            <th class="sa-invoice__table-column--type--product"></th>
-                            <th class="sa-invoice__table-column--type--quantity">Замов.</th>
-                            <th class="sa-invoice__table-column--type--quantity">Повер.</th>
-                            <th class="sa-invoice__table-column--type--price">Сума</th>
-                        </tr>
-                        </thead>
-                        <tbody class="sa-invoice__table-body">
-                        <tr>
-                            <td class="sa-invoice__table-column--type--product">Фермерський Відділ</td>
-                            <td class="sa-invoice__table-column--type--product"></td>
-                            <td class="sa-invoice__table-column--type--quantity"><?= $bigAllQty ?></td>
-                            <td class="sa-invoice__table-column--type--quantity"><?= $bigAllReturnQty ?></td>
-                            <td class="sa-invoice__table-column--type--price"><?= Yii::$app->formatter->asDecimal($bigAllSum, 2) ?>
-                                <span class="sa-price__symbol"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="sa-invoice__table-column--type--product">Дрібна фасовка</td>
-                            <td class="sa-invoice__table-column--type--product"></td>
-                            <td class="sa-invoice__table-column--type--quantity"><?= $smallAllQty ?></td>
-                            <td class="sa-invoice__table-column--type--quantity"><?= $smallAllReturnQty ?></td>
-                            <td class="sa-invoice__table-column--type--price"><?= Yii::$app->formatter->asDecimal($smallAllSum, 2) ?>
-                                <span class="sa-price__symbol"></span></td>
-                        </tr>
-                        </tbody>
-                        <tbody class="sa-invoice__table-totals">
-                        <tr>
-                            <th class="sa-invoice__table-column--type--header" colspan="3">Кількість замовлень:</th>
-                            <td class="sa-invoice__table-column--type--total"><?= ($bigAllQty + $smallAllQty) - ($smallAllReturnQty + $bigAllReturnQty) ?></td>
-                        </tr>
-                        <tr>
-                            <th class="sa-invoice__table-column--type--header" colspan="3">Доставка:</th>
-                            <td class="sa-invoice__table-column--type--total text-danger"><span
-                                        class="sa-price__symbol">-</span><?= Yii::$app->formatter->asDecimal($bigDelivery + $smallDelivery, 2) ?>
-                                <span
-                                        class="sa-price__symbol"> ₴</span></td>
-                        </tr>
-                        <tr>
-                            <th class="sa-invoice__table-column--type--header" colspan="3">Сума Продажів:</th>
-                            <td class="sa-invoice__table-column--type--total" style="font-weight: bold"><?= Yii::$app->formatter->asDecimal(($bigAllSum + $smallAllSum) - ($bigDelivery + $smallDelivery), 2) ?>
-                                <span
-                                        class="sa-price__symbol"> ₴</span></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             <div class="sa-invoice__table-container">
-                <h4> Оплачені та Повернуті замовлення за період: </h4>
+                <h4> Реклама замовлення за період: </h4>
                 <br>
                 <table class="sa-invoice__table">
                     <thead class="sa-invoice__table-head">
@@ -339,8 +279,8 @@ $smallProfit = $smallSum
         padding: 0 10px;
         border-radius: 1000px;
         position: relative;
-        background: rgba(189, 187, 193, 0.64);
-        color: #1f2121;
+        background: rgba(4, 182, 48, 0.73);
+        color: #eff2f4;
         font-weight: 700;
     }
 </style>
