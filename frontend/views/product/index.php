@@ -2,6 +2,7 @@
 
 use common\models\shop\ProductProperties;
 use frontend\widgets\ProductsCarousel;
+use frontend\assets\ProductPageAsset;
 use frontend\widgets\RelatedProducts;
 use common\models\shop\ProductImage;
 use common\models\shop\ActivePages;
@@ -22,6 +23,7 @@ use yii\helpers\Url;
 /** @var Brand $img_brand */
 /** @var Product $images */
 
+ProductPageAsset::register($this);
 ActivePages::setActiveUser();
 
 $webp_support = ProductImage::imageWebp();
@@ -346,22 +348,22 @@ $webp_support = ProductImage::imageWebp();
                                                                 target="_bank">перевізника</a>
                                                     </li>
                                                 </ul>
-                                                <div style="display: flex; align-items: center;">
-                                                    <svg width="24px" height="24px" style="margin-right: 5px;">
-                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>
-                                                    </svg>
-                                                    <b>Укрпошта</b>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        Від 35 грн.
-                                                    </li>
-                                                    <li>
-                                                        Тарифи <a
-                                                                href="https://www.ukrposhta.ua/ua/taryfy-ukrposhta-standart"
-                                                                target="_bank">перевізника</a>
-                                                    </li>
-                                                </ul>
+<!--                                                <div style="display: flex; align-items: center;">-->
+<!--                                                    <svg width="24px" height="24px" style="margin-right: 5px;">-->
+<!--                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>-->
+<!--                                                    </svg>-->
+<!--                                                    <b>Укрпошта</b>-->
+<!--                                                </div>-->
+<!--                                                <ul>-->
+<!--                                                    <li>-->
+<!--                                                        Від 35 грн.-->
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        Тарифи <a-->
+<!--                                                                href="https://www.ukrposhta.ua/ua/taryfy-ukrposhta-standart"-->
+<!--                                                                target="_bank">перевізника</a>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
                                                 <div style="display: flex; align-items: center;">
                                                     <svg width="24px" height="24px" style="margin-right: 5px;">
                                                         <use xlink:href="/images/sprite.svg#delivery-48"
@@ -454,9 +456,9 @@ $webp_support = ProductImage::imageWebp();
         </div>
     </div>
     <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
-    <?php if (!Yii::$app->devicedetect->isMobile()): ?>
-        <?php echo ProductsCarousel::widget() ?>
-    <?php endif; ?>
+<!--    --><?php //if (!Yii::$app->devicedetect->isMobile()): ?>
+<!--        --><?php //echo ProductsCarousel::widget() ?>
+<!--    --><?php //endif; ?>
     <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
 
