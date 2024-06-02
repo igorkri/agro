@@ -21,7 +21,7 @@ $reportFields = [
     Report::TypePaymentNot()
 ];
 
-$orderProblem = '<span class="indicator-analog__value"> !!! </span>';
+$orderProblem = '<span class="indicator-analog__value"> ! </span>';
 $orderNoProblem = '';
 
 $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orderProblem : $orderNoProblem;
@@ -177,7 +177,8 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
     .indicator-analog__value {
         height: 15px;
         font-size: 16px;
-        padding: 3px 7px;
+        padding: 1px 9px;
+        margin-left: 5px;
         border-radius: 1000px;
         position: relative;
         background: #fbe720;
