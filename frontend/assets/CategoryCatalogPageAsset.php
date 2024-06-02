@@ -14,6 +14,8 @@ class CategoryCatalogPageAsset extends AssetBundle
     ];
     public $js = [
 
+        '/vendor/nouislider/nouislider.min.js?v=' . PROJECT_VERSION,
+
     ];
     public $depends = [
         'yii\web\YiiAsset',
