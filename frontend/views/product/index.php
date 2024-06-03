@@ -1,7 +1,6 @@
 <?php
 
 use common\models\shop\ProductProperties;
-use frontend\widgets\ProductsCarousel;
 use frontend\assets\ProductPageAsset;
 use frontend\widgets\RelatedProducts;
 use common\models\shop\ProductImage;

@@ -1,10 +1,12 @@
 <?php
 
 use common\models\shop\ActivePages;
+use frontend\assets\CategoryChildrenPageAsset;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $categories */
 
+CategoryChildrenPageAsset::register($this);
 ActivePages::setActiveUser();
 
 ?>

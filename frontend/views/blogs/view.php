@@ -2,13 +2,13 @@
 
 use common\models\shop\ActivePages;
 use common\models\shop\ProductImage;
+use frontend\assets\BlogsPageAsset;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
-
-
+BlogsPageAsset::register($this);
 ActivePages::setActiveUser();
 
 $webp_support = ProductImage::imageWebp();
