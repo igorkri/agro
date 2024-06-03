@@ -1,6 +1,7 @@
 <?php
 
 /** @var common\models\Report $model */
+/** @var common\models\Report $budget */
 /** @var common\models\Report $bigSum */
 /** @var common\models\Report $bigIncomingPriceSum */
 /** @var common\models\Report $bigDiscount */
@@ -34,6 +35,12 @@ $smallProfit = $smallSum
     - $smallDiscount
     - $smallDelivery
     - $smallPlatform;
+
+if ($bigQty + $smallQty == 0) {
+    $clientPrice = $budget;
+} else {
+    $clientPrice = $budget / ($bigQty + $smallQty);
+}
 
 ?>
 
@@ -79,6 +86,12 @@ $smallProfit = $smallSum
                             <label for="periodEnd"></label>
                             <input type="date" id="periodEnd" name="periodEnd"
                                    value="<?php echo htmlspecialchars($periodEnd); ?>" required>
+                            <br/>
+                            <br/>
+                            <span style="margin-right: 11px;">Бютжет:  </span>
+                            <label for="budget"></label>
+                            <input type="number" id="budget" name="budget"
+                                   value="<?php echo htmlspecialchars($budget); ?>" step="0.01" style="width: 137px;" required>
                             <br/>
                             <br/>
                             <br/>
@@ -163,7 +176,7 @@ $smallProfit = $smallSum
                         <th class="sa-invoice__table-column--type--price">Собі-ть</th>
                         <th class="sa-invoice__table-column--type--price">Знижки</th>
                         <th class="sa-invoice__table-column--type--price">Доставка</th>
-                        <th class="sa-invoice__table-column--type--price">Площадки</th>
+                        <th class="sa-invoice__table-column--type--price">Платформи</th>
                         <th class="sa-invoice__table-column--type--total">Приб.</th>
                     </tr>
                     </thead>
@@ -230,6 +243,12 @@ $smallProfit = $smallSum
                                     class="sa-price__symbol"> ₴</span></td>
                     </tr>
                     <tr>
+                        <th class="sa-invoice__table-column--type--header" colspan="6">Ціна кліента</th>
+                        <td class="sa-invoice__table-column--type--total"><?= Yii::$app->formatter->asDecimal($clientPrice, 2) ?>
+                            <span
+                                    class="sa-price__symbol"> ₴</span></td>
+                    </tr>
+                    <tr>
                         <th class="sa-invoice__table-column--type--header" colspan="6">Собівартість</th>
                         <td class="sa-invoice__table-column--type--total text-danger"><span
                                     class="sa-price__symbol">-</span><?= Yii::$app->formatter->asDecimal($bigIncomingPriceSum + $smallIncomingPriceSum, 2) ?>
@@ -257,12 +276,19 @@ $smallProfit = $smallSum
                             <span
                                     class="sa-price__symbol"> ₴</span></td>
                     </tr>
+                    <tr>
+                        <th class="sa-invoice__table-column--type--header" colspan="6">Бютжет</th>
+                        <td class="sa-invoice__table-column--type--total text-danger"><span
+                                    class="sa-price__symbol">-</span><?= Yii::$app->formatter->asDecimal($budget, 2) ?>
+                            <span
+                                    class="sa-price__symbol"> ₴</span></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
             <div class="sa-invoice__total">
                 <div class="sa-invoice__total-title">Загальний Прибуток:</div>
-                <div class="sa-invoice__total-value"><?= Yii::$app->formatter->asDecimal($bigProfit + $smallProfit, 2) ?>
+                <div class="sa-invoice__total-value"><?= Yii::$app->formatter->asDecimal(($bigProfit + $smallProfit) - $budget, 2) ?>
                     <span
                             class="sa-price__symbol"> ₴</span></div>
             </div>

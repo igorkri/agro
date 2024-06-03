@@ -448,12 +448,19 @@ class ReportController extends Controller
 
     public function actionAdvertisingReport()
     {
-        $periodStart = Report::find()->min('date_delivery');
+        $periodStart = Report::find()
+            ->where(['not', ['date_delivery' => null]])
+            ->andWhere(['<>', 'date_delivery', ''])
+            ->orderBy(['date_delivery' => SORT_ASC])
+            ->select(['date_delivery'])
+            ->scalar();
         $periodEnd = Report::find()->max('date_delivery');
+        $budget = 0;
 
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
             $periodStart = $_GET['periodStart'];
             $periodEnd = $_GET['periodEnd'];
+            $budget = $_GET['budget'];
         }
 
         $bigQty = $bigSum = $bigDiscount = $bigDelivery = $bigPlatform = [];
@@ -535,6 +542,7 @@ class ReportController extends Controller
 
         return $this->render('advertising-report', [
             'model' => $models,
+            'budget' => $budget,
             'bigQty' => $bigQtyCount,
             'bigSum' => $bigSumTotal,
             'periodEnd' => $periodEnd,
