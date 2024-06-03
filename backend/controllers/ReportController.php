@@ -179,7 +179,12 @@ class ReportController extends Controller
 
     public function actionPeriodReport()
     {
-        $periodStart = Report::find()->min('date_delivery');
+        $periodStart = Report::find()
+            ->where(['not', ['date_delivery' => null]])
+            ->andWhere(['<>', 'date_delivery', ''])
+            ->orderBy(['date_delivery' => SORT_ASC])
+            ->select(['date_delivery'])
+            ->scalar();
         $periodEnd = Report::find()->max('date_delivery');
 
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
@@ -344,7 +349,12 @@ class ReportController extends Controller
 
     public function actionPromReport()
     {
-        $periodStart = Report::find()->min('date_delivery');
+        $periodStart = Report::find()
+            ->where(['not', ['date_delivery' => null]])
+            ->andWhere(['<>', 'date_delivery', ''])
+            ->orderBy(['date_delivery' => SORT_ASC])
+            ->select(['date_delivery'])
+            ->scalar();
         $periodEnd = Report::find()->max('date_delivery');
 
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
@@ -455,6 +465,7 @@ class ReportController extends Controller
             ->select(['date_delivery'])
             ->scalar();
         $periodEnd = Report::find()->max('date_delivery');
+
         $budget = 0;
 
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
