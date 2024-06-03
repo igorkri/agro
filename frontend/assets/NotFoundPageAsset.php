@@ -11,6 +11,7 @@ class NotFoundPageAsset extends AssetBundle
     public $css = [
 
         '/css/not-found.css?v=' . PROJECT_VERSION,
+
     ];
     public $js = [
 

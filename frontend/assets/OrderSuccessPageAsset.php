@@ -11,6 +11,8 @@ class OrderSuccessPageAsset extends AssetBundle
     public $css = [
 
         '/css/order-success.css?v=' . PROJECT_VERSION,
+        '/css/order-list.css?v=' . PROJECT_VERSION,
+        '/css/address-card.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
 

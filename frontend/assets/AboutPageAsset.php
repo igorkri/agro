@@ -11,6 +11,7 @@ class AboutPageAsset extends AssetBundle
     public $css = [
 
         '/css/about.css?v=' . PROJECT_VERSION,
+        '/css/typography.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
 

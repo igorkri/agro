@@ -11,6 +11,8 @@ class CategoryCatalogPageAsset extends AssetBundle
     public $css = [
 
         '/css/filter.css?v=' . PROJECT_VERSION,
+        '/css/filters-button.css?v=' . PROJECT_VERSION,
+        '/css/nouislider.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
 
