@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+/*
+// .category-card
+*/
+.category-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.category-card__body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 2px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 16px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 16px rgba(0, 0, 0, 0.04);
+    padding: 24px 20px;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.category-card__image {
+    width: 130px;
+}
+
+[dir=ltr] .category-card__image {
+    margin-right: 24px;
+}
+[dir=rtl] .category-card__image {
+    margin-left: 24px;
+}
+
+.category-card__image img {
+    overflow: hidden;
+    /*max-width: 100%;*/
+    /*opacity: 0.5;*/
+    transition: opacity 0.5s ease;
+}
+
+.category-card__image img:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    /*opacity: 1;*/
+    transform: scale(1.2);
+}
+
+.category-card__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.category-card__name {
+    margin-top: -2px;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 19px;
+}
+.category-card__name a {
+    font-weight: bold;
+    color: inherit;
+    -webkit-transition: 0.15s;
+    transition: 0.15s;
+}
+.category-card__name a:hover {
+    color: #47991f;
+}
+
+.category-card__links {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 22px;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+.category-card__links a {
+    color: #6c757d;
+    -webkit-transition: 0.15s;
+    transition: 0.15s;
+}
+.category-card__links a:hover {
+    color: #47991f;
+}
+
+.category-card__all {
+    margin-top: 14px;
+    font-size: 14px;
+}
+.category-card__all a:hover {
+    text-decoration: underline;
+}
+
+.category-card__products {
+    /*display: none;*/
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .category-card--layout--classic .category-card__image {
+        width: 90px;
+    }
+}
+@media (min-width: 480px) and (max-width: 991px) {
+    .category-card--layout--classic .category-card__body {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding: 24px 28px;
+    }
+    .category-card--layout--classic .category-card__image {
+        width: auto;
+        margin: 0 0 18px;
+    }
+}
+@media (min-width: 400px) and (max-width: 479px) {
+    .category-card--layout--classic .category-card__image {
+        width: 40%;
+    }
+}
+@media (max-width: 399px) {
+    .category-card--layout--classic .category-card__body {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding: 24px 28px;
+        text-align: center;
+    }
+    .category-card--layout--classic .category-card__image {
+        width: 120px;
+        margin: 0 auto 18px;
+    }
+}
+
+.category-card--layout--compact .category-card__body {
+    padding: 16px 30px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.category-card--layout--compact .category-card__image {
+    width: 74px;
+}
+[dir=ltr] .category-card--layout--compact .category-card__image {
+    margin-right: 30px;
+}
+[dir=rtl] .category-card--layout--compact .category-card__image {
+    margin-left: 30px;
+}
+.category-card--layout--compact .category-card__links {
+    display: none;
+}
+.category-card--layout--compact .category-card__all {
+    display: none;
+}
+.category-card--layout--compact .category-card__name {
+    margin-top: 0;
+    font-size: 17px;
+    line-height: 19px;
+}
+.category-card--layout--compact .category-card__products {
+    display: block;
+    font-size: 15px;
+    color: #999;
+    margin-top: 5px;
+}

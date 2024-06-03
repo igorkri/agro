@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+/*
+// .typography
+*/
+.typography {
+    line-height: 1.625;
+}
+.typography a:hover {
+    text-decoration: underline;
+}
+.typography h1, .typography h2, .typography h3, .typography h4, .typography h5, .typography h6 {
+    margin-top: 1.75em;
+    margin-bottom: 0.75em;
+}
+.typography p {
+    margin-bottom: 1.5em;
+}
+.typography ol, .typography ul {
+    margin: 1.7em 0;
+}
+.typography li {
+    margin-bottom: 0.7em;
+}
+.typography > *:first-child {
+    margin-top: 0;
+}
+.typography > *:last-child {
+    margin-bottom: 0;
+}
+.typography a > img {
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
+.typography a:hover > img {
+    opacity: 0.8;
+}
+.typography img {
+    max-width: 100%;
+}
+.typography figure {
+    margin: 2.5em 0;
+}
+.typography figcaption {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+.typography hr {
+    position: relative;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    border: none;
+    background: #ccc;
+    margin: 2.5em auto;
+}
+.typography hr::after, .typography hr::before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background: inherit;
+}
+[dir=ltr] .typography hr::after {
+    left: -30px;
+}
+[dir=rtl] .typography hr::after {
+    right: -30px;
+}
+[dir=ltr] .typography hr::before {
+    right: -30px;
+}
+[dir=rtl] .typography hr::before {
+    left: -30px;
+}
+.typography blockquote {
+    margin: 3em 2.5em 2.5em;
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+}
+.typography blockquote cite {
+    margin-top: -0.5em;
+    color: #999;
+    display: block;
+    font-size: 15px;
+    font-style: normal;
+}
+.typography blockquote p {
+    margin-bottom: 1.25em;
+}
+.typography blockquote > *:first-child {
+    margin-top: 0;
+}
+.typography blockquote > *:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 991px) {
+    .typography h1, .typography h2, .typography h3, .typography h4, .typography h5, .typography h6 {
+        margin-top: 1.25em;
+        margin-bottom: 0.5em;
+    }
+}
+@media (max-width: 767px) {
+    .typography ol, .typography ul {
+        margin: 1.5em 0;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .typography blockquote {
+        margin: 2.5em 1.5em 2em;
+    }
+}
+@media (max-width: 575px) {
+    .typography blockquote {
+        font-size: 16px;
+        margin: 2.25em 0;
+    }
+    [dir=ltr] .typography blockquote {
+        text-align: left;
+    }
+    [dir=rtl] .typography blockquote {
+        text-align: right;
+    }
+}
+@media (min-width: 992px) {
+    .typography--expanded figure {
+        text-align: center;
+        position: relative;
+        width: calc(100% + 190px);
+        margin: 3em 0;
+    }
+    [dir=ltr] .typography--expanded figure {
+        left: -95px;
+    }
+    [dir=rtl] .typography--expanded figure {
+        right: -95px;
+    }
+    .typography--expanded figure img {
+        overflow: hidden;
+        border-radius: 3px;
+    }
+}

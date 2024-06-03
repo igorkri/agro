@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+/*
+// .input-check-color
+*/
+.input-check-color {
+    display: inline-block;
+}
+
+.input-check-color__body {
+    display: block;
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border-radius: 1.2px;
+    overflow: hidden;
+    cursor: inherit;
+    margin: 0;
+}
+
+.input-check-color__input {
+    position: absolute;
+    visibility: hidden;
+}
+
+.input-check-color__box {
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 1.2px;
+    background: currentColor;
+    cursor: inherit;
+}
+
+.input-check-color__icon {
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    fill: #fff;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: -webkit-transform 0.15s;
+    transition: -webkit-transform 0.15s;
+    transition: transform 0.15s;
+    transition: transform 0.15s, -webkit-transform 0.15s;
+}
+
+.input-check-color__input:checked ~ .input-check-color__icon {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.input-check-color__input:disabled {
+    cursor: default;
+}
+
+.input-check-color__input:disabled ~ .input-check-color__box {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 22px;
+    height: 22px;
+    opacity: 0.5;
+    cursor: default;
+}
+.input-check-color__input:disabled ~ .input-check-color__stick {
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    width: 2px;
+    border-radius: 1px;
+    height: 34px;
+    left: calc(50% - 1px);
+    top: -6px;
+    background: rgba(102, 102, 102, 0.9);
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+}
+
+.input-check-color--light .input-check-color__icon {
+    fill: #3d464d;
+}
+
+.input-check-color--white .input-check-color__box {
+    -webkit-box-shadow: 0 0 0 2px #d9d9d9 inset;
+    box-shadow: 0 0 0 2px #d9d9d9 inset;
+}
+.input-check-color--white .input-check-color__icon {
+    fill: #bfbfbf;
+}

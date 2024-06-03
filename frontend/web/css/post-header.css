@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+/*
+// .post-header
+*/
+.post-header__categories {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.post-header__categories a {
+    padding: 5px 7px 4px;
+    display: block;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #808080;
+    background: #ebebeb;
+    border-radius: 1.5px;
+}
+
+.post-header__meta {
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #b2b2b2;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.post-header__meta a {
+    color: inherit;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+.post-header__meta a:hover {
+    color: #47991f;
+}
+
+.post-header__meta-item {
+    position: relative;
+}
+[dir=ltr] .post-header__meta-item {
+    margin-right: 20px;
+}
+[dir=rtl] .post-header__meta-item {
+    margin-left: 20px;
+}
+.post-header__meta-item::after {
+    position: absolute;
+    display: block;
+    content: "";
+    background: currentColor;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    top: 8px;
+}
+[dir=ltr] .post-header__meta-item::after {
+    right: -12px;
+}
+[dir=rtl] .post-header__meta-item::after {
+    left: -12px;
+}
+[dir=ltr] .post-header__meta-item:last-child {
+    margin-right: 0;
+}
+[dir=rtl] .post-header__meta-item:last-child {
+    margin-left: 0;
+}
+.post-header__meta-item:last-child::after {
+    display: none;
+}
+
+.post-header--layout--classic .post-header__categories {
+    margin-bottom: 12px;
+}
+.post-header--layout--classic .post-header__title {
+    line-height: 38px;
+    margin-bottom: 8px;
+}
+.post-header--layout--classic .post-header__meta {
+    margin-bottom: 30px;
+}
+@media (max-width: 1199px) {
+    .post-header--layout--classic .post-header__title {
+        margin-bottom: 6px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .post-header--layout--classic .post-header__meta {
+        margin-bottom: 24px;
+    }
+}
+@media (max-width: 767px) {
+    .post-header--layout--classic .post-header__meta {
+        margin-bottom: 20px;
+    }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+    .post-header--layout--classic .post-header__title {
+        font-size: 30px;
+        line-height: 32px;
+    }
+}
+@media (max-width: 479px) {
+    .post-header--layout--classic .post-header__title {
+        font-size: 28px;
+        line-height: 30px;
+    }
+}
+
+.post-header--layout--full {
+    width: 640px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px 0 50px;
+}
+.post-header--layout--full .post-header__categories {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.post-header--layout--full .post-header__title {
+    line-height: 42px;
+}
+.post-header--layout--full .post-header__meta {
+    margin-top: 24px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+@media (max-width: 767px) {
+    .post-header--layout--full {
+        padding: 10px 0 24px;
+    }
+    .post-header--layout--full .post-header__categories {
+        margin-bottom: 16px;
+    }
+    .post-header--layout--full .post-header__title {
+        font-size: 30px;
+        line-height: 32px;
+    }
+    .post-header--layout--full .post-header__meta {
+        margin-top: 12px;
+    }
+}
+@media (max-width: 575px) {
+    .post-header--layout--full {
+        padding-top: 0;
+    }
+    [dir=ltr] .post-header--layout--full {
+        text-align: left;
+    }
+    [dir=rtl] .post-header--layout--full {
+        text-align: right;
+    }
+    .post-header--layout--full .post-header__categories {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }
+    .post-header--layout--full .post-header__meta {
+        margin-top: 8px;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }
+}

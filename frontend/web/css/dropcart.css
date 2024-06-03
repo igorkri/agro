@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+/*
+// .dropcart
+*/
+.dropcart {
+    font-size: 15px;
+    font-weight: 400;
+    color: #3d464d;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+.dropcart__empty {
+    padding: 42px 30px;
+    text-align: center;
+}
+
+.dropcart__products-list {
+    padding: 20px 16px;
+}
+
+.dropcart__product {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.dropcart__product + .dropcart__product {
+    margin-top: 24px;
+}
+
+.dropcart__product-image {
+    width: 70px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.dropcart__product-name {
+    margin-top: -2px;
+    line-height: 18px;
+    font-size: 15px;
+}
+.dropcart__product-name a {
+    color: inherit;
+    -webkit-transition: 0.15s;
+    transition: 0.15s;
+}
+.dropcart__product-name a:hover {
+    color: #47991f;
+}
+
+.dropcart__product-info {
+    margin: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+[dir=ltr] .dropcart__product-info {
+    padding-right: 10px;
+    padding-left: 16px;
+}
+[dir=rtl] .dropcart__product-info {
+    padding-left: 10px;
+    padding-right: 16px;
+}
+
+.dropcart__product-options {
+    list-style: none;
+    margin: 3px 0 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 16px;
+    color: #999;
+}
+
+.dropcart__product-meta {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.dropcart__product-price {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.dropcart__product-remove {
+    margin-top: -6px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+[dir=ltr] .dropcart__product-remove {
+    margin-right: -6px;
+}
+[dir=rtl] .dropcart__product-remove {
+    margin-left: -6px;
+}
+
+.dropcart__totals {
+    border-top: 1px solid #ebebeb;
+    line-height: 24px;
+    padding: 16px 20px 0;
+}
+[dir=ltr] .dropcart__totals th {
+    padding-right: 16px;
+}
+[dir=rtl] .dropcart__totals th {
+    padding-left: 16px;
+}
+[dir=ltr] .dropcart__totals td {
+    text-align: right;
+}
+[dir=rtl] .dropcart__totals td {
+    text-align: left;
+}
+.dropcart__totals table {
+    width: 100%;
+}
+
+.dropcart__buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 4px;
+    padding: 20px;
+}
+.dropcart__buttons > * {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+[dir=ltr] .dropcart__buttons > :first-child {
+    margin-right: 8px;
+}
+[dir=rtl] .dropcart__buttons > :first-child {
+    margin-left: 8px;
+}
+
+.dropcart--style--dropdown {
+    -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    width: 320px;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .dropcart--style--dropdown {
+        -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.dropcart--style--offcanvas {
+    visibility: hidden;
+    -webkit-transition: visibility 0s 0.3s;
+    transition: visibility 0s 0.3s;
+}
+.dropcart--style--offcanvas .dropcart__backdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #3d464d;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+.dropcart--style--offcanvas .dropcart__body {
+    position: fixed;
+    top: 0;
+    z-index: 1010;
+    height: 100%;
+    max-height: 100%;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: 340px;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+}
+[dir=ltr] .dropcart--style--offcanvas .dropcart__body {
+    margin-left: 30px;
+    right: 0;
+    -webkit-transform: translateX(calc(100% + 30px));
+    transform: translateX(calc(100% + 30px));
+}
+[dir=rtl] .dropcart--style--offcanvas .dropcart__body {
+    margin-right: 30px;
+    left: 0;
+    -webkit-transform: translateX(calc(-100% + -30px));
+    transform: translateX(calc(-100% + -30px));
+}
+.dropcart--style--offcanvas .dropcart__header {
+    height: 55px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    border-bottom: 1px solid #ebebeb;
+}
+.dropcart--style--offcanvas .dropcart__title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 20px;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+.dropcart--style--offcanvas .dropcart__close {
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 54px;
+    height: 54px;
+    background: transparent;
+    fill: #999;
+    -webkit-transition: fill 0.2s;
+    transition: fill 0.2s;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.dropcart--style--offcanvas .dropcart__close:focus {
+    outline: none;
+}
+.dropcart--style--offcanvas .dropcart__close:focus, .dropcart--style--offcanvas .dropcart__close:hover {
+    fill: #3d464d;
+}
+.dropcart--style--offcanvas .dropcart__products-list {
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+.dropcart--style--offcanvas .dropcart__totals,
+.dropcart--style--offcanvas .dropcart__buttons {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+.dropcart--style--offcanvas.dropcart--open {
+    visibility: visible;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+.dropcart--style--offcanvas.dropcart--open .dropcart__backdrop {
+    opacity: 0.9;
+}
+.dropcart--style--offcanvas.dropcart--open .dropcart__body {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+@media (min-height: 600px) {
+    .dropcart--style--offcanvas .dropcart__products-list {
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+    }
+}
+@media (max-height: 599px) {
+    .dropcart--style--offcanvas .dropcart__header {
+        top: 0;
+        position: sticky;
+        background: #fff;
+        z-index: 1;
+    }
+    .dropcart--style--offcanvas .dropcart__body {
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+    }
+}

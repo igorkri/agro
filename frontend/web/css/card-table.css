@@ -1,0 +1,116 @@
+@charset "UTF-8";
+
+/*
+// .card-table
+*/
+.card-table {
+    font-size: 15px;
+}
+.card-table a:not(.btn):hover {
+    text-decoration: underline;
+}
+.card-table table {
+    width: 100%;
+    min-width: 500px;
+}
+[dir=ltr] .card-table table {
+    text-align: left;
+}
+[dir=rtl] .card-table table {
+    text-align: right;
+}
+.card-table thead th {
+    border-bottom: 2px solid #f0f0f0;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 12px;
+}
+.card-table tbody th,
+.card-table tbody td,
+.card-table tfoot th,
+.card-table tfoot td {
+    padding: 12px 12px;
+}
+.card-table tfoot th,
+.card-table tfoot td {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.card-table tbody + tbody tr th,
+.card-table tbody + tbody tr td,
+.card-table tbody + tfoot tr th,
+.card-table tbody + tfoot tr td,
+.card-table tbody tr + tr th,
+.card-table tbody tr + tr td {
+    border-top: 1px solid #f0f0f0;
+}
+.card-table tbody tr:hover > *,
+.card-table tfoot tr:hover > * {
+    background-color: #f7f7f7;
+}
+[dir=ltr] .card-table th:first-child, [dir=ltr] .card-table td:first-child {
+    padding-left: 2rem;
+}
+[dir=ltr] .card-table th:last-child, [dir=ltr] .card-table td:last-child {
+    padding-right: 2rem;
+}
+[dir=rtl] .card-table th:first-child, [dir=rtl] .card-table td:first-child {
+    padding-right: 2rem;
+}
+[dir=rtl] .card-table th:last-child, [dir=rtl] .card-table td:last-child {
+    padding-left: 2rem;
+}
+.card-table .card-table__body--merge-rows th,
+.card-table .card-table__body--merge-rows td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.card-table .card-table__body--merge-rows tr:first-child th,
+.card-table .card-table__body--merge-rows tr:first-child td {
+    padding-top: 12px;
+}
+.card-table .card-table__body--merge-rows tr:last-child th,
+.card-table .card-table__body--merge-rows tr:last-child td {
+    padding-bottom: 12px;
+}
+.card-table .card-table__body--merge-rows tr + tr th,
+.card-table .card-table__body--merge-rows tr + tr td {
+    border-top: none;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .card-table {
+        font-size: 14px;
+    }
+    [dir=ltr] .card-table th:first-child, [dir=ltr] .card-table td:first-child {
+        padding-left: 1.5rem;
+    }
+    [dir=ltr] .card-table th:last-child, [dir=ltr] .card-table td:last-child {
+        padding-right: 1.5rem;
+    }
+    [dir=rtl] .card-table th:first-child, [dir=rtl] .card-table td:first-child {
+        padding-right: 1.5rem;
+    }
+    [dir=rtl] .card-table th:last-child, [dir=rtl] .card-table td:last-child {
+        padding-left: 1.5rem;
+    }
+}
+@media (max-width: 767px) {
+    .card-table {
+        font-size: 14px;
+    }
+    [dir=ltr] .card-table th:first-child, [dir=ltr] .card-table td:first-child {
+        padding-left: 1.375rem;
+    }
+    [dir=ltr] .card-table th:last-child, [dir=ltr] .card-table td:last-child {
+        padding-right: 1.375rem;
+    }
+    [dir=rtl] .card-table th:first-child, [dir=rtl] .card-table td:first-child {
+        padding-right: 1.375rem;
+    }
+    [dir=rtl] .card-table th:last-child, [dir=rtl] .card-table td:last-child {
+        padding-left: 1.375rem;
+    }
+}
