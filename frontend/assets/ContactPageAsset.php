@@ -10,6 +10,7 @@ class ContactPageAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
 
+        '/vendor/bootstrap/css/bootstrap.min.css?v=' . PROJECT_VERSION,
         '/css/contact.css?v=' . PROJECT_VERSION,
     ];
     public $js = [

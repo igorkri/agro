@@ -10,6 +10,7 @@ class CategoryCatalogPageAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
 
+        '/vendor/bootstrap/css/bootstrap.min.css?v=' . PROJECT_VERSION,
         '/css/filter.css?v=' . PROJECT_VERSION,
         '/css/filters-button.css?v=' . PROJECT_VERSION,
         '/css/nouislider.css?v=' . PROJECT_VERSION,

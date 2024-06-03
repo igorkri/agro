@@ -10,6 +10,7 @@ class ComparePageAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
 
+        '/vendor/bootstrap/css/bootstrap.min.css?v=' . PROJECT_VERSION,
         '/css/compare-table.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
