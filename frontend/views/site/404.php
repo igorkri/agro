@@ -1,7 +1,9 @@
 <?php
 
 use common\models\shop\ActivePages;
+use frontend\assets\NotFoundPageAsset;
 
+NotFoundPageAsset::register($this);
 ActivePages::setActiveUser();
 
 $error_page = Yii::$app->response->statusCode;

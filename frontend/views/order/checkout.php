@@ -1,12 +1,14 @@
 <?php
 
 use common\models\shop\ActivePages;
+use frontend\assets\OrderCheckoutPageAsset;
 use kartik\form\ActiveForm;
 use kartik\select2\Select2;
 use yii\helpers\Url;
 use yii\web\JsExpression;
 use yii\widgets\MaskedInput;
 
+OrderCheckoutPageAsset::register($this);
 ActivePages::setActiveUser();
 
 $this->title = 'Оформлення замовлення';
@@ -186,36 +188,36 @@ $this->title = 'Оформлення замовлення';
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="payment-methods__item">
-                                            <label class="payment-methods__item-header">
-                                        <span class="payment-methods__item-radio input-radio">
-                                            <span class="input-radio__body">
-                                                <input class="input-radio__input" name="checkout_payment_method"
-                                                       value="ukrpost" type="radio">
-                                                <span class="input-radio__circle"></span>
-                                            </span>
-                                        </span>
-                                                <span class="payment-methods__item-name">
-                                                    <svg width="32px" height="32px" style="margin-right: 5px;">
-                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>
-                                                </svg> </span>
-                                                <span style="font-size:20px; margin:0px 20px">Укрпошта</span>
-                                            </label>
-                                            <div class="payment-methods__item-container" style="">
-                                                <div class="payment-methods__item-description text-muted">
-                                                    <p style="font-weight: 600">Для доставки "Укрпошта" введіть в полі
-                                                        коментар такі дані:</p>
-                                                    <ul style="margin-bottom: 1rem">
-                                                        <li>Індекс</li>
-                                                        <li>Область</li>
-                                                        <li>Район</li>
-                                                        <li>Місто/Смт (село)</li>
-                                                    </ul>
-                                                    <p style="font-weight: 600">Для прикладу:</p>
-                                                    <p>36502, Полтавська, Кременчуцький, м.Кременчук</p>
-                                                </div>
-                                            </div>
-                                        </li>
+<!--                                        <li class="payment-methods__item">-->
+<!--                                            <label class="payment-methods__item-header">-->
+<!--                                        <span class="payment-methods__item-radio input-radio">-->
+<!--                                            <span class="input-radio__body">-->
+<!--                                                <input class="input-radio__input" name="checkout_payment_method"-->
+<!--                                                       value="ukrpost" type="radio">-->
+<!--                                                <span class="input-radio__circle"></span>-->
+<!--                                            </span>-->
+<!--                                        </span>-->
+<!--                                                <span class="payment-methods__item-name">-->
+<!--                                                    <svg width="32px" height="32px" style="margin-right: 5px;">-->
+<!--                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>-->
+<!--                                                </svg> </span>-->
+<!--                                                <span style="font-size:20px; margin:0px 20px">Укрпошта</span>-->
+<!--                                            </label>-->
+<!--                                            <div class="payment-methods__item-container" style="">-->
+<!--                                                <div class="payment-methods__item-description text-muted">-->
+<!--                                                    <p style="font-weight: 600">Для доставки "Укрпошта" введіть в полі-->
+<!--                                                        коментар такі дані:</p>-->
+<!--                                                    <ul style="margin-bottom: 1rem">-->
+<!--                                                        <li>Індекс</li>-->
+<!--                                                        <li>Область</li>-->
+<!--                                                        <li>Район</li>-->
+<!--                                                        <li>Місто/Смт (село)</li>-->
+<!--                                                    </ul>-->
+<!--                                                    <p style="font-weight: 600">Для прикладу:</p>-->
+<!--                                                    <p>36502, Полтавська, Кременчуцький, м.Кременчук</p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
                                     </ul>
                                 </div>
                                 <div class="form-group">

@@ -2,11 +2,13 @@
 
 use common\models\shop\ActivePages;
 use common\models\shop\Product;
+use frontend\assets\CategoryAuxiliaryPageAsset;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 
+CategoryAuxiliaryPageAsset::register($this);
 ActivePages::setActiveUser();
 
 /** @var \common\models\shop\Product $products */

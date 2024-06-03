@@ -2,6 +2,7 @@
 
 /** @var yii\web\View $this */
 
+use frontend\assets\HomePageAsset;
 use frontend\widgets\BlockBrands;
 use frontend\widgets\BlockPosts;
 use frontend\widgets\ProductsCarouselGazon;
@@ -13,6 +14,7 @@ use frontend\widgets\BlockFeatures;
 use frontend\widgets\BlockBanner;
 use frontend\widgets\ViewProduct;
 
+HomePageAsset::register($this);
 ActivePages::setActiveUser();
 
 ?>

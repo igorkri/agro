@@ -1,6 +1,9 @@
 <?php
 
+use frontend\assets\ConditionsPageAsset;
 use yii\helpers\Url;
+
+ConditionsPageAsset::register($this);
 
 ?>
 <div class="site__body">

@@ -2,11 +2,13 @@
 
 use common\models\shop\ActivePages;
 use common\models\shop\ProductImage;
+use frontend\assets\PostPageAsset;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use kartik\rating\StarRating;
 use yii\helpers\Url;
 
+PostPageAsset::register($this);
 ActivePages::setActiveUser();
 $webp_support = ProductImage::imageWebp();
 $request = Yii::$app->request;

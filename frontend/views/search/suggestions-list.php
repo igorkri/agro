@@ -1,11 +1,14 @@
 <?php
 
 use common\models\shop\Product;
+use frontend\assets\SuggestionsPageAsset;
 use frontend\widgets\ViewProduct;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+
+SuggestionsPageAsset::register($this);
 
 ?>
     <div class="site__body">
