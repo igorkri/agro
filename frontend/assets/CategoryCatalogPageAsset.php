@@ -19,6 +19,9 @@ class CategoryCatalogPageAsset extends AssetBundle
     public $js = [
 
         '/vendor/nouislider/nouislider.min.js?v=' . PROJECT_VERSION,
+        '/js/price-filter.js?v=' . PROJECT_VERSION,
+        '/js/offcanvas-filters.js?v=' . PROJECT_VERSION,
+        '/js/collapse.js?v=' . PROJECT_VERSION,
 
     ];
     public $depends = [

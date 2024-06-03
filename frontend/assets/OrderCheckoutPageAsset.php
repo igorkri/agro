@@ -15,6 +15,8 @@ class OrderCheckoutPageAsset extends AssetBundle
     ];
     public $js = [
 
+        '/js/checkout-payment-methods.js?v=' . PROJECT_VERSION,
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -18,6 +18,10 @@ class ProductPageAsset extends AssetBundle
     ];
     public $js = [
 
+        '/js/product-gallery.js?v=' . PROJECT_VERSION,
+        '/js/product-tabs.js?v=' . PROJECT_VERSION,
+        '/js/checkout-payment-methods.js?v=' . PROJECT_VERSION,
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

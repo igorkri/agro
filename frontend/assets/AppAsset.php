@@ -31,7 +31,7 @@ class AppAsset extends AssetBundle
 
         '/vendor/bootstrap/js/bootstrap.bundle.min.js?v=' . PROJECT_VERSION,
         '/vendor/owl-carousel/owl.carousel.min.js?v=' . PROJECT_VERSION,
-        '/vendor/select2/js/select2.min.js?v=' . PROJECT_VERSION,
+//        '/vendor/select2/js/select2.min.js?v=' . PROJECT_VERSION,
         '/vendor/photoswipe/photoswipe.min.js?v=' . PROJECT_VERSION,
         '/vendor/photoswipe/photoswipe-ui-default.min.js?v=' . PROJECT_VERSION,
         '/js/number.js?v=' . PROJECT_VERSION,
