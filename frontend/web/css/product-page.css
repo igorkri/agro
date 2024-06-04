@@ -1,0 +1,95 @@
+/*!
+ * Font Awesome Free 5.15.4
+ */
+.fa,.fab,.fad,.fal,.far,.fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1
+}
+.fa-address-card:before {
+    content: "\f2bb"
+}
+.fa-ban:before {
+    content: "\f05e"
+}
+.fa-bars:before {
+    content: "\f0c9"
+}
+.fa-check:before {
+    content: "\f00c"
+}
+.fa-clock:before {
+    content: "\f017"
+}
+.fa-credit-card:before {
+    content: "\f09d"
+}
+.fa-envelope:before {
+    content: "\f0e0"
+}
+.fa-file-alt:before {
+    content: "\f15c"
+}
+.fa-globe-americas:before {
+    content: "\f57d"
+}
+.fa-home:before {
+    content: "\f015"
+}
+.fa-language:before {
+    content: "\f1ab"
+}
+.fa-map-marker-alt:before {
+    content: "\f3c5"
+}
+.fa-mobile-alt:before {
+    content: "\f3cd"
+}
+.fa-phone-square-alt:before {
+    content: "\f87b"
+}
+.fa-qrcode:before {
+    content: "\f029"
+}
+.fa-seedling:before {
+    content: "\f4d8"
+}
+.fa-shield-alt:before {
+    content: "\f3ed"
+}
+
+.fa-shield-virus:before {
+    content: "\e06c"
+}
+.fa-tablets:before {
+    content: "\f490"
+}
+.fa-tags:before {
+    content: "\f02c"
+}
+.fa-th-list:before {
+    content: "\f00b"
+}
+.fa-truck:before {
+    content: "\f0d1"
+}
+.fa-vial:before {
+    content: "\f492"
+}
+.fa-water:before {
+    content: "\f773"
+}
+.fab,.far {
+    font-weight: 400
+}
+.fa,.far,.fas {
+    font-family: "Font Awesome 5 Free"
+}
+
+.fa,.fas {
+    font-weight: 900
+}

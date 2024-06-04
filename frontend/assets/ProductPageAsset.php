@@ -10,6 +10,8 @@ class ProductPageAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
 
+//        '/css/product-page.css?v=' . PROJECT_VERSION,
+
         '/css/product__tabs.css?v=' . PROJECT_VERSION,
         '/css/product-gallery.css?v=' . PROJECT_VERSION,
         '/css/checkout.css?v=' . PROJECT_VERSION,
