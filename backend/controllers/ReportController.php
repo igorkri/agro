@@ -201,8 +201,8 @@ class ReportController extends Controller
         Yii::$app->session->set('periodStart', $periodStart);
         Yii::$app->session->set('periodEnd', $periodEnd);
 
-        $bigQty = $bigSum = $bigAllQty = $bigAllSum = $bigDiscount = $bigDelivery = $bigPlatform = [];
-        $smallQty = $smallSum = $smallAllQty = $smallAllSum = $smallDiscount = $smallDelivery = $smallPlatform = [];
+        $bigQty = $bigSum = $bigAllQty = $bigAllSum = $bigDiscount = $bigDelivery = $bigAllDelivery = $bigPlatform = [];
+        $smallQty = $smallSum = $smallAllQty = $smallAllSum = $smallDiscount = $smallDelivery = $smallAllDelivery = $smallPlatform = [];
         $bigAllReturnQty = $smallAllReturnQty = $bigIncomingPriceSum = $smallIncomingPriceSum = [];
         $noPackage = [];
         $i = 0;
@@ -288,14 +288,17 @@ class ReportController extends Controller
                 case 'Фермерська':
                     $bigAllQty[] = $package;
                     $bigAllSum[] = $totalSum;
+                    $bigAllDelivery[] = $priceDelivery;
                     break;
                 case 'Дрібна':
                     $smallAllQty[] = $package;
                     $smallAllSum[] = $totalSum;
+                    $smallAllDelivery[] = $priceDelivery;
                     break;
                 case 'Фермерська + Дрібна':
                     $bigAllQty[] = 'BIG';
                     $smallAllQty[] = 'SMALL';
+                    $bigAllDelivery[] = $priceDelivery;
                     $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
                     foreach ($items as $item) {
                         $quantity = $item['quantity'];
@@ -312,6 +315,8 @@ class ReportController extends Controller
             }
         }
 
+        $bigAllDelivery = array_sum($bigAllDelivery);
+        $smallAllDelivery = array_sum($smallAllDelivery);
         $bigQtyCount = count($bigQty);
         $bigSumTotal = array_sum($bigSum);
         $smallQtyCount = count($smallQty);
@@ -333,6 +338,8 @@ class ReportController extends Controller
 
         return $this->render('period-report', [
             'model' => $models,
+            'bigAllDelivery' => $bigAllDelivery,
+            'smallAllDelivery' => $smallAllDelivery,
             'bigQty' => $bigQtyCount,
             'bigSum' => $bigSumTotal,
             'smallQty' => $smallQtyCount,
@@ -587,6 +594,12 @@ class ReportController extends Controller
 
     public function actionReportExportToExcel()
     {
+        $sumOrders = [];
+        $sumIncomingOrders = [];
+        $sumDiscountOrders = [];
+        $sumPlatformOrders = [];
+        $sumDeliveryOrders = [];
+        $countsOrders = [];
         $periodStart = Yii::$app->session->get('periodStart');
         $periodEnd = Yii::$app->session->get('periodEnd');
 
@@ -638,7 +651,6 @@ class ReportController extends Controller
                 'vertical' => Alignment::VERTICAL_CENTER,
             ],
         ];
-
         $bodyTableStyleGrey = [
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
@@ -657,7 +669,6 @@ class ReportController extends Controller
                 'vertical' => Alignment::VERTICAL_CENTER,
             ],
         ];
-
         $bodyTableStyleWhite = [
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
@@ -676,7 +687,28 @@ class ReportController extends Controller
                 'vertical' => Alignment::VERTICAL_CENTER,
             ],
         ];
-
+        $footerTableStyle = [
+            'font' => [
+                'size' => 14,
+                'bold' => true,
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => 'F77575', // Цвет заливки
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'd5d4d7b8'], // Черный цвет границы
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+            ],
+        ];
 
         $sheet->getStyle('A1:Q1')->applyFromArray($headTableStyle);
         $sheet->freezePane('A2');
@@ -684,16 +716,22 @@ class ReportController extends Controller
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
         $sheet->getStyle('Q:Q')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
+        $sheet->getStyle('F:F')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('H:H')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('I:I')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('J:J')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('K:K')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
 
 
         $row = 2; // начнем с второй строки
         $j = 0;
         foreach ($models as $model) {
-
+            $countsOrders[] = 1;
+            $sumDeliveryOrders[] = $model->price_delivery;
             $i = 0;
             if ($j % 2 === 0) {
                 $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleGrey);
-            }else{
+            } else {
                 $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleWhite);
             }
 
@@ -711,9 +749,13 @@ class ReportController extends Controller
             $products = ReportItem::find()->where(['order_id' => $model->id])->all();
 
             foreach ($products as $product) {
+                $sumOrders[] = $product->price * $product->quantity;
+                $sumIncomingOrders[] = $product->entry_price * $product->quantity;
+                $sumDiscountOrders[] = $product->discount;
+                $sumPlatformOrders[] = $product->platform_price;
                 if ($j % 2 === 0) {
                     $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleGrey);
-                }else{
+                } else {
                     $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleWhite);
                 }
 
@@ -732,6 +774,29 @@ class ReportController extends Controller
             }
             $j++;
         }
+
+
+        $countsOrders = array_sum($countsOrders);
+        $sumOrders = array_sum($sumOrders);
+        $sumIncomingOrders = array_sum($sumIncomingOrders);
+        $sumDiscountOrders = array_sum($sumDiscountOrders);
+        $sumPlatformOrders = array_sum($sumPlatformOrders);
+        $sumDeliveryOrders = array_sum($sumDeliveryOrders);
+
+
+        $sheet->setCellValue('A' . $row, 'Всього:');
+        $sheet->setCellValue('B' . $row, $countsOrders);
+        $sheet->setCellValue('H' . $row, $sumOrders);
+        $sheet->setCellValue('F' . $row, $sumIncomingOrders);
+        $sheet->setCellValue('J' . $row, $sumPlatformOrders);
+        $sheet->setCellValue('I' . $row, $sumDiscountOrders);
+        $sheet->setCellValue('K' . $row, $sumDeliveryOrders);
+        $sheet->setCellValue('C' . $row, 'з '. $periodStart .' по '. $periodEnd);
+
+
+
+        $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($footerTableStyle);
+
 
         ob_start();
 

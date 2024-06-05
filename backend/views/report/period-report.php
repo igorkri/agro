@@ -20,8 +20,9 @@
 /** @var common\models\Report $bigQty */
 /** @var common\models\Report $smallAllQty */
 /** @var common\models\Report $smallAllReturnQty */
-
 /** @var common\models\Report $smallQty */
+/** @var common\models\Report $bigAllDelivery */
+/** @var common\models\Report $smallAllDelivery */
 
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
@@ -202,14 +203,14 @@ $smallProfit = $smallSum
                         <tr>
                             <th class="sa-invoice__table-column--type--header" colspan="3">Доставка:</th>
                             <td class="sa-invoice__table-column--type--total text-danger"><span
-                                        class="sa-price__symbol">-</span><?= Yii::$app->formatter->asDecimal($bigDelivery + $smallDelivery, 2) ?>
+                                        class="sa-price__symbol">-</span><?= Yii::$app->formatter->asDecimal($bigAllDelivery + $smallAllDelivery, 2) ?>
                                 <span
                                         class="sa-price__symbol"> ₴</span></td>
                         </tr>
                         <tr>
                             <th class="sa-invoice__table-column--type--header" colspan="3">Сума Продажів:</th>
                             <td class="sa-invoice__table-column--type--total"
-                                style="font-weight: bold"><?= Yii::$app->formatter->asDecimal(($bigAllSum + $smallAllSum) - ($bigDelivery + $smallDelivery), 2) ?>
+                                style="font-weight: bold"><?= Yii::$app->formatter->asDecimal(($bigAllSum + $smallAllSum) - ($bigAllDelivery + $smallAllDelivery), 2) ?>
                                 <span
                                         class="sa-price__symbol"> ₴</span></td>
                         </tr>
