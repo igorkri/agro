@@ -8,7 +8,6 @@ use yii\helpers\Url;
 use yii\web\YiiAsset;
 use yii\widgets\Pjax;
 
-
 /** @var yii\web\View $this */
 /** @var common\models\Report $model */
 
@@ -17,26 +16,26 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reports'), 'url' => 
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 
-$sumItemOrder = $model->getTotalSumm($model->id);
+$sumItemOrder = $model->getTotalSumView($model->id);
 $itemDiscount = $model->getItemsDiscount($model->id);
 $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
 $itemPlatformPrice = $model->getItemsPlatformPrice($model->id);
 
 $deliveryPrice = $model->price_delivery ?? 0;
-
-$totalOrderPrice = $sumItemOrder
-    - $incomingPriceSum
-    - $itemDiscount
-    - $itemPlatformPrice
-    - $deliveryPrice;
+if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_id == 'Повернення'){
+    $totalOrderPrice = '-' . ($itemPlatformPrice + $deliveryPrice);
+}else{
+    $totalOrderPrice = $sumItemOrder
+        - $incomingPriceSum
+        - $itemDiscount
+        - $itemPlatformPrice
+        - $deliveryPrice;
+}
 
 ?>
-<?php Pjax::begin(
-//        ['id'=>"top"]
-) ?>
+<?php Pjax::begin() ?>
     <div class="sa-app sa-app--desktop-sidebar-shown sa-app--mobile-sidebar-hidden sa-app--toolbar-fixed">
         <div class="sa-app__content">
-            <!-- sa-app__body -->
             <div id="top" class="sa-app__body">
                 <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
                     <div class="container container--max--xl" style="max-width: 1623px">
@@ -581,7 +580,6 @@ $totalOrderPrice = $sumItemOrder
                 </div>
             </div>
         </div>
-        <!-- sa-app__content / end -->
         <!-- sa-app__toasts -->
         <div class="sa-app__toasts toast-container bottom-0 end-0"></div>
         <!-- sa-app__toasts / end -->
