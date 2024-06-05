@@ -22,6 +22,7 @@
 /** @var common\models\Report $smallAllReturnQty */
 /** @var common\models\Report $smallQty */
 /** @var common\models\Report $bigAllDelivery */
+
 /** @var common\models\Report $smallAllDelivery */
 
 use yii\bootstrap5\Breadcrumbs;
@@ -161,11 +162,14 @@ $smallProfit = $smallSum
             </div>
             <div class="sa-invoice__sides">
                 <div class="sa-invoice__table-container">
-                    <h4> Всі замовлення за період:
-                        <span>
-                            <?= Html::a(Yii::t('app', 'Excel'), Url::to(['report-export-to-excel']), ['class' => 'btn btn-primary']) ?>
-                        </span>
-                    </h4>
+                    <div class="row" style="--bs-gutter-x: 0rem; padding-top: 5px">
+                        <div class="col-6">
+                            <h4> Всі замовлення за період:</h4>
+                        </div>
+                        <div class="col-4">
+                            <?= Html::a(Yii::t('app', '<i class="far fa-file-excel"></i> Експорт в Excel'), Url::to(['report-export-to-excel']), ['class' => 'btn btn-outline-success']) ?>
+                        </div>
+                    </div>
                     <br>
                     <table class="sa-invoice__table">
                         <thead class="sa-invoice__table-head">

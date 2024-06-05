@@ -717,6 +717,7 @@ class ReportController extends Controller
         }
         $sheet->getStyle('Q:Q')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
         $sheet->getStyle('F:F')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('G:G')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('H:H')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('I:I')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('J:J')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
