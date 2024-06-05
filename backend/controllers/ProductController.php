@@ -609,19 +609,24 @@ class ProductController extends Controller
             $row++;
         }
 
-        // Настройте заголовки HTTP-ответа для скачивания файла Excel
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="agro_pro_products.xlsx"');
-        header('Cache-Control: max-age=0');
+        ob_start();
 
-        // Создайте объект для записи в XLSX-файл
-        $writer = new Xlsx($spreadsheet);
+        try {
+            $writer = new Xlsx($spreadsheet);
+            $file_name = 'agro_pro_products__' . date('d_m_Y', time()) . '.xlsx';
 
-        // Выведите файл Excel в выходной поток
-        $writer->save('php://output');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="' . $file_name . '"');
+            header('Cache-Control: max-age=0');
 
-        // Завершите выполнение приложения Yii
-        Yii::$app->end();
+            $writer->save('php://output');
+            Yii::$app->end();
+        } catch (\Exception $e) {
+            ob_end_clean();
+            throw $e;
+        }
+
+        ob_end_flush();
     }
 
     public function actionUpload()

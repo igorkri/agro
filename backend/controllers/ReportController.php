@@ -5,10 +5,16 @@ namespace backend\controllers;
 use common\models\Report;
 use backend\models\search\ReportSearch;
 use common\models\ReportItem;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 /**
  * ReportController implements the CRUD actions for Report model.
@@ -191,6 +197,9 @@ class ReportController extends Controller
             $periodStart = $_GET['periodStart'];
             $periodEnd = $_GET['periodEnd'];
         }
+
+        Yii::$app->session->set('periodStart', $periodStart);
+        Yii::$app->session->set('periodEnd', $periodEnd);
 
         $bigQty = $bigSum = $bigAllQty = $bigAllSum = $bigDiscount = $bigDelivery = $bigPlatform = [];
         $smallQty = $smallSum = $smallAllQty = $smallAllSum = $smallDiscount = $smallDelivery = $smallPlatform = [];
@@ -381,47 +390,47 @@ class ReportController extends Controller
             $platformPrice = $model->getItemsPlatformPrice($model->id);
             $priceDelivery = $model->price_delivery;
 
-                switch ($package) {
-                    case 'Фермерська':
-                            $bigQty[] = $package;
-                            $bigSum[] = $totalSum;
-                            $bigIncomingPriceSum[] = $incomingPriceSum;
-                            $bigDiscount[] = $discount;
-                            $bigPlatform[] = $platformPrice;
-                            $bigDelivery[] = $priceDelivery;
-                        break;
-                    case 'Дрібна':
-                            $smallQty[] = $package;
-                            $smallSum[] = $totalSum;
-                            $smallIncomingPriceSum[] = $incomingPriceSum;
-                            $smallDiscount[] = $discount;
-                            $smallPlatform[] = $platformPrice;
-                            $smallDelivery[] = $priceDelivery;
-                        break;
-                    case 'Фермерська + Дрібна':
-                            $bigQty[] = 'BIG';
-                            $smallQty[] = 'SMALL';
-                            $smallDelivery[] = $priceDelivery;
-                            $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
-                            foreach ($items as $item) {
-                                $quantity = $item['quantity'];
-                                if ($item['package'] == 'BIG') {
-                                    $bigSum[] = $item['price'] * $quantity;
-                                    $bigIncomingPriceSum[] = $item['entry_price'] * $quantity;
-                                    $bigDiscount[] = $item['discount'];
-                                    $bigPlatform[] = $item['platform_price'];
-                                } else {
-                                    $smallSum[] = $item['price'] * $quantity;
-                                    $smallIncomingPriceSum[] = $item['entry_price'] * $quantity;
-                                    $smallDiscount[] = $item['discount'];
-                                    $smallPlatform[] = $item['platform_price'];
-                                }
-                            }
-                        break;
-                    default:
-                        $noPackage[] = 'Не визначено';
-                        break;
-                }
+            switch ($package) {
+                case 'Фермерська':
+                    $bigQty[] = $package;
+                    $bigSum[] = $totalSum;
+                    $bigIncomingPriceSum[] = $incomingPriceSum;
+                    $bigDiscount[] = $discount;
+                    $bigPlatform[] = $platformPrice;
+                    $bigDelivery[] = $priceDelivery;
+                    break;
+                case 'Дрібна':
+                    $smallQty[] = $package;
+                    $smallSum[] = $totalSum;
+                    $smallIncomingPriceSum[] = $incomingPriceSum;
+                    $smallDiscount[] = $discount;
+                    $smallPlatform[] = $platformPrice;
+                    $smallDelivery[] = $priceDelivery;
+                    break;
+                case 'Фермерська + Дрібна':
+                    $bigQty[] = 'BIG';
+                    $smallQty[] = 'SMALL';
+                    $smallDelivery[] = $priceDelivery;
+                    $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
+                    foreach ($items as $item) {
+                        $quantity = $item['quantity'];
+                        if ($item['package'] == 'BIG') {
+                            $bigSum[] = $item['price'] * $quantity;
+                            $bigIncomingPriceSum[] = $item['entry_price'] * $quantity;
+                            $bigDiscount[] = $item['discount'];
+                            $bigPlatform[] = $item['platform_price'];
+                        } else {
+                            $smallSum[] = $item['price'] * $quantity;
+                            $smallIncomingPriceSum[] = $item['entry_price'] * $quantity;
+                            $smallDiscount[] = $item['discount'];
+                            $smallPlatform[] = $item['platform_price'];
+                        }
+                    }
+                    break;
+                default:
+                    $noPackage[] = 'Не визначено';
+                    break;
+            }
         }
 
         $bigQtyCount = count($bigQty);
@@ -495,47 +504,47 @@ class ReportController extends Controller
             $platformPrice = $model->getItemsPlatformPrice($model->id);
             $priceDelivery = $model->price_delivery;
 
-                switch ($package) {
-                    case 'Фермерська':
-                            $bigQty[] = $package;
-                            $bigSum[] = $totalSum;
-                            $bigIncomingPriceSum[] = $incomingPriceSum;
-                            $bigDiscount[] = $discount;
-                            $bigPlatform[] = $platformPrice;
-                            $bigDelivery[] = $priceDelivery;
-                        break;
-                    case 'Дрібна':
-                            $smallQty[] = $package;
-                            $smallSum[] = $totalSum;
-                            $smallIncomingPriceSum[] = $incomingPriceSum;
-                            $smallDiscount[] = $discount;
-                            $smallPlatform[] = $platformPrice;
-                            $smallDelivery[] = $priceDelivery;
-                        break;
-                    case 'Фермерська + Дрібна':
-                            $bigQty[] = 'BIG';
-                            $smallQty[] = 'SMALL';
-                            $smallDelivery[] = $priceDelivery;
-                            $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
-                            foreach ($items as $item) {
-                                $quantity = $item['quantity'];
-                                if ($item['package'] == 'BIG') {
-                                    $bigSum[] = $item['price'] * $quantity;
-                                    $bigIncomingPriceSum[] = $item['entry_price'] * $quantity;
-                                    $bigDiscount[] = $item['discount'];
-                                    $bigPlatform[] = $item['platform_price'];
-                                } else {
-                                    $smallSum[] = $item['price'] * $quantity;
-                                    $smallIncomingPriceSum[] = $item['entry_price'] * $quantity;
-                                    $smallDiscount[] = $item['discount'];
-                                    $smallPlatform[] = $item['platform_price'];
-                                }
-                            }
-                        break;
-                    default:
-                        $noPackage[] = 'Не визначено';
-                        break;
-                }
+            switch ($package) {
+                case 'Фермерська':
+                    $bigQty[] = $package;
+                    $bigSum[] = $totalSum;
+                    $bigIncomingPriceSum[] = $incomingPriceSum;
+                    $bigDiscount[] = $discount;
+                    $bigPlatform[] = $platformPrice;
+                    $bigDelivery[] = $priceDelivery;
+                    break;
+                case 'Дрібна':
+                    $smallQty[] = $package;
+                    $smallSum[] = $totalSum;
+                    $smallIncomingPriceSum[] = $incomingPriceSum;
+                    $smallDiscount[] = $discount;
+                    $smallPlatform[] = $platformPrice;
+                    $smallDelivery[] = $priceDelivery;
+                    break;
+                case 'Фермерська + Дрібна':
+                    $bigQty[] = 'BIG';
+                    $smallQty[] = 'SMALL';
+                    $smallDelivery[] = $priceDelivery;
+                    $items = ReportItem::find()->where(['order_id' => $model->id])->asArray()->all();
+                    foreach ($items as $item) {
+                        $quantity = $item['quantity'];
+                        if ($item['package'] == 'BIG') {
+                            $bigSum[] = $item['price'] * $quantity;
+                            $bigIncomingPriceSum[] = $item['entry_price'] * $quantity;
+                            $bigDiscount[] = $item['discount'];
+                            $bigPlatform[] = $item['platform_price'];
+                        } else {
+                            $smallSum[] = $item['price'] * $quantity;
+                            $smallIncomingPriceSum[] = $item['entry_price'] * $quantity;
+                            $smallDiscount[] = $item['discount'];
+                            $smallPlatform[] = $item['platform_price'];
+                        }
+                    }
+                    break;
+                default:
+                    $noPackage[] = 'Не визначено';
+                    break;
+            }
         }
 
         $bigQtyCount = count($bigQty);
@@ -574,6 +583,175 @@ class ReportController extends Controller
     public function actionAssistant()
     {
         return $this->render('assistant');
+    }
+
+    public function actionReportExportToExcel()
+    {
+        $periodStart = Yii::$app->session->get('periodStart');
+        $periodEnd = Yii::$app->session->get('periodEnd');
+
+        $models = Report::find()
+            ->where(['between', 'date_delivery', $periodStart, $periodEnd])
+            ->all();
+
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Платформа');
+        $sheet->setCellValue('B1', '№ Замовлення');
+        $sheet->setCellValue('C1', 'Дата Відвантаження');
+        $sheet->setCellValue('D1', 'Назва Товару');
+        $sheet->setCellValue('E1', 'К-ть');
+        $sheet->setCellValue('F1', 'Вхід');
+        $sheet->setCellValue('G1', 'Ціна (продажна)');
+        $sheet->setCellValue('H1', 'Сума (замовлення)');
+        $sheet->setCellValue('I1', 'Знижка');
+        $sheet->setCellValue('J1', 'Списання з Платформи');
+        $sheet->setCellValue('K1', 'Доставка');
+        $sheet->setCellValue('L1', 'Дата Оплати');
+        $sheet->setCellValue('M1', 'Тип Оплати');
+        $sheet->setCellValue('N1', 'П.І.Б');
+        $sheet->setCellValue('O1', 'моб Телефон');
+        $sheet->setCellValue('P1', 'Адреса');
+        $sheet->setCellValue('Q1', 'ТТН');
+
+        $headTableStyle = [
+            'font' => [
+                'size' => 14,
+                'bold' => true,
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => '92d050', // Зеленый цвет
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'], // Черный цвет границы
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+            ],
+        ];
+
+        $bodyTableStyleGrey = [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => 'e5eded', // Цвет заливки
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'd5d4d7b8'], // Черный цвет границы
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+            ],
+        ];
+
+        $bodyTableStyleWhite = [
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => 'fff', // Цвет заливки
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'd5d4d7b8'], // Черный цвет границы
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+            ],
+        ];
+
+
+        $sheet->getStyle('A1:Q1')->applyFromArray($headTableStyle);
+        $sheet->freezePane('A2');
+        foreach (range('A', 'Q') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+        $sheet->getStyle('Q:Q')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
+
+
+        $row = 2; // начнем с второй строки
+        $j = 0;
+        foreach ($models as $model) {
+
+            $i = 0;
+            if ($j % 2 === 0) {
+                $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleGrey);
+            }else{
+                $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleWhite);
+            }
+
+            $sheet->setCellValue('A' . $row, $model->platform);
+            $sheet->setCellValue('B' . $row, $model->number_order);
+            $sheet->setCellValue('C' . $row, $model->date_delivery);
+            $sheet->setCellValue('K' . $row, $model->price_delivery);
+            $sheet->setCellValue('L' . $row, $model->date_payment);
+            $sheet->setCellValue('M' . $row, $model->type_payment);
+            $sheet->setCellValue('N' . $row, $model->fio);
+            $sheet->setCellValue('O' . $row, $model->tel_number);
+            $sheet->setCellValue('P' . $row, $model->address);
+            $sheet->setCellValue('Q' . $row, $model->ttn);
+
+            $products = ReportItem::find()->where(['order_id' => $model->id])->all();
+
+            foreach ($products as $product) {
+                if ($j % 2 === 0) {
+                    $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleGrey);
+                }else{
+                    $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleWhite);
+                }
+
+                $sheet->setCellValue('D' . $row, $product->product_name);
+                $sheet->setCellValue('E' . $row, $product->quantity);
+                $sheet->setCellValue('F' . $row, $product->entry_price);
+                $sheet->setCellValue('G' . $row, $product->price);
+                $sheet->setCellValue('H' . $row, $product->price * $product->quantity);
+                $sheet->setCellValue('I' . $row, $product->discount);
+                $sheet->setCellValue('J' . $row, $product->platform_price);
+                $row++;
+                $i = 1;
+            }
+            if ($i === 0) {
+                $row++;
+            }
+            $j++;
+        }
+
+        ob_start();
+
+        try {
+            $writer = new Xlsx($spreadsheet);
+            $file_name = 'report__' . $periodStart . '__' . $periodEnd . '___' . date('d_m_Y', time()) . '.xlsx';
+
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="' . $file_name . '"');
+            header('Cache-Control: max-age=0');
+
+            $writer->save('php://output');
+            Yii::$app->end();
+        } catch (\Exception $e) {
+            ob_end_clean();
+            throw $e;
+        }
+
+        ob_end_flush();
+
     }
 
     /**

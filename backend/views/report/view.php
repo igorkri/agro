@@ -233,7 +233,7 @@ $totalOrderPrice = $sumItemOrder
                                                                     <span class="sa-price__symbol"><?= Yii::$app->formatter->asDecimal($reportItem->price, 2) ?></span>
                                                                 </div>
                                                             </td>
-                                                            <td class="text-center">
+                                                            <td class="text-center" style="background-color: #e4e7e4">
                                                                 <div class="sa-price">
                                                                     <?= Yii::$app->formatter->asDecimal($reportItem->price * $reportItem->quantity, 2) ?>
                                                                 </div>
