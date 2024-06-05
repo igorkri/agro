@@ -2,6 +2,7 @@
 
 use backend\widgets\ActiveUsers;
 use backend\widgets\ActiveUsersSite;
+use backend\widgets\ActiveUsersSiteDay;
 use backend\widgets\AverageOrder;
 use backend\widgets\BrandOrders;
 use backend\widgets\IncomeStatistics;
@@ -26,4 +27,5 @@ use backend\widgets\UserDevice;
     <?php echo RecentReviews::widget() ?>
     <?php echo UserDevice::widget() ?>
     <?php echo ActiveUsersSite::widget() ?>
+    <?php echo ActiveUsersSiteDay::widget() ?>
 </div>
