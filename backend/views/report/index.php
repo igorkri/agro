@@ -49,10 +49,18 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
                     </div>
                     <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'Звіт за Період'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) ?>
+                    </div>
+                    <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'Звіт по Prom'), Url::to(['report/prom-report']), ['class' => 'btn btn-prom me-3']) ?>
+                    </div>
+                    <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'Звіт по Рекламі'), Url::to(['report/advertising-report']), ['class' => 'btn btn-success me-3']) ?>
+                    </div>
+                    <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'Асистент ' . $assistFlag), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) ?>
-                        <a href="<?= Url::to(['create']) ?>" class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
+                    </div>
+                    <div class="col-auto d-flex">
+                        <?= Html::a(Yii::t('app', 'New +'), Url::to(['create']), ['class' => 'btn btn-primary me-3']) ?>
                     </div>
                 </div>
             </div>
