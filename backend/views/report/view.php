@@ -22,9 +22,9 @@ $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
 $itemPlatformPrice = $model->getItemsPlatformPrice($model->id);
 
 $deliveryPrice = $model->price_delivery ?? 0;
-if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_id == 'Повернення'){
+if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_id == 'Повернення') {
     $totalOrderPrice = '-' . ($itemPlatformPrice + $deliveryPrice);
-}else{
+} else {
     $totalOrderPrice = $sumItemOrder
         - $incomingPriceSum
         - $itemDiscount
@@ -69,6 +69,11 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
                                         <span class="text-muted"
                                               style="font-size: 14px">Позицій: </span><?= $model->getCountItemsOrder($model->id) ?>
+                                    </div>
+                                    <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
+                                        <span class="text-muted"
+                                              style="font-size: 14px">Дата відп.: </span>
+                                        <?= !empty($model->date_delivery) ? '<span class="text-success">' . $model->date_delivery . '</span>' : '<span class="text-danger">Відсутня</span>' ?>
                                     </div>
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
                                         <span class="text-muted"
@@ -524,7 +529,8 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                             } else {
                                                 $znak = '+';
                                             }
-                                            $call = str_replace(array('(', ')', ' ', '+'), '', $model->tel_number);
+                                            $telNumber = $model->tel_number ?? '';
+                                            $call = str_replace(array('(', ')', ' ', '+'), '', $telNumber);
                                             $viberSms = 'viber://chat?number=' . $znak . $call;
                                             $button3 = Html::a("<i class=\"fab fa-viber\"></i>", $viberSms, [
                                                 'title' => 'Написать в Viber',
