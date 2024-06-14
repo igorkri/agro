@@ -312,6 +312,23 @@ class Report extends ActiveRecord
         return null;
     }
 
+    static public function IncomingPriceNotSelected()
+    {
+        $orderIds = ReportItem::find()
+            ->select('order_id')
+            ->where(['or', ['entry_price' => null], ['entry_price' => '']])
+            ->column();
+
+        $orderIds = array_unique($orderIds);
+
+        $orderNumbers = Report::find()->select('number_order')->where(['id' => $orderIds])->column();
+
+        if ($orderNumbers) {
+            return implode(' --- ', $orderNumbers);
+        }
+        return null;
+    }
+
     static public function TtnNot()
     {
         $orderNumbers = Report::find()

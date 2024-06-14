@@ -69,6 +69,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                         </tr>
                     <?php endif; ?>
+                    <?php $statusPayment = Report::IncomingPriceNotSelected() ?>
+                    <?php if ($statusPayment): ?>
+                        <tr>
+                            <td>Ціна входу не вказана</td>
+                            <td>
+                                <?= $statusPayment ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                     <?php $ttn = Report::TtnNot() ?>
                     <?php if ($ttn): ?>
                         <tr>

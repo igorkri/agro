@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $reportFields = [
     Report::StatusDeliveryNotSelected(),
     Report::StatusPaymentNotSelected(),
+    Report::IncomingPriceNotSelected(),
     Report::TtnNot(),
     Report::NunberNot(),
     Report::DatePaymentNot(),
