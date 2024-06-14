@@ -11,6 +11,7 @@ class BlogsPageAsset extends AssetBundle
     public $css = [
 
         '/vendor/bootstrap/css/bootstrap.min.css?v=' . PROJECT_VERSION,
+        '/css/block-sidebar.css?v=' . PROJECT_VERSION,
 
     ];
     public $js = [

@@ -13,6 +13,7 @@ class PostPageAsset extends AssetBundle
         '/vendor/bootstrap/css/bootstrap.min.css?v=' . PROJECT_VERSION,
         '/css/typography.css?v=' . PROJECT_VERSION,
         '/css/post-header.css?v=' . PROJECT_VERSION,
+        '/css/block-sidebar.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
 

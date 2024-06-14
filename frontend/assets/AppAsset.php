@@ -20,9 +20,9 @@ class AppAsset extends AssetBundle
 
         '/vendor/photoswipe/photoswipe.css?v=' . PROJECT_VERSION,
 
-        '/vendor/photoswipe/default-skin/default-skin.css?v=' . PROJECT_VERSION,
-
+        '/css/mobile-header.css?v=' . PROJECT_VERSION,
         '/css/style.css?v=' . PROJECT_VERSION,
+        '/css/widgets.css?v=' . PROJECT_VERSION,
 
         '/vendor/fontawesome/css/all.min.css?v=' . PROJECT_VERSION,
 

@@ -15,6 +15,10 @@ class HomePageAsset extends AssetBundle
         '/css/block-posts.css?v=' . PROJECT_VERSION,
         '/css/block-product-columns.css?v=' . PROJECT_VERSION,
         '/css/block-features.css?v=' . PROJECT_VERSION,
+        '/css/block-banner.css?v=' . PROJECT_VERSION,
+        '/css/block-brands.css?v=' . PROJECT_VERSION,
+        '/css/block-products.css?v=' . PROJECT_VERSION,
+        '/css/block-slideshow.css?v=' . PROJECT_VERSION,
 
     ];
     public $js = [

@@ -17,6 +17,7 @@ class ProductPageAsset extends AssetBundle
         '/css/checkout.css?v=' . PROJECT_VERSION,
         '/css/typography.css?v=' . PROJECT_VERSION,
         '/css/product--layout--columnar.css?v=' . PROJECT_VERSION,
+        '/vendor/photoswipe/default-skin/default-skin.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
 
