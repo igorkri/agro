@@ -103,16 +103,17 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
                     <?php $i = 1 ?>
                     <?php foreach ($dataProvider->models as $model): ?>
                         <tr>
+                            <?php $sum = $model->getTotalSumm($model->id) ?>
                             <?php $orderStatus = $model->getExecutionStatus($model->order_status_id) ?>
 
                             <td><?= $model->number_order ?></td>
                             <td><?= $model->platform ?></td>
                             <td class="text-center"><?= $orderStatus ?></td>
-                            <?php if ($model->order_status_id === 'Повернення') { ?>
+                            <?php if (($model->order_status_id === 'Повернення' || $model->order_status_id === 'Відміна') && $sum != 0) { ?>
                                 <td style="font-weight: bold; color: red">
-                                    -<?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                                    <?= Yii::$app->formatter->asDecimal($sum, 2) ?></td>
                             <?php } else { ?>
-                                <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($model->getTotalSumm($model->id), 2) ?></td>
+                                <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($sum, 2) ?></td>
                             <?php } ?>
                             <td class="text-center"><?= $model->getPackage($model->id) ?></td>
                             <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"

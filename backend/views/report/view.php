@@ -20,9 +20,10 @@ $sumItemOrder = $model->getTotalSumView($model->id);
 $itemDiscount = $model->getItemsDiscount($model->id);
 $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
 $itemPlatformPrice = $model->getItemsPlatformPrice($model->id);
+$sum = $model->getTotalSumm($model->id) - $itemPlatformPrice;
 
 $deliveryPrice = $model->price_delivery ?? 0;
-if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_id == 'Повернення') {
+if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_id == 'Повернення') {
     $totalOrderPrice = '-' . ($itemPlatformPrice + $deliveryPrice);
 } else {
     $totalOrderPrice = $sumItemOrder
@@ -78,10 +79,10 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
                                         <span class="text-muted"
                                               style="font-size: 14px">Сума: </span><?php if ($model->order_status_id === 'Повернення') { ?>
-                                            <td style="font-weight: bold; color: red">
-                                                -<?= Yii::$app->formatter->asDecimal($sumItemOrder, 2) ?></td>
+                                            <span style="font-weight: bold; color: red">
+                                                <?= Yii::$app->formatter->asDecimal($sum, 2) ?></span>
                                         <?php } else { ?>
-                                            <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($sumItemOrder, 2) ?></td>
+                                            <span style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($sum, 2) ?></span>
                                         <?php } ?></div>
                                     <div class="sa-page-meta__item d-flex align-items-center fs-6">
                                         <?= $model->getExecutionStatus($model->order_status_id) ?>

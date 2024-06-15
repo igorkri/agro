@@ -91,18 +91,18 @@ class Report extends ActiveRecord
     public function getTotalSumm($report_id)
     {
         $order = Report::find()->with('reportItems')->where(['id' => $report_id])->one();
-        if ($order->order_status_id != 'Повернення') {
+        if ($order->order_status_id === 'Повернення' or $order->order_status_id === 'Відміна') {
+            if ($order->price_delivery) {
+                return -abs($order->price_delivery);
+            } else {
+                return 0;
+            }
+        } else {
             $total_res = [];
             foreach ($order->reportItems as $orderItem) {
                 $total_res[] = $orderItem->price * $orderItem->quantity;
             }
             return array_sum($total_res);
-        } else {
-            if ($order->price_delivery) {
-                return $order->price_delivery;
-            } else {
-                return 0;
-            }
         }
     }
 
@@ -295,7 +295,7 @@ class Report extends ActiveRecord
             ->where(['or', ['order_status_id' => null], ['order_status_id' => '']])
             ->column();
         if ($orderNumbers) {
-            return implode(' --- ', $orderNumbers);
+            return implode('      ', $orderNumbers);
         }
         return null;
     }
@@ -307,7 +307,7 @@ class Report extends ActiveRecord
             ->where(['or', ['order_pay_ment_id' => null], ['order_pay_ment_id' => '']])
             ->column();
         if ($orderNumbers) {
-            return implode(' --- ', $orderNumbers);
+            return implode('      ', $orderNumbers);
         }
         return null;
     }
@@ -324,7 +324,7 @@ class Report extends ActiveRecord
         $orderNumbers = Report::find()->select('number_order')->where(['id' => $orderIds])->column();
 
         if ($orderNumbers) {
-            return implode(' --- ', $orderNumbers);
+            return implode('      ', $orderNumbers);
         }
         return null;
     }
@@ -337,7 +337,7 @@ class Report extends ActiveRecord
             ->andWhere(['or', ['ttn' => null], ['ttn' => '']])
             ->column();
         if ($orderNumbers) {
-            return implode(' --- ', $orderNumbers);
+            return implode('      ', $orderNumbers);
         }
         return null;
     }
@@ -349,7 +349,7 @@ class Report extends ActiveRecord
             ->where(['or', ['number_order' => null], ['number_order' => '']])
             ->column();
         if ($orderNumbers) {
-            return 'ID = ' . implode(' --- ', $orderNumbers);
+            return 'ID = ' . implode('      ', $orderNumbers);
         }
         return null;
     }
@@ -362,7 +362,7 @@ class Report extends ActiveRecord
             ->andWhere(['or', ['date_payment' => null], ['date_payment' => '']])
             ->column();
         if ($orderNumbers) {
-            return implode(' --- ', $orderNumbers);
+            return implode('      ', $orderNumbers);
         }
         return null;
     }
@@ -375,7 +375,7 @@ class Report extends ActiveRecord
             ->andWhere(['or', ['type_payment' => null], ['type_payment' => '']])
             ->column();
         if ($orderNumbers) {
-            return implode(' --- ', $orderNumbers);
+            return implode('      ', $orderNumbers);
         }
         return null;
     }
