@@ -42,7 +42,8 @@ use yii\widgets\MaskedInput;
                     <div class="sa-entity-layout__main">
                         <div class="card">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-info-circle"></i> Основна Інформація</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-info-circle"></i>
+                                        Основна Інформація</h2></div>
                                 <div class="row mb-4">
                                     <div class="col-md-4">
                                         <?= $form->field($model, 'platform')->dropDownList(
@@ -81,7 +82,16 @@ use yii\widgets\MaskedInput;
                                             [
                                                 'prompt' => '', // Подсказка
                                                 'class' => 'form-control custom-class',  // CSS-класс
+                                                'style' => 'font-weight: 500; font-size: 20px',
                                                 'id' => 'order-status-dropdown', // Уникальный идентификатор
+                                                'options' => [
+                                                    'Одержано' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Очікується' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Комплектується' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Доставляється' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Повернення' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Відміна' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                ],
                                             ])->label('Статус Замовлення') ?>
                                     </div>
                                     <div class="col-md-3">
@@ -94,9 +104,15 @@ use yii\widgets\MaskedInput;
                                             ],
                                             [
                                                 'prompt' => '', // Подсказка
-
+                                                'style' => 'font-weight: 500; font-size: 20px',
                                                 'id' => 'order-payment-status-dropdown', // Уникальный идентификатор
                                                 'class' => 'form-control custom-class',
+                                                'options' => [
+                                                    'Оплачено' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Не оплачено' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Повернення' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                    'Відміна' => ['style' => 'font-weight: 500; font-size: 20px'],
+                                                ],
                                             ])->label('Статус Оплати') ?>
                                     </div>
                                     <div class="col-md-6">
@@ -107,7 +123,8 @@ use yii\widgets\MaskedInput;
                         </div>
                         <div class="card mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-user-secret"></i> Дані Замовника</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-user-secret"></i> Дані
+                                        Замовника</h2></div>
                                 <div class="row mb-4">
                                     <div class="col-md-6">
                                         <?= $form->field($model, 'fio')->textInput(['maxlength' => true])->label('П.І.Б') ?>
@@ -125,7 +142,8 @@ use yii\widgets\MaskedInput;
                         </div>
                         <div class="card mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-barcode"></i> Інформація про доставку</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-barcode"></i> Інформація
+                                        про доставку</h2></div>
                                 <div class="row mb-4">
                                     <div class="col-md-3">
 
@@ -157,7 +175,8 @@ use yii\widgets\MaskedInput;
                     <div class="sa-entity-layout__sidebar" style="max-width: 15rem">
                         <div class="card w-100">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-money-bill-wave"></i> Тип Оплати</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="fas fa-money-bill-wave"></i>
+                                        Тип Оплати</h2></div>
                                 <div class="mb-4">
                                     <?= $form->field($model, 'type_payment')
                                         ->radioList(
@@ -189,13 +208,15 @@ use yii\widgets\MaskedInput;
                         </div>
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="far fa-calendar-alt"></i> Дата оплати</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="far fa-calendar-alt"></i> Дата
+                                        оплати</h2></div>
                                 <?= $form->field($model, 'date_payment')->input('date')->label('Дата Оплати') ?>
                             </div>
                         </div>
                         <div class="card w-100 mt-5">
                             <div class="card-body p-5">
-                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="far fa-calendar-check"></i> Накладна 1С</h2></div>
+                                <div class="mb-5"><h2 class="mb-0 fs-exact-18"><i class="far fa-calendar-check"></i>
+                                        Накладна 1С</h2></div>
                                 <?= $form->field($model, 'number_order_1c')->textInput(['maxlength' => true])->label('Номер 1С') ?>
                             </div>
                         </div>
@@ -209,17 +230,17 @@ use yii\widgets\MaskedInput;
 <?php ActiveForm::end(); ?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var paymentDropdown = document.getElementById('order-payment-status-dropdown');
         var orderDropdown = document.getElementById('order-status-dropdown');
 
-        var updatePaymentBackgroundColor = function() {
+        var updatePaymentBackgroundColor = function () {
             if (paymentDropdown.value === 'Оплачено') {
                 paymentDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Оплачено"
             } else if (paymentDropdown.value === 'Не оплачено') {
                 paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
             } else if (paymentDropdown.value === 'Повернення') {
-                paymentDropdown.style.backgroundColor = 'rgba(247,15,5,0.86)'; // Красный цвет для "Не оплачено"
+                paymentDropdown.style.backgroundColor = 'rgba(223,27,18,0.77)'; // Красный цвет для "Не оплачено"
             } else if (paymentDropdown.value === 'Відміна') {
                 paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
             } else {
@@ -227,7 +248,7 @@ use yii\widgets\MaskedInput;
             }
         };
 
-        var updateOrderBackgroundColor = function() {
+        var updateOrderBackgroundColor = function () {
             switch (orderDropdown.value) {
                 case 'Очікується':
                     orderDropdown.style.backgroundColor = '#f0e68c5c'; // Желтый цвет для "Очікується"
@@ -245,7 +266,7 @@ use yii\widgets\MaskedInput;
                     orderDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Одержано"
                     break;
                 case 'Повернення':
-                    orderDropdown.style.backgroundColor = 'rgba(247,15,5,0.86)'; // Серый цвет для "Повернення"
+                    orderDropdown.style.backgroundColor = 'rgba(223,27,18,0.77)'; // Серый цвет для "Повернення"
                     break;
                 default:
                     orderDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
