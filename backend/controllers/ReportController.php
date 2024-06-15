@@ -145,6 +145,7 @@ class ReportController extends Controller
             $model->entry_price = $report_item['in_price'];
             $model->discount = $report_item['discount_price'];
             $model->platform_price = $report_item['platform_price'];
+            $model->kurs = $report_item['kurs'];
             $model->save(true);
 
         }
@@ -164,6 +165,7 @@ class ReportController extends Controller
             $item->entry_price = $report_item['in_price'];
             $item->discount = $report_item['discount_price'];
             $item->platform_price = $report_item['platform_price'];
+            $item->kurs = $report_item['kurs'];
             $item->save(true);
 
             return $this->redirect(['view', 'id' => $item->order_id]);

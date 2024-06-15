@@ -1,6 +1,8 @@
 <?php
 
 use Detection\MobileDetect;
+
+use kartik\select2\Select2;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
@@ -31,6 +33,13 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
         - $itemPlatformPrice
         - $deliveryPrice;
 }
+
+$big = '<svg width="32px" height="32px">
+                                                        <use xlink:href="/images/sprite.svg#tractor"></use>
+                                                    </svg>';
+$small = '<svg width="28px" height="28px">
+                                                        <use xlink:href="/images/sprite.svg#vily"></use>
+                                                    </svg>';
 
 ?>
 <?php Pjax::begin() ?>
@@ -161,21 +170,14 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                                        name="quantity" required>
                                                             </div>
                                                             <div class="row mb-3">
-                                                                <div class="col-3"><label for="price"
+                                                                <div class="col-4"><label for="price"
                                                                                           class="form-label"><i
                                                                                 class="fas fa-money-bill-wave"></i>
                                                                         Ціна:</label>
                                                                     <input type="text" class="form-control" id="price"
                                                                            name="price" required>
                                                                 </div>
-                                                                <div class="col-3"><label for="discount_price"
-                                                                                          class="form-label">
-                                                                        Знижка:</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="discount_price"
-                                                                           name="discount_price">
-                                                                </div>
-                                                                <div class="col-3"><label for="in_price"
+                                                                <div class="col-4"><label for="in_price"
                                                                                           class="form-label"><i
                                                                                 class="fas fa-hand-holding-usd"></i>
                                                                         Вхід:</label>
@@ -183,7 +185,23 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                                            id="in_price"
                                                                            name="in_price">
                                                                 </div>
-                                                                <div class="col-3"><label for="platform_price"
+                                                                <div class="col-4"><label for="kurs"
+                                                                                          class="form-label">
+                                                                        Курс:</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="kurs"
+                                                                           name="kurs">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3">
+                                                                <div class="col-4"><label for="discount_price"
+                                                                                          class="form-label">
+                                                                        Знижка:</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="discount_price"
+                                                                           name="discount_price">
+                                                                </div>
+                                                                <div class="col-4"><label for="platform_price"
                                                                                           class="form-label">
                                                                         Платформа:</label>
                                                                     <input type="text" class="form-control"
@@ -215,6 +233,7 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                         <th class="text-center">Вхід</th>
                                                         <th class="text-center">Знижка</th>
                                                         <th class="text-center">Площадка</th>
+                                                        <th class="text-center">Курс</th>
                                                         <th></th>
                                                     </tr>
                                                     </thead>
@@ -273,6 +292,7 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                                     </span>
                                                                 </div>
                                                             </td>
+                                                            <td class="text-center"><?= $reportItem->kurs ?></td>
                                                             <td class="text-end">
                                                                 <div class="text-muted fs-exact-14">
                                                                     <a href="#" data-bs-toggle="modal"
@@ -342,7 +362,7 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                                                 </select>
                                                                             </div>
                                                                             <div class="row mb-3">
-                                                                                <div class="col-3">
+                                                                                <div class="col-4">
                                                                                     <label for="price<?= $reportItem->id ?>"
                                                                                            class="form-label">
                                                                                         Ціна:</label>
@@ -352,17 +372,7 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                                                            name="price"
                                                                                            value="<?= $reportItem->price ?>">
                                                                                 </div>
-                                                                                <div class="col-3"><label
-                                                                                            for="discount_price<?= $reportItem->id ?>"
-                                                                                            class="form-label">
-                                                                                        Знижка:</label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="discount_price<?= $reportItem->id ?>"
-                                                                                           name="discount_price"
-                                                                                           value="<?= $reportItem->discount ?>">
-                                                                                </div>
-                                                                                <div class="col-3">
+                                                                                <div class="col-4">
                                                                                     <label for="in_price<?= $reportItem->id ?>"
                                                                                            class="form-label">
                                                                                         Вхід:</label>
@@ -372,7 +382,29 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                                                            name="in_price"
                                                                                            value="<?= $reportItem->entry_price ?>">
                                                                                 </div>
-                                                                                <div class="col-3"><label
+                                                                                <div class="col-4"><label
+                                                                                            for="kurs<?= $reportItem->id ?>"
+                                                                                            class="form-label">
+                                                                                        Курс:</label>
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           id="kurs<?= $reportItem->id ?>"
+                                                                                           name="kurs"
+                                                                                           value="<?= $reportItem->kurs ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-4"><label
+                                                                                            for="discount_price<?= $reportItem->id ?>"
+                                                                                            class="form-label">
+                                                                                        Знижка:</label>
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           id="discount_price<?= $reportItem->id ?>"
+                                                                                           name="discount_price"
+                                                                                           value="<?= $reportItem->discount ?>">
+                                                                                </div>
+                                                                                <div class="col-4"><label
                                                                                             for="platform_price<?= $reportItem->id ?>"
                                                                                             class="form-label">
                                                                                         Платформа:</label>
@@ -428,7 +460,7 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
                                                     <?php if ($itemDiscount != 0): ?>
                                                         <tr>
                                                             <td colspan="3">Знижка
-                                                                <div class="text-muted fs-exact-13">знажка всіх товарів
+                                                                <div class="text-muted fs-exact-13">знижка всіх товарів
                                                                 </div>
                                                             </td>
                                                             <td class="text-end text-nowrap text-danger">
