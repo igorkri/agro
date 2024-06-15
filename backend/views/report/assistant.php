@@ -4,6 +4,7 @@ use common\models\Report;
 use yii\bootstrap5\Breadcrumbs;
 
 $this->title = Yii::t('app', 'Асистент');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reports'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
