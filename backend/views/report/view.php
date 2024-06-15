@@ -1,8 +1,6 @@
 <?php
 
 use Detection\MobileDetect;
-
-use kartik\select2\Select2;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
@@ -33,13 +31,6 @@ if ($model->order_status_id == 'Повернення' or $model->order_pay_ment_
         - $itemPlatformPrice
         - $deliveryPrice;
 }
-
-$big = '<svg width="32px" height="32px">
-                                                        <use xlink:href="/images/sprite.svg#tractor"></use>
-                                                    </svg>';
-$small = '<svg width="28px" height="28px">
-                                                        <use xlink:href="/images/sprite.svg#vily"></use>
-                                                    </svg>';
 
 ?>
 <?php Pjax::begin() ?>
@@ -158,8 +149,8 @@ $small = '<svg width="28px" height="28px">
                                                                     <option value="" disabled selected hidden>Виберіть
                                                                         пакування...
                                                                     </option>
-                                                                    <option value="BIG">Фермер</option>
-                                                                    <option value="SMALL">Дрібна</option>
+                                                                    <option style="font-weight: 500; font-size: 20px; background-color: #8fd19e" value="BIG">Фермер</option>
+                                                                    <option style="font-weight: 500; font-size: 20px;" value="SMALL">Дрібна</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
