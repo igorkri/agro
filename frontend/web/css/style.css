@@ -7295,7 +7295,6 @@ select.form-control.is-invalid {
   }
 }
 
-
 /*
 // .block-categories
 */
@@ -8023,12 +8022,5 @@ select.form-control.is-invalid {
 .block-products-carousel[data-layout=horizontal] .product-card .product-card__features-list {
   display: none;
 }
-
-
-/* ----------------------------------------
-// Widgets
-// ---------------------------------------- */
-
-
 
 
