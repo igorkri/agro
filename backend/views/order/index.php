@@ -1,13 +1,8 @@
 <?php
 
-use common\models\shop\Order;
-use common\models\shop\OrderStatus;
-use kartik\grid\GridView;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\shop\OrderSearch $searchModel */
@@ -16,10 +11,9 @@ use yii\grid\ActionColumn;
 $this->title = 'Замовлення';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
-        <div class="container">
+        <div class="container" style="max-width: 1623px">
             <div class="py-5">
                 <div class="row g-4 align-items-center">
                     <div class="col">
@@ -140,4 +134,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<!-- sa-app__body / end -->
