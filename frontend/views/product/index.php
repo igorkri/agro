@@ -347,22 +347,31 @@ $webp_support = ProductImage::imageWebp();
                                                                 target="_bank">перевізника</a>
                                                     </li>
                                                 </ul>
-<!--                                                <div style="display: flex; align-items: center;">-->
-<!--                                                    <svg width="24px" height="24px" style="margin-right: 5px;">-->
-<!--                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>-->
-<!--                                                    </svg>-->
-<!--                                                    <b>Укрпошта</b>-->
-<!--                                                </div>-->
-<!--                                                <ul>-->
-<!--                                                    <li>-->
-<!--                                                        Від 35 грн.-->
-<!--                                                    </li>-->
-<!--                                                    <li>-->
-<!--                                                        Тарифи <a-->
-<!--                                                                href="https://www.ukrposhta.ua/ua/taryfy-ukrposhta-standart"-->
-<!--                                                                target="_bank">перевізника</a>-->
-<!--                                                    </li>-->
-<!--                                                </ul>-->
+                                                <div style="display: flex; align-items: center;">
+                                                    <svg width="24px" height="24px" style="margin-right: 5px;">
+                                                        <use xlink:href="/images/sprite.svg#ukrposhta"></use>
+                                                    </svg>
+                                                    <b>Укрпошта</b>
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <span style="background-color: rgba(255,0,0,0.36);
+                                                    font-weight: bold;
+                                                    color: white;
+                                                    padding-left: 3px;
+                                                    padding-right: 3px">
+                                                       При 100% оплаті
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        Від 35 грн.
+                                                    </li>
+                                                    <li>
+                                                        Тарифи <a
+                                                                href="https://www.ukrposhta.ua/ua/taryfy-ukrposhta-standart"
+                                                                target="_bank">перевізника</a>
+                                                    </li>
+                                                </ul>
                                                 <div style="display: flex; align-items: center;">
                                                     <svg width="24px" height="24px" style="margin-right: 5px;">
                                                         <use xlink:href="/images/sprite.svg#delivery-48"
@@ -455,9 +464,9 @@ $webp_support = ProductImage::imageWebp();
         </div>
     </div>
     <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
-<!--    --><?php //if (!Yii::$app->devicedetect->isMobile()): ?>
-<!--        --><?php //echo ProductsCarousel::widget() ?>
-<!--    --><?php //endif; ?>
+    <!--    --><?php //if (!Yii::$app->devicedetect->isMobile()): ?>
+    <!--        --><?php //echo ProductsCarousel::widget() ?>
+    <!--    --><?php //endif; ?>
     <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
 
