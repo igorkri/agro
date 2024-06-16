@@ -66,7 +66,7 @@ use kartik\form\ActiveForm;
                                             ])->label('Платформа') ?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?= $form->field($model, 'number_order')->textInput(['maxlength' => true, 'id' => 'number_order', 'class' => 'form-control'])->label('Номер Замовлення') ?>
+                                        <?= $form->field($model, 'number_order')->textInput(['maxlength' => true, 'id' => 'number_order', 'class' => 'form-control', 'autocomplete' => 'off'])->label('Номер Замовлення') ?>
                                     </div>
                                     <div class="col-md-4">
                                         <?= $form->field($model, 'date_order')->input('date')->label('Дата Замовлення') ?>
