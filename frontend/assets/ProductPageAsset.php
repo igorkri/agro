@@ -21,9 +21,14 @@ class ProductPageAsset extends AssetBundle
     ];
     public $js = [
 
-        '/js/product-gallery.js?v=' . PROJECT_VERSION,
-        '/js/product-tabs.js?v=' . PROJECT_VERSION,
-        '/js/checkout-payment-methods.js?v=' . PROJECT_VERSION,
+        '/js/product-page.js?v=' . PROJECT_VERSION,
+
+//        '/js/product-gallery.js?v=' . PROJECT_VERSION,
+//        '/js/product-tabs.js?v=' . PROJECT_VERSION,
+//        '/js/checkout-payment-methods.js?v=' . PROJECT_VERSION,
+
+        '/vendor/photoswipe/photoswipe.min.js?v=' . PROJECT_VERSION,
+        '/vendor/photoswipe/photoswipe-ui-default.min.js?v=' . PROJECT_VERSION,
 
     ];
     public $depends = [

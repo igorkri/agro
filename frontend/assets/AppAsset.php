@@ -16,28 +16,26 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
 
-        '/vendor/owl-carousel/assets/owl.carousel.min.css?v=' . PROJECT_VERSION,
 
-        '/vendor/photoswipe/photoswipe.css?v=' . PROJECT_VERSION,
 
         '/css/mobile-header.css?v=' . PROJECT_VERSION,
         '/css/style.css?v=' . PROJECT_VERSION,
         '/css/widgets.css?v=' . PROJECT_VERSION,
 
+        '/vendor/photoswipe/photoswipe.css?v=' . PROJECT_VERSION,
         '/vendor/fontawesome/css/all.min.css?v=' . PROJECT_VERSION,
+        '/vendor/owl-carousel/assets/owl.carousel.min.css?v=' . PROJECT_VERSION,
 
     ];
     public $js = [
 
         '/vendor/bootstrap/js/bootstrap.bundle.min.js?v=' . PROJECT_VERSION,
         '/vendor/owl-carousel/owl.carousel.min.js?v=' . PROJECT_VERSION,
-//        '/vendor/select2/js/select2.min.js?v=' . PROJECT_VERSION,
-        '/vendor/photoswipe/photoswipe.min.js?v=' . PROJECT_VERSION,
-        '/vendor/photoswipe/photoswipe-ui-default.min.js?v=' . PROJECT_VERSION,
         '/js/number.js?v=' . PROJECT_VERSION,
         '/js/header.js?v=' . PROJECT_VERSION,
         '/js/main.js?v=' . PROJECT_VERSION,
 
+//        '/vendor/select2/js/select2.min.js?v=' . PROJECT_VERSION,
 //        '/js/ModalRemote.js?v=' . PROJECT_VERSION,
 //        '/js/ajaxcrud.js?v=' . PROJECT_VERSION,
     ];
