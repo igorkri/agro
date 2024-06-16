@@ -78,6 +78,8 @@ class ReportController extends Controller
     {
         $model = new Report();
 
+        $model->date_order = date('Y-m-d');
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
