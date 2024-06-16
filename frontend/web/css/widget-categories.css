@@ -1,0 +1,188 @@
+@charset "UTF-8";
+
+/*
+// .widget-categories
+*/
+.widget-categories {
+    border: 2px solid #f0f0f0;
+    border-radius: 2px;
+    padding: 28px;
+}
+
+.widget-categories__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    line-height: 18px;
+    font-size: 16px;
+}
+
+.widget-categories__row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.widget-categories__row a {
+    position: relative;
+    display: block;
+    color: inherit;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    fill: #ccc;
+    -webkit-transition: 0.15s color;
+    transition: 0.15s color;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+[dir=ltr] .widget-categories__row a {
+    padding-left: 16px;
+    padding-right: 10px;
+}
+[dir=rtl] .widget-categories__row a {
+    padding-right: 16px;
+    padding-left: 10px;
+}
+.widget-categories__row a:hover {
+    color: #47991f;
+}
+
+.widget-categories__arrow {
+    position: absolute;
+    top: calc(50% - 5px);
+}
+[dir=ltr] .widget-categories__arrow {
+    left: 0;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+[dir=rtl] .widget-categories__arrow {
+    right: 0;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.widget-categories__expander {
+    margin-top: 1px;
+    width: 28px;
+    height: 28px;
+    position: relative;
+    border: none;
+    border-radius: 1.5px;
+    cursor: pointer;
+    padding: 0;
+    background: transparent;
+    color: #ccc;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+[dir=ltr] .widget-categories__expander {
+    margin-right: -10px;
+}
+[dir=rtl] .widget-categories__expander {
+    margin-left: -10px;
+}
+.widget-categories__expander:focus, .widget-categories__expander:hover {
+    background: #f2f2f2;
+    color: #a6a6a6;
+}
+.widget-categories__expander:focus {
+    outline: none;
+}
+.widget-categories__expander::before, .widget-categories__expander::after {
+    display: block;
+    position: absolute;
+    content: "";
+    background: currentColor;
+}
+.widget-categories__expander::before {
+    width: 8px;
+    height: 2px;
+    top: calc(50% - 1px);
+}
+[dir=ltr] .widget-categories__expander::before {
+    left: calc(50% - 4px);
+}
+[dir=rtl] .widget-categories__expander::before {
+    right: calc(50% - 4px);
+}
+.widget-categories__expander::after {
+    width: 2px;
+    height: 8px;
+    top: calc(50% - 4px);
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: -webkit-transform 0.2s;
+    transition: transform 0.2s;
+    transition: transform 0.2s, -webkit-transform 0.2s;
+}
+[dir=ltr] .widget-categories__expander::after {
+    left: calc(50% - 1px);
+}
+[dir=rtl] .widget-categories__expander::after {
+    right: calc(50% - 1px);
+}
+
+.widget-categories__subs {
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 15px;
+    line-height: 26px;
+    -webkit-transition: height 0.2s, opacity 0.2s, visibility 0s 0.2s;
+    transition: height 0.2s, opacity 0.2s, visibility 0s 0.2s;
+}
+.widget-categories__subs ul {
+    list-style: none;
+    padding: 6px 0 8px 0;
+    margin: 0;
+}
+.widget-categories__subs li {
+    position: relative;
+}
+[dir=ltr] .widget-categories__subs li {
+    padding-left: 32px;
+}
+[dir=rtl] .widget-categories__subs li {
+    padding-right: 32px;
+}
+.widget-categories__subs li::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+[dir=ltr] .widget-categories__subs li::before {
+    left: 16px;
+}
+[dir=rtl] .widget-categories__subs li::before {
+    right: 16px;
+}
+.widget-categories__subs a {
+    color: inherit;
+    -webkit-transition: 0.15s color;
+    transition: 0.15s color;
+}
+.widget-categories__subs a:hover {
+    color: #47991f;
+}
+
+.widget-categories__item--open .widget-categories__expander::after {
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+}
+.widget-categories__item--open .widget-categories__subs {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition-delay: 0s, 0s, 0s;
+    transition-delay: 0s, 0s, 0s;
+}
+
+.widget-categories--location--shop {
+    padding: 20px;
+}

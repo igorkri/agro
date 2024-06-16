@@ -14,6 +14,8 @@ class PostPageAsset extends AssetBundle
         '/css/typography.css?v=' . PROJECT_VERSION,
         '/css/post-header.css?v=' . PROJECT_VERSION,
         '/css/block-sidebar.css?v=' . PROJECT_VERSION,
+        '/css/widget-search.css?v=' . PROJECT_VERSION,
+        '/css/widget-posts.css?v=' . PROJECT_VERSION,
     ];
     public $js = [
 

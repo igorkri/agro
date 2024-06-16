@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/*
+// .widget-aboutus
+*/
+.widget-aboutus {
+    border: 2px solid #f0f0f0;
+    border-radius: 2px;
+    padding: 28px;
+}
+
+.widget-aboutus__socials {
+    display: block;
+    margin-top: 20px;
+}
