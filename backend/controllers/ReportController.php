@@ -218,7 +218,7 @@ class ReportController extends Controller
             $package = $model->getPackage($model->id);
             $isPaid = $model->order_pay_ment_id == 'Оплачено';
             $isReturn = $model->order_status_id == 'Повернення' || $model->order_pay_ment_id == 'Повернення';
-            $totalSum = $model->getTotalSumm($model->id);
+            $totalSum = $model->getTotalSumPeriod($model->id);
             $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
             $discount = $model->getItemsDiscount($model->id);
             $platformPrice = $model->getItemsPlatformPrice($model->id);
@@ -393,7 +393,7 @@ class ReportController extends Controller
 
         foreach ($models as $model) {
             $package = $model->getPackage($model->id);
-            $totalSum = $model->getTotalSumm($model->id);
+            $totalSum = $model->getTotalSumPeriod($model->id);
             $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
             $discount = $model->getItemsDiscount($model->id);
             $platformPrice = $model->getItemsPlatformPrice($model->id);
@@ -507,7 +507,7 @@ class ReportController extends Controller
 
         foreach ($models as $model) {
             $package = $model->getPackage($model->id);
-            $totalSum = $model->getTotalSumm($model->id);
+            $totalSum = $model->getTotalSumPeriod($model->id);
             $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
             $discount = $model->getItemsDiscount($model->id);
             $platformPrice = $model->getItemsPlatformPrice($model->id);

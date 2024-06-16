@@ -106,6 +106,16 @@ class Report extends ActiveRecord
         }
     }
 
+    public function getTotalSumPeriod($report_id)
+    {
+        $order = Report::find()->with('reportItems')->where(['id' => $report_id])->one();
+        $total_res = [];
+        foreach ($order->reportItems as $orderItem) {
+            $total_res[] = $orderItem->price * $orderItem->quantity;
+        }
+        return array_sum($total_res);
+    }
+
     public function getTotalSumView($report_id)
     {
         $order = Report::find()->with('reportItems')->where(['id' => $report_id])->one();
