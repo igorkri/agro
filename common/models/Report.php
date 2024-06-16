@@ -42,6 +42,8 @@ class Report extends ActiveRecord
     public function rules()
     {
         return [
+            [['number_order', 'platform', 'date_order'], 'required'],
+            [['number_order'], 'unique'],
             [['order_status_id', 'order_pay_ment_id'], 'string', 'max' => 20],
             [['price_delivery'], 'number'],
             [['platform', 'number_order', 'date_order', 'date_delivery', 'number_order_1c', 'date_payment', 'type_payment', 'delivery_service'], 'string', 'max' => 50],

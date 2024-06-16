@@ -15,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use yii\web\Response;
 
 /**
  * ReportController implements the CRUD actions for Report model.
@@ -820,6 +821,13 @@ class ReportController extends Controller
 
         ob_end_flush();
 
+    }
+
+    public function actionCheckOrderNumber($number)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $exists = Report::find()->where(['number_order' => $number])->exists();
+        return ['exists' => $exists];
     }
 
     /**

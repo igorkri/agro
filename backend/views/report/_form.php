@@ -2,16 +2,20 @@
 
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 use yii\widgets\MaskedInput;
+use kartik\form\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\Report $model */
 /** @var yii\widgets\ActiveForm $form */
+
+
 ?>
+
 <?php $form = ActiveForm::begin(); ?>
 <!-- sa-app__body -->
-<div id="top" class="sa-app__body" style="padding-top: 0px">
+<div id="top" class="sa-app__body" style="padding-top: 0">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
             <div class="py-5">
@@ -62,7 +66,7 @@ use yii\widgets\MaskedInput;
                                             ])->label('Платформа') ?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?= $form->field($model, 'number_order')->textInput(['maxlength' => true])->label('Номер Замовлення') ?>
+                                        <?= $form->field($model, 'number_order')->textInput(['maxlength' => true, 'id' => 'number_order', 'class' => 'form-control'])->label('Номер Замовлення') ?>
                                     </div>
                                     <div class="col-md-4">
                                         <?= $form->field($model, 'date_order')->input('date')->label('Дата Замовлення') ?>
@@ -282,3 +286,29 @@ use yii\widgets\MaskedInput;
         updateOrderBackgroundColor();
     });
 </script>
+
+<?php
+$url = Url::to(['report/check-order-number']);
+
+$js = <<<JS
+$('#number_order').on('input', function() {
+    var number = $(this).val();
+    if (number.length > 0) {
+        $.ajax({
+            url: '$url',
+            data: {number: number},
+            success: function(data) {
+                if (data.exists) {
+                    $('#number_order').css('background-color', '#e9544e5c');
+                } else {
+                    $('#number_order').css('background-color', '#4ee95e5c');
+                }
+            }
+        });
+    } else {
+        $('#number_order').css('background-color', '');
+    }
+});
+JS;
+$this->registerJs($js);
+?>
