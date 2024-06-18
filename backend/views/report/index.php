@@ -95,6 +95,7 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
                         <th class="min-w-15x"><?= Yii::t('app', 'Address') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'TTH') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Number Order 1c') ?></th>
+                        <th class="min-w-5x"><?= Yii::t('app', 'Data Order') ?></th>
                         <th><?= Yii::t('app', 'ID') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
@@ -127,6 +128,7 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
                             <td><?= $model->address ?></td>
                             <td><?= $model->ttn ?></td>
                             <td><?= $model->number_order_1c ?></td>
+                            <td><?= $model->date_order ?></td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <span class="me-4"><?= $model->id ?></span>
