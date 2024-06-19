@@ -13,7 +13,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'devicedetect'],
     'layout' => 'shop',
-    'name' => 'AgroPro',
+    'name' => 'Інтернет магазин Засобів Захисту Рослин AgroPro',
     'language' => 'uk-UA',
     'timeZone' => 'Europe/Kiev',
     'controllerNamespace' => 'frontend\controllers',

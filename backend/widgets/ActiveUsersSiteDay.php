@@ -38,8 +38,8 @@ class ActiveUsersSiteDay extends Widget
             $day = date('j', $user['date_visit']); // 'j' для числового дня месяца без ведущих нулей
             $ukrainian_month_name = $ukrainian_months[$month_name] ?? '';
             $carts[] = [
-                "label" => $day . ' ' . $ukrainian_month_name,
-                "value" => 1,
+                'label' => $day . ' ' . $ukrainian_month_name,
+                'value' => 1,
             ];
         }
 
