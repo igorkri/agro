@@ -1,6 +1,5 @@
 <?php
 
-use kartik\widgets\SwitchInput;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -47,16 +46,18 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                             Показувати помилки
                         </label>
                     </div>
-                    <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
-                                                    class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
-                    </div>
-
                     <div class="col-auto d-flex"><a href="<?= Url::to(['product/export-to-excel']) ?>"
-                                                    class="btn btn-primary"><?= Yii::t('app', 'Export Excel') ?></a>
+                                                    class="btn btn-outline-success"><i
+                                    class="fas fa-file-export"> </i><?= Yii::t('app', ' Excel') ?></a>
                     </div>
                     <div class="col-auto d-flex"><a href="<?= Url::to(['product/upload']) ?>"
                                                     id="excelFileInput"
-                                                    class="btn btn-primary"><?= Yii::t('app', 'Import Excel') ?></a>
+                                                    class="btn btn-outline-success"><i class="fas fa-file-import"
+                                                                                       style="color: red"> </i><?= Yii::t('app', ' Excel') ?>
+                        </a>
+                    </div>
+                    <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
+                                                    class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
                     </div>
                 </div>
             </div>
@@ -143,13 +144,13 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                                                 <a href="<?= Url::to(['product/update', 'id' => $model->id]) ?>"
                                                    class="text-reset"><?= $model->name ?>
                                                     <?php if ($seoErrors === 'yes'): ?>
-                                                    <?= $model->getNonParametr($model->id) ?>
-                                                    <?= $model->getNonDescription($model->id) ?>
-                                                    <?= $model->getNonShortDescr($model->id) ?>
-                                                    <?= $model->getNonBrand($model->id) ?>
-                                                    <?= $model->getNonSeoTitle($model->id) ?>
-                                                    <?= $model->getNonSeoDescr($model->id) ?>
-                                                    <?= $model->getNonH3Descr($model->id) ?>
+                                                        <?= $model->getNonParametr($model->id) ?>
+                                                        <?= $model->getNonDescription($model->id) ?>
+                                                        <?= $model->getNonShortDescr($model->id) ?>
+                                                        <?= $model->getNonBrand($model->id) ?>
+                                                        <?= $model->getNonSeoTitle($model->id) ?>
+                                                        <?= $model->getNonSeoDescr($model->id) ?>
+                                                        <?= $model->getNonH3Descr($model->id) ?>
                                                     <?php endif; ?>
                                                 </a>
                                                 <div class="sa-meta mt-0">
