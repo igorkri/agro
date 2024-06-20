@@ -246,7 +246,7 @@ $webp_support = ProductImage::imageWebp();
                             </div>
                             <div class="product__options">
                                 <div class="form-group product__option">
-                                    <div class="product__actions" style="text-align: center">
+                                    <div class="product__actions">
                                         <div class="product__actions-item product__actions-item--addtocart">
                                             <?php if ($product->status_id != 2) { ?>
                                                 <button class="btn btn-primary btn-lg product-card__addtocart"
@@ -269,7 +269,7 @@ $webp_support = ProductImage::imageWebp();
                                                 </button>
                                             <?php } ?>
                                         </div>
-                                        <div class="product__actions-item product__actions-item--wishlist">
+                                        <div class="product__actions-item product__actions-item--wishlist" style="margin-left: auto;">
                                             <button type="button"
                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__wish"
                                                     aria-label="add wish list"

@@ -63,6 +63,11 @@ class ProductController extends Controller
         $dataProvider = $searchModel->search();
         $currency = Settings::currencyRate();
 
+        $seoErrors = Yii::$app->session->get('errorsSeo');
+        if (!$seoErrors){
+        Yii::$app->session->set('errorsSeo', 'no');
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -717,5 +722,15 @@ class ProductController extends Controller
         ArrayHelper::multisort($result, ['count'], [SORT_DESC]);
 
         return $this->render('all-activity-product', ['result' => $result]);
+    }
+
+    public function actionUpdateErrorCheckbox()
+    {
+        if (Yii::$app->request->isPost) {
+            $errors = Yii::$app->request->post('errorsSeo');
+            Yii::$app->session->set('errorsSeo', $errors);
+            return $this->asJson(['success' => true]);
+        }
+        return $this->asJson(['success' => false]);
     }
 }

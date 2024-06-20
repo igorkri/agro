@@ -12,6 +12,8 @@ use yii\web\View;
 
 $this->title = Yii::t('app', 'Products');
 $this->params['breadcrumbs'][] = $this->title;
+
+$seoErrors = Yii::$app->session->get('errorsSeo');
 ?>
     <div id="top" class="sa-app__body">
         <div class="mx-xxl-3 px-4 px-sm-5">
@@ -31,6 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ?>
                             </ol>
                         </nav>
+                    </div>
+                    <div class="col-auto d-flex">
+                        <label class="d-flex align-items-center pt-2">
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input m-0 me-3 fs-exact-16"
+                                    name="errorsSeo"
+                                    value="yes"
+                                <?= Yii::$app->session->get('errorsSeo') === 'yes' ? 'checked' : '' ?>
+                                    onchange="updateErrorCheckbox(this)"
+                            />
+                            Показувати помилки
+                        </label>
                     </div>
                     <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
                                                     class="btn btn-primary"><?= Yii::t('app', 'New +') ?></a>
@@ -127,13 +142,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <div>
                                                 <a href="<?= Url::to(['product/update', 'id' => $model->id]) ?>"
                                                    class="text-reset"><?= $model->name ?>
-                                                        <?= $model->getNonParametr($model->id) ?>
-                                                        <?= $model->getNonDescription($model->id) ?>
-                                                        <?= $model->getNonShortDescr($model->id) ?>
-                                                        <?= $model->getNonBrand($model->id) ?>
-                                                        <?= $model->getNonSeoTitle($model->id) ?>
-                                                        <?= $model->getNonSeoDescr($model->id) ?>
-                                                        <?= $model->getNonH3Descr($model->id) ?>
+                                                    <?php if ($seoErrors === 'yes'): ?>
+                                                    <?= $model->getNonParametr($model->id) ?>
+                                                    <?= $model->getNonDescription($model->id) ?>
+                                                    <?= $model->getNonShortDescr($model->id) ?>
+                                                    <?= $model->getNonBrand($model->id) ?>
+                                                    <?= $model->getNonSeoTitle($model->id) ?>
+                                                    <?= $model->getNonSeoDescr($model->id) ?>
+                                                    <?= $model->getNonH3Descr($model->id) ?>
+                                                    <?php endif; ?>
                                                 </a>
                                                 <div class="sa-meta mt-0">
                                                     <ul class="sa-meta__list">
@@ -280,6 +297,34 @@ $script = <<< JS
 // Симулируйте щелчок по скрытому полю для выбора файла
         document.getElementById('excelFileInput').click();
     });
+    
+    function updateErrorCheckbox(checkbox) {
+    var isChecked = checkbox.checked ? 'yes' : 'no';
+    
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'product/update-error-checkbox', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    window.location.reload();
+                } else {
+                    console.error('Failed to update checkbox state');
+                }
+            } else {
+                console.error('Failed to send request');
+            }
+        }
+    };
+    
+    xhr.send('errorsSeo=' + isChecked);
+}
 
 JS;
 
