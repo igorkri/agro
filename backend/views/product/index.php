@@ -4,6 +4,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+use kartik\widgets\SwitchInput;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\ProductSearch $searchModel */
@@ -34,17 +35,20 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                         </nav>
                     </div>
                     <div class="col-auto d-flex">
-                        <label class="d-flex align-items-center pt-2">
-                            <input
-                                    type="checkbox"
-                                    class="form-check-input m-0 me-3 fs-exact-16"
-                                    name="errorsSeo"
-                                    value="yes"
-                                <?= Yii::$app->session->get('errorsSeo') === 'yes' ? 'checked' : '' ?>
-                                    onchange="updateErrorCheckbox(this)"
-                            />
-                            Показувати помилки
-                        </label>
+                        <?= SwitchInput::widget([
+                            'name' => 'errorsSeo',
+                            'value' => Yii::$app->session->get('errorsSeo') === 'yes' ? 1 : 0,
+                            'pluginOptions' => [
+                                'size' => 'medium',
+                                'onColor' => 'success',
+                                'offColor' => 'danger',
+                                'onText' => 'On',
+                                'offText' => 'Off',
+                            ],
+                            'pluginEvents' => [
+                                "switchChange.bootstrapSwitch" => "function(event, state) { updateErrorCheckbox(state); }",
+                            ],
+                        ]); ?>
                     </div>
                     <div class="col-auto d-flex"><a href="<?= Url::to(['product/export-to-excel']) ?>"
                                                     class="btn btn-outline-success"><i
@@ -299,8 +303,8 @@ $script = <<< JS
         document.getElementById('excelFileInput').click();
     });
     
-    function updateErrorCheckbox(checkbox) {
-    var isChecked = checkbox.checked ? 'yes' : 'no';
+   function updateErrorCheckbox(state) {
+    var isChecked = state ? 'yes' : 'no';
     
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
