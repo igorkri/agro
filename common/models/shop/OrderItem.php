@@ -67,6 +67,12 @@ class OrderItem extends \yii\db\ActiveRecord
         return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
+    public function getProductName($id)
+    {
+        $name = Product::find()->select('name')->where(['id' => $id])->asArray()->one();
+        return $name['name'];
+    }
+
     public function getPrice($id)
     {
        $product = Product::find()->select(['price', 'currency'])->where(['id' => $id])->one();

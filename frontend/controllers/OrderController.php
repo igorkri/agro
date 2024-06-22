@@ -57,42 +57,16 @@ class OrderController extends Controller
     {
         $order = Order::find()->with('orderItems')->where(['id' => $order_id])->one();
 
-        if (strpos($order->fio, '*') !== false){
+        if (strpos($order->fio, '*') !== false) {
             $order->fio = str_replace('*', 'x', $order->fio);
         }
-        if (strpos($order->note, '*') !== false){
+        if (strpos($order->note, '*') !== false) {
             $order->note = str_replace('*', 'x', $order->note);
         }
 
         if (!$order->sent_message) {
             $chat_id = 6086317334;
-            Yii::$app->telegram->sendMessage([
-                'chat_id' => $chat_id,
-                'text' => "Нове замовлення: *#{$order->id}*\n" .
-                    "==========================\n" .
-                    "піб:      *{$order->fio}*\n" .
-                    "телефон:  *{$order->phone}*\n" .
-                    "область:  *{$order->getNameArea($order->area)}*\n" .
-                    "місто:    *{$order->getNameCity($order->city)}*\n" .
-                    "відділ.:  *{$order->getNameWarehouse($order->warehouses)}*\n" .
-                    "коментар: *{$order->note}*\n" .
-                    "==========================\n",
-                'parse_mode' => 'Markdown',
-            ]);
-
-//            Yii::$app->mailer->compose()
-//                ->setTo(['mikitenko@i.ua', 'mikitenkoivan361@gmail.com'])
-//                ->setFrom('jean1524@s6.uahosting.com.ua')
-//                ->setSubject('Нове замовлення на AgroPro.org.ua !!!')
-//                ->setHtmlBody('<h3>Нове замовлення: #' . $order->id . '</h3>' .
-//                    '<p>піб: '      . $order->fio . '</p>' .
-//                    '<p>телефон: '  . $order->phone . '</p>' .
-//                    '<p>область: '  . $order->getNameArea($order->area) . '</p>' .
-//                    '<p>місто: '    . $order->getNameCity($order->city) . '</p>' .
-//                    '<p>відділ.: '  . $order->getNameWarehouse($order->warehouses) . '</p>' .
-//                    '<p>коментар: ' . $order->note . '</p>'
-//                )
-//                ->send();
+                $this->getSendTelegramMessage($chat_id, $order);
             $order->sent_message = true;
             $order->save();
         } else {
@@ -101,6 +75,35 @@ class OrderController extends Controller
         }
 
         return $this->render('order-success', ['order' => $order]);
+    }
+
+    protected function getSendTelegramMessage($chat_id, $order)
+    {
+        // Основная информация о заказе
+        $message = "Нове замовлення AgroPro: * #{$order->id}*\n" .
+            "==================================\n" .
+            "піб:      *{$order->fio}*\n" .
+            "телефон:  *{$order->phone}*\n" .
+            "область:  *{$order->getNameArea($order->area)}*\n" .
+            "місто:    *{$order->getNameCity($order->city)}*\n" .
+            "відділ.:  *{$order->getNameWarehouse($order->warehouses)}*\n" .
+            "коментар: *{$order->note}*\n" .
+            "--------------------------------------------------------------------\n";
+        foreach ($order->orderItems as $item) {
+            $message .= "*{$item->getProductName($item->product->id)}* " .
+                " | К-ть: *{$item->quantity}* " .
+                " | Ціна: *{$item->price}* \n" .
+                "--------------------------------------------------------------------\n";
+        }
+        $message .= "Загальна Сума : *" . Yii::$app->formatter->asCurrency($order->getTotalSumm($order->id)) . "*\n" .
+
+        "==================================\n";
+        // Отправка сообщения в Telegram
+        Yii::$app->telegram->sendMessage([
+            'chat_id' => $chat_id,
+            'text' => $message,
+            'parse_mode' => 'Markdown',
+        ]);
     }
 
     public function actionConditions()

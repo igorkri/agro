@@ -246,6 +246,7 @@ class Order extends \yii\db\ActiveRecord
         return count($total_res);
     }
 
+//  Нова почта
     public function getNameArea($ref)
     {
         $area = NpAreas::find()->select('description')->where(['ref' => $ref])->one();
