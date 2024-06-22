@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Settings;
 use Detection\MobileDetect;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
@@ -15,6 +16,8 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reports'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
+
+$cursDollar = Settings::currencyRate();
 
 $sumItemOrder = $model->getTotalSumView($model->id);
 $itemDiscount = $model->getItemsDiscount($model->id);
@@ -116,101 +119,7 @@ if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_
                                                                                    data-bs-target="#addReportItemModal"><i
                                                             class="fas fa-plus"></i></a></div>
                                         </div>
-                                        <!-- Модальное окно для добавления товара -->
-                                        <div class="modal fade" id="addReportItemModal" tabindex="-1"
-                                             aria-labelledby="addReportItemModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="addReportItemModalLabel">Додати
-                                                            товар в
-                                                            заказ</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!-- Форма для добавления товара в заказ -->
-                                                        <form id="addReportItemForm" method="get"
-                                                              action="<?= Url::to(['report/add-report-item']) ?>">
-                                                            <input type="hidden" name="reportId"
-                                                                   value="<?= $model->id ?>">
-                                                            <div class="mb-3">
-                                                                <label for="product" class="form-label"><i
-                                                                            class="fas fa-seedling"></i> Товар:</label>
-                                                                <input aria-label="productName"
-                                                                       type="text" class="form-control" id="product-id"
-                                                                       name="productName" required>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="package"
-                                                                       class="form-label"><i class="fas fa-box"></i>
-                                                                    Пакування:</label>
-                                                                <select class="form-control" id="package" name="package"
-                                                                        required>
-                                                                    <option value="" disabled selected hidden>Виберіть
-                                                                        пакування...
-                                                                    </option>
-                                                                    <option style="font-weight: 500; font-size: 20px; background-color: #8fd19e" value="BIG">Фермер</option>
-                                                                    <option style="font-weight: 500; font-size: 20px;" value="SMALL">Дрібна</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="quantity"
-                                                                       class="form-label"><i
-                                                                            class="far fa-calendar-plus"></i> Кількість:</label>
-                                                                <input type="text" class="form-control" id="quantity"
-                                                                       name="quantity" required>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <div class="col-4"><label for="price"
-                                                                                          class="form-label"><i
-                                                                                class="fas fa-money-bill-wave"></i>
-                                                                        Ціна:</label>
-                                                                    <input type="text" class="form-control" id="price"
-                                                                           name="price" required>
-                                                                </div>
-                                                                <div class="col-4"><label for="in_price"
-                                                                                          class="form-label"><i
-                                                                                class="fas fa-hand-holding-usd"></i>
-                                                                        Вхід:</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="in_price"
-                                                                           name="in_price">
-                                                                </div>
-                                                                <div class="col-4"><label for="kurs"
-                                                                                          class="form-label">
-                                                                        Курс:</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="kurs"
-                                                                           name="kurs">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <div class="col-4"><label for="discount_price"
-                                                                                          class="form-label">
-                                                                        Знижка:</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="discount_price"
-                                                                           name="discount_price">
-                                                                </div>
-                                                                <div class="col-4"><label for="platform_price"
-                                                                                          class="form-label">
-                                                                        Платформа:</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="platform_price"
-                                                                           name="platform_price">
-                                                                </div>
-                                                            </div>
-                                                            <div class="mt-5 d-flex justify-content-end">
-                                                                <button type="submit" class="btn btn-primary">Додати в
-                                                                    заказ
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <?= $this->render('modal-add-product', ['id' => $model->id, 'curs' => $cursDollar]) ?>
                                         <?php if ($model->reportItems): ?>
                                             <div class="table-responsive">
                                                 <table class="sa-table">
@@ -284,7 +193,7 @@ if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_
                                                                     </span>
                                                                 </div>
                                                             </td>
-                                                            <td class="text-center"><?= $reportItem->kurs ?></td>
+                                                            <td class="text-center"><?= Yii::$app->formatter->asDecimal($reportItem->kurs, 2) ?></td>
                                                             <td class="text-end">
                                                                 <div class="text-muted fs-exact-14">
                                                                     <a href="#" data-bs-toggle="modal"
@@ -302,123 +211,7 @@ if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        <!-- Модальное окно для редактирования данных заказа -->
-                                                        <div class="modal fade"
-                                                             id="editReportItemModal<?= $reportItem->id ?>"
-                                                             tabindex="-1"
-                                                             aria-labelledby="editReportItemModalLabel<?= $reportItem->id ?>"
-                                                             aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"
-                                                                            id="editReportItemModalLabel<?= $reportItem->id ?>">
-                                                                            Редагувати товар</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                    </div>
-                                                                    <!-- Форма для редактирования данных заказа -->
-                                                                    <div class="modal-body">
-                                                                        <form method="get"
-                                                                              action="<?= Url::to(['report/update-report-item']) ?>">
-                                                                            <input type="hidden" name="reportItemId"
-                                                                                   value="<?= $reportItem->id ?>">
-                                                                            <div class="mb-3">
-                                                                                <label for="quantity<?= $reportItem->id ?>"
-                                                                                       class="form-label">
-                                                                                    Кількість:</label>
-                                                                                <input type="text" class="form-control"
-                                                                                       id="quantity<?= $reportItem->id ?>"
-                                                                                       name="quantity"
-                                                                                       value="<?= $reportItem->quantity ?>">
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="package<?= $reportItem->id ?>"
-                                                                                       class="form-label">
-                                                                                    Пакування:</label>
-                                                                                <select class="form-control"
-                                                                                        id="package<?= $reportItem->id ?>"
-                                                                                        name="package">
-                                                                                    <?php
-                                                                                    $selectedItem = $reportItem->package == 'BIG' ? 'Фермер' : 'Дрібна';
-                                                                                    ?>
-                                                                                    <option value="<?= $reportItem->package ?>"
-                                                                                            selected><?= $selectedItem ?></option>
-                                                                                    <option value="BIG" <?= $reportItem->package == 'BIG' ? 'disabled' : '' ?>>
-                                                                                        Фермер
-                                                                                    </option>
-                                                                                    <option value="SMALL" <?= $reportItem->package == 'SMALL' ? 'disabled' : '' ?>>
-                                                                                        Дрібна
-                                                                                    </option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="row mb-3">
-                                                                                <div class="col-4">
-                                                                                    <label for="price<?= $reportItem->id ?>"
-                                                                                           class="form-label">
-                                                                                        Ціна:</label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="price<?= $reportItem->id ?>"
-                                                                                           name="price"
-                                                                                           value="<?= $reportItem->price ?>">
-                                                                                </div>
-                                                                                <div class="col-4">
-                                                                                    <label for="in_price<?= $reportItem->id ?>"
-                                                                                           class="form-label">
-                                                                                        Вхід:</label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="in_price<?= $reportItem->id ?>"
-                                                                                           name="in_price"
-                                                                                           value="<?= $reportItem->entry_price ?>">
-                                                                                </div>
-                                                                                <div class="col-4"><label
-                                                                                            for="kurs<?= $reportItem->id ?>"
-                                                                                            class="form-label">
-                                                                                        Курс:</label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="kurs<?= $reportItem->id ?>"
-                                                                                           name="kurs"
-                                                                                           value="<?= $reportItem->kurs ?>">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row mb-3">
-                                                                                <div class="col-4"><label
-                                                                                            for="discount_price<?= $reportItem->id ?>"
-                                                                                            class="form-label">
-                                                                                        Знижка:</label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="discount_price<?= $reportItem->id ?>"
-                                                                                           name="discount_price"
-                                                                                           value="<?= $reportItem->discount ?>">
-                                                                                </div>
-                                                                                <div class="col-4"><label
-                                                                                            for="platform_price<?= $reportItem->id ?>"
-                                                                                            class="form-label">
-                                                                                        Платформа:</label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="platform_price<?= $reportItem->id ?>"
-                                                                                           name="platform_price"
-                                                                                           value="<?= $reportItem->platform_price ?>">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="mt-5 d-flex justify-content-end">
-                                                                                <button type="submit"
-                                                                                        class="btn btn-primary">
-                                                                                    Сохранить
-                                                                                    изменения
-                                                                                </button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        <?= $this->render('modal-update-product', ['reportItem' => $reportItem]) ?>
                                                         <?php $i++; endforeach; ?>
                                                     </tbody>
                                                     <tbody class="sa-table__group">
