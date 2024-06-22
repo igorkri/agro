@@ -1,7 +1,7 @@
 <?php
 
-use common\models\Report;
 use yii\bootstrap5\Breadcrumbs;
+use common\models\Report;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 $reportSmallProblem = [
     Report::StatusDeliveryNotSelected(),
     Report::StatusPaymentNotSelected(),
-    Report::TtnNot(),
-    Report::NunberNot(),
     Report::DatePaymentNot(),
-    Report::TypePaymentNot()
+    Report::TypePaymentNot(),
+    Report::NunberNot(),
+    Report::TtnNot(),
 ];
 
 $reportBigProblem = [
