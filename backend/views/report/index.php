@@ -12,20 +12,25 @@ use yii\helpers\Url;
 $this->title = Yii::t('app', 'Reports');
 $this->params['breadcrumbs'][] = $this->title;
 
-$reportFields = [
+$reportSmallProblem = [
     Report::StatusDeliveryNotSelected(),
     Report::StatusPaymentNotSelected(),
-    Report::IncomingPriceNotSelected(),
     Report::TtnNot(),
     Report::NunberNot(),
     Report::DatePaymentNot(),
     Report::TypePaymentNot()
 ];
 
-$orderProblem = '<span class="indicator-analog__value"> ! </span>';
+$reportBigProblem = [
+    Report::IncomingPriceNotSelected(),
+];
+
+$orderBigProblem = '<span class="indicator indicator__red"> !</span>';
+$orderSmallProblem = '<span class="indicator indicator__yellow">! </span>';
 $orderNoProblem = '';
 
-$assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orderProblem : $orderNoProblem;
+$assistFlagBig = array_filter($reportBigProblem, fn($value) => $value !== null) ? $orderBigProblem : $orderNoProblem;
+$assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== null) ? $orderSmallProblem : $orderNoProblem;
 
 ?>
 <div id="top" class="sa-app__body">
@@ -58,7 +63,7 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
                         <?= Html::a(Yii::t('app', 'Звіт по Рекламі'), Url::to(['report/advertising-report']), ['class' => 'btn btn-success me-3']) ?>
                     </div>
                     <div class="col-auto d-flex">
-                        <?= Html::a(Yii::t('app', 'Асистент ' . $assistFlag), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) ?>
+                        <?= Html::a(Yii::t('app', 'Асистент ' . $assistFlagBig . $assistFlagSmall), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) ?>
                     </div>
                     <div class="col-auto d-flex">
                         <?= Html::a(Yii::t('app', 'New +'), Url::to(['create']), ['class' => 'btn btn-primary me-3']) ?>
@@ -186,15 +191,23 @@ $assistFlag = array_filter($reportFields, fn($value) => $value !== null) ? $orde
     </div>
 </div>
 <style>
-    .indicator-analog__value {
+    .indicator {
         height: 15px;
         font-size: 16px;
         padding: 1px 9px;
         margin-left: 5px;
         border-radius: 1000px;
         position: relative;
+        font-weight: 700;
+    }
+
+    .indicator__red {
+        background: #ed2e34;
+        color: #f6f7f8;
+    }
+
+    .indicator__yellow {
         background: #fbe720;
         color: #3d464d;
-        font-weight: 700;
     }
 </style>
