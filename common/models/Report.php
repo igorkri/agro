@@ -144,10 +144,10 @@ class Report extends ActiveRecord
                 $status = '<span class="badge me-2" style="background-color: rgba(249,115,4,0.84)">' . $order_status . '</span>';
                 break;
             case 'Відміна':
-                $status = '<span class="badge me-2" style="background-color: #e9544e5c">' . $order_status . '</span>';
+                $status = '<span class="badge me-2" style="background-color: rgba(79,76,76,0.47)">' . $order_status . '</span>';
                 break;
             case 'Повернення':
-                $status = '<span class="badge badge-sa-danger me-2">' . $order_status . '</span>';
+                $status = '<span class="badge me-2" style="background-color: rgba(255,0,0,0.67)">' . $order_status . '</span>';
                 break;
             case 'Комплектується':
                 $status = '<span class="badge badge-sa-warning me-2">' . $order_status . '</span>';
@@ -171,7 +171,7 @@ class Report extends ActiveRecord
         switch ($order_status) {
 
             case 'Не оплачено':
-                $status = '<span class="badge badge-sa-danger me-2">' . $order_status . '</span>';
+                $status = '<span class="badge me-2" style="background-color: rgba(249,115,4,0.84)">' . $order_status . '</span>';
                 break;
             case 'Оплачено':
                 $status = '<span class="badge badge-sa-success me-2">' . $order_status . '</span>';
@@ -180,7 +180,7 @@ class Report extends ActiveRecord
                 $status = '<span class="badge me-2" style="background-color: rgba(255,0,0,0.67)">' . $order_status . '</span>';
                 break;
             case 'Відміна':
-                $status = '<span class="badge me-2" style="background-color: #e9544e5c">' . $order_status . '</span>';
+                $status = '<span class="badge me-2" style="background-color: rgba(79,76,76,0.47)">' . $order_status . '</span>';
                 break;
             default;
                 $status = '<span class="badge badge-sa-dark me-2">' . 'Відсутній' . '</span>';

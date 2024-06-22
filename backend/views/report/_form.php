@@ -242,11 +242,11 @@ use kartik\form\ActiveForm;
             if (paymentDropdown.value === 'Оплачено') {
                 paymentDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Оплачено"
             } else if (paymentDropdown.value === 'Не оплачено') {
-                paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
+                paymentDropdown.style.backgroundColor = '#ffa5005c'; // Красный цвет для "Не оплачено"
             } else if (paymentDropdown.value === 'Повернення') {
                 paymentDropdown.style.backgroundColor = 'rgba(223,27,18,0.77)'; // Красный цвет для "Не оплачено"
             } else if (paymentDropdown.value === 'Відміна') {
-                paymentDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Не оплачено"
+                paymentDropdown.style.backgroundColor = 'rgba(79,76,76,0.47)'; // Красный цвет для "Не оплачено"
             } else {
                 paymentDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
             }
@@ -255,7 +255,7 @@ use kartik\form\ActiveForm;
         var updateOrderBackgroundColor = function () {
             switch (orderDropdown.value) {
                 case 'Очікується':
-                    orderDropdown.style.backgroundColor = '#f0e68c5c'; // Желтый цвет для "Очікується"
+                    orderDropdown.style.backgroundColor = 'rgba(80,172,243,0.36)'; // Желтый цвет для "Очікується"
                     break;
                 case 'Комплектується':
                     orderDropdown.style.backgroundColor = 'rgba(231, 195, 6, 0.7)'; // Голубой цвет для "Комплектується"
@@ -264,7 +264,7 @@ use kartik\form\ActiveForm;
                     orderDropdown.style.backgroundColor = '#ffa5005c'; // Оранжевый цвет для "Доставляється"
                     break;
                 case 'Відміна':
-                    orderDropdown.style.backgroundColor = '#e9544e5c'; // Красный цвет для "Відміна"
+                    orderDropdown.style.backgroundColor = 'rgba(79,76,76,0.47)'; // Красный цвет для "Відміна"
                     break;
                 case 'Одержано':
                     orderDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Одержано"

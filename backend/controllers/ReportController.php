@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Report;
 use backend\models\search\ReportSearch;
 use common\models\ReportItem;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Yii;
 use yii\web\Controller;
@@ -190,13 +191,8 @@ class ReportController extends Controller
 
     public function actionPeriodReport()
     {
-        $periodStart = Report::find()
-            ->where(['not', ['date_delivery' => null]])
-            ->andWhere(['<>', 'date_delivery', ''])
-            ->orderBy(['date_delivery' => SORT_ASC])
-            ->select(['date_delivery'])
-            ->scalar();
-        $periodEnd = Report::find()->max('date_delivery');
+        $periodStart = Report::find()->min('date_order');
+        $periodEnd = Report::find()->max('date_order');
 
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
             $periodStart = $_GET['periodStart'];
@@ -214,7 +210,7 @@ class ReportController extends Controller
 
         $models = Report::find()
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
-            ->where(['between', 'date_delivery', $periodStart, $periodEnd])
+            ->where(['between', 'date_order', $periodStart, $periodEnd])
             ->all();
 
         foreach ($models as $model) {
@@ -370,13 +366,8 @@ class ReportController extends Controller
 
     public function actionPromReport()
     {
-        $periodStart = Report::find()
-            ->where(['not', ['date_delivery' => null]])
-            ->andWhere(['<>', 'date_delivery', ''])
-            ->orderBy(['date_delivery' => SORT_ASC])
-            ->select(['date_delivery'])
-            ->scalar();
-        $periodEnd = Report::find()->max('date_delivery');
+        $periodStart = Report::find()->min('date_order');
+        $periodEnd = Report::find()->max('date_order');
 
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['periodStart'])) {
             $periodStart = $_GET['periodStart'];
@@ -390,7 +381,7 @@ class ReportController extends Controller
 
         $models = Report::find()
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
-            ->where(['between', 'date_delivery', $periodStart, $periodEnd])
+            ->where(['between', 'date_order', $periodStart, $periodEnd])
             ->andWhere(['platform' => 'Prom'])
             ->all();
 
@@ -479,13 +470,8 @@ class ReportController extends Controller
 
     public function actionAdvertisingReport()
     {
-        $periodStart = Report::find()
-            ->where(['not', ['date_delivery' => null]])
-            ->andWhere(['<>', 'date_delivery', ''])
-            ->orderBy(['date_delivery' => SORT_ASC])
-            ->select(['date_delivery'])
-            ->scalar();
-        $periodEnd = Report::find()->max('date_delivery');
+        $periodStart = Report::find()->min('date_order');
+        $periodEnd = Report::find()->max('date_order');
 
         $budget = 0;
 
@@ -504,7 +490,7 @@ class ReportController extends Controller
 
         $models = Report::find()
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
-            ->where(['between', 'date_delivery', $periodStart, $periodEnd])
+            ->where(['between', 'date_order', $periodStart, $periodEnd])
             ->andWhere(['platform' => $platformName])
             ->all();
 
@@ -609,7 +595,8 @@ class ReportController extends Controller
         $periodEnd = Yii::$app->session->get('periodEnd');
 
         $models = Report::find()
-            ->where(['between', 'date_delivery', $periodStart, $periodEnd])
+            ->where(['between', 'date_order', $periodStart, $periodEnd])
+            ->orderBy(['date_order' => SORT_ASC])
             ->all();
 
         $spreadsheet = new Spreadsheet();
@@ -618,21 +605,23 @@ class ReportController extends Controller
 
         $sheet->setCellValue('A1', 'Платформа');
         $sheet->setCellValue('B1', '№ Замовлення');
-        $sheet->setCellValue('C1', 'Дата Відвантаження');
-        $sheet->setCellValue('D1', 'Назва Товару');
-        $sheet->setCellValue('E1', 'К-ть');
-        $sheet->setCellValue('F1', 'Вхід');
-        $sheet->setCellValue('G1', 'Ціна (продажна)');
-        $sheet->setCellValue('H1', 'Сума (замовлення)');
-        $sheet->setCellValue('I1', 'Знижка');
-        $sheet->setCellValue('J1', 'Списання з Платформи');
-        $sheet->setCellValue('K1', 'Доставка');
-        $sheet->setCellValue('L1', 'Дата Оплати');
-        $sheet->setCellValue('M1', 'Тип Оплати');
-        $sheet->setCellValue('N1', 'П.І.Б');
-        $sheet->setCellValue('O1', 'моб Телефон');
-        $sheet->setCellValue('P1', 'Адреса');
-        $sheet->setCellValue('Q1', 'ТТН');
+        $sheet->setCellValue('C1', 'Статус Замов.');
+        $sheet->setCellValue('D1', 'Дата Відвантаження');
+        $sheet->setCellValue('E1', 'Назва Товару');
+        $sheet->setCellValue('F1', 'К-ть');
+        $sheet->setCellValue('G1', 'Вхід');
+        $sheet->setCellValue('H1', 'Ціна (продажна)');
+        $sheet->setCellValue('I1', 'Сума (замовлення)');
+        $sheet->setCellValue('J1', 'Знижка');
+        $sheet->setCellValue('K1', 'Списання з Платформи');
+        $sheet->setCellValue('L1', 'Доставка');
+        $sheet->setCellValue('M1', 'Дата Оплати');
+        $sheet->setCellValue('N1', 'Статус Оплати');
+        $sheet->setCellValue('O1', 'Тип Оплати');
+        $sheet->setCellValue('P1', 'П.І.Б');
+        $sheet->setCellValue('Q1', 'моб Телефон');
+        $sheet->setCellValue('R1', 'Адреса');
+        $sheet->setCellValue('S1', 'ТТН');
 
         $headTableStyle = [
             'font' => [
@@ -715,72 +704,243 @@ class ReportController extends Controller
             ],
         ];
 
-        $sheet->getStyle('A1:Q1')->applyFromArray($headTableStyle);
+        $sheet->getStyle('A1:S1')->applyFromArray($headTableStyle);
         $sheet->freezePane('A2');
-        foreach (range('A', 'Q') as $columnID) {
+        foreach (range('A', 'S') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
-        $sheet->getStyle('Q:Q')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
-        $sheet->getStyle('F:F')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('G:G')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('H:H')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('I:I')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('J:J')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('K:K')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('L:L')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('S:S')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
 
 
         $row = 2; // начнем с второй строки
         $j = 0;
         foreach ($models as $model) {
+
             $countsOrders[] = 1;
             $sumDeliveryOrders[] = $model->price_delivery;
             $i = 0;
             if ($j % 2 === 0) {
-                $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleGrey);
+                $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleGrey);
             } else {
-                $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleWhite);
+                $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleWhite);
+            }
+
+            switch ($model->order_status_id) {
+
+                case 'Доставляється':
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => 'EBBA11', // Цвет заливки
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Відміна':
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '8A8682', // Цвет заливки
+                            ],
+                        ],
+                        'font' => [
+                            'color' => [
+                                'rgb' => Color::COLOR_WHITE, // Цвет текста
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Повернення':
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => 'F83B2B', // Цвет заливки
+                            ],
+                        ],
+                        'font' => [
+                            'color' => [
+                                'rgb' => Color::COLOR_WHITE, // Цвет текста
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Комплектується':
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => 'FAFA56', // Цвет заливки
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Одержано':
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '65D542', // Цвет заливки
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Очікується':
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '8ED5F4', // Цвет заливки
+                            ],
+                        ],
+                    ];
+                    break;
+                default;
+                    $orderStatusStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '010C11', // Цвет заливки
+                            ],
+                        ],
+                        'font' => [
+                            'color' => [
+                                'rgb' => Color::COLOR_WHITE, // Цвет текста
+                            ],
+                        ],
+                    ];
+                    break;
+            }
+
+            switch ($model->order_pay_ment_id) {
+
+                case 'Не оплачено':
+                    $orderPaymentStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => 'EBBA11', // Цвет заливки
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Оплачено':
+                    $orderPaymentStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '65D542', // Цвет заливки
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Повернення':
+                    $orderPaymentStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => 'F83B2B', // Цвет заливки
+                            ],
+                        ],
+                        'font' => [
+                            'color' => [
+                                'rgb' => Color::COLOR_WHITE, // Цвет текста
+                            ],
+                        ],
+                    ];
+                    break;
+                case 'Відміна':
+                    $orderPaymentStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '8A8682', // Цвет заливки
+                            ],
+                        ],
+                        'font' => [
+                            'color' => [
+                                'rgb' => Color::COLOR_WHITE, // Цвет текста
+                            ],
+                        ],
+                    ];
+                    break;
+                default;
+                    $orderPaymentStyle = [
+                        'fill' => [
+                            'fillType' => Fill::FILL_SOLID,
+                            'startColor' => [
+                                'rgb' => '010C11', // Цвет заливки
+                            ],
+                        ],
+                        'font' => [
+                            'color' => [
+                                'rgb' => Color::COLOR_WHITE, // Цвет текста
+                            ],
+                        ],
+                    ];
+                    break;
             }
 
             $sheet->setCellValue('A' . $row, $model->platform);
             $sheet->setCellValue('B' . $row, $model->number_order);
-            $sheet->setCellValue('C' . $row, $model->date_delivery);
-            $sheet->setCellValue('K' . $row, $model->price_delivery);
-            $sheet->setCellValue('L' . $row, $model->date_payment);
-            $sheet->setCellValue('M' . $row, $model->type_payment);
-            $sheet->setCellValue('N' . $row, $model->fio);
-            $sheet->setCellValue('O' . $row, $model->tel_number);
-            $sheet->setCellValue('P' . $row, $model->address);
-            $sheet->setCellValue('Q' . $row, $model->ttn);
+            $sheet->setCellValue('C' . $row, $model->order_status_id);
+            $sheet->setCellValue('D' . $row, $model->date_delivery);
+            $sheet->setCellValue('L' . $row, $model->price_delivery);
+            $sheet->setCellValue('M' . $row, $model->date_payment);
+            $sheet->setCellValue('N' . $row, $model->order_pay_ment_id);
+            $sheet->setCellValue('O' . $row, $model->type_payment);
+            $sheet->setCellValue('P' . $row, $model->fio);
+            $sheet->setCellValue('Q' . $row, $model->tel_number);
+            $sheet->setCellValue('R' . $row, $model->address);
+            $sheet->setCellValue('S' . $row, $model->ttn);
 
             $products = ReportItem::find()->where(['order_id' => $model->id])->all();
-
+            $k = 0;
             foreach ($products as $product) {
                 $sumOrders[] = $product->price * $product->quantity;
                 $sumIncomingOrders[] = $product->entry_price * $product->quantity;
                 $sumDiscountOrders[] = $product->discount;
                 $sumPlatformOrders[] = $product->platform_price;
+
                 if ($j % 2 === 0) {
-                    $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleGrey);
+                    $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleGrey);
                 } else {
-                    $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($bodyTableStyleWhite);
+                    $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleWhite);
                 }
 
-                $sheet->setCellValue('D' . $row, $product->product_name);
-                $sheet->setCellValue('E' . $row, $product->quantity);
-                $sheet->setCellValue('F' . $row, $product->entry_price);
-                $sheet->setCellValue('G' . $row, $product->price);
-                $sheet->setCellValue('H' . $row, $product->price * $product->quantity);
-                $sheet->setCellValue('I' . $row, $product->discount);
-                $sheet->setCellValue('J' . $row, $product->platform_price);
+                if ($k < 1){
+                    if ($model->order_status_id != null or $model->order_status_id != '') {
+                        $sheet->getStyle('C' . $row)->applyFromArray($orderStatusStyle);
+                    }
+                    if ($model->order_pay_ment_id != null or $model->order_pay_ment_id != '') {
+                        $sheet->getStyle('N' . $row)->applyFromArray($orderPaymentStyle);
+                    }
+                }
+
+                $sheet->setCellValue('E' . $row, $product->product_name);
+                $sheet->setCellValue('F' . $row, $product->quantity);
+                $sheet->setCellValue('G' . $row, $product->entry_price);
+                $sheet->setCellValue('H' . $row, $product->price);
+                $sheet->setCellValue('I' . $row, $product->price * $product->quantity);
+                $sheet->setCellValue('J' . $row, $product->discount);
+                $sheet->setCellValue('K' . $row, $product->platform_price);
                 $row++;
                 $i = 1;
+                $k++;
             }
             if ($i === 0) {
                 $row++;
             }
             $j++;
         }
-
 
         $countsOrders = array_sum($countsOrders);
         $sumOrders = array_sum($sumOrders);
@@ -789,20 +949,16 @@ class ReportController extends Controller
         $sumPlatformOrders = array_sum($sumPlatformOrders);
         $sumDeliveryOrders = array_sum($sumDeliveryOrders);
 
-
         $sheet->setCellValue('A' . $row, 'Всього:');
         $sheet->setCellValue('B' . $row, $countsOrders);
-        $sheet->setCellValue('H' . $row, $sumOrders);
-        $sheet->setCellValue('F' . $row, $sumIncomingOrders);
-        $sheet->setCellValue('J' . $row, $sumPlatformOrders);
-        $sheet->setCellValue('I' . $row, $sumDiscountOrders);
-        $sheet->setCellValue('K' . $row, $sumDeliveryOrders);
-        $sheet->setCellValue('C' . $row, 'з '. $periodStart .' по '. $periodEnd);
+        $sheet->setCellValue('D' . $row, 'з ' . $periodStart . ' по ' . $periodEnd);
+        $sheet->setCellValue('G' . $row, $sumIncomingOrders);
+        $sheet->setCellValue('I' . $row, $sumOrders);
+        $sheet->setCellValue('J' . $row, $sumDiscountOrders);
+        $sheet->setCellValue('K' . $row, $sumPlatformOrders);
+        $sheet->setCellValue('L' . $row, $sumDeliveryOrders);
 
-
-
-        $sheet->getStyle('A' . $row . ':Q' . $row)->applyFromArray($footerTableStyle);
-
+        $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($footerTableStyle);
 
         ob_start();
 
@@ -822,7 +978,6 @@ class ReportController extends Controller
         }
 
         ob_end_flush();
-
     }
 
     public function actionCheckOrderNumber($number)
