@@ -6,23 +6,20 @@ use kartik\growl\Growl;
 echo AlertBlock::widget([
     'type' => AlertBlock::TYPE_GROWL,
     'useSessionFlash' => true,
-    'delay' => 1000,
+    'closeButton' => ['style' => 'display: none'],
     'alertSettings' => [
         'success' => [
             'type' => Growl::TYPE_SUCCESS,
             'icon' => 'fas fa-check-circle',
+            'delay' => 100,
             'iconOptions' => ['class' => 'icon-options'],
             'bodyOptions' => ['class' => 'body-options'],
-            'closeButton' => [
-                'style' => 'display: none',
-            ],
             'pluginOptions' => [
                 'z_index' => 3031,
-                'timer' => 1000,
                 'placement' => [
                     'from' => 'top',
                     'align' => 'right'
-                ]
+                ],
             ]
         ],
         'danger' => [
@@ -30,12 +27,8 @@ echo AlertBlock::widget([
             'icon' => 'fas fa-check-circle',
             'iconOptions' => ['class' => 'icon-options'],
             'bodyOptions' => ['class' => 'body-options;'],
-            'closeButton' => [
-                'style' => 'display: none',
-            ],
             'pluginOptions' => [
                 'z_index' => 3031,
-                'timer' => 1000,
                 'placement' => [
                     'from' => 'top',
                     'align' => 'right'
@@ -47,12 +40,8 @@ echo AlertBlock::widget([
             'icon' => 'fas fa-check-circle',
             'iconOptions' => ['class' => 'icon-options'],
             'bodyOptions' => ['class' => 'body-options'],
-            'closeButton' => [
-                'style' => 'display: none',
-            ],
             'pluginOptions' => [
                 'z_index' => 3031,
-                'timer' => 1000,
                 'placement' => [
                     'from' => 'top',
                     'align' => 'right'
@@ -64,12 +53,8 @@ echo AlertBlock::widget([
             'icon' => 'fas fa-check-circle',
             'iconOptions' => ['class' => 'icon-options'],
             'bodyOptions' => ['class' => 'body-options'],
-            'closeButton' => [
-                'style' => 'display: none',
-            ],
             'pluginOptions' => [
                 'z_index' => 3031,
-                'timer' => 1000,
                 'placement' => [
                     'from' => 'top',
                     'align' => 'right'
@@ -83,6 +68,7 @@ echo AlertBlock::widget([
     .icon-options {
         font-size: 26px;
     }
+
     .body-options {
         font-size: 20px;
         font-weight: bold;
