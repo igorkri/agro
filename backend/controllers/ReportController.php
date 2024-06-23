@@ -82,7 +82,10 @@ class ReportController extends Controller
         $model->date_order = date('Y-m-d');
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $model->save(true) && $model->validate()) {
+
+                Yii::$app->session->setFlash('info', ' Заявку створено, Додайте товари!');
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -106,6 +109,7 @@ class ReportController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', ' Інформація про замовлення оновлена!');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -131,6 +135,7 @@ class ReportController extends Controller
             $product->delete();
         }
         $model->delete();
+        Yii::$app->session->setFlash('warning', ' Замовлення видалено!!!');
         return $this->redirect(['index']);
     }
 
@@ -152,6 +157,8 @@ class ReportController extends Controller
             $model->kurs = $report_item['kurs'];
             $model->save(true);
 
+            Yii::$app->session->setFlash('success', ' Товар додано в карточку!');
+
         }
         return $this->redirect(['view', 'id' => $report_item['reportId']]);
     }
@@ -172,6 +179,8 @@ class ReportController extends Controller
             $item->kurs = $report_item['kurs'];
             $item->save(true);
 
+            Yii::$app->session->setFlash('success', ' Інформація про товар оновлена!');
+
             return $this->redirect(['view', 'id' => $item->order_id]);
         }
         return $this->redirect('index');
@@ -182,6 +191,8 @@ class ReportController extends Controller
         $reportItem = ReportItem::findOne($id);
         if ($reportItem) {
             $reportItem->delete();
+
+            Yii::$app->session->setFlash('warning', ' Товар видалено!');
 
             return $this->redirect(['view', 'id' => $reportItem->order_id]);
         } else {
@@ -916,7 +927,7 @@ class ReportController extends Controller
                     $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleWhite);
                 }
 
-                if ($k < 1){
+                if ($k < 1) {
                     if ($model->order_status_id != null or $model->order_status_id != '') {
                         $sheet->getStyle('C' . $row)->applyFromArray($orderStatusStyle);
                     }

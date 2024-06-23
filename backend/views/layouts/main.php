@@ -1,19 +1,11 @@
 <?php
 
 /** @var \yii\web\View $this */
-
 /** @var string $content */
 
 use backend\assets\AppAsset;
 use common\models\Settings;
-use common\widgets\Alert;
-use kartik\alert\AlertBlock;
-use kartik\growl\Growl;
-use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
-use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -34,7 +26,6 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
-
     <!-- sa-app -->
     <div class="sa-app sa-app--desktop-sidebar-shown sa-app--mobile-sidebar-hidden sa-app--toolbar-fixed">
         <!-- sa-app__sidebar -->
@@ -51,9 +42,7 @@ AppAsset::register($this);
                         <!-- logo / end -->
                     </a>
                 </div>
-                <!-------- Menu ------------>
                 <?= $this->render('menu') ?>
-                <!--------End Menu --------->
             </div>
             <div class="sa-app__sidebar-shadow"></div>
             <div class="sa-app__sidebar-backdrop" data-sa-close-sidebar=""></div>
@@ -320,65 +309,13 @@ AppAsset::register($this);
                 </div>
                 <div class="sa-toolbar__shadow"></div>
             </div>
-            <?php
-            echo AlertBlock::widget([
-                'type' => AlertBlock::TYPE_GROWL,
-                'useSessionFlash' => true,
-                'delay' => 500,
-                'alertSettings' => [
-                    'success' => [
-                        'type' => Growl::TYPE_SUCCESS,
-                        'pluginOptions' => [
-//                        'showProgressbar' => true,
-                            'z_index' => 3031,
-                            'timer' => 3000,
-                            'placement' => [
-                                'from' => 'top',
-                                'align' => 'right'
-                            ]
-                        ]
-                    ],
-                    'danger' => [
-                        'type' => Growl::TYPE_DANGER,
-                        'pluginOptions' => [
-                            'z_index' => 3031,
-                            'timer' => 4000,
-                            'placement' => [
-                                'from' => 'top',
-                                'align' => 'right']
-                        ]
-                    ],
-                    'warning' => [
-                        'type' => Growl::TYPE_WARNING,
-                        'pluginOptions' => [
-                            'z_index' => 3031,
-                            'timer' => 4000,
-                            'placement' => [
-                                'from' => 'top',
-                                'align' => 'right']
-                        ]
-                    ],
-                    'info' => [
-                        'type' => Growl::TYPE_INFO,
-                        'pluginOptions' => [
-                            'z_index' => 3031,
-                            'timer' => 3000,
-                            'placement' => [
-                                'from' => 'top',
-                                'align' => 'right'
-                            ]
-                        ]
-                    ]
-                ]
-            ]);
-
-            ?>
+            <?= $this->render('alert-block-widgets') ?>
             <!-- sa-app__toolbar / end -->
             <?= $content ?>
             <!-- sa-app__footer -->
             <div class="sa-app__footer d-block d-md-flex">
                 <!-- copyright -->
-                agropro.org.ua © 2023
+                agropro.org.ua © 2024
                 <div class="m-auto"></div>
                 <div>
                     <a href="agropro.org.ua">Agro</a>
