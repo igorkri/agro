@@ -52,11 +52,12 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
         'urlManager' => [
+//            'class' => 'codemix\localeurls\UrlManager',
+//            'languages' => ['uk', 'en', 'ru'],
+//            'enableDefaultLanguageUrlCode' => true,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            // 'enableStrictParsing' => false,
             'rules' => [
                 '/' => '/site/index',
 

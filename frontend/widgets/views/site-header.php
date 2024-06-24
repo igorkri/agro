@@ -43,6 +43,44 @@ use yii\helpers\Url;
                             </button>
                         </div>
                     </div>
+<!--                    <div class="topbar__item">-->
+<!--                        <div class="topbar-dropdown">-->
+<!--                            <button class="topbar-dropdown__btn" type="button">-->
+<!--                                Language: <span class="topbar__item-value">--><?php //echo Yii::$app->language?><!--</span>-->
+<!--                                <svg width="7px" height="5px">-->
+<!--                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-7x5"></use>-->
+<!--                                </svg>-->
+<!--                            </button>-->
+<!--                            <div class="topbar-dropdown__body">-->
+<!--                                <div class="menu menu--layout--topbar  menu--with-icons ">-->
+<!--                                    <div class="menu__submenus-container"></div>-->
+<!--                                    <ul class="menu__list">-->
+<!--                                        <li class="menu__item">-->
+<!--                                            <div class="menu__item-submenu-offset"></div>-->
+<!--                                            <a class="menu__item-link" href="--><?php //echo Url::to(['site/change-language', 'language' => 'en']) ?><!--">-->
+<!--                                                <div class="menu__item-icon"><img srcset="images/languages/language-1.png 1x, images/languages/language-1@2x.png 2x" src="images/languages/language-1.png" alt=""></div>-->
+<!--                                                English-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class="menu__item">-->
+<!--                                            <div class="menu__item-submenu-offset"></div>-->
+<!--                                            <a class="menu__item-link" href="--><?php //echo Url::to(['site/change-language', 'language' => 'ru']) ?><!--">-->
+<!--                                                <div class="menu__item-icon"><img srcset="images/languages/language-2.png 1x, images/languages/language-2@2x.png 2x" src="images/languages/language-2.png" alt=""></div>-->
+<!--                                                Русский-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                        <li class="menu__item">-->
+<!--                                            <div class="menu__item-submenu-offset"></div>-->
+<!--                                            <a class="menu__item-link" href="--><?php //echo Url::to(['site/change-language', 'language' => 'uk']) ?><!--">-->
+<!--                                                <div class="menu__item-icon"><img srcset="images/languages/language-3.png 1x, images/languages/language-3@2x.png 2x" src="images/languages/language-3.png" alt=""></div>-->
+<!--                                                Українська-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
