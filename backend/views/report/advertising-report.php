@@ -293,6 +293,12 @@ if ($bigQty + $smallQty == 0) {
                     <span
                             class="sa-price__symbol"> ₴</span></div>
             </div>
+            <div>
+                Агропроцвіт: <?= $agroprocvitCount ?>
+                Facebook: <?= $faceBookCount ?>
+                Instagram: <?= $instagramCount ?>
+                Дзвінок: <?= $dzvinokCount ?>
+            </div>
             <div class="sa-invoice__disclaimer">
                 Information on technical characteristics, the delivery set, the country of manufacture and the
                 appearance of the goods is for
