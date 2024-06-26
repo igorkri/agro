@@ -3,9 +3,10 @@
     <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
         Вітаемо Ваше повідомлення -- надіслане !!!
     </div>
-    <form id="form-messages">
+    <form id="form-messages" >
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" id="url-message"
+                 data-url-review="<?= Yii::$app->urlManager->createUrl(['contact/create']) ?>">
                 <label for="messages-name">Ваше ім'я</label>
                 <input type="text" name="name" class="form-control"
                        oninvalid="this.setCustomValidity('Укажіть будь ласка Ваше ім’я')"
@@ -61,9 +62,10 @@ $js = <<<JS
     var name = $('input[name=name]').val();
     var email = $('input[name=email]').val();
     var mess = $('textarea[name=message]').val();
+    var urlMessage = $('#url-message').data('url-review');
     if (name !== '') {
         $.ajax({
-            url: '/contact/create',
+            url: urlMessage,
             type: 'post',
             data: {
                 subject: subject,

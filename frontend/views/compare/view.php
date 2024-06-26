@@ -119,7 +119,10 @@ ActivePages::setActiveUser();
                                         <?php if ($product->status_id != 2) { ?>
                                                 <button class="btn btn-primary btn-sm product-card__addtocart"
                                                         type="button"
-                                                        data-product-id="<?= $product->id ?>">
+                                                        data-product-id="<?= $product->id ?>"
+                                                        data-url-quickview="<?= Yii::$app->urlManager->createUrl(['cart/quickview']) ?>"
+                                                        data-url-qty-cart="<?= Yii::$app->urlManager->createUrl(['cart/qty-cart']) ?>"
+                                                >
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
@@ -145,6 +148,7 @@ ActivePages::setActiveUser();
                                         <button type="button"
                                                 class="btn btn-dark btn-sm"
                                                 id="delete-from-compare-btn"
+                                                data-url-compare="<?= Yii::$app->urlManager->createUrl(['compare/delete-from-compare']) ?>"
                                                 data-compare-product-id="<?= $product->id ?>">
                                             <i class="fas fa-trash-alt"></i> Видалити
                                         </button>
@@ -216,7 +220,7 @@ $script = <<< JS
     var compareIndicator = $('#compare-indicator');
     var compareListContainer = $('#compare-list');
     var productId = $(this).data('compare-product-id');
-    var url = '/compare/delete-from-compare';
+    var url = $(this).data('url-compare');
     $.ajax({
         url: url,
         type: 'POST',

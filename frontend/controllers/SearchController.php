@@ -95,7 +95,7 @@ class SearchController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
-        return $this->render('/search/suggestions-list', [
+        return $this->render('suggestions-list', [
             'products' => $products,
             'pages' => $pages,
             'products_all' => $products_all,
@@ -106,7 +106,7 @@ class SearchController extends Controller
     {
         if ($f) {
             $blogs = Posts::find()->where(['like', 'title', $f])->all();
-            return $this->render('/search/blogs-list', [
+            return $this->render('blogs-list', [
                 'blogs' => $blogs
             ]);
         }

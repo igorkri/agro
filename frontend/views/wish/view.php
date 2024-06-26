@@ -122,7 +122,10 @@ WishListPageAsset::register($this);
                                         <?php if ($product->status_id != 2) { ?>
                                             <button class="btn btn-primary btn-sm product-card__addtocart"
                                                     type="button"
-                                                    data-product-id="<?= $product->id ?>">
+                                                    data-product-id="<?= $product->id ?>"
+                                                    data-url-quickview="<?= Yii::$app->urlManager->createUrl(['cart/quickview']) ?>"
+                                                    data-url-qty-cart="<?= Yii::$app->urlManager->createUrl(['cart/qty-cart']) ?>"
+                                            >
                                                 <svg width="20px" height="20px" style="display: unset;">
                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                 </svg>
@@ -143,6 +146,7 @@ WishListPageAsset::register($this);
                                         <button type="button"
                                                 class="btn btn-light btn-sm btn-svg-icon"
                                                 id="delete-from-wish-btn"
+                                                data-url-wish="<?= Yii::$app->urlManager->createUrl(['wish/delete-from-wish']) ?>"
                                                 data-wish-product-id="<?= $product->id ?>">
                                             <svg width="12px" height="12px">
                                                 <use xlink:href="/images/sprite.svg#cross-12"></use>
@@ -204,7 +208,7 @@ $script = <<< JS
     var wishIndicator = $('#wish-indicator');
     var wishListContainer = $('#wish-list');
     var productId = $(this).data('wish-product-id');
-    var url = '/wish/delete-from-wish';
+    var url = $(this).data('url-wish');
     $.ajax({
         url: url,
         type: 'POST',

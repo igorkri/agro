@@ -24,6 +24,7 @@ ActivePages::setActiveUser();
         <?php echo ProductsCarouselGazon::widget() ?>
         <?php echo FeaturedProduct::widget() ?>
         <?php echo BlockBanner::widget() ?>
+        <div id="url" data-url="<?= Yii::$app->urlManager->createUrl(['site/load-content']) ?>"></div>
         <div id="bestsellers-container" data-widget="bestsellers"></div>
         <div id="popular-categories-container" data-widget="popular-categories"></div>
         <div id="bestsellers-dacha-container" data-widget="bestsellers-dacha"></div>
@@ -109,8 +110,9 @@ var containersInfo = [
 function loadContent(containerInfo, containerTop) {
     if ($(window).scrollTop() >= containerTop - $(window).height() && !containerInfo.loaded) {
         var widgetName = $(containerInfo.selector).data('widget');
+        var url = $('#url').attr('data-url');
         $.ajax({
-            url: 'site/load-content',
+            url: url,
             type: 'GET',
             dataType: 'json',
             data: { widgetName: widgetName },
@@ -151,5 +153,4 @@ $(window).scroll(function() {
 
 JS;
 $this->registerJs($js);
-
 ?>

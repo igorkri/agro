@@ -11,7 +11,7 @@ use yii\widgets\MaskedInput;
 OrderCheckoutPageAsset::register($this);
 ActivePages::setActiveUser();
 
-$this->title = 'Оформлення замовлення';
+$this->title = Yii::t('app', 'Оформлення замовлення');
 ?>
     <div class="site__body">
         <div class="page-header">
@@ -20,13 +20,7 @@ $this->title = 'Оформлення замовлення';
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/">Головна</a>
-                                <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                    <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
-                                </svg>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="<?= Url::to(['category/list']) ?>">Редагування кошика</a>
+                                <a href="/"><?=Yii::t('app', 'Головна')?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
@@ -47,7 +41,7 @@ $this->title = 'Оформлення замовлення';
                     <div class="col-12 col-lg-6 col-xl-7">
                         <div class="card mb-lg-0">
                             <div class="card-body">
-                                <h3 class="card-title">Інформація для доставки</h3>
+                                <h3 class="card-title"><?=Yii::t('app', 'Інформація для доставки')?></h3>
                                 <div class="form-row">
                                     <div class="form-group col-md-8">
                                         <?= $form->field($order, 'fio')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
@@ -72,7 +66,7 @@ $this->title = 'Оформлення замовлення';
                                                 <span class="payment-methods__item-name"><i
                                                             style="font-size: 25px; color: #2f720e"
                                                             class="fas fa-truck"></i> <span
-                                                            style="font-size:20px; margin:0 20px">Самовивіз</span></span>
+                                                            style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Самовивіз')?></span></span>
                                             </label>
                                             <div class="payment-methods__item-container" style="">
                                                 <div class="payment-methods__item-description text-muted">
@@ -110,7 +104,7 @@ $this->title = 'Оформлення замовлення';
                                                         <use xlink:href="/images/sprite.svg#novaposhta"></use>
                                                 </svg>
                                             </span>
-                                                <span style="font-size:20px; margin:0 20px">Нова Пошта</span>
+                                                <span style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Нова Пошта')?></span>
                                             </label>
                                             <div class="payment-methods__item-container" style="">
                                                 <div class="payment-methods__item-description text-muted">
@@ -122,6 +116,7 @@ $this->title = 'Оформлення замовлення';
                                                             'pluginLoading' => false,
                                                             'options' => [
                                                                 'id' => 'order-areas',
+                                                                'data-url-cities' => Yii::$app->urlManager->createUrl(['n-p/cities']),
                                                                 'placeholder' => 'Виберіть область...',
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
@@ -142,6 +137,7 @@ $this->title = 'Оформлення замовлення';
                                                             'pluginLoading' => false,
                                                             'options' => [
                                                                 'id' => 'order-city',
+                                                                'data-url-warehouses' => Yii::$app->urlManager->createUrl(['n-p/warehouses']),
                                                                 'placeholder' => 'Виберіть місто...',
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
@@ -202,7 +198,7 @@ $this->title = 'Оформлення замовлення';
                                                     <svg width="32px" height="32px" style="margin-right: 5px;">
                                                         <use xlink:href="/images/sprite.svg#ukrposhta"></use>
                                                 </svg> </span>
-                                                <span style="font-size:20px; margin:0 20px">Укрпошта</span>
+                                                <span style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Укрпошта')?></span>
                                             </label>
                                             <div class="payment-methods__item-container" style="">
                                                 <div class="payment-methods__item-description text-muted">
@@ -240,12 +236,12 @@ $this->title = 'Оформлення замовлення';
                     <div class="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
                         <div class="card mb-0">
                             <div class="card-body">
-                                <h3 class="card-title">Ваше замовлення</h3>
+                                <h3 class="card-title"><?=Yii::t('app', 'Ваше замовлення')?></h3>
                                 <table class="checkout__totals">
                                     <thead class="checkout__totals-header">
                                     <tr>
-                                        <th>Товар</th>
-                                        <th>Всього</th>
+                                        <th><?=Yii::t('app', 'Товар')?></th>
+                                        <th><?=Yii::t('app', 'Всього')?></th>
                                     </tr>
                                     </thead>
                                     <tbody class="checkout__totals-products">
@@ -258,7 +254,7 @@ $this->title = 'Оформлення замовлення';
                                     </tbody>
                                     <tfoot class="checkout__totals-footer">
                                     <tr>
-                                        <th>Загальна сума</th>
+                                        <th><?=Yii::t('app', 'Загальна сума')?></th>
                                         <td><?= Yii::$app->formatter->asCurrency($total_summ) ?></td>
                                     </tr>
                                     </tfoot>
@@ -275,19 +271,19 @@ $this->title = 'Оформлення замовлення';
                                             </svg>
                                         </span>
                                     </span>
-                                        <label class="form-check-label" for="checkout-terms">Я прочитав і погоджуюся з
-                                            веб-сайтом <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
-                                                умови повернення та обміну</a><span style="color: red">*</span>
+                                        <label class="form-check-label" for="checkout-terms"><?=Yii::t('app', 'Я прочитав і погоджуюся з веб-сайтом ')?>
+                                            <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
+                                                <?=Yii::t('app', ' умови повернення та обміну')?> </a><span style="color: red">*</span>
                                         </label>
                                     </div>
                                 </div>
                                 <?php if ($total_summ != 0) { ?>
                                     <button type="submit" class="btn btn-primary btn-dec-lg btn-block"
-                                            style="font-size: 16px">Зробити замовлення
+                                            style="font-size: 16px"><?=Yii::t('app', 'Зробити замовлення')?>
                                     </button>
                                 <?php } else { ?>
                                     <a class="btn btn-warning btn-dec-lg btn-block" style="font-size: 16px"
-                                       href="<?= Url::to(['/']) ?>">Дивитись товари</a>
+                                       href="<?= Url::to(['/']) ?>"><?=Yii::t('app', 'Дивитись товари')?></a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -297,7 +293,6 @@ $this->title = 'Оформлення замовлення';
         </div>
         <?php ActiveForm::end(); ?>
     </div>
-
 <?php
 $js = <<<JS
     $(document).ready(function () {
@@ -318,12 +313,13 @@ $js = <<<JS
                 $('#order-warehouses').val("Укрпошта").trigger("change");
             }
         });
-
+        
         if (stock !== "beznal") {
             $('#order-areas').on('change', function () {
+                var urlCities = $(this).data('url-cities');
                 var areaId = $(this).val();
                 $.ajax({
-                    url: '/n-p/cities',
+                    url: urlCities,
                     type: 'POST',
                     data: {areaId: areaId},
                     success: function (data) {
@@ -340,9 +336,10 @@ $js = <<<JS
             });
 
             $('#order-city').on('change', function () {
+                var urlWarehouses = $(this).data('url-warehouses');
                 var cityId = $(this).val();
                 $.ajax({
-                    url: '/n-p/warehouses',
+                    url: urlWarehouses,
                     type: 'POST',
                     data: {cityId: cityId},
                     success: function (data) {

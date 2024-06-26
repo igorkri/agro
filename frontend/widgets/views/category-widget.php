@@ -21,7 +21,7 @@ use yii\helpers\Url;
                             <?php if ($category->parents): ?>
                                 <li class="departments__item">
                                     <a class="departments__item-link"
-                                       href="<?= Url::to(['/category/children', 'slug' => $category->slug]) ?>"><i
+                                       href="<?= Url::to(['category/children', 'slug' => $category->slug]) ?>"><i
                                                 class="bi-bug"></i>
                                         <?= $category->svg . ' ' . $category->name ?>
                                         <svg class="departments__item-arrow" width="6px" height="9px">
@@ -37,19 +37,19 @@ use yii\helpers\Url;
                                                             <div class="col-4">
                                                                 <ul class="megamenu__links megamenu__links--level--0">
                                                                     <li class="megamenu__item  megamenu__item--with-submenu ">
-                                                                        <a href="<?= Url::to(['/category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->svg . ' ' . $parent->name ?></a>
+                                                                        <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>"><?= $parent->svg . ' ' . $parent->name ?></a>
                                                                         <ul class="megamenu__links megamenu__links--level--1">
                                                                             <?php if ($parent->products): ?>
                                                                                 <?php $i = 1;
                                                                                 foreach ($parent->products as $product): ?>
                                                                                     <?php if ($i < 6): ?>
                                                                                         <li class="megamenu__item"><a
-                                                                                                    href="<?= Url::to(['/product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                                                                                    href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
                                                                                         </li>
                                                                                     <?php endif; ?>
                                                                                     <?php if ($i == 6): ?>
                                                                                         <li class="megamenu__item">
-                                                                                            <a href="<?= Url::to(['/category/catalog', 'slug' => $parent->slug]) ?>">
+                                                                                            <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>">
                                                                                                 <span style="color: #30b12b; ">Дивитись всі... </span>
                                                                                             </a>
                                                                                         </li>
@@ -70,7 +70,7 @@ use yii\helpers\Url;
                             <?php else: ?>
                                 <li class="departments__item">
                                     <a class="departments__item-link"
-                                       href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
+                                       href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>">
                                         <?= $category->svg . ' ' . $category->name ?>
                                     </a>
                                     <div class="departments__submenu departments__submenu--type--megamenu departments__submenu--size--xl">
@@ -81,19 +81,19 @@ use yii\helpers\Url;
                                                     <div class="col-3">
                                                         <ul class="megamenu__links megamenu__links--level--0">
                                                             <li class="megamenu__item  megamenu__item--with-submenu ">
-                                                                <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>"><?= $category->svg . ' ' . $category->name ?></a>
+                                                                <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>"><?= $category->svg . ' ' . $category->name ?></a>
                                                                 <ul class="megamenu__links megamenu__links--level--1">
                                                                     <?php if ($products_menu): ?>
                                                                         <?php $i = 1;
                                                                         foreach ($products_menu as $product): ?>
                                                                             <?php if ($i < 6): ?>
                                                                                 <li class="megamenu__item"><a
-                                                                                            href="<?= Url::to(['/product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
+                                                                                            href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
                                                                                 </li>
                                                                             <?php endif; ?>
                                                                             <?php if ($i == 6): ?>
                                                                                 <li class="megamenu__item">
-                                                                                    <a href="<?= Url::to(['/category/catalog', 'slug' => $category->slug]) ?>">
+                                                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>">
                                                                                         <span style="color: #30b12b; ">Дивитись всі... </span>
                                                                                     </a>
                                                                                 </li>

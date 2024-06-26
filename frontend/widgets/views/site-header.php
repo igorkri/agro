@@ -3,6 +3,10 @@
 use frontend\widgets\CategoryWidget;
 use yii\helpers\Url;
 
+$path = Yii::$app->request->pathInfo;
+
+$lang = strtoupper(Yii::$app->language);
+
 ?>
 <header class="site__header d-lg-block d-none">
     <div class="site-header">
@@ -10,23 +14,25 @@ use yii\helpers\Url;
             <div class="topbar__container container">
                 <div class="topbar__row">
                     <div class="topbar__item topbar__item--link">
-                        <a class="topbar-link" href="<?= Url::to(['/about/view']) ?>">Про Нас</a>
+                        <a class="topbar-link" href="<?= Url::to(['about/view']) ?>"><?= Yii::t('app', 'Про Нас') ?></a>
                     </div>
                     <div class="topbar__item topbar__item--link">
-                        <a class="topbar-link" href="<?= Url::to(['/contact/view']) ?>">Контакти</a>
+                        <a class="topbar-link"
+                           href="<?= Url::to(['contact/view']) ?>"><?= Yii::t('app', 'Контакти') ?></a>
                     </div>
                     <div class="topbar__item topbar__item--link">
-                        <a class="topbar-link" href="<?= Url::to(['/delivery/view']) ?>">Доставка Оплата</a>
+                        <a class="topbar-link"
+                           href="<?= Url::to(['delivery/view']) ?>"><?= Yii::t('app', 'Доставка Оплата') ?></a>
                     </div>
                     <div class="topbar__item topbar__item--link">
-                        <a class="topbar-link" href="<?= Url::to(['/blogs/view']) ?>">Статті</a>
+                        <a class="topbar-link" href="<?= Url::to(['blogs/view']) ?>"><?= Yii::t('app', 'Статті') ?></a>
                     </div>
                     <div class="topbar__spring"></div>
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
                                 <i class="fas fa-map-marker-alt"></i>
-                                Полтава
+                                <?= Yii::t('app', 'Полтава') ?>
                                 <svg width="7px" height="5px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>
                                 </svg>
@@ -36,7 +42,7 @@ use yii\helpers\Url;
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
-                                Валюта: <span class="topbar__item-value">UAH</span>
+                                <?= Yii::t('app', 'Валюта') ?>: <span class="topbar__item-value">UAH</span>
                                 <svg width="7px" height="5px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>
                                 </svg>
@@ -46,9 +52,10 @@ use yii\helpers\Url;
 <!--                    <div class="topbar__item">-->
 <!--                        <div class="topbar-dropdown">-->
 <!--                            <button class="topbar-dropdown__btn" type="button">-->
-<!--                                Language: <span class="topbar__item-value">--><?php //echo Yii::$app->language?><!--</span>-->
+<!--                                --><?//php echo Yii::t('app', 'Мова') ?><!--:-->
+<!--                                <span class="topbar__item-value">--><?//php echo $lang ?><!--</span>-->
 <!--                                <svg width="7px" height="5px">-->
-<!--                                    <use xlink:href="images/sprite.svg#arrow-rounded-down-7x5"></use>-->
+<!--                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>-->
 <!--                                </svg>-->
 <!--                            </button>-->
 <!--                            <div class="topbar-dropdown__body">-->
@@ -57,22 +64,35 @@ use yii\helpers\Url;
 <!--                                    <ul class="menu__list">-->
 <!--                                        <li class="menu__item">-->
 <!--                                            <div class="menu__item-submenu-offset"></div>-->
-<!--                                            <a class="menu__item-link" href="--><?php //echo Url::to(['site/change-language', 'language' => 'en']) ?><!--">-->
-<!--                                                <div class="menu__item-icon"><img srcset="images/languages/language-1.png 1x, images/languages/language-1@2x.png 2x" src="images/languages/language-1.png" alt=""></div>-->
+<!--                                            <a class="menu__item-link"-->
+<!--                                               href="--><?php //echo Url::to(['/' . $path, 'language' => 'en']) ?><!--">-->
+<!--                                                <div class="menu__item-icon"><img-->
+<!--                                                            srcset="images/languages/language-1.png 1x, images/languages/language-1@2x.png 2x"-->
+<!--                                                            src="images/languages/language-1.png" alt="">-->
+<!--                                                </div>-->
 <!--                                                English-->
 <!--                                            </a>-->
 <!--                                        </li>-->
 <!--                                        <li class="menu__item">-->
 <!--                                            <div class="menu__item-submenu-offset"></div>-->
-<!--                                            <a class="menu__item-link" href="--><?php //echo Url::to(['site/change-language', 'language' => 'ru']) ?><!--">-->
-<!--                                                <div class="menu__item-icon"><img srcset="images/languages/language-2.png 1x, images/languages/language-2@2x.png 2x" src="images/languages/language-2.png" alt=""></div>-->
+<!--                                            <a class="menu__item-link"-->
+<!--                                               href="--><?php //echo Url::to(['/' . $path, 'language' => 'ru']) ?><!--">-->
+<!--                                                <div class="menu__item-icon"><img-->
+<!--                                                            srcset="images/languages/language-2.png 1x, images/languages/language-2@2x.png 2x"-->
+<!--                                                            src="images/languages/language-2.png" alt="">-->
+<!--                                                </div>-->
 <!--                                                Русский-->
 <!--                                            </a>-->
 <!--                                        </li>-->
 <!--                                        <li class="menu__item">-->
 <!--                                            <div class="menu__item-submenu-offset"></div>-->
-<!--                                            <a class="menu__item-link" href="--><?php //echo Url::to(['site/change-language', 'language' => 'uk']) ?><!--">-->
-<!--                                                <div class="menu__item-icon"><img srcset="images/languages/language-3.png 1x, images/languages/language-3@2x.png 2x" src="images/languages/language-3.png" alt=""></div>-->
+<!--                                            <a class="menu__item-link"-->
+<!--                                               href="--><?php //echo Url::to(['/' . $path, 'language' => 'uk']) ?><!--">-->
+<!--                                                <div class="menu__item-icon">-->
+<!--                                                    <img-->
+<!--                                                            srcset="images/languages/language-3.png 1x, images/languages/language-3@2x.png 2x"-->
+<!--                                                            src="images/languages/language-3.png" alt="">-->
+<!--                                                </div>-->
 <!--                                                Українська-->
 <!--                                            </a>-->
 <!--                                        </li>-->
@@ -81,16 +101,6 @@ use yii\helpers\Url;
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
-                    <div class="topbar__item">
-                        <div class="topbar-dropdown">
-                            <button class="topbar-dropdown__btn" type="button">
-                                Мова: <span class="topbar__item-value">UK</span>
-                                <svg width="7px" height="5px">
-                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
@@ -113,8 +123,10 @@ use yii\helpers\Url;
             <div class="site-header__search">
                 <div class="search search--location--header ">
                     <div class="search__body">
-                        <form class="search__form" action="/search/suggestions">
-                            <input class="search__input" name="q" placeholder="Пошук товарів"
+                        <form class="search__form"
+                              data-url="<?= Yii::$app->urlManager->createUrl(['search/suggestions']) ?>"
+                              action="<?= Yii::$app->urlManager->createUrl(['search/suggestions']) ?>">
+                            <input class="search__input" name="q" placeholder="<?= Yii::t('app', 'Пошук товарів') ?>"
                                    aria-label="Site search" type="text" autocomplete="off">
                             <button class="search__button search__button--type--submit" type="submit"
                                     aria-label="Site search">
@@ -129,7 +141,7 @@ use yii\helpers\Url;
                 </div>
             </div>
             <div class="site-header__phone">
-                <div class="site-header__phone-title">Номер для замовлення</div>
+                <div class="site-header__phone-title"><?= Yii::t('app', 'Номер для замовлення') ?></div>
                 <div class="site-header__phone-number"
                      style="margin: 0px 0px 6px 0px;"><i class="fas fa-mobile-alt"></i> <a
                             href="tel:<?= str_replace([' ', '(', ')', '-'], '', $contacts->tel_primary) ?>"><?= $contacts->tel_primary ?></a>
@@ -151,37 +163,30 @@ use yii\helpers\Url;
                         <div class="nav-panel__nav-links nav-links">
                             <ul class="nav-links__list">
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/special/view']) ?>">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['special/view']) ?>">
                                         <div class="nav-links__item-body">
-                                            Спеціальні пропозиції
+                                            <?= Yii::t('app', 'Спеціальні пропозиції') ?>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/catalog/dacha']) ?>">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['delivery/view']) ?>">
                                         <div class="nav-links__item-body">
-                                            Дача
+                                            <?= Yii::t('app', 'Доставка') ?>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/delivery/view']) ?>">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['contact/view']) ?>">
                                         <div class="nav-links__item-body">
-                                            Доставка
+                                            <?= Yii::t('app', 'Зв\'язок з нами') ?>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/contact/view']) ?>">
+                                    <a class="nav-links__item-link" href="<?= Url::to(['blogs/view']) ?>">
                                         <div class="nav-links__item-body">
-                                            Зв'язок з нами
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-links__item  nav-links__item--has-submenu ">
-                                    <a class="nav-links__item-link" href="<?= Url::to(['/blogs/view']) ?>">
-                                        <div class="nav-links__item-body">
-                                            Статті
+                                            <?= Yii::t('app', 'Статті') ?>
                                         </div>
                                     </a>
                                 </li>
@@ -189,7 +194,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="nav-panel__indicators">
                             <div class="indicator">
-                                <a href="<?= Url::to(['/wish/view']) ?>" data-toggle="tooltip" title="Бажання"
+                                <a href="<?= Url::to(['wish/view']) ?>" data-toggle="tooltip" title="Бажання"
                                    class="indicator__button">
                                             <span class="indicator__area">
                                                 <svg width="16px" height="16px">
@@ -201,7 +206,7 @@ use yii\helpers\Url;
                                 </a>
                             </div>
                             <div class="indicator">
-                                <a href="<?= Url::to(['/compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
+                                <a href="<?= Url::to(['compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
                                    class="indicator__button">
                                             <span class="indicator__area">
                                                 <svg width="16px" height="16px">
@@ -213,13 +218,16 @@ use yii\helpers\Url;
                                 </a>
                             </div>
                             <div class="indicator indicator--trigger--click cart-header">
-                                <a href="#" data-toggle="tooltip" title="Корзина" class="indicator__button">
+                                <a href="#" data-toggle="tooltip"
+                                   title="Корзина"
+                                   class="indicator__button"
+                                   data-url-quick-view-all="<?= Yii::$app->urlManager->createUrl(['cart/quickview-all']) ?>">
                                     <span class="indicator__area">
                                         <svg width="20px" height="20px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
                                         <span class="indicator__value"
-                                              id="desc-qty-cart"><?= \Yii::$app->cart->getCount() ?></span>
+                                              id="desc-qty-cart"><?= Yii::$app->cart->getCount() ?></span>
                                     </span>
                                 </a>
                             </div>

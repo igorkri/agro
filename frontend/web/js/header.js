@@ -123,6 +123,7 @@
         */
         $('.search').each(function(index, element) {
             let xhr;
+            var url = $('.search__form').data('url');
             const search = $(element);
             const categories = search.find('.search__categories');
             const input = search.find('.search__input');
@@ -183,15 +184,12 @@
             });
             input.on('input', function() {
                 if (xhr) {
-                    // Abort previous AJAX request.
                     xhr.abort();
                 }
 
                 if (input.val()) {
-                    // YOUR AJAX REQUEST HERE.
-                    console.log(input.val())
                     xhr = $.ajax({
-                        url: '/search/suggestions',
+                        url: url,
                         data: {q: input.val()},
                         success: function(data) {
                             xhr = null;

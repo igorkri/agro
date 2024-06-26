@@ -459,6 +459,5 @@ class SiteController extends Controller
             'success' => true,
             'content' => $content,
         ];
-
     }
 }

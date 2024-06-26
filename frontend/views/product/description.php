@@ -418,7 +418,8 @@ $rating = 3;
                                             ]);
                                             ?>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-4" id="url-review"
+                                             data-url-review="<?= Yii::$app->urlManager->createUrl(['review/create']) ?>">
                                             <label for="review-name">Ваше ім'я</label>
                                             <input type="text" name="name" class="form-control" id="review-name"
                                                    oninvalid="this.setCustomValidity('Укажіть будь ласка Ваше ім’я')"
@@ -503,9 +504,10 @@ $(document).ready(function() {
         var name = $('input[name=name]').val();
         var email = $('input[name=email]').val();
         var mess = $('textarea[name=message]').val();
-        if (name != '') {
+        var urlReview = $('#url-review').data('url-review');
+        if (name !== '') {
             $.ajax({
-                url: '/review/create',
+                url: urlReview,
                 type: 'post',
                 data: {
                     id: productId,

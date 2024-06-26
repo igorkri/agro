@@ -3,6 +3,7 @@
 use common\models\Settings;
 use common\models\shop\ActivePages;
 use yii\helpers\Url;
+use yii\web\View;
 
 ActivePages::setActiveUser();
 
@@ -13,6 +14,10 @@ if ($total_summ === 0) {
 } else {
     $h = 'Ваш кошик';
 }
+
+$urlUpdate = Yii::$app->urlManager->createUrl(['cart/update']);
+$urlQty = Yii::$app->urlManager->createUrl(['cart/qty-cart']);
+$urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
 
 ?>
 <div class="quickview">
@@ -70,15 +75,18 @@ if ($total_summ === 0) {
                                 <?php endif; ?>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Кількість">
                                     <div class="input-number">
-                                        <input class="form-control input-number__input" type="number" min="1"
+                                        <input class="form-control input-number__input update-numb" type="number"
+                                               min="1"
                                                value="<?= $order->getQuantity() ?>"
-                                               onchange="updateQty(<?= $order->getId() ?>, $(this).val());"
-                                               onkeyup="this.onchange();" onpaste="this.onchange();"
-                                               oninput="this.onchange();">
+                                               data-url-update="<?= $urlUpdate ?>"
+                                               onchange="updateQty(<?= $order->getId() ?>, $(this).val(), '<?= $urlUpdate ?>', '<?= $urlQty ?>')"
+                                               onpaste="this.onchange()"
+                                               onkeyup="this.onchange()"
+                                               oninput="this.onchange()">
                                         <div class="input-number__add"
-                                             onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() + 1 ?>)"></div>
+                                             onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() + 1 ?>, '<?= $urlUpdate ?>', '<?= $urlQty ?>')"></div>
                                         <div class="input-number__sub"
-                                             onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() - 1 ?>)"></div>
+                                             onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() - 1 ?>, '<?= $urlUpdate ?>', '<?= $urlQty ?>')"></div>
                                     </div>
                                 </td>
                                 <?php if ($order->currency == 'UAH'): ?>
@@ -89,7 +97,7 @@ if ($total_summ === 0) {
                                         data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->price * Settings::currencyRate($order->currency) * $order->getQuantity()) ?></td>
                                 <?php endif; ?>
                                 <td class="cart-table__column cart-table__column--remove"
-                                    onclick="removeProduct(<?= $order->id ?>)">
+                                    onclick="removeProduct(<?= $order->id ?>, '<?= $urlRemove ?>', '<?= $urlQty ?>')">
                                     <button type="button" class="btn btn-light btn-sm btn-svg-icon">
                                         <svg width="12px" height="12px">
                                             <use xlink:href="/images/sprite.svg#cross-12"></use>
@@ -105,7 +113,8 @@ if ($total_summ === 0) {
                             <div class="card">
                                 <div class="card-body">
                                     <?php if ($total_summ < $min_order and $total_summ > 0) { ?>
-                                        <h5 class="card-title" style="color: red">Замовлення від <?= $min_order ?> ₴</h5>
+                                        <h5 class="card-title" style="color: red">Замовлення від <?= $min_order ?>
+                                            ₴</h5>
                                     <?php } ?>
                                     <table class="cart__totals">
                                         <tfoot class="cart__totals-footer">
@@ -117,15 +126,18 @@ if ($total_summ === 0) {
                                     </table>
                                     <?php if ($total_summ != 0) { ?>
                                         <?php if ($total_summ < $min_order) { ?>
-                                            <a class="btn btn-primary btn-lg btn-block disabled cart__checkout-button" style="font-size: 16px"
-                                               href="<?= Url::to(['/order/checkout']) ?>">Оформити замовлення</a>
+                                            <a class="btn btn-primary btn-lg btn-block disabled cart__checkout-button"
+                                               style="font-size: 16px"
+                                               href="<?= Url::to(['order/checkout']) ?>">Оформити замовлення</a>
                                         <?php } else { ?>
-                                            <a class="btn btn-primary btn-lg btn-block cart__checkout-button" style="font-size: 16px"
-                                               href="<?= Url::to(['/order/checkout']) ?>">Оформити замовлення</a>
+                                            <a class="btn btn-primary btn-lg btn-block cart__checkout-button"
+                                               style="font-size: 16px"
+                                               href="<?= Url::to(['order/checkout']) ?>">Оформити замовлення</a>
                                         <?php } ?>
                                     <?php } ?>
-                                        <a class="btn btn-warning btn-lg btn-block cart__checkout-button" style="font-size: 16px"
-                                           href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
+                                    <a class="btn btn-warning btn-lg btn-block cart__checkout-button"
+                                       style="font-size: 16px"
+                                       href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
                                 </div>
                             </div>
                         </div>
@@ -135,4 +147,54 @@ if ($total_summ === 0) {
         </div>
     </div>
 </div>
+<script>
+    function updateQty(prodId, qty, urlUpdate, urlQty) {
+        if (qty !== 0) {
+            setTimeout(function () {
+                $.ajax({
+                    url: urlUpdate,
+                    data: {
+                        id: prodId,
+                        qty: qty
+                    },
+                    success: function (data) {
+                        updateCartQty(urlQty);
+                        $('.cart').html(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Ошибка обновления количества товара:', textStatus, errorThrown);
+                    }
+                });
+            }, 100);
+        }
+    }
 
+    function removeProduct(id, urlRemove, urlQty) {
+        $.ajax({
+            url: urlRemove,
+            data: {
+                id: id,
+            },
+            success: function (data) {
+                updateCartQty(urlQty);
+                $('.cart').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Ошибка удаления товара из корзины:', textStatus, errorThrown);
+            }
+        });
+    }
+
+    function updateCartQty(urlQty) {
+        $.ajax({
+            url: urlQty,
+            type: 'GET',
+            success: function (qty) {
+                $('#desc-qty-cart').html(qty.qty_cart);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Ошибка обновления количества товаров в корзине:', textStatus, errorThrown);
+            }
+        });
+    }
+</script>

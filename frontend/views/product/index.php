@@ -136,6 +136,7 @@ $webp_support = ProductImage::imageWebp();
                                         class="btn btn-sm btn-light btn-svg-icon product-card__wish"
                                         aria-label="add wish list"
                                         id="add-from-wish-btn-<?= $product->id ?>"
+                                        data-url-wish="<?= Yii::$app->urlManager->createUrl(['wish/add-to-wish']) ?>"
                                         data-wish-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#wishlist-16"></use>
@@ -145,6 +146,7 @@ $webp_support = ProductImage::imageWebp();
                                         class="btn btn-sm btn-light btn-svg-icon product-card__compare"
                                         aria-label="add compare list"
                                         id="add-from-compare-btn-<?= $product->id ?>"
+                                        data-url-compare="<?= Yii::$app->urlManager->createUrl(['compare/add-to-compare']) ?>"
                                         data-compare-product-id="<?= $product->id ?>">
                                     <svg width="16px" height="16px">
                                         <use xlink:href="/images/sprite.svg#compare-16"></use>
@@ -252,7 +254,10 @@ $webp_support = ProductImage::imageWebp();
                                                 <button class="btn btn-primary btn-lg product-card__addtocart"
                                                         aria-label="В кошик"
                                                         type="button"
-                                                        data-product-id="<?= $product->id ?>">
+                                                        data-product-id="<?= $product->id ?>"
+                                                        data-url-quickview="<?= Yii::$app->urlManager->createUrl(['cart/quickview']) ?>"
+                                                        data-url-qty-cart="<?= Yii::$app->urlManager->createUrl(['cart/qty-cart']) ?>"
+                                                >
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
@@ -430,7 +435,7 @@ $webp_support = ProductImage::imageWebp();
                                                 <ul>
                                                     <li>
                                                         Умови повернення та
-                                                        <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
+                                                        <a target="_blank" href="<?= Url::to(['order/conditions']) ?>">
                                                             обміну</a>
                                                     </li>
                                                 </ul>

@@ -14,7 +14,7 @@ return [
     'bootstrap' => ['log', 'devicedetect'],
     'layout' => 'shop',
     'name' => 'Інтернет магазин Засобів Захисту Рослин AgroPro',
-    'language' => 'uk-UA',
+    'language' => 'uk',
     'timeZone' => 'Europe/Kiev',
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => '/site',
@@ -53,9 +53,11 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
-//            'class' => 'codemix\localeurls\UrlManager',
-//            'languages' => ['uk', 'en', 'ru'],
-//            'enableDefaultLanguageUrlCode' => true,
+            'class' => 'codemix\localeurls\UrlManager',
+            'languages' => ['uk', 'en', 'ru'],
+            'enableDefaultLanguageUrlCode' => false,
+            'enableLanguageDetection' => true,
+            'enableLocaleUrls' => true,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -86,6 +88,25 @@ return [
                     'suffix' => '.xml'
                 ],
             ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    'sourceLanguage' => 'uk-UA',
+                    'fileMap' => [
+                        'app'       => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'locale' => 'uk-UA', // Локаль
+            'defaultTimeZone' => 'Europe/Kiev', // Часовой пояс
+            'currencyCode' => 'UAH', // Валюта
         ],
     ],
     'params' => $params,

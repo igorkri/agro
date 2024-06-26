@@ -1,11 +1,16 @@
 <?php
 
+use common\models\Settings;
 use common\models\shop\ActivePages;
 use yii\helpers\Url;
 
 ActivePages::setActiveUser();
 
 $min_order = 5;  //минимальная сумма заказа
+
+$urlUpdate = Yii::$app->urlManager->createUrl(['cart/update']);
+$urlQty = Yii::$app->urlManager->createUrl(['cart/qty-cart']);
+$urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
 
 ?>
 
@@ -40,24 +45,38 @@ $min_order = 5;  //минимальная сумма заказа
                         <a href="<?= Url::to(['product/view', 'slug' => $order->slug]) ?>"
                            class="cart-table__product-name"><?= $order->name ?></a>
                     </td>
-                    <td class="cart-table__column cart-table__column--price"
-                        data-title="Ціна"><?= Yii::$app->formatter->asCurrency($order->getPrice()) ?></td>
+                    <?php if ($order->currency == 'UAH'): ?>
+                        <td class="cart-table__column cart-table__column--price"
+                            data-title="Ціна"><?= Yii::$app->formatter->asCurrency($order->price) ?></td>
+                    <?php else: ?>
+                        <td class="cart-table__column cart-table__column--price"
+                            data-title="Ціна"><?= Yii::$app->formatter->asCurrency($order->price * Settings::currencyRate($order->currency)) ?></td>
+                    <?php endif; ?>
                     <td class="cart-table__column cart-table__column--quantity" data-title="Кількість">
                         <div class="input-number">
-                            <input class="form-control input-number__input" type="number" min="1"
+                            <input class="form-control input-number__input update-numb" type="number"
+                                   min="1"
                                    value="<?= $order->getQuantity() ?>"
-                                   onchange="updateQty(<?= $order->getId() ?>, $(this).val());"
-                                   onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();">
+                                   data-url-update="<?= $urlUpdate ?>"
+                                   onchange="updateQty(<?= $order->getId() ?>, $(this).val(), '<?= $urlUpdate ?>', '<?= $urlQty ?>')"
+                                   onpaste="this.onchange()"
+                                   onkeyup="this.onchange()"
+                                   oninput="this.onchange()">
                             <div class="input-number__add"
-                                 onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() + 1 ?>)"></div>
+                                 onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() + 1 ?>, '<?= $urlUpdate ?>', '<?= $urlQty ?>')"></div>
                             <div class="input-number__sub"
-                                 onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() - 1 ?>)"></div>
+                                 onclick="updateQty(<?= $order->getId() ?>, <?= $order->getQuantity() - 1 ?>, '<?= $urlUpdate ?>', '<?= $urlQty ?>')"></div>
                         </div>
                     </td>
-                    <td class="cart-table__column cart-table__column--total"
-                        data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->getPrice() * $order->getQuantity()) ?></td>
+                    <?php if ($order->currency == 'UAH'): ?>
+                        <td class="cart-table__column cart-table__column--total"
+                            data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->price * $order->getQuantity()) ?></td>
+                    <?php else: ?>
+                        <td class="cart-table__column cart-table__column--total"
+                            data-title="Всього"><?= Yii::$app->formatter->asCurrency($order->price * Settings::currencyRate($order->currency) * $order->getQuantity()) ?></td>
+                    <?php endif; ?>
                     <td class="cart-table__column cart-table__column--remove"
-                        onclick="removeProduct(<?= $order->id ?>)">
+                        onclick="removeProduct(<?= $order->id ?>, '<?= $urlRemove ?>', '<?= $urlQty ?>')">
                         <button type="button" class="btn btn-light btn-sm btn-svg-icon">
                             <svg width="12px" height="12px">
                                 <use xlink:href="/images/sprite.svg#cross-12"></use>
@@ -73,7 +92,8 @@ $min_order = 5;  //минимальная сумма заказа
                 <div class="card">
                     <div class="card-body">
                         <?php if ($total_summ < $min_order and $total_summ > 0) { ?>
-                            <h5 class="card-title" style="color: red">Замовлення від <?= $min_order ?> ₴</h5>
+                            <h5 class="card-title" style="color: red">Замовлення від <?= $min_order ?>
+                                ₴</h5>
                         <?php } ?>
                         <table class="cart__totals">
                             <tfoot class="cart__totals-footer">
@@ -85,15 +105,18 @@ $min_order = 5;  //минимальная сумма заказа
                         </table>
                         <?php if ($total_summ != 0) { ?>
                             <?php if ($total_summ < $min_order) { ?>
-                                <a class="btn btn-primary btn-lg btn-block disabled cart__checkout-button" style="font-size: 16px"
-                                   href="<?= Url::to(['/order/checkout']) ?>">Оформити замовлення</a>
+                                <a class="btn btn-primary btn-lg btn-block disabled cart__checkout-button"
+                                   style="font-size: 16px"
+                                   href="<?= Url::to(['order/checkout']) ?>">Оформити замовлення</a>
                             <?php } else { ?>
-                                <a class="btn btn-primary btn-lg btn-block cart__checkout-button" style="font-size: 16px"
-                                   href="<?= Url::to(['/order/checkout']) ?>">Оформити замовлення</a>
+                                <a class="btn btn-primary btn-lg btn-block cart__checkout-button"
+                                   style="font-size: 16px"
+                                   href="<?= Url::to(['order/checkout']) ?>">Оформити замовлення</a>
                             <?php } ?>
                         <?php } ?>
-                            <a class="btn btn-warning btn-lg btn-block cart__checkout-button" style="font-size: 16px"
-                               href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
+                        <a class="btn btn-warning btn-lg btn-block cart__checkout-button"
+                           style="font-size: 16px"
+                           href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
                     </div>
                 </div>
             </div>
