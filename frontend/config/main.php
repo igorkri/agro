@@ -56,7 +56,7 @@ return [
             'class' => 'codemix\localeurls\UrlManager',
             'languages' => ['uk', 'en', 'ru'],
             'enableDefaultLanguageUrlCode' => false,
-            'enableLanguageDetection' => true,
+            'enableLanguageDetection' => false,
             'enableLocaleUrls' => true,
             'enablePrettyUrl' => true,
             'showScriptName' => false,

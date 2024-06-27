@@ -28,6 +28,7 @@ $wishList = count($wishList);
                     <div class="search search--location--mobile-header mobile-header__search">
                         <div class="search__body">
                             <form class="search__form"
+                                  data-url="<?= Yii::$app->urlManager->createUrl(['search/suggestions']) ?>"
                                   action="<?= Yii::$app->urlManager->createUrl(['search/suggestions']) ?>">
                                 <input class="search__input" name="q" placeholder="Пошук товарів"
                                        aria-label="Site search" type="text" autocomplete="off">
@@ -57,7 +58,7 @@ $wishList = count($wishList);
                             </button>
                         </div>
                         <div class="indicator">
-                            <a href="<?= Url::to(['/wish/view']) ?>" data-toggle="tooltip" title="Бажання"
+                            <a href="<?= Url::to(['wish/view']) ?>" data-toggle="tooltip" title="Бажання"
                                class="indicator__button">
                                             <span class="indicator__area">
                                                 <svg width="16px" height="16px">
@@ -69,7 +70,7 @@ $wishList = count($wishList);
                             </a>
                         </div>
                         <div class="indicator">
-                            <a href="<?= Url::to(['/compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
+                            <a href="<?= Url::to(['compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
                                class="indicator__button">
                                             <span class="indicator__area">
                                                 <svg width="16px" height="16px">
@@ -81,7 +82,9 @@ $wishList = count($wishList);
                             </a>
                         </div>
                         <div class="indicator indicator--trigger--click cart-header">
-                            <a href="#" class="indicator__button ">
+                            <a href="#" class="indicator__button"
+                               data-url-quick-view-all="<?= Yii::$app->urlManager->createUrl(['cart/quickview-all']) ?>"
+                            >
                                     <span class="indicator__area">
                                         <svg width="20px" height="20px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
