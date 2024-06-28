@@ -16,7 +16,6 @@ class NovaPoshtaController extends Controller
     /**
      * Получить области
      */
-
     public function actionAreas()
     {
         $np = new NovaPoshtaApi2(
@@ -54,7 +53,6 @@ class NovaPoshtaController extends Controller
     /**
      * Получить города у областей
      */
-
     public function actionCities()
     {
         $np = new NovaPoshtaApi2(
@@ -148,7 +146,7 @@ class NovaPoshtaController extends Controller
     }
 
     /**
-     * Города без отделений отделений НП
+     * Города без отделений НП
      */
     public function actionNoCitiesWarehouses()
     {

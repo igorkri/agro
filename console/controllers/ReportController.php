@@ -13,7 +13,6 @@ class ReportController extends Controller
     /**
      * Добавление Excel файла отчета в базу
      */
-
     public function actionAddReport()
     {
         $filePath = 'E:/OSPanel/domains/agro/backend/runtime/reportItem.xlsx';
@@ -70,7 +69,6 @@ class ReportController extends Controller
     /**
      * Форматирование даты в базе
      */
-
     public function actionDateDeliveryReport()
     {
         $datesDelivery = Report::find()->select(['date_delivery', 'id'])->asArray()->all();
@@ -104,7 +102,6 @@ class ReportController extends Controller
     /**
      * Форматирование Платформы в базе
      */
-
     public function actionPlatformOrderReport()
     {
         $symbol = 'м';
@@ -146,7 +143,6 @@ class ReportController extends Controller
     /**
      * Форматирование Номера в базе
      */
-
     public function actionPhoneReport()
     {
         $i = 1;
@@ -197,7 +193,6 @@ class ReportController extends Controller
     /**
      * Проверка целостности данных в базе
      */
-
     public function actionValidatorsReport()
     {
 
@@ -219,7 +214,6 @@ class ReportController extends Controller
     /**
      * Форматирование Тип оплаты в базе
      */
-
     public function actionTypePayment()
     {
         $i = 1;
@@ -248,7 +242,6 @@ class ReportController extends Controller
     /**
      * Добавить Доставку НП если ТТН ХХХХ
      */
-
     public function actionAddDeliveryNewPost()
     {
         $i = 1;

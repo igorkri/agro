@@ -10,6 +10,9 @@ use Yii;
 class ReviewController extends \yii\console\Controller
 {
 
+    /**
+     * Генерация отзывов
+     */
     public function actionGenerate()
     {
         $users = Yii::$app->db->createCommand('SELECT `second_name` FROM users_review_test')
