@@ -607,8 +607,6 @@ class ReportController extends Controller
         $instagramCount = count($instagram);
         $dzvinokCount = count($dzvinok);
 
-
-
         $bigQtyCount = count($bigQty);
         $bigSumTotal = array_sum($bigSum);
         $smallQtyCount = count($smallQty);
@@ -627,9 +625,6 @@ class ReportController extends Controller
             'faceBookCount' => $faceBookCount,
             'instagramCount' => $instagramCount,
             'dzvinokCount' => $dzvinokCount,
-
-
-
             'model' => $models,
             'budget' => $budget,
             'bigQty' => $bigQtyCount,
@@ -657,6 +652,7 @@ class ReportController extends Controller
     public function actionReportExportToExcel()
     {
         $sumOrders = [];
+        $sumNovaPay = [];
         $sumIncomingOrders = [];
         $sumDiscountOrders = [];
         $sumPlatformOrders = [];
@@ -798,6 +794,7 @@ class ReportController extends Controller
         foreach ($models as $model) {
 
             $countsOrders[] = 1;
+            $sumNovaPay[] = $model->nova_pay;
             $sumDeliveryOrders[] = $model->price_delivery;
             $i = 0;
             if ($j % 2 === 0) {
@@ -1023,6 +1020,7 @@ class ReportController extends Controller
 
         $countsOrders = array_sum($countsOrders);
         $sumOrders = array_sum($sumOrders);
+        $sumNovaPay = array_sum($sumNovaPay);
         $sumIncomingOrders = array_sum($sumIncomingOrders);
         $sumDiscountOrders = array_sum($sumDiscountOrders);
         $sumPlatformOrders = array_sum($sumPlatformOrders);
@@ -1035,6 +1033,7 @@ class ReportController extends Controller
         $sheet->setCellValue('I' . $row, $sumOrders);
         $sheet->setCellValue('L' . $row, $sumDiscountOrders);
         $sheet->setCellValue('M' . $row, $sumPlatformOrders);
+        $sheet->setCellValue('K' . $row, $sumNovaPay);
         $sheet->setCellValue('N' . $row, $sumDeliveryOrders);
 
         $sheet->getStyle('A' . $row . ':U' . $row)->applyFromArray($footerTableStyle);
