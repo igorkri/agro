@@ -23,10 +23,11 @@ $sumItemOrder = $model->getTotalSumView($model->id);
 $itemDiscount = $model->getItemsDiscount($model->id);
 $incomingPriceSum = $model->getItemsIncomingPrice($model->id);
 $itemPlatformPrice = $model->getItemsPlatformPrice($model->id);
-$sum = $model->getTotalSumm($model->id) - $itemPlatformPrice;
 
 $deliveryPrice = $model->price_delivery ?? 0;
 $novaPay = $model->nova_pay ?? 0;
+
+$sum = $model->getTotalSumm($model->id) - $novaPay;
 
 if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_id == 'Повернення') {
     $totalOrderPrice = '-' . ($itemPlatformPrice + $deliveryPrice + $novaPay);

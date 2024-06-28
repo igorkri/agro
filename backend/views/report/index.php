@@ -119,7 +119,7 @@ $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== nu
                                 <td style="font-weight: bold; color: red">
                                     <?= Yii::$app->formatter->asDecimal($sum, 2) ?></td>
                             <?php } else { ?>
-                                <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal($sum, 2) ?></td>
+                                <td style="font-weight: bold"><?= Yii::$app->formatter->asDecimal(($sum - $model->nova_pay), 2) ?></td>
                             <?php } ?>
                             <td class="text-center"><?= $model->getPackage($model->id) ?></td>
                             <td><a href="<?= Url::to(['report/view', 'id' => $model->id]) ?>"

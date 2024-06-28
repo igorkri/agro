@@ -682,17 +682,19 @@ class ReportController extends Controller
         $sheet->setCellValue('F1', 'К-ть');
         $sheet->setCellValue('G1', 'Вхід');
         $sheet->setCellValue('H1', 'Ціна (продажна)');
-        $sheet->setCellValue('I1', 'Сума (замовлення)');
-        $sheet->setCellValue('J1', 'Знижка');
-        $sheet->setCellValue('K1', 'Списання з Платформи');
-        $sheet->setCellValue('L1', 'Доставка');
-        $sheet->setCellValue('M1', 'Дата Оплати');
-        $sheet->setCellValue('N1', 'Статус Оплати');
-        $sheet->setCellValue('O1', 'Тип Оплати');
-        $sheet->setCellValue('P1', 'П.І.Б');
-        $sheet->setCellValue('Q1', 'моб Телефон');
-        $sheet->setCellValue('R1', 'Адреса');
-        $sheet->setCellValue('S1', 'ТТН');
+        $sheet->setCellValue('I1', 'Сума по Товару');
+        $sheet->setCellValue('J1', 'Сума Загал.');
+        $sheet->setCellValue('K1', 'NovaPay');
+        $sheet->setCellValue('L1', 'Знижка');
+        $sheet->setCellValue('M1', 'Списання з Платформи');
+        $sheet->setCellValue('N1', 'Доставка');
+        $sheet->setCellValue('O1', 'Дата Оплати');
+        $sheet->setCellValue('P1', 'Статус Оплати');
+        $sheet->setCellValue('Q1', 'Тип Оплати');
+        $sheet->setCellValue('R1', 'П.І.Б');
+        $sheet->setCellValue('S1', 'моб Телефон');
+        $sheet->setCellValue('T1', 'Адреса');
+        $sheet->setCellValue('U1', 'ТТН');
 
         $headTableStyle = [
             'font' => [
@@ -775,9 +777,9 @@ class ReportController extends Controller
             ],
         ];
 
-        $sheet->getStyle('A1:S1')->applyFromArray($headTableStyle);
+        $sheet->getStyle('A1:U1')->applyFromArray($headTableStyle);
         $sheet->freezePane('A2');
-        foreach (range('A', 'S') as $columnID) {
+        foreach (range('A', 'U') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
         $sheet->getStyle('G:G')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
@@ -786,7 +788,9 @@ class ReportController extends Controller
         $sheet->getStyle('J:J')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('K:K')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
         $sheet->getStyle('L:L')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
-        $sheet->getStyle('S:S')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
+        $sheet->getStyle('M:M')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('N:N')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $sheet->getStyle('U:U')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER);
 
 
         $row = 2; // начнем с второй строки
@@ -797,9 +801,9 @@ class ReportController extends Controller
             $sumDeliveryOrders[] = $model->price_delivery;
             $i = 0;
             if ($j % 2 === 0) {
-                $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleGrey);
+                $sheet->getStyle('A' . $row . ':U' . $row)->applyFromArray($bodyTableStyleGrey);
             } else {
-                $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleWhite);
+                $sheet->getStyle('A' . $row . ':U' . $row)->applyFromArray($bodyTableStyleWhite);
             }
 
             switch ($model->order_status_id) {
@@ -964,27 +968,30 @@ class ReportController extends Controller
             $sheet->setCellValue('B' . $row, $model->number_order);
             $sheet->setCellValue('C' . $row, $model->order_status_id);
             $sheet->setCellValue('D' . $row, $model->date_delivery);
-            $sheet->setCellValue('L' . $row, $model->price_delivery);
-            $sheet->setCellValue('M' . $row, $model->date_payment);
-            $sheet->setCellValue('N' . $row, $model->order_pay_ment_id);
-            $sheet->setCellValue('O' . $row, $model->type_payment);
-            $sheet->setCellValue('P' . $row, $model->fio);
-            $sheet->setCellValue('Q' . $row, $model->tel_number);
-            $sheet->setCellValue('R' . $row, $model->address);
-            $sheet->setCellValue('S' . $row, $model->ttn);
+            $sheet->setCellValue('K' . $row, $model->nova_pay);
+            $sheet->setCellValue('N' . $row, $model->price_delivery);
+            $sheet->setCellValue('O' . $row, $model->date_payment);
+            $sheet->setCellValue('P' . $row, $model->order_pay_ment_id);
+            $sheet->setCellValue('Q' . $row, $model->type_payment);
+            $sheet->setCellValue('R' . $row, $model->fio);
+            $sheet->setCellValue('S' . $row, $model->tel_number);
+            $sheet->setCellValue('T' . $row, $model->address);
+            $sheet->setCellValue('U' . $row, $model->ttn);
 
             $products = ReportItem::find()->where(['order_id' => $model->id])->all();
             $k = 0;
+            $sumOrder = [];
             foreach ($products as $product) {
+                $sumOrder[] = $product->price * $product->quantity;
                 $sumOrders[] = $product->price * $product->quantity;
                 $sumIncomingOrders[] = $product->entry_price * $product->quantity;
                 $sumDiscountOrders[] = $product->discount;
                 $sumPlatformOrders[] = $product->platform_price;
 
                 if ($j % 2 === 0) {
-                    $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleGrey);
+                    $sheet->getStyle('A' . $row . ':U' . $row)->applyFromArray($bodyTableStyleGrey);
                 } else {
-                    $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($bodyTableStyleWhite);
+                    $sheet->getStyle('A' . $row . ':U' . $row)->applyFromArray($bodyTableStyleWhite);
                 }
 
                 if ($k < 1) {
@@ -992,7 +999,7 @@ class ReportController extends Controller
                         $sheet->getStyle('C' . $row)->applyFromArray($orderStatusStyle);
                     }
                     if ($model->order_pay_ment_id != null or $model->order_pay_ment_id != '') {
-                        $sheet->getStyle('N' . $row)->applyFromArray($orderPaymentStyle);
+                        $sheet->getStyle('P' . $row)->applyFromArray($orderPaymentStyle);
                     }
                 }
 
@@ -1001,12 +1008,13 @@ class ReportController extends Controller
                 $sheet->setCellValue('G' . $row, $product->entry_price);
                 $sheet->setCellValue('H' . $row, $product->price);
                 $sheet->setCellValue('I' . $row, $product->price * $product->quantity);
-                $sheet->setCellValue('J' . $row, $product->discount);
-                $sheet->setCellValue('K' . $row, $product->platform_price);
+                $sheet->setCellValue('L' . $row, $product->discount);
+                $sheet->setCellValue('M' . $row, $product->platform_price);
                 $row++;
                 $i = 1;
                 $k++;
             }
+            $sheet->setCellValue('J' . ($row - $k), array_sum($sumOrder));
             if ($i === 0) {
                 $row++;
             }
@@ -1025,11 +1033,11 @@ class ReportController extends Controller
         $sheet->setCellValue('D' . $row, 'з ' . $periodStart . ' по ' . $periodEnd);
         $sheet->setCellValue('G' . $row, $sumIncomingOrders);
         $sheet->setCellValue('I' . $row, $sumOrders);
-        $sheet->setCellValue('J' . $row, $sumDiscountOrders);
-        $sheet->setCellValue('K' . $row, $sumPlatformOrders);
-        $sheet->setCellValue('L' . $row, $sumDeliveryOrders);
+        $sheet->setCellValue('L' . $row, $sumDiscountOrders);
+        $sheet->setCellValue('M' . $row, $sumPlatformOrders);
+        $sheet->setCellValue('N' . $row, $sumDeliveryOrders);
 
-        $sheet->getStyle('A' . $row . ':S' . $row)->applyFromArray($footerTableStyle);
+        $sheet->getStyle('A' . $row . ':U' . $row)->applyFromArray($footerTableStyle);
 
         ob_start();
 
