@@ -163,14 +163,16 @@ use kartik\form\ActiveForm;
                                             ])->label('Служба Доставки') ?>
                                     </div>
                                     <div class="col-md-3">
-
                                         <?= $form->field($model, 'ttn')->textInput(['maxlength' => true])->label('ТТН') ?>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <?= $form->field($model, 'date_delivery')->input('date')->label('Дата Відправки') ?>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <?= $form->field($model, 'price_delivery')->textInput()->label('Ціна Доставки') ?>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <?= $form->field($model, 'nova_pay')->textInput()->label('NovaPay') ?>
                                     </div>
                                 </div>
                             </div>

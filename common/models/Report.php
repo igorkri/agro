@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property string|null $number_order_1c
  * @property string|null $date_payment
  * @property int|null $price_delivery
+ * @property int|null $nova_pay
  * @property string|null $type_payment
  * @property string|null $fio
  * @property string|null $tel_number
@@ -45,7 +46,7 @@ class Report extends ActiveRecord
             [['number_order', 'platform', 'date_order'], 'required'],
             [['number_order'], 'unique'],
             [['order_status_id', 'order_pay_ment_id'], 'string', 'max' => 20],
-            [['price_delivery'], 'number'],
+            [['price_delivery', 'nova_pay'], 'number'],
             [['platform', 'number_order', 'date_order', 'date_delivery', 'number_order_1c', 'date_payment', 'type_payment', 'delivery_service'], 'string', 'max' => 50],
             [['fio', 'address', 'comments'], 'string', 'max' => 255],
             [['tel_number'], 'string', 'max' => 20],
@@ -87,6 +88,7 @@ class Report extends ActiveRecord
             'ttn' => Yii::t('app', 'Ttn'),
             'order_status_id' => Yii::t('app', 'Order Status ID'),
             'order_pay_ment_id' => Yii::t('app', 'Order Pay Ment ID'),
+            'nova_pay' => Yii::t('app', 'NovaPay'),
         ];
     }
 

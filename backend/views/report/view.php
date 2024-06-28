@@ -1,13 +1,13 @@
 <?php
 
+use yii\bootstrap5\Breadcrumbs;
 use common\models\Settings;
 use Detection\MobileDetect;
-use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\web\YiiAsset;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var common\models\Report $model */
@@ -26,14 +26,17 @@ $itemPlatformPrice = $model->getItemsPlatformPrice($model->id);
 $sum = $model->getTotalSumm($model->id) - $itemPlatformPrice;
 
 $deliveryPrice = $model->price_delivery ?? 0;
+$novaPay = $model->nova_pay ?? 0;
+
 if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_id == 'Повернення') {
-    $totalOrderPrice = '-' . ($itemPlatformPrice + $deliveryPrice);
+    $totalOrderPrice = '-' . ($itemPlatformPrice + $deliveryPrice + $novaPay);
 } else {
     $totalOrderPrice = $sumItemOrder
         - $incomingPriceSum
         - $itemDiscount
         - $itemPlatformPrice
-        - $deliveryPrice;
+        - $deliveryPrice
+        - $novaPay;
 }
 
 ?>
@@ -252,6 +255,21 @@ if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_
                                                                 <div class="sa-price">
                                                                     <span class="sa-price__symbol">-</span>
                                                                     <?= Yii::$app->formatter->asDecimal($itemDiscount, 2) ?>
+                                                                    <span class="sa-price__symbol"> ₴</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                    <?php if ($novaPay != 0): ?>
+                                                        <tr>
+                                                            <td colspan="3">NovaPay
+                                                                <div class="text-muted fs-exact-13">сума комісії NovaPay
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-end text-nowrap text-danger">
+                                                                <div class="sa-price">
+                                                                    <span class="sa-price__symbol">-</span>
+                                                                    <?= Yii::$app->formatter->asDecimal($novaPay, 2) ?>
                                                                     <span class="sa-price__symbol"> ₴</span>
                                                                 </div>
                                                             </td>
