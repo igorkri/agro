@@ -13,6 +13,7 @@ $request = Yii::$app->request;
 $currentUrl = $request->absoluteUrl;
 
 $rating = 3;
+
 ?>
     <div class="product-tabs  product-tabs--sticky">
         <div class="product-tabs__list">
@@ -36,7 +37,7 @@ $rating = 3;
                         <div class="short-description"><?= $product->short_description ?></div>
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
-                             style="display: none;"><?= $product->getFooterDescription($product->id) ?></div>
+                             style="display: none;"><?= $product->getFooterDescription($product->footer_description, $product->name) ?></div>
                         <button class="btn btn-secondary" id="show-more-btn">Розгорнути опис >></button>
                         <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">Приховати
                             опис <<

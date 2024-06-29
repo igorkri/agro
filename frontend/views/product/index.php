@@ -25,6 +25,8 @@ use yii\helpers\Url;
 ProductPageAsset::register($this);
 ActivePages::setActiveUser();
 
+$language =Yii::$app->session->get('_language');
+
 $webp_support = ProductImage::imageWebp();
 
 ?>
@@ -35,13 +37,13 @@ $webp_support = ProductImage::imageWebp();
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i><?=Yii::t('app', 'Головна')?> </a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="<?= Url::to(['category/list']) ?>">Категорії</a>
+                            <a href="<?= Url::to(['category/list']) ?>"><?=Yii::t('app', 'Категорії')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -261,7 +263,7 @@ $webp_support = ProductImage::imageWebp();
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
-                                                    <?= !$isset_to_cart ? 'Купити' : 'В кошику' ?>
+                                                    <?= !$isset_to_cart ? Yii::t('app', '').'Купити' : Yii::t('app', '').'В кошику' ?>
                                                 </button>
                                             <?php } else { ?>
                                                 <button class="btn btn-primary btn-lg disabled"
@@ -270,7 +272,7 @@ $webp_support = ProductImage::imageWebp();
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
-                                                    Купити
+                                                    <?=Yii::t('app', 'Купити')?>
                                                 </button>
                                             <?php } ?>
                                         </div>
@@ -312,7 +314,7 @@ $webp_support = ProductImage::imageWebp();
                                         </span>
                                             <span class="delivery-methods__item-name"><i style="font-size: 25px"
                                                                                          class="fas fa-qrcode"></i>
-                                            <span style="font-size:20px; margin:0 20px">Артикул</span></span>
+                                            <span style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Артикул')?></span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted"
@@ -332,7 +334,7 @@ $webp_support = ProductImage::imageWebp();
                                         </span>
                                             <span class="delivery-methods__item-name"><i style="font-size: 25px"
                                                                                          class="fas fa-truck"></i>
-                                            <span style="font-size:20px; margin:0 20px">Доставка</span></span>
+                                            <span style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Доставка')?></span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
@@ -340,23 +342,23 @@ $webp_support = ProductImage::imageWebp();
                                                     <svg width="24px" height="24px" style="margin-right: 5px;">
                                                         <use xlink:href="/images/sprite.svg#novaposhta"></use>
                                                     </svg>
-                                                    <b>Нова пошта</b>
+                                                    <b><?=Yii::t('app', 'Нова пошта')?></b>
                                                 </div>
                                                 <ul>
                                                     <li>
-                                                        Від 70 грн.
+                                                        <?=Yii::t('app', 'Від 70 грн.')?>
                                                     </li>
                                                     <li>
-                                                        Тарифи <a
+                                                        <?=Yii::t('app', 'Тарифи')?> <a
                                                                 href="https://novaposhta.ua/basic_tariffs"
-                                                                target="_bank">перевізника</a>
+                                                                target="_bank"><?=Yii::t('app', 'перевізника')?></a>
                                                     </li>
                                                 </ul>
                                                 <div style="display: flex; align-items: center;">
                                                     <svg width="24px" height="24px" style="margin-right: 5px;">
                                                         <use xlink:href="/images/sprite.svg#ukrposhta"></use>
                                                     </svg>
-                                                    <b>Укрпошта</b>
+                                                    <b><?=Yii::t('app', 'Укрпошта')?></b>
                                                 </div>
                                                 <ul>
                                                     <li>
@@ -365,16 +367,16 @@ $webp_support = ProductImage::imageWebp();
                                                     color: white;
                                                     padding-left: 3px;
                                                     padding-right: 3px">
-                                                       При 100% оплаті
+                                                      <?=Yii::t('app', 'При 100% оплаті')?>
                                                         </span>
                                                     </li>
                                                     <li>
-                                                        Від 35 грн.
+                                                        <?=Yii::t('app', 'Від 35 грн.')?>
                                                     </li>
                                                     <li>
-                                                        Тарифи <a
+                                                        <?=Yii::t('app', 'Тарифи')?>  <a
                                                                 href="https://www.ukrposhta.ua/ua/taryfy-ukrposhta-standart"
-                                                                target="_bank">перевізника</a>
+                                                                target="_bank"><?=Yii::t('app', 'перевізника')?></a>
                                                     </li>
                                                 </ul>
                                                 <div style="display: flex; align-items: center;">
@@ -382,11 +384,11 @@ $webp_support = ProductImage::imageWebp();
                                                         <use xlink:href="/images/sprite.svg#delivery-48"
                                                              style="fill: #47991f;"></use>
                                                     </svg>
-                                                    <b>Самовивіз</b>
+                                                    <b><?=Yii::t('app', 'Самовивіз')?></b>
                                                 </div>
                                                 <ul>
                                                     <li>
-                                                        Відвантаження з Полтави
+                                                        <?=Yii::t('app', 'Відвантаження з Полтави')?>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -409,9 +411,9 @@ $webp_support = ProductImage::imageWebp();
                                             <div class="payment-methods__item-description text-muted">
                                                 <ul>
                                                     <li>Visa/Mastercard</li>
-                                                    <li>Оплатити готівкою</li>
-                                                    <li>Наложенний платіж</li>
-                                                    <li>Розрахунковий рахунок</li>
+                                                    <li><?=Yii::t('app', 'Оплатити готівкою')?></li>
+                                                    <li><?=Yii::t('app', 'Наложенний платіж')?></li>
+                                                    <li><?=Yii::t('app', 'Розрахунковий рахунок')?></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -428,15 +430,15 @@ $webp_support = ProductImage::imageWebp();
                                             <span class="shield-methods__item-name"><i style="font-size: 25px"
                                                                                        class="fas fa-shield-alt"></i> <span
                                                         style="font-size:20px; margin:0 12px">
-                                                    Повернення</span></span>
+                                                    <?=Yii::t('app', 'Повернення')?></span></span>
                                         </label>
                                         <div class="payment-methods__item-container" style="">
                                             <div class="payment-methods__item-description text-muted">
                                                 <ul>
                                                     <li>
-                                                        Умови повернення та
+                                                        <?=Yii::t('app', 'Умови повернення та')?>
                                                         <a target="_blank" href="<?= Url::to(['order/conditions']) ?>">
-                                                            обміну</a>
+                                                            <?=Yii::t('app', 'обміну')?></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -469,9 +471,7 @@ $webp_support = ProductImage::imageWebp();
         </div>
     </div>
     <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
-    <!--    --><?php //if (!Yii::$app->devicedetect->isMobile()): ?>
-    <!--        --><?php //echo ProductsCarousel::widget() ?>
-    <!--    --><?php //endif; ?>
+
     <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
 
