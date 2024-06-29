@@ -3,6 +3,7 @@
 use common\models\shop\ActivePages;
 use common\models\shop\ProductImage;
 use frontend\assets\PostPageAsset;
+use frontend\widgets\LatestProduct;
 use frontend\widgets\ProductsCarousel;
 use frontend\widgets\TagCloud;
 use kartik\rating\StarRating;
@@ -22,13 +23,13 @@ $currentUrl = $request->absoluteUrl;
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app', 'Головна')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="<?= Url::to(['blogs/view']) ?>">Статті</a>
+                            <a href="<?= Url::to(['blogs/view']) ?>"><?=Yii::t('app', 'Статті')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -88,61 +89,11 @@ $currentUrl = $request->absoluteUrl;
                         </div>
                     </div>
                     <?php if ($products) { ?>
-                        <div class="block-sidebar__item">
-                            <div class="widget-posts widget">
-                                <h4 class="widget__title">Може зацікавити</h4>
-                                <div class="widget-products__list">
-                                    <?php foreach ($products as $product): ?>
-                                        <hr>
-                                        <div class="widget-products__item">
-                                            <div class="widget-products__image">
-                                                <div class="product-image">
-                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
-                                                       class="product-image__body">
-                                                        <img class="product-image__img"
-                                                             src="<?= $product->getImgOneExtraSmal($product->getId()) ?>"
-                                                             width="50" height="50"
-                                                             alt="<?= $product->name ?>">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="widget-products__info">
-                                                <div class="widget-products__name" style="font-weight: 550;">
-                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                                </div>
-                                                <div class="product-card__rating">
-                                                    <div class="product-card__rating-stars">
-                                                        <?= $product->getRating($product->id, 13, 12) ?>
-                                                    </div>
-                                                    <div class="product-card__rating-legend"><?= count($product->reviews) ?>
-                                                        відгуків
-                                                    </div>
-                                                </div>
-                                                <div class="product-card__availability">
-                                                         <span class="text-success">
-                                                 <?= $this->render('@frontend/widgets/views/status', ['product' => $product]) ?>
-                                                         </span>
-                                                </div>
-                                                <?php if ($product->old_price == null) { ?>
-                                                    <div class="widget-products__prices" style="font-size: 15px;">
-                                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="widget-products__prices">
-                                                        <span class="widget-products__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                                        <span class="widget-products__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    <?php endforeach ?>
-                                </div>
-                            </div>
-                        </div>
+                        <?php echo LatestProduct::widget(['products' => $products,]) ?>
                     <?php } ?>
                     <div class="block-sidebar__item">
                         <div class="widget-posts widget">
-                            <h4 class="widget__title">Останні статті</h4>
+                            <h4 class="widget__title"><?=Yii::t('app', 'Останні статті')?></h4>
                             <div class="widget-posts__list">
                                 <?php foreach ($blogs as $post): ?>
                                     <div class="widget-posts__item">
@@ -182,7 +133,7 @@ $currentUrl = $request->absoluteUrl;
 <div class="container reviews-view">
     <div class="reviews-view__list">
         <?php if ($postItem->reviews) { ?>
-            <h3 class="reviews-view__header">Відгуки читачів</h3>
+            <h3 class="reviews-view__header"><?=Yii::t('app', 'Відгуки читачів')?></h3>
         <?php } ?>
         <div class="reviews-list">
             <ol class="reviews-list__content">
@@ -277,13 +228,13 @@ $currentUrl = $request->absoluteUrl;
         </div>
     </div>
     <form id="form-review">
-        <h3 class="reviews-view__header">Залишити відгук</h3>
+        <h3 class="reviews-view__header"><?=Yii::t('app', 'Залишити відгук')?></h3>
         <div class="row">
             <div class="col-12 col-lg-9 col-xl-8">
                 <input type="hidden" name="post_id" value="<?= $postItem->id ?>">
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="w0">Ваша оцінка</label>
+                        <label for="w0"><?=Yii::t('app', 'Ваша оцінка')?></label>
                         <?php
                         echo StarRating::widget([
                             'name' => 'starrating',
@@ -302,7 +253,7 @@ $currentUrl = $request->absoluteUrl;
                     </div>
                     <div class="form-group col-md-4" id="url-review"
                     data-url-review="<?= Yii::$app->urlManager->createUrl(['posts-review/create']) ?>">
-                        <label for="review-name">Ваше ім'я</label>
+                        <label for="review-name"><?=Yii::t('app', 'Ваше ім\'я')?></label>
                         <input type="text" name="name" class="form-control" id="review-name"
                                oninvalid="this.setCustomValidity('Укажіть будь ласка Ваше ім’я')"
                                oninput="this.setCustomValidity('')"
@@ -318,7 +269,7 @@ $currentUrl = $request->absoluteUrl;
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="review-text">Ваш відгук</label>
+                    <label for="review-text"><?=Yii::t('app', 'Ваш відгук')?></label>
                     <textarea class="form-control" name="message" id="review-text"
                               rows="6" oninvalid="this.setCustomValidity('Напишіть будь ласка Ваш відгук')"
                               oninput="this.setCustomValidity('')"
@@ -326,10 +277,10 @@ $currentUrl = $request->absoluteUrl;
                 </div>
                 <div class="form-group mb-0">
                     <button type="submit" id="review-form-submit" class="btn btn-primary btn-lg">
-                        Залишити відгук
+                        <?=Yii::t('app', 'Залишити відгук')?>
                     </button>
                     <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
-                        Вітаемо Ваш відгук -- надіслано !!!
+                        <?=Yii::t('app', 'Вітаемо Ваш відгук -- надіслано !!!')?>
                     </div>
                 </div>
             </div>
