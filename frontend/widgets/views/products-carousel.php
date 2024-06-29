@@ -68,9 +68,7 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__actions">
                                     <div class="product-card__availability">
-                                  <span class="text-success">
                                         <?= $this->render('status', ['product' => $product]) ?>
-                                        </span>
                                     </div>
                                     <div class="product-card__prices">
                                         <?php if ($product->old_price == null) { ?>

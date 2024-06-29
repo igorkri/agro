@@ -26,7 +26,7 @@ use yii\helpers\Url;
         <div class="block-products-carousel__slider">
             <div class="block-products-carousel__preloader"></div>
             <div class="owl-carousel">
-                <?php  foreach ($products as $product): ?>
+                <?php foreach ($products as $product): ?>
                     <?php
                     if ($product !== null) {
                         $translationProd = $product->getTranslation($language)->one();
@@ -78,9 +78,7 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__actions">
                                     <div class="product-card__availability">
-                                  <span class="text-success">
                                         <?= $this->render('status', ['product' => $product]) ?>
-                                        </span>
                                     </div>
                                     <?php if ($product->old_price == null) { ?>
                                         <div class="product-card__prices">
