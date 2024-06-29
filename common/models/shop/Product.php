@@ -125,6 +125,16 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $this->hasMany(ProductTag::class, ['product_id' => 'id']);
     }
 
+    public function getTranslations()
+    {
+        return $this->hasMany(ProductsTranslate::class, ['product_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(ProductsTranslate::class, ['product_id' => 'id'])->where(['language' => $language]);
+    }
+
     /**
      * Gets query for [[ProductGrups]].
      *
@@ -846,11 +856,10 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $res;
     }
 
-    public function getFooterDescription($id)
+    public function getFooterDescription($description, $name)
     {
-        $footer_descr = Product::find()->select(['footer_description', 'name'])->where(['id' => $id])->one();
-        if ($footer_descr->footer_description) {
-            $footer_descr = str_replace("(*name_product*)", '<b>' . $footer_descr->name . '</b>', $footer_descr->footer_description);
+        if ($description) {
+            $footer_descr = str_replace("(*name_product*)", '<b>' . $name . '</b>', $description);
             return $footer_descr;
         } else {
             return '';

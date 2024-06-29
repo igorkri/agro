@@ -104,6 +104,16 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(Category::class, ['parentId' => 'id']);
     }
 
+    public function getTranslations()
+    {
+        return $this->hasMany(CategoriesTranslate::class, ['category_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(CategoriesTranslate::class, ['category_id' => 'id'])->where(['language' => $language]);
+    }
+
     //Возвращает продукты категории
     public function getProducts()
     {
