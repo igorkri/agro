@@ -17,16 +17,16 @@ $error_page = Yii::$app->response->statusCode;
                     Oops! Error <?= $error_page ?>
                 </div>
                 <div class="not-found__content">
-                    <h1 class="not-found__title">Сторінку Не Знайдено</h1>
+                    <h1 class="not-found__title"><?=Yii::t('app','Сторінку Не Знайдено')?></h1>
                     <p class="not-found__text">
-                        Здається, ми не можемо знайти сторінку, яку ви шукаєте.<br>
-                        Спробуйте скористатися пошуком.
+                        <?=Yii::t('app','Здається, ми не можемо знайти сторінку, яку ви шукаєте')?>.<br>
+                        <?=Yii::t('app','Спробуйте скористатися пошуком')?>.
                     </p>
                     <img src="/images/404.jpg" alt="Сторінку Не Знайдено">
                     <p class="not-found__text">
-                        Або перейдіть на головну сторінку, щоб почати все спочатку.
+                        <?=Yii::t('app','Або перейдіть на головну сторінку, щоб почати все спочатку')?>.
                     </p>
-                    <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>
+                    <a class="btn btn-secondary btn-sm" href="/"><?=Yii::t('app','На Головну Сторінку')?></a>
                 </div>
             </div>
         </div>

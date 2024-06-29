@@ -15,17 +15,17 @@ WishListPageAsset::register($this);
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                                <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Список бажань</li>
+                            <li class="breadcrumb-item active" aria-current="page"><?=Yii::t('app','Список бажань')?></li>
                         </ol>
                     </nav>
                 </div>
                 <div class="page-header__title">
-                    <h1>Список Бажань</h1>
+                    <h1><?=Yii::t('app','Список Бажань')?></h1>
                 </div>
             </div>
         </div>
@@ -36,10 +36,10 @@ WishListPageAsset::register($this);
                         <table class="wishlist">
                             <thead class="wishlist__head">
                             <tr class="wishlist__row">
-                                <th class="wishlist__column wishlist__column--image">Зображення</th>
-                                <th class="wishlist__column wishlist__column--product">Назва</th>
-                                <th class="wishlist__column wishlist__column--stock">Наявність</th>
-                                <th class="wishlist__column wishlist__column--price">Ціна</th>
+                                <th class="wishlist__column wishlist__column--image"><?=Yii::t('app','Зображення')?></th>
+                                <th class="wishlist__column wishlist__column--product"><?=Yii::t('app','Назва')?></th>
+                                <th class="wishlist__column wishlist__column--stock"><?=Yii::t('app','Наявність')?></th>
+                                <th class="wishlist__column wishlist__column--price"><?=Yii::t('app','Ціна')?></th>
                                 <th class="wishlist__column wishlist__column--tocart"></th>
                                 <th class="wishlist__column wishlist__column--remove"></th>
                             </tr>
@@ -72,39 +72,42 @@ WishListPageAsset::register($this);
                                                 <?= $product->getRating($product->id, 13, 12) ?>
                                             </div>
                                             <div class="wishlist__product-rating-legend"><?= count($product->reviews) ?>
-                                                відгуків
+                                                <?=Yii::t('app','відгуків')?>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="wishlist__column wishlist__column--stock">
-                            <span class="product-card__availability text-success"> <?php
-                                $statusIcon = '';
-                                $statusStyle = '';
+                                        <div class="product__availability" style="text-align: center; font-size: 1rem; font-weight: 600; letter-spacing: 0.6px;">
 
-                                switch ($product->status_id) {
-                                    case 1:
-                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
-                                        $statusStyle = '';
-                                        break;
-                                    case 2:
-                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
-                                        $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
-                                        break;
-                                    case 3:
-                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
-                                        $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
-                                        break;
-                                    case 4:
-                                        $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
-                                        $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
-                                        break;
-                                    default:
-                                        $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
-                                        break;
-                                }
+                                            <?php $statusIcon = '';
+                                            $statusStyle = '';
 
-                                echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
-                                ?></span>
+                                            switch ($product->status_id) {
+                                                case 1:
+                                                    $statusIcon = '<i style="margin: 5px; color: #28a745;" class="fas fa-check"></i>';
+                                                    $statusStyle = 'color: #28a745;';
+                                                    break;
+                                                case 2:
+                                                    $statusIcon = '<i style="margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
+                                                    $statusStyle = 'color: #ff0000;';
+                                                    break;
+                                                case 3:
+                                                    $statusIcon = '<i style="margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
+                                                    $statusStyle = 'color: #ff8300;';
+                                                    break;
+                                                case 4:
+                                                    $statusIcon = '<i style="margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
+                                                    $statusStyle = 'color: #0331fc;';
+                                                    break;
+                                                default:
+                                                    $statusStyle = 'color: #060505;';
+                                                    break;
+                                            }
+
+                                            echo $statusIcon . '<span style="' . $statusStyle . '">' . Yii::t('app', $product->status->name) . '</span>';
+                                            ?>
+
+                                        </div>
                                     </td>
                                     <td class="wishlist__column wishlist__column--price">
                                         <?php if ($product->old_price == null) { ?>
@@ -129,7 +132,7 @@ WishListPageAsset::register($this);
                                                 <svg width="20px" height="20px" style="display: unset;">
                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                 </svg>
-                                                <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
+                                                <?= !$product->getIssetToCart($product->id) ? Yii::t('app','Купити') : Yii::t('app','В кошику') ?>
                                             </button>
                                         <?php } else { ?>
                                             <button class="btn btn-secondary btn-sm disabled"
@@ -138,7 +141,7 @@ WishListPageAsset::register($this);
                                                 <svg width="20px" height="20px" style="display: unset;">
                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                 </svg>
-                                                <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
+                                                <?= !$product->getIssetToCart($product->id) ? Yii::t('app','Купити') : Yii::t('app','В кошику') ?>
                                             </button>
                                         <?php } ?>
                                     </td>
@@ -164,17 +167,17 @@ WishListPageAsset::register($this);
                     <div class="container">
                         <div class="wishlist-not-products">
                             <div class="wishlist-not-products__content">
-                                <h2 class="wishlist-not-products__title">Список бажань порожній!</h2>
+                                <h2 class="wishlist-not-products__title"><?=Yii::t('app','Список бажань порожній!')?></h2>
                                 <p class="wishlist-not-products__text">
-                                    Додайте товари до списку бажань.
+                                    <?=Yii::t('app','Додайте товари до списку бажань.')?>
                                     <br>
-                                    Спробуйте скористатися пошуком.
+                                    <?=Yii::t('app','Спробуйте скористатися пошуком.')?>
                                 </p>
                                 <img src="/images/no-wish.jpg" alt="Список бажань порожній">
                                 <p class="wishlist-not-products__text">
-                                    Або перейдіть на головну сторінку, щоб почати все спочатку.
+                                    <?=Yii::t('app','Або перейдіть на головну сторінку, щоб почати все спочатку.')?>
                                 </p>
-                                <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>
+                                <a class="btn btn-secondary btn-sm" href="/"><?=Yii::t('app','На Головну Сторінку')?></a>
                             </div>
                         </div>
                     </div>

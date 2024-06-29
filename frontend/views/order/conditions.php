@@ -13,12 +13,12 @@ ConditionsPageAsset::register($this);
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Головна</a>
+                            <a href="/"><?=Yii::t('app','Головна')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page"> Умови повернення та обміну</li>
+                        <li class="breadcrumb-item active" aria-current="page"> <?=Yii::t('app','Умови повернення та обміну')?></li>
                     </ol>
                 </nav>
             </div>

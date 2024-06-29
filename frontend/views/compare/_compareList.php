@@ -11,7 +11,7 @@ use yii\helpers\Url;
                 <table class="compare-table">
                     <tbody>
                     <tr>
-                        <th>Продукт</th>
+                        <th><?=Yii::t('app','Продукт')?></th>
                         <?php foreach ($products as $product): ?>
                             <td>
                                 <a class="compare-table__product-link"
@@ -36,40 +36,43 @@ use yii\helpers\Url;
                         <?php endforeach; ?>
                     </tr>
                     <tr>
-                        <th>Наявність</th>
+                        <th><?=Yii::t('app','Наявність')?></th>
                         <?php foreach ($products as $product): ?>
-                            <td><span class="product-card__availability text-success"> <?php
-                                    $statusIcon = '';
-                                    $statusStyle = '';
-
-                                    switch ($product->status_id) {
-                                        case 1:
-                                            $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
+                            <td>
+                                        <span class="product-card__availability text-success"> <?php
+                                            $statusIcon = '';
                                             $statusStyle = '';
-                                            break;
-                                        case 2:
-                                            $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
-                                            $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
-                                            break;
-                                        case 3:
-                                            $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
-                                            $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
-                                            break;
-                                        case 4:
-                                            $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
-                                            $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
-                                            break;
-                                        default:
-                                            $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
-                                            break;
-                                    }
 
-                                    echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
-                                    ?></span></td>
+                                            switch ($product->status_id) {
+                                                case 1:
+                                                    $statusIcon = '<i style="font-size:1.5rem; margin: 5px;" class="fas fa-check"></i>';
+                                                    $statusStyle = '';
+                                                    break;
+                                                case 2:
+                                                    $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
+                                                    $statusStyle = 'color: #ff0000; font-weight: 600; letter-spacing: 0.6px;';
+                                                    break;
+                                                case 3:
+                                                    $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
+                                                    $statusStyle = 'color: #ff8300; font-weight: 600; letter-spacing: 0.6px;';
+                                                    break;
+                                                case 4:
+                                                    $statusIcon = '<i style="font-size:1.5rem; margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
+                                                    $statusStyle = 'color: #0331fc; font-weight: 600; letter-spacing: 0.6px;';
+                                                    break;
+                                                default:
+                                                    $statusStyle = 'color: #060505; font-weight: 600; letter-spacing: 0.6px;';
+                                                    break;
+                                            }
+
+                                            echo $statusIcon . '<span style="' . $statusStyle . '">' . Yii::t('app', $product->status->name) . '</span>';
+                                            ?>
+                                        </span>
+                            </td>
                         <?php endforeach; ?>
                     </tr>
                     <tr>
-                        <th>Ціна</th>
+                        <th><?=Yii::t('app','Ціна')?></th>
                         <?php foreach ($products as $product): ?>
                             <td>
                                 <?php if ($product->old_price == null) { ?>
@@ -99,7 +102,7 @@ use yii\helpers\Url;
                                         <svg width="20px" height="20px" style="display: unset;">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
+                                        <?= !$product->getIssetToCart($product->id) ? Yii::t('app','Купити') : Yii::t('app','В кошику') ?>
                                     </button>
                                 <?php } else { ?>
                                     <button class="btn btn-secondary btn-sm disabled"
@@ -123,7 +126,7 @@ use yii\helpers\Url;
                                         id="delete-from-compare-btn"
                                         data-url-compare="<?= Yii::$app->urlManager->createUrl(['compare/delete-from-compare']) ?>"
                                         data-compare-product-id="<?= $product->id ?>">
-                                    <i class="fas fa-trash-alt"></i> Видалити
+                                    <i class="fas fa-trash-alt"></i> <?=Yii::t('app','Видалити')?>
                                 </button>
                             </td>
                         <?php endforeach; ?>
@@ -143,22 +146,23 @@ use yii\helpers\Url;
             </div>
         </div>
     </div>
-<?php } else { ?>
+<?php }
+else { ?>
     <div class="block">
         <div class="container">
             <div class="compare-not-products">
                 <div class="compare-not-products__content">
-                    <h2 class="compare-not-products__title">Список порівняння порожній!</h2>
+                    <h2 class="compare-not-products__title"><?=Yii::t('app','Список порівняння порожній!')?></h2>
                     <p class="compare-not-products__text">
-                        Додайте товари для порівняння.
+                        <?=Yii::t('app','Додайте товари для порівняння.')?>
                         <br>
-                        Спробуйте скористатися пошуком.
+                        <?=Yii::t('app','Спробуйте скористатися пошуком.')?>
                     </p>
                     <img src="/images/no-compare.jpg" alt="Список порівняння порожній">
                     <p class="compare-not-products__text">
-                        Або перейдіть на головну сторінку, щоб почати все спочатку.
+                        <?=Yii::t('app','Або перейдіть на головну сторінку, щоб почати все спочатку.')?>
                     </p>
-                    <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>
+                    <a class="btn btn-secondary btn-sm" href="/"><?=Yii::t('app','На Головну Сторінку')?></a>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@ $tel_2 = '(068) 489-43-86';
     <div class="mobilemenu__backdrop"></div>
     <div class="mobilemenu__body">
         <div class="mobilemenu__header">
-            <div class="mobilemenu__title"> <i class="fas fa-bars"></i> Меню</div>
+            <div class="mobilemenu__title"> <i class="fas fa-bars"></i> <?=Yii::t('app','Меню')?></div>
             <button type="button" class="mobilemenu__close">
                 <svg width="20px" height="20px">
                     <use xlink:href="/images/sprite.svg#cross-20"></use>
@@ -22,43 +22,43 @@ $tel_2 = '(068) 489-43-86';
                 data-collapse-opened-class="mobile-links__item--open">
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="/" class="mobile-links__item-link"> <i class="fas fa-home"></i> Головна</a>
+                        <a href="/" class="mobile-links__item-link"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/category/list']) ?>" class="mobile-links__item-link"> <i class="fas fa-th-list"></i> Категорії</a>
+                        <a href="<?= Url::to(['/category/list']) ?>" class="mobile-links__item-link"> <i class="fas fa-th-list"></i> <?=Yii::t('app','Категорії')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/special/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-tags"></i> Спеціальні пропозиції</a>
+                        <a href="<?= Url::to(['/special/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-tags"></i> <?=Yii::t('app','Спеціальні пропозиції')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/delivery/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-truck"></i> Доставка та
-                            оплата</a>
+                        <a href="<?= Url::to(['/delivery/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-truck"></i> <?=Yii::t('app','Доставка та
+                            оплата')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/about/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-address-card"></i> Про нас</a>
+                        <a href="<?= Url::to(['/about/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-address-card"></i> <?=Yii::t('app','Про нас')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/contact/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-phone-square-alt"></i> Зв'язок з нами</a>
+                        <a href="<?= Url::to(['/contact/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-phone-square-alt"></i> <?=Yii::t('app','Зв\'язок з нами')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/blogs/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-file-alt"> </i> Статті</a>
+                        <a href="<?= Url::to(['/blogs/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-file-alt"> </i> <?=Yii::t('app','Статті')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a data-collapse-trigger href="/" class="mobile-links__item-link"> <i class="fas fa-language"></i> Мова</a>
+                        <a data-collapse-trigger href="/" class="mobile-links__item-link"> <i class="fas fa-language"></i> <?=Yii::t('app','Мова')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>

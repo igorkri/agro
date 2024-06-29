@@ -24,17 +24,17 @@ ActivePages::setActiveUser();
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Спеціальні пропозиції</li>
+                        <li class="breadcrumb-item active" aria-current="page"><?=Yii::t('app','Спеціальні пропозиції')?></li>
                     </ol>
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1>Спеціальні пропозиції</h1>
+                <h1><?=Yii::t('app','Спеціальні пропозиції')?></h1>
             </div>
         </div>
     </div>
@@ -61,13 +61,13 @@ ActivePages::setActiveUser();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="view-options__legend">Показано
-                                    <?= count($products) ?> товарів
+                                <div class="view-options__legend"><?=Yii::t('app','Показано')?>
+                                    <?= count($products) ?> <?=Yii::t('app','товарів')?>
                                     з <?= $products_all ?>
                                 </div>
                                 <div class="view-options__divider"></div>
                                 <div class="view-options__control">
-                                    <label for="">Сортувати</label>
+                                    <label for=""><?=Yii::t('app','Сортувати')?></label>
                                     <div>
                                         <?php
                                         echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);
@@ -82,7 +82,7 @@ ActivePages::setActiveUser();
                                     </div>
                                 </div>
                                 <div class="view-options__control">
-                                    <label for="">Показати</label>
+                                    <label for=""><?=Yii::t('app','Показати')?></label>
                                     <div>
                                         <?php
                                         echo Html::dropDownList('count', Yii::$app->session->get('count'), [
@@ -132,7 +132,7 @@ ActivePages::setActiveUser();
                                                         <?= $product->getRating($product->id, 13, 12) ?>
                                                     </div>
                                                     <div class="product-card__rating-legend"><?= count($product->reviews) ?>
-                                                        відгуків
+                                                        <?=Yii::t('app','відгуків')?>
                                                     </div>
                                                 </div>
                                                 <ul class="product-card__features-list">
