@@ -16,17 +16,17 @@ ActivePages::setActiveUser();
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Порівняння</li>
+                        <li class="breadcrumb-item active" aria-current="page"><?=Yii::t('app','Порівняння')?></li>
                     </ol>
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1>Порівняння товарів</h1>
+                <h1><?=Yii::t('app','Порівняння товарів')?></h1>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@ ActivePages::setActiveUser();
                         <table class="compare-table">
                             <tbody>
                             <tr>
-                                <th>Продукт</th>
+                                <th><?=Yii::t('app','Продукт')?></th>
                                 <?php foreach ($products as $product): ?>
                                     <td>
                                         <a class="compare-table__product-link"
@@ -63,9 +63,10 @@ ActivePages::setActiveUser();
                                 <?php endforeach; ?>
                             </tr>
                             <tr>
-                                <th>Наявність</th>
+                                <th><?=Yii::t('app','Наявність')?></th>
                                 <?php foreach ($products as $product): ?>
-                                    <td><span class="product-card__availability text-success"> <?php
+                                    <td>
+                                        <span class="product-card__availability text-success"> <?php
                                             $statusIcon = '';
                                             $statusStyle = '';
 
@@ -91,12 +92,14 @@ ActivePages::setActiveUser();
                                                     break;
                                             }
 
-                                            echo $statusIcon . '<span style="' . $statusStyle . '">' . $product->status->name . '</span>';
-                                            ?></span></td>
+                                            echo $statusIcon . '<span style="' . $statusStyle . '">' . Yii::t('app', $product->status->name) . '</span>';
+                                            ?>
+                                        </span>
+                                    </td>
                                 <?php endforeach; ?>
                             </tr>
                             <tr>
-                                <th>Ціна</th>
+                                <th><?=Yii::t('app','Ціна')?></th>
                                 <?php foreach ($products as $product): ?>
                                     <td>
                                         <?php if ($product->old_price == null) { ?>
@@ -126,7 +129,7 @@ ActivePages::setActiveUser();
                                                     <svg width="20px" height="20px" style="display: unset;">
                                                         <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                     </svg>
-                                                    <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
+                                                    <?= !$product->getIssetToCart($product->id) ? Yii::t('app','Купити') : Yii::t('app','В кошику') ?>
                                                 </button>
                                         <?php } else { ?>
                                                 <button class="btn btn-secondary btn-sm disabled"
@@ -150,7 +153,7 @@ ActivePages::setActiveUser();
                                                 id="delete-from-compare-btn"
                                                 data-url-compare="<?= Yii::$app->urlManager->createUrl(['compare/delete-from-compare']) ?>"
                                                 data-compare-product-id="<?= $product->id ?>">
-                                            <i class="fas fa-trash-alt"></i> Видалити
+                                            <i class="fas fa-trash-alt"></i> <?=Yii::t('app','Видалити')?>
                                         </button>
                                     </td>
                                 <?php endforeach; ?>
@@ -175,17 +178,17 @@ ActivePages::setActiveUser();
                 <div class="container">
                     <div class="compare-not-products">
                         <div class="compare-not-products__content">
-                            <h2 class="compare-not-products__title">Список порівняння порожній!</h2>
+                            <h2 class="compare-not-products__title"><?=Yii::t('app','Список порівняння порожній!')?></h2>
                             <p class="compare-not-products__text">
-                                Додайте товари для порівняння.
+                                <?=Yii::t('app','Додайте товари для порівняння.')?>
                                 <br>
-                                Спробуйте скористатися пошуком.
+                                <?=Yii::t('app','Спробуйте скористатися пошуком.')?>
                             </p>
                             <img src="/images/no-compare.jpg" alt="Список порівняння порожній">
                             <p class="compare-not-products__text">
-                                Або перейдіть на головну сторінку, щоб почати все спочатку.
+                                <?=Yii::t('app','Або перейдіть на головну сторінку, щоб почати все спочатку.')?>
                             </p>
-                            <a class="btn btn-secondary btn-sm" href="/">На Головну Сторінку</a>
+                            <a class="btn btn-secondary btn-sm" href="/"><?=Yii::t('app','На Головну Сторінку')?></a>
                         </div>
                     </div>
                 </div>

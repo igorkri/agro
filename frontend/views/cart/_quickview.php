@@ -19,11 +19,11 @@ $urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
         <table class="cart__table cart-table">
             <thead class="cart-table__head">
             <tr class="cart-table__row">
-                <th class="cart-table__column cart-table__column--image">Зображення</th>
-                <th class="cart-table__column cart-table__column--product">Товар</th>
-                <th class="cart-table__column cart-table__column--price">Ціна</th>
-                <th class="cart-table__column cart-table__column--quantity">К-ть</th>
-                <th class="cart-table__column cart-table__column--total">Всього</th>
+                <th class="cart-table__column cart-table__column--image"><?=Yii::t('app','Зображення')?></th>
+                <th class="cart-table__column cart-table__column--product"><?=Yii::t('app','Товар')?></th>
+                <th class="cart-table__column cart-table__column--price"><?=Yii::t('app','Ціна')?></th>
+                <th class="cart-table__column cart-table__column--quantity"><?=Yii::t('app','К-ть')?></th>
+                <th class="cart-table__column cart-table__column--total"><?=Yii::t('app','Всього')?></th>
                 <th class="cart-table__column cart-table__column--remove"></th>
             </tr>
             </thead>
@@ -92,13 +92,13 @@ $urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
                 <div class="card">
                     <div class="card-body">
                         <?php if ($total_summ < $min_order and $total_summ > 0) { ?>
-                            <h5 class="card-title" style="color: red">Замовлення від <?= $min_order ?>
+                            <h5 class="card-title" style="color: red"><?=Yii::t('app','Замовлення від')?> <?= $min_order ?>
                                 ₴</h5>
                         <?php } ?>
                         <table class="cart__totals">
                             <tfoot class="cart__totals-footer">
                             <tr>
-                                <th>Загальна сума</th>
+                                <th><?=Yii::t('app','Загальна сума')?></th>
                                 <td><?= Yii::$app->formatter->asCurrency($total_summ) ?></td>
                             </tr>
                             </tfoot>
@@ -107,16 +107,16 @@ $urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
                             <?php if ($total_summ < $min_order) { ?>
                                 <a class="btn btn-primary btn-lg btn-block disabled cart__checkout-button"
                                    style="font-size: 16px"
-                                   href="<?= Url::to(['order/checkout']) ?>">Оформити замовлення</a>
+                                   href="<?= Url::to(['order/checkout']) ?>"><?=Yii::t('app','Оформити замовлення')?></a>
                             <?php } else { ?>
                                 <a class="btn btn-primary btn-lg btn-block cart__checkout-button"
                                    style="font-size: 16px"
-                                   href="<?= Url::to(['order/checkout']) ?>">Оформити замовлення</a>
+                                   href="<?= Url::to(['order/checkout']) ?>"><?=Yii::t('app','Оформити замовлення')?></a>
                             <?php } ?>
                         <?php } ?>
                         <a class="btn btn-warning btn-lg btn-block cart__checkout-button"
                            style="font-size: 16px"
-                           href="<?= $_SERVER['HTTP_REFERER'] ?>">Дивитись товари</a>
+                           href="<?= $_SERVER['HTTP_REFERER'] ?>"><?=Yii::t('app','Дивитись товари')?></a>
                     </div>
                 </div>
             </div>

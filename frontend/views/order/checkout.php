@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/"><?=Yii::t('app', 'Головна')?></a>
+                                <a href="/"><?= Yii::t('app', 'Головна') ?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
@@ -41,7 +41,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                     <div class="col-12 col-lg-6 col-xl-7">
                         <div class="card mb-lg-0">
                             <div class="card-body">
-                                <h3 class="card-title"><?=Yii::t('app', 'Інформація для доставки')?></h3>
+                                <h3 class="card-title"><?= Yii::t('app', 'Інформація для доставки') ?></h3>
                                 <div class="form-row">
                                     <div class="form-group col-md-8">
                                         <?= $form->field($order, 'fio')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
@@ -63,10 +63,11 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                 <span class="input-radio__circle"></span>
                                             </span>
                                         </span>
-                                                <span class="payment-methods__item-name"><i
-                                                            style="font-size: 25px; color: #2f720e"
-                                                            class="fas fa-truck"></i> <span
-                                                            style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Самовивіз')?></span></span>
+                                                <span class="payment-methods__item-name">
+                                                    <i style="font-size: 25px; color: #2f720e" class="fas fa-truck"></i>
+                                                    <span style="font-size:20px; margin:0 20px"><?= Yii::t('app', 'Самовивіз') ?>
+                                                    </span>
+                                                </span>
                                             </label>
                                             <div class="payment-methods__item-container" style="">
                                                 <div class="payment-methods__item-description text-muted">
@@ -104,7 +105,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                         <use xlink:href="/images/sprite.svg#novaposhta"></use>
                                                 </svg>
                                             </span>
-                                                <span style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Нова Пошта')?></span>
+                                                <span style="font-size:20px; margin:0 20px"><?= Yii::t('app', 'Нова Пошта') ?></span>
                                             </label>
                                             <div class="payment-methods__item-container" style="">
                                                 <div class="payment-methods__item-description text-muted">
@@ -198,7 +199,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                     <svg width="32px" height="32px" style="margin-right: 5px;">
                                                         <use xlink:href="/images/sprite.svg#ukrposhta"></use>
                                                 </svg> </span>
-                                                <span style="font-size:20px; margin:0 20px"><?=Yii::t('app', 'Укрпошта')?></span>
+                                                <span style="font-size:20px; margin:0 20px"><?= Yii::t('app', 'Укрпошта') ?></span>
                                             </label>
                                             <div class="payment-methods__item-container" style="">
                                                 <div class="payment-methods__item-description text-muted">
@@ -210,18 +211,18 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                     padding-top: 3px;
                                                     padding-bottom: 3px;
 ">
-                                                        Відправка при 100% оплаті за замовлення!!!
+                                                        <?=Yii::t('app','Відправка при 100% оплаті за замовлення!!!')?>
                                                     </p>
-                                                    <p style="font-weight: 600">Для доставки "Укрпошта" введіть в полі
-                                                        коментар такі дані:</p>
+                                                    <p style="font-weight: 600"><?=Yii::t('app','Для доставки "Укрпошта" введіть в полі
+                                                        коментар такі дані')?>:</p>
                                                     <ul style="margin-bottom: 1rem">
-                                                        <li>Індекс</li>
-                                                        <li>Область</li>
-                                                        <li>Район</li>
-                                                        <li>Місто/Смт (село)</li>
+                                                        <li><?=Yii::t('app','Індекс')?></li>
+                                                        <li><?=Yii::t('app','Область')?></li>
+                                                        <li><?=Yii::t('app','Район')?></li>
+                                                        <li><?=Yii::t('app','Місто/Смт (село)')?></li>
                                                     </ul>
-                                                    <p style="font-weight: 600">Для прикладу:</p>
-                                                    <p>36502, Полтавська, Кременчуцький, м.Кременчук</p>
+                                                    <p style="font-weight: 600"><?=Yii::t('app','Для прикладу')?>:</p>
+                                                    <p>36502, <?=Yii::t('app','Полтавська, Кременчуцький, м.Кременчук')?></p>
                                                 </div>
                                             </div>
                                         </li>
@@ -236,12 +237,12 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                     <div class="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
                         <div class="card mb-0">
                             <div class="card-body">
-                                <h3 class="card-title"><?=Yii::t('app', 'Ваше замовлення')?></h3>
+                                <h3 class="card-title"><?= Yii::t('app', 'Ваше замовлення') ?></h3>
                                 <table class="checkout__totals">
                                     <thead class="checkout__totals-header">
                                     <tr>
-                                        <th><?=Yii::t('app', 'Товар')?></th>
-                                        <th><?=Yii::t('app', 'Всього')?></th>
+                                        <th><?= Yii::t('app', 'Товар') ?></th>
+                                        <th><?= Yii::t('app', 'Всього') ?></th>
                                     </tr>
                                     </thead>
                                     <tbody class="checkout__totals-products">
@@ -254,7 +255,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                     </tbody>
                                     <tfoot class="checkout__totals-footer">
                                     <tr>
-                                        <th><?=Yii::t('app', 'Загальна сума')?></th>
+                                        <th><?= Yii::t('app', 'Загальна сума') ?></th>
                                         <td><?= Yii::$app->formatter->asCurrency($total_summ) ?></td>
                                     </tr>
                                     </tfoot>
@@ -271,19 +272,21 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                             </svg>
                                         </span>
                                     </span>
-                                        <label class="form-check-label" for="checkout-terms"><?=Yii::t('app', 'Я прочитав і погоджуюся з веб-сайтом ')?>
+                                        <label class="form-check-label"
+                                               for="checkout-terms"><?= Yii::t('app', 'Я прочитав і погоджуюся з веб-сайтом ') ?>
                                             <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
-                                                <?=Yii::t('app', ' умови повернення та обміну')?> </a><span style="color: red">*</span>
+                                                <?= Yii::t('app', ' умови повернення та обміну') ?> </a><span
+                                                    style="color: red">*</span>
                                         </label>
                                     </div>
                                 </div>
                                 <?php if ($total_summ != 0) { ?>
                                     <button type="submit" class="btn btn-primary btn-dec-lg btn-block"
-                                            style="font-size: 16px"><?=Yii::t('app', 'Зробити замовлення')?>
+                                            style="font-size: 16px"><?= Yii::t('app', 'Зробити замовлення') ?>
                                     </button>
                                 <?php } else { ?>
                                     <a class="btn btn-warning btn-dec-lg btn-block" style="font-size: 16px"
-                                       href="<?= Url::to(['/']) ?>"><?=Yii::t('app', 'Дивитись товари')?></a>
+                                       href="<?= Url::to(['/']) ?>"><?= Yii::t('app', 'Дивитись товари') ?></a>
                                 <?php } ?>
                             </div>
                         </div>

@@ -26,13 +26,13 @@ ActivePages::setActiveUser();
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                                <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="<?= Url::to(['category/list']) ?>">Категорії</a>
+                                <a href="<?= Url::to(['category/list']) ?>"><?=Yii::t('app','Категорії')?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
@@ -79,7 +79,7 @@ ActivePages::setActiveUser();
                                             <svg class="filters-button__icon" width="16px" height="16px">
                                                 <use xlink:href="/images/sprite.svg#filters-16"></use>
                                             </svg>
-                                            <span class="filters-button__title">Фільтр</span>
+                                            <span class="filters-button__title"><?=Yii::t('app','Фільтр')?></span>
                                             <span class="filters-button__counter"><?= $category->getCounterFilter() ?></span>
                                         </button>
                                     </div>
@@ -102,11 +102,11 @@ ActivePages::setActiveUser();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="view-options__legend">Показано <?= count($products) ?> товарів
+                                    <div class="view-options__legend"><?=Yii::t('app','Показано')?> <?= count($products) ?> <?=Yii::t('app','товарів')?>
                                         з <?= $products_all ?></div>
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control">
-                                        <label for="">Сортувати</label>
+                                        <label for=""><?=Yii::t('app','Сортувати')?></label>
                                         <div>
                                             <?php echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
                                                 '' => 'Наявність',
@@ -119,7 +119,7 @@ ActivePages::setActiveUser();
                                         </div>
                                     </div>
                                     <div class="view-options__control">
-                                        <label for="">Показати</label>
+                                        <label for=""><?=Yii::t('app','Показати')?></label>
                                         <div>
                                             <?php
                                             echo Html::dropDownList('count', Yii::$app->session->get('count'), [
@@ -168,7 +168,7 @@ ActivePages::setActiveUser();
                                                             <?= $product->getRating($product->id, 13, 12) ?>
                                                         </div>
                                                         <div class="product-card__rating-legend"><?= count($product->reviews) ?>
-                                                            відгуків
+                                                            <?=Yii::t('app','відгуків')?>
                                                         </div>
                                                     </div>
                                                     <ul class="product-card__features-list">
@@ -202,7 +202,7 @@ ActivePages::setActiveUser();
                                 <div class="block-sidebar__backdrop"></div>
                                 <div class="block-sidebar__body">
                                     <div class="block-sidebar__header">
-                                        <div class="block-sidebar__title">Фільтр</div>
+                                        <div class="block-sidebar__title"><?=Yii::t('app','Фільтр')?></div>
                                         <button class="block-sidebar__close" type="button">
                                             <svg width="20px" height="20px">
                                                 <use xlink:href="/images/sprite.svg#cross-20"></use>
@@ -213,13 +213,13 @@ ActivePages::setActiveUser();
                                         <div class="widget-filters widget widget-filters--offcanvas--always"
                                              data-collapse
                                              data-collapse-opened-class="filter--opened">
-                                            <h4 class="widget-filters__title widget__title">Фільтр</h4>
+                                            <h4 class="widget-filters__title widget__title"><?=Yii::t('app','Фільтр')?></h4>
                                             <div class="widget-filters__list">
                                                 <div class="widget-filters__item">
                                                     <div class="filter filter--opened" data-collapse-item>
                                                         <button type="button" class="filter__title"
                                                                 data-collapse-trigger>
-                                                            Категорії
+                                                            <?=Yii::t('app','Категорії')?>
                                                             <svg class="filter__arrow" width="12px" height="7px">
                                                                 <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                                             </svg>
@@ -270,7 +270,7 @@ ActivePages::setActiveUser();
                                                         <div class="filter filter--opened" data-collapse-item>
                                                             <button type="button" class="filter__title"
                                                                     data-collapse-trigger>
-                                                                Категорії допоміжні
+                                                                <?=Yii::t('app','Категорії допоміжні')?>
                                                                 <svg class="filter__arrow" width="12px" height="7px">
                                                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                                                 </svg>
@@ -297,7 +297,7 @@ ActivePages::setActiveUser();
                                                     <div class="filter filter--opened" data-collapse-item>
                                                         <button type="button" class="filter__title"
                                                                 data-collapse-trigger>
-                                                            Ціна
+                                                            <?=Yii::t('app','Ціна')?>
                                                             <svg class="filter__arrow" width="12px" height="7px">
                                                                 <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                                             </svg>
@@ -317,7 +317,7 @@ ActivePages::setActiveUser();
                                                                      data-from="<?= $submittedMinPrice ?>"
                                                                      data-to="<?= $submittedMaxPrice ?>">
                                                                     <div class="filter-price__slider"></div>
-                                                                    <div class="filter-price__title">Ціна: ₴
+                                                                    <div class="filter-price__title"><?=Yii::t('app','Ціна')?>: ₴
                                                                         <span class="filter-price__min-value"></span> –
                                                                         ₴
                                                                         <span class="filter-price__max-value"></span>
@@ -339,7 +339,7 @@ ActivePages::setActiveUser();
                                                     <div class="filter" data-collapse-item>
                                                         <button type="button" class="filter__title"
                                                                 data-collapse-trigger>
-                                                            Бренд
+                                                            <?=Yii::t('app','Бренд')?>
                                                             <svg class="filter__arrow" width="12px" height="7px">
                                                                 <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                                             </svg>
@@ -428,9 +428,9 @@ ActivePages::setActiveUser();
                                                 <?php endforeach; ?>
                                             </div>
                                             <div class="widget-filters__actions d-flex">
-                                                <button type="submit" class="btn btn-primary btn-sm">Фільтрувати
+                                                <button type="submit" class="btn btn-primary btn-sm"><?=Yii::t('app','Фільтрувати')?>
                                                 </button>
-                                                <?= Html::a('Скинути', ['product-list/' . $category->slug], ['class' => 'btn btn-secondary btn-sm']) ?>
+                                                <?= Html::a(Yii::t('app','Скинути'), ['product-list/' . $category->slug], ['class' => 'btn btn-secondary btn-sm']) ?>
                                             </div>
                                         </div>
                                     </div>

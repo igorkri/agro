@@ -17,13 +17,13 @@ ActivePages::setActiveUser();
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="<?= Url::to(['category/list']) ?>">Категорії</a>
+                            <a href="<?= Url::to(['category/list']) ?>"><?=Yii::t('app','Категорії')?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/frontend/web/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>

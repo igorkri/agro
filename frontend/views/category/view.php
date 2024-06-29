@@ -22,7 +22,7 @@ ActivePages::setActiveUser();
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/"> <i class="fas fa-home"></i> Головна</a>
+                                <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
@@ -66,10 +66,10 @@ ActivePages::setActiveUser();
                                         </div>
                                     </div>
                                     <?php echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);?>
-                                    <div class="view-options__legend">Показано <?= count($products) ?> товарів з <?= $products_all ?></div>
+                                    <div class="view-options__legend"><?=Yii::t('app','Показано')?> <?= count($products) ?> <?=Yii::t('app','товарів з')?> <?= $products_all ?></div>
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control">
-                                        <label for="">Сортувати</label>
+                                        <label for=""><?=Yii::t('app','Сортувати')?></label>
                                         <div>
                                             <?php echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
                                                 '' => 'Наявність',
@@ -130,7 +130,7 @@ ActivePages::setActiveUser();
                                                         <div class="product-card__rating-stars">
                                                             <?=$product->getRating($product->id, 13, 12)?>
                                                         </div>
-                                                        <div class="product-card__rating-legend"><?=count($product->reviews)?> відгуків</div>
+                                                        <div class="product-card__rating-legend"><?=count($product->reviews)?> <?=Yii::t('app','відгуків')?></div>
                                                     </div>
                                                     <ul class="product-card__features-list">
                                                         <?= Product::productParamsList($product->id) ?>
