@@ -110,6 +110,16 @@ class Report extends ActiveRecord
         }
     }
 
+    public function getGoodsName($id)
+    {
+        $names = ReportItem::find()->select('product_name')->where(['order_id' => $id])->column();
+
+        if ($names) {
+            return implode(',  ', $names);
+        }
+        return null;
+    }
+
     public function getTotalSumPeriod($report_id)
     {
         $order = Report::find()->with('reportItems')->where(['id' => $report_id])->one();

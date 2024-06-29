@@ -81,7 +81,7 @@ $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== nu
                     />
                 </div>
                 <div class="sa-divider"></div>
-                <table class="table table-striped sa-datatables-init" data-ordering='true' data-order='[[ 15, "desc" ]]'
+                <table class="table table-striped sa-datatables-init" data-ordering='true' data-order='[[ 14, "desc" ]]'
                        data-sa-search-input="#table-search">
                     <thead>
                     <tr style="background-color: rgba(111,190,79,0.53)">
@@ -99,9 +99,8 @@ $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== nu
                         <th class="min-w-5x" data-orderable="false"><?= Yii::t('app', 'Delivery Service') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'Address') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'TTH') ?></th>
-                        <th class="min-w-5x"><?= Yii::t('app', 'Number Order 1c') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Data Order') ?></th>
-                        <th><?= Yii::t('app', 'ID') ?></th>
+                        <th class="min-w-15x hidden-cell"><?= Yii::t('app', 'Goods') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -132,13 +131,8 @@ $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== nu
                             <td class="text-center"><?= $model->getDeliveryLogo($model->delivery_service) ?></td>
                             <td><?= $model->address ?></td>
                             <td><?= $model->ttn ?></td>
-                            <td><?= $model->number_order_1c ?></td>
                             <td><?= $model->date_order ?></td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <span class="me-4"><?= $model->id ?></span>
-                                </div>
-                            </td>
+                            <td class="hidden-cell"><?= $model->getGoodsName($model->id) ?></td>
                             <td>
                                 <div class="dropdown">
                                     <button
@@ -210,4 +204,8 @@ $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== nu
         background: #fbe720;
         color: #3d464d;
     }
+    .hidden-cell {
+        display: none;
+    }
+
 </style>
