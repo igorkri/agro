@@ -8,7 +8,7 @@ use Yii;
 use yii\base\Widget;
 use yii\caching\DbDependency;
 
-class FeaturedProduct extends Widget    // Популярні товари
+class FeaturedProduct extends Widget
 {
 
     public function init()
@@ -18,6 +18,10 @@ class FeaturedProduct extends Widget    // Популярні товари
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+
+        $title = 'Популярні товари';
+
         $cacheKey = 'featuredProduct_cache_key';
         $dependency = new DbDependency([
             'sql' => 'SELECT MAX(date_updated) FROM product',
@@ -32,6 +36,7 @@ class FeaturedProduct extends Widget    // Популярні товари
                 ->column();
 
             $products = Product::find()
+                ->with(['category.parent'])
                 ->select([
                     'id',
                     'name',
@@ -51,6 +56,11 @@ class FeaturedProduct extends Widget    // Популярні товари
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
 
-        return $this->render('featured-product', ['products' => $products]);
+        return $this->render('products-carousel-slide',
+            [
+                'products' => $products,
+                'language' => $language,
+                'title' => $title,
+            ]);
     }
 }

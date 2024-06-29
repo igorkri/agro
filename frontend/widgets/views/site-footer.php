@@ -5,6 +5,7 @@ use yii\helpers\Url;
 /** @var \common\models\Contact $contacts */
 
 ?>
+
 <footer class="site__footer">
     <div class="site-footer">
         <?php if (Yii::$app->devicedetect->isMobile()){ ?>
@@ -18,7 +19,7 @@ use yii\helpers\Url;
                         <div class="row">
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="site-footer__widget footer-contacts">
-                                    <h4 class="footer-contacts__title">Наші контакти</h4>
+                                    <h4 class="footer-contacts__title"><?= Yii::t('app', 'Наші контакти') ?></h4>
                                     <ul class="footer-contacts__contacts">
                                         <li>
                                             <i class="footer-contacts__icon fas fa-globe-americas"></i> <?= $contacts->address ?>
@@ -42,12 +43,12 @@ use yii\helpers\Url;
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
                                 <div class="site-footer__widget footer-links">
-                                    <h4 class="footer-links__title">Інформація</h4>
+                                    <h4 class="footer-links__title"><?= Yii::t('app', 'Інформація') ?></h4>
                                     <ul class="footer-links__list">
                                         <li class="footer-links__item"><a href="<?= Url::to(['/about/view']) ?>"
-                                                                          class="footer-links__link">Про нас</a></li>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Про нас') ?></a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
-                                                                          class="footer-links__link">Про доставку</a>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Про доставку') ?></a>
                                         </li>
 <!--                                        <li class="footer-links__item"><a href="/"-->
 <!--                                                                          class="footer-links__link">Конфіденційність</a>-->
@@ -55,9 +56,9 @@ use yii\helpers\Url;
 <!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Бренди</a>-->
 <!--                                        </li>-->
                                         <li class="footer-links__item"><a href="<?= Url::to(['/contact/view']) ?>"
-                                                                          class="footer-links__link">Контакти</a></li>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Контакти') ?></a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/order/conditions']) ?>"
-                                                                          class="footer-links__link">Повернення</a>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Повернення') ?></a>
                                         </li>
 <!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Карта-->
 <!--                                                сайту</a>-->
@@ -67,7 +68,7 @@ use yii\helpers\Url;
                             </div>
                             <div class="col-6 col-md-3 col-lg-2">
                                 <div class="site-footer__widget footer-links">
-                                    <h4 class="footer-links__title">Товари</h4>
+                                    <h4 class="footer-links__title"><?= Yii::t('app', 'Товари') ?></h4>
                                     <ul class="footer-links__list">
 <!--                                        <li class="footer-links__item"><a href="/"-->
 <!--                                                                          class="footer-links__link">Розпродаж</a>-->
@@ -80,12 +81,11 @@ use yii\helpers\Url;
 <!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Популярні-->
 <!--                                                Категорії</a></li>-->
                                         <li class="footer-links__item"><a href="<?= Url::to(['/category/list']) ?>"
-                                                                          class="footer-links__link">Каталог</a></li>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Каталог') ?></a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/special/view']) ?>"
-                                                                          class="footer-links__link">Спеціальні
-                                                пропозиції</a></li>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Спеціальні пропозиції') ?></a></li>
                                         <li class="footer-links__item"><a href="<?= Url::to(['/blogs/view']) ?>"
-                                                                          class="footer-links__link">Статті</a></li>
+                                                                          class="footer-links__link"><?= Yii::t('app', 'Статті') ?></a></li>
                                     </ul>
                                 </div>
                             </div>

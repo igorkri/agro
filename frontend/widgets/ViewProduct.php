@@ -6,7 +6,7 @@ use common\models\shop\Product;
 use Yii;
 use yii\base\Widget;
 
-class ViewProduct extends Widget  // Супутні товари
+class ViewProduct extends Widget
 {
 
     public function init()
@@ -19,6 +19,10 @@ class ViewProduct extends Widget  // Супутні товари
 
     public function run()
     {
+        $language = Yii::$app->session->get('_language');
+
+        $title = 'Ви переглядали';
+
         if (isset($this->id)) {
             $id = $this->id;
             $product = Product::findOne($id);
@@ -27,7 +31,7 @@ class ViewProduct extends Widget  // Супутні товари
             $viewedProducts = array_unique($viewedProducts);
             $viewedProducts = array_slice($viewedProducts, 0, 10); // Ограничение на количество просмотренных товаров
             Yii::$app->session->set('viewedProducts', $viewedProducts);
-        }else{
+        } else {
             $viewedProducts = Yii::$app->session->get('viewedProducts', []);
             $viewedProducts = array_slice($viewedProducts, 0, 10); // Ограничение на количество просмотренных товаров
         }
@@ -47,7 +51,12 @@ class ViewProduct extends Widget  // Супутні товари
             ->where(['id' => $viewedProducts])
             ->all();
 
-        return $this->render('view-product', ['viewedProducts' => $viewedProductsData]);
+        return $this->render('products-carousel-slide',
+            [
+                'products' => $viewedProductsData,
+                'language' => $language,
+                'title' => $title,
+            ]);
     }
 }
 

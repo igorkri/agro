@@ -6,7 +6,9 @@ namespace frontend\widgets;
 
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
+use Yii;
 use yii\base\Widget;
+use yii\helpers\Url;
 
 class ColumnsSpecialOffers extends Widget  // Фунгіциди
 {
@@ -19,6 +21,9 @@ class ColumnsSpecialOffers extends Widget  // Фунгіциди
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+        $title = 'Фунгіциди';
+        $url = Url::to(['product-list/fungitsidi']);
 
         $products_grup = ProductGrup::find()
             ->select('product_id')
@@ -42,7 +47,13 @@ class ColumnsSpecialOffers extends Widget  // Фунгіциди
             ->limit(3)
             ->all();
 
-        return $this->render('columns-special-offers', ['products' => $products]);
+        return $this->render('product-columns',
+            [
+                'products' => $products,
+                'title' => $title,
+                'url' => $url,
+                'language' => $language,
+            ]);
     }
 
 

@@ -37,7 +37,7 @@ use yii\helpers\Url;
                                     <?php } ?>
                                     <a href="<?= Url::to(['/product/' . $slide->slug]) ?>">
                                         <div class="block-slideshow__slide-button">
-                                            <span class="btn btn-primary btn-lg">Переглянути</span>
+                                            <span class="btn btn-primary btn-lg"><?= Yii::t('app', 'Переглянути') ?></span>
                                         </div>
                                     </a>
                                 </div>

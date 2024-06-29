@@ -8,7 +8,7 @@ use Yii;
 use yii\caching\DbDependency;
 use yii\base\Widget;
 
-class ProductsCarousel extends Widget   // Нові надходження
+class ProductsCarousel extends Widget
 {
 
     public function init()
@@ -19,6 +19,10 @@ class ProductsCarousel extends Widget   // Нові надходження
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+
+        $title = 'Нові надходження';
+
         $cacheKey = 'productsCarousel_cache_key';
         $dependency = new DbDependency([
             'sql' => 'SELECT MAX(date_updated) FROM product',
@@ -53,6 +57,11 @@ class ProductsCarousel extends Widget   // Нові надходження
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
 
-            return $this->render('products-carousel', ['products' => $products]);
+            return $this->render('products-carousel',
+                [
+                    'products' => $products,
+                    'language' => $language,
+                    'title' => $title,
+                ]);
     }
 }

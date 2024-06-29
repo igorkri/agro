@@ -9,7 +9,7 @@ use yii\helpers\Url;
 <div class="block block-products block-products--layout--large-first" data-mobile-grid-columns="2">
     <div class="container">
         <div class="block-header">
-            <h3 class="block-header__title">Товари для Фермера</h3>
+            <h3 class="block-header__title"><?= Yii::t('app', $title) ?></h3>
             <div class="block-header__divider"></div>
         </div>
         <div class="block-products__body">
@@ -45,7 +45,7 @@ use yii\helpers\Url;
                                     <?= $products[0]->getRating($products[0]->id, 13, 12) ?>
                                 </div>
                                 <div class="product-card__rating-legend"><?= count($products[0]->reviews) ?>
-                                    відгуків
+                                    <?= Yii::t('app', 'відгуків') ?>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@ use yii\helpers\Url;
                                         <svg width="20px" height="20px" style="display: unset;">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        <?= !$products[0]->getIssetToCart($products[0]->id) ? 'Купити' : 'В кошику' ?>
+                                        <?= !$products[0]->getIssetToCart($products[0]->id) ? Yii::t('app', 'Купити')  :  Yii::t('app', 'В кошику')  ?>
                                     </button>
                                 <?php } else { ?>
                                     <button class="btn btn-secondary disabled"
@@ -116,7 +116,7 @@ use yii\helpers\Url;
                                         <svg width="20px" height="20px" style="display: unset;">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
-                                        Купити
+                                       <?= Yii::t('app', 'Купити') ?>
                                     </button>
                                 <?php } ?>
                                 <button type="button"
@@ -145,6 +145,19 @@ use yii\helpers\Url;
             <div class="block-products__list">
                 <?php $i = 0; ?>
                 <?php foreach ($products as $product): ?>
+                    <?php
+                    if ($product !== null) {
+                        $translationProd = $product->getTranslation($language)->one();
+                        if ($translationProd) {
+                            $product->name = $translationProd->name;
+                        }
+                        $translationCat = $product->category->getTranslation($language)->one();
+                        if ($translationCat) {
+                            $product->category->name = $translationCat->name;
+                            $product->category->prefix = $translationCat->prefix;
+                        }
+                    }
+                    ?>
                     <?php if ($i != 0): ?>
                         <div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
@@ -177,7 +190,7 @@ use yii\helpers\Url;
                                             <?= $product->getRating($product->id, 13, 12) ?>
                                         </div>
                                         <div class="product-card__rating-legend"><?= count($product->reviews) ?>
-                                            відгуків
+                                            <?= Yii::t('app', 'відгуків') ?>
                                         </div>
                                     </div>
                                 </div>

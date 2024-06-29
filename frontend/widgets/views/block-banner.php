@@ -11,7 +11,7 @@ use yii\helpers\Url;
             <div class="block-banner__title"> Засоби <br class="block-banner__mobile-br"> Захисту Рослин </div>
             <div class="block-banner__text"> Гербіциди, Фунгіциди, Інсектициди, Протруйники, Прилипачі, Ад'юванти, Десиканти </div>
             <div class="block-banner__button">
-                <span class="btn btn-sm btn-primary"> Переглянути </span>
+                <span class="btn btn-sm btn-primary"> <?= Yii::t('app', 'Переглянути') ?> </span>
             </div>
         </a>
     </div>

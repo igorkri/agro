@@ -5,7 +5,6 @@
 use common\models\shop\Product;
 
 ?>
-
 <div class="product-card__buttons">
     <?php if ($product->status_id != 2) { ?>
         <button class="btn btn-primary product-card__addtocart"
@@ -18,7 +17,7 @@ use common\models\shop\Product;
             <svg width="20px" height="20px" style="display: unset;">
                 <use xlink:href="/images/sprite.svg#cart-20"></use>
             </svg>
-            <?= !$product->getIssetToCart($product->id) ? 'Купити' : 'В кошику' ?>
+            <?= !$product->getIssetToCart($product->id) ? Yii::t('app', 'Купити') : Yii::t('app', 'В кошику') ?>
         </button>
     <?php } else { ?>
         <button class="btn btn-secondary disabled"

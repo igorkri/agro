@@ -50,7 +50,7 @@ use yii\helpers\Url;
                                                                                     <?php if ($i == 6): ?>
                                                                                         <li class="megamenu__item">
                                                                                             <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>">
-                                                                                                <span style="color: #30b12b; ">Дивитись всі... </span>
+                                                                                                <span style="color: #30b12b; "><?= Yii::t('app', 'Дивитись всі...') ?> </span>
                                                                                             </a>
                                                                                         </li>
                                                                                     <?php endif; ?>
@@ -94,7 +94,7 @@ use yii\helpers\Url;
                                                                             <?php if ($i == 6): ?>
                                                                                 <li class="megamenu__item">
                                                                                     <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>">
-                                                                                        <span style="color: #30b12b; ">Дивитись всі... </span>
+                                                                                        <span style="color: #30b12b; "><?= Yii::t('app', 'Дивитись всі...') ?> </span>
                                                                                     </a>
                                                                                 </li>
                                                                             <?php endif; ?>
@@ -119,7 +119,7 @@ use yii\helpers\Url;
             <svg class="departments__button-icon" width="18px" height="14px">
                 <use xlink:href="/images/sprite.svg#menu-18x14"></use>
             </svg>
-            Категорії товарів
+            <?= Yii::t('app', 'Категорії товарів') ?>
             <svg class="departments__button-arrow" width="9px" height="6px">
                 <use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use>
             </svg>

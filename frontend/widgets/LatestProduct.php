@@ -2,9 +2,8 @@
 
 namespace frontend\widgets;
 
-use common\models\shop\Product;
+use Yii;
 use yii\base\Widget;
-use yii\db\Expression;
 
 class LatestProduct extends Widget
 {
@@ -12,26 +11,20 @@ class LatestProduct extends Widget
     {
         parent::init();
     }
+    public $products;
 
     public function run()
     {
-        $products = Product::find()
-            ->select([
-                'id',
-                'name',
-                'slug',
-                'price',
-                'old_price',
-                'status_id',
-                'label_id',
-                'currency',
-            ])
-            ->where(['IN', 'status_id', [1, 3, 4]])
-            ->orderBy(new Expression('RAND()'))
-            ->limit(5)
-            ->all();
+        $language =Yii::$app->session->get('_language');
 
-        return $this->render('latest-product', ['products' => $products]);
+        $title = 'Може зацікавити';
+
+        return $this->render('latest-product',
+            [
+                'products' => $this->products,
+                'language' => $language,
+                'title' => $title,
+            ]);
     }
 
 }

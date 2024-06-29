@@ -17,6 +17,10 @@ class ProductsCarouselGazon extends Widget   // Газонна Трава
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+
+        $title = 'Газонна Трава';
+
         $cacheKey = 'productsCarouselGazon_cache_key';
         $dependency = new DbDependency([
             'sql' => 'SELECT MAX(date_updated) FROM product',
@@ -50,6 +54,11 @@ class ProductsCarouselGazon extends Widget   // Газонна Трава
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency); // Помечаем кэш базы данных как актуальный
         }
 
-        return $this->render('products-carousel-gazon', ['products' => $products]);
+        return $this->render('products-carousel',
+            [
+                'products' => $products,
+                'language' => $language,
+                'title' => $title,
+            ]);
     }
 }

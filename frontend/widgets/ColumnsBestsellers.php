@@ -6,7 +6,9 @@ namespace frontend\widgets;
 
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
+use Yii;
 use yii\base\Widget;
+use yii\helpers\Url;
 
 class ColumnsBestsellers extends Widget  //  Інсектициди
 {
@@ -19,6 +21,9 @@ class ColumnsBestsellers extends Widget  //  Інсектициди
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+        $title = 'Інсектициди';
+        $url = Url::to(['product-list/insektitsidi']);
 
         $products_grup = ProductGrup::find()
             ->select('product_id')
@@ -42,7 +47,13 @@ class ColumnsBestsellers extends Widget  //  Інсектициди
             ->limit(3)
             ->all();
 
-        return $this->render('columns-bestsellers', ['products' => $products]);
+        return $this->render('product-columns',
+            [
+                'products' => $products,
+                'title' => $title,
+                'url' => $url,
+                'language' => $language,
+            ]);
     }
 
 

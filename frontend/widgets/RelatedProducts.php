@@ -4,10 +4,11 @@
 namespace frontend\widgets;
 
 use common\models\shop\Product;
+use Yii;
 use yii\base\Widget;
 use yii\db\Expression;
 
-class RelatedProducts extends Widget  // Супутні товари
+class RelatedProducts extends Widget
 {
 
     public function init()
@@ -19,6 +20,10 @@ class RelatedProducts extends Widget  // Супутні товари
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+
+        $title = 'Супутні товари';
+
         $package = $this->package;
         $products = Product::find()
             ->select([
@@ -39,9 +44,12 @@ class RelatedProducts extends Widget  // Супутні товари
             ->limit(15)
             ->all();
 
-        return $this->render('related-products', [
-            'products' => $products,
-        ]);
+        return $this->render('products-carousel-slide',
+            [
+                'products' => $products,
+                'language' => $language,
+                'title' => $title,
+            ]);
     }
 
 

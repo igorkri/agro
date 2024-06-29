@@ -6,9 +6,10 @@ namespace frontend\widgets;
 
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
+use Yii;
 use yii\base\Widget;
 
-class Bestsellers extends Widget  // Товари для Фермера
+class Bestsellers extends Widget
 {
 
     public function init()
@@ -18,6 +19,9 @@ class Bestsellers extends Widget  // Товари для Фермера
     }
 
     public function run() {
+
+        $language =Yii::$app->session->get('_language');
+        $title = 'Товари для Фермера';
 
         $products_grup = ProductGrup::find()
             ->select('product_id')
@@ -42,7 +46,12 @@ class Bestsellers extends Widget  // Товари для Фермера
             ->limit(7)
             ->all();
 
-        return $this->render('bestsellers', ['products' => $products]);
+        return $this->render('bestsellers',
+            [
+                'products' => $products,
+                'title' => $title,
+                'language' => $language,
+            ]);
     }
 
 

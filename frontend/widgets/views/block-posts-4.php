@@ -11,7 +11,7 @@ $webp_support = ProductImage::imageWebp();
 <div class="block block-posts" data-layout="grid-4" data-mobile-columns="2">
     <div class="container">
         <div class="block-header">
-            <h3 class="block-header__title">Статті</h3>
+            <h3 class="block-header__title"><?= Yii::t('app', 'Статті') ?></h3>
             <div class="block-header__divider"></div>
             <div class="block-header__arrows-list">
                 <button class="block-header__arrow block-header__arrow--left" type="button" aria-label="Left">
@@ -65,7 +65,7 @@ $webp_support = ProductImage::imageWebp();
                             </div>
                             <div class="post-card__read-more">
                                 <a href="<?= Url::to(['post/view', 'slug' => $post->slug]) ?>"
-                                   class="btn btn-secondary btn-sm">Докладніше...</a>
+                                   class="btn btn-secondary btn-sm"><?= Yii::t('app', 'Докладніше...') ?></a>
                             </div>
                         </div>
                     </div>

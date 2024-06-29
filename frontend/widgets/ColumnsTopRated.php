@@ -6,7 +6,9 @@ namespace frontend\widgets;
 
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
+use Yii;
 use yii\base\Widget;
+use yii\helpers\Url;
 
 class ColumnsTopRated extends Widget   //  Гербіциди
 {
@@ -19,6 +21,9 @@ class ColumnsTopRated extends Widget   //  Гербіциди
 
     public function run()
     {
+        $language =Yii::$app->session->get('_language');
+        $title = 'Гербіциди';
+        $url = Url::to(['product-list/gerbitsidi']);
 
         $products_grup = ProductGrup::find()
             ->select('product_id')
@@ -42,7 +47,13 @@ class ColumnsTopRated extends Widget   //  Гербіциди
             ->limit(3)
             ->all();
 
-        return $this->render('columns-top-rated', ['products' => $products]);
+        return $this->render('product-columns',
+            [
+                'products' => $products,
+                'title' => $title,
+                'url' => $url,
+                'language' => $language,
+            ]);
     }
 
 

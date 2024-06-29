@@ -49,64 +49,64 @@ $lang = strtoupper(Yii::$app->language);
                             </button>
                         </div>
                     </div>
-<!--                    <div class="topbar__item">-->
-<!--                        <div class="topbar-dropdown">-->
-<!--                            <button class="topbar-dropdown__btn" type="button">-->
-<!--                                --><?//php echo Yii::t('app', 'Мова') ?><!--:-->
-<!--                                <span class="topbar__item-value">--><?//php echo $lang ?><!--</span>-->
-<!--                                <svg width="7px" height="5px">-->
-<!--                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>-->
-<!--                                </svg>-->
-<!--                            </button>-->
-<!--                            <div class="topbar-dropdown__body">-->
-<!--                                <div class="menu menu--layout--topbar  menu--with-icons ">-->
-<!--                                    <div class="menu__submenus-container"></div>-->
-<!--                                    <ul class="menu__list">-->
-<!--                                        <li class="menu__item">-->
-<!--                                            <div class="menu__item-submenu-offset"></div>-->
-<!--                                            <a class="menu__item-link"-->
-<!--                                               href="--><?php //echo Url::to(['/' . $path, 'language' => 'en']) ?><!--">-->
-<!--                                                <div class="menu__item-icon"><img-->
-<!--                                                            srcset="images/languages/language-1.png 1x, images/languages/language-1@2x.png 2x"-->
-<!--                                                            src="images/languages/language-1.png" alt="">-->
-<!--                                                </div>-->
-<!--                                                English-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                        <li class="menu__item">-->
-<!--                                            <div class="menu__item-submenu-offset"></div>-->
-<!--                                            <a class="menu__item-link"-->
-<!--                                               href="--><?php //echo Url::to(['/' . $path, 'language' => 'ru']) ?><!--">-->
-<!--                                                <div class="menu__item-icon"><img-->
-<!--                                                            srcset="images/languages/language-2.png 1x, images/languages/language-2@2x.png 2x"-->
-<!--                                                            src="images/languages/language-2.png" alt="">-->
-<!--                                                </div>-->
-<!--                                                Русский-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                        <li class="menu__item">-->
-<!--                                            <div class="menu__item-submenu-offset"></div>-->
-<!--                                            <a class="menu__item-link"-->
-<!--                                               href="--><?php //echo Url::to(['/' . $path, 'language' => 'uk']) ?><!--">-->
-<!--                                                <div class="menu__item-icon">-->
-<!--                                                    <img-->
-<!--                                                            srcset="images/languages/language-3.png 1x, images/languages/language-3@2x.png 2x"-->
-<!--                                                            src="images/languages/language-3.png" alt="">-->
-<!--                                                </div>-->
-<!--                                                Українська-->
-<!--                                            </a>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="topbar__item">
                         <div class="topbar-dropdown">
                             <button class="topbar-dropdown__btn" type="button">
-                                <svg width="20px" height="15px">
-                                    <use xlink:href="/images/sprite.svg#flag-icons-ua"></use>
+                                <?php echo Yii::t('app', 'Мова') ?>:
+                                <span class="topbar__item-value"><?php echo $lang ?></span>
+                                <svg width="7px" height="5px">
+                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-7x5"></use>
                                 </svg>
+                            </button>
+                            <div class="topbar-dropdown__body">
+                                <div class="menu menu--layout--topbar  menu--with-icons ">
+                                    <div class="menu__submenus-container"></div>
+                                    <ul class="menu__list">
+                                        <li class="menu__item">
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link"
+                                               href="<?php echo Url::to(['/' . $path, 'language' => 'en']) ?>">
+                                                <div class="menu__item-icon">
+                                                    <img src="/images/languages/language-EN.png" alt="EN">
+                                                </div>
+                                                English
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link"
+                                               href="<?php echo Url::to(['/' . $path, 'language' => 'ru']) ?>">
+                                                <div class="menu__item-icon">
+                                                    <img src="/images/languages/language-RU.png" alt="RU">
+                                                </div>
+                                                Русский
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link"
+                                               href="<?php echo Url::to(['/' . $path, 'language' => 'uk']) ?>">
+                                                <div class="menu__item-icon">
+                                                    <img src="/images/languages/language-UK.png" alt="UK">
+                                                </div>
+                                                Українська
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topbar__item">
+                        <div class="topbar-dropdown">
+                            <button class="topbar-dropdown__btn" type="button">
+                                <?php if ($lang == 'UK') { ?>
+                                    <img src="/images/languages/language-UK.png" alt="UK">
+                                <?php } elseif ($lang == 'EN') { ?>
+                                    <img src="/images/languages/language-EN.png" alt="EN">
+                                <?php } else { ?>
+                                    <img src="/images/languages/language-RU.png" alt="RU">
+                                <?php } ?>
                             </button>
                         </div>
                     </div>
