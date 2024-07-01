@@ -98,14 +98,7 @@ ActivePages::setActiveUser();
                                     </div>
                                 </div>
                             </div>
-                            <div class="products-view__list products-list" data-layout="grid-4-full"
-                                 data-with-features="false" data-mobile-grid-columns="2">
-                                <div class="products-list__body">
-                                    <?php foreach ($products as $product): ?>
-                                        <?= $this->render('@frontend/views/layouts/products-list-item.php', ['product' => $product]) ?>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
+                            <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
                             <div style="display: block;margin: 60px 0px 0px 0px;">
                                 <ul class="pagination justify-content-center">
                                     <li>
@@ -121,12 +114,6 @@ ActivePages::setActiveUser();
             </div>
         </div>
     </div>
-    <style>
-        .category-prefix {
-            color: #a9a8a8;
-        }
-    </style>
-
 <?php
 $script = <<< JS
 
