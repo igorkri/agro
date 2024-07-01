@@ -33,7 +33,7 @@ $rating = 3;
             <div class="product-tabs__content">
                 <div class="product-tabs__pane product-tabs__pane--active" id="tab-description">
                     <div class="typography" id="product-description">
-                        <h2 class="spec__header"><?= 'Опис, інструкція товару' . ' ' . $product->name ?></h2>
+                        <h2 class="spec__header"><?= Yii::t('app','Опис, інструкція товару') . ' ' . $product->name ?></h2>
                         <div class="short-description"><?= $product->short_description ?></div>
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
@@ -46,7 +46,7 @@ $rating = 3;
                 </div>
                 <div class="product-tabs__pane" id="tab-analog">
                     <div class="spec">
-                        <h2 class="spec__header"><?= 'Аналог товару' . ' ' . $product->name ?></h2>
+                        <h2 class="spec__header"><?= Yii::t('app','Аналог товару') . ' ' . $product->name ?></h2>
                         <?php if ($products_analog) { ?>
                             <div class="block-sidebar__item">
                                 <div class="widget">
@@ -185,7 +185,7 @@ $rating = 3;
                                                                                      style="display: unset;">
                                                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                                                 </svg>
-                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'Купити' : 'В кошику' ?>
+                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? Yii::t('app','Купити') : Yii::t('app','В кошику') ?>
                                                                             </button>
                                                                             <button type="button"
                                                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
@@ -215,7 +215,7 @@ $rating = 3;
                                                                                      style="display: unset;">
                                                                                     <use xlink:href="/images/sprite.svg#cart-20"></use>
                                                                                 </svg>
-                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? 'Купити' : 'В кошику' ?>
+                                                                                <?= !$product_analog->getIssetToCart($product_analog->id) ? Yii::t('app','Купити') : Yii::t('app','В кошику') ?>
                                                                             </button>
                                                                             <button type="button"
                                                                                     class="btn btn-light btn-svg-icon btn-svg-icon--fake-svg product-card__compare"
@@ -256,7 +256,7 @@ $rating = 3;
                 </div>
                 <div class="product-tabs__pane" id="tab-specification">
                     <div class="spec">
-                        <h2 class="spec__header"><?= 'Характеристики' . ' ' . $product->name ?></h2>
+                        <h2 class="spec__header"><?= Yii::t('app','Характеристики') . ' ' . $product->name ?></h2>
                         <div class="spec__section">
                             <h4 class="spec__section-title"><?=Yii::t('app','Загальні')?></h4>
                             <?php if ($product_properties != null) { ?>
