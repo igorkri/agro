@@ -19,13 +19,13 @@ $rating = 3;
         <div class="product-tabs__list">
             <div class="product-tabs__list-body">
                 <div class="product-tabs__list-container container">
-                    <a href="#tab-description" class="product-tabs__item product-tabs__item--active">Опис</a>
+                    <a href="#tab-description" class="product-tabs__item product-tabs__item--active"><?=Yii::t('app','Опис')?></a>
                     <?php if ($products_analog_count != null) { ?>
-                        <a href="#tab-analog" class="product-tabs__item">Аналог <span
+                        <a href="#tab-analog" class="product-tabs__item"><?=Yii::t('app','Аналог')?> <span
                                     class="indicator-analog__value"> <?= $products_analog_count ?></span></a>
                     <?php } ?>
-                    <a href="#tab-specification" class="product-tabs__item">Характеристики</a>
-                    <a href="#tab-reviews" class="product-tabs__item">Відгуки</a>
+                    <a href="#tab-specification" class="product-tabs__item"><?=Yii::t('app','Характеристики')?></a>
+                    <a href="#tab-reviews" class="product-tabs__item"><?=Yii::t('app','Відгуки')?></a>
                 </div>
             </div>
         </div>
@@ -38,9 +38,9 @@ $rating = 3;
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
                              style="display: none;"><?= $product->getFooterDescription($product->footer_description, $product->name) ?></div>
-                        <button class="btn btn-secondary" id="show-more-btn">Розгорнути опис >></button>
-                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">Приховати
-                            опис <<
+                        <button class="btn btn-secondary" id="show-more-btn"><?=Yii::t('app','Розгорнути опис')?> >></button>
+                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;"><?=Yii::t('app','Приховати
+                            опис')?> <<
                         </button>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ $rating = 3;
                                                                 <?= $product_analog->getRating($product_analog->id, 13, 12) ?>
                                                             </div>
                                                             <div class="product-card__rating-legend"><?= count($product_analog->reviews) ?>
-                                                                відгуків
+                                                                <?=Yii::t('app','відгуків')?>
                                                             </div>
                                                         </div>
                                                         <div class="product-card__availability">
@@ -152,7 +152,7 @@ $rating = 3;
                                                                             </div>
                                                                         </div>
                                                                         <div class="product-card__rating-legend"><?= count($product_analog->reviews) ?>
-                                                                            відгуків
+                                                                            <?=Yii::t('app','відгуків')?>
                                                                         </div>
                                                                     </div>
                                                                     <ul class="product-card__features-list">
@@ -249,8 +249,8 @@ $rating = 3;
                             </div>
                         <?php } ?>
                         <div class="spec__disclaimer">
-                            Інформація про характеристики, комплект поставки, країну виробника та зовнішній
-                            вигляд товару є довідковою та базується на актуальній на момент публікації інформації.
+                            <?=Yii::t('app','Інформація про характеристики, комплект поставки, країну виробника та зовнішній
+                            вигляд товару є довідковою та базується на актуальній на момент публікації інформації.')?>
                         </div>
                     </div>
                 </div>
@@ -258,7 +258,7 @@ $rating = 3;
                     <div class="spec">
                         <h2 class="spec__header"><?= 'Характеристики' . ' ' . $product->name ?></h2>
                         <div class="spec__section">
-                            <h4 class="spec__section-title">Загальні</h4>
+                            <h4 class="spec__section-title"><?=Yii::t('app','Загальні')?></h4>
                             <?php if ($product_properties != null) { ?>
                                 <?php foreach ($product_properties as $property): ?>
                                     <?php if ($property->value && $property->value != '*'): ?>
@@ -284,8 +284,8 @@ $rating = 3;
                             <?php } ?>
                         </div>
                         <div class="spec__disclaimer">
-                            Інформація про технічні характеристики, комплект поставки, країну виробника та зовнішній
-                            вигляд товару є довідковою та базується на актуальній на момент публікації інформації.
+                            <?=Yii::t('app','Інформація про технічні характеристики, комплект поставки, країну виробника та зовнішній
+                            вигляд товару є довідковою та базується на актуальній на момент публікації інформації.')?>
                         </div>
                     </div>
                 </div>
@@ -294,7 +294,7 @@ $rating = 3;
                         <div class="reviews-view__list">
                             <?php if ($product->reviews): ?>
                                 <?php if ($product->category->prefix) { ?>
-                                    <h2 class="reviews-view__header">Відгуки про
+                                    <h2 class="reviews-view__header"><?=Yii::t('app','Відгуки про')?>
                                         <?= $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
                                         <?= $product->name ?>
                                     </h2>
@@ -396,13 +396,13 @@ $rating = 3;
                             </div>
                         </div>
                         <form id="form-review">
-                            <h3 class="reviews-view__header">Залишити відгук</h3>
+                            <h3 class="reviews-view__header"><?=Yii::t('app','Залишити відгук')?></h3>
                             <div class="row">
                                 <div class="col-12 col-lg-9 col-xl-8">
                                     <input type="hidden" name="product_id" value="<?= $product->id ?>">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="w0">Ваша оцінка</label>
+                                            <label for="w0"><?=Yii::t('app','Ваша оцінка')?></label>
                                             <?php
                                             echo StarRating::widget([
                                                 'name' => 'starrating',
@@ -421,14 +421,14 @@ $rating = 3;
                                         </div>
                                         <div class="form-group col-md-4" id="url-review"
                                              data-url-review="<?= Yii::$app->urlManager->createUrl(['review/create']) ?>">
-                                            <label for="review-name">Ваше ім'я</label>
+                                            <label for="review-name"><?=Yii::t('app','Ваше ім\'я')?></label>
                                             <input type="text" name="name" class="form-control" id="review-name"
                                                    oninvalid="this.setCustomValidity('Укажіть будь ласка Ваше ім’я')"
                                                    oninput="this.setCustomValidity('')"
                                                    placeholder="Ваше ім’я" required>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="review-email">Email</label>
+                                            <label for="review-email"><?=Yii::t('app','Email')?></label>
                                             <input type="text" name="email" class="form-control" id="review-email"
                                                    placeholder="Email"
                                                    oninvalid="this.setCustomValidity('Укажіть будь ласка Ваш email')"
@@ -437,7 +437,7 @@ $rating = 3;
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="review-text">Ваш відгук</label>
+                                        <label for="review-text"><?=Yii::t('app','Ваш відгу')?>к</label>
                                         <textarea class="form-control" name="message" id="review-text"
                                                   rows="6"
                                                   oninvalid="this.setCustomValidity('Напишіть будь ласка Ваш відгук')"
@@ -446,11 +446,11 @@ $rating = 3;
                                     </div>
                                     <div class="form-group mb-0">
                                         <button type="submit" id="review-form-submit" class="btn btn-primary btn-lg">
-                                            Залишити відгук
+                                            <?=Yii::t('app','Залишити відгук')?>
                                         </button>
                                         <div class="alert alert-success" style="display: none;" id="success-message"
                                              role="alert">
-                                            Вітаемо Ваш відгук -- надіслано !!!
+                                            <?=Yii::t('app','Вітаемо Ваш відгук -- надіслано')?> !!!
                                         </div>
                                     </div>
                                 </div>
