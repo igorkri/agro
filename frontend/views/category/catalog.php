@@ -26,13 +26,13 @@ ActivePages::setActiveUser();
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
+                                <a href="/"> <i class="fas fa-home"></i> <?= Yii::t('app', 'Головна') ?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="<?= Url::to(['category/list']) ?>"><?=Yii::t('app','Категорії')?></a>
+                                <a href="<?= Url::to(['category/list']) ?>"><?= Yii::t('app', 'Категорії') ?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
@@ -79,7 +79,7 @@ ActivePages::setActiveUser();
                                             <svg class="filters-button__icon" width="16px" height="16px">
                                                 <use xlink:href="/images/sprite.svg#filters-16"></use>
                                             </svg>
-                                            <span class="filters-button__title"><?=Yii::t('app','Фільтр')?></span>
+                                            <span class="filters-button__title"><?= Yii::t('app', 'Фільтр') ?></span>
                                             <span class="filters-button__counter"><?= $category->getCounterFilter() ?></span>
                                         </button>
                                     </div>
@@ -102,11 +102,11 @@ ActivePages::setActiveUser();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="view-options__legend"><?=Yii::t('app','Показано')?> <?= count($products) ?> <?=Yii::t('app','товарів')?>
-                                        з <?= $products_all ?></div>
+                                    <div class="view-options__legend"><?= Yii::t('app', 'Показано') ?> <?= count($products) ?> <?= Yii::t('app', 'товарів з') ?>
+                                         <?= $products_all ?></div>
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control">
-                                        <label for=""><?=Yii::t('app','Сортувати')?></label>
+                                        <label for=""><?= Yii::t('app', 'Сортувати') ?></label>
                                         <div>
                                             <?php echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
                                                 '' => 'Наявність',
@@ -119,7 +119,7 @@ ActivePages::setActiveUser();
                                         </div>
                                     </div>
                                     <div class="view-options__control">
-                                        <label for=""><?=Yii::t('app','Показати')?></label>
+                                        <label for=""><?= Yii::t('app', 'Показати') ?></label>
                                         <div>
                                             <?php
                                             echo Html::dropDownList('count', Yii::$app->session->get('count'), [
@@ -138,304 +138,16 @@ ActivePages::setActiveUser();
                                  data-with-features="false" data-mobile-grid-columns="2">
                                 <div class="products-list__body">
                                     <?php foreach ($products as $product): ?>
-                                        <div class="products-list__item">
-                                            <div class="product-card product-card--hidden-actions ">
-                                                <?php if (isset($product->label)): ?>
-                                                    <div class="product-card__badges-list">
-                                                        <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
-                                                    </div>
-                                                <?php endif; ?>
-                                                <div class="product-card__image product-image">
-                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"
-                                                       class="product-image__body">
-                                                        <img class="product-image__img"
-                                                             src="<?= $product->getImgOne($product->getId()) ?>"
-                                                             width="231" height="231"
-                                                             alt="<?= $product->name ?>">
-                                                    </a>
-                                                </div>
-                                                <div class="product-card__info">
-                                                    <?php if ($product->category->prefix) { ?>
-                                                        <div class="product-card__name">
-                                                            <?php echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
-                                                        </div>
-                                                    <?php } ?>
-                                                    <div class="product-card__name">
-                                                        <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                                    </div>
-                                                    <div class="product-card__rating">
-                                                        <div class="product-card__rating-stars">
-                                                            <?= $product->getRating($product->id, 13, 12) ?>
-                                                        </div>
-                                                        <div class="product-card__rating-legend"><?= count($product->reviews) ?>
-                                                            <?=Yii::t('app','відгуків')?>
-                                                        </div>
-                                                    </div>
-                                                    <ul class="product-card__features-list">
-                                                        <?= Product::productParamsList($product->id) ?>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-card__actions">
-                                                    <div class="product-card__availability">
-                                                    <span class="text-success">
-                                                        <?= $this->render('@frontend/widgets/views/status.php', ['product' => $product]) ?>
-                                                    </span>
-                                                    </div>
-                                                    <?php if ($product->old_price == null) { ?>
-                                                        <div class="product-card__prices">
-                                                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <div class="product-card__prices">
-                                                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                                            <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                                        </div>
-                                                    <?php } ?>
-                                                    <?= $this->render('@frontend/widgets/views/add-to-cart-button.php', ['product' => $product]) ?>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <?= $this->render('@frontend/views/layouts/products-list-item.php', ['product' => $product]) ?>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                            <div class="block block-sidebar block-sidebar--offcanvas--always">
-                                <div class="block-sidebar__backdrop"></div>
-                                <div class="block-sidebar__body">
-                                    <div class="block-sidebar__header">
-                                        <div class="block-sidebar__title"><?=Yii::t('app','Фільтр')?></div>
-                                        <button class="block-sidebar__close" type="button">
-                                            <svg width="20px" height="20px">
-                                                <use xlink:href="/images/sprite.svg#cross-20"></use>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div class="block-sidebar__item">
-                                        <div class="widget-filters widget widget-filters--offcanvas--always"
-                                             data-collapse
-                                             data-collapse-opened-class="filter--opened">
-                                            <h4 class="widget-filters__title widget__title"><?=Yii::t('app','Фільтр')?></h4>
-                                            <div class="widget-filters__list">
-                                                <div class="widget-filters__item">
-                                                    <div class="filter filter--opened" data-collapse-item>
-                                                        <button type="button" class="filter__title"
-                                                                data-collapse-trigger>
-                                                            <?=Yii::t('app','Категорії')?>
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <div class="filter__container">
-                                                                <div class="filter-categories">
-                                                                    <ul class="filter-categories__list">
-                                                                        <li class="filter-categories__item filter-categories__item--parent">
-                                                                            <svg class="filter-categories__arrow"
-                                                                                 width="6px"
-                                                                                 height="9px">
-                                                                                <use xlink:href="/images/sprite.svg#arrow-rounded-left-6x9"></use>
-                                                                            </svg>
-                                                                            <?php if ($category->parent) { ?>
-                                                                                <a href="<?= Url::to(['category/children', 'slug' => $category->parent->slug]) ?>"><?= $category->parent->name ?></a>
-                                                                            <?php } else { ?>
-                                                                                <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>"><?= $category->name ?></a>
-                                                                            <?php } ?>
-                                                                            <div class="filter-categories__counter">
-                                                                                <?= ($category->parent) ? $category->getCountProductCategoryFilter($category->parent->id) : $category->getCountProductCategoryFilter($category->id); ?>
-                                                                            </div>
-                                                                        </li>
-                                                                        <?php if ($category->parent): ?>
-                                                                            <?php $categoryChilds = $category->getCategoryChildFilter($category->parent->id) ?>
-                                                                            <?php foreach ($categoryChilds as $categoryChild): ?>
-                                                                                <?php if ($category->id == $categoryChild->id) { ?>
-                                                                                    <li class="filter-categories__item filter-categories__item--current">
-                                                                                        <a href="<?= Url::to(['category/catalog', 'slug' => $categoryChild->slug]) ?>"><?= $categoryChild->name ?></a>
-                                                                                        <div class="filter-categories__counter"><?= $categoryChild->getCountProductCategoryFilter($categoryChild->id) ?></div>
-                                                                                    </li>
-                                                                                <?php } else { ?>
-                                                                                    <li class="filter-categories__item filter-categories__item--child">
-                                                                                        <a href="<?= Url::to(['category/catalog', 'slug' => $categoryChild->slug]) ?>"><?= $categoryChild->name ?></a>
-                                                                                        <div class="filter-categories__counter"><?= $categoryChild->getCountProductCategoryFilter($categoryChild->id) ?></div>
-                                                                                    </li>
-                                                                                <?php } ?>
-                                                                            <?php endforeach; ?>
-                                                                        <?php endif; ?>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php if (isset($auxiliaryCategories) and $auxiliaryCategories != null): ?>
-                                                    <div class="widget-filters__item">
-                                                        <div class="filter filter--opened" data-collapse-item>
-                                                            <button type="button" class="filter__title"
-                                                                    data-collapse-trigger>
-                                                                <?=Yii::t('app','Категорії допоміжні')?>
-                                                                <svg class="filter__arrow" width="12px" height="7px">
-                                                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                                </svg>
-                                                            </button>
-                                                            <div class="filter__body" data-collapse-content>
-                                                                <div class="filter__container">
-                                                                    <div class="filter-categories-alt">
-                                                                        <ul class="filter-categories-alt__list filter-categories-alt__list--level--1"
-                                                                            data-collapse-opened-class="filter-categories-alt__item--open">
-                                                                            <?php foreach ($auxiliaryCategories as $auxiliaryCategory): ?>
-                                                                                <li class="filter-categories-alt__item"
-                                                                                    data-collapse-item>
-                                                                                    <a href="<?= Url::to(['category/auxiliary-catalog', 'slug' => $auxiliaryCategory->slug]) ?>"><?php echo $auxiliaryCategory->name ?></a>
-                                                                                </li>
-                                                                            <?php endforeach; ?>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php endif; ?>
-                                                <div class="widget-filters__item">
-                                                    <div class="filter filter--opened" data-collapse-item>
-                                                        <button type="button" class="filter__title"
-                                                                data-collapse-trigger>
-                                                            <?=Yii::t('app','Ціна')?>
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <?php
-                                                            $minPrice = round(Product::find()->min('price'), 2);
-                                                            $maxPrice = round(Product::find()->max('price'), 2);
-
-                                                            $request = Yii::$app->request;
-                                                            $submittedMinPrice = $request->post('minPrice', $minPrice);
-                                                            $submittedMaxPrice = $request->post('maxPrice', $maxPrice);
-                                                            ?>
-                                                            <div class="filter__container">
-                                                                <div class="filter-price" data-min="<?= $minPrice ?>"
-                                                                     data-max="<?= $maxPrice ?>"
-                                                                     data-from="<?= $submittedMinPrice ?>"
-                                                                     data-to="<?= $submittedMaxPrice ?>">
-                                                                    <div class="filter-price__slider"></div>
-                                                                    <div class="filter-price__title"><?=Yii::t('app','Ціна')?>: ₴
-                                                                        <span class="filter-price__min-value"></span> –
-                                                                        ₴
-                                                                        <span class="filter-price__max-value"></span>
-                                                                        <input type="hidden" name="minPrice"
-                                                                               id="minPrice"
-                                                                               value="<?= $submittedMinPrice ?>"
-                                                                               class="filter-price__min-value"/>
-                                                                        <input type="hidden" name="maxPrice"
-                                                                               id="maxPrice"
-                                                                               value="<?= $submittedMaxPrice ?>"
-                                                                               class="filter-price__max-value"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-filters__item">
-                                                    <div class="filter" data-collapse-item>
-                                                        <button type="button" class="filter__title"
-                                                                data-collapse-trigger>
-                                                            <?=Yii::t('app','Бренд')?>
-                                                            <svg class="filter__arrow" width="12px" height="7px">
-                                                                <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                            </svg>
-                                                        </button>
-                                                        <div class="filter__body" data-collapse-content>
-                                                            <div class="filter__container">
-                                                                <div class="filter-list">
-                                                                    <div class="filter-list__list">
-                                                                        <?php $brandsCategory = $category->getBrandsCategoryFilter($category->id) ?>
-                                                                        <?php foreach ($brandsCategory as $brand): ?>
-                                                                            <label class="filter-list__item ">
-                                                                <span class="filter-list__input input-check">
-                                                                    <span class="input-check__body">
-                                                                        <input class="input-check__input"
-                                                                               type="checkbox"
-                                                                               name="brandCheck[]"
-                                                                               value="<?= Html::encode($brand->id) ?>"
-                                                                               <?= in_array($brand->id, Yii::$app->request->post('brandCheck', [])) ? 'checked' : '' ?>
-                                                                               >
-                                                                        <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px"
-                                                                             height="7px">
-                                                                            <use xlink:href="/images/sprite.svg#check-9x7"></use>
-                                                                        </svg>
-                                                                    </span>
-                                                                </span>
-                                                                                <span class="filter-list__title">
-                                                                 <?= $brand->name ?>
-                                                                </span>
-                                                                                <span class="filter-list__counter"><?= $brand->getBrandProductCountFilter($brand->id, $category->id) ?></span>
-                                                                            </label>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php foreach ($propertiesFilter as $value): ?>
-                                                    <div class="widget-filters__item">
-                                                        <div class="filter" data-collapse-item>
-                                                            <button type="button" class="filter__title"
-                                                                    data-collapse-trigger>
-                                                                <?= $value ?>
-                                                                <svg class="filter__arrow" width="12px" height="7px">
-                                                                    <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
-                                                                </svg>
-                                                            </button>
-                                                            <div class="filter__body" data-collapse-content>
-                                                                <div class="filter__container">
-                                                                    <div class="filter-list">
-                                                                        <div class="filter-list__list">
-                                                                            <?php $properties = $category->getPropertiesFilter($category->id, $value) ?>
-                                                                            <?php foreach ($properties as $property): ?>
-                                                                                <label class="filter-list__item ">
-                                                                <span class="filter-list__input input-check">
-                                                                    <span class="input-check__body">
-                                                                        <input class="input-check__input"
-                                                                               type="checkbox"
-                                                                               name="propertiesCheck[]"
-                                                                               value="<?= Html::encode($property) ?>"
-                                                                               <?= in_array($property, Yii::$app->request->post('propertiesCheck', [])) ? 'checked' : '' ?>
-                                                                               >
-                                                                        <span class="input-check__box"></span>
-                                                                        <svg class="input-check__icon" width="9px"
-                                                                             height="7px">
-                                                                            <use xlink:href="/images/sprite.svg#check-9x7"></use>
-                                                                        </svg>
-                                                                    </span>
-                                                                </span>
-                                                                                    <span class="filter-list__title">
-                                                                  <?= $property ?>
-                                                                </span>
-                                                                                    <span class="filter-list__counter">
-                                                                                        <?= $category->getPropertiesCountPruductFilter
-                                                                                        ($category->id, $property) ?>
-                                                                                    </span>
-                                                                                </label>
-                                                                            <?php endforeach; ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php endforeach; ?>
-                                            </div>
-                                            <div class="widget-filters__actions d-flex">
-                                                <button type="submit" class="btn btn-primary btn-sm"><?=Yii::t('app','Фільтрувати')?>
-                                                </button>
-                                                <?= Html::a(Yii::t('app','Скинути'), ['product-list/' . $category->slug], ['class' => 'btn btn-secondary btn-sm']) ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?= $this->render('filter-sidebar',
+                                [
+                                    'category' => $category,
+                                    'propertiesFilter' => $propertiesFilter,
+                                    'auxiliaryCategories' => $auxiliaryCategories,
+                                ]) ?>
                             <div class="mt-4">
                                 <div class="d-flex justify-content-center">
                                     <?= LinkPager::widget([
@@ -461,11 +173,6 @@ ActivePages::setActiveUser();
         echo Html::endForm();
         ?>
     </div>
-    <style>
-        .category-prefix {
-            color: #a9a8a8;
-        }
-    </style>
 <?php
 $script = <<< JS
 

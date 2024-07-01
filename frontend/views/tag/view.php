@@ -16,165 +16,116 @@ ActivePages::setActiveUser();
 /** @var \common\models\shop\Product $pages */
 
 ?>
-<div class="site__body">
-    <div class="page-header">
-        <div class="page-header__container container">
-            <div class="page-header__breadcrumb">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
-                            <svg class="breadcrumb-arrow" width="6px" height="9px">
-                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
-                            </svg>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page"><?=Yii::t('app','Продукти запиту')?></li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="page-header__title">
-                <h1><?=Yii::t('app','Продукти запиту')?>  "<?= $tag_name->name ?>"</h1>
+    <div class="site__body">
+        <div class="page-header">
+            <div class="page-header__container container">
+                <div class="page-header__breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/"> <i class="fas fa-home"></i> <?= Yii::t('app', 'Головна') ?></a>
+                                <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                    <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                                </svg>
+                            </li>
+                            <li class="breadcrumb-item active"
+                                aria-current="page"><?= Yii::t('app', 'Продукти запиту') ?></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="page-header__title">
+                    <h1><?= Yii::t('app', 'Продукти запиту') ?> "<?= $tag_name->name ?>"</h1>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="block">
-                    <div class="products-view">
-                        <div class="products-view__options">
-                            <div class="view-options view-options--offcanvas--always">
-                                <div class="view-options__layout">
-                                    <div class="layout-switcher">
-                                        <div class="layout-switcher__list">
-                                            <button data-layout="grid-4-full" data-with-features="false" title="Плитка" type="button" class="layout-switcher__button">
-                                                <svg width="16px" height="16px">
-                                                    <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
-                                                </svg>
-                                            </button>
-                                            <button data-layout="list" data-with-features="false" title="Список" type="button" class="layout-switcher__button">
-                                                <svg width="16px" height="16px">
-                                                    <use xlink:href="/images/sprite.svg#layout-list-16x16"></use>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="view-options__legend"><?=Yii::t('app','Показано')?> <?= count($products) ?> <?=Yii::t('app','товарів з')?> <?= $products_all ?></div>
-                                <div class="view-options__divider"></div>
-                                <div class="view-options__control">
-                                    <label for=""><?=Yii::t('app','Сортувати')?></label>
-                                    <div>
-                                        <?php
-                                        echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);
-                                        echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
-                                            '' => 'Наявність',
-                                            'price_lowest' => 'Ціна Дешевші',
-                                            'price_highest' => 'Ціна Дорожчі',
-                                            'name_a' => 'Назва A-я',
-                                            'name_z' => 'Назва Я-а',
-                                        ], ['class' => 'form-control form-control-sm', 'id' => 'sort-form']);
-                                        ?>
-                                    </div>
-                                </div>
-                                <div class="view-options__control">
-                                    <label for=""><?=Yii::t('app','Показати')?></label>
-                                    <div>
-                                        <?php
-                                        echo Html::dropDownList('count', Yii::$app->session->get('count'), [
-                                            '4' => '4',
-                                            '8' => '8',
-                                            '12' => '12',
-                                            '24' => '24',
-                                            '32' => '32',
-                                        ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
-                                        echo Html::hiddenInput('id', $tag_name->id);
-                                        echo Html::endForm();
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
-                            <div class="products-list__body">
-                                <?php foreach ($products as $product): ?>
-                                    <div class="products-list__item">
-                                        <div class="product-card product-card--hidden-actions ">
-                                            <?php if (isset($product->label)): ?>
-                                                <div class="product-card__badges-list">
-                                                    <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
-                                                </div>
-                                            <?php endif; ?>
-                                            <div class="product-card__image product-image">
-                                                <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>" class="product-image__body">
-                                                    <img class="product-image__img"
-                                                         src="<?= $product->getImgOneExtraLarge($product->getId()) ?>"
-                                                         width="231" height="231"
-                                                         alt="<?= $product->name ?>">
-                                                </a>
-                                            </div>
-                                            <div class="product-card__info">
-                                                <?php if ($product->category->prefix) { ?>
-                                                    <div class="product-card__name">
-                                                        <?php  echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
-                                                    </div>
-                                                <?php } ?>
-                                                <div class="product-card__name">
-                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                                </div>
-                                                <div class="product-card__rating">
-                                                    <div class="product-card__rating-stars">
-                                                        <?=$product->getRating($product->id, 13, 12)?>
-                                                    </div>
-                                                    <div class="product-card__rating-legend"><?=count($product->reviews)?> <?=Yii::t('app','відгуків')?></div>
-                                                </div>
-                                                <ul class="product-card__features-list">
-                                                    <?= Product::productParamsList($product->id) ?>
-                                                </ul>
-                                            </div>
-                                            <div class="product-card__actions">
-                                                <div class="product-card__availability">
-                                                    <span class="text-success">
-                                                        <?= $this->render('@frontend/widgets/views/status.php', ['product' => $product]) ?>
-                                                    </span>
-                                                </div>
-                                                <?php if ($product->old_price == null) { ?>
-                                                    <div class="product-card__prices">
-                                                        <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="product-card__prices">
-                                                        <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                                        <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                                    </div>
-                                                <?php } ?>
-                                                <?= $this->render('@frontend/widgets/views/add-to-cart-button.php', ['product' => $product]) ?>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="block">
+                        <div class="products-view">
+                            <div class="products-view__options">
+                                <div class="view-options view-options--offcanvas--always">
+                                    <div class="view-options__layout">
+                                        <div class="layout-switcher">
+                                            <div class="layout-switcher__list">
+                                                <button data-layout="grid-4-full" data-with-features="false"
+                                                        title="Плитка" type="button" class="layout-switcher__button">
+                                                    <svg width="16px" height="16px">
+                                                        <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
+                                                    </svg>
+                                                </button>
+                                                <button data-layout="list" data-with-features="false" title="Список"
+                                                        type="button" class="layout-switcher__button">
+                                                    <svg width="16px" height="16px">
+                                                        <use xlink:href="/images/sprite.svg#layout-list-16x16"></use>
+                                                    </svg>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                <?php endforeach; ?>
+                                    <div class="view-options__legend"><?= Yii::t('app', 'Показано') ?> <?= count($products) ?> <?= Yii::t('app', 'товарів з') ?> <?= $products_all ?></div>
+                                    <div class="view-options__divider"></div>
+                                    <div class="view-options__control">
+                                        <label for=""><?= Yii::t('app', 'Сортувати') ?></label>
+                                        <div>
+                                            <?php
+                                            echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);
+                                            echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
+                                                '' => 'Наявність',
+                                                'price_lowest' => 'Ціна Дешевші',
+                                                'price_highest' => 'Ціна Дорожчі',
+                                                'name_a' => 'Назва A-я',
+                                                'name_z' => 'Назва Я-а',
+                                            ], ['class' => 'form-control form-control-sm', 'id' => 'sort-form']);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="view-options__control">
+                                        <label for=""><?= Yii::t('app', 'Показати') ?></label>
+                                        <div>
+                                            <?php
+                                            echo Html::dropDownList('count', Yii::$app->session->get('count'), [
+                                                '4' => '4',
+                                                '8' => '8',
+                                                '12' => '12',
+                                                '24' => '24',
+                                                '32' => '32',
+                                            ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
+                                            echo Html::hiddenInput('id', $tag_name->id);
+                                            echo Html::endForm();
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="products-view__list products-list" data-layout="grid-4-full"
+                                 data-with-features="false" data-mobile-grid-columns="2">
+                                <div class="products-list__body">
+                                    <?php foreach ($products as $product): ?>
+                                        <?= $this->render('@frontend/views/layouts/products-list-item.php', ['product' => $product]) ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <div style="display: block;margin: 60px 0px 0px 0px;">
+                                <ul class="pagination justify-content-center">
+                                    <li>
+                                        <?= LinkPager::widget(['pagination' => $pages,]) ?>
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+                            <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
                         </div>
-                        <div style="display: block;margin: 60px 0px 0px 0px;">
-                            <ul class="pagination justify-content-center">
-                                <li>
-                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
-                                </li>
-                            </ul>
-                        </div>
-                        <br>
-                        <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<style>
-    .category-prefix {
-        color: #a9a8a8;
-    }
-</style>
+    <style>
+        .category-prefix {
+            color: #a9a8a8;
+        }
+    </style>
 
 <?php
 $script = <<< JS

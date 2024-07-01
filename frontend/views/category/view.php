@@ -1,7 +1,6 @@
 <?php
 
 use common\models\shop\ActivePages;
-use common\models\shop\Product;
 use frontend\assets\CategoryAuxiliaryPageAsset;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
@@ -15,14 +14,14 @@ ActivePages::setActiveUser();
 /** @var \common\models\shop\Product $pages */
 
 ?>
-    <div class="site__body">
+<div class="site__body">
         <div class="page-header">
             <div class="page-header__container container">
                 <div class="page-header__breadcrumb">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app','Головна')?></a>
+                                <a href="/"> <i class="fas fa-home"></i> <?= Yii::t('app', 'Головна') ?></a>
                                 <svg class="breadcrumb-arrow" width="6px" height="9px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                                 </svg>
@@ -52,12 +51,14 @@ ActivePages::setActiveUser();
                                     <div class="view-options__layout">
                                         <div class="layout-switcher">
                                             <div class="layout-switcher__list">
-                                                <button data-layout="grid-4-full" data-with-features="false" title="Плитка" type="button" class="layout-switcher__button">
+                                                <button data-layout="grid-4-full" data-with-features="false"
+                                                        title="Плитка" type="button" class="layout-switcher__button">
                                                     <svg width="16px" height="16px">
                                                         <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
                                                     </svg>
                                                 </button>
-                                                <button data-layout="list" data-with-features="false" title="Список" type="button" class="layout-switcher__button">
+                                                <button data-layout="list" data-with-features="false" title="Список"
+                                                        type="button" class="layout-switcher__button">
                                                     <svg width="16px" height="16px">
                                                         <use xlink:href="/images/sprite.svg#layout-list-16x16"></use>
                                                     </svg>
@@ -65,11 +66,11 @@ ActivePages::setActiveUser();
                                             </div>
                                         </div>
                                     </div>
-                                    <?php echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']);?>
-                                    <div class="view-options__legend"><?=Yii::t('app','Показано')?> <?= count($products) ?> <?=Yii::t('app','товарів з')?> <?= $products_all ?></div>
+                                    <?php echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']); ?>
+                                    <div class="view-options__legend"><?= Yii::t('app', 'Показано') ?> <?= count($products) ?> <?= Yii::t('app', 'товарів з') ?> <?= $products_all ?></div>
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control">
-                                        <label for=""><?=Yii::t('app','Сортувати')?></label>
+                                        <label for=""><?= Yii::t('app', 'Сортувати') ?></label>
                                         <div>
                                             <?php echo Html::dropDownList('sort', Yii::$app->session->get('sort'), [
                                                 '' => 'Наявність',
@@ -99,63 +100,11 @@ ActivePages::setActiveUser();
                                     </div>
                                 </div>
                             </div>
-                            <div class="products-view__list products-list" data-layout="grid-4-full" data-with-features="false" data-mobile-grid-columns="2">
+                            <div class="products-view__list products-list" data-layout="grid-4-full"
+                                 data-with-features="false" data-mobile-grid-columns="2">
                                 <div class="products-list__body">
                                     <?php foreach ($products as $product): ?>
-                                        <div class="products-list__item">
-                                            <div class="product-card product-card--hidden-actions ">
-                                                <?php if (isset($product->label)): ?>
-                                                    <div class="product-card__badges-list">
-                                                        <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
-                                                    </div>
-                                                <?php endif; ?>
-                                                <div class="product-card__image product-image">
-                                                    <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>" class="product-image__body">
-                                                        <img class="product-image__img"
-                                                             src="<?= $product->getImgOneExtraLarge($product->getId()) ?>"
-                                                             width="231" height="231"
-                                                             alt="<?= $product->name ?>">
-                                                    </a>
-                                                </div>
-                                                <div class="product-card__info">
-                                                    <?php if ($product->category->prefix) { ?>
-                                                        <div class="product-card__name">
-                                                            <?php  echo $product->category->prefix ? '<span class="category-prefix">' . $product->category->prefix . '</span>' : '' ?>
-                                                        </div>
-                                                    <?php } ?>
-                                                    <div class="product-card__name">
-                                                        <a href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
-                                                    </div>
-                                                    <div class="product-card__rating">
-                                                        <div class="product-card__rating-stars">
-                                                            <?=$product->getRating($product->id, 13, 12)?>
-                                                        </div>
-                                                        <div class="product-card__rating-legend"><?=count($product->reviews)?> <?=Yii::t('app','відгуків')?></div>
-                                                    </div>
-                                                    <ul class="product-card__features-list">
-                                                        <?= Product::productParamsList($product->id) ?>
-                                                    </ul>
-                                                </div>
-                                                <div class="product-card__actions">
-                                                    <div class="product-card__availability">
-                                                    <span class="text-success">
-                                                        <?= $this->render('@frontend/widgets/views/status.php', ['product' => $product]) ?>
-                                                    </span>
-                                                    </div>
-                                                    <?php if ($product->old_price == null) { ?>
-                                                        <div class="product-card__prices">
-                                                            <?= Yii::$app->formatter->asCurrency($product->getPrice()) ?>
-                                                        </div>
-                                                    <?php } else { ?>
-                                                        <div class="product-card__prices">
-                                                            <span class="product-card__new-price"><?= Yii::$app->formatter->asCurrency($product->getPrice()) ?></span>
-                                                            <span class="product-card__old-price"><?= Yii::$app->formatter->asCurrency($product->getOldPrice()) ?></span>
-                                                        </div>
-                                                    <?php } ?>
-                                                    <?= $this->render('@frontend/widgets/views/add-to-cart-button.php', ['product' => $product]) ?>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <?= $this->render('@frontend/views/layouts/products-list-item.php', ['product' => $product]) ?>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -175,12 +124,6 @@ ActivePages::setActiveUser();
             </div>
         </div>
     </div>
-    <style>
-        .category-prefix {
-            color: #a9a8a8;
-        }
-    </style>
-
 <?php
 $script = <<< JS
 

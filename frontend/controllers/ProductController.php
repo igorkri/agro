@@ -18,7 +18,7 @@ class ProductController extends Controller
 {
     public function actionView($slug): string
     {
-        $language =Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language');
 
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
 
@@ -39,21 +39,41 @@ class ProductController extends Controller
         $this->setSchemaProduct($product);
         $this->setProductMetadata($product);
 
-        $translationProd = $product->getTranslation($language)->one();
-        if ($translationProd) {
-            $product->name = $translationProd->name;
-            $product->description = $translationProd->description;
-            $product->short_description = $translationProd->short_description;
-            $product->footer_description = $translationProd->footer_description;
-        }
-
-        $translationCat = $product->category->getTranslation($language)->one();
-        $translationParentCat = $product->category->parent->getTranslation($language)->one();
-
-        if ($translationProd) {
-            $product->category->name = $translationCat->name;
-            $product->category->prefix = $translationCat->prefix;
-            $product->category->parent->name = $translationParentCat->name;
+        if ($language !== 'uk') {
+            if ($product) {
+                $translationProd = $product->getTranslation($language)->one();
+                if ($translationProd) {
+                    if ($translationProd->name) {
+                        $product->name = $translationProd->name;
+                    }
+                    if ($translationProd->description) {
+                        $product->description = $translationProd->description;
+                    }
+                    if ($translationProd->short_description) {
+                        $product->short_description = $translationProd->short_description;
+                    }
+                    if ($translationProd->footer_description) {
+                        $product->footer_description = $translationProd->footer_description;
+                    }
+                }
+                $translationCat = $product->category->getTranslation($language)->one();
+                if ($translationCat) {
+                    if ($translationCat->name) {
+                        $product->category->name = $translationCat->name;
+                    }
+                    if ($translationCat->prefix) {
+                        $product->category->prefix = $translationCat->prefix;
+                    }
+                }
+                if ($product->category->parent) {
+                    $translationCatParent = $product->category->parent->getTranslation($language)->one();
+                    if ($translationCatParent) {
+                        if ($translationCatParent->name) {
+                            $product->category->parent->name = $translationCatParent->name;
+                        }
+                    }
+                }
+            }
         }
 
         return $this->render('index', [

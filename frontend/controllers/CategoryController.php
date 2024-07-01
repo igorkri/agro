@@ -17,6 +17,7 @@ class CategoryController extends Controller
 {
     public function actionList()
     {
+        $language = Yii::$app->session->get('_language');
         $categories = Category::find()
             ->with(['products'])
             ->where(['is', 'parentId', new Expression('null')])
@@ -31,11 +32,29 @@ class CategoryController extends Controller
             посівного матеріалу та боротьби з гризунами. Оптимізуйте виробництво з нами!")
             ->register(Yii::$app->getView());
 
-        return $this->render('list', ['categories' => $categories]);
+        if ($language !== 'uk') {
+            foreach ($categories as $category) {
+                if ($category) {
+                    $translationCat = $category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $category->name = $translationCat->name;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this->render('list',
+            [
+                'categories' => $categories,
+                'language' => $language,
+            ]);
     }
 
     public function actionChildren($slug)
     {
+        $language = Yii::$app->session->get('_language');
         $category = Category::find()
             ->with(['parents', 'parent', 'products'])
             ->where(['slug' => $slug])
@@ -44,12 +63,37 @@ class CategoryController extends Controller
         $this->setChildrenProductSchema($category);
         $this->setChildrenMetamaster($category);
 
-        return $this->render('children', ['category' => $category]);
+        if ($language !== 'uk') {
+            $translationCat = $category->getTranslation($language)->one();
+            if ($translationCat) {
+                if ($translationCat->name) {
+                    $category->name = $translationCat->name;
+                }
+                if ($translationCat->description) {
+                    $category->description = $translationCat->description;
+                }
+            }
+            foreach ($category->parents as $parent) {
+                if ($parent !== null) {
+                    $translationCatParent = $parent->getTranslation($language)->one();
+                    if ($translationCatParent) {
+                        $parent->name = $translationCatParent->name;
+                    }
+                }
+            }
+        }
+
+        return $this->render('children',
+            [
+                'category' => $category,
+                'language' => $language,
+            ]);
     }
 
     public function actionCatalog($slug)
     {
 //        Yii::$app->session->removeAll();
+        $language = Yii::$app->session->get('_language');
         $result = $this->getSortVariableSession();
         $sort = $result['sort'];
         $count = $result['count'];
@@ -116,6 +160,47 @@ class CategoryController extends Controller
         $this->setCatalogProductSchema($category, $products_all);
         $this->setCatalogMetamaster($category);
 
+        if ($language !== 'uk') {
+            if ($category) {
+                $translationCat = $category->getTranslation($language)->one();
+                if ($translationCat) {
+                    if ($translationCat->name) {
+                        $category->name = $translationCat->name;
+                    }
+                    if ($translationCat->description) {
+                        $category->description = $translationCat->description;
+                    }
+                }
+            }
+            if ($category->parent) {
+                $translationCatParent = $category->parent->getTranslation($language)->one();
+                if ($translationCatParent) {
+                    if ($translationCatParent->name) {
+                        $category->parent->name = $translationCatParent->name;
+                    }
+                }
+            }
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                    $translationCat = $product->category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $product->category->name = $translationCat->name;
+                        }
+                        if ($translationCat->prefix) {
+                            $product->category->prefix = $translationCat->prefix;
+                        }
+                    }
+                }
+            }
+        }
+
         return $this->render('catalog',
             compact([
                 'products',
@@ -124,12 +209,14 @@ class CategoryController extends Controller
                 'products_all',
                 'propertiesFilter',
                 'auxiliaryCategories',
+                'language',
             ]));
     }
 
     public function actionAuxiliaryCatalog($slug)
     {
 //        Yii::$app->session->removeAll();
+        $language = Yii::$app->session->get('_language');
         $result = $this->getSortVariableSession();
         $sort = $result['sort'];
         $count = $result['count'];
@@ -203,6 +290,47 @@ class CategoryController extends Controller
         $this->setAuxiliaryCatalogProductSchema($category, $products_all, $productsId);
         $this->setAuxiliaryCatalogMetamaster($category);
 
+//        if ($language !== 'uk') {
+//            if ($category) {
+//                $translationCat = $category->getTranslation($language)->one();
+//                if ($translationCat) {
+//                    if ($translationCat->name) {
+//                        $category->name = $translationCat->name;
+//                    }
+//                    if ($translationCat->description) {
+//                        $category->description = $translationCat->description;
+//                    }
+//                }
+//            }
+//            if ($category->parent) {
+//                $translationCatParent = $category->parent->getTranslation($language)->one();
+//                if ($translationCatParent) {
+//                    if ($translationCatParent->name) {
+//                        $category->parent->name = $translationCatParent->name;
+//                    }
+//                }
+//            }
+//            foreach ($products as $product) {
+//                if ($product) {
+//                    $translationProd = $product->getTranslation($language)->one();
+//                    if ($translationProd) {
+//                        if ($translationProd->name) {
+//                            $product->name = $translationProd->name;
+//                        }
+//                    }
+//                    $translationCat = $product->category->getTranslation($language)->one();
+//                    if ($translationCat) {
+//                        if ($translationCat->name) {
+//                            $product->category->name = $translationCat->name;
+//                        }
+//                        if ($translationCat->prefix) {
+//                            $product->category->prefix = $translationCat->prefix;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
         return $this->render('view',
             compact([
                 'products',
@@ -210,6 +338,7 @@ class CategoryController extends Controller
                 'pages',
                 'products_all',
                 'breadcrumbCategory',
+                'language',
 //                'propertiesFilter',
 //                'auxiliaryCategories',
             ]));

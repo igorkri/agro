@@ -13,6 +13,8 @@ class SpecialController extends Controller
 {
     public function actionView()
     {
+        $language = Yii::$app->session->get('_language');
+
         if (!Yii::$app->session->has('sort')) {
             Yii::$app->session->set('sort', '');
         } else {
@@ -31,7 +33,7 @@ class SpecialController extends Controller
         }
         $count = intval(Yii::$app->session->get('count'));
 
-         $seo = SeoPages::find()->where(['slug' => 'special'])->one();
+        $seo = SeoPages::find()->where(['slug' => 'special'])->one();
 
         $query = Product::find()
             ->andWhere(['not', ['label_id' => null]])
@@ -55,6 +57,28 @@ class SpecialController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
+        if ($language !== 'uk') {
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                    $translationCat = $product->category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $product->category->name = $translationCat->name;
+                        }
+                        if ($translationCat->prefix) {
+                            $product->category->prefix = $translationCat->prefix;
+                        }
+                    }
+                }
+            }
+        }
+
         Yii::$app->metamaster
             ->setSiteName('AgroPro')
             ->setType('website')
@@ -63,7 +87,7 @@ class SpecialController extends Controller
             ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
 
-        return $this->render('view', compact(['products', 'products_all', 'pages']));
+        return $this->render('view', compact(['products', 'products_all', 'pages', 'language']));
     }
 
 }

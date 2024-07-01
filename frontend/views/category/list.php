@@ -40,7 +40,7 @@ ActivePages::setActiveUser();
                              data-with-features="false" data-mobile-grid-columns="2">
                             <div class="products-list__body">
                                 <?php foreach ($categories as $category): ?>
-                                    <div class="products-list__item">
+                                  <div class="products-list__item">
                                         <div class="product-card ">
                                             <div class="product-card__image product-image">
                                                 <?php if (empty($category->products)): ?>

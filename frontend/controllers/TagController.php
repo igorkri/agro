@@ -14,6 +14,7 @@ class TagController extends Controller
 {
     public function actionView($id)
     {
+        $language = Yii::$app->session->get('_language');
 
         if (!Yii::$app->session->has('sort')) {
             Yii::$app->session->set('sort', '');
@@ -64,11 +65,38 @@ class TagController extends Controller
 
         $this->setProductMetadata($tag_name);
 
-        return $this->render('view', [
-            'products' => $products,
-            'products_all' => $products_all,
-            'tag_name' => $tag_name,
-            'pages' => $pages]);
+
+        if ($language !== 'uk') {
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                    $translationCat = $product->category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $product->category->name = $translationCat->name;
+                        }
+                        if ($translationCat->prefix) {
+                            $product->category->prefix = $translationCat->prefix;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return $this->render('view',
+            [
+                'products' => $products,
+                'products_all' => $products_all,
+                'tag_name' => $tag_name,
+                'pages' => $pages,
+                'language' => $language,
+            ]);
     }
 
     protected function setProductMetadata($tag_name)
