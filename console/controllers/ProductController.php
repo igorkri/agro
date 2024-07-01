@@ -100,7 +100,7 @@ class ProductController extends Controller
                     $tag_new = new ProductTag();
                     $tag_new->product_id = $product->product_id;
                     $tag_new->tag_id = $tag->id;
-                    if ($tag_new->save()){
+                    if ($tag_new->save()) {
                         echo $i++ . "\t" . ' Тег ' . $tag->name . ' добавлен товару ' . $product->product_id . "\n";
                     }
                 }
@@ -239,10 +239,10 @@ class ProductController extends Controller
                 if ($model->save()) {
                     echo $i . " Новое свойство " . $nameProperty . " сохранено: Для продукта " . $nameProduct->name . "\n";
                     $i++;
-                }else{
+                } else {
                     echo "ERROR: Для продукта " . $nameProduct->name . "\n";
                 }
-            }else{
+            } else {
                 echo "### Свойство " . $nameProperty . " уже существует: Для продукта " . $nameProduct->name . "\n";
             }
         }
@@ -278,46 +278,74 @@ class ProductController extends Controller
             return;
         }
         $i = 1;
+
+
         foreach ($products as $product) {
+            if (strlen($product->description) > 5000) {
+                $descrSave = '';
 
-            $descrSave = '';
+                $sourceLanguage = 'uk'; // Определить язык автоматически
+                $targetLanguages = ['ru', 'en']; // Языки перевода
 
-            $sourceLanguage = 'uk'; // Определить язык автоматически
-            $targetLanguages = ['ru', 'en']; // Языки перевода
+                $tr = new GoogleTranslate();
 
-            $tr = new GoogleTranslate();
+                foreach ($targetLanguages as $language) {
+                    $translation = $product->getTranslation($language)->one();
+                    if (!$translation) {
+                        $translation = new ProductsTranslate();
+                        $translation->product_id = $product->id;
+                        $translation->language = $language;
+                    }
 
-            foreach ($targetLanguages as $language) {
-                $translation = $product->getTranslation($language)->one();
-                if (!$translation) {
-                    $translation = new ProductsTranslate();
-                    $translation->product_id = $product->id;
-                    $translation->language = $language;
+                    $tr->setSource($sourceLanguage);
+                    $tr->setTarget($language);
+
+//                $translation->name = $tr->translate($product->name);
+
+                    if (!empty($product->description)) {
+                        if (strlen($product->description) < 5000) {
+                            $translation->description = $tr->translate($product->description);
+                        } else {
+                            $description = $product->description;
+                            $translatedDescription = '';
+                            $partSize = 5000;
+                            $parts = [];
+
+                            // Разбиваем текст на части по 5000 символов, не нарушая структуру тегов
+                            while (strlen($description) > $partSize) {
+                                $part = substr($description, 0, $partSize);
+                                $lastSpace = strrpos($part, ' ');
+                                $parts[] = substr($description, 0, $lastSpace);
+                                $description = substr($description, $lastSpace);
+                            }
+                            $parts[] = $description;
+
+                            // Переводим каждую часть отдельно
+                            foreach ($parts as $part) {
+                                $translatedDescription .= $tr->translate($part);
+                            }
+
+                            // Сохраняем переведенное описание
+                            $translation->description = $translatedDescription;
+                        }
+                    } else {
+                        // Обработка случая, когда описание пустое
+                        $descrSave = 'Descr > 5000 или пустое значение';
+                    }
+
+//                $translation->short_description = $tr->translate($product->short_description);
+//                $translation->seo_title = $tr->translate($product->seo_title);
+//                $translation->seo_description = $tr->translate($product->seo_description);
+//                $translation->footer_description = $tr->translate($product->footer_description);
+
+                    if ($translation->save()) {
+                        echo "$i  Продукт $product->name переведен и сохранен  $descrSave  для $language.\n";
+                    } else {
+                        echo "$i  Ошибка во время сохранения $product->name для $language.\n";
+                    }
                 }
-
-                $tr->setSource($sourceLanguage);
-                $tr->setTarget($language);
-
-                $translation->name = $tr->translate($product->name);
-
-                if (strlen($product->description) < 5000) {
-                    $translation->description = $tr->translate($product->description);
-                }else{
-                    $descrSave = 'Descr > 5000';
-                }
-
-                $translation->short_description = $tr->translate($product->short_description);
-                $translation->seo_title = $tr->translate($product->seo_title);
-                $translation->seo_description = $tr->translate($product->seo_description);
-                $translation->footer_description = $tr->translate($product->footer_description);
-
-                if ($translation->save()) {
-                    echo "$i  Продукт $product->name переведен и сохранен  $descrSave  для $language.\n";
-                } else {
-                    echo "$i  Ошибка во время сохранения $product->name для $language.\n";
-                }
+                $i++;
             }
-            $i++;
         }
     }
 }

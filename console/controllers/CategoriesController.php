@@ -20,6 +20,20 @@ class CategoriesController extends Controller
             echo "Category not found.\n";
             return;
         }
+
+        foreach ($categories as $category) {
+            $idCategory = CategoriesTranslate::find()->select('category_id')->where(['description' => null])->column();
+
+            $idCategory = array_unique($idCategory);
+
+        }
+
+        $categories = Category::find()->where(['id' => $idCategory])->all();
+        if (!$categories) {
+            echo "Category not found.\n";
+            return;
+        }
+
         $i = 1;
         foreach ($categories as $category) {
 
@@ -41,17 +55,43 @@ class CategoriesController extends Controller
                 $tr->setSource($sourceLanguage);
                 $tr->setTarget($language);
 
-                $translation->name = $tr->translate($category->name ?? '');
+//                $translation->name = $tr->translate($category->name ?? '');
 
-                if (!empty($category->description) && strlen($category->description) < 5000) {
-                    $translation->description = $tr->translate($category->description);
+                if (!empty($category->description)) {
+                    if (strlen($category->description) < 5000) {
+                        $translation->description = $tr->translate($category->description);
+                    } else {
+                        $description = $category->description;
+                        $translatedDescription = '';
+                        $partSize = 5000;
+                        $parts = [];
+
+                        // Разбиваем текст на части по 5000 символов, не нарушая структуру тегов
+                        while (strlen($description) > $partSize) {
+                            $part = substr($description, 0, $partSize);
+                            $lastSpace = strrpos($part, ' ');
+                            $parts[] = substr($description, 0, $lastSpace);
+                            $description = substr($description, $lastSpace);
+                        }
+                        $parts[] = $description;
+
+                        // Переводим каждую часть отдельно
+                        foreach ($parts as $part) {
+                            $translatedDescription .= $tr->translate($part);
+                        }
+
+                        // Сохраняем переведенное описание
+                        $translation->description = $translatedDescription;
+                    }
                 } else {
+                    // Обработка случая, когда описание пустое
                     $descrSave = 'Descr > 5000 или пустое значение';
                 }
 
-                $translation->pageTitle = $tr->translate($category->pageTitle ?? '');
-                $translation->metaDescription = $tr->translate($category->metaDescription ?? '');
-                $translation->prefix = $tr->translate($category->prefix ?? '');
+
+//                $translation->pageTitle = $tr->translate($category->pageTitle ?? '');
+//                $translation->metaDescription = $tr->translate($category->metaDescription ?? '');
+//                $translation->prefix = $tr->translate($category->prefix ?? '');
 
                 if ($translation->save()) {
                     echo "$i  Категория $category->name переведена и сохранена $descrSave для $language.\n";
