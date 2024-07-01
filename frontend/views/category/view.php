@@ -14,7 +14,7 @@ ActivePages::setActiveUser();
 /** @var \common\models\shop\Product $pages */
 
 ?>
-    <div class="site__body">
+<div class="site__body">
         <div class="page-header">
             <div class="page-header__container container">
                 <div class="page-header__breadcrumb">
@@ -52,7 +52,8 @@ ActivePages::setActiveUser();
                                         <div class="layout-switcher">
                                             <div class="layout-switcher__list">
                                                 <button data-layout="grid-4-full" data-with-features="false"
-                                                        title="Плитка" type="button" class="layout-switcher__button">
+                                                        title="Плитка"
+                                                        type="button" class="layout-switcher__button">
                                                     <svg width="16px" height="16px">
                                                         <use xlink:href="/images/sprite.svg#layout-grid-16x16"></use>
                                                     </svg>
@@ -66,8 +67,8 @@ ActivePages::setActiveUser();
                                             </div>
                                         </div>
                                     </div>
-                                    <?php echo Html::beginForm(Url::current(), 'post', ['class' => 'form-inline']); ?>
-                                    <div class="view-options__legend"><?= Yii::t('app', 'Показано') ?> <?= count($products) ?> <?= Yii::t('app', 'товарів з') ?> <?= $products_all ?></div>
+                                    <div class="view-options__legend"><?= Yii::t('app', 'Показано') ?> <?= count($products) ?> <?= Yii::t('app', 'товарів з') ?>
+                                        <?= $products_all ?></div>
                                     <div class="view-options__divider"></div>
                                     <div class="view-options__control">
                                         <label for=""><?= Yii::t('app', 'Сортувати') ?></label>
@@ -83,7 +84,7 @@ ActivePages::setActiveUser();
                                         </div>
                                     </div>
                                     <div class="view-options__control">
-                                        <label for="">Показати</label>
+                                        <label for=""><?= Yii::t('app', 'Показати') ?></label>
                                         <div>
                                             <?php
                                             echo Html::dropDownList('count', Yii::$app->session->get('count'), [
@@ -93,8 +94,6 @@ ActivePages::setActiveUser();
                                                 '24' => '24',
                                                 '32' => '32',
                                             ], ['class' => 'form-control form-control-sm', 'id' => 'count-form']);
-                                            echo Html::hiddenInput('slug', $category->slug);
-                                            echo Html::endForm();
                                             ?>
                                         </div>
                                     </div>
