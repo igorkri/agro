@@ -15,7 +15,7 @@ use yii\helpers\Url;
 
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
-        <div class="container container--max--xl">
+        <div class="container container--max--xl" style="max-width: 1623px">
             <div class="py-5">
                 <div class="row g-4 align-items-center">
                     <div class="col">
@@ -99,7 +99,6 @@ use yii\helpers\Url;
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
-
                                     <div
                                             class="tab-pane fade show active"
                                             id="home-tab-content-2"
@@ -145,7 +144,6 @@ use yii\helpers\Url;
                                             </div>
                                         </div>
                                     </div>
-
                                     <div
                                             class="tab-pane fade"
                                             id="profile-tab-content-2"
@@ -190,7 +188,6 @@ use yii\helpers\Url;
                                             </div>
                                         </div>
                                     </div>
-
                                     <div
                                             class="tab-pane fade"
                                             id="contact-tab-content-2"
@@ -235,28 +232,9 @@ use yii\helpers\Url;
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
-
-
-
-<!--=======================================================================-->
-
-                        <div class="card mt-5">
-                            <div class="card-body p-5">
-                                <div class="mb-5">
-                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2
-                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'SVG for menu') ?></h2></span>
-                                </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'svg')->textInput(['maxlength' => true])->label(Yii::t('app', 'SVG')) ?>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="card mt-5">
                             <div class="card-header">
                                 <div class="mb-5">
@@ -461,8 +439,6 @@ use yii\helpers\Url;
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                    <?= $this->render('sidebar', ['form' => $form, 'model' => $model]) ?>
                 </div>

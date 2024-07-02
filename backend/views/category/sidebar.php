@@ -121,4 +121,15 @@ use yii\helpers\ArrayHelper;
             </div>
         </div>
     </div>
+    <div class="card w-100 mt-5">
+        <div class="card-body p-5">
+            <div class="mb-5">
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2
+                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'SVG for menu') ?></h2></span>
+            </div>
+            <div class="mb-4">
+                <?= $form->field($model, 'svg')->textInput(['maxlength' => true])->label(Yii::t('app', 'SVG')) ?>
+            </div>
+        </div>
+    </div>
 </div>
