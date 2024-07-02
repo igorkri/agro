@@ -35,10 +35,6 @@ class ProductController extends Controller
         $img_brand = Brand::find()->where(['id' => $product->brand_id])->one();
         $model_review = new Review();
 
-        $this->setProductSchemaBreadcrumb($product);
-        $this->setSchemaProduct($product);
-        $this->setProductMetadata($product);
-
         if ($language !== 'uk') {
             if ($product) {
                 $translationProd = $product->getTranslation($language)->one();
@@ -54,6 +50,12 @@ class ProductController extends Controller
                     }
                     if ($translationProd->footer_description) {
                         $product->footer_description = $translationProd->footer_description;
+                    }
+                    if ($translationProd->seo_title){
+                        $product->seo_title = $translationProd->seo_title;
+                    }
+                    if ($translationProd->seo_description){
+                        $product->seo_description = $translationProd->seo_description;
                     }
                 }
                 $translationCat = $product->category->getTranslation($language)->one();
@@ -75,6 +77,10 @@ class ProductController extends Controller
                 }
             }
         }
+
+        $this->setProductSchemaBreadcrumb($product);
+        $this->setSchemaProduct($product);
+        $this->setProductMetadata($product);
 
         return $this->render('index', [
             'product' => $product,
@@ -105,7 +111,7 @@ class ProductController extends Controller
             ->itemListElement([
                 Schema::listItem()
                     ->position(1)
-                    ->item(Schema::thing()->name('Головна')
+                    ->item(Schema::thing()->name(Yii::t('app','Головна'))
                         ->url(Yii::$app->homeUrl)
                         ->setProperty('id', Yii::$app->homeUrl)),
                 Schema::listItem()
