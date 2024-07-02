@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\shop\CategoriesTranslate;
 use common\models\shop\Category;
 use backend\models\search\CategorySearch;
 use Yii;
@@ -69,9 +70,6 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
-//        debug($this->request->post());
-//        die;
-//        Yii::$app->cache->flush();
         $model = new Category();
 
         if ($this->request->isPost) {
@@ -106,35 +104,58 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
-//        Yii::$app->cache->flush();
         $model = $this->findModel($id);
 
+        $translateRu = CategoriesTranslate::findOne(['category_id' => $id, 'language' => 'ru']);
+        $translateEn = CategoriesTranslate::findOne(['category_id' => $id, 'language' => 'en']);
+
         if ($this->request->isPost && $model->load($this->request->post())) {
-            $post_file = $_FILES['Category']['size']['file'];
-            if($post_file <= 0 ){
+            $postTranslates = Yii::$app->request->post('CategoriesTranslate', []);
+
+            $this->updateTranslate($model->id, 'ru', $postTranslates['ru'] ?? null);
+            $this->updateTranslate($model->id, 'en', $postTranslates['en'] ?? null);
+
+            if ($_FILES['Category']['size']['file'] > 0) {
+                $model->file = $this->uploadFile($model);
+            } else {
                 $old = $this->findModel($id);
                 $model->file = $old->file;
-            }else {
-                $dir = Yii::getAlias('@frontendWeb/category');
-
-                $file = UploadedFile::getInstance($model, 'file');
-                $imageName = uniqid();
-                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                $model->file = $imageName . '.' . $file->extension;
             }
-            if($model->save(false)) {
+
+            if ($model->save(false)) {
                 return $this->redirect(['update', 'id' => $model->id]);
-            }else{
-                debug($model->errors);
-                debug($model->file);
-                die;
+            } else {
+                dd($model->errors, $model->file);
             }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'translateRu' => $translateRu,
+            'translateEn' => $translateEn,
         ]);
     }
+
+    private function updateTranslate($categoryId, $language, $data)
+    {
+        if ($data) {
+            $translate = CategoriesTranslate::findOne(['category_id' => $categoryId, 'language' => $language]);
+            if ($translate) {
+                $translate->setAttributes($data);
+                $translate->save();
+            }
+        }
+    }
+
+    private function uploadFile($model)
+    {
+        $dir = Yii::getAlias('@frontendWeb/category');
+        $file = UploadedFile::getInstance($model, 'file');
+        $imageName = uniqid();
+        $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+        return $imageName . '.' . $file->extension;
+    }
+
 
     /**
      * Deletes an existing Category model.
@@ -147,8 +168,8 @@ class CategoryController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb');
         $model = $this->findModel($id);
-        if (file_exists($dir .'/category/'. $model->file)) {
-            unlink($dir .'/category/'. $model->file);
+        if (file_exists($dir . '/category/' . $model->file)) {
+            unlink($dir . '/category/' . $model->file);
         }
 
         $model->delete();

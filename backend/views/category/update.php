@@ -15,5 +15,7 @@ $this->params['breadcrumbs'][] = ['label' =>  Yii::t('app', 'Category') . ": " .
 
 <?= $this->render('_form', [
     'model' => $model,
+    'translateRu' => $translateRu,
+    'translateEn' => $translateEn,
 ]) ?>
 
