@@ -1,6 +1,5 @@
 <?php
 
-use common\models\shop\Product;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Category $categories */
@@ -50,7 +49,7 @@ use yii\helpers\Url;
                                                                                     <?php if ($i == 6): ?>
                                                                                         <li class="megamenu__item">
                                                                                             <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>">
-                                                                                                <span style="color: #30b12b; "><?= Yii::t('app', 'Дивитись всі...') ?> </span>
+                                                                                                <span style="color: #30b12b; "><?= Yii::t('app', 'Дивитись всі') ?>... </span>
                                                                                             </a>
                                                                                         </li>
                                                                                     <?php endif; ?>
@@ -77,15 +76,14 @@ use yii\helpers\Url;
                                         <div class="megamenu  megamenu--departments ">
                                             <div class="megamenu__body ">
                                                 <div class="row">
-                                                    <?php $products_menu = Product::find()->where(['category_id' => $category->id])->all() ?>
                                                     <div class="col-3">
                                                         <ul class="megamenu__links megamenu__links--level--0">
                                                             <li class="megamenu__item  megamenu__item--with-submenu ">
                                                                 <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>"><?= $category->svg . ' ' . $category->name ?></a>
                                                                 <ul class="megamenu__links megamenu__links--level--1">
-                                                                    <?php if ($products_menu): ?>
+                                                                    <?php if ($category->products): ?>
                                                                         <?php $i = 1;
-                                                                        foreach ($products_menu as $product): ?>
+                                                                        foreach ($category->products as $product): ?>
                                                                             <?php if ($i < 6): ?>
                                                                                 <li class="megamenu__item"><a
                                                                                             href="<?= Url::to(['product/view', 'slug' => $product->slug]) ?>"><?= $product->name ?></a>
@@ -94,7 +92,7 @@ use yii\helpers\Url;
                                                                             <?php if ($i == 6): ?>
                                                                                 <li class="megamenu__item">
                                                                                     <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>">
-                                                                                        <span style="color: #30b12b; "><?= Yii::t('app', 'Дивитись всі...') ?> </span>
+                                                                                        <span style="color: #30b12b; "><?= Yii::t('app', 'Дивитись всі') ?>... </span>
                                                                                     </a>
                                                                                 </li>
                                                                             <?php endif; ?>
