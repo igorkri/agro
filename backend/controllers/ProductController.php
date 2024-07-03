@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\shop\ProductsTranslate;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
@@ -153,7 +154,16 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
+        $translateRu = ProductsTranslate::findOne(['product_id' => $id, 'language' => 'ru']);
+        $translateEn = ProductsTranslate::findOne(['product_id' => $id, 'language' => 'en']);
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
+            $postTranslates = Yii::$app->request->post('ProductsTranslate', []);
+
+            $this->updateTranslate($model->id, 'ru', $postTranslates['ru'] ?? null);
+            $this->updateTranslate($model->id, 'en', $postTranslates['en'] ?? null);
+
+
             $postProperties = Yii::$app->request->post('ProductProperties', []);
             $sort = 1;
             foreach ($postProperties as $index => $postData) {
@@ -328,7 +338,20 @@ class ProductController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'translateRu' => $translateRu,
+            'translateEn' => $translateEn,
         ]);
+    }
+
+    private function updateTranslate($productId, $language, $data)
+    {
+        if ($data) {
+            $translate = ProductsTranslate::findOne(['product_id' => $productId, 'language' => $language]);
+            if ($translate) {
+                $translate->setAttributes($data);
+                $translate->save();
+            }
+        }
     }
 
     /**
