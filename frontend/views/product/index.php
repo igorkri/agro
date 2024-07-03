@@ -125,8 +125,8 @@ $webp_support = ProductImage::imageWebp();
                             <hr>
                             <div class="tags tags--lg">
                                 <div class="tags__list">
-                                    <?php foreach ($product->tags as $brand): ?>
-                                        <a href="<?= Url::to(['tag/view', 'id' => $brand->id]) ?>"><?= $brand->name ?></a>
+                                    <?php foreach ($product->tags as $tag): ?>
+                                        <a href="<?= Url::to(['tag/view', 'id' => $tag->id]) ?>"><?= $tag->getTagTranslate($tag, $language) ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tag".
@@ -12,7 +13,7 @@ use Yii;
  * @property string|null $name_ru
  * @property string|null $name_en
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -45,14 +46,39 @@ class Tag extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProductTag($id) {
-
+    public function getProductTag($id)
+    {
         $products = ProductTag::find()->where(['tag_id' => $id])->all();
         $total_res = [];
         foreach ($products as $product) {
             $total_res[] = $product;
         }
         return count($total_res);
+    }
+
+    public function getTagTranslate($tag, $language)
+    {
+        $name = '';
+        switch ($language) {
+
+            case 'uk':
+                $name = $tag->name;
+                break;
+
+            case 'ru':
+                $name = $tag->name_ru;
+                break;
+
+            case 'en':
+                $name = $tag->name_en;
+                break;
+
+            default:
+
+                break;
+        }
+
+        return $name;
     }
 
 }
