@@ -164,28 +164,28 @@ $lang = strtoupper(Yii::$app->language);
                             <ul class="nav-links__list">
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="<?= Url::to(['special/view']) ?>">
-                                        <div class="nav-links__item-body">
+                                        <div class="nav-links__item-body header-menu">
                                             <?= Yii::t('app', 'Спеціальні пропозиції') ?>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="<?= Url::to(['delivery/view']) ?>">
-                                        <div class="nav-links__item-body">
+                                        <div class="nav-links__item-body header-menu">
                                             <?= Yii::t('app', 'Доставка') ?>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="<?= Url::to(['contact/view']) ?>">
-                                        <div class="nav-links__item-body">
+                                        <div class="nav-links__item-body header-menu">
                                             <?= Yii::t('app', 'Зв\'язок з нами') ?>
                                         </div>
                                     </a>
                                 </li>
                                 <li class="nav-links__item  nav-links__item--has-submenu ">
                                     <a class="nav-links__item-link" href="<?= Url::to(['blogs/view']) ?>">
-                                        <div class="nav-links__item-body">
+                                        <div class="nav-links__item-body header-menu">
                                             <?= Yii::t('app', 'Статті') ?>
                                         </div>
                                     </a>
@@ -197,7 +197,7 @@ $lang = strtoupper(Yii::$app->language);
                                 <a href="<?= Url::to(['wish/view']) ?>" data-toggle="tooltip" title="Бажання"
                                    class="indicator__button">
                                             <span class="indicator__area">
-                                                <svg width="16px" height="16px">
+                                                <svg width="20px" height="20px">
                                                     <use xlink:href="/images/sprite.svg#wishlist-16"></use>
                                                 </svg>
                                                     <span class="indicator__value"
@@ -209,7 +209,7 @@ $lang = strtoupper(Yii::$app->language);
                                 <a href="<?= Url::to(['compare/view']) ?>" data-toggle="tooltip" title="Порівняння"
                                    class="indicator__button">
                                             <span class="indicator__area">
-                                                <svg width="16px" height="16px">
+                                                <svg width="20px" height="20px">
                                                     <use xlink:href="/images/sprite.svg#compare-16"></use>
                                                 </svg>
                                                     <span class="indicator__value"
@@ -223,7 +223,7 @@ $lang = strtoupper(Yii::$app->language);
                                    class="indicator__button"
                                    data-url-quick-view-all="<?= Yii::$app->urlManager->createUrl(['cart/quickview-all']) ?>">
                                     <span class="indicator__area">
-                                        <svg width="20px" height="20px">
+                                        <svg width="24px" height="24px">
                                             <use xlink:href="/images/sprite.svg#cart-20"></use>
                                         </svg>
                                         <span class="indicator__value"
@@ -238,3 +238,9 @@ $lang = strtoupper(Yii::$app->language);
         </div>
     </div>
 </header>
+<style>
+    .header-menu {
+        font-weight: bold;
+        font-size: 18px;
+    }
+</style>

@@ -117,7 +117,9 @@ use yii\helpers\Url;
             <svg class="departments__button-icon" width="18px" height="14px">
                 <use xlink:href="/images/sprite.svg#menu-18x14"></use>
             </svg>
+            <span style="font-weight: bold; font-size: 18px">
             <?= Yii::t('app', 'Категорії товарів') ?>
+            </span>
             <svg class="departments__button-arrow" width="9px" height="6px">
                 <use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use>
             </svg>
