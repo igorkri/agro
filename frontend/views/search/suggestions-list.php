@@ -96,7 +96,7 @@ SuggestionsPageAsset::register($this);
                                     </div>
                                 </div>
                             </div>
-                            <?= $this->render('@frontend/views/layouts/products-list.php', ['product' => $product]) ?>
+                            <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
                             <div style="display: block;margin: 60px 0px 0px 0px;">
                                 <ul class="pagination justify-content-center">
                                     <li>
