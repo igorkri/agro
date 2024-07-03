@@ -58,12 +58,7 @@ class Tag extends ActiveRecord
 
     public function getTagTranslate($tag, $language)
     {
-        $name = '';
         switch ($language) {
-
-            case 'uk':
-                $name = $tag->name;
-                break;
 
             case 'ru':
                 $name = $tag->name_ru;
@@ -74,7 +69,7 @@ class Tag extends ActiveRecord
                 break;
 
             default:
-
+                $name = $tag->name;
                 break;
         }
 
