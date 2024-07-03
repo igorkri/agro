@@ -39,8 +39,8 @@ $rating = 3;
                         <div class="footer-description"
                              style="display: none;"><?= $product->getFooterDescription($product->footer_description, $product->name) ?></div>
                         <button class="btn btn-secondary" id="show-more-btn"><?=Yii::t('app','Розгорнути опис')?> >></button>
-                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;"><?=Yii::t('app','Приховати
-                            опис')?> <<
+                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">
+                            <?=Yii::t('app','Приховати опис')?> <<
                         </button>
                     </div>
                 </div>
