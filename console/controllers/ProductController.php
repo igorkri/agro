@@ -274,12 +274,24 @@ class ProductController extends Controller
 //            ->where(['id' => 2])
             ->all();
         if (!$products) {
-            echo "Product not found.\n";
+            echo "Products not found.\n";
             return;
         }
+
+        foreach ($products as $product) {
+            $idProduct = ProductsTranslate::find()->select('product_id')->where(['description' => null])->column();
+
+            $idProduct = array_unique($idProduct);
+
+        }
+
+        $products = Category::find()->where(['id' => $idProduct])->all();
+        if (!$products) {
+            echo "Products not found.\n";
+            return;
+        }
+
         $i = 1;
-
-
         foreach ($products as $product) {
             if (strlen($product->description) > 5000) {
                 $descrSave = '';

@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string|null $name
+ * @property string|null $name_ru
+ * @property string|null $name_en
  */
 class Tag extends \yii\db\ActiveRecord
 {
@@ -26,7 +28,7 @@ class Tag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 255],
+            [['name', 'name_ru', 'name_en'], 'string', 'max' => 50],
         ];
     }
 
@@ -38,6 +40,8 @@ class Tag extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
+            'name_ru' => Yii::t('app', 'Name RU'),
+            'name_en' => Yii::t('app', 'Name EN'),
         ];
     }
 

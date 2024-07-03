@@ -11,10 +11,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="tag-form">
-
     <?php $form = ActiveForm::begin(); ?>
-
-    <!-- sa-app__body -->
     <div id="top" class="sa-app__body">
         <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
             <div class="container container--max--xl">
@@ -34,11 +31,9 @@ use yii\widgets\ActiveForm;
                                     ?>
                                 </ol>
                             </nav>
-<!--                            <h1 class="h3 m-0">--><?php //=$this->title?><!--</h1>-->
                         </div>
                         <div class="col-auto d-flex">
-                            <?php if(!$model->isNewRecord): ?>
-                                <!--                            <a href="#" class="btn btn-secondary me-3">--><?php ////Yii::t('app', 'Duplicate')?><!--</a>-->
+                            <?php if (!$model->isNewRecord): ?>
                                 <?= Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
                                 <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
                             <?php endif; ?>
@@ -46,14 +41,23 @@ use yii\widgets\ActiveForm;
                         </div>
                     </div>
                 </div>
-                <div class="sa-entity-layout" data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
+                <div class="sa-entity-layout"
+                     data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                     <div class="sa-entity-layout__body">
                         <div class="sa-entity-layout__main">
                             <div class="card">
                                 <div class="card-body p-5">
-                                    <div class="mb-5"><h2 class="mb-0 fs-exact-18"><?=Yii::t('app', 'Basic information')?></h2></div>
+                                    <div class="mb-5"><h2
+                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2>
+                                    </div>
                                     <div class="mb-4">
                                         <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
+                                    </div>
+                                    <div class="mb-4">
+                                        <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true])->label(Yii::t('app', 'name ru')) ?>
+                                    </div>
+                                    <div class="mb-4">
+                                        <?= $form->field($model, 'name_en')->textInput(['maxlength' => true])->label(Yii::t('app', 'name en')) ?>
                                     </div>
                                 </div>
                             </div>
@@ -63,8 +67,5 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
     </div>
-    <!-- sa-app__body / end -->
-
     <?php ActiveForm::end(); ?>
-
 </div>

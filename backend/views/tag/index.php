@@ -53,6 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tr>
                         <th><?=Yii::t('app', 'ID')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'name')?></th>
+                        <th class="min-w-15x"><?=Yii::t('app', 'name_ru')?></th>
+                        <th class="min-w-15x"><?=Yii::t('app', 'name_en')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'Count')?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
@@ -66,6 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </td>
                             <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a></td>
+                            <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name_ru?></a></td>
+                            <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name_en?></a></td>
                             <td>
                                 <?= $model->getProductTag($model->id) ?>
                             </td>
