@@ -27,14 +27,6 @@ use yii\helpers\Url;
             <div class="block-products-carousel__preloader"></div>
             <div class="owl-carousel">
                 <?php foreach ($products as $product): ?>
-                    <?php
-                    if ($product !== null) {
-                        $translationProd = $product->getTranslation($language)->one();
-                        if ($translationProd) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                    ?>
                     <div class="block-products-carousel__column">
                         <div class="block-products-carousel__cell">
                             <div class="product-card product-card--hidden-actions ">

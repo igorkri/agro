@@ -13,14 +13,6 @@ use yii\helpers\Url;
         </div>
         <div class="block-categories__list">
             <?php foreach ($categories as $category): ?>
-                <?php
-                if ($category !== null) {
-                    $translationCat = $category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        $category->name = $translationCat->name;
-                    }
-                }
-                ?>
                 <div class="block-categories__item category-card category-card--layout--classic">
                     <div class="category-card__body">
                         <div class="category-card__image">

@@ -51,36 +51,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="product-card__actions">
                             <div class="product-card__availability">
-                                   <span class="text-success" style="font-weight: 600">
-                                              <?php
-                                              if ($products[0]->status_id == 1) {
-                                                  echo '<i style="font-size:1rem; margin: 5px;" class="fas fa-check"></i> ' . $products[0]->status->name;
-                                              } elseif ($products[0]->status_id == 2) {
-                                                  echo '<i style="font-size:1rem; color: #ff0000!important; margin: 5px;" class="fas fa-ban"></i> ';
-                                                  echo "<span style='color: #ff0000 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                              } elseif ($products[0]->status_id == 3) {
-                                                  echo '<i style="font-size:1rem; color: #ff8300!important; margin: 5px;" class="fas fa-truck"></i> ';
-                                                  echo "<span style='color: #ff8300 !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                              } elseif ($products[0]->status_id == 4) {
-                                                  echo '<i style="font-size:1rem; color: #0331fc!important; margin: 5px;" class="fa fa-bars"></i> ';
-                                                  echo "<span style='color: #0331fc !important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                              } else {
-                                                  echo "<span style='color: #060505!important;
-                                                font-weight: 600;
-                                                letter-spacing: 0.6px;
-                                            '> " . $products[0]->status->name . " </span>";
-                                              }
-                                              ?>
-                                        </span>
+                                <?= $this->render('status', ['product' => $products[0]]) ?>
                             </div>
                             <?php if ($products[0]->old_price == null) { ?>
                                 <div class="product-card__prices">
@@ -145,19 +116,6 @@ use yii\helpers\Url;
             <div class="block-products__list">
                 <?php $i = 0; ?>
                 <?php foreach ($products as $product): ?>
-                    <?php
-                    if ($product !== null) {
-                        $translationProd = $product->getTranslation($language)->one();
-                        if ($translationProd) {
-                            $product->name = $translationProd->name;
-                        }
-                        $translationCat = $product->category->getTranslation($language)->one();
-                        if ($translationCat) {
-                            $product->category->name = $translationCat->name;
-                            $product->category->prefix = $translationCat->prefix;
-                        }
-                    }
-                    ?>
                     <?php if ($i != 0): ?>
                         <div class="block-products__list-item">
                             <div class="product-card product-card--hidden-actions ">
@@ -196,9 +154,7 @@ use yii\helpers\Url;
                                 </div>
                                 <div class="product-card__actions">
                                     <div class="product-card__availability">
-                                  <span class="text-success">
                                         <?= $this->render('status', ['product' => $product]) ?>
-                                        </span>
                                     </div>
                                     <?php if ($product->old_price == null) { ?>
                                         <div class="product-card__prices">

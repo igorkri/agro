@@ -47,6 +47,19 @@ class ColumnsTopRated extends Widget   //  Гербіциди
             ->limit(3)
             ->all();
 
+        if ($language !== 'uk') {
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                }
+            }
+        }
+
         return $this->render('product-columns',
             [
                 'products' => $products,

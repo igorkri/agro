@@ -8,14 +8,6 @@ use yii\helpers\Url;
         <h4 class="widget__title"><?= Yii::t('app', $title) ?></h4>
         <div class="widget-products__list">
             <?php foreach ($products as $product): ?>
-                <?php
-                if ($product !== null) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        $product->name = $translationProd->name;
-                    }
-                }
-                ?>
                 <hr>
                 <div class="widget-products__item">
                     <div class="widget-products__image">

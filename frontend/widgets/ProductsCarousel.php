@@ -57,6 +57,19 @@ class ProductsCarousel extends Widget
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
 
+        if ($language !== 'uk') {
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                }
+            }
+        }
+
             return $this->render('products-carousel',
                 [
                     'products' => $products,

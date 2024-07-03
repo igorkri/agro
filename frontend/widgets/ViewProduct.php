@@ -51,6 +51,28 @@ class ViewProduct extends Widget
             ->where(['id' => $viewedProducts])
             ->all();
 
+        if ($language !== 'uk') {
+            foreach ($viewedProductsData as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                    $translationCat = $product->category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $product->category->name = $translationCat->name;
+                        }
+                        if ($translationCat->prefix) {
+                            $product->category->prefix = $translationCat->prefix;
+                        }
+                    }
+                }
+            }
+        }
+
         return $this->render('products-carousel-slide',
             [
                 'products' => $viewedProductsData,

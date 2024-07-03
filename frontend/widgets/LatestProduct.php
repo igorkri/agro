@@ -19,9 +19,23 @@ class LatestProduct extends Widget
 
         $title = 'Може зацікавити';
 
+        $products = $this->products;
+
+        if ($language !== 'uk') {
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                }
+            }
+        }
         return $this->render('latest-product',
             [
-                'products' => $this->products,
+                'products' => $products,
                 'language' => $language,
                 'title' => $title,
             ]);

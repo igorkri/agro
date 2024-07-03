@@ -54,6 +54,19 @@ class ProductsCarouselGazon extends Widget   // Газонна Трава
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency); // Помечаем кэш базы данных как актуальный
         }
 
+        if ($language !== 'uk') {
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                }
+            }
+        }
+
         return $this->render('products-carousel',
             [
                 'products' => $products,

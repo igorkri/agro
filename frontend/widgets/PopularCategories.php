@@ -27,6 +27,18 @@ class PopularCategories extends Widget  // Популярні Категорії
             ->andWhere(['visibility' => 1])
             ->all();
 
+        if ($language !== 'uk') {
+            foreach ($categories as $category) {
+                if ($category) {
+                    $translationCat = $category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $category->name = $translationCat->name;
+                        }
+                    }
+                }
+            }
+        }
 
         return $this->render('popular-categories',
             [

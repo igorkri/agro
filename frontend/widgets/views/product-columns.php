@@ -14,14 +14,6 @@ use yii\helpers\Url;
     </div>
     <div class="block-product-columns__column">
         <?php foreach ($products as $product): ?>
-            <?php
-            if ($product !== null) {
-                $translationProd = $product->getTranslation($language)->one();
-                if ($translationProd) {
-                    $product->name = $translationProd->name;
-                }
-            }
-            ?>
             <div class="block-product-columns__item">
                 <div class="product-card product-card--hidden-actions product-card--layout--horizontal">
                     <?php if (isset($product->label)): ?>
