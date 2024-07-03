@@ -27,33 +27,33 @@ $tel_2 = '(068) 489-43-86';
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/category/list']) ?>" class="mobile-links__item-link"> <i class="fas fa-th-list"></i> <?=Yii::t('app','Категорії')?></a>
+                        <a href="<?= Url::to(['category/list']) ?>" class="mobile-links__item-link"> <i class="fas fa-th-list"></i> <?=Yii::t('app','Категорії')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/special/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-tags"></i> <?=Yii::t('app','Спеціальні пропозиції')?></a>
+                        <a href="<?= Url::to(['special/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-tags"></i> <?=Yii::t('app','Спеціальні пропозиції')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/delivery/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-truck"></i> <?=Yii::t('app','Доставка та
+                        <a href="<?= Url::to(['delivery/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-truck"></i> <?=Yii::t('app','Доставка та
                             оплата')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/about/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-address-card"></i> <?=Yii::t('app','Про нас')?></a>
+                        <a href="<?= Url::to(['about/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-address-card"></i> <?=Yii::t('app','Про нас')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/contact/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-phone-square-alt"></i> <?=Yii::t('app','Зв\'язок з нами')?></a>
+                        <a href="<?= Url::to(['contact/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-phone-square-alt"></i> <?=Yii::t('app','Зв\'язок з нами')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
-                        <a href="<?= Url::to(['/blogs/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-file-alt"> </i> <?=Yii::t('app','Статті')?></a>
+                        <a href="<?= Url::to(['blogs/view']) ?>" class="mobile-links__item-link"> <i class="fas fa-file-alt"> </i> <?=Yii::t('app','Статті')?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>

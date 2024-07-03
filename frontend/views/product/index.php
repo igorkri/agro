@@ -220,7 +220,7 @@ $webp_support = ProductImage::imageWebp();
 
     <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
-
+<?= $this->render('@frontend/views/layouts/photoswipe.php') ?>
 <style>
     .category-prefix {
         color: #a9a8a8;

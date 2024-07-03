@@ -33,15 +33,10 @@ AppAsset::register($this);
     <body>
     <?php $this->beginBody() ?>
     <div class="site">
-        <?php if (Yii::$app->devicedetect->isMobile()): ?>
-            <?= $this->render('mobile-site-header') ?>
-        <?php endif; ?>
         <?php echo SiteHeader::widget() ?>
         <?= $content ?>
         <?php echo SiteFooter::widget() ?>
     </div>
-    <?= $this->render('mobilemenu') ?>
-    <?= $this->render('photoswipe') ?>
     <?= $this->render('quickview-modal') ?>
     <?= $this->render('success-compare') ?>
     <?= $this->render('success-wish') ?>

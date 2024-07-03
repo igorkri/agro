@@ -237,7 +237,12 @@ $lang = strtoupper(Yii::$app->language);
             </div>
         </div>
     </div>
+
 </header>
+<?php if (Yii::$app->devicedetect->isMobile()): ?>
+    <?= $this->render('@frontend/views/layouts/mobile-site-header.php') ?>
+    <?= $this->render('@frontend/views/layouts/mobilemenu.php') ?>
+<?php endif; ?>
 <style>
     .header-menu {
         font-weight: bold;

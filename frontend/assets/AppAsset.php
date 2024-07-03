@@ -22,7 +22,6 @@ class AppAsset extends AssetBundle
         '/css/style.css?v=' . PROJECT_VERSION,
         '/css/widgets.css?v=' . PROJECT_VERSION,
 
-        '/vendor/photoswipe/photoswipe.css?v=' . PROJECT_VERSION,
         '/vendor/fontawesome/css/all.min.css?v=' . PROJECT_VERSION,
         '/vendor/owl-carousel/assets/owl.carousel.min.css?v=' . PROJECT_VERSION,
 
