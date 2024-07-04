@@ -91,6 +91,16 @@ class AuxiliaryCategories extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getTranslations()
+    {
+        return $this->hasMany(AuxiliaryTranslate::class, ['category_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(AuxiliaryTranslate::class, ['category_id' => 'id'])->where(['language' => $language]);
+    }
+
     public function getSchemaRatingCategory($productsId)
     {
         $reviews = Review::find()

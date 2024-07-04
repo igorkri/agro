@@ -156,10 +156,6 @@ class CategoryController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
-        $this->setCatalogBreadCrumbSchema($category);
-        $this->setCatalogProductSchema($category, $products_all);
-        $this->setCatalogMetamaster($category);
-
         if ($language !== 'uk') {
             if ($category) {
                 $translationCat = $category->getTranslation($language)->one();
@@ -169,6 +165,12 @@ class CategoryController extends Controller
                     }
                     if ($translationCat->description) {
                         $category->description = $translationCat->description;
+                    }
+                    if ($translationCat->pageTitle) {
+                        $category->pageTitle = $translationCat->pageTitle;
+                    }
+                    if ($translationCat->metaDescription) {
+                        $category->metaDescription = $translationCat->metaDescription;
                     }
                 }
             }
@@ -180,26 +182,44 @@ class CategoryController extends Controller
                     }
                 }
             }
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
+            if ($products) {
+                foreach ($products as $product) {
+                    if ($product) {
+                        $translationProd = $product->getTranslation($language)->one();
+                        if ($translationProd) {
+                            if ($translationProd->name) {
+                                $product->name = $translationProd->name;
+                            }
+                        }
+                        $translationCat = $product->category->getTranslation($language)->one();
+                        if ($translationCat) {
+                            if ($translationCat->name) {
+                                $product->category->name = $translationCat->name;
+                            }
+                            if ($translationCat->prefix) {
+                                $product->category->prefix = $translationCat->prefix;
+                            }
                         }
                     }
-                    $translationCat = $product->category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $product->category->name = $translationCat->name;
-                        }
-                        if ($translationCat->prefix) {
-                            $product->category->prefix = $translationCat->prefix;
+                }
+            }
+            if ($auxiliaryCategories) {
+                foreach ($auxiliaryCategories as $auxiliaryCategory) {
+                    if ($auxiliaryCategory) {
+                        $translationAuxiliaryCategory = $auxiliaryCategory->getTranslation($language)->one();
+                        if ($translationAuxiliaryCategory) {
+                            if ($translationAuxiliaryCategory->name) {
+                                $auxiliaryCategory->name = $translationAuxiliaryCategory->name;
+                            }
                         }
                     }
                 }
             }
         }
+
+        $this->setCatalogBreadCrumbSchema($category);
+        $this->setCatalogProductSchema($category, $products_all);
+        $this->setCatalogMetamaster($category);
 
         return $this->render('catalog',
             compact([
@@ -286,50 +306,55 @@ class CategoryController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
+        if ($language !== 'uk') {
+            if ($category) {
+                $translationCat = $category->getTranslation($language)->one();
+                if ($translationCat) {
+                    if ($translationCat->name) {
+                        $category->name = $translationCat->name;
+                    }
+                    if ($translationCat->description) {
+                        $category->description = $translationCat->description;
+                    }
+                    if ($translationCat->pageTitle) {
+                        $category->pageTitle = $translationCat->pageTitle;
+                    }
+                    if ($translationCat->metaDescription) {
+                        $category->metaDescription = $translationCat->metaDescription;
+                    }
+                }
+            }
+
+            foreach ($products as $product) {
+                if ($product) {
+                    $translationProd = $product->getTranslation($language)->one();
+                    if ($translationProd) {
+                        if ($translationProd->name) {
+                            $product->name = $translationProd->name;
+                        }
+                    }
+                    $translationCat = $product->category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $product->category->name = $translationCat->name;
+                        }
+                        if ($translationCat->prefix) {
+                            $product->category->prefix = $translationCat->prefix;
+                        }
+                    }
+                    $translationParentCat = $breadcrumbCategory->getTranslation($language)->one();
+                    if ($translationParentCat) {
+                        if ($translationParentCat->name) {
+                            $breadcrumbCategory->name = $translationParentCat->name;
+                        }
+                    }
+                }
+            }
+        }
+
         $this->setAuxiliaryCatalogBreadCrumbSchema($category, $breadcrumbCategory);
         $this->setAuxiliaryCatalogProductSchema($category, $products_all, $productsId);
         $this->setAuxiliaryCatalogMetamaster($category);
-
-//        if ($language !== 'uk') {
-//            if ($category) {
-//                $translationCat = $category->getTranslation($language)->one();
-//                if ($translationCat) {
-//                    if ($translationCat->name) {
-//                        $category->name = $translationCat->name;
-//                    }
-//                    if ($translationCat->description) {
-//                        $category->description = $translationCat->description;
-//                    }
-//                }
-//            }
-//            if ($category->parent) {
-//                $translationCatParent = $category->parent->getTranslation($language)->one();
-//                if ($translationCatParent) {
-//                    if ($translationCatParent->name) {
-//                        $category->parent->name = $translationCatParent->name;
-//                    }
-//                }
-//            }
-//            foreach ($products as $product) {
-//                if ($product) {
-//                    $translationProd = $product->getTranslation($language)->one();
-//                    if ($translationProd) {
-//                        if ($translationProd->name) {
-//                            $product->name = $translationProd->name;
-//                        }
-//                    }
-//                    $translationCat = $product->category->getTranslation($language)->one();
-//                    if ($translationCat) {
-//                        if ($translationCat->name) {
-//                            $product->category->name = $translationCat->name;
-//                        }
-//                        if ($translationCat->prefix) {
-//                            $product->category->prefix = $translationCat->prefix;
-//                        }
-//                    }
-//                }
-//            }
-//        }
 
         return $this->render('view',
             compact([
