@@ -152,7 +152,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="site-footer__bottom">
                         <div class="site-footer__copyright">
-                            © Copyright 2023 <a href="/" target="_blank">agropro.org.ua</a>
+                            © Copyright <?= date("Y") ?> <a href="/" target="_blank">agropro.org.ua</a>
                         </div>
                         <div class="site-footer__payments">
                             <img src="/images/payments.png" width="246" height="24" alt="AgroPro">

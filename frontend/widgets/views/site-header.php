@@ -65,6 +65,16 @@ $lang = strtoupper(Yii::$app->language);
                                         <li class="menu__item">
                                             <div class="menu__item-submenu-offset"></div>
                                             <a class="menu__item-link"
+                                               href="<?php echo Url::to(['/' . $path, 'language' => 'uk']) ?>">
+                                                <div class="menu__item-icon">
+                                                    <img src="/images/languages/language-UK.png" alt="UK">
+                                                </div>
+                                                Українська
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <div class="menu__item-submenu-offset"></div>
+                                            <a class="menu__item-link"
                                                href="<?php echo Url::to(['/' . $path, 'language' => 'en']) ?>">
                                                 <div class="menu__item-icon">
                                                     <img src="/images/languages/language-EN.png" alt="EN">
@@ -80,16 +90,6 @@ $lang = strtoupper(Yii::$app->language);
                                                     <img src="/images/languages/language-RU.png" alt="RU">
                                                 </div>
                                                 Русский
-                                            </a>
-                                        </li>
-                                        <li class="menu__item">
-                                            <div class="menu__item-submenu-offset"></div>
-                                            <a class="menu__item-link"
-                                               href="<?php echo Url::to(['/' . $path, 'language' => 'uk']) ?>">
-                                                <div class="menu__item-icon">
-                                                    <img src="/images/languages/language-UK.png" alt="UK">
-                                                </div>
-                                                Українська
                                             </a>
                                         </li>
                                     </ul>
