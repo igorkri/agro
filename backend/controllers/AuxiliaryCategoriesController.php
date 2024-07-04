@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\shop\AuxiliaryCategories;
 use backend\models\search\AuxiliaryCategories as AuxiliaryCategoriesSearch;
+use common\models\shop\AuxiliaryTranslate;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -104,32 +105,54 @@ class AuxiliaryCategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post())) {
+        $translateRu = AuxiliaryTranslate::findOne(['category_id' => $id, 'language' => 'ru']);
+        $translateEn = AuxiliaryTranslate::findOne(['category_id' => $id, 'language' => 'en']);
 
-            $post_file = $_FILES['AuxiliaryCategories']['size']['image'];
-            if($post_file <= 0 ){
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $postTranslates = Yii::$app->request->post('CategoriesTranslate', []);
+
+            $this->updateTranslate($model->id, 'ru', $postTranslates['ru'] ?? null);
+            $this->updateTranslate($model->id, 'en', $postTranslates['en'] ?? null);
+
+            if ($_FILES['AuxiliaryCategories']['size']['image'] > 0) {
+                $model->image = $this->uploadFile($model);
+            } else {
                 $old = $this->findModel($id);
                 $model->image = $old->image;
-            }else {
-                $dir = Yii::getAlias('@frontendWeb/auxiliary-categories');
-
-                $image = UploadedFile::getInstance($model, 'image');
-                $imageName = uniqid();
-                $image->saveAs($dir . '/' . $imageName . '.' . $image->extension);
-                $model->image = $imageName . '.' . $image->extension;
             }
+
             if($model->save(false)) {
                 return $this->redirect(['update', 'id' => $model->id]);
             }else{
-                debug($model->errors);
-                debug($model->image);
-                die;
+                dd($model->errors, $model->image);
             }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'translateRu' => $translateRu,
+            'translateEn' => $translateEn,
         ]);
+    }
+
+    private function updateTranslate($categoryId, $language, $data)
+    {
+        if ($data) {
+            $translate = AuxiliaryTranslate::findOne(['category_id' => $categoryId, 'language' => $language]);
+            if ($translate) {
+                $translate->setAttributes($data);
+                $translate->save();
+            }
+        }
+    }
+
+    private function uploadFile($model)
+    {
+        $dir = Yii::getAlias('@frontendWeb/auxiliary-categories');
+        $file = UploadedFile::getInstance($model, 'image');
+        $imageName = uniqid();
+        $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+        return $imageName . '.' . $file->extension;
     }
 
     /**
