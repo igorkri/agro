@@ -100,6 +100,15 @@ return [
                         'app/error' => 'error.php',
                     ],
                 ],
+                'home*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@frontend/messages',
+                    'sourceLanguage' => 'uk-UA',
+                    'fileMap' => [
+                        'home'      => 'home.php',
+                        'home/error' => 'error.php',
+                    ],
+                ],
             ],
         ],
         'formatter' => [
