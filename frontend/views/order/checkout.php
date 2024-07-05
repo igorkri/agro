@@ -118,7 +118,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                             'options' => [
                                                                 'id' => 'order-areas',
                                                                 'data-url-cities' => Yii::$app->urlManager->createUrl(['n-p/cities']),
-                                                                'placeholder' => 'Виберіть область...',
+                                                                'placeholder' => Yii::t('app','Виберіть область...'),
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
                                                             'pluginOptions' => [
@@ -127,7 +127,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                                 'max-width' => '550px',
                                                                 'margin' => '0 auto',
                                                             ],
-                                                        ])->label('Область');
+                                                        ])->label(Yii::t('app','Область'));
                                                         ?>
                                                     </div>
                                                     <div class="form-group">
@@ -139,7 +139,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                             'options' => [
                                                                 'id' => 'order-city',
                                                                 'data-url-warehouses' => Yii::$app->urlManager->createUrl(['n-p/warehouses']),
-                                                                'placeholder' => 'Виберіть місто...',
+                                                                'placeholder' => Yii::t('app','Виберіть місто...'),
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
                                                             'pluginOptions' => [
@@ -160,7 +160,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                                 return null;
                                                             }"),
                                                             ],
-                                                        ])->label('Місто');
+                                                        ])->label(Yii::t('app','Місто'));
                                                         ?>
                                                     </div>
                                                     <div class="form-group">
@@ -171,7 +171,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                             'pluginLoading' => false,
                                                             'options' => [
                                                                 'id' => 'order-warehouses',
-                                                                'placeholder' => 'Виберіть відділення...',
+                                                                'placeholder' => Yii::t('app','Виберіть відділення...'),
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
                                                             'pluginOptions' => [
@@ -180,7 +180,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                                 'max-width' => '550px',
                                                                 'margin' => '0 auto',
                                                             ],
-                                                        ])->label('Відділення');
+                                                        ])->label(Yii::t('app','Відділення'));
                                                         ?>
                                                     </div>
                                                 </div>
@@ -213,8 +213,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
 ">
                                                         <?=Yii::t('app','Відправка при 100% оплаті за замовлення!!!')?>
                                                     </p>
-                                                    <p style="font-weight: 600"><?=Yii::t('app','Для доставки "Укрпошта" введіть в полі
-                                                        коментар такі дані')?>:</p>
+                                                    <p style="font-weight: 600"><?=Yii::t('app','Для доставки "Укрпошта" введіть в полі коментар такі дані')?>:</p>
                                                     <ul style="margin-bottom: 1rem">
                                                         <li><?=Yii::t('app','Індекс')?></li>
                                                         <li><?=Yii::t('app','Область')?></li>
