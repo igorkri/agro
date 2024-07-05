@@ -33,12 +33,14 @@ class CategoryController extends Controller
             ->register(Yii::$app->getView());
 
         if ($language !== 'uk') {
-            foreach ($categories as $category) {
-                if ($category) {
-                    $translationCat = $category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $category->name = $translationCat->name;
+            if ($categories) {
+                foreach ($categories as $category) {
+                    if ($category) {
+                        $translationCat = $category->getTranslation($language)->one();
+                        if ($translationCat) {
+                            if ($translationCat->name) {
+                                $category->name = $translationCat->name;
+                            }
                         }
                     }
                 }
@@ -73,11 +75,13 @@ class CategoryController extends Controller
                     $category->description = $translationCat->description;
                 }
             }
-            foreach ($category->parents as $parent) {
-                if ($parent !== null) {
-                    $translationCatParent = $parent->getTranslation($language)->one();
-                    if ($translationCatParent) {
-                        $parent->name = $translationCatParent->name;
+            if ($category->parents) {
+                foreach ($category->parents as $parent) {
+                    if ($parent !== null) {
+                        $translationCatParent = $parent->getTranslation($language)->one();
+                        if ($translationCatParent) {
+                            $parent->name = $translationCatParent->name;
+                        }
                     }
                 }
             }

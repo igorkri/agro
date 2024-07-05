@@ -20,6 +20,7 @@ class SiteHeader extends Widget
     public function run()
     {
         $session = Yii::$app->session;
+        $language = $session->get('_language');
         $compareList = $session->get('compareList', []);
         $compareList = count($compareList);
         $wishList = $session->get('wishList', []);
@@ -36,6 +37,29 @@ class SiteHeader extends Widget
             Yii::$app->cache->set($cacheKey, $contacts, 3600, new DbDependency([
                 'sql' => 'SELECT COUNT(*) FROM contacts',
             ]));
+        }
+
+        if ($language !== 'uk') {
+            foreach ($categories as $category) {
+                if ($category) {
+                    $translationCat = $category->getTranslation($language)->one();
+                    if ($translationCat) {
+                        if ($translationCat->name) {
+                            $category->name = $translationCat->name;
+                        }
+                    }
+                    if ($category->parents){
+                        foreach ($category->parents as $parent){
+                            if ($parent !== null) {
+                                $translationCatParent = $parent->getTranslation($language)->one();
+                                if ($translationCatParent) {
+                                    $parent->name = $translationCatParent->name;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         return $this->render('site-header',
