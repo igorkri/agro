@@ -107,13 +107,24 @@ class ProductController extends Controller
 
     protected function setProductSchemaBreadcrumb($product)
     {
+
+        $language = Yii::$app->session->get('_language');
+
+        if ($language !== 'uk') {
+            $url = Yii::$app->request->hostInfo . '/' . $language;
+        } else {
+            $url = Yii::$app->request->hostInfo;
+        }
+
+        $url = rtrim($url, '/') . '/';
+
         $schemaBreadcrumb = Schema::breadcrumbList()
             ->itemListElement([
                 Schema::listItem()
                     ->position(1)
                     ->item(Schema::thing()->name(Yii::t('app','Головна'))
-                        ->url(Yii::$app->homeUrl)
-                        ->setProperty('id', Yii::$app->homeUrl)),
+                        ->url($url)
+                        ->setProperty('id', $url)),
                 Schema::listItem()
                     ->position(2)
                     ->item(Schema::thing()->name($product->category->name)
