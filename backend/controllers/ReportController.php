@@ -509,8 +509,8 @@ class ReportController extends Controller
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
             ->where(['between', 'date_order', $periodStart, $periodEnd])
             ->andWhere(['platform' => $platformName])
-            ->andWhere(['<>','order_status_id', 'Відміна'])
-            ->andWhere(['<>','order_pay_ment_id', 'Відміна'])
+            ->andWhere(['<>', 'order_status_id', 'Відміна'])
+            ->andWhere(['<>', 'order_pay_ment_id', 'Відміна'])
             ->all();
 
         foreach ($models as $model) {
@@ -522,7 +522,7 @@ class ReportController extends Controller
             $platformPrice = $model->getItemsPlatformPrice($model->id);
             $priceDelivery = $model->price_delivery;
 
-            if ($model->order_status_id != 'Повернення' or $model->order_pay_ment_id != 'Повернення'){
+            if ($model->order_status_id != 'Повернення' or $model->order_pay_ment_id != 'Повернення') {
 
 
                 switch ($platform) {
@@ -585,7 +585,7 @@ class ReportController extends Controller
                         $noPackage[] = 'Не визначено';
                         break;
                 }
-            }else{
+            } else {
                 switch ($package) {
                     case 'Фермерська + Дрібна':
                     case 'Фермерська':
@@ -961,13 +961,16 @@ class ReportController extends Controller
                     break;
             }
 
+            $date_delivery = $model->date_delivery ? Yii::$app->formatter->asDate($model->date_delivery, 'php:d-m-Y') : '';
+            $date_payment = $model->date_payment ? Yii::$app->formatter->asDate($model->date_payment, 'php:d-m-Y') : '';
+
             $sheet->setCellValue('A' . $row, $model->platform);
             $sheet->setCellValue('B' . $row, $model->number_order);
             $sheet->setCellValue('C' . $row, $model->order_status_id);
-            $sheet->setCellValue('D' . $row, $model->date_delivery);
+            $sheet->setCellValue('D' . $row, $date_delivery);
             $sheet->setCellValue('K' . $row, $model->nova_pay);
             $sheet->setCellValue('N' . $row, $model->price_delivery);
-            $sheet->setCellValue('O' . $row, $model->date_payment);
+            $sheet->setCellValue('O' . $row, $date_payment);
             $sheet->setCellValue('P' . $row, $model->order_pay_ment_id);
             $sheet->setCellValue('Q' . $row, $model->type_payment);
             $sheet->setCellValue('R' . $row, $model->fio);
@@ -1025,6 +1028,9 @@ class ReportController extends Controller
         $sumDiscountOrders = array_sum($sumDiscountOrders);
         $sumPlatformOrders = array_sum($sumPlatformOrders);
         $sumDeliveryOrders = array_sum($sumDeliveryOrders);
+
+        $periodStart = Yii::$app->formatter->asDate($periodStart, 'php:d-m-Y');
+        $periodEnd = Yii::$app->formatter->asDate($periodEnd, 'php:d-m-Y');
 
         $sheet->setCellValue('A' . $row, 'Всього:');
         $sheet->setCellValue('B' . $row, $countsOrders);

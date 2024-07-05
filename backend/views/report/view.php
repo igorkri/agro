@@ -2,7 +2,6 @@
 
 use yii\bootstrap5\Breadcrumbs;
 use common\models\Settings;
-use Detection\MobileDetect;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\web\YiiAsset;
@@ -81,7 +80,7 @@ if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
                                         <span class="text-muted"
                                               style="font-size: 14px">Дата відп.: </span>
-                                        <?= !empty($model->date_delivery) ? '<span class="text-success">' . $model->date_delivery . '</span>' : '<span class="text-danger">Відсутня</span>' ?>
+                                        <?= !empty($model->date_delivery) ? '<span class="text-success">' . Yii::$app->formatter->asDate($model->date_delivery, 'php:d-m-Y') . '</span>' : '<span class="text-danger">Відсутня</span>' ?>
                                     </div>
                                     <div class="sa-page-meta__item" style="font-weight: bold; font-size: 18px">
                                         <span class="text-muted"
@@ -205,7 +204,6 @@ if ($model->order_status_id == 'Повернення' || $model->order_pay_ment_
                                                                         <i class="fas fa-pen"></i>
                                                                     </a>
                                                                 </div>
-                                                                <!-- Удаление товара из заказа -->
                                                                 <div class="text-muted fs-exact-14">
                                                                     <a href="<?= Url::to(['report/delete-report-item', 'id' => $reportItem->id]) ?>"
                                                                        class="text-danger"

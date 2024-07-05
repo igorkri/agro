@@ -125,7 +125,7 @@ $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== nu
                                    class="text-reset text-nowrap"><?= $model->fio ?></a></td>
                             <td class="text-center"><?= $model->getPayMentStatus($model->order_pay_ment_id) ?></td>
                             <td class="text-center"><?= $model->getCountOrders($model->tel_number) ?></td>
-                            <td><?= $model->date_delivery ?></td>
+                            <td><?= !empty($model->date_delivery) ? Yii::$app->formatter->asDate($model->date_delivery, 'php:d-m-Y') : '' ?></td>
                             <td><?= $model->type_payment ?></td>
                             <td><?= $model->getPhoneCut($model->tel_number) ?></td>
                             <td class="text-center"><?= $model->getDeliveryLogo($model->delivery_service) ?></td>

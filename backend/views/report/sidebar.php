@@ -36,7 +36,7 @@ use yii\helpers\Url;
                 <div class="sa-page-meta__body">
                     <div class="sa-page-meta__list">
                         <div class="sa-page-meta__item">
-                            <?= !empty($order['date_order']) ? '<span class="text-success">' . $order['date_order'] . '</span>' : '<span class="text-danger">Відсутня</span>' ?>
+                            <?= !empty($order['date_order']) ? '<span class="text-success">' . Yii::$app->formatter->asDate($order['date_order'], 'php:d-m-Y') . '</span>' : '<span class="text-danger">Відсутня</span>' ?>
                         </div>
                         <div class="sa-page-meta__item">
                             <?= $model->getExecutionStatus($order['order_status_id']) ?>
