@@ -120,7 +120,5 @@ use yii\helpers\Url;
         font-size: 0.875rem;
         line-height: 1.25rem;
         margin-bottom: 2px;
-        border-top: 1px solid rgba(33, 37, 41, 0.1);
-        border-bottom: 1px solid rgba(33, 37, 41, 0.1);
     }
 </style>
