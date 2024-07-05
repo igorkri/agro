@@ -57,13 +57,11 @@ class CategoryController extends Controller
     public function actionChildren($slug)
     {
         $language = Yii::$app->session->get('_language');
+
         $category = Category::find()
             ->with(['parents', 'parent', 'products'])
             ->where(['slug' => $slug])
             ->one();
-
-        $this->setChildrenProductSchema($category);
-        $this->setChildrenMetamaster($category);
 
         if ($language !== 'uk') {
             $translationCat = $category->getTranslation($language)->one();
@@ -73,6 +71,12 @@ class CategoryController extends Controller
                 }
                 if ($translationCat->description) {
                     $category->description = $translationCat->description;
+                }
+                if ($translationCat->pageTitle) {
+                    $category->pageTitle = $translationCat->pageTitle;
+                }
+                if ($translationCat->metaDescription) {
+                    $category->metaDescription = $translationCat->metaDescription;
                 }
             }
             if ($category->parents) {
@@ -86,6 +90,11 @@ class CategoryController extends Controller
                 }
             }
         }
+
+        $imageMetamaster = '/category/' . $category->file;
+
+        $this->setCategoryMetamaster($category, $imageMetamaster);
+        $this->setChildrenProductSchema($category);
 
         return $this->render('children',
             [
@@ -221,9 +230,11 @@ class CategoryController extends Controller
             }
         }
 
+        $imageMetamaster = '/category/' . $category->file;
+
         $this->setCatalogBreadCrumbSchema($category);
         $this->setCatalogProductSchema($category, $products_all);
-        $this->setCatalogMetamaster($category);
+        $this->setCategoryMetamaster($category, $imageMetamaster);
 
         return $this->render('catalog',
             compact([
@@ -356,9 +367,11 @@ class CategoryController extends Controller
             }
         }
 
+        $imageMetamaster = '/auxiliary-categories/' . $category->image;
+
         $this->setAuxiliaryCatalogBreadCrumbSchema($category, $breadcrumbCategory);
         $this->setAuxiliaryCatalogProductSchema($category, $products_all, $productsId);
-        $this->setAuxiliaryCatalogMetamaster($category);
+        $this->setCategoryMetamaster($category, $imageMetamaster);
 
         return $this->render('view',
             compact([
@@ -413,6 +426,16 @@ class CategoryController extends Controller
 
     protected function setChildrenProductSchema($category)
     {
+        $language = Yii::$app->session->get('_language');
+
+        if ($language !== 'uk') {
+            $url = Yii::$app->request->hostInfo . '/' . $language;
+        } else {
+            $url = Yii::$app->request->hostInfo;
+        }
+
+        $url = rtrim($url, '/') . '/';
+
         $res = [];
         foreach ($category->parents as $cat) {
             if ($cat->parentId === $category->id) {
@@ -425,7 +448,7 @@ class CategoryController extends Controller
         $offers = [];
         foreach ($results as $product) {
             $offer = [
-                "url" => Yii::$app->request->hostInfo . '/product/' . $product->slug
+                "url" => $url . 'product/' . $product->slug
             ];
             $offers[] = $offer;
         }
@@ -435,7 +458,7 @@ class CategoryController extends Controller
         if ($res) {
             $productList = Schema::Product()
                 ->name($category->name)
-                ->url(Yii::$app->request->hostInfo . '/catalog/' . $category->slug)
+                ->url($url . 'catalog/' . $category->slug)
                 ->description($category->description)
                 ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
                 ->aggregateRating(Schema::aggregateRating()
@@ -451,27 +474,105 @@ class CategoryController extends Controller
         }
     }
 
-    protected function setChildrenMetamaster($category)
+    protected function setCatalogProductSchema($category, $products_all)
     {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($category->pageTitle)
-            ->setDescription($category->metaDescription)
-            ->setImage('/category/' . $category->file)
-            ->register(Yii::$app->getView());
+        $language = Yii::$app->session->get('_language');
+
+        if ($language !== 'uk') {
+            $url = Yii::$app->request->hostInfo . '/' . $language;
+        } else {
+            $url = Yii::$app->request->hostInfo;
+        }
+
+        $url = rtrim($url, '/') . '/';
+
+        $results = Product::find()->where(['category_id' => $category->id])->all();
+        $offers = [];
+        foreach ($results as $product) {
+
+            $offer = [
+                "url" => $url . 'product/' . $product->slug
+            ];
+            $offers[] = $offer;
+        }
+
+        $productList = Schema::Product()
+            ->name($category->name)
+            ->url($url)
+            ->description($category->description)
+            ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
+            ->aggregateRating(Schema::aggregateRating()
+                ->ratingValue($category->getSchemaRatingCategory($category->id))
+                ->reviewCount($category->getSchemaCountReviewsCategory($category->id)))
+            ->offers(Schema::AggregateOffer()
+                ->highPrice($category->getCatalogHighPrice($category->id))
+                ->lowPrice($category->getCatalogLowPrice($category->id))
+                ->offerCount($products_all)
+                ->priceCurrency("UAH")
+                ->offers($offers));
+        Yii::$app->params['schema'] = $productList->toScript();
+    }
+
+    protected function setAuxiliaryCatalogProductSchema($category, $products_all, $productsId)
+    {
+        $language = Yii::$app->session->get('_language');
+
+        if ($language !== 'uk') {
+            $url = Yii::$app->request->hostInfo . '/' . $language;
+        } else {
+            $url = Yii::$app->request->hostInfo;
+        }
+
+        $url = rtrim($url, '/') . '/';
+
+        $results = Product::find()->where(['id' => $productsId])->all();
+        $offers = [];
+        foreach ($results as $product) {
+            $offer = [
+                "url" => $url . 'product/' . $product->slug
+            ];
+            $offers[] = $offer;
+        }
+
+        $productList = Schema::Product()
+            ->name($category->name)
+            ->url($url . 'auxiliary-product-list/' . $category->slug)
+            ->description($category->description)
+            ->image(Yii::$app->request->hostInfo . '/auxiliary-categories/' . $category->image)
+            ->aggregateRating(Schema::aggregateRating()
+                ->ratingValue($category->getSchemaRatingCategory($productsId))
+                ->reviewCount($category->getSchemaCountReviewsCategory($productsId)))
+            ->offers(Schema::AggregateOffer()
+                ->highPrice($category->getCatalogHighPrice($productsId))
+                ->lowPrice($category->getCatalogLowPrice($productsId))
+                ->offerCount($products_all)
+                ->priceCurrency("UAH")
+                ->offers($offers));
+
+        Yii::$app->params['schema'] = $productList->toScript();
     }
 
     protected function setCatalogBreadCrumbSchema($category)
     {
+
+        $language = Yii::$app->session->get('_language');
+
+        if ($language !== 'uk') {
+            $url = Yii::$app->request->hostInfo . '/' . $language;
+        } else {
+            $url = Yii::$app->request->hostInfo;
+        }
+
+        $url = rtrim($url, '/') . '/';
+
         if (isset($category->parent->name)) {
             $schemaBreadcrumb = Schema::breadcrumbList()
                 ->itemListElement([
                     Schema::listItem()
                         ->position(1)
-                        ->item(Schema::thing()->name('Головна')
-                            ->url(Yii::$app->homeUrl)
-                            ->setProperty('id', Yii::$app->homeUrl)),
+                        ->item(Schema::thing()->name(Yii::t('app','Головна'))
+                            ->url($url)
+                            ->setProperty('id', $url)),
                     Schema::listItem()
                         ->position(2)
                         ->item(Schema::thing()->name($category->parent->name)
@@ -488,12 +589,12 @@ class CategoryController extends Controller
                 ->itemListElement([
                     Schema::listItem()
                         ->position(1)
-                        ->item(Schema::thing()->name('Головна')
-                            ->url(Yii::$app->homeUrl)
-                            ->setProperty('id', Yii::$app->homeUrl)),
+                        ->item(Schema::thing()->name(Yii::t('app','Головна'))
+                            ->url($url)
+                            ->setProperty('id', $url)),
                     Schema::listItem()
                         ->position(2)
-                        ->item(Schema::thing()->name('Категорії')
+                        ->item(Schema::thing()->name(Yii::t('app','Категорії'))
                             ->url(Url::to(['category/list']))
                             ->setProperty('id', Url::to(['category/list']))),
                     Schema::listItem()
@@ -507,54 +608,25 @@ class CategoryController extends Controller
         Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
     }
 
-    protected function setCatalogProductSchema($category, $products_all)
-    {
-        $results = Product::find()->where(['category_id' => $category->id])->all();
-        $offers = [];
-        foreach ($results as $product) {
-            $offer = [
-                "url" => Yii::$app->request->hostInfo . '/product/' . $product->slug
-            ];
-            $offers[] = $offer;
-        }
-
-        $productList = Schema::Product()
-            ->name($category->name)
-            ->url(Yii::$app->request->hostInfo . '/product-list/' . $category->slug)
-            ->description($category->description)
-            ->image(Yii::$app->request->hostInfo . '/category/' . $category->file)
-            ->aggregateRating(Schema::aggregateRating()
-                ->ratingValue($category->getSchemaRatingCategory($category->id))
-                ->reviewCount($category->getSchemaCountReviewsCategory($category->id)))
-            ->offers(Schema::AggregateOffer()
-                ->highPrice($category->getCatalogHighPrice($category->id))
-                ->lowPrice($category->getCatalogLowPrice($category->id))
-                ->offerCount($products_all)
-                ->priceCurrency("UAH")
-                ->offers($offers));
-        Yii::$app->params['schema'] = $productList->toScript();
-    }
-
-    protected function setCatalogMetamaster($category)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($category->pageTitle)
-            ->setDescription($category->metaDescription)
-            ->setImage('/category/' . $category->file)
-            ->register(Yii::$app->getView());
-    }
-
     protected function setAuxiliaryCatalogBreadCrumbSchema($category, $breadcrumbCategory)
     {
+        $language = Yii::$app->session->get('_language');
+
+        if ($language !== 'uk') {
+            $url = Yii::$app->request->hostInfo . '/' . $language;
+        } else {
+            $url = Yii::$app->request->hostInfo;
+        }
+
+        $url = rtrim($url, '/') . '/';
+
         $schemaBreadcrumb = Schema::breadcrumbList()
             ->itemListElement([
                 Schema::listItem()
                     ->position(1)
-                    ->item(Schema::thing()->name('Головна')
-                        ->url(Yii::$app->homeUrl)
-                        ->setProperty('id', Yii::$app->homeUrl)),
+                    ->item(Schema::thing()->name(Yii::t('app','Головна'))
+                        ->url($url)
+                        ->setProperty('id', $url)),
                 Schema::listItem()
                     ->position(2)
                     ->item(Schema::thing()->name($breadcrumbCategory->name)
@@ -570,43 +642,14 @@ class CategoryController extends Controller
         Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
     }
 
-    protected function setAuxiliaryCatalogProductSchema($category, $products_all, $productsId)
-    {
-        $results = Product::find()->where(['id' => $productsId])->all();
-        $offers = [];
-        foreach ($results as $product) {
-            $offer = [
-                "url" => Yii::$app->request->hostInfo . '/product/' . $product->slug
-            ];
-            $offers[] = $offer;
-        }
-
-        $productList = Schema::Product()
-            ->name($category->name)
-            ->url(Yii::$app->request->hostInfo . '/auxiliary-product-list/' . $category->slug)
-            ->description($category->description)
-            ->image(Yii::$app->request->hostInfo . '/auxiliary-categories/' . $category->image)
-            ->aggregateRating(Schema::aggregateRating()
-                ->ratingValue($category->getSchemaRatingCategory($productsId))
-                ->reviewCount($category->getSchemaCountReviewsCategory($productsId)))
-            ->offers(Schema::AggregateOffer()
-                ->highPrice($category->getCatalogHighPrice($productsId))
-                ->lowPrice($category->getCatalogLowPrice($productsId))
-                ->offerCount($products_all)
-                ->priceCurrency("UAH")
-                ->offers($offers));
-
-        Yii::$app->params['schema'] = $productList->toScript();
-    }
-
-    protected function setAuxiliaryCatalogMetamaster($category)
+    protected function setCategoryMetamaster($category, $imageMetamaster)
     {
         Yii::$app->metamaster
             ->setSiteName('AgroPro')
             ->setType('website')
             ->setTitle($category->pageTitle)
             ->setDescription($category->metaDescription)
-            ->setImage('/auxiliary-categories/' . $category->image)
+            ->setImage($imageMetamaster)
             ->register(Yii::$app->getView());
     }
 }
