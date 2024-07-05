@@ -148,6 +148,17 @@ class Report extends ActiveRecord
         return 1;
     }
 
+    public function getStatusOrdersView($phone)
+    {
+        $orders = Report::find()->select(['date_order', 'order_status_id', 'order_pay_ment_id',])
+            ->where(['tel_number' => $phone])
+            ->orderBy(['date_order' => SORT_DESC])
+            ->asArray()
+            ->all();
+
+        return $orders;
+    }
+
     public function getExecutionStatus($order_status)
     {
         switch ($order_status) {
