@@ -62,7 +62,7 @@ use yii\helpers\Url;
                                                         <ul class="mobile-links mobile-links--level--2">
                                                             <li class="mobile-links__item" data-collapse-item>
                                                                 <div class="mobile-links__item-title">
-                                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $category->slug]) ?>"
+                                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $parent->slug]) ?>"
                                                                        class="mobile-links__item-link"><?= $parent->svg .' '. $parent->name; ?></a>
                                                                 </div>
                                                             </li>
@@ -86,8 +86,7 @@ use yii\helpers\Url;
                 <li class="mobile-links__item" data-collapse-item>
                     <div class="mobile-links__item-title">
                         <a href="<?= Url::to(['delivery/view']) ?>" class="mobile-links__item-link"> <i
-                                    class="fas fa-truck"></i> <?= Yii::t('app', 'Доставка та
-                            оплата') ?></a>
+                                    class="fas fa-truck"></i> <?= Yii::t('app', 'Доставка та оплата') ?></a>
                     </div>
                 </li>
                 <li class="mobile-links__item" data-collapse-item>

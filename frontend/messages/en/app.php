@@ -9,6 +9,7 @@ return [
     'Про нас' => 'About us',
     'Контакти' => 'Contacts',
     'Доставка Оплата' => 'Delivery Payment',
+    'Доставка та оплата' => 'Delivery & Payment',
     'Статті' => 'Articles',
     'Номер для замовлення' => 'Phone number for ordering',
     'Доставка' => 'Delivery',
