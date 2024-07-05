@@ -33,6 +33,7 @@ class AppAsset extends AssetBundle
         '/js/number.js?v=' . PROJECT_VERSION,
         '/js/header.js?v=' . PROJECT_VERSION,
         '/js/main.js?v=' . PROJECT_VERSION,
+        '/js/collapse.js?v=' . PROJECT_VERSION,
 
 //        '/vendor/select2/js/select2.min.js?v=' . PROJECT_VERSION,
 //        '/js/ModalRemote.js?v=' . PROJECT_VERSION,

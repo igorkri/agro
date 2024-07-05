@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\models\Contact;
+use common\models\shop\Category;
 use Yii;
 use yii\base\Widget;
 use yii\caching\DbDependency;
@@ -24,6 +25,8 @@ class SiteHeader extends Widget
         $wishList = $session->get('wishList', []);
         $wishList = count($wishList);
 
+        $categories = Category::find()->where(['visibility' => 1])->all();
+
         $cacheKey = 'contact_cache_key';
         $contacts = Yii::$app->cache->get($cacheKey);
 
@@ -40,6 +43,7 @@ class SiteHeader extends Widget
                 'contacts' => $contacts,
                 'compareList' => $compareList,
                 'wishList' => $wishList,
+                'categories' => $categories,
             ]);
     }
 }
