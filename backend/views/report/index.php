@@ -23,6 +23,7 @@ $reportSmallProblem = [
 
 $reportBigProblem = [
     Report::IncomingPriceNotSelected(),
+    Report::StatusUnpaidMonth(),
 ];
 
 $orderBigProblem = '<span class="indicator indicator__red"> !</span>';

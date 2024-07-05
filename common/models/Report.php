@@ -414,4 +414,20 @@ class Report extends ActiveRecord
         }
         return null;
     }
+
+    static public function StatusUnpaidMonth()
+    {
+        $oneMonthAgo = (new \DateTime())->modify('-1 month')->format('Y-m-d H:i:s');
+
+        $orderNumbers = Report::find()
+            ->select('number_order')
+            ->where(['order_pay_ment_id' => 'Не оплачено'])
+            ->andWhere(['<', 'date_order', $oneMonthAgo])
+            ->column();
+
+        if ($orderNumbers) {
+            return implode('      ', $orderNumbers);
+        }
+        return null;
+    }
 }

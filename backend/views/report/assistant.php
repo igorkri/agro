@@ -115,6 +115,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                         </tr>
                     <?php endif; ?>
+                    <?php $ordersMount = Report::StatusUnpaidMonth() ?>
+                    <?php if ($ordersMount): ?>
+                        <tr>
+                            <td>Статус Не оплачено більше місяця</td>
+                            <td>
+                                <?= $ordersMount ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>
