@@ -52,7 +52,7 @@
     /*
     // Datatables
     */
-    (function() {
+    (function () {
         $.fn.DataTable.ext.pager.numbers_length = 5;
         $.fn.DataTable.defaults.oLanguage.sInfo = 'Показано _START_ от _END_ до _TOTAL_';
         $.fn.DataTable.defaults.oLanguage.sLengthMenu = 'Строк на странице _MENU_';
@@ -73,7 +73,7 @@
             $('.sa-datatables-init').each(function() {
             const tableSearchSelector = $(this).data('sa-search-input');
             const table = $(this).DataTable({
-                
+
                 dom: template,
                 paging: true,
                 ordering: false,
@@ -98,51 +98,9 @@
                 });
             }
         });
-        
+
     })();
 
-    (function() {
-        $.fn.DataTable.ext.pager.numbers_length = 5;
-        $.fn.DataTable.defaults.oLanguage.sInfo = 'Показано _START_ от _END_ до _TOTAL_';
-        $.fn.DataTable.defaults.oLanguage.sLengthMenu = 'Строк на странице _MENU_';
-
-        const template = '' +
-            '<"sa-datatables"' +
-                '<"sa-datatables__table"t>' +
-                '<"sa-datatables__footer"' +
-                    // '<"sa-datatables__pagination"p>' +
-                    '<"sa-datatables__controls"' +
-                        '<"sa-datatables__legend"i>' +
-                        // '<"sa-datatables__divider">' +
-                        // '<"sa-datatables__page-size"l>' +
-                    '>' +
-                '>' +
-            '>';
-
-            $('.sa-datatables-order-parts').each(function() {
-            const tableSearchSelector = $(this).data('id');
-            const table = $(this).DataTable({
-                
-                dom: template,
-                paging: true,
-                ordering: true,
-                "language": {
-                    
-                  },
-                drawCallback: function() {
-                    $(this.api().table().container()).find('.pagination').addClass('pagination-sm');
-                },
-            });
-
-            if (tableSearchSelector) {
-                $(tableSearchSelector).on('input', function() {
-                    console.log(this.value);
-                    table.search(this.value).draw();
-                });
-            }
-        });
-        
-    })();
 
     /*
     // Analytics chart
@@ -439,7 +397,5 @@ function pageLoad() {
         $(this).toggleClass("minus").siblings("ul").toggle();
     })
 }
-
-
 
 }(jQuery, window));
