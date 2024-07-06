@@ -63,7 +63,7 @@ class ProductController extends Controller
     /**
      * Найти и перезаписать тег <h2>
      */
-    public function actionFindAndReplace()
+    public function actionFindAndReplaceTag()
     {
         $products = Product::find()
             ->where(['like', 'description', '%<h2>%', false]) // false означает, что чувствительность к регистру отключена
@@ -404,6 +404,32 @@ class ProductController extends Controller
                 }
             }
             $i++;
+        }
+    }
+
+    /**
+     * Найти и перезаписать Характеристики
+     */
+    public function actionFindAndReplaceProperty()
+    {
+        $wordFind = 'Послелестничный';
+        $wordReplace = 'Послевсходовый';
+
+        $properties = ProductPropertiesTranslate::find()
+            ->where(['like', 'value', '%' . $wordFind . '%', false]) // false означает, что чувствительность к регистру отключена
+            ->all();
+        if ($properties) {
+            foreach ($properties as $property) {
+
+                $property->value = str_replace($wordFind, $wordReplace, $property->value);
+                if ($property->save(true)) {
+                    echo $property->id . "\tСлово\t" . $wordFind . "\t заменено на\t" . $wordReplace . "\tрезультат =>\t" . $property->value . "\t" . "\n";
+                } else {
+                    echo "\tПроизошла ошибка при сохранении!\t" . $property->id . "\t=>\t" . $property->value . "\n";
+                }
+            }
+        } else {
+            echo "\tНет результатов для обработки!\t" . $wordFind . "\t=>\t" . $wordReplace . "\n";
         }
     }
 }
