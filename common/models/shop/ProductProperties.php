@@ -49,4 +49,14 @@ class ProductProperties extends \yii\db\ActiveRecord
             'category_id' => Yii::t('app', 'ID Категории'),
         ];
     }
+
+    public function getTranslations()
+    {
+        return $this->hasMany(ProductPropertiesTranslate::class, ['property_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(ProductPropertiesTranslate::class, ['property_id' => 'id'])->where(['language' => $language]);
+    }
 }

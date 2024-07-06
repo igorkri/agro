@@ -200,7 +200,8 @@ class Product extends ActiveRecord implements CartPositionInterface
 
     public function getProperties()
     {
-        return $this->hasMany(ProductProperties::class, ['product_id' => 'id']);
+        return $this->hasMany(ProductProperties::class, ['product_id' => 'id'])
+            ->orderBy(['sort' => SORT_ASC]);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace console\controllers;
 use common\models\shop\Category;
 use common\models\shop\Product;
 use common\models\shop\ProductProperties;
+use common\models\shop\ProductPropertiesTranslate;
 use common\models\shop\ProductsTranslate;
 use common\models\shop\ProductTag;
 use common\models\shop\Tag;
@@ -358,6 +359,51 @@ class ProductController extends Controller
                 }
                 $i++;
             }
+        }
+    }
+
+    /**
+     * <<<<<<<< ПЕРЕВОД Перевод данных Products Properties
+     */
+    public function actionTranslateProductProperties()
+    {
+        $properties = ProductProperties::find()
+            ->all();
+        if (!$properties) {
+            echo "Products not found.\n";
+            return;
+        }
+
+
+        $i = 1;
+        foreach ($properties as $property) {
+
+            $sourceLanguage = 'uk'; // Определить язык автоматически
+            $targetLanguages = ['ru', 'en']; // Языки перевода
+
+            $tr = new GoogleTranslate();
+
+            foreach ($targetLanguages as $language) {
+                $translation = $property->getTranslation($language)->one();
+                if (!$translation) {
+                    $translation = new ProductPropertiesTranslate();
+                    $translation->property_id = $property->id;
+                    $translation->language = $language;
+                }
+
+                $tr->setSource($sourceLanguage);
+                $tr->setTarget($language);
+
+                $translation->properties = $tr->translate($property->properties);
+                $translation->value = $tr->translate($property->value);
+
+                if ($translation->save()) {
+                    echo "$i  Продукт $property->properties переведен и сохранен для $language.\n";
+                } else {
+                    echo "$i  Ошибка во время сохранения $property->properties для $language.\n";
+                }
+            }
+            $i++;
         }
     }
 }
