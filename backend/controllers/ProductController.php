@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\shop\ProductPropertiesTranslate;
 use common\models\shop\ProductsTranslate;
 use Yii;
 use yii\helpers\Url;
@@ -65,8 +66,8 @@ class ProductController extends Controller
         $currency = Settings::currencyRate();
 
         $seoErrors = Yii::$app->session->get('errorsSeo');
-        if (!$seoErrors){
-        Yii::$app->session->set('errorsSeo', 'no');
+        if (!$seoErrors) {
+            Yii::$app->session->set('errorsSeo', 'no');
         }
 
         return $this->render('index', [
@@ -157,19 +158,100 @@ class ProductController extends Controller
         $translateRu = ProductsTranslate::findOne(['product_id' => $id, 'language' => 'ru']);
         $translateEn = ProductsTranslate::findOne(['product_id' => $id, 'language' => 'en']);
 
+        $dataProduct = ProductProperties::find()
+            ->where(['product_id' => $model->id])
+            ->orderBy('sort ASC')
+            ->all();
+
+        $dataCategory = ProductProperties::find()
+            ->select('properties')
+            ->distinct()
+            ->where(['category_id' => $model->category_id])
+            ->orderBy('sort ASC')
+            ->all();
+
+        $uniqueProperties = array_column($dataCategory, 'properties');
+        $diffProperties = array_diff($uniqueProperties, array_column($dataProduct, 'properties'));
+
+        $data = array_merge(
+            $dataProduct,
+            array_filter($dataCategory, function ($item) use ($diffProperties) {
+                return in_array($item['properties'], $diffProperties);
+            })
+        );
+
+        $dataRu = $this->cloneData($data);
+        $dataEn = $this->cloneData($data);
+
+        $this->translateData($dataRu, 'ru');
+        $this->translateData($dataEn, 'en');
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
-            $postTranslates = Yii::$app->request->post('ProductsTranslate', []);
+
+            $postTranslates = $this->request->post('ProductsTranslate', []);
+            $postPropertiesTranslate = $this->request->post('PropertiesTranslate', []);
+            $postProperties = $this->request->post('ProductProperties', []);
+            $post_priority = $this->request->post('priority');
+            $post_product = $this->request->post('Product', []);
 
             $this->updateTranslate($model->id, 'ru', $postTranslates['ru'] ?? null);
             $this->updateTranslate($model->id, 'en', $postTranslates['en'] ?? null);
 
+            $this->updateTranslateProperties('ru', $postPropertiesTranslate['ru'] ?? null);
+            $this->updateTranslateProperties('en', $postPropertiesTranslate['en'] ?? null);
 
-            $postProperties = Yii::$app->request->post('ProductProperties', []);
+            $this->updateProperties($model, $postProperties ?? null);
+
+            $this->updatePriorityImages($post_priority ?? null);
+
+            $this->updateProductTags($model, $post_product ?? null);
+            $this->updateProductAnalogs($model, $post_product ?? null);
+            $this->updateProductGrups($model, $post_product ?? null);
+
+            return $this->redirect(['update', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+            'data' => $data,
+            'dataRu' => $dataRu,
+            'dataEn' => $dataEn,
+            'translateRu' => $translateRu,
+            'translateEn' => $translateEn,
+        ]);
+    }
+
+    private function updateTranslate($productId, $language, $data)
+    {
+        if ($data) {
+            $translate = ProductsTranslate::findOne(['product_id' => $productId, 'language' => $language]);
+            if ($translate) {
+                $translate->setAttributes($data);
+                $translate->save();
+            }
+        }
+    }
+
+    private function updateTranslateProperties($language, $data)
+    {
+        if ($data) {
+            foreach ($data as $datum){
+                $translate = ProductPropertiesTranslate::findOne(['property_id' => $datum['id'], 'language' => $language]);
+                if ($translate) {
+                    $translate->setAttributes($datum);
+                    $translate->save();
+                }
+            }
+        }
+    }
+
+    private function updateProperties($model, $data)
+    {
+        if ($data) {
             $sort = 1;
-            foreach ($postProperties as $index => $postData) {
-
+            foreach ($data as $index => $postData) {
                 $productProperty = ProductProperties::findOne([
-                    'product_id' => $model['id'],
+                    'product_id' => $model->id,
                     'properties' => $postData['properties']
                 ]);
 
@@ -191,165 +273,171 @@ class ProductController extends Controller
                 $productProperty->save();
                 $sort++;
             }
+        }
+    }
 
-            $post_priority = $this->request->post('priority');
-            if (!empty($post_priority)) {
-                foreach ($post_priority as $key => $value) {
-                    $position = ProductImage::find()->where(['id' => $key])->one();
-                    $position->priority = $value;
-                    $position->save();
+    private function updatePriorityImages($data)
+    {
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
+                $position = ProductImage::find()->where(['id' => $key])->one();
+                $position->priority = $value;
+                $position->save();
+            }
+        }
+    }
+
+    private function updateProductTags($model, $data)
+    {
+        if (!empty($data['tags'])) {
+            //удаляем существующие tags
+            $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
+            if ($tags) {
+                foreach ($tags as $t) {
+                    $t->delete();
+                }
+            }
+            //добавляем Tags
+            foreach ($data['tags'] as $tag_id) {
+                $tag = ProductTag::find()
+                    ->where(['product_id' => $model->id])
+                    ->andWhere(['tag_id' => $tag_id])
+                    ->one();
+                if (!$tag) {
+                    $add_tag = new ProductTag();
+                    $add_tag->product_id = $model->id;
+                    $add_tag->tag_id = $tag_id;
+                    $add_tag->save();
+                }
+            }
+        }
+    }
+
+    private function updateProductAnalogs($model, $data)
+    {
+        if (!empty($data['analogs'])) {
+            //удаляем существующие analogs
+            $analogs = AnalogProducts::find()->where(['product_id' => $model->id])->all();
+            if ($analogs) {
+                foreach ($analogs as $analog) {
+                    $analog->delete();
+                }
+            }
+            $analogs = AnalogProducts::find()->where(['analog_product_id' => $model->id])->all();
+            if ($analogs) {
+                foreach ($analogs as $analog) {
+                    $analog->delete();
                 }
             }
 
-            $post_product = $this->request->post('Product');
-            if (!empty($post_product['tags'])) {
-                //удаляем существующие tags
-                $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
-                if ($tags) {
-                    foreach ($tags as $t) {
-                        $t->delete();
-                    }
-                }
-                //добавляем Tags
-                foreach ($post_product['tags'] as $tag_id) {
-                    $tag = ProductTag::find()
+            foreach ($data['analogs'] as $analog_id) {
+                // Добавляем аналог к товару
+                if ($model->id != $analog_id) {
+                    $analogToProduct = AnalogProducts::find()
                         ->where(['product_id' => $model->id])
-                        ->andWhere(['tag_id' => $tag_id])
+                        ->andWhere(['analog_product_id' => $analog_id])
                         ->one();
-                    if (!$tag) {
-                        $add_tag = new ProductTag();
-                        $add_tag->product_id = $model->id;
-                        $add_tag->tag_id = $tag_id;
-                        $add_tag->save();
-                    }
-                }
-            }
 
-            $post_product = $this->request->post('Product');
-            if (!empty($post_product['analogs'])) {
-                //удаляем существующие analogs
-                $analogs = AnalogProducts::find()->where(['product_id' => $model->id])->all();
-                if ($analogs) {
-                    foreach ($analogs as $analog) {
-                        $analog->delete();
-                    }
-                }
-                $analogs = AnalogProducts::find()->where(['analog_product_id' => $model->id])->all();
-                if ($analogs) {
-                    foreach ($analogs as $analog) {
-                        $analog->delete();
+                    if (!$analogToProduct) {
+                        $add_analog_to_product = new AnalogProducts();
+                        $add_analog_to_product->product_id = $model->id;
+                        $add_analog_to_product->analog_product_id = $analog_id;
+                        $add_analog_to_product->save();
                     }
                 }
 
-                foreach ($post_product['analogs'] as $analog_id) {
-                    // Добавляем аналог к товару
-                    if ($model->id != $analog_id) {
-                        $analogToProduct = AnalogProducts::find()
-                            ->where(['product_id' => $model->id])
+                // Добавляем товар к аналогу
+                if ($model->id != $analog_id) {
+                    $productToAnalog = AnalogProducts::find()
+                        ->where(['product_id' => $analog_id])
+                        ->andWhere(['analog_product_id' => $model->id])
+                        ->one();
+
+                    if (!$productToAnalog) {
+                        $add_product_to_analog = new AnalogProducts();
+                        $add_product_to_analog->product_id = $analog_id;
+                        $add_product_to_analog->analog_product_id = $model->id;
+                        $add_product_to_analog->save();
+                    }
+                }
+
+                // Добавляем связи между аналогами
+                foreach ($data['analogs'] as $other_analog_id) {
+                    if ($analog_id != $other_analog_id && $analog_id != $model->id && $other_analog_id != $model->id) {
+                        $analogToOtherAnalog = AnalogProducts::find()
+                            ->where(['product_id' => $analog_id])
+                            ->andWhere(['analog_product_id' => $other_analog_id])
+                            ->one();
+
+                        if (!$analogToOtherAnalog) {
+                            $add_analog_to_other_analog = new AnalogProducts();
+                            $add_analog_to_other_analog->product_id = $analog_id;
+                            $add_analog_to_other_analog->analog_product_id = $other_analog_id;
+                            $add_analog_to_other_analog->save();
+                        }
+
+                        $otherAnalogToAnalog = AnalogProducts::find()
+                            ->where(['product_id' => $other_analog_id])
                             ->andWhere(['analog_product_id' => $analog_id])
                             ->one();
 
-                        if (!$analogToProduct) {
-                            $add_analog_to_product = new AnalogProducts();
-                            $add_analog_to_product->product_id = $model->id;
-                            $add_analog_to_product->analog_product_id = $analog_id;
-                            $add_analog_to_product->save();
-                        }
-                    }
-
-                    // Добавляем товар к аналогу
-                    if ($model->id != $analog_id) {
-                        $productToAnalog = AnalogProducts::find()
-                            ->where(['product_id' => $analog_id])
-                            ->andWhere(['analog_product_id' => $model->id])
-                            ->one();
-
-                        if (!$productToAnalog) {
-                            $add_product_to_analog = new AnalogProducts();
-                            $add_product_to_analog->product_id = $analog_id;
-                            $add_product_to_analog->analog_product_id = $model->id;
-                            $add_product_to_analog->save();
-                        }
-                    }
-
-                    // Добавляем связи между аналогами
-                    foreach ($post_product['analogs'] as $other_analog_id) {
-                        if ($analog_id != $other_analog_id && $analog_id != $model->id && $other_analog_id != $model->id) {
-                            $analogToOtherAnalog = AnalogProducts::find()
-                                ->where(['product_id' => $analog_id])
-                                ->andWhere(['analog_product_id' => $other_analog_id])
-                                ->one();
-
-                            if (!$analogToOtherAnalog) {
-                                $add_analog_to_other_analog = new AnalogProducts();
-                                $add_analog_to_other_analog->product_id = $analog_id;
-                                $add_analog_to_other_analog->analog_product_id = $other_analog_id;
-                                $add_analog_to_other_analog->save();
-                            }
-
-                            $otherAnalogToAnalog = AnalogProducts::find()
-                                ->where(['product_id' => $other_analog_id])
-                                ->andWhere(['analog_product_id' => $analog_id])
-                                ->one();
-
-                            if (!$otherAnalogToAnalog) {
-                                $add_other_analog_to_analog = new AnalogProducts();
-                                $add_other_analog_to_analog->product_id = $other_analog_id;
-                                $add_other_analog_to_analog->analog_product_id = $analog_id;
-                                $add_other_analog_to_analog->save();
-                            }
+                        if (!$otherAnalogToAnalog) {
+                            $add_other_analog_to_analog = new AnalogProducts();
+                            $add_other_analog_to_analog->product_id = $other_analog_id;
+                            $add_other_analog_to_analog->analog_product_id = $analog_id;
+                            $add_other_analog_to_analog->save();
                         }
                     }
                 }
             }
-
-            $post_product = $this->request->post('Product');
-            if (!empty($post_product['grups'])) {
-                $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
-                if ($grups) {
-                    foreach ($grups as $g) {
-                        $g->delete();
-                    }
-                }
-                foreach ($post_product['grups'] as $grup_id) {
-                    $grup = ProductGrup::find()
-                        ->where(['product_id' => $model->id])
-                        ->andWhere(['grup_id' => $grup_id])
-                        ->one();
-                    if (!$grup) {
-                        $add_grup = new ProductGrup();
-                        $add_grup->product_id = $model->id;
-                        $add_grup->grup_id = $grup_id;
-                        $add_grup->save();
-                    }
-                }
-            } else {
-
-                $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
-                if ($grups) {
-                    foreach ($grups as $g) {
-                        $g->delete();
-                    }
-                }
-            }
-
-            return $this->redirect(['update', 'id' => $model->id]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-            'translateRu' => $translateRu,
-            'translateEn' => $translateEn,
-        ]);
     }
 
-    private function updateTranslate($productId, $language, $data)
+    private function updateProductGrups($model, $data)
     {
-        if ($data) {
-            $translate = ProductsTranslate::findOne(['product_id' => $productId, 'language' => $language]);
-            if ($translate) {
-                $translate->setAttributes($data);
-                $translate->save();
+        if (!empty($data['grups'])) {
+            $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
+            if ($grups) {
+                foreach ($grups as $g) {
+                    $g->delete();
+                }
+            }
+            foreach ($data['grups'] as $grup_id) {
+                $grup = ProductGrup::find()
+                    ->where(['product_id' => $model->id])
+                    ->andWhere(['grup_id' => $grup_id])
+                    ->one();
+                if (!$grup) {
+                    $add_grup = new ProductGrup();
+                    $add_grup->product_id = $model->id;
+                    $add_grup->grup_id = $grup_id;
+                    $add_grup->save();
+                }
+            }
+        } else {
+            $grups = ProductGrup::find()->where(['product_id' => $model->id])->all();
+            if ($grups) {
+                foreach ($grups as $g) {
+                    $g->delete();
+                }
+            }
+        }
+    }
+
+    private function cloneData($data) {
+        return array_map(function ($datum) {
+            return clone $datum;
+        }, $data);
+    }
+
+    private function translateData(&$data, $lang) {
+        foreach ($data as $datum) {
+            $translateProperty = $datum->getTranslation($lang)->one();
+            if ($translateProperty) {
+                $datum->properties = $translateProperty->properties;
+                $datum->value = $translateProperty->value;
+            } else {
+                dd("Translation not found for '$lang'", $datum);
             }
         }
     }

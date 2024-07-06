@@ -128,6 +128,9 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                 <?= $this->render('properties-information', [
                                     'form' => $form,
                                     'model' => $model,
+                                    'data' => $data,
+                                    'dataRu' => $dataRu,
+                                    'dataEn' => $dataEn,
                                     'translateRu' => $translateRu,
                                     'translateEn' => $translateEn,
                                 ]) ?>
