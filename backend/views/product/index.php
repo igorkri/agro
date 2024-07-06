@@ -46,9 +46,13 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                                 'offText' => 'Off',
                             ],
                             'pluginEvents' => [
-                                "switchChange.bootstrapSwitch" => "function(event, state) { updateErrorCheckbox(state); }",
+                                "switchChange.bootstrapSwitch" => "function(event, state) { 
+            var url = '" . Url::to(['product/update-error-checkbox']) . "';
+            updateErrorCheckbox(url, state); 
+        }",
                             ],
                         ]); ?>
+
                     </div>
                     <div class="col-auto d-flex"><a href="<?= Url::to(['product/export-to-excel']) ?>"
                                                     class="btn btn-outline-success"><i
@@ -113,14 +117,22 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                             <?php foreach ($dataProvider->models as $model): ?>
                                 <?php
                                 $color = 'secondary';
-                                if ($model->status_id == 1) {
-                                    $color = 'success';
-                                } elseif ($model->status_id == 2) {
-                                    $color = 'danger';
-                                } elseif ($model->status_id == 3) {
-                                    $color = 'warning';
-                                } elseif ($model->status_id == 4) {
-                                    $color = 'info';
+                                switch ($model->status_id) {
+                                case 1:
+                                $color = 'success';
+                                break;
+                                case 2:
+                                $color = 'danger';
+                                break;
+                                case 3:
+                                $color = 'warning';
+                                break;
+                                case 4:
+                                $color = 'info';
+                                break;
+
+                                default:
+                                $color = 'secondary';
                                 }
                                 ?>
                                 <tr>
@@ -129,14 +141,8 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                                             <a href="<?= Url::to(['product/update', 'id' => $model->id]) ?>"
                                                class="me-4">
                                                 <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-
-                                                    <?php $images = $model->images;
-                                                    $priorities = array_column($images, 'priority');
-                                                    array_multisort($priorities, SORT_ASC, $images);
-                                                    ?>
-
-                                                    <?php if (isset($images[0])): ?>
-                                                        <img src="<?= Yii::$app->request->hostInfo . '/product/' . $images[0]->extra_small ?>"
+                                                    <?php if (isset($model->images[0])): ?>
+                                                        <img src="<?= Yii::$app->request->hostInfo . '/product/' . $model->images[0]->extra_small ?>"
                                                              width="40" height="40" alt=""/>
                                                     <?php else: ?>
                                                         <img src="<?= Yii::$app->request->hostInfo . '/images/no-image.png' ?>"
@@ -159,7 +165,6 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                                                 </a>
                                                 <div class="sa-meta mt-0">
                                                     <ul class="sa-meta__list">
-
                                                         <li class="sa-meta__item">
                                                             ID:
                                                             <span class="st-copy"><?= $model->id ?></span>
@@ -303,13 +308,13 @@ $script = <<< JS
         document.getElementById('excelFileInput').click();
     });
     
-   function updateErrorCheckbox(state) {
+   function updateErrorCheckbox(url, state) {
     var isChecked = state ? 'yes' : 'no';
     
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'product/update-error-checkbox', true);
+    xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-CSRF-Token', csrfToken);
     

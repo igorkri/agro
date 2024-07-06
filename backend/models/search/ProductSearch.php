@@ -45,8 +45,6 @@ class ProductSearch extends Product
         $request = \Yii::$app->request;
         $params = $request->post();
 
-//        dd($params);
-
         $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
         // add conditions that should always apply here
 
