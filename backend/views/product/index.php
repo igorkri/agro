@@ -118,21 +118,21 @@ $seoErrors = Yii::$app->session->get('errorsSeo');
                                 <?php
                                 $color = 'secondary';
                                 switch ($model->status_id) {
-                                case 1:
-                                $color = 'success';
-                                break;
-                                case 2:
-                                $color = 'danger';
-                                break;
-                                case 3:
-                                $color = 'warning';
-                                break;
-                                case 4:
-                                $color = 'info';
-                                break;
+                                    case 1:
+                                        $color = 'success';
+                                        break;
+                                    case 2:
+                                        $color = 'danger';
+                                        break;
+                                    case 3:
+                                        $color = 'warning';
+                                        break;
+                                    case 4:
+                                        $color = 'info';
+                                        break;
 
-                                default:
-                                $color = 'secondary';
+                                    default:
+                                        $color = 'secondary';
                                 }
                                 ?>
                                 <tr>

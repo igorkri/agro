@@ -81,8 +81,8 @@
                 "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Все"] ],
                 "language": {
                     "paginate": {
-                      "next": "Следующая",
-                      "previous": "Предыдущая"
+                      "next": ">>",
+                      "previous": "<<"
                     },
                     "infoFiltered": " - отфильтровано из _MAX_ записей",
                          "loadingRecords": "Подождите, идет загрузка...",
