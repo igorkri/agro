@@ -12,11 +12,18 @@ use Yii;
 
 class BlogsController extends Controller
 {
-    public function actionView() {
-
+    public function actionView()
+    {
+        $language = Yii::$app->session->get('_language');
         $seo = SeoPages::find()->where(['slug' => 'blogs'])->one();
         $formatter = new Formatter();
         $posts = Posts::find()->all();
+
+        if ($language !== 'uk') {
+            foreach ($posts as $post) {
+                $this->getPostTranslation($post, $language);
+            }
+        }
 
         $blogPosting = [];
         foreach ($posts as $post) {
@@ -51,6 +58,12 @@ class BlogsController extends Controller
         $pages = new Pagination(['totalCount' => $posts->count(), 'pageSize' => 4]);
         $blogs = $posts->offset($pages->offset)->limit($pages->limit)->orderBy('date_public DESC')->all();
 
+        if ($language !== 'uk') {
+            foreach ($blogs as $blog) {
+                $this->getPostTranslation($blog, $language);
+            }
+        }
+
         return $this->render('view',
             [
                 'blogs' => $blogs,
@@ -58,4 +71,18 @@ class BlogsController extends Controller
             ]);
     }
 
+    protected function getPostTranslation($postItem, $language)
+    {
+        if ($postItem) {
+            $translationPost = $postItem->getTranslation($language)->one();
+            if ($translationPost) {
+                if ($translationPost->title) {
+                    $postItem->title = $translationPost->title;
+                }
+                if ($translationPost->description) {
+                    $postItem->description = $translationPost->description;
+                }
+            }
+        }
+    }
 }

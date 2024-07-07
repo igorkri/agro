@@ -86,7 +86,7 @@ $webp_support = ProductImage::imageWebp();
                     <div class="block-sidebar__item">
                         <div class="widget-search">
                             <form class="widget-search__body" action="/search/blogs">
-                                <input class="widget-search__input" name="f" placeholder="Пошук статтів..." type="text"
+                                <input class="widget-search__input" name="f" placeholder="<?=Yii::t('app','Пошук статтів...')?>" type="text"
                                        autocomplete="off" spellcheck="false">
                                 <button class="search__button widget-search__button" type="submit">
                                     <svg width="20px" height="20px">
