@@ -9,6 +9,11 @@ use frontend\widgets\TagCloud;
 use kartik\rating\StarRating;
 use yii\helpers\Url;
 
+/** @var \common\models\Posts $postItem */
+/** @var \common\models\Posts $blogs */
+/** @var \common\models\PostProducts $products_id */
+/** @var \common\models\shop\Product $products */
+
 PostPageAsset::register($this);
 ActivePages::setActiveUser();
 $webp_support = ProductImage::imageWebp();

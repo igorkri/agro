@@ -16,6 +16,8 @@ class PostController extends Controller
 {
     public function actionView($slug)
     {
+        $language = Yii::$app->session->get('_language');
+
         $blogs = Posts::find()->limit(6)->orderBy('date_public DESC')->all();
         $postItem = Posts::find()->where(['slug' => $slug])->one();
 
@@ -29,6 +31,13 @@ class PostController extends Controller
 
         $model_review = new PostsReview();
         $formatter = new Formatter();
+
+        if ($language !== 'uk') {
+            foreach ($blogs as $blog) {
+                $this->getPostTranslation($blog, $language);
+            }
+            $this->getPostTranslation($postItem, $language);
+        }
 
         $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
         $schemaPost = Schema::Article()
@@ -80,6 +89,8 @@ class PostController extends Controller
             ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
             ->register(Yii::$app->getView());
 
+        $this->setAlernateUrl($slug);
+
         return $this->render('view', [
             'postItem' => $postItem,
             'blogs' => $blogs,
@@ -89,4 +100,40 @@ class PostController extends Controller
         ]);
     }
 
+    protected function setAlernateUrl($slug)
+    {
+        $url = Yii::$app->request->hostInfo;
+        $ukUrl = $url . '/post/' . $slug;
+        $enUrl = $url . '/en/post/' . $slug;
+        $ruUrl = $url . '/ru/post/' . $slug;
+
+        $alternateUrls = [
+            'ukUrl' => $ukUrl,
+            'enUrl' => $enUrl,
+            'ruUrl' => $ruUrl,
+        ];
+
+        Yii::$app->params['alternateUrls'] = $alternateUrls;
+    }
+
+    protected function getPostTranslation($postItem, $language)
+    {
+        if ($postItem) {
+            $translationPost = $postItem->getTranslation($language)->one();
+            if ($translationPost) {
+                if ($translationPost->title) {
+                    $postItem->title = $translationPost->title;
+                }
+                if ($translationPost->description) {
+                    $postItem->description = $translationPost->description;
+                }
+                if ($translationPost->seo_title) {
+                    $postItem->seo_title = $translationPost->seo_title;
+                }
+                if ($translationPost->seo_description) {
+                    $postItem->seo_description = $translationPost->seo_description;
+                }
+            }
+        }
+    }
 }

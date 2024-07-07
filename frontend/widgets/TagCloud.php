@@ -4,6 +4,7 @@ namespace frontend\widgets;
 
 use common\models\shop\ProductTag;
 use common\models\shop\Tag;
+use Yii;
 use yii\base\Widget;
 use yii\db\Expression;
 
@@ -19,6 +20,7 @@ class TagCloud extends Widget
 
     public function run()
     {
+        $language = Yii::$app->session->get('_language');
         $result = [];
         $prod_id = $this->productsId;
         if ($prod_id) {
@@ -55,6 +57,9 @@ class TagCloud extends Widget
         }
 
         $tags = $result;
-        return $this->render('tag-cloud', ['tags' => $tags]);
+        return $this->render('tag-cloud', [
+            'tags' => $tags,
+            'language' => $language,
+        ]);
     }
 }

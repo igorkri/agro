@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Tag $tags */
+/** @var \frontend\controllers\TagController $language */
 
 ?>
 <div class="block-sidebar__item">
@@ -11,7 +12,15 @@ use yii\helpers\Url;
         <div class="tags tags--lg">
             <div class="tags__list">
                 <?php foreach ($tags as $tag): ?>
-                    <a href="<?= Url::to(['tag/view', 'id' => $tag->id]) ?>"><?= $tag->name ?></a>
+                    <a href="<?= Url::to(['tag/view', 'id' => $tag->id]) ?>">
+                    <?php if ($language == 'en'): ?>
+                        <?= $tag->name_en ?>
+                    <?php elseif ($language == 'ru'): ?>
+                        <?= $tag->name_ru ?>
+                    <?php else: ?>
+                        <?= $tag->name ?>
+                    <?php endif; ?>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
