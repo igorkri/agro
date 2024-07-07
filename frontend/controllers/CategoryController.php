@@ -13,6 +13,9 @@ use yii\web\Controller;
 use yii\db\Expression;
 use Yii;
 
+/**
+ * CategoryController for Category model.
+ */
 class CategoryController extends Controller
 {
     public function actionList()

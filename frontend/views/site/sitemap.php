@@ -20,6 +20,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
             <changefreq><?= $url['changefreq']; ?></changefreq>
             <lastmod><?= $url['lastmod']; ?></lastmod>
             <priority><?= $url['priority']; ?></priority>
+            <link rel="alternate" hreflang="uk" href="<?= $host . $url['loc']; ?>" />
+            <link rel="alternate" hreflang="en" href="<?= $host .'/en' . $url['loc']; ?>" />
+            <link rel="alternate" hreflang="ru" href="<?= $host .'/ru' . $url['loc']; ?>" />
             <?php if (isset($url['image'])) { ?>
                 <image:image>
                     <image:loc><?= $host . $url['image']; ?></image:loc>
