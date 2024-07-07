@@ -41,6 +41,7 @@ class ProductController extends Controller
         $this->setProductSchemaBreadcrumb($product);
         $this->setSchemaProduct($product);
         $this->setProductMetadata($product);
+        $this->setAlernateUrl($slug);
 
         return $this->render('index', [
             'product' => $product,
@@ -120,6 +121,22 @@ class ProductController extends Controller
             ->setType('product')
             ->setImage($product->getImgSeo($product->id))
             ->register(Yii::$app->getView());
+    }
+
+    protected function setAlernateUrl($slug)
+    {
+        $url = Yii::$app->request->hostInfo;
+        $ukUrl = $url . '/product/' . $slug;
+        $enUrl = $url . '/en/product/' . $slug;
+        $ruUrl = $url . '/ru/product/' . $slug;
+
+        $alternateUrls = [
+            'ukUrl' => $ukUrl,
+            'enUrl' => $enUrl,
+            'ruUrl' => $ruUrl,
+        ];
+
+        Yii::$app->params['alternateUrls'] = $alternateUrls;
     }
 
     protected function setProductSchemaBreadcrumb($product)

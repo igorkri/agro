@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+
 /** @var string $content */
 
 use frontend\widgets\SiteHeader;
@@ -21,6 +22,7 @@ AppAsset::register($this);
         <link rel="manifest" href="/manifest.json">
         <?php $this->registerCsrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
+
         <?= Yii::$app->params['schema'] ?? '' ?>
         <?= Yii::$app->params['product'] ?? '' ?>
         <?= Yii::$app->params['organization'] ?? '' ?>
@@ -28,7 +30,14 @@ AppAsset::register($this);
         <?= Yii::$app->params['blog'] ?? '' ?>
         <?= Yii::$app->params['post'] ?? '' ?>
         <?= Yii::$app->params['breadcrumb'] ?? '' ?>
+
         <?php $this->head() ?>
+
+        <?php if (isset(Yii::$app->params['alternateUrls'])): ?>
+            <link rel="alternate" hreflang="uk" href="<?= Yii::$app->params['alternateUrls']['ukUrl'] ?? '' ?>"/>
+            <link rel="alternate" hreflang="en" href="<?= Yii::$app->params['alternateUrls']['enUrl'] ?? '' ?>"/>
+            <link rel="alternate" hreflang="ru" href="<?= Yii::$app->params['alternateUrls']['ruUrl'] ?? '' ?>"/>
+        <?php endif; ?>
     </head>
     <body>
     <?php $this->beginBody() ?>
