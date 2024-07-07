@@ -195,6 +195,18 @@ class CategoryController extends Controller
                     }
                 }
             }
+            if ($category->parent) {
+                if ($category->parent->parents) {
+                    foreach ($category->parent->parents as $parent) {
+                        $translationCatParentsParent = $parent->getTranslation($language)->one();
+                        if ($translationCatParentsParent) {
+                            if ($translationCatParentsParent->name) {
+                                $parent->name = $translationCatParentsParent->name;
+                            }
+                        }
+                    }
+                }
+            }
             if ($products) {
                 foreach ($products as $product) {
                     if ($product) {
@@ -570,7 +582,7 @@ class CategoryController extends Controller
                 ->itemListElement([
                     Schema::listItem()
                         ->position(1)
-                        ->item(Schema::thing()->name(Yii::t('app','Головна'))
+                        ->item(Schema::thing()->name(Yii::t('app', 'Головна'))
                             ->url($url)
                             ->setProperty('id', $url)),
                     Schema::listItem()
@@ -589,12 +601,12 @@ class CategoryController extends Controller
                 ->itemListElement([
                     Schema::listItem()
                         ->position(1)
-                        ->item(Schema::thing()->name(Yii::t('app','Головна'))
+                        ->item(Schema::thing()->name(Yii::t('app', 'Головна'))
                             ->url($url)
                             ->setProperty('id', $url)),
                     Schema::listItem()
                         ->position(2)
-                        ->item(Schema::thing()->name(Yii::t('app','Категорії'))
+                        ->item(Schema::thing()->name(Yii::t('app', 'Категорії'))
                             ->url(Url::to(['category/list']))
                             ->setProperty('id', Url::to(['category/list']))),
                     Schema::listItem()
@@ -624,7 +636,7 @@ class CategoryController extends Controller
             ->itemListElement([
                 Schema::listItem()
                     ->position(1)
-                    ->item(Schema::thing()->name(Yii::t('app','Головна'))
+                    ->item(Schema::thing()->name(Yii::t('app', 'Головна'))
                         ->url($url)
                         ->setProperty('id', $url)),
                 Schema::listItem()

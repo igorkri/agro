@@ -9,7 +9,7 @@ use yii\helpers\Url;
     <div class="block-sidebar__backdrop"></div>
     <div class="block-sidebar__body">
         <div class="block-sidebar__header">
-            <div class="block-sidebar__title"><?=Yii::t('app','Фільтр')?></div>
+            <div class="block-sidebar__title"><?= Yii::t('app', 'Фільтр') ?></div>
             <button class="block-sidebar__close" type="button">
                 <svg width="20px" height="20px">
                     <use xlink:href="/images/sprite.svg#cross-20"></use>
@@ -20,13 +20,13 @@ use yii\helpers\Url;
             <div class="widget-filters widget widget-filters--offcanvas--always"
                  data-collapse
                  data-collapse-opened-class="filter--opened">
-                <h4 class="widget-filters__title widget__title"><?=Yii::t('app','Фільтр')?></h4>
+                <h4 class="widget-filters__title widget__title"><?= Yii::t('app', 'Фільтр') ?></h4>
                 <div class="widget-filters__list">
                     <div class="widget-filters__item">
                         <div class="filter filter--opened" data-collapse-item>
                             <button type="button" class="filter__title"
                                     data-collapse-trigger>
-                                <?=Yii::t('app','Категорії')?>
+                                <?= Yii::t('app', 'Категорії') ?>
                                 <svg class="filter__arrow" width="12px" height="7px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                 </svg>
@@ -51,20 +51,23 @@ use yii\helpers\Url;
                                                 </div>
                                             </li>
                                             <?php if ($category->parent): ?>
-                                                <?php $categoryChilds = $category->getCategoryChildFilter($category->parent->id) ?>
-                                                <?php foreach ($categoryChilds as $categoryChild): ?>
-                                                    <?php if ($category->id == $categoryChild->id) { ?>
-                                                        <li class="filter-categories__item filter-categories__item--current">
-                                                            <a href="<?= Url::to(['category/catalog', 'slug' => $categoryChild->slug]) ?>"><?= $categoryChild->name ?></a>
-                                                            <div class="filter-categories__counter"><?= $categoryChild->getCountProductCategoryFilter($categoryChild->id) ?></div>
-                                                        </li>
-                                                    <?php } else { ?>
-                                                        <li class="filter-categories__item filter-categories__item--child">
-                                                            <a href="<?= Url::to(['category/catalog', 'slug' => $categoryChild->slug]) ?>"><?= $categoryChild->name ?></a>
-                                                            <div class="filter-categories__counter"><?= $categoryChild->getCountProductCategoryFilter($categoryChild->id) ?></div>
-                                                        </li>
-                                                    <?php } ?>
-                                                <?php endforeach; ?>
+                                                <?php if ($category->parent->parents): ?>
+                                                    <?php foreach ($category->parent->parents as $categoryChild): ?>
+                                                        <?php if ($categoryChild->visibility == 1): ?>
+                                                            <?php if ($category->id == $categoryChild->id) { ?>
+                                                                <li class="filter-categories__item filter-categories__item--current">
+                                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $categoryChild->slug]) ?>"><?= $categoryChild->name ?></a>
+                                                                    <div class="filter-categories__counter"><?= $categoryChild->getCountProductCategoryFilter($categoryChild->id) ?></div>
+                                                                </li>
+                                                            <?php } else { ?>
+                                                                <li class="filter-categories__item filter-categories__item--child">
+                                                                    <a href="<?= Url::to(['category/catalog', 'slug' => $categoryChild->slug]) ?>"><?= $categoryChild->name ?></a>
+                                                                    <div class="filter-categories__counter"><?= $categoryChild->getCountProductCategoryFilter($categoryChild->id) ?></div>
+                                                                </li>
+                                                            <?php } ?>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         </ul>
                                     </div>
@@ -77,7 +80,7 @@ use yii\helpers\Url;
                             <div class="filter filter--opened" data-collapse-item>
                                 <button type="button" class="filter__title"
                                         data-collapse-trigger>
-                                    <?=Yii::t('app','Категорії допоміжні')?>
+                                    <?= Yii::t('app', 'Категорії допоміжні') ?>
                                     <svg class="filter__arrow" width="12px" height="7px">
                                         <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                     </svg>
@@ -104,7 +107,7 @@ use yii\helpers\Url;
                         <div class="filter filter--opened" data-collapse-item>
                             <button type="button" class="filter__title"
                                     data-collapse-trigger>
-                                <?=Yii::t('app','Ціна')?>
+                                <?= Yii::t('app', 'Ціна') ?>
                                 <svg class="filter__arrow" width="12px" height="7px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                 </svg>
@@ -124,7 +127,7 @@ use yii\helpers\Url;
                                          data-from="<?= $submittedMinPrice ?>"
                                          data-to="<?= $submittedMaxPrice ?>">
                                         <div class="filter-price__slider"></div>
-                                        <div class="filter-price__title"><?=Yii::t('app','Ціна')?>: ₴
+                                        <div class="filter-price__title"><?= Yii::t('app', 'Ціна') ?>: ₴
                                             <span class="filter-price__min-value"></span> –
                                             ₴
                                             <span class="filter-price__max-value"></span>
@@ -146,7 +149,7 @@ use yii\helpers\Url;
                         <div class="filter" data-collapse-item>
                             <button type="button" class="filter__title"
                                     data-collapse-trigger>
-                                <?=Yii::t('app','Бренд')?>
+                                <?= Yii::t('app', 'Бренд') ?>
                                 <svg class="filter__arrow" width="12px" height="7px">
                                     <use xlink:href="/images/sprite.svg#arrow-rounded-down-12x7"></use>
                                 </svg>
@@ -235,9 +238,9 @@ use yii\helpers\Url;
                     <?php endforeach; ?>
                 </div>
                 <div class="widget-filters__actions d-flex">
-                    <button type="submit" class="btn btn-primary btn-sm"><?=Yii::t('app','Фільтрувати')?>
+                    <button type="submit" class="btn btn-primary btn-sm"><?= Yii::t('app', 'Фільтрувати') ?>
                     </button>
-                    <?= Html::a(Yii::t('app','Скинути'), ['product-list/' . $category->slug], ['class' => 'btn btn-secondary btn-sm']) ?>
+                    <?= Html::a(Yii::t('app', 'Скинути'), ['product-list/' . $category->slug], ['class' => 'btn btn-secondary btn-sm']) ?>
                 </div>
             </div>
         </div>
