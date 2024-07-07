@@ -36,59 +36,7 @@ class ProductController extends Controller
         $model_review = new Review();
 
         if ($language !== 'uk') {
-            if ($product) {
-                $translationProd = $product->getTranslation($language)->one();
-                if ($translationProd) {
-                    if ($translationProd->name) {
-                        $product->name = $translationProd->name;
-                    }
-                    if ($translationProd->description) {
-                        $product->description = $translationProd->description;
-                    }
-                    if ($translationProd->short_description) {
-                        $product->short_description = $translationProd->short_description;
-                    }
-                    if ($translationProd->footer_description) {
-                        $product->footer_description = $translationProd->footer_description;
-                    }
-                    if ($translationProd->seo_title) {
-                        $product->seo_title = $translationProd->seo_title;
-                    }
-                    if ($translationProd->seo_description) {
-                        $product->seo_description = $translationProd->seo_description;
-                    }
-                }
-                $translationCat = $product->category->getTranslation($language)->one();
-                if ($translationCat) {
-                    if ($translationCat->name) {
-                        $product->category->name = $translationCat->name;
-                    }
-                    if ($translationCat->prefix) {
-                        $product->category->prefix = $translationCat->prefix;
-                    }
-                }
-                if ($product->category->parent) {
-                    $translationCatParent = $product->category->parent->getTranslation($language)->one();
-                    if ($translationCatParent) {
-                        if ($translationCatParent->name) {
-                            $product->category->parent->name = $translationCatParent->name;
-                        }
-                    }
-                }
-            }
-            if ($product_properties) {
-                foreach ($product_properties as $property) {
-                    $translationProperty = $property->getTranslation($language)->one();
-                    if ($translationProperty) {
-                        if ($translationProperty->properties){
-                            $property->properties = $translationProperty->properties;
-                        }
-                        if ($translationProperty->value){
-                            $property->value = $translationProperty->value;
-                        }
-                    }
-                }
-            }
+            $this->getProductTranslation($product, $language, $product_properties);
         }
 
         $this->setProductSchemaBreadcrumb($product);
@@ -105,6 +53,63 @@ class ProductController extends Controller
             'products_analog' => $products_analog,
             'products_analog_count' => $products_analog_count,
         ]);
+    }
+
+    protected function getProductTranslation($product, $language, $product_properties)
+    {
+        if ($product) {
+            $translationProd = $product->getTranslation($language)->one();
+            if ($translationProd) {
+                if ($translationProd->name) {
+                    $product->name = $translationProd->name;
+                }
+                if ($translationProd->description) {
+                    $product->description = $translationProd->description;
+                }
+                if ($translationProd->short_description) {
+                    $product->short_description = $translationProd->short_description;
+                }
+                if ($translationProd->footer_description) {
+                    $product->footer_description = $translationProd->footer_description;
+                }
+                if ($translationProd->seo_title) {
+                    $product->seo_title = $translationProd->seo_title;
+                }
+                if ($translationProd->seo_description) {
+                    $product->seo_description = $translationProd->seo_description;
+                }
+            }
+            $translationCat = $product->category->getTranslation($language)->one();
+            if ($translationCat) {
+                if ($translationCat->name) {
+                    $product->category->name = $translationCat->name;
+                }
+                if ($translationCat->prefix) {
+                    $product->category->prefix = $translationCat->prefix;
+                }
+            }
+            if ($product->category->parent) {
+                $translationCatParent = $product->category->parent->getTranslation($language)->one();
+                if ($translationCatParent) {
+                    if ($translationCatParent->name) {
+                        $product->category->parent->name = $translationCatParent->name;
+                    }
+                }
+            }
+        }
+        if ($product_properties) {
+            foreach ($product_properties as $property) {
+                $translationProperty = $property->getTranslation($language)->one();
+                if ($translationProperty) {
+                    if ($translationProperty->properties) {
+                        $property->properties = $translationProperty->properties;
+                    }
+                    if ($translationProperty->value) {
+                        $property->value = $translationProperty->value;
+                    }
+                }
+            }
+        }
     }
 
     protected function setProductMetadata($product)
