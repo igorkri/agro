@@ -95,6 +95,16 @@ class Posts extends ActiveRecord
         ];
     }
 
+    public function getTranslations()
+    {
+        return $this->hasMany(PostsTranslate::class, ['post_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(PostsTranslate::class, ['post_id' => 'id'])->where(['language' => $language]);
+    }
+
     public function getProducts()
     {
         return $this->hasMany(Product::class, ['id' => 'product_id'])
