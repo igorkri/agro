@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\models\shop\ProductProperties;
 use common\models\shop\AnalogProducts;
 use common\models\shop\Product;
 use common\models\shop\Review;
