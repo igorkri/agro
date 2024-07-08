@@ -6,6 +6,7 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var backend\models\search\LabelSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var backend\controllers\ProductController $result */
 
 $this->title = Yii::t('app', 'Activity products');
 $this->params['breadcrumbs'][] = $this->title;
