@@ -116,15 +116,10 @@ class Product extends ActiveRecord implements CartPositionInterface
     }
 
     /**
-     * Gets query for [[ProductTags]].
+     * Gets query for [[ProductsTranslate]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProductTags()
-    {
-        return $this->hasMany(ProductTag::class, ['product_id' => 'id']);
-    }
-
     public function getTranslations()
     {
         return $this->hasMany(ProductsTranslate::class, ['product_id' => 'id']);
@@ -156,6 +151,16 @@ class Product extends ActiveRecord implements CartPositionInterface
             ->viaTable('product_tag', ['product_id' => 'id']);
     }
 
+    public function getTag()
+    {
+        return $this->hasOne(Tag::class, ['id' => 'id']);
+    }
+
+    public function getProductTags()
+    {
+        return $this->hasMany(ProductTag::class, ['product_id' => 'id']);
+    }
+
     /**
      * Gets query for [[Grups]].
      *
@@ -167,6 +172,11 @@ class Product extends ActiveRecord implements CartPositionInterface
             ->viaTable('product_grup', ['product_id' => 'id']);
     }
 
+    public function getGrup()
+    {
+        return $this->hasOne(Grup::class, ['id' => 'id']);
+    }
+
     /**
      * Gets query for [[AnalogProducts]].
      *
@@ -176,32 +186,6 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         return $this->hasMany(Product::class, ['id' => 'analog_product_id'])
             ->viaTable('analog_products', ['product_id' => 'id']);
-    }
-
-    public function getTag()
-    {
-        return $this->hasOne(Tag::class, ['id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Grup]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGrup()
-    {
-        return $this->hasOne(Grup::class, ['id' => 'id']);
-    }
-
-    public function getBrand()
-    {
-        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
-    }
-
-    public function getProperties()
-    {
-        return $this->hasMany(ProductProperties::class, ['product_id' => 'id'])
-            ->orderBy(['sort' => SORT_ASC]);
     }
 
     /**
@@ -245,6 +229,18 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         return $this->hasMany(ProductImage::class, ['product_id' => 'id'])->orderBy(['priority' => SORT_ASC]);
     }
+
+    public function getBrand()
+    {
+        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
+    }
+
+    public function getProperties()
+    {
+        return $this->hasMany(ProductProperties::class, ['product_id' => 'id'])
+            ->orderBy(['sort' => SORT_ASC]);
+    }
+
 
     public function getReviews()
     {

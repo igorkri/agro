@@ -22,7 +22,7 @@ use yii\db\ActiveRecord;
  * @property string $date_public Дата публикации
  * @property string $date_updated Дата редактирования
  */
-class Category extends \yii\db\ActiveRecord
+class Category extends ActiveRecord
 {
 
     public function behaviors()
