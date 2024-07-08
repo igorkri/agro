@@ -54,7 +54,7 @@
         </p>
     </div>
     <div style="display: flex; justify-content: center">
-        <button class="btn btn-secondary" id="show-more-btn"><?=Yii::t('app','Детальніше')?>... >>></button>
+        <button class="btn btn-secondary" id="show-more-btn"><?=Yii::t('app','Докладніше...')?> >>></button>
         <button class="btn btn-secondary" id="hide-description-btn" style="display: none;"><?=Yii::t('app','Приховати опис')?>
             <<<
         </button>
