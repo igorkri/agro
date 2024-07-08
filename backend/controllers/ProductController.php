@@ -806,6 +806,7 @@ class ProductController extends Controller
             $url = $item['url'];
             $date = $item['date'];
             if (strpos($url, '/product/') !== false) {
+                $url = str_replace(['/en/', '/ru/'], '/', $url);
                 if (in_array($url, $uniqueUrls)) {
                     $existingIndex = array_search($url, $uniqueUrls);
                     if ($date > $result[$existingIndex]['date']) {

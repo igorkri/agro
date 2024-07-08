@@ -3,9 +3,10 @@
 namespace backend\widgets;
 
 use common\models\shop\ActivePages;
+use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 
-class RecentActivity extends \yii\base\Widget
+class RecentActivity extends Widget
 {
     public function init()
     {
@@ -16,40 +17,39 @@ class RecentActivity extends \yii\base\Widget
 
     public function run()
     {
-        $url = [];
         $pages = ActivePages::find()->all();
-
-        foreach ($pages as $page) {
-            $url[] = [
-                'url' => $page->url_page,
-                'date' => $page->date_visit,
-            ];
-        }
-
         $uniqueUrls = [];
         $result = [];
-        foreach ($url as $item) {
-            $url = $item['url'];
-            $date = $item['date'];
+
+        foreach ($pages as $page) {
+            $url = $page->url_page;
+            $date = $page->date_visit;
+
             if (strpos($url, '/product/') !== false) {
-                if (in_array($url, $uniqueUrls)) {
-                    $existingIndex = array_search($url, $uniqueUrls);
-                    if ($date > $result[$existingIndex]['date']) {
-                        $result[$existingIndex] = $item;
+                $url = str_replace(['/en/', '/ru/'], '/', $url);
+
+                if (isset($uniqueUrls[$url])) {
+                    if ($date > $uniqueUrls[$url]['date']) {
+                        $uniqueUrls[$url]['date'] = $date;
                     }
                 } else {
-                    $uniqueUrls[] = $url;
-                    $result[] = $item;
+                    $uniqueUrls[$url] = [
+                        'url' => $url,
+                        'date' => $date,
+                    ];
                 }
             }
         }
-        foreach ($result as $key => $item) {
-            $updatedUrl = str_replace('/product/', '', $item['url']);
-            $result[$key]['url'] = $updatedUrl;
+
+        foreach ($uniqueUrls as $url => $data) {
+            $updatedUrl = str_replace('/product/', '', $data['url']);
+            $data['url'] = $updatedUrl;
+            $result[] = $data;
         }
 
         ArrayHelper::multisort($result, ['date'], [SORT_DESC]);
 
         return $this->render('recent-activity', ['result' => $result]);
     }
+
 }
