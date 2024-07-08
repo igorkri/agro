@@ -2,8 +2,8 @@
 
 namespace frontend\widgets;
 
-use common\models\Posts;
 use Yii;
+use common\models\Posts;
 use yii\base\Widget;
 use yii\caching\DbDependency;
 
@@ -17,6 +17,7 @@ class BlockPosts extends Widget  // Статті на головній
 
     public function run()
     {
+        $language = Yii::$app->session->get('_language');
         $cacheKey = 'posts_cache_key';
         $dependency = new DbDependency([
             'sql' => 'SELECT MAX(date_updated) FROM posts',
@@ -34,6 +35,27 @@ class BlockPosts extends Widget  // Статті на головній
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
 
+        if ($language !== 'uk') {
+            foreach ($posts as $post) {
+                $this->getPostTranslation($post, $language);
+            }
+        }
+
         return $this->render('block-posts-4', ['posts' => $posts]);
+    }
+
+    protected function getPostTranslation($postItem, $language)
+    {
+        if ($postItem) {
+            $translationPost = $postItem->getTranslation($language)->one();
+            if ($translationPost) {
+                if ($translationPost->title) {
+                    $postItem->title = $translationPost->title;
+                }
+                if ($translationPost->description) {
+                    $postItem->description = $translationPost->description;
+                }
+            }
+        }
     }
 }
