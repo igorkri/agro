@@ -43,30 +43,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     />
                 </div>
                 <div class="sa-divider"></div>
-                <table class="sa-datatables-init" data-order='[[ 1, "asc" ]]' data-sa-search-input="#table-search">
+                <table class="sa-datatables-init" data-order='[[ 2, "desc" ]]' data-ordering='true' data-sa-search-input="#table-search">
                     <thead>
                     <tr>
                         <th><?= Yii::t('app', 'Image') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'Name') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Count view') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'Data last view') ?></th>
-                        <!--<th class="min-w-10x"><?php //= Yii::t('app', 'Slug') ?></th>-->
+<!--                        <th class="min-w-10x">--><?php //echo Yii::t('app', 'Slug') ?><!--</th>-->
                         <th class="min-w-5x"><?= Yii::t('app', 'Status') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($result as $value): ?>
-                        <?php
-                        $color = 'secondary';
-                        if ($value['status_id'] == 1) {
-                            $color = 'success';
-                        } elseif ($value['status_id'] == 2) {
-                            $color = 'danger';
-                        } elseif ($value['status_id'] == 3) {
-                            $color = 'warning';
-                        } elseif ($value['status_id'] == 4) {
-                            $color = 'info';
+                        <?php if (isset($value['status_id'])) {
+                            $color = 'secondary';
+                            if ($value['status_id'] == 1) {
+                                $color = 'success';
+                            } elseif ($value['status_id'] == 2) {
+                                $color = 'danger';
+                            } elseif ($value['status_id'] == 3) {
+                                $color = 'warning';
+                            } elseif ($value['status_id'] == 4) {
+                                $color = 'info';
+                            }
                         }
                         ?>
                         <tr>
@@ -86,9 +87,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                       style="font-size: 15px"
                                 ><?= $value['count'] ?></span>
                             </td>
-                            <td><?= Yii::$app->formatter->asDatetime(($value['date']), 'medium') ?></td>
-                            <!--<td><?= $value['slug'] ?></td>-->
-                            <td><div class="badge badge-sa-<?= $color ?>"><?= $value['status_name'] ?></div></td>
+                            <td><?= Yii::$app->formatter->asDate($value['date'], 'php:Y-m-d') ?></td>
+<!--                            <td>--><?php //echo $value['slug'] ?><!--</td>-->
+                            <td>
+                                <div class="badge badge-sa-<?= $color ?>"><?= $value['status_name'] ?></div>
+                            </td>
                             <td>
                                 <div class="dropdown">
                                     <button

@@ -13,7 +13,6 @@ use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use yii\filters\VerbFilter;
 use common\models\Settings;
-use yii\helpers\ArrayHelper;
 use common\models\UploadForm;
 use common\models\shop\Product;
 use yii\web\NotFoundHttpException;
@@ -235,7 +234,7 @@ class ProductController extends Controller
     private function updateTranslateProperties($language, $data)
     {
         if ($data) {
-            foreach ($data as $datum){
+            foreach ($data as $datum) {
                 $translate = ProductPropertiesTranslate::findOne(['property_id' => $datum['id'], 'language' => $language]);
                 if ($translate) {
                     $translate->setAttributes($datum);
@@ -424,13 +423,15 @@ class ProductController extends Controller
         }
     }
 
-    private function cloneData($data) {
+    private function cloneData($data)
+    {
         return array_map(function ($datum) {
             return clone $datum;
         }, $data);
     }
 
-    private function translateData(&$data, $lang) {
+    private function translateData(&$data, $lang)
+    {
         foreach ($data as $datum) {
             $translateProperty = $datum->getTranslation($lang)->one();
             if ($translateProperty) {
@@ -791,49 +792,59 @@ class ProductController extends Controller
 
     public function actionActivityProduct()
     {
-        $url = [];
+        $urlData = [];
         $pages = ActivePages::find()->where(['like', 'url_page', '/product/'])->all();
 
         foreach ($pages as $page) {
-            $url[] = [
-                'url' => $page->url_page,
+
+            $array = explode('/', $page->url_page);
+
+            $urlData[] = [
+                'url' => end($array),
                 'date' => $page->date_visit,
             ];
         }
         $uniqueUrls = [];
         $result = [];
-        foreach ($url as $item) {
+        foreach ($urlData as $item) {
             $url = $item['url'];
             $date = $item['date'];
-            if (strpos($url, '/product/') !== false) {
-                $url = str_replace(['/en/', '/ru/'], '/', $url);
-                if (in_array($url, $uniqueUrls)) {
-                    $existingIndex = array_search($url, $uniqueUrls);
-                    if ($date > $result[$existingIndex]['date']) {
-                        $result[$existingIndex] = $item;
-                    }
-                } else {
-                    $uniqueUrls[] = $url;
-                    $result[] = $item;
+            if (in_array($url, $uniqueUrls)) {
+                $existingIndex = array_search($url, $uniqueUrls);
+                if ($date > $result[$existingIndex]['date']) {
+                    $result[$existingIndex] = $item;
+                }
+            } else {
+                $uniqueUrls[] = $url;
+                $result[] = $item;
+            }
+        }
+
+        $productsData = [];
+        foreach ($result as $key => $item) {
+
+            if (strpbrk($item['url'], '?.=') === false) {
+
+                $idProduct = Product::productId($item['url']);
+
+                if ($idProduct !== null || $idProduct !== '') {
+                    $productsData[$key]['slug'] = $item['url'];
+                    $productsData[$key]['date'] = $item['date'];
+                    $productsData[$key]['id'] = $idProduct;
+                    $productsData[$key]['id'] = $idProduct;
+                    $productsData[$key]['count'] = ActivePages::productCountViews($item['url']);
+                    $productsData[$key]['name'] = Product::productName($item['url']);
+                    $productsData[$key]['image'] = Product::productImage($item['url']);
+                    $productsData[$key]['status_id'] = Product::productStatusId($item['url']);
+                    $productsData[$key]['status_name'] = Product::productStatusName($item['url']);
                 }
             }
         }
-        foreach ($result as $key => $item) {
-            $slugProduct = str_replace('/product/', '', $item['url']);
-            $idProduct = Product::productId($slugProduct);
-            $result[$key]['slug'] = $slugProduct;
-            $result[$key]['id'] = $idProduct;
-            $result[$key]['count'] = ActivePages::productCountViews($slugProduct);
-            $result[$key]['name'] = Product::productName($slugProduct);
-            $result[$key]['image'] = Product::productImage($slugProduct);
-            $result[$key]['status_id'] = Product::productStatusId($slugProduct);
-            $result[$key]['status_name'] = Product::productStatusName($slugProduct);
-        }
 
 //        ArrayHelper::multisort($result, ['date'], [SORT_DESC]);
-        ArrayHelper::multisort($result, ['count'], [SORT_DESC]);
+//        ArrayHelper::multisort($productsData, ['count'], [SORT_DESC]);
 
-        return $this->render('all-activity-product', ['result' => $result]);
+        return $this->render('all-activity-product', ['result' => $productsData]);
     }
 
     public function actionUpdateErrorCheckbox()
