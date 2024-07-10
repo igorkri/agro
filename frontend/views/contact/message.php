@@ -3,7 +3,7 @@
     <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
         Вітаемо Ваше повідомлення -- надіслане !!!
     </div>
-    <form id="form-messages" >
+    <form id="form-messages">
         <div class="form-row">
             <div class="form-group col-md-6" id="url-message"
                  data-url-review="<?= Yii::$app->urlManager->createUrl(['contact/create']) ?>">

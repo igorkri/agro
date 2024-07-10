@@ -15,7 +15,6 @@ class OrderController extends Controller
     public function actionCheckout()
     {
 //        Yii::$app->cache->flush();
-//        $request = Yii::$app->request;
         $item_cart = Yii::$app->cart->getPositions();
         if ($item_cart) {
             $order = new Order();
@@ -66,7 +65,7 @@ class OrderController extends Controller
 
         if (!$order->sent_message) {
             $chat_id = 6086317334;
-                $this->getSendTelegramMessage($chat_id, $order);
+            $this->getSendTelegramMessage($chat_id, $order);
             $order->sent_message = true;
             $order->save();
         } else {
@@ -97,7 +96,7 @@ class OrderController extends Controller
         }
         $message .= "Загальна Сума : *" . Yii::$app->formatter->asCurrency($order->getTotalSumm($order->id)) . "*\n" .
 
-        "==================================\n";
+            "==================================\n";
         // Отправка сообщения в Telegram
         Yii::$app->telegram->sendMessage([
             'chat_id' => $chat_id,

@@ -12,8 +12,7 @@ class CompareController extends Controller
     public function actionView()
     {
         $language = Yii::$app->session->get('_language');
-        $session = Yii::$app->session;
-        $compareList = $session->get('compareList', []);
+        $compareList = Yii::$app->session->get('compareList', []);
 
         $categories_id = [];
         $products = Product::find()->where(['id' => $compareList])->all();
@@ -38,6 +37,19 @@ class CompareController extends Controller
         $properties = array_unique($newArray);
 
         if ($language !== 'uk') {
+            $this->getTranslateCompare($products, $language);
+        }
+
+        return $this->render('view',
+            [
+                'products' => $products,
+                'properties' => $properties,
+            ]);
+    }
+
+    protected function getTranslateCompare($products, $language)
+    {
+        if ($products) {
             foreach ($products as $product) {
                 if ($product) {
                     $translationProd = $product->getTranslation($language)->one();
@@ -58,12 +70,6 @@ class CompareController extends Controller
                 }
             }
         }
-
-        return $this->render('view',
-            [
-                'products' => $products,
-                'properties' => $properties,
-            ]);
     }
 
     public function actionAddToCompare()
