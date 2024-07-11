@@ -107,7 +107,6 @@ use yii\helpers\Url;
                                     >
                                         <div class="card">
                                             <div class="card-body p-5">
-
                                                 <div class="row">
                                                     <div class="col-4 mb-4">
                                                         <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
@@ -151,41 +150,43 @@ use yii\helpers\Url;
                                             aria-labelledby="profile-tab-2"
                                     >
                                         <div class="card">
-                                            <div class="card-body p-5">
-                                                <div class="row">
-                                                    <div class="col-4 mb-4">
-                                                        <?= $form->field($translateRu, 'name')->textInput(['maxlength' => true, 'id' => 'translateRu-name', 'name' => 'CategoriesTranslate[ru][name]'])->label(Yii::t('app', 'name')) ?>
+                                            <?php if (isset($translateRu)): ?>
+                                                <div class="card-body p-5">
+                                                    <div class="row">
+                                                        <div class="col-4 mb-4">
+                                                            <?= $form->field($translateRu, 'name')->textInput(['maxlength' => true, 'id' => 'translateRu-name', 'name' => 'CategoriesTranslate[ru][name]'])->label(Yii::t('app', 'name')) ?>
+                                                        </div>
+                                                        <div class="col-4 mb-4">
+                                                            <?= $form->field($translateRu, 'prefix')->textInput(['maxlength' => true, 'id' => 'translateRu-prefix', 'name' => 'CategoriesTranslate[ru][prefix]'])->label(Yii::t('app', 'prefix')) ?>
+                                                        </div>
+                                                        <div class="col-4 mb-4">
+                                                            <?= $form->field($model, 'date_updated')->textInput([
+                                                                'maxlength' => true,
+                                                                'class' => 'form-control',
+                                                                'value' => Yii::$app->formatter->asDatetime($model->date_updated),
+                                                                'readonly' => true,
+                                                            ])->label(Yii::t('app', 'Date Updated')) ?>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-4 mb-4">
-                                                        <?= $form->field($translateRu, 'prefix')->textInput(['maxlength' => true, 'id' => 'translateRu-prefix', 'name' => 'CategoriesTranslate[ru][prefix]'])->label(Yii::t('app', 'prefix')) ?>
-                                                    </div>
-                                                    <div class="col-4 mb-4">
-                                                        <?= $form->field($model, 'date_updated')->textInput([
-                                                            'maxlength' => true,
-                                                            'class' => 'form-control',
-                                                            'value' => Yii::$app->formatter->asDatetime($model->date_updated),
-                                                            'readonly' => true,
-                                                        ])->label(Yii::t('app', 'Date Updated')) ?>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4">
-                                                    <?= $form->field($translateRu, 'description')->widget(Widget::class, [
-                                                        'options' => ['id' => 'translateRu-description', 'name' => 'CategoriesTranslate[ru][description]'],
-                                                        'defaultSettings' => [
-                                                            'style' => 'position: unset;'
-                                                        ],
-                                                        'settings' => [
-                                                            'lang' => 'uk',
-                                                            'minHeight' => 100,
-                                                            'plugins' => [
-                                                                'fullscreen',
-                                                                'table',
-                                                                'fontcolor',
+                                                    <div class="mb-4">
+                                                        <?= $form->field($translateRu, 'description')->widget(Widget::class, [
+                                                            'options' => ['id' => 'translateRu-description', 'name' => 'CategoriesTranslate[ru][description]'],
+                                                            'defaultSettings' => [
+                                                                'style' => 'position: unset;'
                                                             ],
-                                                        ],
-                                                    ]); ?>
+                                                            'settings' => [
+                                                                'lang' => 'uk',
+                                                                'minHeight' => 100,
+                                                                'plugins' => [
+                                                                    'fullscreen',
+                                                                    'table',
+                                                                    'fontcolor',
+                                                                ],
+                                                            ],
+                                                        ]); ?>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div
@@ -195,6 +196,7 @@ use yii\helpers\Url;
                                             aria-labelledby="contact-tab-2"
                                     >
                                         <div class="card">
+                                            <?php if (isset($translateEn)): ?>
                                             <div class="card-body p-5">
                                                 <div class="row">
                                                     <div class="col-4 mb-4">
@@ -230,6 +232,7 @@ use yii\helpers\Url;
                                                     ]); ?>
                                                 </div>
                                             </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -298,7 +301,6 @@ use yii\helpers\Url;
                                             aria-labelledby="uk-seo-2">
                                         <div class="card">
                                             <div class="card-body p-5">
-
                                                 <div class="mb-4">
                                                     <?= $form->field($model, 'pageTitle')->textInput(['maxlength' => true, 'id' => 'seo_title_id'])->label('SEO Тайтл' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountTitle" data-bs-toggle="tooltip"
                                data-bs-placement="right"
@@ -346,6 +348,7 @@ use yii\helpers\Url;
                                             role="tabpanel"
                                             aria-labelledby="ru-seo-2">
                                         <div class="card">
+                                            <?php if (isset($translateRu)): ?>
                                             <div class="card-body p-5">
                                                 <div class="mb-4">
                                                     <?= $form->field($translateRu, 'pageTitle')->textInput(['maxlength' => true, 'id' => 'seo_title_ru_id', 'name' => 'CategoriesTranslate[ru][pageTitle]'])->label('SEO Тайтл' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountTitle_ru" data-bs-toggle="tooltip"
@@ -386,6 +389,7 @@ use yii\helpers\Url;
                                                     </script>
                                                 </div>
                                             </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div
@@ -394,6 +398,7 @@ use yii\helpers\Url;
                                             role="tabpanel"
                                             aria-labelledby="en-seo-2">
                                         <div class="card">
+                                            <?php if (isset($translateEn)): ?>
                                             <div class="card-body p-5">
                                                 <div class="mb-4">
                                                     <?= $form->field($translateEn, 'pageTitle')->textInput(['maxlength' => true, 'id' => 'seo_title_en_id', 'name' => 'CategoriesTranslate[en][pageTitle]'])->label('SEO Тайтл' . ' ' . '->' . ' ' . '<label class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart" style="background: #63bdf57d" id="charCountTitle_en" data-bs-toggle="tooltip"
@@ -434,13 +439,14 @@ use yii\helpers\Url;
                                                     </script>
                                                 </div>
                                             </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   <?= $this->render('sidebar', ['form' => $form, 'model' => $model]) ?>
+                    <?= $this->render('sidebar', ['form' => $form, 'model' => $model]) ?>
                 </div>
             </div>
         </div>

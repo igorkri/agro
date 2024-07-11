@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\shop\CategoriesTranslate;
 use common\models\shop\Category;
 use backend\models\search\CategorySearch;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -75,6 +76,7 @@ class CategoryController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
+
                 $dir = Yii::getAlias('@frontendWeb/category');
 
                 $file = UploadedFile::getInstance($model, 'file');
@@ -82,7 +84,11 @@ class CategoryController extends Controller
                 $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
                 $model->file = $imageName . '.' . $file->extension;
 
+
                 if ($model->save()) {
+
+                    $this->getCreateTranslate($model);
+
                     return $this->redirect(['update', 'id' => $model->id]);
                 }
             }
@@ -93,6 +99,60 @@ class CategoryController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    protected function getCreateTranslate($model)
+    {
+        $sourceLanguage = 'uk'; // Исходный язык
+        $targetLanguages = ['ru', 'en']; // Языки перевода
+
+        $tr = new GoogleTranslate();
+
+        foreach ($targetLanguages as $language) {
+            $translation = $model->getTranslation($language)->one();
+            if (!$translation) {
+                $translation = new CategoriesTranslate();
+                $translation->category_id = $model->id;
+                $translation->language = $language;
+            }
+
+            $tr->setSource($sourceLanguage);
+            $tr->setTarget($language);
+
+            $translation->name = $tr->translate($model->name ?? '');
+
+                if (strlen($model->description) < 5000) {
+                    $translation->description = $tr->translate($model->description);
+                } else {
+                    $description = $model->description;
+                    $translatedDescription = '';
+                    $partSize = 5000;
+                    $parts = [];
+
+                    // Разбиваем текст на части по 5000 символов, не нарушая структуру тегов
+                    while (strlen($description) > $partSize) {
+                        $part = substr($description, 0, $partSize);
+                        $lastSpace = strrpos($part, ' ');
+                        $parts[] = substr($description, 0, $lastSpace);
+                        $description = substr($description, $lastSpace);
+                    }
+                    $parts[] = $description;
+
+                    // Переводим каждую часть отдельно
+                    foreach ($parts as $part) {
+                        $translatedDescription .= $tr->translate($part);
+                    }
+
+                    // Сохраняем переведенное описание
+                    $translation->description = $translatedDescription;
+                }
+
+            $translation->pageTitle = $tr->translate($model->pageTitle ?? '');
+            $translation->metaDescription = $tr->translate($model->metaDescription ?? '');
+            $translation->prefix = $tr->translate($model->prefix ?? '');
+
+            $translation->save();
+        }
     }
 
     /**
@@ -168,11 +228,16 @@ class CategoryController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb');
         $model = $this->findModel($id);
+
         if (file_exists($dir . '/category/' . $model->file)) {
             unlink($dir . '/category/' . $model->file);
         }
 
+        CategoriesTranslate::deleteAll(['category_id' => $id]);
+
         $model->delete();
+
+
         return $this->redirect(['index']);
     }
 
@@ -188,7 +253,7 @@ class CategoryController extends Controller
         if (($model = Category::findOne(['id' => $id])) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException(\Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
 
