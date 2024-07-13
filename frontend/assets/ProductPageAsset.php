@@ -39,4 +39,8 @@ class ProductPageAsset extends AssetBundle
     public $cssOptions = [
         'type' => 'text/css',
     ];
+
+    public $jsOptions = [
+//        'defer' => true,
+    ];
 }

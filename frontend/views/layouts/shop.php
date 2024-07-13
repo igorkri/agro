@@ -39,14 +39,14 @@ AppAsset::register($this);
             <link rel="alternate" hreflang="ru" href="<?= Yii::$app->params['alternateUrls']['ruUrl'] ?? '' ?>"/>
         <?php endif; ?>
 
-<!--        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYNR0B69QV"></script>-->
-<!--        <script>-->
-<!--            window.dataLayer = window.dataLayer || [];-->
-<!--            function gtag(){dataLayer.push(arguments);}-->
-<!--            gtag('js', new Date());-->
-<!---->
-<!--            gtag('config', 'G-RYNR0B69QV');-->
-<!--        </script>-->
+        <!--        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYNR0B69QV"></script>-->
+        <!--        <script>-->
+        <!--            window.dataLayer = window.dataLayer || [];-->
+        <!--            function gtag(){dataLayer.push(arguments);}-->
+        <!--            gtag('js', new Date());-->
+        <!---->
+        <!--            gtag('config', 'G-RYNR0B69QV');-->
+        <!--        </script>-->
 
     </head>
     <body>
