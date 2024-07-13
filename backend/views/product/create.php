@@ -1,7 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-
 /** @var yii\web\View $this */
 /** @var common\models\shop\Product $model */
 
@@ -12,7 +10,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('_form', [
     'model' => $model,
-    'translateRu' => $translateRu,
-    'translateEn' => $translateEn,
 ]) ?>
 

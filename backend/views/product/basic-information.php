@@ -175,6 +175,7 @@ use vova07\imperavi\Widget;
                         role="tabpanel"
                         aria-labelledby="ru-tab-2"
                     >
+                        <?php if (isset($translateRu)):?>
                         <div class="row">
                             <div class="col-md-8 mb-4">
                                 <?= $form->field($translateRu, 'name')->textInput([
@@ -286,6 +287,7 @@ use vova07\imperavi\Widget;
                                 ],
                             ]); ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div
                         class="tab-pane fade"
@@ -293,6 +295,7 @@ use vova07\imperavi\Widget;
                         role="tabpanel"
                         aria-labelledby="en-tab-2"
                     >
+                        <?php if (isset($translateEn)):?>
                         <div class="row">
                             <div class="col-md-8 mb-4">
                                 <?= $form->field($translateEn, 'name')->textInput([
@@ -404,6 +407,7 @@ use vova07\imperavi\Widget;
                                 ],
                             ]); ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

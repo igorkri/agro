@@ -112,12 +112,19 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                     role="tabpanel"
                                     aria-labelledby="description-tab-1"
                             >
-                                <?= $this->render('basic-information', [
+                                <?php
+                                $params = [
                                     'form' => $form,
                                     'model' => $model,
-                                    'translateRu' => $translateRu,
-                                    'translateEn' => $translateEn,
-                                ]) ?>
+                                ];
+                                if (isset($translateRu)) {
+                                    $params['translateRu'] = $translateRu;
+                                }
+                                if (isset($translateEn)) {
+                                    $params['translateEn'] = $translateEn;
+                                }
+                                echo $this->render('basic-information', $params);
+                                ?>
                             </div>
                             <div
                                     class="tab-pane fade"
@@ -125,15 +132,24 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                     role="tabpanel"
                                     aria-labelledby="properties-tab-1"
                             >
-                                <?= $this->render('properties-information', [
+                                <?php
+                                $params = [
                                     'form' => $form,
                                     'model' => $model,
-                                    'data' => $data,
-                                    'dataRu' => $dataRu,
-                                    'dataEn' => $dataEn,
-                                    'translateRu' => $translateRu,
-                                    'translateEn' => $translateEn,
-                                ]) ?>
+                                ];
+                                if (isset($data)) {
+                                    $params['data'] = $data;
+                                    $params['dataRu'] = $dataRu;
+                                    $params['dataEn'] = $dataEn;
+                                }
+                                if (isset($translateRu)) {
+                                    $params['translateRu'] = $translateRu;
+                                }
+                                if (isset($translateEn)) {
+                                    $params['translateEn'] = $translateEn;
+                                }
+                                echo $this->render('properties-information', $params);
+                                ?>
                             </div>
                             <div
                                     class="tab-pane fade"
@@ -141,12 +157,19 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                     role="tabpanel"
                                     aria-labelledby="seo-tab-1"
                             >
-                                <?= $this->render('seo-information', [
+                                <?php
+                                $params = [
                                     'form' => $form,
                                     'model' => $model,
-                                    'translateRu' => $translateRu,
-                                    'translateEn' => $translateEn,
-                                ]) ?>
+                                ];
+                                if (isset($translateRu)) {
+                                    $params['translateRu'] = $translateRu;
+                                }
+                                if (isset($translateEn)) {
+                                    $params['translateEn'] = $translateEn;
+                                }
+                                echo $this->render('seo-information', $params);
+                                ?>
                             </div>
                             <div
                                     class="tab-pane fade"

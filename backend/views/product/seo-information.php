@@ -63,6 +63,7 @@ data-bs-toggle="tooltip"
         </div>
     </div>
 </div>
+<?php if (isset($translateRu)):?>
 <div class="card mt-5">
     <div class="card-body p-5">
         <div class="mb-5">
@@ -126,6 +127,8 @@ data-bs-toggle="tooltip"
         </div>
     </div>
 </div>
+<?php endif; ?>
+<?php if (isset($translateEn)):?>
 <div class="card mt-5">
     <div class="card-body p-5">
         <div class="mb-5">
@@ -189,3 +192,4 @@ data-bs-toggle="tooltip"
         </div>
     </div>
 </div>
+<?php endif; ?>

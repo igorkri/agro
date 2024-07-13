@@ -110,7 +110,7 @@ use yii\helpers\Html;
                                         </div>
                                     </div>
                                     <?= $form->field($productProperty, "[$index]id")->hiddenInput([
-                                        'value' => $productProperty->id,
+                                        'value' => $data[$index]['id'],
                                         'name' => "PropertiesTranslate[ru][$index][id]"
                                     ])->label(false) ?>
                                     <?php $index++; ?>
@@ -144,7 +144,7 @@ use yii\helpers\Html;
                                         </div>
                                     </div>
                                     <?= $form->field($productProperty, "[$index]id")->hiddenInput([
-                                        'value' => $productProperty->id,
+                                        'value' => $data[$index]['id'],
                                         'name' => "PropertiesTranslate[en][$index][id]"
                                     ])->label(false) ?>
                                     <?php $index++; ?>
