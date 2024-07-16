@@ -1,43 +1,43 @@
 <div class="col-12 col-lg-6">
-    <h4 class="contact-us__header card-title">Залиште нам повідомлення</h4>
+    <h4 class="contact-us__header card-title"><?=Yii::t('app','Залиште нам повідомлення')?></h4>
     <div class="alert alert-success" style="display: none;" id="success-message" role="alert">
-        Вітаемо Ваше повідомлення -- надіслане !!!
+        <?=Yii::t('app','Вітаемо Ваше повідомлення -- надіслане !!!')?>
     </div>
     <form id="form-messages">
         <div class="form-row">
             <div class="form-group col-md-6" id="url-message"
                  data-url-review="<?= Yii::$app->urlManager->createUrl(['contact/create']) ?>">
-                <label for="messages-name">Ваше ім'я</label>
+                <label for="messages-name"><?=Yii::t('app','Ваше ім’я')?></label>
                 <input type="text" name="name" class="form-control"
-                       oninvalid="this.setCustomValidity('Укажіть будь ласка Ваше ім’я')"
+                       oninvalid="this.setCustomValidity('<?=Yii::t('app','Вкажіть будь ласка Ваше ім’я')?>')"
                        oninput="this.setCustomValidity('')"
-                       placeholder="Ваше ім'я" required>
+                       placeholder="<?=Yii::t('app','Ваше ім’я')?>" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="messages-email">Email</label>
                 <input type="text" name="email" class="form-control"
-                       placeholder="Адреса електронної пошти"
-                       oninvalid="this.setCustomValidity('Укажіть будь ласка Ваш email')"
+                       placeholder="<?=Yii::t('app','Адреса електронної пошти')?>"
+                       oninvalid="this.setCustomValidity('<?=Yii::t('app','Вкажіть будь ласка Ваш email')?>')"
                        oninput="this.setCustomValidity('')"
                        required>
             </div>
         </div>
         <div class="form-group">
-            <label for="messages-subject">Тема</label>
+            <label for="messages-subject"><?=Yii::t('app','Тема')?></label>
             <input type="text" name=subject class="form-control"
-                   placeholder="Тема"
-                   oninvalid="this.setCustomValidity('Укажіть будь ласка Тему')"
+                   placeholder="<?=Yii::t('app','Тема')?>"
+                   oninvalid="this.setCustomValidity('<?=Yii::t('app','Вкажіть будь ласка Тему')?>')"
                    oninput="this.setCustomValidity('')"
                    required>
         </div>
         <div class="form-group">
-            <label for="messages-messages">Повідомлення</label>
+            <label for="messages-messages"><?=Yii::t('app','Повідомлення')?></label>
             <textarea name=message class="form-control" rows="4"
-                      oninvalid="this.setCustomValidity('Напишіть будь ласка Ваше повідомлення')"
+                      oninvalid="this.setCustomValidity('<?=Yii::t('app','Напишіть будь ласка Ваше повідомлення')?>')"
                       oninput="this.setCustomValidity('')"
                       required></textarea>
         </div>
-        <button type="submit" id="messages-form-submit" class="btn btn-primary btn-lg">Відправити</button>
+        <button type="submit" id="messages-form-submit" class="btn btn-primary btn-lg"><?=Yii::t('app','Відправити')?></button>
     </form>
 </div>
 
