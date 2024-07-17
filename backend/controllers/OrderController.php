@@ -90,50 +90,40 @@ class OrderController extends Controller
      * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return array
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
-        $request = Yii::$app->request;
+//        $request = Yii::$app->request;
         $model = $this->findModel($id);
 
-        if ($request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($request->isGet) {
-                return [
-                    'title' => "Змовлення № " . $model->id,
-                    'content' => $this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-//                    'footer' => Html::button('Зберегти', ['class' => 'btn btn-primary', 'type' => "submit"])
-                ];
-            } else if ($model->load($request->post()) && $model->save()) {
-                return ['forceClose' => true, 'forceReload' => '#top'];
-            }
-        }
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', ' Інформація про замовлення оновлена!');
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
+//        if ($request->isAjax) {
+//            Yii::$app->response->format = Response::FORMAT_JSON;
+//            if ($request->isGet) {
+//                return [
+//                    'title' => "Змовлення № " . $model->id,
+//                    'content' => $this->renderAjax('update', [
+//                        'model' => $model,
+//                    ]),
+////                    'footer' => Html::button('Зберегти', ['class' => 'btn btn-primary', 'type' => "submit"])
+//                ];
+//            } else if ($model->load($request->post()) && $model->save()) {
+//                return ['forceClose' => true, 'forceReload' => '#top'];
+//            }
+//        }
+//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        }
 
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    public function actionUpdateNote()
-    {
-        $request = Yii::$app->request;
-        $model = $this->findModel($request->post('id'));
-        $model->note = $request->post('note');
-        if ($request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if ($model->save()) {
-                return ['res' => 'Збережено', 'color' => '#00b52a'];
-            } else {
-                return ['res' => 'Не збережено', 'color' => '#FF1356'];
-            }
-        }
     }
 
     public function actionAddOrderItem()

@@ -6,6 +6,8 @@ use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\YiiAsset;
+use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
 /** @var common\models\shop\Order $model */
@@ -13,13 +15,11 @@ use yii\helpers\Url;
 $this->title = $model->fio;
 $this->params['breadcrumbs'][] = ['label' => 'Замовлення', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 
 ?>
 
-<?php \yii\widgets\Pjax::begin(
-//        ['id'=>"top"]
-) ?>
+<?php Pjax::begin() ?>
     <div id="top" class="sa-app__body">
         <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
             <div class="container container--max--xl">
@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="col-auto d-flex">
                             <?php echo Html::a('Редагувати', Url::to(['update', 'id' => $model->id]), [
                                 'class' => "btn btn-primary",
-                                'role' => 'modal-remote',
-                                'data-toggle' => 'tooltip'
+//                                'role' => 'modal-remote',
+//                                'data-toggle' => 'tooltip'
                             ]) ?>
                         </div>
                     </div>
@@ -283,7 +283,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <a href="#" class="fs-exact-14"></a>
                                 </div>
                                 <div class="card-body pt-4 fs-exact-14">
-                                    <div><?= $model->note ? $model->note : '' ?></div>
+                                    <div><?= $model->note ?? '' ?></div>
                                 </div>
                             </div>
                             <div class="card mt-5">
@@ -300,7 +300,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <a href="#" class="fs-exact-14"></a>
                                 </div>
                                 <div class="card-body pt-4 fs-exact-14">
-                                    <div><?= $model->comment ? $model->comment : '' ?></div>
+                                    <div><?= $model->comment ?? '' ?></div>
                                 </div>
                             </div>
                         </div>
@@ -310,7 +310,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-<?php \yii\widgets\Pjax::end() ?>
+<?php Pjax::end() ?>
 
 <?php Modal::begin([
     "id" => "ajaxCrudModal",
@@ -323,52 +323,3 @@ $this->params['breadcrumbs'][] = $this->title;
     "footer" => "", // always need it for jquery plugin
 ]) ?>
 <?php Modal::end(); ?>
-
-<?php
-$js = <<<JS
-$( document ).ready(function() {
-    $('#order-note').change(function(){
-        var note = $('#order-note').val();
-        var id = $('#order-note').data('id');
-        var land = $('#order-note').data('land');
-
-    $.ajax({
-        url: "/admin/"+ land +"/order/update-note",
-        type: 'post',
-        data: {
-            'id': id,
-            'note': note
-        },
-        success: function(data){
-            $.toast({
-                    loader: false,
-                    hideAfter: 1000,
-                    position: 'top-right',
-                    // heading: 'OK',
-                    text: data.res,
-                    bgColor: data.color,
-                    textColor: 'white',
-                    icon: 'success'
-                });
-        },
-        error: function(data){
-            $.toast({
-                    loader: false,
-                    hideAfter: 1000,
-                    position: 'top-right',
-                    // heading: 'OK',
-                    text: data.res,
-                    bgColor: data.color,
-                    textColor: 'white',
-                    icon: 'success'
-                });
-        }
-    });
-    return false;
-    }).on('submit', function(e){
-    e.preventDefault();
-    });
-});
-
-JS;
-$this->registerJs($js);

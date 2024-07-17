@@ -29,7 +29,7 @@ use yii\widgets\MaskedInput;
                                     'label' => Yii::t('app', 'Home'),
                                     'url' => Yii::$app->homeUrl,
                                 ],
-                                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                'links' => $this->params['breadcrumbs'] ?? [],
                             ]);
                             ?>
                         </ol>
@@ -50,13 +50,21 @@ use yii\widgets\MaskedInput;
                                         class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></div>
                             <div class="row">
                                 <div class="col-4 mb-4">
-                                    <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
-                                        ArrayHelper::map(OrderPayMent::find()->all(), 'id', 'name')
+                                    <?= $form->field($model, 'order_status_id')->dropDownList(
+                                        ArrayHelper::map(OrderStatus::find()->all(), 'id', 'name'),
+                                        [
+                                            'style' => 'font-weight: 500; font-size: 20px',
+                                            'id' => 'order-status-dropdown',
+                                        ],
                                     ) ?>
                                 </div>
                                 <div class="col-4 mb-4">
-                                    <?= $form->field($model, 'order_status_id')->dropDownList(
-                                        ArrayHelper::map(OrderStatus::find()->all(), 'id', 'name')
+                                    <?= $form->field($model, 'order_pay_ment_id')->dropDownList(
+                                        ArrayHelper::map(OrderPayMent::find()->all(), 'id', 'name'),
+                                        [
+                                            'style' => 'font-weight: 500; font-size: 20px',
+                                            'id' => 'order-payment-status-dropdown',
+                                        ],
                                     ) ?>
                                 </div>
                                 <div class="col-4 mb-4">
@@ -94,4 +102,57 @@ use yii\widgets\MaskedInput;
     </div>
 </div>
 <?php ActiveForm::end(); ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var paymentDropdown = document.getElementById('order-payment-status-dropdown');
+        var orderDropdown = document.getElementById('order-status-dropdown');
+
+        var updatePaymentBackgroundColor = function () {
+            if (paymentDropdown.value === '3') {
+                paymentDropdown.style.backgroundColor = '#4ee95e5c';
+            } else if (paymentDropdown.value === '1') {
+                paymentDropdown.style.backgroundColor = '#ffa5005c';
+            } else if (paymentDropdown.value === '5') {
+                paymentDropdown.style.backgroundColor = 'rgba(223,27,18,0.77)';
+            } else if (paymentDropdown.value === '4') {
+                paymentDropdown.style.backgroundColor = 'rgba(79,76,76,0.47)';
+            } else {
+                paymentDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
+            }
+        };
+
+        var updateOrderBackgroundColor = function () {
+            switch (orderDropdown.value) {
+                case '1':
+                    orderDropdown.style.backgroundColor = 'rgba(80,172,243,0.36)'; // Желтый цвет для "Очікується"
+                    break;
+                case '2':
+                    orderDropdown.style.backgroundColor = 'rgba(231, 195, 6, 0.7)'; // Голубой цвет для "Комплектується"
+                    break;
+                case '6':
+                    orderDropdown.style.backgroundColor = '#ffa5005c'; // Оранжевый цвет для "Доставляється"
+                    break;
+                case '5':
+                    orderDropdown.style.backgroundColor = 'rgba(79,76,76,0.47)'; // Красный цвет для "Відміна"
+                    break;
+                case '3':
+                    orderDropdown.style.backgroundColor = '#4ee95e5c'; // Зеленый цвет для "Одержано"
+                    break;
+                case '4':
+                    orderDropdown.style.backgroundColor = 'rgba(223,27,18,0.77)'; // Серый цвет для "Повернення"
+                    break;
+                default:
+                    orderDropdown.style.backgroundColor = ''; // Установить в пустую строку для значения по умолчанию
+            }
+        };
+
+        // Обработчики события изменения значения
+        paymentDropdown.addEventListener('change', updatePaymentBackgroundColor);
+        orderDropdown.addEventListener('change', updateOrderBackgroundColor);
+
+        // Вызовем функции для установки начального цвета при загрузке страницы
+        updatePaymentBackgroundColor();
+        updateOrderBackgroundColor();
+    });
+</script>
 
