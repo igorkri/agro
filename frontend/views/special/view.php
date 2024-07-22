@@ -1,6 +1,7 @@
 <?php
 
 use common\models\shop\ActivePages;
+use common\models\shop\Product;
 use frontend\assets\SpecialPageAsset;
 use frontend\widgets\ViewProduct;
 use yii\bootstrap5\LinkPager;
@@ -10,9 +11,9 @@ use yii\helpers\Url;
 SpecialPageAsset::register($this);
 ActivePages::setActiveUser();
 
-/** @var \common\models\shop\Product $products */
-/** @var \common\models\shop\Product $pages */
-/** @var \common\models\shop\Product $products_all */
+/** @var Product $products */
+/** @var Product $pages */
+/** @var Product $products_all */
 
 ?>
 <div class="site__body">
@@ -52,7 +53,7 @@ ActivePages::setActiveUser();
                             </div>
                         </div>
                         <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
-                        <div style="display: block;margin: 60px 0px 0px 0px;">
+                        <div style="display: block;margin: 60px 0 0 0;">
                             <ul class="pagination justify-content-center">
                                 <li>
                                     <?= LinkPager::widget(['pagination' => $pages,]) ?>
@@ -66,5 +67,5 @@ ActivePages::setActiveUser();
             </div>
         </div>
     </div>
-    <? echo Html::endForm(); ?>
+    <?php echo Html::endForm(); ?>
 </div>
