@@ -275,10 +275,13 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                         </span>
                                     </span>
                                         <label class="form-check-label"
-                                               for="checkout-terms"><?= Yii::t('app', 'Я прочитав і погоджуюся з веб-сайтом ') ?>
-                                            <a target="_blank" href="<?= Url::to(['/order/conditions']) ?>">
+                                               for="checkout-terms"><?= Yii::t('app', 'Я прочитав ') ?>
+                                            <a style="font-weight: bold" target="_blank"
+                                               href="<?= Url::to(['/order/conditions']) ?>">
                                                 <?= Yii::t('app', ' умови повернення та обміну') ?> </a><span
                                                     style="color: red">*</span>
+                                            <?= Yii::t('app', ' та погоджуюся з інтернет-магазином') ?><span
+                                                    style="font-weight: bold"> AgroPro</span>
                                         </label>
                                     </div>
                                 </div>
