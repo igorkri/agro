@@ -118,7 +118,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                             'options' => [
                                                                 'id' => 'order-areas',
                                                                 'data-url-cities' => Yii::$app->urlManager->createUrl(['n-p/cities']),
-                                                                'placeholder' => Yii::t('app','Виберіть область...'),
+                                                                'placeholder' => Yii::t('app', 'Виберіть область...'),
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
                                                             'pluginOptions' => [
@@ -127,7 +127,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                                 'max-width' => '550px',
                                                                 'margin' => '0 auto',
                                                             ],
-                                                        ])->label(Yii::t('app','Область'));
+                                                        ])->label(Yii::t('app', 'Область'));
                                                         ?>
                                                     </div>
                                                     <div class="form-group">
@@ -139,7 +139,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                             'options' => [
                                                                 'id' => 'order-city',
                                                                 'data-url-warehouses' => Yii::$app->urlManager->createUrl(['n-p/warehouses']),
-                                                                'placeholder' => Yii::t('app','Виберіть місто...'),
+                                                                'placeholder' => Yii::t('app', 'Виберіть місто...'),
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
                                                             'pluginOptions' => [
@@ -160,7 +160,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                                 return null;
                                                             }"),
                                                             ],
-                                                        ])->label(Yii::t('app','Місто'));
+                                                        ])->label(Yii::t('app', 'Місто'));
                                                         ?>
                                                     </div>
                                                     <div class="form-group">
@@ -171,7 +171,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                             'pluginLoading' => false,
                                                             'options' => [
                                                                 'id' => 'order-warehouses',
-                                                                'placeholder' => Yii::t('app','Виберіть відділення...'),
+                                                                'placeholder' => Yii::t('app', 'Виберіть відділення...'),
                                                                 'class' => 'sa-select2 form-select',
                                                             ],
                                                             'pluginOptions' => [
@@ -180,7 +180,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                                 'max-width' => '550px',
                                                                 'margin' => '0 auto',
                                                             ],
-                                                        ])->label(Yii::t('app','Відділення'));
+                                                        ])->label(Yii::t('app', 'Відділення'));
                                                         ?>
                                                     </div>
                                                 </div>
@@ -211,17 +211,20 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                                     padding-top: 3px;
                                                     padding-bottom: 3px;
 ">
-                                                        <?=Yii::t('app','Відправка при 100% оплаті за замовлення!!!')?>
+                                                        <?= Yii::t('app', 'Відправка при 100% оплаті за замовлення!!!') ?>
                                                     </p>
-                                                    <p style="font-weight: 600"><?=Yii::t('app','Для доставки "Укрпошта" введіть в полі коментар такі дані')?>:</p>
+                                                    <p style="font-weight: 600"><?= Yii::t('app', 'Для доставки "Укрпошта" введіть в полі коментар такі дані') ?>
+                                                        :</p>
                                                     <ul style="margin-bottom: 1rem">
-                                                        <li><?=Yii::t('app','Індекс')?></li>
-                                                        <li><?=Yii::t('app','Область')?></li>
-                                                        <li><?=Yii::t('app','Район')?></li>
-                                                        <li><?=Yii::t('app','Місто/Смт (село)')?></li>
+                                                        <li><?= Yii::t('app', 'Індекс') ?></li>
+                                                        <li><?= Yii::t('app', 'Область') ?></li>
+                                                        <li><?= Yii::t('app', 'Район') ?></li>
+                                                        <li><?= Yii::t('app', 'Місто/Смт (село)') ?></li>
                                                     </ul>
-                                                    <p style="font-weight: 600"><?=Yii::t('app','Для прикладу')?>:</p>
-                                                    <p>36502, <?=Yii::t('app','Полтавська, Кременчуцький, м.Кременчук')?></p>
+                                                    <p style="font-weight: 600"><?= Yii::t('app', 'Для прикладу') ?>
+                                                        :</p>
+                                                    <p>
+                                                        36502, <?= Yii::t('app', 'Полтавська, Кременчуцький, м.Кременчук') ?></p>
                                                 </div>
                                             </div>
                                         </li>
@@ -261,7 +264,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                 </table>
                                 <div class="checkout__agree form-group">
                                     <div class="form-check">
-                                    <span class="form-check-input input-check">
+                                    <span id="check-red" class="form-check-input input-check">
                                         <span class="input-check__body">
                                             <input class="input-check__input" type="checkbox"
                                                    id="checkout-terms" checked>
@@ -280,7 +283,7 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
                                     </div>
                                 </div>
                                 <?php if ($total_summ != 0) { ?>
-                                    <button type="submit" class="btn btn-primary btn-dec-lg btn-block"
+                                    <button type="submit" id="orderTo" class="btn btn-primary btn-dec-lg btn-block"
                                             style="font-size: 16px"><?= Yii::t('app', 'Зробити замовлення') ?>
                                     </button>
                                 <?php } else { ?>
@@ -295,6 +298,37 @@ $this->title = Yii::t('app', 'Оформлення замовлення');
         </div>
         <?php ActiveForm::end(); ?>
     </div>
+    <style>
+        .checkbox-error {
+            border: 1px solid red;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let checkbox = document.getElementById('checkout-terms');
+            let submitButton = document.getElementById('orderTo');
+            let checkboxContainer = document.getElementById('check-red');
+
+            function toggleSubmitButton() {
+                if (checkbox.checked) {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('btn-secondary');
+                    submitButton.classList.add('btn-primary');
+                    checkboxContainer.classList.remove('checkbox-error');
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.classList.remove('btn-primary');
+                    submitButton.classList.add('btn-secondary');
+                    checkboxContainer.classList.add('checkbox-error');
+                }
+            }
+
+            toggleSubmitButton();
+
+            checkbox.addEventListener('change', toggleSubmitButton);
+        });
+    </script>
+
 <?php
 $js = <<<JS
     $(document).ready(function () {
@@ -361,6 +395,9 @@ $js = <<<JS
             $('#order-warehouses').select2();
         }
     });
+
+
+
 JS;
 $this->registerJs($js);
 ?>
