@@ -5,7 +5,6 @@ use yii\helpers\Url;
 /** @var \common\models\Contact $contacts */
 
 ?>
-
     <footer class="site__footer">
         <div class="site-footer">
             <?php if (Yii::$app->devicedetect->isMobile()){ ?>
@@ -45,10 +44,10 @@ use yii\helpers\Url;
                                     <div class="site-footer__widget footer-links">
                                         <h4 class="footer-links__title"><?= Yii::t('app', 'Інформація') ?></h4>
                                         <ul class="footer-links__list">
-                                            <li class="footer-links__item"><a href="<?= Url::to(['/about/view']) ?>"
+                                            <li class="footer-links__item"><a href="<?= Url::to(['about/view']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Про нас') ?></a>
                                             </li>
-                                            <li class="footer-links__item"><a href="<?= Url::to(['/delivery/view']) ?>"
+                                            <li class="footer-links__item"><a href="<?= Url::to(['delivery/view']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Про доставку') ?></a>
                                             </li>
                                             <!--                                        <li class="footer-links__item"><a href="/"-->
@@ -56,11 +55,11 @@ use yii\helpers\Url;
                                             <!--                                        </li>-->
                                             <!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Бренди</a>-->
                                             <!--                                        </li>-->
-                                            <li class="footer-links__item"><a href="<?= Url::to(['/contact/view']) ?>"
+                                            <li class="footer-links__item"><a href="<?= Url::to(['contact/view']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Контакти') ?></a>
                                             </li>
                                             <li class="footer-links__item"><a
-                                                        href="<?= Url::to(['/order/conditions']) ?>"
+                                                        href="<?= Url::to(['order/conditions']) ?>"
                                                         class="footer-links__link"><?= Yii::t('app', 'Повернення') ?></a>
                                             </li>
                                             <!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Карта-->
@@ -83,13 +82,13 @@ use yii\helpers\Url;
                                             <!--                                        </li>-->
                                             <!--                                        <li class="footer-links__item"><a href="/" class="footer-links__link">Популярні-->
                                             <!--                                                Категорії</a></li>-->
-                                            <li class="footer-links__item"><a href="<?= Url::to(['/category/list']) ?>"
+                                            <li class="footer-links__item"><a href="<?= Url::to(['category/list']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Каталог') ?></a>
                                             </li>
-                                            <li class="footer-links__item"><a href="<?= Url::to(['/special/view']) ?>"
+                                            <li class="footer-links__item"><a href="<?= Url::to(['special/view']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Спеціальні пропозиції') ?></a>
                                             </li>
-                                            <li class="footer-links__item"><a href="<?= Url::to(['/blogs/view']) ?>"
+                                            <li class="footer-links__item"><a href="<?= Url::to(['blogs/view']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Статті') ?></a>
                                             </li>
                                         </ul>
@@ -97,37 +96,30 @@ use yii\helpers\Url;
                                 </div>
 
 
-<!--                                <div class="col-12 col-md-12 col-lg-4">-->
-<!--                                    <div class="site-footer__widget footer-newsletter">-->
-<!--                                        <h5 class="footer-newsletter__title">Новини</h5>-->
-<!--                                        <div class="footer-newsletter__text">-->
-<!--                                            Підпишіться на нашу розсилку новин.-->
-<!--                                        </div>-->
-<!--                                        <div class="alert alert-success" style="display: none;"-->
-<!--                                             id="success-message-footer" role="alert">-->
-<!--                                            Вітаемо Ваше повідомлення -- надіслане !!!-->
-<!--                                        </div>-->
+                                <div class="col-12 col-md-12 col-lg-4">
+                                    <div class="site-footer__widget footer-newsletter">
+                                        <h5 class="footer-newsletter__title"><?= Yii::t('app', 'Новини') ?></h5>
+                                        <div class="footer-newsletter__text">
+                                            <?= Yii::t('app', 'Підпишіться на нашу розсилку новин.') ?>
+                                        </div>
+                                        <div class="alert alert-success" style="display: none;"
+                                             id="success-message-footer" role="alert">
+                                            <?= Yii::t('app', 'Вітаемо Ваше повідомлення -- надіслане !!!') ?>
+                                        </div>
 
 
-
-
-<!--                                        <form id="form-mailing"-->
-<!--                                        data-url-mailing="--><?php //echo Yii::$app->urlManager->createUrl(['contact/create']) ?><!--"-->
-<!--                                        class="footer-newsletter__form">-->
-<!--                                        <label class="sr-only" for="footer-newsletter-address">Електронна-->
-<!--                                            адреса...</label>-->
-<!--                                        <input type="text"-->
-<!--                                               class="footer-newsletter__form-input form-control"-->
-<!--                                               id="footer-newsletter-address"-->
-<!--                                               placeholder="Електронна адреса..."-->
-<!--                                               required>-->
-<!--                                        <button class="footer-newsletter__form-button btn btn-primary">Підписатись-->
-<!--                                        </button>-->
-<!--                                        </form>-->
-
-
-
-
+                                        <form id="form-mailing"
+                                              data-url-mailing="<?php echo Yii::$app->urlManager->createUrl(['site/mailing-list']) ?>"
+                                              class="footer-newsletter__form">
+                                            <label class="sr-only"
+                                                   for="footer-newsletter-address"><?= Yii::t('app', 'Електронна адреса...') ?></label>
+                                            <input type="email"
+                                                   class="footer-newsletter__form-input form-control"
+                                                   id="footer-newsletter-address"
+                                                   placeholder="<?= Yii::t('app', 'Електронна адреса...') ?>"
+                                                   required>
+                                            <button class="footer-newsletter__form-button btn btn-primary"><?= Yii::t('app', 'Підписатись') ?></button>
+                                        </form>
                                         <!--                                    <div class="footer-newsletter__text footer-newsletter__text--social">-->
                                         <!--                                        Соціальні мережі-->
                                         <!--                                    </div>-->
@@ -171,12 +163,8 @@ use yii\helpers\Url;
                                         <!--                                            </li>-->
                                         <!--                                        </ul>-->
                                         <!--                                    </div>-->
-
-<!--                                        -->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="site-footer__bottom">
@@ -203,3 +191,45 @@ use yii\helpers\Url;
                     </div>
                 </div>
     </footer>
+    <style>
+        #success-message-footer {
+            position: absolute;
+            top: -13%;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+<?php
+$js = <<<JS
+
+$(document).ready(function() {
+    $('#form-mailing').on('submit', function(event) {
+        event.preventDefault();
+
+        var email = $('#footer-newsletter-address').val(); 
+        var url = $(this).data('url-mailing');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { email: email },
+            success: function(response) {
+                if (response.success) {
+                    $('#form-mailing')[0].reset();
+                    $('#success-message-footer').fadeIn();
+                    setTimeout(function() {
+                        $('#success-message-footer').fadeOut();
+                    }, 2500);
+                } else {
+                    console.log("Ошибка: " + response.message);
+                }
+            },
+            error: function(data) {
+                console.log("Ошибка", data);
+            }
+        });
+    });
+});
+
+JS;
+$this->registerJs($js);
+?>

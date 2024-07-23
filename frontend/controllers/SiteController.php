@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Messages;
 use common\models\Posts;
 use common\models\SeoPages;
 use common\models\shop\AuxiliaryCategories;
@@ -460,4 +461,27 @@ class SiteController extends Controller
             'content' => $content,
         ];
     }
+
+    public function actionMailingList()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (Yii::$app->request->isPost) {
+            $email = Yii::$app->request->post('email');
+
+                $model = new Messages();
+                $model->name = 'AgroPro';
+                $model->email = $email;
+                $model->message = 'Додати в розсилку';
+                if ($model->save()) {
+                    return ['success' => true, 'message' => 'Подписка оформлена!'];
+                } else {
+                    return ['success' => false, 'message' => 'Ошибка при сохранении данных.'];
+                }
+
+        } else {
+            throw new BadRequestHttpException('Неверный запрос.');
+        }
+    }
+
 }
