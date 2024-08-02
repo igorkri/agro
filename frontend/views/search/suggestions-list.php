@@ -2,11 +2,15 @@
 
 use frontend\assets\SuggestionsPageAsset;
 use frontend\widgets\ViewProduct;
-use yii\bootstrap5\LinkPager;
+use common\models\shop\Product;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 SuggestionsPageAsset::register($this);
+
+/** @var Product $products */
+/** @var Product $pages */
+/** @var Product $products_all */
 
 ?>
 <div class="site__body">
@@ -16,7 +20,7 @@ SuggestionsPageAsset::register($this);
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/">Головна</a>
+                            <a href="/"><?= Yii::t('app', 'Головна') ?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -48,14 +52,7 @@ SuggestionsPageAsset::register($this);
                             </div>
                         </div>
                         <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
-                        <div style="display: block;margin: 60px 0px 0px 0px;">
-                            <ul class="pagination justify-content-center">
-                                <li>
-                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
-                                </li>
-                            </ul>
-                        </div>
-                        <br>
+                        <?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
                         <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
                     </div>
                 </div>

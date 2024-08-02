@@ -1,16 +1,17 @@
 <?php
 
-use common\models\shop\ActivePages;
 use frontend\assets\CategoryAuxiliaryPageAsset;
-use yii\bootstrap5\LinkPager;
+use common\models\shop\ActivePages;
+use common\models\shop\Product;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 CategoryAuxiliaryPageAsset::register($this);
 ActivePages::setActiveUser();
 
-/** @var \common\models\shop\Product $products */
-/** @var \common\models\shop\Product $pages */
+/** @var Product $products */
+/** @var Product $pages */
+/** @var Product $products_all */
 
 ?>
 <div class="site__body">
@@ -56,13 +57,7 @@ ActivePages::setActiveUser();
                             </div>
                         </div>
                         <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
-                        <div style="display: block;margin: 60px 0px 0px 0px;">
-                            <ul class="pagination justify-content-center">
-                                <li>
-                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
-                                </li>
-                            </ul>
-                        </div>
+                        <?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
                         <div class="spec__disclaimer">
                             <?= $category->description ?>
                         </div>

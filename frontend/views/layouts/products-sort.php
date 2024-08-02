@@ -1,7 +1,11 @@
 <?php
 
+use common\models\shop\Product;
 use yii\helpers\Html;
 use yii\web\View;
+
+/** @var Product $products */
+/** @var Product $products_all */
 
 ?>
     <div class="view-options__layout">

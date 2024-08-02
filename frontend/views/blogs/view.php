@@ -1,15 +1,18 @@
 <?php
 
-use common\models\shop\ActivePages;
-use common\models\shop\ProductImage;
-use frontend\assets\BlogsPageAsset;
 use frontend\widgets\ProductsCarousel;
+use common\models\shop\ProductImage;
+use common\models\shop\ActivePages;
+use frontend\assets\BlogsPageAsset;
 use frontend\widgets\TagCloud;
-use yii\bootstrap5\LinkPager;
+use common\models\Posts;
 use yii\helpers\Url;
 
 BlogsPageAsset::register($this);
 ActivePages::setActiveUser();
+
+/** @var Posts $pages */
+/** @var Posts $blogs */
 
 $webp_support = ProductImage::imageWebp();
 
@@ -102,13 +105,7 @@ $webp_support = ProductImage::imageWebp();
         </div>
     </div>
 </div>
-<div style="display: block; margin: 60px 0px 0px 0px;">
-    <ul class="pagination justify-content-center">
-        <li>
-            <?= LinkPager::widget(['pagination' => $pages,]) ?>
-        </li>
-    </ul>
-</div>
+<?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
 <div class="container">
     <?php echo ProductsCarousel::widget() ?>
 </div>

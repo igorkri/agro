@@ -1,10 +1,9 @@
 <?php
 
-use common\models\shop\ActivePages;
-use common\models\shop\Product;
 use frontend\assets\SpecialPageAsset;
+use common\models\shop\ActivePages;
 use frontend\widgets\ViewProduct;
-use yii\bootstrap5\LinkPager;
+use common\models\shop\Product;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -53,14 +52,7 @@ ActivePages::setActiveUser();
                             </div>
                         </div>
                         <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
-                        <div style="display: block;margin: 60px 0 0 0;">
-                            <ul class="pagination justify-content-center">
-                                <li>
-                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
-                                </li>
-                            </ul>
-                        </div>
-                        <br>
+                        <?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
                         <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
                     </div>
                 </div>

@@ -3,6 +3,8 @@
 use common\models\shop\Product;
 use yii\helpers\Url;
 
+/** @var Product $products */
+
 ?>
 <div class="products-view__list products-list" data-layout="grid-4-full"
      data-with-features="false" data-mobile-grid-columns="2">

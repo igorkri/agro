@@ -1,10 +1,10 @@
 <?php
 
+use frontend\assets\CategoryCatalogPageAsset;
 use common\models\shop\AuxiliaryCategories;
 use common\models\shop\ActivePages;
+use common\models\shop\Category;
 use common\models\shop\Product;
-use frontend\assets\CategoryCatalogPageAsset;
-use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -16,6 +16,7 @@ ActivePages::setActiveUser();
 /** @var Product $products_all */
 /** @var Product $propertiesFilter */
 /** @var AuxiliaryCategories $auxiliaryCategories */
+/** @var Category $category */
 
 ?>
 <div class="site__body">
@@ -60,7 +61,7 @@ ActivePages::setActiveUser();
                 <div class="block">
                     <div class="products-view">
                         <?php if (!Yii::$app->devicedetect->isMobile()): ?>
-                            <?php if (isset($auxiliaryCategories) and $auxiliaryCategories != null): ?>
+                            <?php if (isset($auxiliaryCategories) && $auxiliaryCategories != null): ?>
                                 <div class="tags tags--lg">
                                     <div class="tags__list">
                                         <?php foreach ($auxiliaryCategories as $auxiliaryCategory): ?>
@@ -97,19 +98,7 @@ ActivePages::setActiveUser();
                                 'propertiesFilter' => $propertiesFilter,
                                 'auxiliaryCategories' => $auxiliaryCategories,
                             ]) ?>
-                        <div class="mt-4">
-                            <div class="d-flex justify-content-center">
-                                <?= LinkPager::widget([
-                                    'pagination' => $pages,
-                                    'options' => ['class' => 'pagination'],
-                                    'linkOptions' => ['class' => 'page-link'],
-                                    'activePageCssClass' => 'active',
-                                    'disabledPageCssClass' => 'disabled',
-                                    'nextPageLabel' => '»',
-                                    'prevPageLabel' => '«',
-                                ]); ?>
-                            </div>
-                        </div>
+                        <?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
                         <div class="spec__disclaimer">
                             <?= $category->description ?>
                         </div>
