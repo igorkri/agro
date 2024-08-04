@@ -14,6 +14,8 @@ $currentUrl = $request->absoluteUrl;
 
 $rating = 3;
 
+$arrow = '<span></span><span></span><span></span>';
+
 ?>
     <div class="product-tabs  product-tabs--sticky">
         <div class="product-tabs__list">
@@ -38,9 +40,9 @@ $rating = 3;
                         <div class="full-description" style="display: none;"><?= $product->description ?></div>
                         <div class="footer-description"
                              style="display: none;"><?= $product->getFooterDescription($product->footer_description, $product->name) ?></div>
-                        <button class="btn btn-secondary" id="show-more-btn"><?=Yii::t('app','Розгорнути опис')?> >></button>
-                        <button class="btn btn-secondary" id="hide-description-btn" style="display: none;">
-                            <?=Yii::t('app','Приховати опис')?> <<
+                        <button class="btn btn-secondary arrow-right" id="show-more-btn"><?=Yii::t('app','Розгорнути опис') . $arrow ?></button>
+                        <button class="btn btn-secondary arrow-left" id="hide-description-btn" style="display: none;">
+                            <?=Yii::t('app','Приховати опис') . $arrow ?>
                         </button>
                     </div>
                 </div>
@@ -485,6 +487,70 @@ $rating = 3;
         #form-review {
             position: relative;
         }
+
+        .arrow-left span {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-bottom: 3px solid #47991f;
+            border-left: 3px solid #47991f;
+            margin: 6px 0 0 0;
+            animation: arrow-left 1s infinite;
+            float: left;
+        }
+
+        .arrow-left span:nth-child(2){
+            animation-delay: -0.1s;
+        }
+        .arrow-left span:nth-child(3){
+            animation-delay: -0.2s;
+        }
+        @keyframes arrow-left {
+            0%{
+                opacity: 0;
+                transform: rotate(45deg) translate(-0px,-0px);
+            }
+            50%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 0;
+                transform: rotate(45deg) translate(0px,0px);
+            }
+        }
+
+        .arrow-right span {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-bottom: 3px solid #47991f;
+            border-right: 3px solid #47991f;
+            margin: 6px 0 0 0;
+            animation: arrow-right 1s infinite;
+            float: right;
+        }
+
+        .arrow-right span:nth-child(2){
+            animation-delay: -0.1s;
+        }
+        .arrow-right span:nth-child(3){
+            animation-delay: -0.2s;
+        }
+
+        @keyframes arrow-right {
+            0% {
+                opacity: 0;
+                transform: rotate(-45deg) translate(0px, 0px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(-45deg) translate(10px, 10px);
+            }
+        }
+
     </style>
 
 <?php

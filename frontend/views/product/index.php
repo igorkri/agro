@@ -35,9 +35,9 @@ $webp_support = ProductImage::imageWebp();
         <div class="page-header__container container">
             <div class="page-header__breadcrumb">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-anim">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i><?=Yii::t('app', 'Головна')?> </a>
+                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app', 'Головна')?> </a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -122,7 +122,7 @@ $webp_support = ProductImage::imageWebp();
                                 </div>
                                 <?php endif; ?>
                             </div>
-                            <hr>
+                            <hr class="hr-mod">
                             <div class="tags tags--lg">
                                 <div class="tags__list">
                                     <?php foreach ($product->tags as $tag): ?>
@@ -130,7 +130,7 @@ $webp_support = ProductImage::imageWebp();
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                            <hr>
+                            <hr class="hr-mod">
                         </div>
                         <div class="product__info">
                             <div class="product__wishlist-compare">
@@ -230,5 +230,43 @@ $webp_support = ProductImage::imageWebp();
         background: #fbe720;
         color: #3d464d;
         font-weight: 600;
+    }
+
+    .hr-mod {
+        border: none;
+        height: 3px;
+        background-image: linear-gradient(to right, #FFF, #47991f, #FFF);
+    }
+
+    .breadcrumb-anim a {
+        position: relative;
+        text-decoration: none;
+        color: #01080e;
+        display: inline-block;
+    }
+    .breadcrumb-anim a::before,
+    .breadcrumb-anim a::after {
+        content: '';
+        position: absolute;
+        transition: transform .5s ease;
+        left: -4px;
+        top: 0;
+        width: calc(100% + 8px);
+        height: 100%;
+        border-style: solid;
+        border-color: #47991f;
+        box-sizing: border-box;
+    }
+    .breadcrumb-anim a::before {
+        border-width: 1px 0 1px 0;
+        transform: scaleX(0);
+    }
+    .breadcrumb-anim a::after {
+        border-width: 0 1px 0 1px;
+        transform: scaleY(0);
+    }
+    .breadcrumb-anim a:hover::before,
+    .breadcrumb-anim a:hover::after {
+        transform: scale(1, 1);
     }
 </style>
