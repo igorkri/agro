@@ -3,7 +3,6 @@
 use common\models\Settings;
 use common\models\shop\ActivePages;
 use yii\helpers\Url;
-use yii\web\View;
 
 ActivePages::setActiveUser();
 
@@ -76,10 +75,10 @@ $urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Кількість">
                                     <div class="input-number">
                                         <input class="form-control input-number__input update-numb" type="number"
-                                               min="1"
+                                               min="1" max="999"
                                                value="<?= $order->getQuantity() ?>"
                                                data-url-update="<?= $urlUpdate ?>"
-                                               onchange="updateQty(<?= $order->getId() ?>, $(this).val(), '<?= $urlUpdate ?>', '<?= $urlQty ?>')"
+                                               onchange="validateAndUpdateQty(this, <?= $order->getId() ?>, '<?= $urlUpdate ?>', '<?= $urlQty ?>')"
                                                onpaste="this.onchange()"
                                                onkeyup="this.onchange()"
                                                oninput="this.onchange()">
@@ -148,6 +147,40 @@ $urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
     </div>
 </div>
 <script>
+
+    function validateAndUpdateQty(input, prodId, urlUpdate, urlQty) {
+        var qty = input.value.trim();  // Удаляем пробелы в начале и конце строки
+
+        // Если поле пустое или значение не является числом, не обновляем количество
+        if (qty === '' || isNaN(qty)) {
+            return;
+        }
+
+        qty = parseInt(qty, 10);
+
+        // Проверяем минимальное значение
+        if (qty < input.min) {
+            qty = input.min;
+        }
+        if (qty > input.max) {
+            qty = input.max;
+        }
+
+        updateQty(prodId, qty, urlUpdate, urlQty);
+
+        // Обновляем количество только если фокус потерян или пользователь завершил ввод (Enter)
+        input.addEventListener('blur', function() {
+            updateQty(prodId, qty, urlUpdate, urlQty);
+        });
+
+        // Если пользователь нажимает Enter, обновляем количество
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                input.blur(); // Снимем фокус, чтобы триггерить обновление через blur
+            }
+        });
+    }
+
     function updateQty(prodId, qty, urlUpdate, urlQty) {
         if (qty !== 0) {
             setTimeout(function () {

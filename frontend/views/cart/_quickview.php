@@ -55,10 +55,10 @@ $urlRemove = Yii::$app->urlManager->createUrl(['cart/remove']);
                     <td class="cart-table__column cart-table__column--quantity" data-title="Кількість">
                         <div class="input-number">
                             <input class="form-control input-number__input update-numb" type="number"
-                                   min="1"
+                                   min="1" max="999"
                                    value="<?= $order->getQuantity() ?>"
                                    data-url-update="<?= $urlUpdate ?>"
-                                   onchange="updateQty(<?= $order->getId() ?>, $(this).val(), '<?= $urlUpdate ?>', '<?= $urlQty ?>')"
+                                   onchange="validateAndUpdateQty(this, <?= $order->getId() ?>, '<?= $urlUpdate ?>', '<?= $urlQty ?>')"
                                    onpaste="this.onchange()"
                                    onkeyup="this.onchange()"
                                    oninput="this.onchange()">
