@@ -3,6 +3,7 @@
 namespace console\controllers;
 
 use common\models\shop\ActivePages;
+use Yii;
 use yii\console\Controller;
 
 class DevicesController extends Controller
@@ -41,9 +42,10 @@ class DevicesController extends Controller
 
     public function actionDetectRobotsIp()
     {
+        $i = 1;
         $ips = ActivePages::find()->select('ip_user')->distinct()->column();
         $countIps = count($ips);
-        $item = $countIps - 1000;
+        $item = $countIps - 0;
         usort($ips, function ($a, $b) {
             return strlen($a) - strlen($b);
         });
@@ -53,11 +55,41 @@ class DevicesController extends Controller
                 $response = $this->getIpInfoFromApi($url);
                 // Проверяем успешность ответа
                 if ($response && $response['status'] === 'success') {
-                    $org = $response['org'];
-                    if (isset($response['org']) && strpos(strtolower($response['org']), 'google') !== false) {
-                        // Output in red for Google robots
-                        echo "$countIps\t\033[0;31m$ip\tRobot Google.\t$org\033[0m\n"; // Reset color after the message
-                    } else {
+                    $org = $response['isp'];
+
+                    if (isset($response['isp']) && strpos(strtolower($response['isp']), 'google') !== false) {
+                        echo "$countIps\t\033[0;31m$ip\tRobot\t$org\033[0m\n"; // Reset color after the message
+                        $dir = Yii::getAlias('@frontend/runtime/robots_control.txt');
+                        $res = print_r("$i\t$ip\tRobot\t$org\n", true);
+                        file_put_contents($dir, $res, FILE_APPEND);
+                        $i++;
+                    }
+
+                    elseif (isset($response['isp']) && strpos(strtolower($response['isp']), 'Hetzner Online GmbH') !== false) {
+                        echo "$countIps\t\033[0;31m$ip\tRobot\t$org\033[0m\n"; // Reset color after the message
+                        $dir = Yii::getAlias('@frontend/runtime/robots_control.txt');
+                        $res = print_r("$i\t$ip\tRobot\t$org\n", true);
+                        file_put_contents($dir, $res, FILE_APPEND);
+                        $i++;
+                    }
+
+                    elseif (isset($response['isp']) && strpos(strtolower($response['isp']), 'Huawei International Pte. Ltd.') !== false) {
+                        echo "$countIps\t\033[0;31m$ip\tRobot\t$org\033[0m\n"; // Reset color after the message
+                        $dir = Yii::getAlias('@frontend/runtime/robots_control.txt');
+                        $res = print_r("$i\t$ip\tRobot\t$org\n", true);
+                        file_put_contents($dir, $res, FILE_APPEND);
+                        $i++;
+                    }
+
+                    elseif (isset($response['isp']) && strpos(strtolower($response['isp']), 'DigitalOcean, LLC') !== false) {
+                        echo "$countIps\t\033[0;31m$ip\tRobot\t$org\033[0m\n"; // Reset color after the message
+                        $dir = Yii::getAlias('@frontend/runtime/robots_control.txt');
+                        $res = print_r("$i\t$ip\tRobot\t$org\n", true);
+                        file_put_contents($dir, $res, FILE_APPEND);
+                        $i++;
+                    }
+
+                    else {
                         // Output in green for non-robot
                         echo "$countIps\t\033[0;32m$ip\tNot Robot.\t$org\033[0m\n"; // Reset color after the message
                     }
