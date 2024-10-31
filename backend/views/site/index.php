@@ -4,8 +4,6 @@
 
 $this->title = 'Admin AgroPro';
 ?>
-<!-- sa-app__content -->
-    <!-- sa-app__body -->
     <div id="top" class="sa-app__body px-2 px-lg-4">
         <div class="container pb-6">
             <div class="py-5">
@@ -19,9 +17,6 @@ $this->title = 'Admin AgroPro';
                     </div>
                 </div>
             </div>
-            <!-- Dashboard -->
             <?= $this->render('dashboard') ?>
-            <!-- End Dashboard -->
         </div>
     </div>
-    <!-- sa-app__body / end -->
