@@ -9,6 +9,8 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var common\models\shop\Product $model */
 /** @var ActiveForm $form */
+/** @var backend\controllers\ProductController $dataRu */
+/** @var backend\controllers\ProductController $dataEn */
 ?>
 
 <?php
