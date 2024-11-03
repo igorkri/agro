@@ -94,6 +94,7 @@ class DevicesController extends Controller
             $countIps--;
         }
         if ($ipDelete) {
+            echo "=======================================\n";
             $this->getIpDelete($ipDelete);
         }
     }
