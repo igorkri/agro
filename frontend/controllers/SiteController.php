@@ -339,6 +339,25 @@ class SiteController extends Controller
     //Карта сайта. Выводит в виде XML файла.
     public function actionSitemap()
     {
+        $siteMapBase = 1;
+        $arr = ['sitemap-products.xml','sitemap-categories.xml','sitemap-articles.xml'];
+
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('sitemap', array(
+            'host' => Yii::$app->request->hostInfo, // Имя хоста
+            'urls' => $arr, // Полученный массив
+            'siteMapBase' => $siteMapBase,
+        ));
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+
+        return $xml_array;
+    }
+
+    public function actionSitemapProducts()
+    {
         $arr = array();
 
         $products = Product::find()
@@ -356,33 +375,22 @@ class SiteController extends Controller
             );
         }
 
-        $posts = Posts::find()
-            ->select(['slug', 'date_updated', 'title', 'webp_image'])
-            ->all();
-        foreach ($posts as $post) {
-            $arr[] = array(
-                'loc' => '/post/' . $post->slug,
-                'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated) : date(DATE_W3C, time()),
-                'image' => '/posts/' . $post->webp_image,
-                'caption' => $post->title,
-                'priority' => '0.6',
-                'changefreq' => 'monthly',
-            );
-        }
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('sitemap', array(
+            'host' => Yii::$app->request->hostInfo, // Имя хоста
+            'urls' => $arr, // Полученный массив
+        ));
 
-        $auxCategories = AuxiliaryCategories::find()
-            ->select(['slug', 'date_updated', 'name', 'image'])
-            ->all();
-        foreach ($auxCategories as $auxCategory) {
-            $arr[] = array(
-                'loc' => '/auxiliary-product-list/' . $auxCategory->slug,
-                'lastmod' => !empty($auxCategory->date_updated) ? date(DATE_W3C, $auxCategory->date_updated) : date(DATE_W3C, time()),
-                'image' => '/auxiliary-categories/' . $auxCategory->image,
-                'caption' => $auxCategory->name,
-                'priority' => '0.7',
-                'changefreq' => 'Weekly',
-            );
-        }
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+
+        return $xml_array;
+    }
+
+    public function actionSitemapCategories()
+    {
+        $arr = array();
 
         $categories = Category::find()
             ->select(['id', 'slug', 'date_updated', 'visibility', 'name', 'file'])
@@ -399,6 +407,51 @@ class SiteController extends Controller
                     'changefreq' => 'Weekly',
                 );
             }
+        }
+
+        $auxCategories = AuxiliaryCategories::find()
+            ->select(['slug', 'date_updated', 'name', 'image'])
+            ->all();
+        foreach ($auxCategories as $auxCategory) {
+            $arr[] = array(
+                'loc' => '/auxiliary-product-list/' . $auxCategory->slug,
+                'lastmod' => !empty($auxCategory->date_updated) ? date(DATE_W3C, $auxCategory->date_updated) : date(DATE_W3C, time()),
+                'image' => '/auxiliary-categories/' . $auxCategory->image,
+                'caption' => $auxCategory->name,
+                'priority' => '0.7',
+                'changefreq' => 'Weekly',
+            );
+        }
+
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('sitemap', array(
+            'host' => Yii::$app->request->hostInfo, // Имя хоста
+            'urls' => $arr, // Полученный массив
+        ));
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+
+        return $xml_array;
+    }
+
+    public function actionSitemapArticles()
+    {
+        $arr = array();
+
+        $posts = Posts::find()
+            ->select(['slug', 'date_updated', 'title', 'webp_image'])
+            ->all();
+        foreach ($posts as $post) {
+            $arr[] = array(
+                'loc' => '/post/' . $post->slug,
+                'lastmod' => !empty($post->date_updated) ? date(DATE_W3C, $post->date_updated) : date(DATE_W3C, time()),
+                'image' => '/posts/' . $post->webp_image,
+                'caption' => $post->title,
+                'priority' => '0.6',
+                'changefreq' => 'monthly',
+            );
         }
 
         // Отправляем данные на отображение без шаблона

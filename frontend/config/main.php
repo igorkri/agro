@@ -83,6 +83,21 @@ return [
                     'suffix' => '.xml'
                 ],
                 [
+                    'pattern' => 'sitemap-products',
+                    'route' => 'site/sitemap-products',
+                    'suffix' => '.xml'
+                ],
+                [
+                    'pattern' => 'sitemap-categories',
+                    'route' => 'site/sitemap-categories',
+                    'suffix' => '.xml'
+                ],
+                [
+                    'pattern' => 'sitemap-articles',
+                    'route' => 'site/sitemap-articles',
+                    'suffix' => '.xml'
+                ],
+                [
                     'pattern' => 'site-products-merchant',
                     'route' => 'site/site-products-merchant',
                     'suffix' => '.xml'
