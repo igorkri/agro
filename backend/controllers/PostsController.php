@@ -5,6 +5,8 @@ namespace backend\controllers;
 use common\models\PostProducts;
 use common\models\Posts;
 use backend\models\search\PostsSearch;
+use common\models\PostsTranslate;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -78,64 +80,13 @@ class PostsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $post_product = $this->request->post('Posts');
 
-                // Создание директории с именем id модели
-                $catalog = time();
-                $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog);
-                if (!file_exists($dir)) {
-                    mkdir($dir, 0777, true);
-                }
-                $file = UploadedFile::getInstance($model, 'image');
-                $imageName = uniqid();
-                if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
-                    $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
-                    $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
-                    $cropPath = $dir . '/' . $imageName . '.' . $file->extension;
-                    $cropPathWebp = $dir . '/' . $imageName . '.' . 'webp';
-                    //------------ Основная картинка
-                    Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
-                    Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
-
-                    // ----------- Нарезка картинок
-                    Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-
-                    Image::resize($imagePath, 330, 222)->save($dir . '/webp_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    Image::resize($imagePath, 263, 177)->save($dir . '/webp_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    Image::resize($imagePath, 159, 107)->save($dir . '/webp_medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    Image::resize($imagePath, 90, 60)->save($dir . '/webp_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    //----------- End Нарезка картинок
-
-                    unlink($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
-                } else {
-                    $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                }
-                $model->image = $catalog . '/' . $imageName . '.' . $file->extension;
-                $model->extra_large = $catalog . '/' . 'extra_large-' . $imageName . '.' . $file->extension;
-                $model->large = $catalog . '/' . 'large-' . $imageName . '.' . $file->extension;
-                $model->medium = $catalog . '/' . 'medium-' . $imageName . '.' . $file->extension;
-                $model->small = $catalog . '/' . 'small-' . $imageName . '.' . $file->extension;
-
-                $model->webp_image = $catalog . '/' . $imageName . '.' . 'webp';
-                $model->webp_extra_large = $catalog . '/' . 'webp_extra_large-' . $imageName . '.' . 'webp';
-                $model->webp_large = $catalog . '/' . 'webp_large-' . $imageName . '.' . 'webp';
-                $model->webp_medium = $catalog . '/' . 'webp_medium-' . $imageName . '.' . 'webp';
-                $model->webp_small = $catalog . '/' . 'webp_small-' . $imageName . '.' . 'webp';
+                $this->createPostImage($model);
 
                 if ($model->save()) {
 
-                    if (isset($post_product['products']) && $post_product['products'] != null) {
-                        //добавляем products
-                        foreach ($post_product['products'] as $product_id) {
-                            $add_product = new PostProducts();
-                            $add_product->post_id = $model->id;
-                            $add_product->product_id = $product_id;
-                            $add_product->save();
-                        }
-                    }
+                    $this->getCreateTranslate($model);
+                    $this->createPostProduct($model);
 
                     return $this->redirect(['index']);
 
@@ -152,6 +103,120 @@ class PostsController extends Controller
         ]);
     }
 
+    private function createPostProduct($model)
+    {
+        $post_product = $this->request->post('Posts');
+        if (isset($post_product['products']) && $post_product['products'] != null) {
+            //добавляем products
+            foreach ($post_product['products'] as $product_id) {
+                $add_product = new PostProducts();
+                $add_product->post_id = $model->id;
+                $add_product->product_id = $product_id;
+                $add_product->save();
+            }
+        }
+    }
+
+    private function createPostImage($model)
+    {
+        // Создание директории с именем id модели
+        $catalog = time();
+        $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        $file = UploadedFile::getInstance($model, 'image');
+        $imageName = uniqid();
+        if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
+            $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
+            $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
+            $cropPath = $dir . '/' . $imageName . '.' . $file->extension;
+            $cropPathWebp = $dir . '/' . $imageName . '.' . 'webp';
+            //------------ Основная картинка
+            Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+            Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
+
+            // ----------- Нарезка картинок
+            Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+            Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+            Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+            Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+
+            Image::resize($imagePath, 330, 222)->save($dir . '/webp_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+            Image::resize($imagePath, 263, 177)->save($dir . '/webp_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+            Image::resize($imagePath, 159, 107)->save($dir . '/webp_medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
+            Image::resize($imagePath, 90, 60)->save($dir . '/webp_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
+            //----------- End Нарезка картинок
+
+            unlink($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
+        } else {
+            $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+        }
+        $model->image = $catalog . '/' . $imageName . '.' . $file->extension;
+        $model->extra_large = $catalog . '/' . 'extra_large-' . $imageName . '.' . $file->extension;
+        $model->large = $catalog . '/' . 'large-' . $imageName . '.' . $file->extension;
+        $model->medium = $catalog . '/' . 'medium-' . $imageName . '.' . $file->extension;
+        $model->small = $catalog . '/' . 'small-' . $imageName . '.' . $file->extension;
+
+        $model->webp_image = $catalog . '/' . $imageName . '.' . 'webp';
+        $model->webp_extra_large = $catalog . '/' . 'webp_extra_large-' . $imageName . '.' . 'webp';
+        $model->webp_large = $catalog . '/' . 'webp_large-' . $imageName . '.' . 'webp';
+        $model->webp_medium = $catalog . '/' . 'webp_medium-' . $imageName . '.' . 'webp';
+        $model->webp_small = $catalog . '/' . 'webp_small-' . $imageName . '.' . 'webp';
+    }
+
+    protected function getCreateTranslate($model)
+    {
+        $sourceLanguage = 'uk'; // Исходный язык
+        $targetLanguages = ['ru', 'en']; // Языки перевода
+
+        $tr = new GoogleTranslate();
+
+        foreach ($targetLanguages as $language) {
+            $translation = $model->getTranslation($language)->one();
+            if (!$translation) {
+                $translation = new PostsTranslate();
+                $translation->post_id = $model->id;
+                $translation->language = $language;
+            }
+
+            $tr->setSource($sourceLanguage);
+            $tr->setTarget($language);
+
+            $translation->title = $tr->translate($model->title ?? '');
+
+            if (strlen($model->description) < 5000) {
+                $translation->description = $tr->translate($model->description);
+            } else {
+                $description = $model->description;
+                $translatedDescription = '';
+                $partSize = 5000;
+                $parts = [];
+
+                // Разбиваем текст на части по 5000 символов, не нарушая структуру тегов
+                while (strlen($description) > $partSize) {
+                    $part = substr($description, 0, $partSize);
+                    $lastSpace = strrpos($part, ' ');
+                    $parts[] = substr($description, 0, $lastSpace);
+                    $description = substr($description, $lastSpace);
+                }
+                $parts[] = $description;
+
+                // Переводим каждую часть отдельно
+                foreach ($parts as $part) {
+                    $translatedDescription .= $tr->translate($part);
+                }
+
+                // Сохраняем переведенное описание
+                $translation->description = $translatedDescription;
+            }
+
+            $translation->seo_title = $tr->translate($model->seo_title ?? '');
+            $translation->seo_description = $tr->translate($model->seo_description ?? '');
+
+            $translation->save();
+        }
+    }
 
     /**
      * Updates an existing Posts model.
@@ -164,6 +229,37 @@ class PostsController extends Controller
     {
         $model = $this->findModel($id);
 
+        $translateRu = PostsTranslate::findOne(['post_id' => $id, 'language' => 'ru']);
+        $translateEn = PostsTranslate::findOne(['post_id' => $id, 'language' => 'en']);
+
+        $this->updatePostProducts($model);
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            $postsTranslates = Yii::$app->request->post('PostsTranslate', []);
+
+            $this->updateTranslate($model->id, 'ru', $postsTranslates['ru'] ?? null);
+            $this->updateTranslate($model->id, 'en', $postsTranslates['en'] ?? null);
+
+            $this->updatePostImage($model);
+
+            if ($model->save(false)) {
+                return $this->redirect(['index']);
+            } else {
+                debug($model->errors);
+                debug($model->image);
+                die;
+            }
+        }
+        return $this->render('update', [
+            'model' => $model,
+            'translateRu' => $translateRu,
+            'translateEn' => $translateEn,
+        ]);
+    }
+
+    private function updatePostProducts($model)
+    {
         $post_product = $this->request->post('Posts');
         if (!empty($post_product['products'])) {
             //удаляем существующие products
@@ -187,67 +283,69 @@ class PostsController extends Controller
                 }
             }
         }
+    }
 
-        if ($this->request->isPost && $model->load($this->request->post())) {
-            $post_file = $_FILES['Posts']['size']['image'];
-            if ($post_file <= 0) {
-                $old = $this->findModel($id);
-                $model->image = $old->image;
-                $model->extra_large = $old->extra_large;
-                $model->large = $old->large;
-                $model->medium = $old->medium;
-                $model->small = $old->small;
+    private function updatePostImage($model)
+    {
+        $post_file = $_FILES['Posts']['size']['image'];
+        if ($post_file <= 0) {
+            $old = $this->findModel($model->id);
+            $model->image = $old->image;
+            $model->extra_large = $old->extra_large;
+            $model->large = $old->large;
+            $model->medium = $old->medium;
+            $model->small = $old->small;
+        } else {
+            $catalog = explode("/", $model->small);
+            $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog[0]);
+            $file = UploadedFile::getInstance($model, 'image');
+            $imageName = uniqid();
+            if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
+                $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
+                $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
+                $cropPath = $dir . '/' . $imageName . '.' . $file->extension;
+                $cropPathWebp = $dir . '/' . $imageName . '.' . 'webp';
+                //------------ Основная картинка
+                Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
+                Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
+                // ----------- Нарезка картинок
+                Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+                Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
+
+                Image::resize($imagePath, 330, 222)->save($dir . '/webp_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                Image::resize($imagePath, 263, 177)->save($dir . '/webp_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                Image::resize($imagePath, 159, 107)->save($dir . '/webp_medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                Image::resize($imagePath, 90, 60)->save($dir . '/webp_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
+                //----------- End Нарезка картинок
+                unlink($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
             } else {
-                $catalog = explode("/", $model->small);
-                $dir = Yii::getAlias('@frontendWeb/posts/' . $catalog[0]);
-                $file = UploadedFile::getInstance($model, 'image');
-                $imageName = uniqid();
-                if ($file->extension == 'jpg' || $file->extension == 'gif' || $file->extension == 'png' || $file->extension == 'jpeg') {
-                    $file->saveAs($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
-                    $imagePath = $dir . '/' . 'del-' . $imageName . '.' . $file->extension;
-                    $cropPath = $dir . '/' . $imageName . '.' . $file->extension;
-                    $cropPathWebp = $dir . '/' . $imageName . '.' . 'webp';
-                    //------------ Основная картинка
-                    Image::resize($imagePath, 1640, 1480)->save($cropPath, ['quality' => 80]);
-                    Image::resize($imagePath, 1640, 1480)->save($cropPathWebp, ['quality' => 80]);
-                    // ----------- Нарезка картинок
-                    Image::resize($imagePath, 330, 222)->save($dir . '/extra_large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 263, 177)->save($dir . '/large-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 159, 107)->save($dir . '/medium-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-                    Image::resize($imagePath, 90, 60)->save($dir . '/small-' . $imageName . '.' . $file->extension, ['quality' => 70]);
-
-                    Image::resize($imagePath, 330, 222)->save($dir . '/webp_extra_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    Image::resize($imagePath, 263, 177)->save($dir . '/webp_large-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    Image::resize($imagePath, 159, 107)->save($dir . '/webp_medium-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    Image::resize($imagePath, 90, 60)->save($dir . '/webp_small-' . $imageName . '.' . 'webp', ['quality' => 70]);
-                    //----------- End Нарезка картинок
-                    unlink($dir . '/' . 'del-' . $imageName . '.' . $file->extension);
-                } else {
-                    $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                }
-                $model->image = $catalog[0] . '/' . $imageName . '.' . $file->extension;
-                $model->extra_large = $catalog[0] . '/' . 'extra_large-' . $imageName . '.' . $file->extension;
-                $model->large = $catalog[0] . '/' . 'large-' . $imageName . '.' . $file->extension;
-                $model->medium = $catalog[0] . '/' . 'medium-' . $imageName . '.' . $file->extension;
-                $model->small = $catalog[0] . '/' . 'small-' . $imageName . '.' . $file->extension;
-
-                $model->webp_image = $catalog[0] . '/' . $imageName . '.' . 'webp';
-                $model->webp_extra_large = $catalog[0] . '/' . 'webp_extra_large-' . $imageName . '.' . 'webp';
-                $model->webp_large = $catalog[0] . '/' . 'webp_large-' . $imageName . '.' . 'webp';
-                $model->webp_medium = $catalog[0] . '/' . 'webp_medium-' . $imageName . '.' . 'webp';
-                $model->webp_small = $catalog[0] . '/' . 'webp_small-' . $imageName . '.' . 'webp';
+                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
             }
-            if ($model->save(false)) {
-                return $this->redirect(['index']);
-            } else {
-                debug($model->errors);
-                debug($model->image);
-                die;
+            $model->image = $catalog[0] . '/' . $imageName . '.' . $file->extension;
+            $model->extra_large = $catalog[0] . '/' . 'extra_large-' . $imageName . '.' . $file->extension;
+            $model->large = $catalog[0] . '/' . 'large-' . $imageName . '.' . $file->extension;
+            $model->medium = $catalog[0] . '/' . 'medium-' . $imageName . '.' . $file->extension;
+            $model->small = $catalog[0] . '/' . 'small-' . $imageName . '.' . $file->extension;
+
+            $model->webp_image = $catalog[0] . '/' . $imageName . '.' . 'webp';
+            $model->webp_extra_large = $catalog[0] . '/' . 'webp_extra_large-' . $imageName . '.' . 'webp';
+            $model->webp_large = $catalog[0] . '/' . 'webp_large-' . $imageName . '.' . 'webp';
+            $model->webp_medium = $catalog[0] . '/' . 'webp_medium-' . $imageName . '.' . 'webp';
+            $model->webp_small = $catalog[0] . '/' . 'webp_small-' . $imageName . '.' . 'webp';
+        }
+    }
+
+    private function updateTranslate($postId, $language, $data)
+    {
+        if ($data) {
+            $translate = PostsTranslate::findOne(['post_id' => $postId, 'language' => $language]);
+            if ($translate) {
+                $translate->setAttributes($data);
+                $translate->save();
             }
         }
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -284,6 +382,8 @@ class PostsController extends Controller
         (is_dir($dir . $catalog[0]) && empty($files)) ? FileHelper::removeDirectory($dir . $catalog[0]) : '';
 
         $model->delete();
+
+        PostsTranslate::deleteAll(['post_id' => $id]);
 
         foreach ($posts as $post) {
             $post->delete();
