@@ -42,15 +42,25 @@ use yii\widgets\ActiveForm;
                  data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                 <div class="sa-entity-layout__body">
                     <div class="sa-entity-layout__main">
-                        <?php if (isset($translateRu)): ?>
-                            <?php echo $this->render('basic-information', ['model' => $model, 'form' => $form, 'translateRu' => $translateRu, 'translateEn' => $translateEn]); ?>
-                            <?php echo $this->render('post-products', ['model' => $model, 'form' => $form]); ?>
-                            <?php echo $this->render('seo-image', ['model' => $model, 'form' => $form, 'translateRu' => $translateRu, 'translateEn' => $translateEn]); ?>
-                        <?php else: ?>
-                            <?php echo $this->render('basic-information', ['model' => $model, 'form' => $form]); ?>
-                            <?php echo $this->render('post-products', ['model' => $model, 'form' => $form]); ?>
-                            <?php echo $this->render('seo-image', ['model' => $model, 'form' => $form]); ?>
-                        <?php endif; ?>
+                        <?php
+                        $commonParams = ['model' => $model, 'form' => $form];
+                        if (isset($translateRu)) {
+                            $commonParams['translateRu'] = $translateRu;
+                            $commonParams['translateEn'] = $translateEn;
+                        }
+                        ?>
+
+                        <?php echo $this->render('basic-information', $commonParams); ?>
+                        <?php echo $this->render('post-products', $commonParams); ?>
+
+                        <div class="row">
+                            <div class="col-8">
+                                <?php echo $this->render('seo-information', $commonParams); ?>
+                            </div>
+                            <div class="col-4">
+                                <?php echo $this->render('image-upload', $commonParams); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

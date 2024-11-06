@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'description',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return mb_substr($model->description, 0, 450);
+                                return mb_substr($model->description, 0, 250);
                             },
                         ],
 
