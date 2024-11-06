@@ -1,0 +1,116 @@
+<?php
+
+namespace console\controllers;
+
+use common\models\shop\ActivePages;
+use Yii;
+use yii\console\Controller;
+
+class CronController extends Controller
+{
+    /**
+     * <<<<<<<< Cron задача для удаления Ip роботов
+     */
+    public function actionDetectIpRobots()
+    {
+        $ips = ActivePages::find()
+            ->select(['ip_user', 'date_visit'])
+            ->orderBy('date_visit DESC')
+            ->limit(10)
+            ->asArray()
+            ->all();
+
+        $ips = array_map(function ($item) {
+            unset($item['date_visit']);
+            return $item;
+        }, $ips);
+
+        $ips = array_unique(array_map('serialize', $ips));
+        $ips = array_map('unserialize', array_values($ips));
+
+        $countIps = count($ips);
+        $robotProviders = [
+            'google', 'hetzner', 'huawei', 'digitalocean', 'shenzhen',
+            'amazon', 'microsoft', 'oracle', 'alibaba', 'tencent', 'OPHL'
+        ];
+        $filePath = Yii::getAlias('@frontend/runtime/robots_control.txt');
+        $i = 1;
+        $ipDelete = [];
+
+        foreach ($ips as $ip) {
+            $ip = $ip['ip_user'];
+            $url = "http://ip-api.com/json/{$ip}";
+            $response = $this->getIpInfoFromApi($url);
+
+            if ($response && $response['status'] === 'success') {
+                $org = strtolower($response['isp']);
+                $isRobot = false;
+                foreach ($robotProviders as $provider) {
+                    if (str_contains($org, $provider)) {
+                        $isRobot = true;
+                        echo "$countIps\t\$ip\tRobot\t{$response['isp']}\n";
+                        $logEntry = "'$ip',\n";
+                        file_put_contents($filePath, $logEntry, FILE_APPEND);
+                        $ipDelete[] = $ip;
+                        $i++;
+                        break;
+                    }
+                }
+
+                if (!$isRobot) {
+                    echo "$countIps\t$ip\tNot Robot.\t{$response['isp']}\n";
+                }
+            } else {
+                echo "$ip: Error retrieving information.\n";
+            }
+
+            sleep(2);
+            $countIps--;
+        }
+        if ($ipDelete) {
+            echo "=======================================\n";
+            $this->getIpDelete($ipDelete);
+            echo "=======================================\n";
+        }
+    }
+
+    /**
+     * Метод для отправки запроса к API и получения данных
+     */
+    private function getIpInfoFromApi($url)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+        $output = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            curl_close($ch);
+            return null;
+        }
+
+        curl_close($ch);
+
+        return json_decode($output, true);
+    }
+
+    /**
+     * Метод для удаления Ip из базы данных
+     */
+    private function getIpDelete($ipDelete)
+    {
+        $ips = ActivePages::find()->where(['ip_user' => $ipDelete])->all();
+        foreach ($ips as $ip) {
+            if ($ip->delete()) {
+                echo "\t{$ip->ip_user}\tRemoved from database\n";
+            } else {
+                echo "\t{$ip->ip_user}\tFailed to delete from database\n";
+            }
+        }
+    }
+
+}
+
