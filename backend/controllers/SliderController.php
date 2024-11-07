@@ -88,7 +88,6 @@ class SliderController extends Controller
                 if ($model->save()) {
                     return $this->redirect(['index']);
                 }
-//                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -117,7 +116,6 @@ class SliderController extends Controller
                 $model->image = $old->image;
             }else {
                 $dir = Yii::getAlias('@frontendWeb/slider');
-
                 $file = UploadedFile::getInstance($model, 'image');
                 $imageName = uniqid();
                 $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
@@ -129,7 +127,6 @@ class SliderController extends Controller
                 $model->image_mob = $old->image_mob;
             }else {
                 $dir = Yii::getAlias('@frontendWeb/slider');
-
                 $file_mob = UploadedFile::getInstance($model, 'image_mob');
                 $imageName_mob = uniqid();
                 $file_mob->saveAs($dir . '/' . $imageName_mob . '.' . $file_mob->extension);

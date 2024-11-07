@@ -73,13 +73,8 @@ class BrandController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-//
-                $dir = Yii::getAlias('@frontendWeb/brand');
 
-                $file = UploadedFile::getInstance($model, 'file');
-                $imageName = uniqid();
-                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                $model->file = $imageName . '.' . $file->extension;
+                $model->file = $this->uploadFile($model);
 
                 if ($model->save()) {
                     return $this->redirect(['index']);
@@ -88,7 +83,6 @@ class BrandController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
 
         return $this->render('create', [
             'model' => $model,
@@ -108,20 +102,15 @@ class BrandController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             $post_file = $_FILES['Brand']['size']['file'];
-            if($post_file <= 0 ){
+            if ($post_file <= 0) {
                 $old = $this->findModel($id);
                 $model->file = $old->file;
-            }else {
-                $dir = Yii::getAlias('@frontendWeb/brand');
-
-                $file = UploadedFile::getInstance($model, 'file');
-                $imageName = uniqid();
-                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                $model->file = $imageName . '.' . $file->extension;
+            } else {
+                $model->file = $this->uploadFile($model);
             }
-            if($model->save(false)) {
+            if ($model->save(false)) {
                 return $this->redirect(['index']);
-            }else{
+            } else {
                 debug($model->errors);
                 debug($model->file);
                 die;
@@ -131,6 +120,15 @@ class BrandController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    private function uploadFile($model)
+    {
+        $dir = Yii::getAlias('@frontendWeb/brand');
+        $file = UploadedFile::getInstance($model, 'file');
+        $imageName = uniqid();
+        $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
+        return $imageName . '.' . $file->extension;
     }
 
     /**
@@ -145,8 +143,8 @@ class BrandController extends Controller
     {
         $dir = Yii::getAlias('@frontendWeb');
         $model = $this->findModel($id);
-        if (file_exists($dir .'/brand/'. $model->file)) {
-            unlink($dir .'/brand/'. $model->file);
+        if (file_exists($dir . '/brand/' . $model->file)) {
+            unlink($dir . '/brand/' . $model->file);
         }
 
         $model->delete();

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\PostsReview;
 use backend\models\search\PostsReview as PostsReviewSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

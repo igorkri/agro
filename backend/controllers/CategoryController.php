@@ -76,14 +76,7 @@ class CategoryController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
-
-                $dir = Yii::getAlias('@frontendWeb/category');
-
-                $file = UploadedFile::getInstance($model, 'file');
-                $imageName = uniqid();
-                $file->saveAs($dir . '/' . $imageName . '.' . $file->extension);
-                $model->file = $imageName . '.' . $file->extension;
-
+                $model->file = $this->uploadFile($model);
 
                 if ($model->save()) {
 
@@ -216,7 +209,6 @@ class CategoryController extends Controller
         return $imageName . '.' . $file->extension;
     }
 
-
     /**
      * Deletes an existing Category model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -255,6 +247,5 @@ class CategoryController extends Controller
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
 
 }

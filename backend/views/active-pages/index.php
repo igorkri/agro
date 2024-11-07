@@ -82,16 +82,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'url_page',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                $decodedUrl = urldecode($model->url_page);
-                                return $decodedUrl;
+                                return urldecode($model->url_page);
                             },
                         ],
                         [
                             'attribute' => 'client_from',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                $decodedUrl = urldecode($model->client_from);
-                                return $decodedUrl;
+                                return urldecode($model->client_from);
                             },
                         ],
 //                            'user_agent',

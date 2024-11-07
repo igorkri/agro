@@ -2,7 +2,10 @@
 
 namespace console\controllers;
 
+use common\models\NpCity;
+use common\models\NpWarehouses;
 use common\models\shop\ActivePages;
+use LisDev\Delivery\NovaPoshtaApi2;
 use Yii;
 use yii\console\Controller;
 
@@ -112,5 +115,69 @@ class CronController extends Controller
         }
     }
 
+
+    /**
+     * Обновление отделений Новой Почты
+     */
+    const KEY = 'f1c1e7b2520a9fa092bb1afa0e7bc514';
+
+    /**
+     * Добавленрие отделений НП
+     */
+    public function actionWarehouses()
+    {
+        $np = new NovaPoshtaApi2(
+            self::KEY,
+            'ua', // Язык возвращаемых данных: ru (default) | ua | en
+            FALSE, // При ошибке в запросе выбрасывать Exception: FALSE (default) | TRUE
+            'file_get_content' // Используемый механизм запроса: curl (default) | file_get_content
+        );
+
+        $cities = NpCity::find()->select('ref')->column();
+
+        if ($cities) {
+            $i = 1;
+            $n = 1;
+            $j = 1;
+
+            foreach ($cities as $city) {
+                if ($j >= 1) {
+                    $warehouses = $np->getWarehouses($city);
+                    if (!empty($warehouses)) {
+                        if ($warehouses['data'] != null) {
+                            foreach ($warehouses['data'] as $warehouse) {
+                                $model = NpWarehouses::find()->where(['ref' => $warehouse['Ref']])->one();
+                                if (!$model) {
+                                    $warehouses_db = new NpWarehouses();
+                                    $warehouses_db->description = $warehouse['Description'];
+                                    $warehouses_db->ref = $warehouse['Ref'];
+                                    $warehouses_db->Number = $warehouse['Number'];
+                                    $warehouses_db->cityRef = $warehouse['CityRef'];
+                                    $warehouses_db->shortAddress = $warehouse['ShortAddress'];
+                                    if ($warehouses_db->save(false)) {
+                                        echo "\t" . "|# " . $i . " | " . $warehouses_db->description . "\n";
+                                        echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+                                        $i++;
+                                    } else {
+                                        print_r($warehouses_db->errors);
+                                    }
+                                } else {
+                                    echo "\t" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
+                                    echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+                                    $n++;
+                                }
+                            }
+                        }
+                    } else {
+                        echo PHP_EOL . 'error warehouses' . PHP_EOL;
+                        print_r($warehouses);
+                        echo PHP_EOL . 'error city' . PHP_EOL;
+                        print_r($city);
+                    }
+                }
+                $j++;
+            }
+        }
+    }
 }
 
