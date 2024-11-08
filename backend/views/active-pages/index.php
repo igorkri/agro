@@ -1,12 +1,11 @@
 <?php
 
 use common\models\shop\ActivePages;
+use kartik\grid\GridView;
 use kartik\ipinfo\IpInfo;
-use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
@@ -15,38 +14,35 @@ use yii\bootstrap5\LinkPager;
 
 $this->title = Yii::t('app', 'Active Pages');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container" style="max-width: 1623px">
-            <div class="py-5">
-                <div class="row g-4 align-items-center">
-                    <div class="col">
-                        <nav class="mb-2" aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-sa-simple">
-                                <?php echo Breadcrumbs::widget([
-                                    'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
-                                    'homeLink' => [
-                                        'label' => Yii::t('app', 'Home'),
-                                        'url' => Yii::$app->homeUrl,
-                                    ],
-                                    'links' => $this->params['breadcrumbs'] ?? [],
-                                ]);
-                                ?>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
             <div class="card">
                 <?php echo Html::beginForm(['check-delete'], 'post'); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'responsiveWrap' => false,
+                    'summary' => Yii::$app->devicedetect->isMobile() ? false : "Показано <span class='summary-info'>{begin}</span> - <span class='summary-info'>{end}</span> из <span class='summary-info'>{totalCount}</span> Записей",
+                    'panel' => [
+                        'type' => 'warning',
+                        'heading' => '<h3 class="panel-title"><i class="fas fa-globe"></i> ' . $this->title . '</h3>',
+                        'headingOptions' => ['style' => 'height: 60px; margin-top: 10px'],
+                        'before' => false,
+                        'after' =>
+                            Html::submitButton('<i class="fas fa-trash-alt"></i> Вибрані', ['class' => 'btn btn-danger', 'style' => 'margin-right: 5px']) .
+                            Html::a('<i class="fas fa-redo"></i> Обновити', ['index'], ['class' => 'btn btn-info']),
+                    ],
                     'pager' => [
                         'class' => LinkPager::class,
-                        'options' => ['class' => 'pagination'],
-//                            'maxButtonCount' => 5,
+                        'options' => ['class' => 'pagination justify-content-center'],
+                        'maxButtonCount' => Yii::$app->devicedetect->isMobile() ? 3 : 10,
+                        'firstPageLabel' => '<<',
+                        'lastPageLabel' => '>>',
+                        'prevPageLabel' => '<',
+                        'nextPageLabel' => '>',
                     ],
                     'columns' => [
                         [
@@ -92,7 +88,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return urldecode($model->client_from);
                             },
                         ],
-//                            'user_agent',
                         [
                             'attribute' => 'other',
                             'filter' => false,
@@ -132,9 +127,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
                 ]); ?>
-                <?= Html::submitButton('<i class="fas fa-trash-alt"></i> Вибрані', ['class' => 'btn btn-danger mb-4']) ?>
                 <?php echo Html::endForm(); ?>
             </div>
         </div>
     </div>
 </div>
+<style>
+    .summary-info {
+        font-size: 18px;
+        font-weight: bold;
+        color: #00050b;
+    }
+</style>
