@@ -24,8 +24,8 @@ use yii\db\ActiveRecord;
  * @property string|null $comments
  * @property string|null $delivery_service
  * @property string|null $ttn
- * @property int|null $order_status_id
- * @property int|null $order_pay_ment_id
+ * @property string|null $order_status_id
+ * @property string|null $order_pay_ment_id
  */
 class Report extends ActiveRecord
 {

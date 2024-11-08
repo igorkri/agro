@@ -17,8 +17,8 @@ class ReportSearch extends Report
     public function rules()
     {
         return [
-            [['id', 'price_delivery', 'order_status_id', 'order_pay_ment_id'], 'integer'],
-            [['platform', 'number_order', 'date_order', 'date_delivery', 'number_order_1c', 'date_payment', 'type_payment', 'fio', 'tel_number', 'address', 'comments', 'delivery_service', 'ttn'], 'safe'],
+            [['id', 'price_delivery'], 'integer'],
+            [['order_status_id', 'order_pay_ment_id', 'platform', 'number_order', 'date_order', 'date_delivery', 'number_order_1c', 'date_payment', 'type_payment', 'fio', 'tel_number', 'address', 'comments', 'delivery_service', 'ttn'], 'safe'],
         ];
     }
 
@@ -40,14 +40,13 @@ class ReportSearch extends Report
      */
     public function search($params)
     {
-//        $query = Report::find()->orderBy('id DESC');
-        $query = Report::find();
+
+        $query = Report::find()->orderBy(['date_order' => SORT_DESC]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => false,
         ]);
 
         $this->load($params);
