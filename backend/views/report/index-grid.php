@@ -34,13 +34,14 @@ $orderNoProblem = '';
 $assistFlagBig = array_filter($reportBigProblem, fn($value) => $value !== null) ? $orderBigProblem : $orderNoProblem;
 $assistFlagSmall = array_filter($reportSmallProblem, fn($value) => $value !== null) ? $orderSmallProblem : $orderNoProblem;
 
-$btnPc = Html::a(Yii::t('app', 'Звіт за Період'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) .
-    Html::a(Yii::t('app', 'Звіт по Prom'), Url::to(['report/prom-report']), ['class' => 'btn btn-prom me-3 mt-3']) .
-    Html::a(Yii::t('app', 'Звіт по Рекламі'), Url::to(['report/advertising-report']), ['class' => 'btn btn-success me-3 mt-3']) .
-    Html::a(Yii::t('app', 'Асистент ' . $assistFlagBig . $assistFlagSmall), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3 mt-3']) .
-    Html::a(Yii::t('app', 'New +'), Url::to(['create']), ['class' => 'btn btn-primary me-3 mt-3']);
+$btnPc =
+    Html::a(Yii::t('app', 'Звіт за Період'), Url::to(['report/period-report']), ['class' => 'btn btn-secondary me-3']) .
+    Html::a(Yii::t('app', 'Звіт по Prom'), Url::to(['report/prom-report']), ['class' => 'btn btn-prom me-3']) .
+    Html::a(Yii::t('app', 'Звіт по Рекламі'), Url::to(['report/advertising-report']), ['class' => 'btn btn-success me-3']) .
+    Html::a(Yii::t('app', 'Асистент ' . $assistFlagBig . $assistFlagSmall), Url::to(['report/assistant']), ['class' => 'btn btn-info me-3']) .
+    Html::a(Yii::t('app', 'New +'), Url::to(['create']), ['class' => 'btn btn-primary me-3']);
 
-$btnMob = '';
+$btnMob = false;
 
 ?>
 
@@ -52,14 +53,13 @@ $btnMob = '';
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'responsiveWrap' => false,
-                    'tableOptions' => ['class' => 'table table-bordered text-center'], // Добавляем класс text-center
+                    'tableOptions' => ['class' => 'table table-bordered text-center'],
                     'summary' => Yii::$app->devicedetect->isMobile() ? false : "Показано <span class='summary-info'>{begin}</span> - <span class='summary-info'>{end}</span> из <span class='summary-info'>{totalCount}</span> Записей",
                     'panel' => [
                         'type' => 'warning',
                         'heading' => '<h3 class="panel-title"><i class="fas fa-globe"></i> ' . $this->title . '</h3>',
-                        'headingOptions' => ['style' => 'height: 60px; margin-top: 10px'],
-                        'before' =>Yii::$app->devicedetect->isMobile() ? $btnPc : $btnPc,
-
+                        'headingOptions' => ['style' => 'height: 50px; margin-top: 10px'],
+                        'before' => Yii::$app->devicedetect->isMobile() ? $btnMob : $btnPc,
                         'after' =>
                             Html::a('<i class="fas fa-redo"></i> Обновити', ['index'], ['class' => 'btn btn-info']),
                     ],
@@ -73,10 +73,8 @@ $btnMob = '';
                         'nextPageLabel' => '>',
                     ],
                     'columns' => [
-
                         'number_order',
                         'platform',
-
                         [
                             'attribute' => 'order_status_id',
                             'label' => 'Доставка',
