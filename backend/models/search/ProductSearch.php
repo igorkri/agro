@@ -42,7 +42,7 @@ class ProductSearch extends Product
      */
     public function search()
     {
-        $request = \Yii::$app->request;
+        $request = Yii::$app->request;
         $params = $request->post();
 
         $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
@@ -50,7 +50,9 @@ class ProductSearch extends Product
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => false,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);

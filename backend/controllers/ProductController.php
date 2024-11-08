@@ -70,7 +70,7 @@ class ProductController extends Controller
             Yii::$app->session->set('errorsSeo', 'no');
         }
 
-        return $this->render('index', [
+        return $this->render('index-grid', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'currency' => $currency,
@@ -972,9 +972,6 @@ function actionActivityProduct()
             }
         }
     }
-
-//        ArrayHelper::multisort($result, ['date'], [SORT_DESC]);
-//        ArrayHelper::multisort($productsData, ['count'], [SORT_DESC]);
 
     return $this->render('all-activity-product', ['result' => $productsData]);
 }
