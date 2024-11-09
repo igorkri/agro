@@ -252,8 +252,6 @@ class ProductController extends Controller
             })
         );
 
-//        dd($model->category_id);
-
         $propertiesId = [];
         foreach ($data as $datum) {
             $propertiesId[] = $datum->id;
@@ -271,7 +269,6 @@ class ProductController extends Controller
             $dataEn = $this->cloneData($data);
             $this->translateData($dataEn, 'en');
         }
-
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save(false)) {
 
@@ -372,8 +369,6 @@ function updateProperties($model, $data)
             }
             $productProperty->save();
             $sort++;
-
-
         }
     }
 }
@@ -394,14 +389,13 @@ private
 function updateProductTags($model, $data)
 {
     if (!empty($data['tags'])) {
-        //удаляем существующие tags
         $tags = ProductTag::find()->where(['product_id' => $model->id])->all();
         if ($tags) {
             foreach ($tags as $t) {
                 $t->delete();
             }
         }
-        //добавляем Tags
+
         foreach ($data['tags'] as $tag_id) {
             $tag = ProductTag::find()
                 ->where(['product_id' => $model->id])
@@ -421,7 +415,6 @@ private
 function updateProductAnalogs($model, $data)
 {
     if (!empty($data['analogs'])) {
-        //удаляем существующие analogs
         $analogs = AnalogProducts::find()->where(['product_id' => $model->id])->all();
         if ($analogs) {
             foreach ($analogs as $analog) {
@@ -436,7 +429,6 @@ function updateProductAnalogs($model, $data)
         }
 
         foreach ($data['analogs'] as $analog_id) {
-            // Добавляем аналог к товару
             if ($model->id != $analog_id) {
                 $analogToProduct = AnalogProducts::find()
                     ->where(['product_id' => $model->id])
@@ -451,7 +443,6 @@ function updateProductAnalogs($model, $data)
                 }
             }
 
-            // Добавляем товар к аналогу
             if ($model->id != $analog_id) {
                 $productToAnalog = AnalogProducts::find()
                     ->where(['product_id' => $analog_id])
@@ -466,7 +457,6 @@ function updateProductAnalogs($model, $data)
                 }
             }
 
-            // Добавляем связи между аналогами
             foreach ($data['analogs'] as $other_analog_id) {
                 if ($analog_id != $other_analog_id && $analog_id != $model->id && $other_analog_id != $model->id) {
                     $analogToOtherAnalog = AnalogProducts::find()
@@ -542,7 +532,7 @@ private
 function translateData(&$data, $language)
 {
     foreach ($data as $datum) {
-        $sourceLanguage = 'uk'; // Определить язык
+        $sourceLanguage = 'uk';
         $tr = new GoogleTranslate();
         $tr->setSource($sourceLanguage);
         $tr->setTarget($language);
@@ -986,4 +976,10 @@ function actionUpdateErrorCheckbox()
     }
     return $this->asJson(['success' => false]);
 }
+
+    public function actionClearSearchParams()
+    {
+        Yii::$app->session->remove('product_search_params');
+        return $this->redirect(['index']);
+    }
 }

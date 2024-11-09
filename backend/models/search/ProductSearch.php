@@ -44,8 +44,9 @@ class ProductSearch extends Product
     {
         $request = Yii::$app->request;
         $params = $request->post();
+        $paramsGrid = $request->get();
 
-        $query = Product::find()->select(['id', 'name', 'slug', 'price', 'status_id', 'category_id', 'label_id', 'brand_id', 'currency']);
+        $query = Product::find();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -54,6 +55,18 @@ class ProductSearch extends Product
                 'pageSize' => 10,
             ],
         ]);
+
+        if ($params) {
+            Yii::$app->session->set('product_search_params', $params);
+        }
+
+        $sessionParams = Yii::$app->session->get('product_search_params', []);
+        if ($sessionParams) {
+            $params = array_merge($params, $sessionParams);
+        }
+        if ($paramsGrid) {
+            $params = array_merge($params, $paramsGrid);
+        }
 
         $this->load($params);
 
@@ -74,8 +87,17 @@ class ProductSearch extends Product
             'brand_id' => $this->brand_id,
         ]);
 
-        $minPrice = Yii::$app->request->post('minPrice');
-        $maxPrice = Yii::$app->request->post('maxPrice');
+        if (isset($params['minPrice'])) {
+            $minPrice = $params['minPrice'];
+        } else {
+            $minPrice = Yii::$app->request->post('minPrice');
+        }
+        if (isset($params['maxPrice'])) {
+            $maxPrice = $params['maxPrice'];
+        } else {
+            $maxPrice = Yii::$app->request->post('maxPrice');
+        }
+
         $query->andFilterWhere(['>=', 'price', $minPrice])
             ->andFilterWhere(['<=', 'price', $maxPrice]);
 

@@ -10,6 +10,12 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var backend\models\search\ProductSearch $model */
 /** @var yii\widgets\ActiveForm $form */
+
+$filterBtn = '<button type="submit" class="btn btn-primary">Фільтрувати</button>';
+$clearFilterBtn = Html::a('Скинути', ['clear-search-params'], ['class' => 'btn btn-default']);
+
+$filterParam = Yii::$app->session->get('product_search_params');
+
 ?>
 
 <div class="product-search">
@@ -34,9 +40,16 @@ use yii\helpers\Html;
                         $minPrice = round(Product::find()->min('price'), 2);
                         $maxPrice = round(Product::find()->max('price'), 2);
 
-                        $request = Yii::$app->request;
-                        $submittedMinPrice = $request->post('minPrice', $minPrice);
-                        $submittedMaxPrice = $request->post('maxPrice', $maxPrice);
+                        if (isset($filterParam['minPrice'])) {
+                            $submittedMinPrice = $filterParam['minPrice'];
+                        } else {
+                            $submittedMinPrice = $minPrice;
+                        }
+                        if (isset($filterParam['maxPrice'])) {
+                            $submittedMaxPrice = $filterParam['maxPrice'];
+                        } else {
+                            $submittedMaxPrice = $maxPrice;
+                        }
                         ?>
                         <div class="sa-filter-range" data-min="<?= $minPrice ?>" data-max="<?= $maxPrice ?>"
                              data-from="<?= $submittedMinPrice ?>"
@@ -52,8 +65,8 @@ use yii\helpers\Html;
                 <li class="sa-filters__item">
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
-                            <button type="submit" class="btn btn-primary">Фільтрувати</button>
-                            <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+                            <?= $filterBtn ?>
+                            <?= $clearFilterBtn ?>
                         </ul>
                     </div>
                 </li>
@@ -83,7 +96,9 @@ use yii\helpers\Html;
                                                 class="form-check-input m-0 me-3 fs-exact-16"
                                                 name="category[]"
                                                 value="<?= Html::encode($category->id) ?>"
-                                            <?= in_array($category->id, Yii::$app->request->post('category', [])) ? 'checked' : '' ?>
+                                            <?php if (isset($filterParam['category'])): ?>
+                                                <?= in_array($category->id, $filterParam['category']) ? 'checked' : '' ?>
+                                            <?php endif; ?>
                                         />
                                         <?= $category->name ?>
                                     </label>
@@ -105,7 +120,10 @@ use yii\helpers\Html;
                                                 class="form-check-input m-0 me-3 fs-exact-16"
                                                 name="status"
                                                 value="<?= Html::encode($stat->id) ?>"
-                                            <?= Yii::$app->request->post('status') == $stat->id ? 'checked' : '' ?>
+
+                                            <?php if (isset($filterParam['status'])): ?>
+                                                <?= $filterParam['status'] == $stat->id ? 'checked' : '' ?>
+                                            <?php endif; ?>
                                         />
                                         <?= $stat->name ?>
                                     </label>
@@ -125,7 +143,9 @@ use yii\helpers\Html;
                                             class="form-check-input m-0 me-3 fs-exact-16"
                                             name="date-update"
                                             value="11"
-                                        <?= Yii::$app->request->post('date-update') == 11 ? 'checked' : '' ?>
+                                        <?php if (isset($filterParam['date-update'])): ?>
+                                            <?= $filterParam['date-update'] == 11 ? 'checked' : '' ?>
+                                        <?php endif; ?>
                                     />
                                     Від давніх
                                 </label>
@@ -137,7 +157,9 @@ use yii\helpers\Html;
                                             class="form-check-input m-0 me-3 fs-exact-16"
                                             name="date-update"
                                             value="22"
-                                        <?= Yii::$app->request->post('date-update') == 22 ? 'checked' : '' ?>
+                                        <?php if (isset($filterParam['date-update'])): ?>
+                                            <?= $filterParam['date-update'] == 22 ? 'checked' : '' ?>
+                                        <?php endif; ?>
                                     />
                                     Від останніх
                                 </label>
@@ -158,7 +180,9 @@ use yii\helpers\Html;
                                                 class="form-check-input m-0 me-3 fs-exact-16"
                                                 name="brand"
                                                 value="<?= Html::encode($brand->id) ?>"
-                                            <?= Yii::$app->request->post('brand') == $brand->id ? 'checked' : '' ?>
+                                            <?php if (isset($filterParam['brand'])): ?>
+                                                <?= $filterParam['brand'] == $brand->id ? 'checked' : '' ?>
+                                            <?php endif; ?>
                                         />
                                         <?= $brand->name ?>
                                     </label>
@@ -170,8 +194,8 @@ use yii\helpers\Html;
                 <li class="sa-filters__item">
                     <div class="sa-filters__item-body">
                         <ul class="list-unstyled m-0 mt-n2">
-                            <button type="submit" class="btn btn-primary">Фільтрувати</button>
-                            <?= Html::a('Скинути', ['index'], ['class' => 'btn btn-default']) ?>
+                            <?= $filterBtn ?>
+                            <?= $clearFilterBtn ?>
                         </ul>
                     </div>
                 </li>

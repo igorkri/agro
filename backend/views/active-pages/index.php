@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'class' => ActionColumn::className(),
-                            'urlCreator' => function ($action, ActivePages $model, $key, $index, $column) {
+                            'urlCreator' => function ($action, ActivePages $model) {
                                 return Url::toRoute([$action, 'id' => $model->id, 'selection' => $model->id]);
                             }
                         ],

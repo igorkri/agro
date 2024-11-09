@@ -101,6 +101,9 @@ $btnMob = false;
                         'columns' => [
                             [
                                 'attribute' => 'image',
+                                'label' => Html::tag('i', '', ['class' => 'fas fa-images']),
+                                'encodeLabel' => false,
+                                'headerOptions' => ['style' => 'text-align: center;'],
                                 'format' => 'html',
                                 'value' => function ($model) {
                                     if (isset($model->images[0])) {
@@ -112,7 +115,7 @@ $btnMob = false;
                             ],
                             [
                                 'attribute' => 'name',
-                                'filter' => false,
+                                'filter' => true,
                                 'format' => 'raw',
                                 'value' => function ($model) use ($seoErrors) {
                                     $url = Url::to(['product/update', 'id' => $model->id]);
@@ -169,6 +172,7 @@ $btnMob = false;
                             ],
                             [
                                 'attribute' => 'status',
+                                'label' => 'Статус',
                                 'filter' => false,
                                 'format' => 'raw',
                                 'value' => function ($model) {
@@ -196,6 +200,7 @@ $btnMob = false;
                             ],
                             [
                                 'attribute' => 'category',
+                                'label' => 'Категорія',
                                 'filter' => false,
                                 'format' => 'raw',
                                 'value' => function ($model) {
