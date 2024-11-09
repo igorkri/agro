@@ -1,4 +1,7 @@
 <?php
+
+use yii\log\FileTarget;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -16,10 +19,10 @@ return [
     'homeUrl' => '/admin',
 
     'modules' => [
-        'gridview' =>  [
+        'gridview' => [
             'class' => '\kartik\grid\Module',
         ],
-        'gridviewKrajee' =>  [
+        'gridviewKrajee' => [
             'class' => '\kartik\grid\Module',
             // your other grid module settings
         ]
@@ -28,7 +31,6 @@ return [
         'devicedetect' => [
             'class' => 'alexandernst\devicedetect\DeviceDetect'
         ],
-//        'defaultRoute' => 'main/index',
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -36,7 +38,7 @@ return [
                     'basePath' => '@backend/messages',
                     'sourceLanguage' => 'en-US',
                     'fileMap' => [
-                        'app'       => 'app.php',
+                        'app' => 'app.php',
                         'app/error' => 'error.php',
                     ],
                 ],
@@ -59,7 +61,7 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => \yii\log\FileTarget::class,
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -68,14 +70,24 @@ return [
             'errorAction' => 'site/error',
         ],
         'authManager' => [
-           'class' => 'yii\rbac\DbManager',
-           'defaultRoles' => ['admin'],
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['admin'],
         ],
         'assetManager' => [
             'bundles' => [
-                'kartik\form\ActiveFormAsset' => [
-                    'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
+                'kartik\base\AssetBundle' => [
+                    'bsDependencyEnabled' => false,
                 ],
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => false,
+                ],
+                'kartik\grid\GridViewAsset' => [
+                    'bsDependencyEnabled' => false,
+                ],
+                'kartik\date\DatePickerAsset' => [
+                    'bsDependencyEnabled' => false,
+                ],
+                // Добавьте другие виджеты kartik-v, если они используются
             ],
         ],
         'urlManager' => [
@@ -94,7 +106,7 @@ return [
             ],
 
         ],
-        
+
     ],
     'as access' => [
         'class' => 'yii\filters\AccessControl',
