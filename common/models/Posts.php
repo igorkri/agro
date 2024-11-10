@@ -68,6 +68,8 @@ class Posts extends ActiveRecord
     public function rules()
     {
         return [
+            [['title', 'seo_title','description', 'seo_description'], 'required'],
+            [['slug','title'], 'unique'],
             [['description', 'seo_description'], 'string'],
             [['date_public', 'date_updated'], 'string'],
             [['slug'], 'string'],
