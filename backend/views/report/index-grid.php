@@ -1,9 +1,9 @@
 <?php
 
+use kartik\grid\ActionColumn;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\bootstrap5\LinkPager;
 use common\models\Report;
 
@@ -162,7 +162,6 @@ $btnMob = false;
                                 return "<span style='white-space: nowrap;'>{$formattedDate}</span>";
                             },
                         ],
-
                         'type_payment',
                         [
                             'attribute' => 'tel_number',
@@ -173,6 +172,7 @@ $btnMob = false;
                         ],
                         [
                             'attribute' => 'delivery_service',
+                            'filter' => false,
                             'format' => 'raw',
                             'value' => function ($model) {
                                 return $model->getDeliveryLogo($model->delivery_service);
@@ -186,6 +186,7 @@ $btnMob = false;
                         ],
                         [
                             'attribute' => 'date_order',
+                            'filter' => false,
                             'label' => 'Створення замовлення',
                             'format' => 'raw',
                             'value' => function ($model) {
