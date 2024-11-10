@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\shop\ActivePages;
 use common\models\shop\Product;
 use Yii;
 use yii\behaviors\SluggableBehavior;
@@ -144,5 +145,21 @@ class Posts extends ActiveRecord
         } else {
             return '3';
         }
+    }
+
+    public function getPostViews($slug)
+    {
+        $slugs = ActivePages::find()->where(['like', 'url_page', "%$slug", false])->all();
+        return count($slugs);
+    }
+
+    public function getPostDateView($slug)
+    {
+        return ActivePages::find()
+            ->select('date_visit')
+            ->where(['like', 'url_page', $slug])
+            ->orderBy(['date_visit' => SORT_DESC])
+            ->asArray()
+            ->one(); // Получаем сразу одну запись
     }
 }

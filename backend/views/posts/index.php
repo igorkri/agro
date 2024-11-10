@@ -1,60 +1,54 @@
 <?php
 
 use common\models\Posts;
-use yii\bootstrap5\Breadcrumbs;
+use kartik\grid\ActionColumn;
+use kartik\grid\GridView;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
-
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\PostsSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Posts');
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container" style="max-width: 1623px">
-            <div class="py-5">
-                <div class="row g-4 align-items-center">
-                    <div class="col">
-                        <nav class="mb-2" aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-sa-simple">
-                                <?php echo Breadcrumbs::widget([
-                                    'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
-                                    'homeLink' => [
-                                        'label' => Yii::t('app', 'Home'),
-                                        'url' => Yii::$app->homeUrl,
-                                    ],
-                                    'links' => $this->params['breadcrumbs'] ?? [],
-                                ]);
-                                ?>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
-                                                    class="btn btn-primary"><?= Yii::t('app', 'New post') ?></a></div>
-                </div>
-            </div>
             <div class="card">
                 <div class="sa-divider"></div>
                 <?php echo GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'responsiveWrap' => false,
+                    'summary' => Yii::$app->devicedetect->isMobile() ? false : "Показано <span class='summary-info'>{begin}</span> - <span class='summary-info'>{end}</span> из <span class='summary-info'>{totalCount}</span> Записей",
+                    'panel' => [
+                        'type' => 'warning',
+                        'heading' => '<h3 class="panel-title"><i class="fas fa-globe"></i> ' . $this->title . '</h3>',
+                        'headingOptions' => ['style' => 'height: 60px; margin-top: 10px'],
+
+                        'before' => Html::a(Yii::t('app', 'New post'), Url::to(['create']), ['class' => 'btn btn-primary']),
+
+
+                        'after' => Html::a('<i class="fas fa-redo"></i> Обновити', ['index'], ['class' => 'btn btn-info']),
+                    ],
                     'pager' => [
                         'class' => LinkPager::class,
-                        'options' => ['class' => 'pagination'],
-//                            'maxButtonCount' => 5,
+                        'options' => ['class' => 'pagination justify-content-center'],
+                        'maxButtonCount' => Yii::$app->devicedetect->isMobile() ? 3 : 10,
+                        'firstPageLabel' => '<<',
+                        'lastPageLabel' => '>>',
+                        'prevPageLabel' => '<',
+                        'nextPageLabel' => '>',
                     ],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'attribute' => 'image',
+                            'filter' => false,
                             'format' => 'html',
                             'value' => function ($model) {
                                 return Html::img(Yii::$app->request->hostInfo . '/posts/' . $model->medium);
@@ -62,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'date_public',
+                            'label' => 'Опубліковано',
                             'filter' => false,
                             'value' => function ($model) {
                                 return Yii::$app->formatter->asDate($model->date_public, 'short');
@@ -69,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'date_updated',
+                            'label' => 'Відредаговано',
                             'filter' => false,
                             'value' => function ($model) {
                                 if ($model->date_updated) {
@@ -78,18 +74,39 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                             },
                         ],
+                        [
+                            'attribute' => 'date_view',
+                            'label' => 'Переглянуто',
+                            'format' => 'raw',
+                            'filter' => false,
+                            'value' => function ($model) {
+                                $dateView = $model->getPostDateView($model->slug);
+                                if ($dateView) {
+                                    return Yii::$app->formatter->asDate($dateView['date_visit'], 'short');
+                                } else {
+                                    return '<span 
+                                            style="background-color: rgba(255,0,0,0.64); font-weight: bold; color: white; padding: 3px 5px; border-radius: 50rem"
+                                            >
+                                            Без переглядів
+                                            </span>';
+                                }
+                            },
+                        ],
                         'title',
                         [
-                            'attribute' => 'description',
+                            'attribute' => 'views',
+                            'label' => 'Перегляди',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return mb_substr($model->description, 0, 250);
+                                $countViews = $model->getPostViews($model->slug);
+                                return '<span class="badge-sa-theme-user badge-sa-pill">' . $countViews . '</span>';
                             },
+                            'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                         ],
 
                         [
                             'class' => ActionColumn::className(),
-                            'urlCreator' => function ($action, Posts $model, $key, $index, $column) {
+                            'urlCreator' => function ($action, Posts $model) {
                                 return Url::toRoute([$action, 'id' => $model->id]);
                             }
                         ],
