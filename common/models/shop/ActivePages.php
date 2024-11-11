@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "active_pages".
@@ -16,7 +17,7 @@ use Yii;
  * @property string|null $status_serv Статус сервера
  * @property string|null $other Прочее
  */
-class ActivePages extends \yii\db\ActiveRecord
+class ActivePages extends ActiveRecord
 {
     /**
      * {@inheritdoc}
