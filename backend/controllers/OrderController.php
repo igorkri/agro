@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\models\shop\Order;
-use backend\models\search\shop\OrderSearch;
+use backend\models\search\OrderSearch;
 use common\models\shop\OrderItem;
 use Yii;
 use yii\helpers\VarDumper;

@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\search\shop;
+namespace backend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\shop\Brand;
+use common\models\shop\Order;
 
 /**
- * BrandSearch represents the model behind the search form of `common\models\shop\Brand`.
+ * OrderSearch represents the model behind the search form of `common\models\shop\Order`.
  */
-class BrandSearch extends Brand
+class OrderSearch extends Order
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class BrandSearch extends Brand
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['slug', 'name', 'file'], 'safe'],
+            [['id', 'created_at', 'updated_at', 'order_status_id'], 'integer'],
+            [['fio', 'phone', 'city', 'note'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class BrandSearch extends Brand
      */
     public function search($params)
     {
-        $query = Brand::find();
+        $query = Order::find()->orderBy('id DESC');
 
         // add conditions that should always apply here
 
@@ -62,11 +62,15 @@ class BrandSearch extends Brand
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'order_status_id' => $this->order_status_id,
         ]);
 
-        $query->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'file', $this->file]);
+        $query->andFilterWhere(['like', 'fio', $this->fio])
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'city', $this->city])
+            ->andFilterWhere(['like', 'note', $this->note]);
 
         return $dataProvider;
     }

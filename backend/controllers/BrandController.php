@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\models\shop\Brand;
-use backend\models\search\shop\BrandSearch;
+use backend\models\search\BrandSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

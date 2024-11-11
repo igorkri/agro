@@ -1,20 +1,16 @@
 <?php
 
-use common\models\shop\Brand;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\search\shop\BrandSearch $searchModel */
+/** @var backend\models\search\BrandSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Brands';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
@@ -69,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-4">
                                         <div class="sa-brand sa-symbol--shape--rounded sa-symbol--size--lg">
-                                            <img src="<?=Yii::$app->request->hostInfo . '/brand/' . $model->file?>" alt="" />
+                                            <img src="<?=Yii::$app->request->hostInfo . '/brand/' . $model->file?>" alt=""/>
                                         </div>
                                     </a>
                                 </div>
@@ -119,4 +115,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-<!-- sa-app__body / end -->
