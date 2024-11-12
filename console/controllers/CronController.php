@@ -19,7 +19,7 @@ class CronController extends Controller
         $ips = ActivePages::find()
             ->select(['ip_user', 'date_visit'])
             ->orderBy('date_visit DESC')
-            ->limit(10)
+//            ->limit(10)
             ->asArray()
             ->all();
 
@@ -34,7 +34,10 @@ class CronController extends Controller
         $countIps = count($ips);
         $robotProviders = [
             'google', 'hetzner', 'huawei', 'digitalocean', 'shenzhen',
-            'amazon', 'microsoft', 'oracle', 'alibaba', 'tencent', 'OPHL'
+            'amazon', 'microsoft', 'oracle', 'alibaba', 'tencent', 'ophl',
+            'cloudflare', 'opera software', 'ovh sas', 'aceville',
+            'beijing qihu', 'ucloud information', 'datacamp', 'velia.net',
+            'orion network', 'cogent', 'glesys',
         ];
         $filePath = Yii::getAlias('@frontend/runtime/robots_control.txt');
         $i = 1;
@@ -51,8 +54,8 @@ class CronController extends Controller
                 foreach ($robotProviders as $provider) {
                     if (str_contains($org, $provider)) {
                         $isRobot = true;
-                        echo "$countIps\t\$ip\tRobot\t{$response['isp']}\n";
-                        $logEntry = $ip . "\n";
+                        echo "$countIps\t$ip\t\tRobot\t\t{$response['isp']}\n";
+                        $logEntry = "'$ip',\n";
                         file_put_contents($filePath, $logEntry, FILE_APPEND);
                         $ipDelete[] = $ip;
                         $i++;
@@ -62,9 +65,9 @@ class CronController extends Controller
 
                 if (!$isRobot) {
                     if (strlen($ip) > 11) {
-                        echo "$countIps\t$ip\tNot Robot.\t{$response['isp']}\n";
+                        echo "$countIps\t$ip\t\tNot Robot.\t{$response['isp']}\n";
                     } else {
-                        echo "$countIps\t\t$ip\tNot Robot.\t{$response['isp']}\n";
+                        echo "$countIps\t$ip \t\tNot Robot.\t{$response['isp']}\n";
                     }
                 }
             } else {
@@ -184,4 +187,3 @@ class CronController extends Controller
         }
     }
 }
-
