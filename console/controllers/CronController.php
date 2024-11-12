@@ -61,7 +61,11 @@ class CronController extends Controller
                 }
 
                 if (!$isRobot) {
-                    echo "$countIps\t$ip\tNot Robot.\t{$response['isp']}\n";
+                    if (strlen($ip) > 11) {
+                        echo "$countIps\t$ip\tNot Robot.\t{$response['isp']}\n";
+                    } else {
+                        echo "$countIps\t\t$ip\tNot Robot.\t{$response['isp']}\n";
+                    }
                 }
             } else {
                 echo "$ip: Error retrieving information.\n";
