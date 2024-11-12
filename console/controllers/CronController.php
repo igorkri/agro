@@ -52,7 +52,7 @@ class CronController extends Controller
                     if (str_contains($org, $provider)) {
                         $isRobot = true;
                         echo "$countIps\t\$ip\tRobot\t{$response['isp']}\n";
-                        $logEntry = "'$ip',\n";
+                        $logEntry = $ip . "\n";
                         file_put_contents($filePath, $logEntry, FILE_APPEND);
                         $ipDelete[] = $ip;
                         $i++;
