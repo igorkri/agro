@@ -63,7 +63,6 @@ class CronController extends Controller
                             $model->save();
                         }
                         sleep(2);
-
                         $ipDelete[] = $ip;
                         $i++;
                         break;
