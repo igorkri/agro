@@ -222,9 +222,11 @@ class ReportController extends Controller
         $models = Report::find()
             ->select(['id', 'platform', 'date_delivery', 'price_delivery', 'order_status_id', 'order_pay_ment_id'])
             ->where(['between', 'date_order', $periodStart, $periodEnd])
+            ->andWhere(['<>', 'order_status_id', 'Відміна'])
             ->all();
 
         foreach ($models as $model) {
+
             $package = $model->getPackage($model->id);
             $isPaid = $model->order_pay_ment_id == 'Оплачено';
             $isReturn = $model->order_status_id == 'Повернення' || $model->order_pay_ment_id == 'Повернення';
