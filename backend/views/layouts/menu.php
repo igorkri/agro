@@ -341,7 +341,7 @@ use yii\helpers\Url;
                             </a>
                         </li>
                         <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                            <a href="<?= Url::to(['/']) ?>" class="sa-nav__link">
+                            <a href="<?= Url::to(['/bots']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                                      viewBox="0 0 16 16" fill="currentColor">
