@@ -2,24 +2,25 @@
 
 namespace console\controllers;
 
+use common\models\IpBot;
 use common\models\NpCity;
 use common\models\NpWarehouses;
 use common\models\shop\ActivePages;
 use LisDev\Delivery\NovaPoshtaApi2;
-use Yii;
 use yii\console\Controller;
 
 class CronController extends Controller
 {
     /**
      * <<<<<<<< Cron задача для удаления Ip роботов
+     * @throws \yii\db\Exception
      */
     public function actionDetectIpRobots()
     {
         $ips = ActivePages::find()
             ->select(['ip_user', 'date_visit'])
             ->orderBy('date_visit DESC')
-//            ->limit(10)
+            ->limit(100)
             ->asArray()
             ->all();
 
@@ -32,14 +33,10 @@ class CronController extends Controller
         $ips = array_map('unserialize', array_values($ips));
 
         $countIps = count($ips);
-        $robotProviders = [
-            'google', 'hetzner', 'huawei', 'digitalocean', 'shenzhen',
-            'amazon', 'microsoft', 'oracle', 'alibaba', 'tencent', 'ophl',
-            'cloudflare', 'opera software', 'ovh sas', 'aceville',
-            'beijing qihu', 'ucloud information', 'datacamp', 'velia.net',
-            'orion network', 'cogent', 'glesys',
-        ];
-        $filePath = Yii::getAlias('@frontend/runtime/robots_control.txt');
+
+        $robotProviders = IpBot::find()->select('isp')->distinct()->column();
+        $robotIp = IpBot::find()->select('ip')->distinct()->column();
+
         $i = 1;
         $ipDelete = [];
 
@@ -49,17 +46,27 @@ class CronController extends Controller
             $response = $this->getIpInfoFromApi($url);
 
             if ($response && $response['status'] === 'success') {
-                $org = strtolower($response['isp']);
                 $isRobot = false;
                 foreach ($robotProviders as $provider) {
-                    if (str_contains($org, $provider)) {
+                    if (str_contains($response['isp'], $provider)) {
                         $isRobot = true;
                         echo "$countIps\t$ip\t\tRobot\t\t{$response['isp']}\n";
-                        $logEntry = "'$ip',\n";
-                        file_put_contents($filePath, $logEntry, FILE_APPEND);
-                        $ipDelete[] = $ip;
-                        $i++;
-                        break;
+
+                        if (!in_array($ip, $robotIp)) {
+                            $model = new IpBot();
+                            $model->ip = $ip;
+                            if (isset($response['isp'])) {
+                                $model->isp = $response['isp'];
+                            } else {
+                                $model->isp = 'Not information';
+                            }
+                            $model->save();
+                            sleep(2);
+
+                            $ipDelete[] = $ip;
+                            $i++;
+                            break;
+                        }
                     }
                 }
 
@@ -186,4 +193,5 @@ class CronController extends Controller
             }
         }
     }
+
 }
