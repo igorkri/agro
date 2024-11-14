@@ -61,12 +61,12 @@ class CronController extends Controller
                                 $model->isp = 'Not information';
                             }
                             $model->save();
-                            sleep(2);
-
-                            $ipDelete[] = $ip;
-                            $i++;
-                            break;
                         }
+                        sleep(2);
+
+                        $ipDelete[] = $ip;
+                        $i++;
+                        break;
                     }
                 }
 
