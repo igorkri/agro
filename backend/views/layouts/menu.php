@@ -7,7 +7,6 @@ use common\models\shop\Review;
 use yii\helpers\Url;
 
 ?>
-
 <div class="sa-sidebar__body" data-simplebar="">
     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
         <li class="sa-nav__section">
@@ -293,8 +292,9 @@ use yii\helpers\Url;
         </li>
         <li class="sa-nav__section">
             <ul class="sa-nav__menu sa-nav__menu--root">
-                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                    <a href="<?= Url::to(['/active-pages']) ?>" class="sa-nav__link">
+                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon"
+                    data-sa-collapse-item="sa-nav__menu-item--open">
+                    <a href="" class="sa-nav__link" data-sa-collapse-trigger="">
                                             <span class="sa-nav__icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                                                      viewBox="0 0 16 16" fill="currentColor">
@@ -304,7 +304,56 @@ use yii\helpers\Url;
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Active users') ?></span>
+                            <span class="sa-nav__arrow">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9"
+                                                     viewBox="0 0 6 9" fill="currentColor">
+                                                    <path
+                                                            d="M5.605,0.213 C6.007,0.613 6.107,1.212 5.706,1.612 L2.696,4.511 L5.706,7.409 C6.107,7.809 6.107,8.509 5.605,8.808 C5.204,9.108 4.702,9.108 4.301,8.709 L-0.013,4.511 L4.401,0.313 C4.702,-0.087 5.304,-0.087 5.605,0.213 Z"
+                                                    ></path>
+                                                </svg>
+                                            </span>
                     </a>
+                    <ul class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
+                        <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                            <a href="<?= Url::to(['/active-pages']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                     viewBox="0 0 16 16" fill="currentColor">
+                                                    <path
+                                                            d="M8,10c-3.3,0-6,2.7-6,6H0c0-3.2,1.9-6,4.7-7.3C3.7,7.8,3,6.5,3,5c0-2.8,2.2-5,5-5s5,2.2,5,5c0,1.5-0.7,2.8-1.7,3.7c2.8,1.3,4.7,4,4.7,7.3h-2C14,12.7,11.3,10,8,10z M8,2C6.3,2,5,3.3,5,5s1.3,3,3,3s3-1.3,3-3S9.7,2,8,2z"
+                                                    ></path>
+                                                </svg>
+                                            </span>
+                                <span class="sa-nav__title"><?= Yii::t('app', 'Active users') ?></span>
+                            </a>
+                        </li>
+                        <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                            <a href="<?= Url::to(['/ip-bot']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                     viewBox="0 0 16 16" fill="currentColor">
+                                                    <path
+                                                            d="M14,6.8l-0.2,0.1C14,7.3,14,7.6,14,8c0,0.4,0,0.7-0.1,1.1L14,9.2c1,0.6,1.4,1.9,0.8,3c-0.5,0.9-1.6,1.2-2.5,0.7l-0.5-0.3c-0.6,0.5-1.2,0.8-1.9,1.1v0.8c0,0.9-0.7,1.6-1.6,1.6H7.6C6.7,16,6,15.3,6,14.4v-0.8c-0.7-0.2-1.3-0.6-1.9-1.1l-0.5,0.3c-0.9,0.5-2,0.2-2.5-0.7c-0.6-1-0.3-2.4,0.8-3l0.2-0.1C2,8.7,2,8.4,2,8c0-0.4,0-0.7,0.1-1.1L2,6.8c-1.1-0.6-1.4-2-0.8-3C1.7,3,2.8,2.7,3.6,3.2l0.5,0.3C4.7,3,5.3,2.6,6,2.4V1.6C6,0.7,6.7,0,7.6,0h0.8C9.3,0,10,0.7,10,1.6v0.8c0.7,0.2,1.3,0.6,1.9,1.1l0.5-0.3c0.9-0.5,2-0.2,2.5,0.7C15.4,4.9,15.1,6.2,14,6.8z M8,5.5C6.6,5.5,5.5,6.6,5.5,8s1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5S9.4,5.5,8,5.5z"
+                                                    ></path>
+                                                </svg>
+                                            </span>
+                                <span class="sa-nav__title"><?= Yii::t('app', 'IP Bot') ?></span>
+                            </a>
+                        </li>
+                        <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                            <a href="<?= Url::to(['/']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                     viewBox="0 0 16 16" fill="currentColor">
+                                                    <path
+                                                            d="M14,6.8l-0.2,0.1C14,7.3,14,7.6,14,8c0,0.4,0,0.7-0.1,1.1L14,9.2c1,0.6,1.4,1.9,0.8,3c-0.5,0.9-1.6,1.2-2.5,0.7l-0.5-0.3c-0.6,0.5-1.2,0.8-1.9,1.1v0.8c0,0.9-0.7,1.6-1.6,1.6H7.6C6.7,16,6,15.3,6,14.4v-0.8c-0.7-0.2-1.3-0.6-1.9-1.1l-0.5,0.3c-0.9,0.5-2,0.2-2.5-0.7c-0.6-1-0.3-2.4,0.8-3l0.2-0.1C2,8.7,2,8.4,2,8c0-0.4,0-0.7,0.1-1.1L2,6.8c-1.1-0.6-1.4-2-0.8-3C1.7,3,2.8,2.7,3.6,3.2l0.5,0.3C4.7,3,5.3,2.6,6,2.4V1.6C6,0.7,6.7,0,7.6,0h0.8C9.3,0,10,0.7,10,1.6v0.8c0.7,0.2,1.3,0.6,1.9,1.1l0.5-0.3c0.9-0.5,2-0.2,2.5,0.7C15.4,4.9,15.1,6.2,14,6.8z M8,5.5C6.6,5.5,5.5,6.6,5.5,8s1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5S9.4,5.5,8,5.5z"
+                                                    ></path>
+                                                </svg>
+                                            </span>
+                                <span class="sa-nav__title"><?= Yii::t('app', 'Name Bot') ?></span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>
