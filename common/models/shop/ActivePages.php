@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use common\models\IpBot;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -61,9 +62,7 @@ class ActivePages extends ActiveRecord
             '*',
         ];
 
-        $botIps = [          // Ip которые не пишутся в статистику
-            '*',
-        ];
+        $botIps = IpBot::find()->select('ip')->distinct()->column();
 
         $server = $_SERVER;
         $userAgent = $server['HTTP_USER_AGENT'] ?? "Не известно";

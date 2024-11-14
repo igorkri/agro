@@ -46,20 +46,28 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'attribute' => 'ip',
+                            'label' => 'IP Адрес',
                             'format' => 'raw',
+                            'contentOptions' => ['style' => 'width: 150px; text-align: center;']
                         ],
                         [
                             'attribute' => 'isp',
-                            'format' => 'raw',
-                        ],
-                        [
-                            'attribute' => 'blocking',
+                            'label' => 'Провайдер',
                             'format' => 'raw',
                         ],
                         [
                             'attribute' => 'comment',
+                            'label' => 'Коментарий',
                             'format' => 'raw',
                         ],
+                        [
+                            'attribute' => 'blocking',
+                            'label' => 'Заблокирован',
+                            'format' => 'boolean',
+                            'filter' => true,
+                            'contentOptions' => ['style' => 'width: 100px; text-align: center;']
+                        ],
+
                         [
                             'class' => ActionColumn::className(),
                             'urlCreator' => function ($action, IpBot $model) {
