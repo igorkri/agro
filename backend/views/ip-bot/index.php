@@ -13,7 +13,6 @@ use yii\helpers\Url;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Ip Bots');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
@@ -43,7 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'nextPageLabel' => '>',
                     ],
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'id',
+                            'format' => 'raw',
+                            'contentOptions' => ['style' => 'width: 50px; text-align: center;']
+                        ],
                         [
                             'attribute' => 'ip',
                             'label' => 'IP Адрес',
@@ -57,15 +60,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'comment',
-                            'label' => 'Коментарий',
+                            'label' => 'Комментарий',
                             'format' => 'raw',
+                            'value' => fn($model) => $model->comment ?: '',
                         ],
                         [
                             'attribute' => 'blocking',
                             'label' => 'Заблокирован',
                             'format' => 'boolean',
                             'filter' => true,
-                            'contentOptions' => ['style' => 'width: 100px; text-align: center;']
+                            'contentOptions' => function ($model) {
+                                return [
+                                    'style' => $model->blocking
+                                        ? 'width: 100px; text-align: center; background-color: #eb1c1c99; color: white;'
+                                        : 'width: 100px; text-align: center;background-color: #43ed43b3; color: white;',
+                                ];
+                            },
                         ],
 
                         [
