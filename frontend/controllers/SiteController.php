@@ -342,10 +342,30 @@ class SiteController extends Controller
         $siteMapBase = 1;
         $arr = ['sitemap-products.xml','sitemap-categories.xml','sitemap-articles.xml'];
 
+        $productsUpdate = Product::find()
+            ->select(['date_updated'])
+            ->orderBy(['date_updated' => SORT_DESC])
+            ->scalar();
+        $categoriesUpdate = Category::find()
+            ->select(['date_updated'])
+            ->orderBy(['date_updated' => SORT_DESC])
+            ->scalar();
+        $articlesUpdate = Posts::find()
+            ->select(['date_updated'])
+            ->orderBy(['date_updated' => SORT_DESC])
+            ->scalar();
+
+        $productsUpdate = !empty($productsUpdate) ? date(DATE_W3C, $productsUpdate) : date(DATE_W3C, time());
+        $categoriesUpdate = !empty($categoriesUpdate) ? date(DATE_W3C, $categoriesUpdate) : date(DATE_W3C, time());
+        $articlesUpdate = !empty($articlesUpdate) ? date(DATE_W3C, $articlesUpdate) : date(DATE_W3C, time());
+
+        $arrDate = [$productsUpdate, $categoriesUpdate, $articlesUpdate];
+
         // Отправляем данные на отображение без шаблона
         $xml_array = $this->renderPartial('sitemap', array(
             'host' => Yii::$app->request->hostInfo, // Имя хоста
             'urls' => $arr, // Полученный массив
+            'date' => $arrDate, // Полученный массив
             'siteMapBase' => $siteMapBase,
         ));
 
