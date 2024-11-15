@@ -340,41 +340,34 @@ class SiteController extends Controller
     public function actionSitemap()
     {
         $siteMapBase = 1;
-        $arr = ['sitemap-products.xml','sitemap-categories.xml','sitemap-articles.xml'];
+        $arr = ['sitemap-products.xml', 'sitemap-categories.xml', 'sitemap-articles.xml'];
 
-        $productsUpdate = Product::find()
-            ->select(['date_updated'])
-            ->orderBy(['date_updated' => SORT_DESC])
-            ->scalar();
-        $categoriesUpdate = Category::find()
-            ->select(['date_updated'])
-            ->orderBy(['date_updated' => SORT_DESC])
-            ->scalar();
-        $articlesUpdate = Posts::find()
-            ->select(['date_updated'])
-            ->orderBy(['date_updated' => SORT_DESC])
-            ->scalar();
+        $updates = [
+            Product::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
+            max(
+                Category::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
+                AuxiliaryCategories::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar()
+            ),
+            Posts::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar()
+        ];
 
-        $productsUpdate = !empty($productsUpdate) ? date(DATE_W3C, $productsUpdate) : date(DATE_W3C, time());
-        $categoriesUpdate = !empty($categoriesUpdate) ? date(DATE_W3C, $categoriesUpdate) : date(DATE_W3C, time());
-        $articlesUpdate = !empty($articlesUpdate) ? date(DATE_W3C, $articlesUpdate) : date(DATE_W3C, time());
+        $arrDate = array_map(function ($update) {
+            return !empty($update) ? date(DATE_W3C, $update) : date(DATE_W3C, time());
+        }, $updates);
 
-        $arrDate = [$productsUpdate, $categoriesUpdate, $articlesUpdate];
-
-        // Отправляем данные на отображение без шаблона
-        $xml_array = $this->renderPartial('sitemap', array(
-            'host' => Yii::$app->request->hostInfo, // Имя хоста
-            'urls' => $arr, // Полученный массив
-            'date' => $arrDate, // Полученный массив
+        $xml_array = $this->renderPartial('sitemap', [
+            'host' => Yii::$app->request->hostInfo,
+            'urls' => $arr,
+            'date' => $arrDate,
             'siteMapBase' => $siteMapBase,
-        ));
+        ]);
 
         Yii::$app->response->format = Response::FORMAT_RAW;
-        $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+        Yii::$app->response->headers->add('Content-Type', 'text/xml');
 
         return $xml_array;
     }
+
 
     public function actionSitemapProducts()
     {
