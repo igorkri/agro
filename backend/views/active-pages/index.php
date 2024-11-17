@@ -13,7 +13,7 @@ use yii\bootstrap5\LinkPager;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Active Pages');
-$this->params['breadcrumbs'][] = $this->title;
+$ipAddress = Yii::$app->request->getUserIP();
 
 ?>
 <div id="top" class="sa-app__body">
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'summary' => Yii::$app->devicedetect->isMobile() ? false : "Показано <span class='summary-info'>{begin}</span> - <span class='summary-info'>{end}</span> из <span class='summary-info'>{totalCount}</span> Записей",
                     'panel' => [
                         'type' => 'warning',
-                        'heading' => '<h3 class="panel-title"><i class="fas fa-globe"></i> ' . $this->title . '</h3>',
+                        'heading' => '<h3 class="panel-title"><i class="fas fa-globe"></i> ' . $this->title . ' ' . $ipAddress . '</h3>',
                         'headingOptions' => ['style' => 'height: 60px; margin-top: 10px'],
                         'before' => false,
                         'after' =>
