@@ -5,7 +5,6 @@ namespace console\controllers;
 use common\models\shop\Tag;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use yii\console\Controller;
-use yii\helpers\Inflector;
 
 class TagController extends Controller
 {
@@ -51,20 +50,6 @@ class TagController extends Controller
             }
             $i++;
         }
-    }
-
-    public function actionAddSlug()
-    {
-        $tags = Tag::find()->all();
-        $i = 1;
-        foreach ($tags as $tag){
-            $tag->slug = Inflector::slug($tag->name);
-            if ($tag->save()) {
-                echo "$i  Тег $tag->name переведен и сохранен для $tag->slug.\n";
-            } else {
-                echo "$i  Ошибка во время сохранения $tag->name для $tag->slug.\n";
-            }
-       $i++; }
     }
 
 }
