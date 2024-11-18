@@ -12,7 +12,7 @@ use yii\helpers\Url;
         <div class="tags tags--lg">
             <div class="tags__list">
                 <?php foreach ($tags as $tag): ?>
-                    <a href="<?= Url::to(['tag/view', 'id' => $tag->id]) ?>">
+                    <a href="<?= Url::to(['tag/view', 'slug' => $tag->slug]) ?>">
                     <?php if ($language == 'en'): ?>
                         <?= $tag->name_en ?>
                     <?php elseif ($language == 'ru'): ?>

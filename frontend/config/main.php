@@ -70,7 +70,8 @@ return [
 
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
                 'post/<slug:[\w+-]*\w+>' => 'post/view',
-                'tag/<id:\d+>' => 'tag/view',
+                'tag/<id:\d+>' => 'tag/redirect',
+                'tag/<slug>' => 'tag/view',
                 'about' => 'about/view',
                 'delivery' => 'delivery/view',
                 'special' => 'special/view',

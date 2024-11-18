@@ -9,10 +9,12 @@ use yii\data\Pagination;
 use yii\web\Controller;
 use yii\db\Expression;
 use Yii;
+use yii\web\NotFoundHttpException;
+use yii\helpers\Url;
 
 class TagController extends Controller
 {
-    public function actionView($id)
+    public function actionView($slug)
     {
         $language = Yii::$app->session->get('_language');
 
@@ -34,8 +36,8 @@ class TagController extends Controller
         }
         $count = intval(Yii::$app->session->get('count'));
 
-        $tag_name = Tag::find()->where(['id' => $id])->one();
-        $tags = ProductTag::find()->where(['tag_id' => $id])->all();
+        $tag_name = Tag::find()->where(['slug' => $slug])->one();
+        $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->all();
 
         $query = Product::find()->where(['id' => []]);
 
@@ -88,7 +90,6 @@ class TagController extends Controller
             }
         }
 
-
         return $this->render('view',
             [
                 'products' => $products,
@@ -97,6 +98,17 @@ class TagController extends Controller
                 'pages' => $pages,
                 'language' => $language,
             ]);
+    }
+
+    public function actionRedirect($id)
+    {
+        $tag = Tag::findOne($id);
+        if (!$tag) {
+            throw new NotFoundHttpException("Tag not found");
+        }
+        $newUrl = Url::to(['tag/view', 'slug' => $tag->slug], true);
+
+        return $this->redirect($newUrl, 301); // 301 - постоянный редирект
     }
 
     protected function setProductMetadata($tag_name)
