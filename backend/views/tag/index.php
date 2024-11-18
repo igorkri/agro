@@ -1,11 +1,8 @@
 <?php
 
-use common\models\shop\Tag;
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\TagSearch $searchModel */
@@ -14,7 +11,6 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', 'Tags');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
@@ -56,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th class="min-w-15x"><?=Yii::t('app', 'name_ru')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'name_en')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'Count')?></th>
+                        <th class="min-w-15x"><?=Yii::t('app', 'Slug')?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -70,9 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name?></a></td>
                             <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name_ru?></a></td>
                             <td><a href="<?=Url::to(['tag/update', 'id' => $model->id])?>" class="text-reset"><?=$model->name_en?></a></td>
-                            <td>
-                                <?= $model->getProductTag($model->id) ?>
-                            </td>
+                            <td> <?= $model->getProductTag($model->id) ?> </td>
+                            <td> <?= $model->slug ?> </td>
                             <td>
                                 <div class="dropdown">
                                     <button
