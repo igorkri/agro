@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  * @property string|null $name
  * @property string|null $name_ru
  * @property string|null $name_en
+ * @property string|null $slug
  */
 class Tag extends ActiveRecord
 {
@@ -29,7 +30,8 @@ class Tag extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'name_ru', 'name_en'], 'string', 'max' => 50],
+            [['name', 'name_ru', 'name_en', 'slug'], 'string', 'max' => 50],
+            [['name'], 'unique'],
         ];
     }
 
@@ -43,6 +45,7 @@ class Tag extends ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'name_ru' => Yii::t('app', 'Name RU'),
             'name_en' => Yii::t('app', 'Name EN'),
+            'slug' => Yii::t('app', 'Slug'),
         ];
     }
 
