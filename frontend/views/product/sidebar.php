@@ -172,15 +172,6 @@ use yii\helpers\Url;
                         </div>
                         <ul>
                             <li>
-                                                        <span style="background-color: rgba(255,0,0,0.36);
-                                                    font-weight: bold;
-                                                    color: white;
-                                                    padding-left: 3px;
-                                                    padding-right: 3px">
-                                                      <?= Yii::t('app', 'При 100% оплаті') ?>
-                                                        </span>
-                            </li>
-                            <li>
                                 <?= Yii::t('app', 'Від 35 грн.') ?>
                             </li>
                             <li>

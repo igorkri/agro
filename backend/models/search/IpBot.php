@@ -46,6 +46,9 @@ class IpBot extends IpBotModel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC], // Сортировка по id по умолчанию
+            ],
         ]);
 
         $this->load($params);
