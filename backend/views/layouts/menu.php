@@ -258,7 +258,7 @@ use yii\helpers\Url;
                     <a href="" class="sa-nav__link" data-sa-collapse-trigger="">
                                             <span class="sa-nav__icon">
                                                 <svg width="16px" height="16px" style="display: unset;">
-                                                 <use xlink:href="/admin/images/sprite.svg#active-pages"/>
+                                                 <use xlink:href="/admin/images/sprite.svg#users"/>
                                                 </svg>
                                             </span>
                         <span class="sa-nav__title"><?= Yii::t('app', 'Active users') ?></span>
@@ -283,7 +283,7 @@ use yii\helpers\Url;
                             <a href="<?= Url::to(['/ip-bot']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                                <svg width="20px" height="20px" style="display: unset;">
-                                                 <use xlink:href="/admin/images/sprite.svg#setting"/>
+                                                 <use xlink:href="/admin/images/sprite.svg#users-sub"/>
                                                 </svg>
                                             </span>
                                 <span class="sa-nav__title"><?= Yii::t('app', 'IP Bot') ?></span>
@@ -293,7 +293,7 @@ use yii\helpers\Url;
                             <a href="<?= Url::to(['/bots']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                                 <svg width="20px" height="20px" style="display: unset;">
-                                                 <use xlink:href="/admin/images/sprite.svg#setting"/>
+                                                 <use xlink:href="/admin/images/sprite.svg#robot-bot"/>
                                                 </svg>
                                             </span>
                                 <span class="sa-nav__title"><?= Yii::t('app', 'Name Bot') ?></span>
