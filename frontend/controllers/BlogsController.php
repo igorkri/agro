@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use common\models\Posts;
 use common\models\SeoPages;
 use Spatie\SchemaOrg\Schema;
-use yii\base\BaseObject;
 use yii\data\Pagination;
 use yii\i18n\Formatter;
 use yii\web\Controller;

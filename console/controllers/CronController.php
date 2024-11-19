@@ -154,6 +154,8 @@ class CronController extends Controller
             $j = 1;
 
             foreach ($cities as $city) {
+                $nameCity = NpCity::find()->where(['ref' => $city])->one();
+                echo "\t" . "|#----->> " . '' . " | " . $nameCity->description . "\n";
                 if ($j >= 1) {
                     $warehouses = $np->getWarehouses($city);
                     if (!empty($warehouses)) {
