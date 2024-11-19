@@ -44,14 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     />
                 </div>
                 <div class="sa-divider"></div>
-                <table class="sa-datatables-init" data-order='[[ 1, "asc" ]]' data-sa-search-input="#table-search">
-                    <thead>
+                <table class="sa-datatables-init" data-order='[[ 0, "asc" ]]' data-ordering='true' data-sa-search-input="#table-search">
+                    <thead style="background-color: rgba(244,135,46,0.93)">
                     <tr>
                         <th><?=Yii::t('app', 'ID')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'name')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'name_ru')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'name_en')?></th>
-                        <th class="min-w-15x"><?=Yii::t('app', 'Count')?></th>
+                        <th class="min-w-5x"><?=Yii::t('app', 'Count')?></th>
                         <th class="min-w-15x"><?=Yii::t('app', 'Slug')?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
