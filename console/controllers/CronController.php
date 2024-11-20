@@ -70,10 +70,21 @@ class CronController extends Controller
                 }
 
                 if (!$isRobot) {
-                    if (strlen($ip) > 11) {
+                    if (strlen($ip) == 14) {
+                        $ip .= ' ';
+                    }elseif (strlen($ip) == 13){
+                        $ip .= '  ';
+                    }elseif (strlen($ip) == 12){
+                        $ip .= '   ';
+                    }elseif (strlen($ip) == 11){
+                        $ip .= '    ';
+                    }elseif (strlen($ip) == 10){
+                        $ip .= '     ';
+                    }
+                    if (strlen($countIps) == 1){
+                    echo "$countIps  \t$ip\t\tNot Robot.\t{$response['isp']}\n";
+                    }else{
                         echo "$countIps\t$ip\t\tNot Robot.\t{$response['isp']}\n";
-                    } else {
-                        echo "$countIps\t$ip \t\tNot Robot.\t{$response['isp']}\n";
                     }
                 }
             } else {
