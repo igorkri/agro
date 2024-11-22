@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use common\models\TagTranslate;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -10,9 +11,8 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string|null $name
- * @property string|null $name_ru
- * @property string|null $name_en
  * @property string|null $slug
+ * @property string|null $description
  */
 class Tag extends ActiveRecord
 {
@@ -48,7 +48,8 @@ class Tag extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'name_ru', 'name_en', 'slug'], 'string', 'max' => 50],
+            [['name', 'slug'], 'string', 'max' => 50],
+            [['description'], 'string'],
             [['name'], 'unique'],
         ];
     }
@@ -61,10 +62,19 @@ class Tag extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'name_ru' => Yii::t('app', 'Name RU'),
-            'name_en' => Yii::t('app', 'Name EN'),
             'slug' => Yii::t('app', 'Slug'),
+            'description' => Yii::t('app', 'Description'),
         ];
+    }
+
+    public function getTranslations()
+    {
+        return $this->hasMany(TagTranslate::class, ['tag_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(TagTranslate::class, ['tag_id' => 'id'])->where(['language' => $language]);
     }
 
     public function getProductTag($id)
@@ -80,13 +90,20 @@ class Tag extends ActiveRecord
     public function getTagTranslate($tag, $language)
     {
         switch ($language) {
-
             case 'ru':
-                $name = $tag->name_ru;
+                $translation = TagTranslate::find()
+                    ->select('name')
+                    ->where(['tag_id' => $tag->id, 'language' => 'ru'])
+                    ->one();
+                $name = $translation ? $translation->name : $tag->name;
                 break;
 
             case 'en':
-                $name = $tag->name_en;
+                $translation = TagTranslate::find()
+                    ->select('name')
+                    ->where(['tag_id' => $tag->id, 'language' => 'en'])
+                    ->one();
+                $name = $translation ? $translation->name : $tag->name;
                 break;
 
             default:
@@ -96,5 +113,33 @@ class Tag extends ActiveRecord
 
         return $name;
     }
+
+    public function getDescriptionTranslate($tag, $language)
+    {
+        switch ($language) {
+            case 'ru':
+                $translation = TagTranslate::find()
+                    ->select('description')
+                    ->where(['tag_id' => $tag->id, 'language' => 'ru'])
+                    ->one();
+                $description = $translation ? $translation->description : $tag->description;
+                break;
+
+            case 'en':
+                $translation = TagTranslate::find()
+                    ->select('description')
+                    ->where(['tag_id' => $tag->id, 'language' => 'en'])
+                    ->one();
+                $description = $translation ? $translation->description : $tag->description;
+                break;
+
+            default:
+                $description = $tag->description;
+                break;
+        }
+
+        return $description;
+    }
+
 
 }

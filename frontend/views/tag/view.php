@@ -3,7 +3,6 @@
 use common\models\shop\ActivePages;
 use frontend\assets\TagPageAsset;
 use frontend\widgets\ViewProduct;
-use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -32,7 +31,8 @@ ActivePages::setActiveUser();
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1><?= Yii::t('app', 'Продукти запиту') ?> "<?= $tag_name->name ?>"</h1>
+                <h1><?= Yii::t('app', 'Продукти запиту') ?> "<?= $tag_name->getTagTranslate($tag_name, $language) ?>
+                    "</h1>
             </div>
         </div>
     </div>
@@ -52,12 +52,10 @@ ActivePages::setActiveUser();
                             </div>
                         </div>
                         <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
-                        <div style="display: block;margin: 60px 0px 0px 0px;">
-                            <ul class="pagination justify-content-center">
-                                <li>
-                                    <?= LinkPager::widget(['pagination' => $pages,]) ?>
-                                </li>
-                            </ul>
+                        <?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
+                        <br>
+                        <div class="spec__disclaimer">
+                            <?= $tag_name->getDescriptionTranslate($tag_name, $language) ?>
                         </div>
                         <br>
                         <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>

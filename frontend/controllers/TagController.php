@@ -65,7 +65,7 @@ class TagController extends Controller
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
-        $this->setProductMetadata($tag_name);
+        $this->setProductMetadata($tag_name, $language);
 
 
         if ($language !== 'uk') {
@@ -111,13 +111,13 @@ class TagController extends Controller
         return $this->redirect($newUrl, 301); // 301 - постоянный редирект
     }
 
-    protected function setProductMetadata($tag_name)
+    protected function setProductMetadata($tag_name, $language)
     {
         Yii::$app->metamaster
             ->setSiteName('AgroPro')
             ->setType('website')
-            ->setTitle('Продукти які відповідають запиту ' . '[ ' . $tag_name->name . ' ]')
-            ->setDescription('На сторінці відображено товари які згруповані запитом ' . '[ ' . $tag_name->name . ' ]')
+            ->setTitle('Продукти які відповідають запиту ' . '[ ' . $tag_name->getTagTranslate($tag_name, $language) . ' ]')
+            ->setDescription('На сторінці відображено товари які згруповані запитом ' . '[ ' . $tag_name->getTagTranslate($tag_name, $language) . ' ]')
             ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
     }

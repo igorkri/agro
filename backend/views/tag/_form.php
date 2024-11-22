@@ -1,6 +1,6 @@
 <?php
 
-use yii\bootstrap5\Breadcrumbs;
+use vova07\imperavi\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -15,49 +15,171 @@ use yii\widgets\ActiveForm;
     <div id="top" class="sa-app__body">
         <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
             <div class="container container--max--xl">
-                <div class="py-5">
-                    <div class="row g-4 align-items-center">
-                        <div class="col">
-                            <nav class="mb-2" aria-label="breadcrumb">
-                                <ol class="breadcrumb breadcrumb-sa-simple">
-                                    <?php echo Breadcrumbs::widget([
-                                        'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
-                                        'homeLink' => [
-                                            'label' => Yii::t('app', 'Home'),
-                                            'url' => Yii::$app->homeUrl,
-                                        ],
-                                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                                    ]);
-                                    ?>
-                                </ol>
-                            </nav>
-                        </div>
-                        <div class="col-auto d-flex">
-                            <?php if (!$model->isNewRecord): ?>
-                                <?= Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
-                                <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
-                            <?php endif; ?>
-                            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
-                        </div>
-                    </div>
+                <div class="d-flex">
+                    <?php if (!$model->isNewRecord): ?>
+                        <?= Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
+                        <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
+                    <?php endif; ?>
+                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
                 </div>
                 <div class="sa-entity-layout"
                      data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                     <div class="sa-entity-layout__body">
                         <div class="sa-entity-layout__main">
                             <div class="card">
-                                <div class="card-body p-5">
-                                    <div class="mb-5"><h2
-                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2>
+                                <div class="card-header">
+                                    <div class="mb-5">
+                                    <span class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-cart"> <h2
+                                                class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></span>
                                     </div>
-                                    <div class="mb-4">
-                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
-                                    </div>
-                                    <div class="mb-4">
-                                        <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true])->label(Yii::t('app', 'name ru')) ?>
-                                    </div>
-                                    <div class="mb-4">
-                                        <?= $form->field($model, 'name_en')->textInput(['maxlength' => true])->label(Yii::t('app', 'name en')) ?>
+                                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                    class="nav-link active"
+                                                    id="home-tab-2"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#home-tab-content-2"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="home-tab-content-2"
+                                                    aria-selected="true"
+                                            >
+                                                UK<span class="nav-link-sa-indicator"></span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                    class="nav-link"
+                                                    id="profile-tab-2"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#profile-tab-content-2"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="profile-tab-content-2"
+                                                    aria-selected="true"
+                                            >
+                                                RU<span class="nav-link-sa-indicator"></span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                    class="nav-link"
+                                                    id="contact-tab-2"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#contact-tab-content-2"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="contact-tab-content-2"
+                                                    aria-selected="true"
+                                            >
+                                                EN<span class="nav-link-sa-indicator"></span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div
+                                                class="tab-pane fade show active"
+                                                id="home-tab-content-2"
+                                                role="tabpanel"
+                                                aria-labelledby="home-tab-2"
+                                        >
+                                            <div class="card">
+                                                <div class="card-body p-5">
+                                                    <div class="col-4 mb-4">
+                                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <?= $form->field($model, 'description')->widget(Widget::class, [
+                                                            'options' => ['id' => 'uk-description'],
+                                                            'defaultSettings' => [
+                                                                'style' => 'position: unset;'
+                                                            ],
+                                                            'settings' => [
+                                                                'lang' => 'uk',
+                                                                'minHeight' => 100,
+                                                                'plugins' => [
+                                                                    'fullscreen',
+                                                                    'table',
+                                                                    'fontcolor',
+                                                                ],
+                                                            ],
+                                                        ]); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="tab-pane fade"
+                                                id="profile-tab-content-2"
+                                                role="tabpanel"
+                                                aria-labelledby="profile-tab-2"
+                                        >
+                                            <div class="card">
+                                                <?php if (isset($translateRu)): ?>
+                                                    <div class="card-body p-5">
+                                                        <div class="row">
+                                                            <div class="col-4 mb-4">
+                                                                <?= $form->field($translateRu, 'name')->textInput(['maxlength' => true, 'id' => 'translateRu-name', 'name' => 'TagTranslate[ru][name]'])->label(Yii::t('app', 'name')) ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <?= $form->field($translateRu, 'description')->widget(Widget::class, [
+                                                                'options' => ['id' => 'translateRu-description', 'name' => 'TagTranslate[ru][description]'],
+                                                                'defaultSettings' => [
+                                                                    'style' => 'position: unset;'
+                                                                ],
+                                                                'settings' => [
+                                                                    'lang' => 'uk',
+                                                                    'minHeight' => 100,
+                                                                    'plugins' => [
+                                                                        'fullscreen',
+                                                                        'table',
+                                                                        'fontcolor',
+                                                                    ],
+                                                                ],
+                                                            ]); ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div
+                                                class="tab-pane fade"
+                                                id="contact-tab-content-2"
+                                                role="tabpanel"
+                                                aria-labelledby="contact-tab-2"
+                                        >
+                                            <div class="card">
+                                                <?php if (isset($translateEn)): ?>
+                                                    <div class="card-body p-5">
+                                                        <div class="row">
+                                                            <div class="col-4 mb-4">
+                                                                <?= $form->field($translateEn, 'name')->textInput(['maxlength' => true, 'id' => 'translateEn-name', 'name' => 'TagTranslate[en][name]'])->label(Yii::t('app', 'name')) ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <?= $form->field($translateEn, 'description')->widget(Widget::class, [
+                                                                'options' => ['id' => 'translateEn-description', 'name' => 'TagTranslate[en][description]'],
+                                                                'defaultSettings' => [
+                                                                    'style' => 'position: unset;'
+                                                                ],
+                                                                'settings' => [
+                                                                    'lang' => 'uk',
+                                                                    'minHeight' => 100,
+                                                                    'plugins' => [
+                                                                        'fullscreen',
+                                                                        'table',
+                                                                        'fontcolor',
+                                                                    ],
+                                                                ],
+                                                            ]); ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -69,3 +191,5 @@ use yii\widgets\ActiveForm;
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+
+
