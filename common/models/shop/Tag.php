@@ -141,5 +141,13 @@ class Tag extends ActiveRecord
         return $description;
     }
 
+    public function getAvailabilityOfDescription($model)
+    {
+        if ($model->description){
+            return '';
+        }else{
+            return 'style="background-color: rgb(255 105 105 / 43%)"';
+        }
+    }
 
 }

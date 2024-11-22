@@ -48,7 +48,7 @@ $this->title = Yii::t('app', 'Tags');
                             }
                         } ?>
 
-                        <tr>
+                        <tr <?= $model->getAvailabilityOfDescription($model)?>>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <span class="me-4"><?= $model->id ?></span>
