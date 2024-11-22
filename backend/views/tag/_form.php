@@ -14,13 +14,13 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div id="top" class="sa-app__body">
         <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
-            <div class="container container--max--xl">
-                <div class="d-flex">
+            <div class="container">
+                <div class="d-flex justify-content-end">
                     <?php if (!$model->isNewRecord): ?>
-                        <?= Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3']) ?>
-                        <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3']) ?>
+                        <?= Html::a(Yii::t('app', 'List'), Url::to(['index']), ['class' => 'btn btn-secondary me-3 mb-3 mt-3']) ?>
+                        <?= Html::a(Yii::t('app', 'Create more'), Url::to(['create']), ['class' => 'btn btn-success me-3 mb-3 mt-3']) ?>
                     <?php endif; ?>
-                    <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary mb-3 mt-3']) ?>
                 </div>
                 <div class="sa-entity-layout"
                      data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>

@@ -13,8 +13,9 @@ $this->title = Yii::t('app', 'Tags');
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container">
-            <div class="col-auto d-flex"><a href="<?= Url::to(['create']) ?>"
-                                            class="btn btn-primary mt-3 mb-3"><?= Yii::t('app', 'New +') ?></a></div>
+            <div class="d-flex justify-content-end">
+                <a href="<?= Url::to(['create']) ?>"
+                   class="btn btn-primary mt-3 mb-3"><?= Yii::t('app', 'New +') ?></a></div>
             <div class="card">
                 <div class="p-4">
                     <input
@@ -48,7 +49,7 @@ $this->title = Yii::t('app', 'Tags');
                             }
                         } ?>
 
-                        <tr <?= $model->getAvailabilityOfDescription($model)?>>
+                        <tr <?= $model->getAvailabilityOfDescription($model) ?>>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <span class="me-4"><?= $model->id ?></span>
