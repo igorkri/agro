@@ -35,6 +35,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                 <?php else : ?>
                     <g:availability>out_of_stock</g:availability>
                 <?php endif; ?>
+                <g:shipping>
+                    <g:price>40.00</g:price>
+                </g:shipping>
                 <g:shipping_label>+доставка</g:shipping_label>
             </item>
         <?php endforeach; ?>
