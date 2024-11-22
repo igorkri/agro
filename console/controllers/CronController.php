@@ -3,103 +3,157 @@
 namespace console\controllers;
 
 use common\models\IpBot;
+use common\models\shop\ActivePages;
+use yii\console\Controller;
 use common\models\NpCity;
 use common\models\NpWarehouses;
-use common\models\shop\ActivePages;
 use LisDev\Delivery\NovaPoshtaApi2;
-use yii\console\Controller;
 
 class CronController extends Controller
 {
     /**
-     * <<<<<<<< Cron задача для удаления Ip роботов
-     * @throws \yii\db\Exception
+     * Cron задача для удаления Ip роботов последние 40 записей каждые 30 минут
      */
     public function actionDetectIpRobots()
     {
-        $ips = ActivePages::find()
+        $this->processIpRobots(40);
+    }
+
+    /**
+     * Cron задача для удаления Ip роботов вся база раз в сутки
+     */
+    public function actionDetectIpRobotsAll()
+    {
+        $this->processIpRobots();
+    }
+
+    /**
+     * Общая обработка IP роботов
+     *
+     * @param int|null $limit Лимит записей для обработки, если null - обрабатывается вся база
+     */
+    private function processIpRobots(?int $limit = null)
+    {
+        $query = ActivePages::find()
             ->select(['ip_user', 'date_visit'])
-            ->orderBy('date_visit DESC')
-            ->limit(100)
-            ->asArray()
-            ->all();
+            ->orderBy('date_visit DESC');
 
-        $ips = array_map(function ($item) {
-            unset($item['date_visit']);
-            return $item;
-        }, $ips);
+        if ($limit) {
+            $query->limit($limit);
+        }
 
-        $ips = array_unique(array_map('serialize', $ips));
-        $ips = array_map('unserialize', array_values($ips));
+        $ips = $query->asArray()->all();
 
-        $countIps = count($ips);
+        // Уникальные IP
+        $ips = array_unique(array_map('serialize', array_column($ips, 'ip_user')));
+        $ips = array_map('unserialize', $ips);
 
         $robotProviders = IpBot::find()->select('isp')->distinct()->column();
         $robotIp = IpBot::find()->select('ip')->distinct()->column();
-
-        $i = 1;
         $ipDelete = [];
 
+        $countIps = count($ips);
+
         foreach ($ips as $ip) {
-            $ip = $ip['ip_user'];
-            $url = "http://ip-api.com/json/{$ip}";
-            $response = $this->getIpInfoFromApi($url);
-
-            if ($response && $response['status'] === 'success') {
-                $isRobot = false;
-                foreach ($robotProviders as $provider) {
-                    if (str_contains($response['isp'], $provider)) {
-                        $isRobot = true;
-                        echo "$countIps\t$ip\t\tRobot\t\t{$response['isp']}\n";
-
-                        if (!in_array($ip, $robotIp)) {
-                            $model = new IpBot();
-                            $model->ip = $ip;
-                            if (isset($response['isp'])) {
-                                $model->isp = $response['isp'];
-                            } else {
-                                $model->isp = 'Not information';
-                            }
-                            $model->save();
-                        }
-                        sleep(2);
-                        $ipDelete[] = $ip;
-                        $i++;
-                        break;
-                    }
-                }
-
-                if (!$isRobot) {
-                    if (strlen($ip) == 14) {
-                        $ip .= ' ';
-                    }elseif (strlen($ip) == 13){
-                        $ip .= '  ';
-                    }elseif (strlen($ip) == 12){
-                        $ip .= '   ';
-                    }elseif (strlen($ip) == 11){
-                        $ip .= '    ';
-                    }elseif (strlen($ip) == 10){
-                        $ip .= '     ';
-                    }
-                    if (strlen($countIps) == 1){
-                    echo "$countIps  \t$ip\t\tNot Robot.\t{$response['isp']}\n";
-                    }else{
-                        echo "$countIps\t$ip\t\tNot Robot.\t{$response['isp']}\n";
-                    }
-                }
-            } else {
-                echo "$ip: Error retrieving information.\n";
-            }
-
-            sleep(2);
+            $this->processSingleIp($ip, $robotProviders, $robotIp, $ipDelete, $countIps);
+            sleep(2); // Пауза между запросами
             $countIps--;
         }
+
         if ($ipDelete) {
             echo "=======================================\n";
             $this->getIpDelete($ipDelete);
             echo "=======================================\n";
         }
     }
+
+    /**
+     * Обработка одного IP
+     *
+     * @param string $ip IP-адрес пользователя
+     * @param array $robotProviders Список провайдеров роботов
+     * @param array $robotIp Список IP роботов
+     * @param array &$ipDelete Массив IP для удаления
+     * @param int $countIps Количество оставшихся IP для обработки
+     */
+    private function processSingleIp($ip, $robotProviders, $robotIp, &$ipDelete, $countIps)
+    {
+        $url = "http://ip-api.com/json/{$ip}";
+        $response = $this->getIpInfoFromApi($url);
+
+        if ($response && $response['status'] === 'success') {
+            $isRobot = $this->checkIfRobot($ip, $response, $robotProviders, $robotIp, $ipDelete);
+
+            if (!$isRobot) {
+                $this->outputIpInfo($ip, $response, $countIps, false);
+            }else{
+                $this->outputIpInfo($ip, $response, $countIps, true);
+            }
+        } else {
+            echo "$ip: Error retrieving information.\n";
+        }
+    }
+
+    /**
+     * Проверка, является ли IP роботом
+     *
+     * @param string $ip IP-адрес
+     * @param array $response Ответ от API
+     * @param array $robotProviders Список провайдеров роботов
+     * @param array $robotIp Список IP роботов
+     * @param array &$ipDelete Массив IP для удаления
+     * @return bool Возвращает true, если IP является роботом
+     */
+    private function checkIfRobot($ip, $response, $robotProviders, $robotIp, &$ipDelete)
+    {
+        foreach ($robotProviders as $provider) {
+            if (strtolower($response['isp']) === strtolower($provider)) {
+
+                if (!in_array($ip, $robotIp)) {
+                    $this->saveRobotIp($ip, $response['isp']);
+                }
+
+                $ipDelete[] = $ip;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Сохранение информации о роботе
+     *
+     * @param string $ip IP-адрес
+     * @param string|null $isp Провайдер
+     */
+    private function saveRobotIp($ip, $isp = null)
+    {
+        $model = new IpBot();
+        $model->ip = $ip;
+        $model->isp = $isp ?: 'Not information';
+        $model->save();
+    }
+
+    /**
+     * Вывод информации об IP
+     *
+     * @param string $ip IP-адрес
+     * @param array $response Ответ от API
+     * @param int $countIps Количество оставшихся IP
+     * @param bool $isRobot Является ли IP роботом
+     */
+    private function outputIpInfo($ip, $response, $countIps, $isRobot)
+    {
+        $status = $isRobot ? "->Robot<-" : "Not Robot";
+        printf(
+            "%-5s %-18s %-15s %s\n",
+            $countIps,
+            $ip,
+            $status,
+            $response['isp']
+        );
+    }
+
 
     /**
      * Метод для отправки запроса к API и получения данных
@@ -164,6 +218,8 @@ class CronController extends Controller
             $n = 1;
             $j = 1;
 
+            shuffle($cities);
+
             foreach ($cities as $city) {
                 $nameCity = NpCity::find()->where(['ref' => $city])->one();
                 echo "\t" . "|#----->> " . '' . " | " . $nameCity->description . "\n";
@@ -188,9 +244,9 @@ class CronController extends Controller
                                         print_r($warehouses_db->errors);
                                     }
                                 } else {
-                                    echo "\t" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
-                                    echo "\r+--------------------------------------------------------------------------------------------------------+\n";
-                                    $n++;
+                                    // echo "\t" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
+                                    // echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+                                    // $n++;
                                 }
                             }
                         }
@@ -205,5 +261,5 @@ class CronController extends Controller
             }
         }
     }
-
 }
+
