@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tag_translate".
@@ -13,7 +14,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $description
  */
-class TagTranslate extends \yii\db\ActiveRecord
+class TagTranslate extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,7 +33,7 @@ class TagTranslate extends \yii\db\ActiveRecord
             [['tag_id'], 'integer'],
             [['language'], 'string', 'max' => 3],
             [['name'], 'string', 'max' => 50],
-            [['description'], 'string', 'max' => 255],
+            [['description'], 'string'],
         ];
     }
 
