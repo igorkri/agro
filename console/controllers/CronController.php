@@ -214,7 +214,7 @@ class CronController extends Controller
 
         $cities = NpCity::find()
             ->select('ref')
-            ->orderBy(new Expression('RAND()')) // Для MySQL; для PostgreSQL используйте 'RANDOM()'
+            ->orderBy(new Expression('RAND()'))
             ->limit(100)
             ->column();
 
@@ -257,6 +257,7 @@ class CronController extends Controller
                     print_r($city);
                 }
             }
+            echo "\t" . "|#----->> " . '' . " | *** END *** \n";
         }
     }
 }

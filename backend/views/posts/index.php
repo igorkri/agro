@@ -61,6 +61,7 @@ $this->title = Yii::t('app', 'Posts');
                             'value' => function ($model) {
                                 return Yii::$app->formatter->asDate($model->date_public, 'short');
                             },
+                            'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                         ],
                         [
                             'attribute' => 'date_updated',
@@ -73,6 +74,7 @@ $this->title = Yii::t('app', 'Posts');
                                     return Yii::$app->formatter->asDate($model->date_public, 'short');
                                 }
                             },
+                            'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                         ],
                         [
                             'attribute' => 'date_view',
@@ -91,8 +93,8 @@ $this->title = Yii::t('app', 'Posts');
                                             </span>';
                                 }
                             },
+                            'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                         ],
-                        'title',
                         [
                             'attribute' => 'views',
                             'label' => 'Перегляди',
@@ -100,6 +102,22 @@ $this->title = Yii::t('app', 'Posts');
                             'value' => function ($model) {
                                 $countViews = $model->getPostViews($model->slug);
                                 return '<span class="badge-sa-theme-user badge-sa-pill">' . $countViews . '</span>';
+                            },
+                            'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                        ],
+                        [
+                            'attribute' => 'title',
+                            'format' => 'raw',
+                            'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                        ],
+                        [
+                            'attribute' => 'products',
+                            'label' => 'Товар',
+                            'format' => 'raw',
+                            'value' => function ($model) {
+                                $countProducts = $model->getCountProducts($model->id);
+
+                                return '<span class="badge-sa-pill" style="color: rgba(255,255,255,0.98); background: rgba(234,60,60,0.58)">' . $countProducts . '</span>';
                             },
                             'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                         ],

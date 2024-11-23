@@ -68,8 +68,8 @@ class Posts extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'seo_title','description', 'seo_description'], 'required'],
-            [['slug','title'], 'unique'],
+            [['title', 'seo_title', 'description', 'seo_description'], 'required'],
+            [['slug', 'title'], 'unique'],
             [['description', 'seo_description'], 'string'],
             [['date_public', 'date_updated'], 'string'],
             [['slug'], 'string'],
@@ -153,6 +153,12 @@ class Posts extends ActiveRecord
     {
         $slugs = ActivePages::find()->where(['like', 'url_page', "%$slug", false])->all();
         return count($slugs);
+    }
+
+    public function getCountProducts($id)
+    {
+        $productsId = PostProducts::find()->where(['post_id' => $id])->all();
+        return count($productsId);
     }
 
     public function getPostDateView($slug)
