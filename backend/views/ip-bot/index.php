@@ -45,6 +45,7 @@ $this->title = Yii::t('app', 'Ip Bots');
                         [
                             'attribute' => 'id',
                             'format' => 'raw',
+                            'filter' => false,
                             'contentOptions' => ['style' => 'width: 50px; text-align: center;']
                         ],
                         [
