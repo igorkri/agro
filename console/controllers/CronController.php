@@ -214,7 +214,8 @@ class CronController extends Controller
 
         $cities = NpCity::find()
             ->select('ref')
-            ->orderBy(new Expression('RAND()'))
+            ->where(['city' => null])
+//            ->orderBy(new Expression('RAND()'))
             ->limit(100)
             ->column();
 
@@ -244,9 +245,9 @@ class CronController extends Controller
                                     print_r($warehouses_db->errors);
                                 }
                             } else {
-                                echo "\t" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
-                                echo "\r+--------------------------------------------------------------------------------------------------------+\n";
-                                $n++;
+//                                echo "\t" . "|- " . $n . " | " . $model->description . " Сущесвует\n";
+//                                echo "\r+--------------------------------------------------------------------------------------------------------+\n";
+//                                $n++;
                             }
                         }
                     }
@@ -257,7 +258,20 @@ class CronController extends Controller
                     print_r($city);
                 }
             }
-            echo "\t" . "|#----->> " . '' . " | *** END *** \n";
+
+            foreach ($cities as $ref) {
+                $model = NpCity::find()->where(['ref' => $ref])->one();
+                if ($model) {
+                    $model->city = true;
+                    $model->save();
+                } else {
+                    echo "\t" . "|#----->> " . '' . " | *** Город не найден *** \n";
+                }
+            }
+
+            echo "\n\t" . "|#----->> " . '' . " | *** END *** \n";
+        } else {
+            echo "\n\t" . "|#----->> " . '' . " | *** Города не найдены *** \n";
         }
     }
 }

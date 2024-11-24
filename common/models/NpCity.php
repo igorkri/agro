@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "np_city".
  *
  * @property int $id
- * @property string|null $city
+ * @property boolean|null $city
  * @property string|null $cityID
  * @property string|null $ref
  * @property string|null $area
@@ -30,7 +30,8 @@ class NpCity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city', 'cityID', 'ref', 'area', 'description'], 'string', 'max' => 255],
+            [['cityID', 'ref', 'area', 'description'], 'string', 'max' => 255],
+            [['city'], 'boolean'],
         ];
     }
 
