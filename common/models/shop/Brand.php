@@ -2,7 +2,8 @@
 
 namespace common\models\shop;
 
-use Yii;
+
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "brand".
@@ -12,7 +13,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $file
  */
-class Brand extends \yii\db\ActiveRecord
+class Brand extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -29,6 +30,8 @@ class Brand extends \yii\db\ActiveRecord
     {
         return [
             [['slug', 'name', 'file'], 'string', 'max' => 255],
+            [['name'], 'unique'],
+            [['name'], 'required'],
         ];
     }
 
@@ -84,20 +87,29 @@ class Brand extends \yii\db\ActiveRecord
         return count($total_res);
     }
 
+    public function getBrandCategories($id)
+    {
+        $categories_id = Product::find()->select('category_id')->where(['brand_id' => $id])->column();
+        $categories_id = array_unique($categories_id);
+        $categories_name = Category::find()->select('name')->where(['id' => $categories_id])->column();
+
+        return implode(', ', $categories_name);
+    }
+
     public function getColorBrand($i)
     {
         $colors = [
             10 => '#0cdd9d',
-            9  => '#bb43df',
-            8  => '#198754',
-            7  => '#6f42c1',
-            6  => '#f907ed',
-            5  => '#fd7e14',
-            4  => '#e62e2e',
-            3  => '#29cccc',
-            2  => '#3377ff',
-            1  => '#5dc728',
-            0  => '#ffd333',
+            9 => '#bb43df',
+            8 => '#198754',
+            7 => '#6f42c1',
+            6 => '#f907ed',
+            5 => '#fd7e14',
+            4 => '#e62e2e',
+            3 => '#29cccc',
+            2 => '#3377ff',
+            1 => '#5dc728',
+            0 => '#ffd333',
         ];
 
         return $colors[$i] ?? '#a79ea6';
