@@ -178,11 +178,32 @@ $btnMob = false;
                                 return $model->getDeliveryLogo($model->delivery_service);
                             },
                         ],
-                        'address',
+                        [
+                            'attribute' => 'address',
+                            'label' => 'Адреса доставки',
+                            'format' => 'raw',
+                            'headerOptions' => ['style' => 'white-space: nowrap;'],
+                        ],
                         [
                             'attribute' => 'ttn',
                             'label' => 'ТТН',
                             'format' => 'raw',
+                        ],
+                        [
+                            'attribute' => 'products_order',
+                            'label' => 'Товари',
+                            'format' => 'raw',
+                            'filter' => Html::activeTextInput($searchModel, 'products_order', ['class' => 'form-control', 'style' => 'width: 200px;']),
+                            'value' => function ($model) {
+                                $content = implode(', ', array_map(fn($item) => $item->product_name, $model->reportItems));
+                                $id = 'details-' . $model->id; // Уникальный идентификатор
+                                return <<<HTML
+                                            <button type="button" 
+                                            class="btn btn-sm btn-outline-info toggle-content" 
+                                            data-target="#{$id}">+</button>
+                                            <div id="{$id}" class="hidden-content" style="display: none;">{$content}</div>
+                                        HTML;
+                            },
                         ],
                         [
                             'attribute' => 'date_order',
@@ -205,7 +226,24 @@ $btnMob = false;
                             }
                         ],
                     ],
-                ]); ?>
+                ]);
+                $this->registerJs(<<<JS
+    document.querySelectorAll('.toggle-content').forEach(button => {
+        button.addEventListener('click', function () {
+            const target = document.querySelector(this.getAttribute('data-target'));
+            if (target.style.display === 'none') {
+                target.style.display = 'block';
+                this.textContent = '-';
+            } else {
+                target.style.display = 'none';
+                this.textContent = '+';
+            }
+        });
+    });
+JS
+                );
+
+                ?>
             </div>
         </div>
     </div>
@@ -235,6 +273,11 @@ $btnMob = false;
     .indicator__yellow {
         background: #fbe720;
         color: #3d464d;
+    }
+
+    .hidden-content {
+        margin-top: 10px;
+        padding: 15px;
     }
 </style>
 

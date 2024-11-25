@@ -11,12 +11,15 @@ use common\models\Report;
  */
 class ReportSearch extends Report
 {
+    public $products_order;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['products_order'], 'safe'],
             [['id', 'price_delivery'], 'integer'],
             [['order_status_id', 'order_pay_ment_id', 'platform', 'number_order', 'date_order', 'date_delivery', 'number_order_1c', 'date_payment', 'type_payment', 'fio', 'tel_number', 'address', 'comments', 'delivery_service', 'ttn'], 'safe'],
         ];
@@ -41,7 +44,7 @@ class ReportSearch extends Report
     public function search($params)
     {
 
-        $query = Report::find()->orderBy(['date_order' => SORT_DESC]);
+        $query = Report::find()->orderBy(['date_order' => SORT_DESC])->joinWith('reportItems');
 
         // add conditions that should always apply here
 
@@ -77,8 +80,8 @@ class ReportSearch extends Report
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'comments', $this->comments])
             ->andFilterWhere(['like', 'delivery_service', $this->delivery_service])
-            ->andFilterWhere(['like', 'ttn', $this->ttn]);
-
+            ->andFilterWhere(['like', 'ttn', $this->ttn])
+            ->andFilterWhere(['like', 'report_item.product_name', $this->products_order]);
         return $dataProvider;
     }
 }
