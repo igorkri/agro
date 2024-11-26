@@ -77,7 +77,7 @@ ActivePages::setActiveUser();
                                 <?php endforeach; ?>
                             </div>
                             <div class="spec__disclaimer">
-                                <?= $brand->name ?>
+
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\SeoPages;
 use common\models\shop\Brand;
 use common\models\shop\Product;
 use Yii;
@@ -16,7 +17,8 @@ class BrandsController extends Controller
     {
 
         $brands = Brand::find()->all();
-
+        $seo = SeoPages::find()->where(['slug' => 'brands'])->one();
+        $this->setMetamaster($seo);
         return $this->render('view', ['brands' => $brands]);
     }
 
@@ -102,7 +104,7 @@ class BrandsController extends Controller
             ->setSiteName('AgroPro')
             ->setType('website')
             ->setTitle($seo->title)
-            ->setDescription($seo->description)
+            ->setDescription(strip_tags($seo->description))
             ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
     }

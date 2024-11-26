@@ -28,7 +28,7 @@ ActivePages::setActiveUser();
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="/brands/view"> <?= Yii::t('app', 'Бренди') ?></a>
+                            <a href="/brands"> <?= Yii::t('app', 'Бренди') ?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>

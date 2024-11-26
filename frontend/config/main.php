@@ -77,6 +77,8 @@ return [
                 'special' => 'special/view',
                 'contact' => 'contact/view',
                 'blogs' => 'blogs/view',
+                'brands' => 'brands/view',
+                'brands/product-list/<slug>' => 'brands/catalog',
 
                 [
                     'pattern' => 'sitemap',
