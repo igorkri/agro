@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\SeoPages;
 use common\models\shop\AuxiliaryCategories;
 use common\models\shop\ProductProperties;
 use common\models\shop\Category;
@@ -27,12 +28,12 @@ class CategoryController extends Controller
             ->andWhere(['visibility' => 1])
             ->all();
 
+        $seo = SeoPages::find()->where(['slug' => 'catalog'])->one();
         Yii::$app->metamaster
             ->setSiteName('AgroPro')
             ->setType('website')
-            ->setTitle("Категорії Товарів інтернет-магазину | AgroPro")
-            ->setDescription("AgroPro - ваш інтернет-магазин для ЗЗР, добрив, 
-            посівного матеріалу та боротьби з гризунами. Оптимізуйте виробництво з нами!")
+            ->setTitle($seo->title)
+            ->setDescription(strip_tags($seo->description))
             ->register(Yii::$app->getView());
 
         if ($language !== 'uk') {

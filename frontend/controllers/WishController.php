@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\SeoPages;
 use common\models\shop\Product;
 use Yii;
 use yii\web\Controller;
@@ -38,10 +39,24 @@ class WishController extends Controller
             }
         }
 
+        $seo = SeoPages::find()->where(['slug' => 'wish'])->one();
+        $this->setMetamaster($seo);
+
         return $this->render('view',
             [
                 'products' => $products,
             ]);
+    }
+
+    protected function setMetamaster($seo)
+    {
+        Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
+            ->setTitle($seo->title)
+            ->setDescription(strip_tags($seo->description))
+            ->setImage('/images/logos/meta_logo.jpg')
+            ->register(Yii::$app->getView());
     }
 
     public function actionAddToWish()

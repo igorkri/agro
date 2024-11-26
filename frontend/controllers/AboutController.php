@@ -27,7 +27,7 @@ class AboutController extends Controller
             ->setSiteName('AgroPro')
             ->setType('website')
             ->setTitle($seo->title)
-            ->setDescription($seo->description)
+            ->setDescription(strip_tags($seo->description))
             ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
     }
