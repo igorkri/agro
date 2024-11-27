@@ -23,7 +23,7 @@ class BrandsController extends Controller
         return $this->render('view',
             [
                 'brands' => $brands,
-                'seo' => $seo,
+                'page_description' => $seo->page_description,
             ]);
     }
 
