@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\About;
+use common\models\Settings;
 use yii\web\Controller;
 
 class AboutController extends Controller
@@ -13,14 +14,13 @@ class AboutController extends Controller
 
         $model = About::find()->one();
 
-        $seo = $model->getSeoPage();
-
-        $model->setMetamaster($seo);
+        $seo = Settings::seoPageTranslate('catalog');
+        Settings::setMetamaster($seo);
 
         return $this->render('view',
             [
                 'model' => $model,
-                'seo' => $seo,
+                'page_description' => $seo->page_description,
             ]);
     }
 
