@@ -4,7 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Contact;
 use common\models\Messages;
-use common\models\SeoPages;
+use common\models\Settings;
 use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\web\Controller;
@@ -14,13 +14,18 @@ class ContactController extends Controller
 {
     public function actionView(): string
     {
-        $seo = SeoPages::find()->where(['slug' => 'contact'])->one();
         $contacts = Contact::find()->one();
 
-        $this->setSchemaLocalBusiness();
-        $this->setProductMetadata($seo);
+        $seo = Settings::seoPageTranslate('contact');
+        Settings::setMetamaster($seo);
 
-        return $this->render('view', ['contacts' => $contacts]);
+        $this->setSchemaLocalBusiness();
+
+        return $this->render('view',
+            [
+                'contacts' => $contacts,
+                'page_description' => $seo->page_description,
+            ]);
 
     }
 
@@ -90,14 +95,4 @@ class ContactController extends Controller
         Yii::$app->params['organization'] = $organization->toScript();
     }
 
-    protected function setProductMetadata($seo)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
-    }
 }

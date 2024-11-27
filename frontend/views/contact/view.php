@@ -63,6 +63,9 @@ ActivePages::setActiveUser();
                     </div>
                 </div>
             </div>
+            <div class="spec__disclaimer">
+                <?= $page_description ?>
+            </div>
         </div>
     </div>
 </div>
