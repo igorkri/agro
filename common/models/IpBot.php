@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ip_bot".
@@ -13,7 +13,7 @@ use Yii;
  * @property int|null $blocking
  * @property string|null $comment
  */
-class IpBot extends \yii\db\ActiveRecord
+class IpBot extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,6 +32,8 @@ class IpBot extends \yii\db\ActiveRecord
             [['blocking'], 'integer'],
             [['ip'], 'string', 'max' => 20],
             [['isp', 'comment'], 'string', 'max' => 255],
+            [['ip'], 'unique'],
+            [['ip', 'isp'], 'required'],
         ];
     }
 

@@ -3,7 +3,7 @@
 use yii\bootstrap5\Breadcrumbs;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\IpBot $model */
