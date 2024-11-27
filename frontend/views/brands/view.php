@@ -54,7 +54,7 @@ ActivePages::setActiveUser();
                                                     </a>
                                                 </div>
                                                 <div class="product-card__info">
-                                                    <div class="product-card__name" style="font-size: 20px; background: rgba(238,211,58,0.77); padding: 5px 5px; border-radius: 3px">
+                                                    <div class="product-card__name" style="font-size: 18px; background: rgba(238,211,58,0.77); padding: 5px 5px; border-radius: 3px">
                                                         <a href="<?= Url::to(['brands/catalog', 'slug' => $brand->slug]) ?>">
                                                             <?= $brand->name ?></a>
                                                     </div>

@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\models\SeoPages;
 use common\models\shop\Brand;
 use common\models\shop\Product;
 use Yii;
@@ -17,9 +16,15 @@ class BrandsController extends Controller
     {
 
         $brands = Brand::find()->all();
-        $seo = SeoPages::find()->where(['slug' => 'brands'])->one();
-        $this->setMetamaster($seo);
-        return $this->render('view', ['brands' => $brands]);
+
+        $seo = Brand::getSeoPage();
+        Brand::setMetamaster($seo);
+
+        return $this->render('view',
+            [
+                'brands' => $brands,
+                'seo' => $seo,
+            ]);
     }
 
     public function actionCatalog($slug)
@@ -96,17 +101,6 @@ class BrandsController extends Controller
             'pages' => $pages,
             'brand' => $brand,
         ]);
-    }
-
-    protected function setMetamaster($seo)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
     }
 
 }
