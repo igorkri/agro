@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "seo_pages".
@@ -12,8 +12,9 @@ use Yii;
  * @property string|null $slug
  * @property string|null $title
  * @property string|null $description
+ * @property string|null $page_description
  */
-class SeoPages extends \yii\db\ActiveRecord
+class SeoPages extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -29,8 +30,10 @@ class SeoPages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description'], 'string'],
+            [['description', 'page_description'], 'string'],
             [['name', 'slug', 'title'], 'string', 'max' => 255],
+            [['name'], 'unique'],
+            [['description', 'slug', 'title'], 'required'],
         ];
     }
 
@@ -45,6 +48,17 @@ class SeoPages extends \yii\db\ActiveRecord
             'slug' => 'Slug',
             'title' => 'Title',
             'description' => 'Description',
+            'page_description' => 'Page Description',
         ];
+    }
+
+    public function getTranslations()
+    {
+        return $this->hasMany(SeoPageTranslate::class, ['page_id' => 'id']);
+    }
+
+    public function getTranslation($language)
+    {
+        return $this->hasOne(SeoPageTranslate::class, ['page_id' => 'id'])->where(['language' => $language]);
     }
 }

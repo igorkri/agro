@@ -58,24 +58,194 @@ use vova07\imperavi\Widget;
                                         <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
                                     </div>
                                 </div>
-                                <div class="mb-4">
-                                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-                                </div>
-                                <div class="mb-4">
-                                    <!-- sa-quill-control  -->
-                                    <?= $form->field($model, 'description')->widget(Widget::class, [
-                                        'defaultSettings' => [
-                                            'style' => 'position: unset;'
-                                        ],
-                                        'settings' => [
-                                            'lang' => 'uk',
-                                            'minHeight' => 100,
-                                            'plugins' => [
-                                                'fullscreen',
-                                                'table',
-                                            ],
-                                        ],
-                                    ]); ?>
+                                <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                                class="nav-link active"
+                                                id="home-tab-2"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#home-tab-content-2"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="home-tab-content-2"
+                                                aria-selected="true"
+                                        >
+                                            UK<span class="nav-link-sa-indicator"></span>
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                                class="nav-link"
+                                                id="profile-tab-2"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#profile-tab-content-2"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="profile-tab-content-2"
+                                                aria-selected="true"
+                                        >
+                                            RU<span class="nav-link-sa-indicator"></span>
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button
+                                                class="nav-link"
+                                                id="contact-tab-2"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#contact-tab-content-2"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="contact-tab-content-2"
+                                                aria-selected="true"
+                                        >
+                                            EN<span class="nav-link-sa-indicator"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div
+                                            class="tab-pane fade show active"
+                                            id="home-tab-content-2"
+                                            role="tabpanel"
+                                            aria-labelledby="home-tab-2"
+                                    >
+                                        <div class="card-body p-5">
+                                            <div class="mb-4">
+                                                <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                                            </div>
+                                            <div class="mb-4">
+                                                <?= $form->field($model, 'description')->widget(Widget::class, [
+                                                    'id' => 'description',
+                                                    'defaultSettings' => [
+                                                        'style' => 'position: unset;'
+                                                    ],
+                                                    'settings' => [
+                                                        'lang' => 'uk',
+                                                        'minHeight' => 100,
+                                                        'plugins' => [
+                                                            'fullscreen',
+                                                            'table',
+                                                        ],
+                                                    ],
+                                                ]); ?>
+                                            </div>
+                                            <div class="mb-4">
+                                                <?= $form->field($model, 'page_description')->widget(Widget::class, [
+                                                    'id' => 'page_description',
+                                                    'defaultSettings' => [
+                                                        'style' => 'position: unset;'
+                                                    ],
+                                                    'settings' => [
+                                                        'lang' => 'uk',
+                                                        'minHeight' => 100,
+                                                        'plugins' => [
+                                                            'fullscreen',
+                                                            'table',
+                                                        ],
+                                                    ],
+                                                ]); ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div
+                                            class="tab-pane fade"
+                                            id="profile-tab-content-2"
+                                            role="tabpanel"
+                                            aria-labelledby="profile-tab-2"
+                                    >
+
+                                        <?php if (isset($translateRu)): ?>
+                                            <div class="card-body p-5">
+                                                <div class="col-4 mb-4">
+                                                    <?= $form->field($translateRu, 'title')->textInput(['maxlength' => true, 'id' => 'translateRu-title', 'name' => 'SeoTranslate[ru][title]'])->label(Yii::t('app', 'title')) ?>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <?= $form->field($translateRu, 'description')->widget(Widget::class, [
+                                                        'options' => ['id' => 'translateRu-description', 'name' => 'SeoTranslate[ru][description]'],
+                                                        'defaultSettings' => [
+                                                            'style' => 'position: unset;'
+                                                        ],
+                                                        'settings' => [
+                                                            'lang' => 'uk',
+                                                            'minHeight' => 100,
+                                                            'plugins' => [
+                                                                'fullscreen',
+                                                                'table',
+                                                                'fontcolor',
+                                                            ],
+                                                        ],
+                                                    ]); ?>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <?= $form->field($translateRu, 'page_description')->widget(Widget::class, [
+                                                        'options' => ['id' => 'translateRu-page_description', 'name' => 'SeoTranslate[ru][page_description]'],
+                                                        'defaultSettings' => [
+                                                            'style' => 'position: unset;'
+                                                        ],
+                                                        'settings' => [
+                                                            'lang' => 'uk',
+                                                            'minHeight' => 100,
+                                                            'plugins' => [
+                                                                'fullscreen',
+                                                                'table',
+                                                                'fontcolor',
+                                                            ],
+                                                        ],
+                                                    ]); ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div
+                                            class="tab-pane fade"
+                                            id="contact-tab-content-2"
+                                            role="tabpanel"
+                                            aria-labelledby="contact-tab-2"
+                                    >
+                                        <?php if (isset($translateEn)): ?>
+                                            <div class="card-body p-5">
+                                                <div class="col-4 mb-4">
+                                                    <?= $form->field($translateEn, 'title')->textInput(['maxlength' => true, 'id' => 'translateEn-title', 'name' => 'SeoTranslate[en][title]'])->label(Yii::t('app', 'title')) ?>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <?= $form->field($translateEn, 'description')->widget(Widget::class, [
+                                                        'options' => ['id' => 'translateEn-description', 'name' => 'SeoTranslate[en][description]'],
+                                                        'defaultSettings' => [
+                                                            'style' => 'position: unset;'
+                                                        ],
+                                                        'settings' => [
+                                                            'lang' => 'uk',
+                                                            'minHeight' => 100,
+                                                            'plugins' => [
+                                                                'fullscreen',
+                                                                'table',
+                                                                'fontcolor',
+                                                            ],
+                                                        ],
+                                                    ]); ?>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <?= $form->field($translateEn, 'page_description')->widget(Widget::class, [
+                                                        'options' => ['id' => 'translateEn-page_description', 'name' => 'SeoTranslate[en][page_description]'],
+                                                        'defaultSettings' => [
+                                                            'style' => 'position: unset;'
+                                                        ],
+                                                        'settings' => [
+                                                            'lang' => 'uk',
+                                                            'minHeight' => 100,
+                                                            'plugins' => [
+                                                                'fullscreen',
+                                                                'table',
+                                                                'fontcolor',
+                                                            ],
+                                                        ],
+                                                    ]); ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -84,6 +254,6 @@ use vova07\imperavi\Widget;
             </div>
         </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
+</div>
+<?php ActiveForm::end(); ?>
 
