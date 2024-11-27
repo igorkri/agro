@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\SeoPages;
+use common\models\Settings;
 use common\models\shop\Product;
 use Yii;
 use yii\data\Pagination;
@@ -79,15 +80,11 @@ class SpecialController extends Controller
             }
         }
 
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
+        $seo = Settings::seoPageTranslate('special');
+        Settings::setMetamaster($seo);
+        $page_description = $seo->page_description;
 
-        return $this->render('view', compact(['products', 'products_all', 'pages', 'language']));
+        return $this->render('view', compact(['products', 'products_all', 'pages', 'language', 'page_description']));
     }
 
 }

@@ -54,6 +54,9 @@ ActivePages::setActiveUser();
                         <?= $this->render('@frontend/views/layouts/products-list.php', ['products' => $products]) ?>
                         <?= $this->render('@frontend/views/layouts/pagination.php', ['pages' => $pages]) ?>
                         <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>
+                        <div class="spec__disclaimer">
+                            <?= $page_description ?>
+                        </div>
                     </div>
                 </div>
             </div>
