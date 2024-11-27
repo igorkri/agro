@@ -5,6 +5,7 @@ use frontend\assets\CategoryListPageAsset;
 use yii\helpers\Url;
 
 /** @var \common\models\shop\Product $categories */
+/** @var \frontend\controllers\CategoryController $page_description */
 
 CategoryListPageAsset::register($this);
 ActivePages::setActiveUser();
@@ -72,17 +73,7 @@ ActivePages::setActiveUser();
                                 <?php endforeach; ?>
                             </div>
                             <div class="spec__disclaimer">
-                                Знаходьте найкращі Захистні Засоби Рослин, Добрива, Посівний Матеріал та Боротьбу з
-                                Гризунами в
-                                AgroPro – вашому надійному інтернет-магазині для сільського господарства та
-                                сільськогосподарських потреб.
-                                Оптимізуйте врожаї та збільшуйте врожайність за допомогою наших високоякісних товарів.
-                                Доставка та консультації
-                                експертів - завжди на вашому боці.
-                                Придбайте Фуміганти та Родентициди для боротьби з шкідниками, а також найкращі Добрива
-                                та Посівний Матеріал
-                                для успішного вирощування рослин.
-                                Оберіть AgroPro для найкращого відповідного сільськогосподарського рішення!
+                                <?= $page_description ?>
                             </div>
                         </div>
                     </div>

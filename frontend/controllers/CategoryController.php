@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\models\SeoPages;
+use common\models\Settings;
 use common\models\shop\AuxiliaryCategories;
 use common\models\shop\ProductProperties;
 use common\models\shop\Category;
@@ -28,13 +28,8 @@ class CategoryController extends Controller
             ->andWhere(['visibility' => 1])
             ->all();
 
-        $seo = SeoPages::find()->where(['slug' => 'catalog'])->one();
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->register(Yii::$app->getView());
+        $seo = Settings::seoPageTranslate('catalog');
+        Settings::setMetamaster($seo);
 
         if ($language !== 'uk') {
             if ($categories) {
@@ -55,6 +50,7 @@ class CategoryController extends Controller
             [
                 'categories' => $categories,
                 'language' => $language,
+                'page_description' => $seo->page_description,
             ]);
     }
 

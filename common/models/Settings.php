@@ -39,4 +39,28 @@ class Settings extends Model
             return 50.00;
         }
     }
+
+    static function seoPageTranslate($slug)
+    {
+        $language = Yii::$app->session->get('_language');
+        $seo = SeoPages::find()->where(['slug' => $slug])->one();
+        if (in_array($language, ['ru', 'en']) && $seo !== null) {
+            $seo = SeoPageTranslate::find()
+                ->where(['page_id' => $seo->id, 'language' => $language])
+                ->one();
+        }
+
+        return $seo;
+    }
+
+    static function setMetamaster($seo)
+    {
+        Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setType('website')
+            ->setTitle($seo->title)
+            ->setDescription(strip_tags($seo->description))
+            ->setImage('/images/logos/meta_logo.jpg')
+            ->register(Yii::$app->getView());
+    }
 }
