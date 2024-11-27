@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Posts;
-use common\models\SeoPages;
+use common\models\Settings;
 use Spatie\SchemaOrg\Schema;
 use yii\data\Pagination;
 use yii\i18n\Formatter;
@@ -15,7 +15,6 @@ class BlogsController extends Controller
     public function actionView()
     {
         $language = Yii::$app->session->get('_language');
-        $seo = SeoPages::find()->where(['slug' => 'blogs'])->one();
 
         $posts = Posts::find()->all();
 
@@ -38,24 +37,15 @@ class BlogsController extends Controller
             }
         }
 
-        $this->setMetamaster($seo);
+        $seo = Settings::seoPageTranslate('blogs');
+        Settings::setMetamaster($seo);
 
         return $this->render('view',
             [
                 'blogs' => $blogs,
-                'pages' => $pages
+                'pages' => $pages,
+                'page_description' => $seo->page_description,
             ]);
-    }
-
-    protected function setMetamaster($seo)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
     }
 
     protected function getPostTranslation($postItem, $language)
