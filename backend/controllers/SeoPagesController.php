@@ -152,13 +152,17 @@ class SeoPagesController extends Controller
         $translateRu = SeoPageTranslate::findOne(['page_id' => $id, 'language' => 'ru']);
         $translateEn = SeoPageTranslate::findOne(['page_id' => $id, 'language' => 'en']);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
             $postTranslates = Yii::$app->request->post('SeoTranslate', []);
 
             $this->updateTranslate($model->id, 'ru', $postTranslates['ru'] ?? null);
             $this->updateTranslate($model->id, 'en', $postTranslates['en'] ?? null);
 
-            return $this->redirect(['update', 'id' => $model->id]);
+            if ($model->save()) {
+                return $this->redirect(['update', 'id' => $model->id]);
+            } else {
+                dd($model->errors);
+            }
         }
 
         return $this->render('update', [

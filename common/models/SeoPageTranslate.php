@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "seo_page_translate".
@@ -14,7 +15,7 @@ use Yii;
  * @property string|null $description
  * @property string|null $page_description
  */
-class SeoPageTranslate extends \yii\db\ActiveRecord
+class SeoPageTranslate extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,7 +33,8 @@ class SeoPageTranslate extends \yii\db\ActiveRecord
         return [
             [['page_id'], 'integer'],
             [['language'], 'string', 'max' => 3],
-            [['title', 'description', 'page_description'], 'string', 'max' => 255],
+            [['title', 'description'], 'string', 'max' => 255],
+            [['page_description'], 'string'],
         ];
     }
 
