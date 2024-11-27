@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Delivery;
-
+use common\models\Settings;
 use yii\web\Controller;
 
 class DeliveryController extends Controller
@@ -14,11 +14,14 @@ class DeliveryController extends Controller
 
         $model = Delivery::find()->one();
 
-        $seo = $model->getSeoPage();
+        $seo = Settings::seoPageTranslate('delivery');
+        Settings::setMetamaster($seo);
 
-        $model->setMetamaster($seo);
-
-        return $this->render('view', ['model' => $model]);
+        return $this->render('view',
+            [
+                'model' => $model,
+                'page_description' => $seo->page_description,
+            ]);
 
     }
 
