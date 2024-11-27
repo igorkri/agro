@@ -11,6 +11,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
@@ -322,8 +323,6 @@ use yii\widgets\Pjax;
                     ])->label(false); ?>
                 </div>
             </div>
-
-
             <div class="card w-100 mt-5">
                 <div class="card-body p-5">
                     <div class="mb-5">
@@ -360,8 +359,6 @@ use yii\widgets\Pjax;
                     ?>
                 </div>
             </div>
-
-
         </div>
         <div
                 class="tab-pane fade"
@@ -394,10 +391,13 @@ use yii\widgets\Pjax;
                                     <tr>
                                         <td>
                                             <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--xxl">
-                                                <a href="image-view?id=<?= $image->id ?>"
-                                                   role='modal-remote' , data-toggle='tooltip'>
+                                                <a href="#"
+                                                   class="image-link"
+                                                   data-bs-toggle="modal"
+                                                   data-bs-target="#imageModal"
+                                                   data-image-url="<?= Yii::$app->request->hostInfo . '/product/' . $image->name ?>">
                                                     <img src="<?= Yii::$app->request->hostInfo . '/product/' . $image->name ?>"
-                                                         width="40" height="40" alt=""/>
+                                                         width="40" height="40" alt="">
                                                 </a>
                                             </div>
                                         </td>
@@ -449,3 +449,30 @@ use yii\widgets\Pjax;
         </div>
     </div>
 </div>
+<!-- Модальное окно -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Увеличенное изображение</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="Изображение" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+$script = <<< JS
+
+ $(document).on('click', '.image-link', function () {
+    const imageUrl = $(this).data('image-url');
+    $('#modalImage').attr('src', imageUrl);
+});
+
+JS;
+
+$this->registerJs($script, View::POS_END);
+?>
