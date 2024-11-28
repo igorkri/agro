@@ -488,8 +488,6 @@ class SiteController extends Controller
         $pages = SeoPages::find()
             ->select(['slug', 'date_updated', 'title'])
             ->where(['<>', 'slug', 'home'])
-            ->andWhere(['<>', 'slug', 'compare'])
-            ->andWhere(['<>', 'slug', 'wish'])
             ->all();
         foreach ($pages as $page) {
             $arr[] = array(

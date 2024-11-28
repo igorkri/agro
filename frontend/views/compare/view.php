@@ -195,6 +195,9 @@ ActivePages::setActiveUser();
             </div>
         <?php } ?>
     </div>
+    <div class="container spec__disclaimer">
+        <?= $page_description ?>
+    </div>
 </div>
 <style>
     .category-prefix {

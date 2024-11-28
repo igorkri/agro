@@ -25,7 +25,7 @@ WishListPageAsset::register($this);
                     </nav>
                 </div>
                 <div class="page-header__title">
-                    <h1><?=Yii::t('app','Список Бажань')?></h1>
+                    <h1><?=Yii::t('app','Список бажань')?></h1>
                 </div>
             </div>
         </div>
@@ -183,6 +183,9 @@ WishListPageAsset::register($this);
                     </div>
                 </div>
             <?php } ?>
+        </div>
+        <div class="container spec__disclaimer">
+            <?= $page_description ?>
         </div>
     </div>
     <style>

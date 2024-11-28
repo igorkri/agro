@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\models\SeoPages;
+use common\models\Settings;
 use common\models\shop\Product;
 use common\models\shop\ProductProperties;
 use Yii;
@@ -41,25 +41,17 @@ class CompareController extends Controller
             $this->getTranslateCompare($products, $language);
         }
 
-        $seo = SeoPages::find()->where(['slug' => 'compare'])->one();
-        $this->setMetamaster($seo);
+
+        $seo = Settings::seoPageTranslate('compare');
+        Settings::setMetamaster($seo);
+        $page_description = $seo->page_description;
 
         return $this->render('view',
             [
                 'products' => $products,
                 'properties' => $properties,
+                'page_description' => $page_description,
             ]);
-    }
-
-    protected function setMetamaster($seo)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
     }
 
     protected function getTranslateCompare($products, $language)
