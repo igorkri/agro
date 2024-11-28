@@ -13,6 +13,8 @@ use yii\db\ActiveRecord;
  * @property string|null $title
  * @property string|null $description
  * @property string|null $page_description
+ * @property integer|null $date_public Дата публикации
+ * @property integer|null $date_updated Дата редактирования
  */
 class SeoPages extends ActiveRecord
 {
@@ -24,6 +26,19 @@ class SeoPages extends ActiveRecord
         return 'seo_pages';
     }
 
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date_updated'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -31,6 +46,7 @@ class SeoPages extends ActiveRecord
     {
         return [
             [['description', 'page_description'], 'string'],
+            [['date_public', 'date_updated'], 'integer'],
             [['name', 'slug', 'title'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['description', 'slug', 'title'], 'required'],
