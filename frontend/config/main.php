@@ -117,19 +117,14 @@ return [
                 'app*' => [
                     'class' => 'frontend\components\DbMessageSource',
                     'sourceLanguage' => 'uk-UA',
-//                    'class' => 'yii\i18n\PhpMessageSource',
-//                    'basePath' => '@frontend/messages',
-//                    'fileMap' => [
-//                        'app'       => 'app.php',
-//                        'app/error' => 'error.php',
-//                    ],
+
                 ],
                 'home*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@frontend/messages',
                     'sourceLanguage' => 'uk-UA',
                     'fileMap' => [
-                        'home'      => 'home.php',
+                        'home' => 'home.php',
                         'home/error' => 'error.php',
                     ],
                 ],
