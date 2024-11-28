@@ -30,7 +30,7 @@ ActivePages::setActiveUser();
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1>Бренди</h1>
+                <h1><?= Yii::t('app', 'Бренди') ?></h1>
             </div>
         </div>
     </div>

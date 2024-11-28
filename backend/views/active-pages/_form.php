@@ -8,10 +8,7 @@ use yii\widgets\ActiveForm;
 /** @var common\models\shop\ActivePages $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
 <?php $form = ActiveForm::begin(); ?>
-
-<!-- sa-app__body -->
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container container--max--xl">
@@ -76,9 +73,5 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
-
-<!-- sa-app__body / end -->
-
 <?php ActiveForm::end(); ?>
 
