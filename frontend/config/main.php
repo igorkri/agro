@@ -101,6 +101,11 @@ return [
                     'suffix' => '.xml'
                 ],
                 [
+                    'pattern' => 'sitemap-pages',
+                    'route' => 'site/sitemap-pages',
+                    'suffix' => '.xml'
+                ],
+                [
                     'pattern' => 'site-products-merchant',
                     'route' => 'site/site-products-merchant',
                     'suffix' => '.xml'

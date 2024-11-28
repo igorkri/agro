@@ -340,7 +340,7 @@ class SiteController extends Controller
     public function actionSitemap()
     {
         $siteMapBase = 1;
-        $arr = ['sitemap-products.xml', 'sitemap-categories.xml', 'sitemap-articles.xml'];
+        $arr = ['sitemap-products.xml', 'sitemap-categories.xml', 'sitemap-articles.xml', 'sitemap-pages.xml'];
 
         $updates = [
             Product::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
@@ -348,7 +348,8 @@ class SiteController extends Controller
                 Category::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
                 AuxiliaryCategories::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar()
             ),
-            Posts::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar()
+            Posts::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
+            SeoPages::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
         ];
 
         $arrDate = array_map(function ($update) {
@@ -463,6 +464,39 @@ class SiteController extends Controller
                 'image' => '/posts/' . $post->webp_image,
                 'caption' => $post->title,
                 'priority' => '0.6',
+                'changefreq' => 'monthly',
+            );
+        }
+
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('sitemap', array(
+            'host' => Yii::$app->request->hostInfo, // Имя хоста
+            'urls' => $arr, // Полученный массив
+        ));
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+
+        return $xml_array;
+    }
+
+    public function actionSitemapPages()
+    {
+        $arr = array();
+
+        $pages = SeoPages::find()
+            ->select(['slug', 'date_updated', 'title'])
+            ->where(['<>', 'slug', 'home'])
+            ->andWhere(['<>', 'slug', 'compare'])
+            ->andWhere(['<>', 'slug', 'wish'])
+            ->all();
+        foreach ($pages as $page) {
+            $arr[] = array(
+                'loc' => '/' . $page->slug,
+                'lastmod' => !empty($page->date_updated) ? date(DATE_W3C, $page->date_updated) : date(DATE_W3C, time()),
+                'caption' => $page->title,
+                'priority' => '0.5',
                 'changefreq' => 'monthly',
             );
         }
