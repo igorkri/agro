@@ -4,35 +4,36 @@ use yii\helpers\Url;
 
 ?>
 <div class="product__sidebar">
-    <div class="product__availability" style="text-align: center; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.6px;">
+    <div class="product__availability"
+         style="text-align: center; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.6px;">
 
-                                <?php $statusIcon = '';
-                                $statusStyle = '';
+        <?php $statusIcon = '';
+        $statusStyle = '';
 
-                                switch ($product->status_id) {
-                                    case 1:
-                                        $statusIcon = '<i style="margin: 5px; color: #28a745;" class="fas fa-check"></i>';
-                                        $statusStyle = 'color: #28a745;';
-                                        break;
-                                    case 2:
-                                        $statusIcon = '<i style="margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
-                                        $statusStyle = 'color: #ff0000;';
-                                        break;
-                                    case 3:
-                                        $statusIcon = '<i style="margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
-                                        $statusStyle = 'color: #ff8300;';
-                                        break;
-                                    case 4:
-                                        $statusIcon = '<i style="margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
-                                        $statusStyle = 'color: #0331fc;';
-                                        break;
-                                    default:
-                                        $statusStyle = 'color: #060505;';
-                                        break;
-                                }
+        switch ($product->status_id) {
+            case 1:
+                $statusIcon = '<i style="margin: 5px; color: #28a745;" class="fas fa-check"></i>';
+                $statusStyle = 'color: #28a745;';
+                break;
+            case 2:
+                $statusIcon = '<i style="margin: 5px; color: #ff0000;" class="fas fa-ban"></i>';
+                $statusStyle = 'color: #ff0000;';
+                break;
+            case 3:
+                $statusIcon = '<i style="margin: 5px; color: #ff8300;" class="fas fa-truck"></i>';
+                $statusStyle = 'color: #ff8300;';
+                break;
+            case 4:
+                $statusIcon = '<i style="margin: 5px; color: #0331fc;" class="fa fa-bars"></i>';
+                $statusStyle = 'color: #0331fc;';
+                break;
+            default:
+                $statusStyle = 'color: #060505;';
+                break;
+        }
 
-                                echo $statusIcon . '<span style="' . $statusStyle . '">' . Yii::t('app', $product->status->name) . '</span>';
-                                ?>
+        echo $statusIcon . '<span style="' . $statusStyle . '">' . Yii::t('app', $product->status->name) . '</span>';
+        ?>
 
     </div>
     <?php if ($products_analog_count > 0 && $product->status_id == 2) : ?>
@@ -249,11 +250,13 @@ use yii\helpers\Url;
         <?php if (!Yii::$app->devicedetect->isMobile()): ?>
             <div>
                 <?php if ($product->brand_id != null): ?>
-                    <img src="/brand/<?= $img_brand->file ?>"
-                         width="330" height="54"
-                         alt="<?= $img_brand->name ?>"
-                         loading="lazy"
-                         style="width: 100%; margin-top: 10px;">
+                    <a href="<?= Url::to(['brands/catalog', 'slug' => $img_brand->slug]) ?>">
+                        <img src="/brand/<?= $img_brand->file ?>"
+                             width="330" height="54"
+                             alt="<?= $img_brand->name ?>"
+                             loading="lazy"
+                             style="width: 100%; margin-top: 10px;">
+                    </a>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
