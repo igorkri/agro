@@ -115,13 +115,14 @@ return [
         'i18n' => [
             'translations' => [
                 'app*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@frontend/messages',
+                    'class' => 'frontend\components\DbMessageSource',
                     'sourceLanguage' => 'uk-UA',
-                    'fileMap' => [
-                        'app'       => 'app.php',
-                        'app/error' => 'error.php',
-                    ],
+//                    'class' => 'yii\i18n\PhpMessageSource',
+//                    'basePath' => '@frontend/messages',
+//                    'fileMap' => [
+//                        'app'       => 'app.php',
+//                        'app/error' => 'error.php',
+//                    ],
                 ],
                 'home*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
