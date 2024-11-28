@@ -184,7 +184,7 @@ $lang = strtoupper(Yii::$app->language);
                                     <li class="nav-links__item  nav-links__item--has-submenu ">
                                         <a class="nav-links__item-link" href="<?= Url::to(['contact/view']) ?>">
                                             <div class="nav-links__item-body header-menu">
-                                                <?= Yii::t('app', 'Зв\'язок з нами') ?>
+                                                <?= Yii::t('app', 'Зв’язок з нами') ?>
                                             </div>
                                         </a>
                                     </li>
