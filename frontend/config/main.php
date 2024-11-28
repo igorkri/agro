@@ -76,6 +76,8 @@ return [
                 'delivery' => 'delivery/view',
                 'special' => 'special/view',
                 'contact' => 'contact/view',
+                'compare' => 'compare/view',
+                'wish' => 'wish/view',
                 'blogs' => 'blogs/view',
                 'brands' => 'brands/view',
                 'brands/product-list/<slug>' => 'brands/catalog',
