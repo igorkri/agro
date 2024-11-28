@@ -581,8 +581,17 @@ class Product extends ActiveRecord implements CartPositionInterface
     public
     static function productParamsList($id)
     {
+        $language = Yii::$app->session->get('_language');
         $title_param = '';
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
+
+   if ($language != 'uk'){
+       foreach ($product_params as $param){
+           $idParam[] = $param->id;
+       }
+       $product_params = ProductPropertiesTranslate::find()->where(['property_id' => $idParam])->andWhere(['language' => $language])->all();
+   }
+
         foreach ($product_params as $params) {
             if ($params->value && $params->value != '*') {
                 $title_param .= '<li style="
