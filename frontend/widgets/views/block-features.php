@@ -9,7 +9,7 @@
                 </div>
                 <div class="block-features__content">
                     <div class="block-features__title"><?= Yii::t('app', 'Доставка') ?></div>
-                    <div class="block-features__subtitle"><?= Yii::t('app', 'Нова пошта') ?></div>
+                    <div class="block-features__subtitle"><?= Yii::t('app', 'Нова Пошта') ?></div>
                 </div>
             </div>
             <div class="block-features__divider"></div>

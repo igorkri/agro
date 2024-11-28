@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container" style="max-width: 1623px">
             <div class="card">
-                <?php echo Html::beginForm(['check-delete'], 'post'); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -43,10 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        'category',
+                        [
+                            'attribute' => 'category',
+                            'format' => 'raw',
+                            'contentOptions' => ['style' => 'width: 50px'],
+                        ],
                         'message',
                         'translation',
-                        'language',
+                        [
+                            'attribute' => 'language',
+                            'format' => 'raw',
+                            'contentOptions' => ['style' => 'width: 50px'],
+                        ],
                         [
                             'class' => ActionColumn::className(),
                             'urlCreator' => function ($action, Translations $model) {
@@ -55,7 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
                 ]); ?>
-                <?php echo Html::endForm(); ?>
             </div>
         </div>
     </div>

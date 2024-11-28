@@ -152,7 +152,7 @@ use yii\helpers\Url;
                             <svg width="24px" height="24px" style="margin-right: 5px;">
                                 <use xlink:href="/images/sprite.svg#novaposhta"></use>
                             </svg>
-                            <b><?= Yii::t('app', 'Нова пошта') ?></b>
+                            <b><?= Yii::t('app', 'Нова Пошта') ?></b>
                         </div>
                         <ul>
                             <li>

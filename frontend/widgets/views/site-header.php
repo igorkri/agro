@@ -19,7 +19,7 @@ $lang = strtoupper(Yii::$app->language);
                 <div class="topbar__container container">
                     <div class="topbar__row">
                         <div class="topbar__item topbar__item--link">
-                            <a class="topbar-link" href="<?= Url::to(['about/view']) ?>"><?= Yii::t('app', 'Про Нас') ?></a>
+                            <a class="topbar-link" href="<?= Url::to(['about/view']) ?>"><?= Yii::t('app', 'Про нас') ?></a>
                         </div>
                         <div class="topbar__item topbar__item--link">
                             <a class="topbar-link"
