@@ -382,7 +382,17 @@ use yii\helpers\Url;
                                                  <use xlink:href="/admin/images/sprite.svg#delivery"/>
                                               </svg>
                                             </span>
-                                <span class="sa-nav__title"><?= Yii::t('app', 'delivery') ?></span>
+                                <span class="sa-nav__title"><?= Yii::t('app', 'Delivery') ?></span>
+                            </a>
+                        </li>
+                        <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                            <a href="<?= Url::to(['/translations']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                              <svg width="16px" height="16px" style="display: unset;">
+                                                 <use xlink:href="/admin/images/sprite.svg#language"/>
+                                              </svg>
+                                            </span>
+                                <span class="sa-nav__title"><?= Yii::t('app', 'Translations') ?></span>
                             </a>
                         </li>
                     </ul>
