@@ -9,6 +9,7 @@ use frontend\widgets\ViewProduct;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use common\models\shop\Brand;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var ProductProperties $product_properties */
@@ -89,10 +90,13 @@ $webp_support = ProductImage::imageWebp();
                                     <div class="product-image product-image--location--gallery">
                                         <div class="product-card__badges-list">
                                             <?php if (isset($product->label->name)) : ?>
-                                                <div class="product-card__badge product-card__badge--sale"><?= $product->label->name ?></div>
+                                                    <div class="product-card__badge product-card__badge--sale"
+                                                         style="background: <?= Html::encode($product->label->color) ?>;">
+                                                        <?= $product->label->name ?>
+                                                    </div>
                                             <?php endif; ?>
                                             <?php if ($products_analog_count > 0) : ?>
-                                                <div class="product-card__badge product-card__badge--analog"><?= 'Є аналоги ' . $products_analog_count ?></div>
+                                                <div class="product-card__badge product-card__badge--analog"><?= Yii::t('app','Є аналоги') . ' ' . $products_analog_count ?></div>
                                             <?php endif; ?>
                                         </div>
                                         <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
