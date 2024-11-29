@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
@@ -18,7 +19,12 @@ use yii\helpers\Url;
                     <div class="product-card product-card--hidden-actions ">
                         <div class="product-card__badges-list">
                             <?php if (isset($products[0]->label->name)) : ?>
-                                <div class="product-card__badge product-card__badge--new"><?= $products[0]->label->name ?></div>
+                                <div class="product-card__badges-list">
+                                    <div class="product-card__badge product-card__badge--new"
+                                         style="background: <?= Html::encode($products[0]->label->color) ?>;">
+                                        <?= $products[0]->label->name ?>
+                                    </div>
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="product-card__image product-image">
@@ -121,7 +127,10 @@ use yii\helpers\Url;
                             <div class="product-card product-card--hidden-actions ">
                                 <?php if (isset($product->label)): ?>
                                     <div class="product-card__badges-list">
-                                        <div class="product-card__badge product-card__badge--hot"><?= $product->label->name ?></div>
+                                        <div class="product-card__badge product-card__badge--new"
+                                             style="background: <?= Html::encode($product->label->color) ?>;">
+                                            <?= $product->label->name ?>
+                                        </div>
                                     </div>
                                 <?php endif; ?>
                                 <div class="product-card__image product-image">
