@@ -1,6 +1,7 @@
 <?php
 
 use common\models\shop\Product;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var Product $products */
@@ -14,7 +15,10 @@ use yii\helpers\Url;
                 <div class="product-card product-card--hidden-actions ">
                     <?php if (isset($product->label)): ?>
                         <div class="product-card__badges-list">
-                            <div class="product-card__badge product-card__badge--new"><?= $product->label->name ?></div>
+                            <div class="product-card__badge product-card__badge--new"
+                                 style="background: <?= Html::encode($product->label->color) ?>;">
+                                <?= $product->label->name ?>
+                            </div>
                         </div>
                     <?php endif; ?>
                     <div class="product-card__image product-image">
