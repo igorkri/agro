@@ -9,10 +9,6 @@ use yii\helpers\Url;
 ?>
 <div class="sa-sidebar__body" data-simplebar="">
     <ul class="sa-nav sa-nav--sidebar" data-sa-collapse="">
-        <li class="sa-nav__section">
-            <ul class="sa-nav__menu sa-nav__menu--root">
-            </ul>
-        </li>
         <!--   ------------------------------------------------------------>
         <li class="sa-nav__section">
             <ul class="sa-nav__menu sa-nav__menu--root">
