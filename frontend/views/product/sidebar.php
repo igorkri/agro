@@ -157,7 +157,7 @@ use yii\helpers\Url;
                         </div>
                         <ul>
                             <li>
-                                <?= Yii::t('app', 'Від 70 грн.') ?>
+                                <?= Yii::t('app', Yii::t('app','Від') . ' 80 ' . Yii::t('app','грн.')) ?>
                             </li>
                             <li>
                                 <?= Yii::t('app', 'Тарифи') ?> <a
@@ -173,7 +173,7 @@ use yii\helpers\Url;
                         </div>
                         <ul>
                             <li>
-                                <?= Yii::t('app', 'Від 35 грн.') ?>
+                                <?= Yii::t('app', Yii::t('app','Від') . ' 40 ' . Yii::t('app','грн.')) ?>
                             </li>
                             <li>
                                 <?= Yii::t('app', 'Тарифи') ?> <a
