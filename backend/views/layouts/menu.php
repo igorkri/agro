@@ -31,6 +31,20 @@ use yii\helpers\Url;
         <li class="sa-nav__section">
             <ul class="sa-nav__menu sa-nav__menu--root">
                 <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
+                    <a href="<?= Url::to(['/report']) ?>" class="sa-nav__link">
+                                            <span class="sa-nav__icon">
+                                                <svg width="20px" height="20px" style="display: unset;">
+                                                 <use xlink:href="/admin/images/sprite.svg#report"/>
+                                                </svg>
+                                            </span>
+                        <span class="sa-nav__title"><?= Yii::t('app', 'Report') ?></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="sa-nav__section">
+            <ul class="sa-nav__menu sa-nav__menu--root">
+                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
                     <a href="<?= Url::to(['/']) ?>" class="sa-nav__link">
                                             <span class="sa-nav__icon">
                                               <svg width="16px" height="16px" style="display: unset;">
@@ -296,20 +310,6 @@ use yii\helpers\Url;
                             </a>
                         </li>
                     </ul>
-                </li>
-            </ul>
-        </li>
-        <li class="sa-nav__section">
-            <ul class="sa-nav__menu sa-nav__menu--root">
-                <li class="sa-nav__menu-item sa-nav__menu-item--has-icon">
-                    <a href="<?= Url::to(['/report']) ?>" class="sa-nav__link">
-                                            <span class="sa-nav__icon">
-                                                <svg width="20px" height="20px" style="display: unset;">
-                                                 <use xlink:href="/admin/images/sprite.svg#report"/>
-                                                </svg>
-                                            </span>
-                        <span class="sa-nav__title"><?= Yii::t('app', 'Report') ?></span>
-                    </a>
                 </li>
             </ul>
         </li>
