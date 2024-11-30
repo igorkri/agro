@@ -19,7 +19,9 @@
     */
     window.stroyka.search.getAjaxSettings = function(query) {
         return {
-            url: '/shop-admin/app/default/suggestions?search=' + encodeURIComponent(query),
+            // url: 'ajax/suggestions.html?query=' + encodeURIComponent(query),
+
+            url: '/admin/uk/search/ajax-search?search=' + encodeURIComponent(query),
         };
     };
 
