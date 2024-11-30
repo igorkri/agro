@@ -24,7 +24,7 @@ use yii\helpers\Html;
                         </svg>
                     </div>
                     <input type="text" id="input-search" class="sa-search__input"
-                           placeholder="Search for the truth" autocomplete="off"/>
+                           placeholder="Пошук істини..." autocomplete="off"/>
                     <button class="sa-search__cancel d-sm-none" type="button" aria-label="Close search">
                         <svg width="20px" height="20px" style="display: unset">
                             <use xlink:href="/admin/images/sprite.svg#search-close"/>
@@ -38,17 +38,17 @@ use yii\helpers\Html;
                         <div class="sa-search__suggestions sa-suggestions"></div>
                         <div class="sa-search__help sa-search__help--type--no-results">
                             <div class="sa-search__help-title">
-                                No results for &quot;
+                                Нема результатів для &quot;
                                 <span class="sa-search__query"></span>
                                 &quot;
                             </div>
-                            <div class="sa-search__help-subtitle">Make sure that all words are spelled
-                                correctly.
+                            <div class="sa-search__help-subtitle">Переконайтеся, що всі слова написані
+                                правильно.
                             </div>
                         </div>
                         <div class="sa-search__help sa-search__help--type--greeting">
-                            <div class="sa-search__help-title">Start typing to search for</div>
-                            <div class="sa-search__help-subtitle">Products, orders, customers, actions,
+                            <div class="sa-search__help-title">Почніть вводити текст для пошуку</div>
+                            <div class="sa-search__help-subtitle">назва товару, категорії, Ф.І.О замовника, мобільний,
                                 etc.
                             </div>
                         </div>

@@ -19,8 +19,6 @@
     */
     window.stroyka.search.getAjaxSettings = function(query) {
         return {
-            // url: 'ajax/suggestions.html?query=' + encodeURIComponent(query),
-
             url: '/admin/uk/search/ajax-search?search=' + encodeURIComponent(query),
         };
     };
@@ -44,7 +42,7 @@
     // Search simulate no results
     */
     window.stroyka.search.requestMiddleware.add(function(next, query, abortController) {
-        if (query.length >= 15) {
+        if (query.length >= 20) {
             return Promise.resolve('');
         } else {
             return Promise.resolve(next(query, abortController));

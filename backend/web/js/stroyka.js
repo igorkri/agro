@@ -328,7 +328,6 @@
 
                 requestMiddleware.run(request, query, abortController).then(
                     function(suggestionsHtml) {
-                        console.log(suggestionsHtml)
                         const suggestions = $(suggestionsHtml);
                         $suggestions.html(suggestions);
 
