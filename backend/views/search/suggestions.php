@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 
 ?>
-
 <!--<div class="sa-suggestions__section">-->
 <!--    <div class="sa-suggestions__section-title">Actions</div>-->
 <!--    <div class="sa-suggestions__item sa-suggestions__item--type--default">Add new product</div>-->
@@ -88,8 +87,47 @@ use yii\helpers\Url;
             <div class="sa-suggestions__item sa-suggestions__item--type--product">
                 <div class="sa-suggestions__product">
                     <div class="sa-suggestions__product-image">
-                        <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order.jpg' ?>"
-                             width="40" height="40" alt=""/>
+                        <?php if (!empty($report->order_status_id) && trim($report->order_status_id) !== ''): ?>
+                            <?php switch (trim($report->order_status_id)):
+                                 case 'Одержано': ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-done.jpg' ?>"
+                                         width="40" height="40" alt="Одержано"/>
+                                    <?php break; ?>
+
+                                <?php case 'Повернення': ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-return.jpg' ?>"
+                                         width="40" height="40" alt="Повернення"/>
+                                    <?php break; ?>
+
+                                <?php case 'Відміна': ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-cancel.jpg' ?>"
+                                         width="40" height="40" alt="Відміна"/>
+                                    <?php break; ?>
+
+                                <?php case 'Очікується': ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-expected.jpg' ?>"
+                                         width="40" height="40" alt="Очікується"/>
+                                    <?php break; ?>
+
+                                <?php case 'Комплектується': ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-completed.jpg' ?>"
+                                         width="40" height="40" alt="Комплектується"/>
+                                    <?php break; ?>
+
+                                <?php case 'Доставляється': ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-delivered.jpg' ?>"
+                                         width="40" height="40" alt="Доставляється"/>
+                                    <?php break; ?>
+
+                                <?php default: ?>
+                                    <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-none.jpg' ?>"
+                                         width="40" height="40" alt="Статус не визначено"/>
+                                    <?php break; ?>
+                                <?php endswitch; ?>
+                        <?php else: ?>
+                            <img src="<?= Yii::$app->request->hostInfo . '/admin/images/order-none.jpg' ?>"
+                                 width="40" height="40" alt="Статус отсутствует"/>
+                        <?php endif; ?>
                     </div>
                     <div class="sa-suggestions__product-info">
                         <a href="<?= Url::to(['report/view', 'id' => $report->id]) ?>">
