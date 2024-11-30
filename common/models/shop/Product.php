@@ -585,7 +585,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         $title_param = '';
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
 
-   if ($language != 'uk'){
+   if ($language != null && $language != 'uk'){
        foreach ($product_params as $param){
            $idParam[] = $param->id;
        }
