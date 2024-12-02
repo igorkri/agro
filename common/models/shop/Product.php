@@ -578,19 +578,25 @@ class Product extends ActiveRecord implements CartPositionInterface
         return $title_param;
     }
 
-    public
-    static function productParamsList($id)
+    public static function productParamsList($id)
     {
         $language = Yii::$app->session->get('_language');
         $title_param = '';
+        $idParam = []; // Инициализация переменной
         $product_params = ProductProperties::find()->where(['product_id' => $id])->orderBy('sort ASC')->all();
 
-   if ($language != null && $language != 'uk'){
-       foreach ($product_params as $param){
-           $idParam[] = $param->id;
-       }
-       $product_params = ProductPropertiesTranslate::find()->where(['property_id' => $idParam])->andWhere(['language' => $language])->all();
-   }
+        if ($language != null && $language != 'uk') {
+            foreach ($product_params as $param) {
+                $idParam[] = $param->id; // Добавление ID в массив
+            }
+
+            if (!empty($idParam)) { // Проверяем, есть ли ID
+                $product_params = ProductPropertiesTranslate::find()
+                    ->where(['property_id' => $idParam])
+                    ->andWhere(['language' => $language])
+                    ->all();
+            }
+        }
 
         foreach ($product_params as $params) {
             if ($params->value && $params->value != '*') {
@@ -603,14 +609,17 @@ class Product extends ActiveRecord implements CartPositionInterface
 ">' . $params->properties . ' ' . '<b>' . $params->value . '</b></li>';
             }
         }
+
         if ($title_param == '') {
             $title_param = '-------------------------<br>
-                              параметри заповнюються<br>
-                              -------------------------<br>
-                             ';
+                          параметри заповнюються<br>
+                          -------------------------<br>
+                         ';
         }
+
         return $title_param;
     }
+
 
     public
     function getRatingCount($id)
