@@ -3,8 +3,11 @@
 namespace common\models\shop;
 
 use common\models\Settings;
+use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
+use yii\i18n\Formatter;
 use yz\shoppingcart\CartPositionInterface;
 use yz\shoppingcart\CartPositionTrait;
 
@@ -554,7 +557,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         $product = Product::find()->select('status_id')->where(['slug' => $slug])->one();
         if ($product) {
-        $status = Status::find()->select('name')->where(['id' => $product->status_id])->one();
+            $status = Status::find()->select('name')->where(['id' => $product->status_id])->one();
             return $status->name;
         } else {
             return '';
@@ -777,6 +780,7 @@ class Product extends ActiveRecord implements CartPositionInterface
         }
         return null;
     }
+
 //     End Особое внимание к продуктам
 
     public function getProductsAnalog($id)
@@ -902,4 +906,128 @@ class Product extends ActiveRecord implements CartPositionInterface
 
         return ($value && $value !== '*') ? $value : '---';
     }
+
+    public function getSchemaBreadcrumb()
+    {
+        return Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()
+                    ->position(1)
+                    ->item(Schema::webPage()
+                        ->name(Yii::t('app', 'Головна'))
+                        ->url(Url::to('/', true))
+                        ->setProperty('id', Url::to('/', true))
+                        ->setProperty('inLanguage', Yii::$app->language)),
+                Schema::listItem()
+                    ->position(2)
+                    ->item(Schema::webPage()
+                        ->name($this->category->name)
+                        ->url(Url::to(['category/catalog', 'slug' => $this->category->slug], true))
+                        ->setProperty('id', Url::to(['category/catalog', 'slug' => $this->category->slug], true))
+                        ->setProperty('inLanguage', Yii::$app->language)),
+                Schema::listItem()
+                    ->position(3)
+                    ->item(Schema::webPage()
+                        ->name($this->name)
+                        ->url(Url::to(['product/view', 'slug' => $this->slug], true))
+                        ->setProperty('id', Url::to(['product/view', 'slug' => $this->slug], true))),
+            ]);
+    }
+
+    public function getSchemaProduct()
+    {
+        $reviews = [];
+        $itemCondition[] = 'NewCondition';
+        $returnFees[] = 'FreeReturn';
+        $returnPolicyCategory[] = 'MerchantReturnFiniteReturnWindow';
+        $returnMethod[] = 'ReturnByMail';
+        $availabilityProduct[] = $this->getAvailabilityProduct($this->status_id);
+        $merchantReturnDescription = 'У нашому онлайн-магазині ми надаємо вам можливість повернути будь-який придбаний товар. 
+                    Відповідно до "Закону про захист прав споживачів", 
+                    протягом перших 14 днів після покупки у нас ви можете здійснити обмін або повернення товару. 
+                    Важливо зазначити, що ми приймаємо на обмін або повернення лише новий товар, 
+                    який не має слідів використання і зберігає оригінальну комплектацію та упаковку.';
+        $priceValidUntil[] = date('Y-m-d', strtotime("+1 month"));
+        $product_reviews = Review::find()->where(['product_id' => $this->id])->all();
+        if ($product_reviews) {
+            foreach ($product_reviews as $product_review) {
+                $formatter = new Formatter();
+                $schemaDate = [];
+                $schemaDate[] = $formatter->asDatetime($product_review->created_at, 'php:Y-m-d\TH:i:sP');
+
+                $reviews[] = Schema::review()
+                    ->datePublished($schemaDate)
+                    ->reviewBody($product_review->message)
+                    ->author(Schema::person()
+                        ->name($product_review->name))
+                    ->reviewRating(Schema::rating()
+                        ->ratingValue($product_review->rating)
+                        ->bestRating(5)
+                        ->worstRating(1));
+            }
+        } else {
+            $reviews[] = Schema::review()
+                ->author(Schema::person()
+                    ->name('Tatyana Khalimon')
+                    ->datePublished('2024-06-07')
+                    ->reviewBody('Все ОК. Гарний товар.')
+                    ->reviewRating(Schema::rating()
+                        ->ratingValue(4)
+                        ->bestRating(5)
+                        ->worstRating(1)));
+        }
+        return Schema::product()
+            ->name($this->name)
+            ->url(Yii::$app->request->absoluteUrl)
+            ->image($this->getSchemaImg($this->id))
+            ->description($this->seo_description)
+            ->sku($this->sku)
+            ->mpn($this->id . '-' . $this->id)
+            ->brand(Schema::brand()->name($this->brand ? $this->brand->name : 'AgroPro'))
+            ->review($reviews)
+            ->aggregateRating(Schema::aggregateRating()
+                ->ratingValue($this->getSchemaRating($this->id))
+                ->reviewCount($this->getSchemaCountReviews($this->id)))
+            ->offers(Schema::offer()
+                ->url(Yii::$app->request->absoluteUrl)
+                ->image($this->getSchemaImg($this->id))
+                ->priceCurrency("UAH")
+                ->price($this->getPrice())
+                ->priceValidUntil($priceValidUntil)
+                ->itemCondition($itemCondition)
+                ->availability($availabilityProduct)
+                ->hasMerchantReturnPolicy(Schema::merchantReturnPolicy()
+                    ->name(Yii::t('app','Умови повернення'))
+                    ->description($merchantReturnDescription)
+                    ->returnMethod($returnMethod)
+                    ->merchantReturnDays(14)
+                    ->returnFees($returnFees)
+                    ->returnPolicyCategory($returnPolicyCategory)
+                    ->applicableCountry('UA')
+                )
+                ->shippingDetails(Schema::offerShippingDetails()
+                    ->shippingLabel(Yii::t('app','Доставка по тарифу перевізника'))
+                    ->deliveryTime(Schema::shippingDeliveryTime()
+                        ->transitTime(Schema::quantitativeValue()
+                            ->unitCode('d')
+                            ->minValue(1)
+                            ->maxValue(10))
+                        ->handlingTime(Schema::quantitativeValue()
+                            ->unitCode('d')
+                            ->minValue(1)
+                            ->maxValue(2)
+                        )
+                    )
+                    ->shippingDestination(Schema::definedRegion()
+                        ->addressCountry('UA')
+                        ->addressRegion(Yii::t('app','Полтава'))
+                    )
+                    ->shippingRate(Schema::monetaryAmount()
+                        ->currency("UAH")
+                        ->value(40)
+                    )
+                )
+            );
+    }
+
 }
