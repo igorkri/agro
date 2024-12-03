@@ -6,10 +6,7 @@ use common\models\PostProducts;
 use common\models\Posts;
 use common\models\PostsReview;
 use Yii;
-use yii\helpers\Url;
-use yii\i18n\Formatter;
 use yii\web\Controller;
-use Spatie\SchemaOrg\Schema;
 use common\models\shop\Product;
 
 class PostController extends Controller
@@ -30,7 +27,6 @@ class PostController extends Controller
         $products = Product::find()->where(['id' => $products_id])->all();
 
         $model_review = new PostsReview();
-        $formatter = new Formatter();
 
         if ($language !== 'uk') {
             foreach ($blogs as $blog) {
@@ -39,55 +35,13 @@ class PostController extends Controller
             $this->getPostTranslation($postItem, $language);
         }
 
-        $schemaDate = $formatter->asDatetime($postItem->date_public, 'php:Y-m-d\TH:i:sP');
-        $schemaPost = Schema::Article()
-            ->headline($postItem->title)
-            ->description($postItem->seo_description)
-            ->image(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
-            ->datePublished($schemaDate)
-            ->dateModified($schemaDate)
-            ->articleBody($postItem->description)
-            ->mainEntityOfPage(Schema::WebPage()
-                ->id(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
-            ->author(Schema::person()
-                ->name('AgroPro')
-                ->url(Yii::$app->request->hostInfo . '/post/' . $postItem->slug))
-            ->publisher(Schema::Organization()
-                ->name('AgroPro')
-                ->logo(Schema::imageObject()
-                    ->name('AgroPro')
-                    ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
-                )
-            );
-
-        $schemaBreadcrumb = Schema::breadcrumbList()
-            ->itemListElement([
-                Schema::listItem()
-                    ->position(1)
-                    ->item(Schema::thing()->name('Головна')
-                        ->url(Yii::$app->homeUrl)
-                        ->setProperty('id', Yii::$app->homeUrl)),
-                Schema::listItem()
-                    ->position(2)
-                    ->item(Schema::thing()->name('Статті')
-                        ->url(Url::to(['blogs/view']))
-                        ->setProperty('id', Url::to(['blogs/view']))),
-                Schema::listItem()
-                    ->position(3)
-                    ->item(Schema::thing()->name($postItem->title)
-                        ->url(Url::to(['post/view', 'slug' => $postItem->slug]))
-                        ->setProperty('id', Url::to(['post/view', 'slug' => $postItem->slug]))),
-            ]);
+        $schemaPost = $postItem->getSchemaPost();
+        $schemaBreadcrumb = $postItem->getSchemaBreadcrumb();
 
         Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['post'] = $schemaPost->toScript();
 
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setTitle($postItem->seo_title)
-            ->setDescription($postItem->seo_description)
-            ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
-            ->register(Yii::$app->getView());
+        $this->setMetaMasterSeo($postItem);
 
         $this->setAlernateUrl($slug);
 
@@ -114,6 +68,16 @@ class PostController extends Controller
         ];
 
         Yii::$app->params['alternateUrls'] = $alternateUrls;
+    }
+
+    protected function setMetaMasterSeo($postItem)
+    {
+         Yii::$app->metamaster
+            ->setSiteName('AgroPro')
+            ->setTitle($postItem->seo_title)
+            ->setDescription($postItem->seo_description)
+            ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
+            ->register(Yii::$app->getView());
     }
 
     protected function getPostTranslation($postItem, $language)

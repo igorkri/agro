@@ -4,9 +4,13 @@ namespace common\models;
 
 use common\models\shop\ActivePages;
 use common\models\shop\Product;
+use DateTime;
+use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
+use yii\i18n\Formatter;
 
 /**
  * This is the model class for table "posts".
@@ -168,6 +172,65 @@ class Posts extends ActiveRecord
             ->where(['like', 'url_page', $slug])
             ->orderBy(['date_visit' => SORT_DESC])
             ->asArray()
-            ->one(); // Получаем сразу одну запись
+            ->one();
+    }
+
+    public function getSchemaPost()
+    {
+        $formatter = new Formatter();
+        $schemaDatePublic = new DateTime($formatter->asDatetime($this->date_public, 'php:Y-m-d\TH:i:sP'));
+
+        if ($this->date_updated) {
+            $schemaDateUpdated = new DateTime($formatter->asDatetime($this->date_updated, 'php:Y-m-d\TH:i:sP'));
+        } else {
+            $schemaDateUpdated = $schemaDatePublic;
+        }
+        return Schema::Article()
+            ->headline($this->title)
+            ->description($this->seo_description)
+            ->image(Yii::$app->request->hostInfo . '/posts/' . $this->image)
+            ->datePublished($schemaDatePublic)
+            ->dateModified($schemaDateUpdated)
+            ->articleBody(strip_tags($this->description))
+            ->mainEntityOfPage(Schema::WebPage()
+                ->id(Yii::$app->request->hostInfo . '/post/' . $this->slug))
+            ->author(Schema::person()
+                ->name('AgroPro')
+                ->url(Yii::$app->request->hostInfo . '/post/' . $this->slug))
+            ->publisher(Schema::Organization()
+                ->name('AgroPro')
+                ->logo(Schema::imageObject()
+                    ->name('AgroPro')
+                    ->url(Yii::$app->request->hostInfo . '/images/logos/logoagro.jpg')
+                )
+            );
+    }
+
+    public function getSchemaBreadcrumb()
+    {
+        return Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()
+                    ->position(1)
+                    ->item(Schema::webPage()
+                        ->name(Yii::t('app', 'Головна'))
+                        ->url(Url::to('/', true))
+                        ->setProperty('id', Url::to('/', true))
+                        ->setProperty('inLanguage', Yii::$app->language)),
+                Schema::listItem()
+                    ->position(2)
+                    ->item(Schema::webPage()
+                        ->name(Yii::t('app', 'Статті'))
+                        ->url(Url::to(['blogs/view'], true))
+                        ->setProperty('id', Url::to(['blogs/view'], true))
+                        ->setProperty('inLanguage', Yii::$app->language)),
+                Schema::listItem()
+                    ->position(3)
+                    ->item(Schema::article()
+                        ->name($this->title)
+                        ->url(Url::to(['post/view', 'slug' => $this->slug], true))
+                        ->setProperty('id', Url::to(['post/view', 'slug' => $this->slug], true))
+                        ->setProperty('inLanguage', Yii::$app->language)),
+            ]);
     }
 }
