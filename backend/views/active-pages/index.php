@@ -1,11 +1,12 @@
 <?php
 
 use common\models\shop\ActivePages;
+use kartik\grid\ActionColumn;
 use kartik\grid\GridView;
 use kartik\ipinfo\IpInfo;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
+
 use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
@@ -20,7 +21,7 @@ $ipAddress = Yii::$app->request->getUserIP();
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container" style="max-width: 1623px">
             <div class="card">
-                <?php echo Html::beginForm(['check-delete'], 'post'); ?>
+                <?php echo Html::beginForm(['check-delete']); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -78,14 +79,15 @@ $ipAddress = Yii::$app->request->getUserIP();
                             'attribute' => 'url_page',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return urldecode($model->url_page);
+                                return $model->getClearUrl($model->url_page);
                             },
                         ],
+
                         [
                             'attribute' => 'client_from',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return urldecode($model->client_from);
+                                return $model->getClearUrl($model->url_page);
                             },
                         ],
                         [

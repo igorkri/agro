@@ -140,7 +140,7 @@ class ActivePages extends ActiveRecord
     }
 
     public
-    static function countIpUsers()
+    static function countIpUsers(): int
     {
         $res = [];
         $pages = ActivePages::find()
@@ -152,5 +152,23 @@ class ActivePages extends ActiveRecord
         $res = array_unique($res);
 
         return count($res);
+    }
+
+    public function getClearUrl($url): string
+    {
+        $url = urldecode(Yii::$app->request->hostInfo . $url);
+        $parsedUrl = parse_url($url);
+        if (isset($parsedUrl['query'])) {
+            parse_str($parsedUrl['query'], $queryParams);
+            unset($queryParams['srsltid']);
+            $newQuery = http_build_query($queryParams);
+            $cleanUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
+            if (!empty($newQuery)) {
+                $cleanUrl .= '?' . $newQuery;
+            }
+        } else {
+            $cleanUrl = $url;
+        }
+        return $cleanUrl;
     }
 }
