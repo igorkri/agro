@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use common\models\Bots;
 use common\models\IpBot;
 use Yii;
 use yii\db\ActiveRecord;
@@ -14,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property string|null $url_page Страница
  * @property string|null $user_agent User agent
  * @property string|null $client_from Откуда пользователь
- * @property string|null $date_visit Дата визита
+ * @property int|null $date_visit Дата визита
  * @property string|null $status_serv Статус сервера
  * @property string|null $other Прочее
  */
@@ -34,7 +35,12 @@ class ActivePages extends ActiveRecord
     public function rules()
     {
         return [
-            [['ip_user', 'url_page', 'user_agent', 'client_from', 'date_visit', 'status_serv', 'other'], 'string', 'max' => 455],
+            [['url_page', 'user_agent', 'client_from'], 'string', 'max' => 455],
+            [['client_from'], 'string'],
+            [['ip_user'], 'string', 'max' => 15],
+            [['other'], 'string', 'max' => 20],
+            [['date_visit'], 'integer'],
+            [['status_serv'], 'string', 'max' => 3],
         ];
     }
 
@@ -58,17 +64,14 @@ class ActivePages extends ActiveRecord
     public static function setActiveUser()
     {
 
-        $botAgents = [          // Агенты которые не пишутся в статистику
-            '*',
-        ];
-
+        $botAgents = Bots::find()->select('name')->distinct()->column();
         $botIps = IpBot::find()->select('ip')->distinct()->column();
 
         $server = $_SERVER;
         $userAgent = $server['HTTP_USER_AGENT'] ?? "Не известно";
 
         foreach ($botAgents as $botAgent) {
-            if (strpos($userAgent, $botAgent) !== false) {
+            if (str_contains($userAgent, $botAgent)) {
 
                 return;
             }
@@ -94,7 +97,7 @@ class ActivePages extends ActiveRecord
 
         $model = new ActivePages();
         $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
-        $model->url_page = $server['REQUEST_URI'] ?? "Не известно";
+        $model->url_page = Yii::$app->request->hostInfo .  $server['REQUEST_URI'] ?? "Не известно";
         $model->user_agent = $userAgent;
         $model->client_from = $clientFrom;
         $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";
@@ -156,7 +159,7 @@ class ActivePages extends ActiveRecord
 
     public function getClearUrl($url): string
     {
-        $url = urldecode(Yii::$app->request->hostInfo . $url);
+        $url = urldecode($url);
         $parsedUrl = parse_url($url);
         if (isset($parsedUrl['query'])) {
             parse_str($parsedUrl['query'], $queryParams);
