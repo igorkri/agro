@@ -87,7 +87,7 @@ $ipAddress = Yii::$app->request->getUserIP();
                             'attribute' => 'client_from',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return $model->getClearUrl($model->url_page);
+                             return urldecode($model->client_from);
                             },
                         ],
                         [

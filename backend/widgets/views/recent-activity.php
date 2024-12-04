@@ -47,11 +47,12 @@ use yii\helpers\Html;
             <ul class="list-group list-group-flush">
                 <?php $i = 0;
                 foreach ($result as $value): ?>
-                    <?php $productImage = Product::productImage($value['url']) ?>
+                    <?php $url = strtok($value['url'], '?'); ?>
+                    <?php $productImage = Product::productImage($url) ?>
                     <?php if ($productImage != null and $i < 10) { ?>
                         <li class="list-group-item py-2">
                             <div class="d-flex align-items-center py-3">
-                                <a href="/product/<?= $value['url'] ?>" class="me-4">
+                                <a href="/product/<?= $url ?>" class="me-4">
                                     <div class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
 
                                         <img src="/product/<?= $productImage ?>"
@@ -61,12 +62,12 @@ use yii\helpers\Html;
                                 </a>
                                 <div class="d-flex align-items-center flex-grow-1 flex-wrap">
                                     <div class="col">
-                                        <a href="/product/<?= $value['url'] ?>"
+                                        <a href="/product/<?= $url ?>"
                                            target="_blank"
-                                           class="text-reset fs-exact-14"><?= Product::productName($value['url']) ?></a>
+                                           class="text-reset fs-exact-14"><?= Product::productName($url) ?></a>
                                         <div class="text-muted fs-exact-13">
                                             Переглядів: <span
-                                                    class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::productCountViews($value['url']) ?></span>
+                                                    class="sa-nav__menu-item-badge badge badge-sa-pill badge-sa-theme-user"><?= ActivePages::productCountViews($url) ?></span>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-auto">
