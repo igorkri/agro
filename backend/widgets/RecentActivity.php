@@ -25,7 +25,11 @@ class RecentActivity extends Widget
             $url = $page->url_page;
             $date = $page->date_visit;
 
-            if (strpos($url, '/product/') !== false) {
+            if (str_contains($url, '/product/') !== false) {
+
+                $parsedUrl = parse_url($url);
+                $url = $parsedUrl['path'];
+
                 $url = str_replace(['/en/', '/ru/'], '/', $url);
 
                 if (isset($uniqueUrls[$url])) {
