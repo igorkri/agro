@@ -37,7 +37,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <?php foreach ($reviews as $review): ?>
-            <?php $productSlug = $review->getProductSlug($review->product_id) ?>
+                <?php $productSlug = $review->getProductSlug($review->product_id) ?>
                 <li class="list-group-item py-2">
                     <div class="d-flex align-items-center py-3">
                         <a href="/product/<?= $productSlug ?>" class="me-4">
@@ -53,8 +53,10 @@
 
                                 <div class="text-muted fs-exact-13">
                                     Відгук від
-                                    <a href="/product/<?= $productSlug ?>"
-                                       class="text-reset"><?= $review->name ?></a>
+                                    <span class="text-reset" style="padding-right: 10px"><?= $review->name ?></span>
+                                    <span class="text-dark" style="background: #0b5be538; padding: 1px 5px 1px 5px; border-radius: 4px">
+                                        <?= Yii::$app->formatter->asDatetime($review->created_at, 'medium'); ?>
+                                    </span>
                                 </div>
                             </div>
                             <a style="padding-right: 20px; color: rgba(43,129,195,0.7)" data-bs-toggle="tooltip"

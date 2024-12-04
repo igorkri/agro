@@ -21,7 +21,7 @@ class RecentReviews extends Widget
         $reviews = Yii::$app->cache->get($cacheKey);
 
         if ($reviews === false) {
-            $reviews = Review::find()->select(['product_id', 'name', 'message', 'rating'])->orderBy('id DESC')->limit(10)->all();
+            $reviews = Review::find()->orderBy('id DESC')->limit(10)->all();
 
             Yii::$app->cache->set($cacheKey, $reviews, 2592000, new DbDependency([
                 'sql' => 'SELECT COUNT(*) FROM review',
