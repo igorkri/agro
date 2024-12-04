@@ -7,7 +7,6 @@ use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-
 /** @var yii\web\View $this */
 /** @var backend\models\search\IpBot $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -18,7 +17,7 @@ $this->title = Yii::t('app', 'Ip Bots');
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
         <div class="container" style="max-width: 1623px">
             <div class="card">
-                <?php echo Html::beginForm(['check-delete'], 'post'); ?>
+                <?php echo Html::beginForm(['check-delete']); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -28,7 +27,7 @@ $this->title = Yii::t('app', 'Ip Bots');
                         'type' => 'warning',
                         'heading' => '<h3 class="panel-title"><i class="fas fa-globe"></i> ' . $this->title . '</h3>',
                         'headingOptions' => ['style' => 'height: 60px; margin-top: 10px'],
-                        'before' => false,
+                        'before' => Html::a(Yii::t('app', 'New +'), Url::to(['create']), ['class' => 'btn btn-primary']),
                         'after' =>
                             Html::a('<i class="fas fa-redo"></i> Обновити', ['index'], ['class' => 'btn btn-info']),
                     ],
