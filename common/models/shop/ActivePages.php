@@ -159,7 +159,6 @@ class ActivePages extends ActiveRecord
 
     public function getClearUrl($url): string
     {
-        $url = urldecode($url);
         $parsedUrl = parse_url($url);
         if (isset($parsedUrl['query'])) {
             parse_str($parsedUrl['query'], $queryParams);
@@ -172,6 +171,6 @@ class ActivePages extends ActiveRecord
         } else {
             $cleanUrl = $url;
         }
-        return $cleanUrl;
+        return urldecode($cleanUrl);
     }
 }

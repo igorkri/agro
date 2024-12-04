@@ -6,7 +6,6 @@ use kartik\grid\GridView;
 use kartik\ipinfo\IpInfo;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
@@ -86,7 +85,7 @@ $ipAddress = Yii::$app->request->getUserIP();
                             'attribute' => 'client_from',
                             'format' => 'raw',
                             'value' => function ($model) {
-                             return urldecode($model->client_from);
+                                return $model->getClearUrl($model->client_from);
                             },
                         ],
                         [
