@@ -83,7 +83,7 @@ class ActivePages extends ActiveRecord
 
         $userIp = $server['REMOTE_ADDR'] ?? "Не известно";
         foreach ($botIps as $botIp) {
-            if ($userIp === $botIp) {
+            if (str_contains($userIp, $botIp)) {
 
                 return;
             }
@@ -97,7 +97,7 @@ class ActivePages extends ActiveRecord
 
         $model = new ActivePages();
         $model->ip_user = $server['REMOTE_ADDR'] ?? "Не известно";
-        $model->url_page = Yii::$app->request->hostInfo .  $server['REQUEST_URI'] ?? "Не известно";
+        $model->url_page = Yii::$app->request->hostInfo . $server['REQUEST_URI'] ?? "Не известно";
         $model->user_agent = $userAgent;
         $model->client_from = $clientFrom;
         $model->date_visit = strval($server['REQUEST_TIME']) ?? "Не известно";

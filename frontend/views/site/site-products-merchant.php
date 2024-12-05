@@ -23,19 +23,16 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                 <title><?= $product->category->prefix . ' ' . $product->name ?></title>
                 <link><?= Yii::$app->request->hostInfo . '/product/' . $product->slug ?></link>
                 <g:description>
-                        <![CDATA[<?= $product->short_description ?>]]>
+                        <![CDATA[<?= htmlspecialchars($product->short_description, ENT_QUOTES, 'UTF-8') ?>]]>
                 </g:description>
                 <g:price><?= $product->price ?> UAH</g:price>
                 <g:image_link><?= $product->getImgOne($product->id) ?></g:image_link>
                 <?php if (isset($product->brand->name)) : ?>
                     <g:brand><?= $product->brand->name ?></g:brand>
                 <?php endif; ?>
-                <?php if ($product->status->id == 1) : ?>
-                    <g:availability>in_stock</g:availability>
-                <?php else : ?>
-                    <g:availability>out_of_stock</g:availability>
-                <?php endif; ?>
+                <g:availability><?= $product->status->id == 1 ? 'in_stock' : 'out_of_stock' ?></g:availability>
                 <g:shipping>
+                    <g:country>UA</g:country>
                     <g:price>40.00</g:price>
                 </g:shipping>
                 <g:shipping_label>+доставка</g:shipping_label>
