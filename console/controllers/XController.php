@@ -2,6 +2,7 @@
 
 namespace console\controllers;
 
+use common\models\IpBot;
 use common\models\SeoPages;
 use common\models\SeoPageTranslate;
 use common\models\shop\ActivePages;
@@ -54,22 +55,55 @@ class XController extends Controller
         }
     }
 
-    public function actionAddHost()
+    public function actionFindCloneIp()
     {
-        $host = "http://agro";
-        $urls = ActivePages::find()->all();
-        $i = 1;
-        foreach ($urls as $url) {
-            if (str_contains($url->url_page, $host) == false) {
-                $url->url_page = $host . $url->url_page;
-                $url->save();
+        $ips = IpBot::find()->select('ip')->column();
 
-                echo "$i \t Параметр $host дописан в URL $url->url_page \n";
-            } else {
-                echo "$i \t Параметр $host уже есть у $url->url_page \n";
+        foreach ($ips as $key => $ip) {
+            $parts = explode('.', $ip);
+            array_pop($parts);
+            $ips[$key] = implode('.', $parts) . '.';
+        }
+
+        $ips = array_unique($ips);
+        $i = 1;
+
+        foreach ($ips as $ip) {
+            $ipStatistic = IpBot::find()
+                ->where(['like', 'ip', $ip])
+                ->count();
+
+            if ($ipStatistic >= 3) {
+
+                $isp = IpBot::find()
+                    ->select('isp')
+                    ->where(['like', 'ip', $ip])
+                    ->scalar();
+
+                if ($isp) {
+                    $model = new IpBot();
+                    $model->ip = $ip;
+                    $model->isp = $isp;
+                    $model->blocking = 1;
+                    $model->comment = 'Весь диапазон IP';
+
+                    if ($model->save()) {
+                        IpBot::deleteAll([
+                            'and',
+                            ['like', 'ip', $ip],
+                            ['!=', 'id', $model->id],
+                        ]);
+                        echo "$i \t  У \t $ip \t совпадений \t $ipStatistic \n";
+                        $i++;
+                    }else{
+                        dd($model->errors);
+                    }
+                }else{
+                    echo "ISP не существует \n";
+                }
             }
-            $i++;
         }
     }
+
 
 }
