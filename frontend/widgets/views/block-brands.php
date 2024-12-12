@@ -9,7 +9,10 @@
             <div class="owl-carousel">
                 <?php foreach ($brands as $brand): ?>
                     <div class="block-brands__item">
-                        <img src="/brand/<?= $brand->file ?>" width="136" height="32" alt="<?= $brand->name ?>" loading="lazy">
+                        <a href="/brands/product-list/<?= $brand->slug ?>">
+                            <img src="/brand/<?= $brand->file ?>" width="136" height="32" alt="<?= $brand->name ?>"
+                                 loading="lazy">
+                        </a>
                     </div>
                 <?php endforeach; ?>
             </div>

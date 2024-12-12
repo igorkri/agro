@@ -91,6 +91,9 @@ use yii\helpers\Url;
                                             <li class="footer-links__item"><a href="<?= Url::to(['blogs/view']) ?>"
                                                                               class="footer-links__link"><?= Yii::t('app', 'Статті') ?></a>
                                             </li>
+                                            <li class="footer-links__item"><a href="<?= Url::to(['brands/view']) ?>"
+                                                                              class="footer-links__link"><?= Yii::t('app', 'Бренди') ?></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
