@@ -84,32 +84,32 @@ return [
 
                 [
                     'pattern' => 'sitemap',
-                    'route' => 'site/sitemap',
+                    'route' => 'site-map/sitemap',
                     'suffix' => '.xml'
                 ],
                 [
                     'pattern' => 'sitemap-products',
-                    'route' => 'site/sitemap-products',
+                    'route' => 'site-map/sitemap-products',
                     'suffix' => '.xml'
                 ],
                 [
                     'pattern' => 'sitemap-categories',
-                    'route' => 'site/sitemap-categories',
+                    'route' => 'site-map/sitemap-categories',
                     'suffix' => '.xml'
                 ],
                 [
                     'pattern' => 'sitemap-articles',
-                    'route' => 'site/sitemap-articles',
+                    'route' => 'site-map/sitemap-articles',
                     'suffix' => '.xml'
                 ],
                 [
                     'pattern' => 'sitemap-pages',
-                    'route' => 'site/sitemap-pages',
+                    'route' => 'site-map/sitemap-pages',
                     'suffix' => '.xml'
                 ],
                 [
                     'pattern' => 'site-products-merchant',
-                    'route' => 'site/site-products-merchant',
+                    'route' => 'site-map/site-products-merchant',
                     'suffix' => '.xml'
                 ],
             ],
