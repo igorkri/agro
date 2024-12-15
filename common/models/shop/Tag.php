@@ -143,11 +143,29 @@ class Tag extends ActiveRecord
 
     public function getAvailabilityOfDescription($model)
     {
-        if ($model->description){
+        if ($model->description) {
             return '';
-        }else{
+        } else {
             return 'style="background-color: rgb(255 105 105 / 43%)"';
         }
+    }
+
+    public function getCategoriesTag($id)
+    {
+        $categoryNames = Category::find()
+            ->select('name')
+            ->distinct()
+            ->where(['id' => Product::find()
+                ->select('category_id')
+                ->distinct()
+                ->where(['id' => ProductTag::find()
+                    ->select('product_id')
+                    ->where(['tag_id' => $id])
+                ])
+            ])
+            ->column();
+
+        return $categoryNames ? implode(', ', $categoryNames) : 'Нет продуктов';
     }
 
 }

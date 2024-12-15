@@ -12,7 +12,7 @@ $this->title = Yii::t('app', 'Tags');
 ?>
 <div id="top" class="sa-app__body">
     <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
-        <div class="container">
+        <div class="container" style="max-width: 1623px">
             <div class="d-flex justify-content-end">
                 <a href="<?= Url::to(['create']) ?>"
                    class="btn btn-primary mt-3 mb-3"><?= Yii::t('app', 'New +') ?></a></div>
@@ -31,9 +31,10 @@ $this->title = Yii::t('app', 'Tags');
                     <thead style="background-color: rgba(244,135,46,0.93)">
                     <tr>
                         <th><?= Yii::t('app', 'ID') ?></th>
-                        <th class="min-w-15x"><?= Yii::t('app', 'name') ?></th>
-                        <th class="min-w-15x"><?= Yii::t('app', 'name_ru') ?></th>
-                        <th class="min-w-15x"><?= Yii::t('app', 'name_en') ?></th>
+                        <th class="min-w-10x"><?= Yii::t('app', 'name') ?></th>
+                        <th class="min-w-10x"><?= Yii::t('app', 'name_ru') ?></th>
+                        <th class="min-w-10x"><?= Yii::t('app', 'name_en') ?></th>
+                        <th class="min-w-15x"><?= Yii::t('app', 'categories') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Count') ?></th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
@@ -61,6 +62,7 @@ $this->title = Yii::t('app', 'Tags');
                                    class="text-reset"><?= $name_ru ?></a></td>
                             <td><a href="<?= Url::to(['tag/update', 'id' => $model->id]) ?>"
                                    class="text-reset"><?= $name_en ?></a></td>
+                            <td> <?= $model->getCategoriesTag($model->id) ?> </td>
                             <td> <?= $model->getProductTag($model->id) ?> </td>
                             <td>
                                 <div class="dropdown">
