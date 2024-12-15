@@ -111,6 +111,8 @@ class TagController extends Controller
             $tr->setTarget($language);
 
             $translation->name = $tr->translate($model->name ?? '');
+            $translation->seo_title = $tr->translate($model->seo_title ?? '');
+            $translation->seo_description = $tr->translate($model->seo_description ?? '');
 
             if (strlen($model->description) < 5000) {
                 $translation->description = $tr->translate($model->description);

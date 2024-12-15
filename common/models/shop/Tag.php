@@ -10,9 +10,13 @@ use yii\db\ActiveRecord;
  * This is the model class for table "tag".
  *
  * @property int $id
+ * @property int $date_public
+ * @property int $date_updated
  * @property string|null $name
  * @property string|null $slug
  * @property string|null $description
+ * @property string $seo_title
+ * @property string $seo_description
  */
 class Tag extends ActiveRecord
 {
@@ -39,6 +43,13 @@ class Tag extends ActiveRecord
                 // If intl extension is enabled, see http://userguide.icu-project.org/transforms/general.
                 'transliterateOptions' => 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;'
             ],
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',  // создание даты
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['date_public'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date_updated'],
+                ],
+            ],
         ];
     }
 
@@ -49,7 +60,8 @@ class Tag extends ActiveRecord
     {
         return [
             [['name', 'slug'], 'string', 'max' => 50],
-            [['description'], 'string'],
+            [['description', 'seo_title', 'seo_description'], 'string'],
+            [['date_public', 'date_updated'], 'integer'],
             [['name'], 'unique'],
         ];
     }

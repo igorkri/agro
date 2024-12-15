@@ -26,6 +26,13 @@ use yii\widgets\ActiveForm;
                      data-sa-container-query='{"920":"sa-entity-layout--size--md","1100":"sa-entity-layout--size--lg"}'>
                     <div class="sa-entity-layout__body">
                         <div class="sa-entity-layout__main">
+                            <?php
+                            $commonParams = ['model' => $model, 'form' => $form];
+                            if (isset($translateRu)) {
+                                $commonParams['translateRu'] = $translateRu;
+                                $commonParams['translateEn'] = $translateEn;
+                            }
+                            ?>
                             <div class="card">
                                 <div class="card-header">
                                     <div class="mb-5">
@@ -183,6 +190,7 @@ use yii\widgets\ActiveForm;
                                     </div>
                                 </div>
                             </div>
+                            <?php echo $this->render('seo-information', $commonParams); ?>
                         </div>
                     </div>
                 </div>
