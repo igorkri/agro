@@ -5,7 +5,6 @@ namespace console\controllers;
 use common\models\IpBot;
 use common\models\shop\Product;
 use common\models\shop\ProductTag;
-use yii\base\BaseObject;
 use yii\console\Controller;
 
 class XController extends Controller
