@@ -3,58 +3,17 @@
 namespace console\controllers;
 
 use common\models\IpBot;
-use common\models\SeoPages;
-use common\models\SeoPageTranslate;
-use common\models\shop\ActivePages;
-use Stichoza\GoogleTranslate\GoogleTranslate;
+use common\models\shop\Product;
+use common\models\shop\ProductTag;
+use yii\base\BaseObject;
 use yii\console\Controller;
 
 class XController extends Controller
 {
+
     /**
-     * <<<<<<<< ПЕРЕВОД Перевод данных Seo-pages
+     * <<<<<<<< Найти похожие IP и заменить их всем диапазоном
      */
-    public function actionTranslateSeo()
-    {
-        $pages = SeoPages::find()->all();
-        if (!$pages) {
-            echo "Page not found.\n";
-            return;
-        }
-
-        $i = 1;
-        foreach ($pages as $page) {
-
-            $sourceLanguage = 'uk'; // Исходный язык
-            $targetLanguages = ['ru', 'en']; // Языки перевода
-
-            $tr = new GoogleTranslate();
-
-            foreach ($targetLanguages as $language) {
-                $tr->setSource($sourceLanguage);
-                $tr->setTarget($language);
-
-                // Перевод текста
-                $translatedTitle = $tr->translate($page->title);
-                $translatedDescription = $tr->translate($page->description);
-
-
-                $pageTranslate = new SeoPageTranslate();
-                $pageTranslate->language = $language;
-                $pageTranslate->page_id = $page->id;
-                $pageTranslate->title = $translatedTitle;
-                $pageTranslate->description = $translatedDescription;
-
-                if ($pageTranslate->save()) {
-                    echo "$i  Тег $page->name переведен и сохранен для $language.\n";
-                } else {
-                    echo "$i  Ошибка во время сохранения $page->name для $language.\n";
-                }
-            }
-            $i++;
-        }
-    }
-
     public function actionFindCloneIp()
     {
         $ips = IpBot::find()->select('ip')->column();
@@ -95,15 +54,45 @@ class XController extends Controller
                         ]);
                         echo "$i \t  У \t $ip \t совпадений \t $ipStatistic \n";
                         $i++;
-                    }else{
+                    } else {
                         dd($model->errors);
                     }
-                }else{
+                } else {
                     echo "ISP не существует \n";
                 }
             }
         }
     }
 
+    /**
+     * <<<<<<<< Добавление Тегов продуктам по категориям
+     */
+    public function actionTagProducts()
+    {
+        $categoryId = 5;
+        $tagId = 86;
+
+        $productsId = Product::find()
+            ->select('id')
+            ->where(['category_id' => $categoryId])
+            ->andWhere(['not in', 'id', ProductTag::find()->select('product_id')->where(['tag_id' => $tagId])])
+            ->column();
+        if ($productsId) {
+            $i = 1;
+            foreach ($productsId as $item) {
+                $model = new ProductTag();
+                $model->product_id = $item;
+                $model->tag_id = $tagId;
+                if ($model->save()) {
+                    echo "$i \t  Сохранено  \n";
+                } else {
+                    dd($model->errors);
+                }
+                $i++;
+            }
+        } else {
+            echo "\n\t  Нет результатов для \tКатегории $categoryId \tи \tТега $tagId \n";
+        }
+    }
 
 }
