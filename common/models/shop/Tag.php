@@ -126,6 +126,60 @@ class Tag extends ActiveRecord
         return $name;
     }
 
+    public function getTagSeoTitleTranslate($tag, $language)
+    {
+        switch ($language) {
+            case 'ru':
+                $translation = TagTranslate::find()
+                    ->select('seo_title')
+                    ->where(['tag_id' => $tag->id, 'language' => 'ru'])
+                    ->one();
+                $seo_title = $translation ? $translation->seo_title : $tag->seo_title;
+                break;
+
+            case 'en':
+                $translation = TagTranslate::find()
+                    ->select('seo_title')
+                    ->where(['tag_id' => $tag->id, 'language' => 'en'])
+                    ->one();
+                $seo_title = $translation ? $translation->seo_title : $tag->seo_title;
+                break;
+
+            default:
+                $seo_title = $tag->seo_title;
+                break;
+        }
+
+        return $seo_title;
+    }
+
+    public function getTagSeoDescriptionTranslate($tag, $language)
+    {
+        switch ($language) {
+            case 'ru':
+                $translation = TagTranslate::find()
+                    ->select('seo_description')
+                    ->where(['tag_id' => $tag->id, 'language' => 'ru'])
+                    ->one();
+                $seo_description = $translation ? $translation->seo_description : $tag->seo_description;
+                break;
+
+            case 'en':
+                $translation = TagTranslate::find()
+                    ->select('seo_description')
+                    ->where(['tag_id' => $tag->id, 'language' => 'en'])
+                    ->one();
+                $seo_description = $translation ? $translation->seo_description : $tag->seo_description;
+                break;
+
+            default:
+                $seo_description = $tag->seo_description;
+                break;
+        }
+
+        return $seo_description;
+    }
+
     public function getDescriptionTranslate($tag, $language)
     {
         switch ($language) {

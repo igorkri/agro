@@ -113,11 +113,23 @@ class TagController extends Controller
 
     protected function setProductMetadata($tag_name, $language)
     {
+        if ($tag_name->seo_title) {
+            $title = $tag_name->getTagSeoTitleTranslate($tag_name, $language);
+        } else {
+            $title = 'Продукти які відповідають запиту ' . '[ ' . $tag_name->getTagTranslate($tag_name, $language) . ' ]';
+        }
+        if ($tag_name->seo_description) {
+            $description = $tag_name->getTagSeoDescriptionTranslate($tag_name, $language);
+        } else {
+            $description = 'На сторінці відображено товари які згруповані запитом ' . '[ ' . $tag_name->getTagTranslate($tag_name, $language) . ' ]';
+
+        }
+
         Yii::$app->metamaster
             ->setSiteName('AgroPro')
             ->setType('website')
-            ->setTitle('Продукти які відповідають запиту ' . '[ ' . $tag_name->getTagTranslate($tag_name, $language) . ' ]')
-            ->setDescription('На сторінці відображено товари які згруповані запитом ' . '[ ' . $tag_name->getTagTranslate($tag_name, $language) . ' ]')
+            ->setTitle($title)
+            ->setDescription($description)
             ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
     }
