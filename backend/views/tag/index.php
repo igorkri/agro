@@ -30,12 +30,15 @@ $this->title = Yii::t('app', 'Tags');
                        data-sa-search-input="#table-search">
                     <thead style="background-color: rgba(244,135,46,0.93)">
                     <tr>
+
                         <th><?= Yii::t('app', 'ID') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'name') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'name_ru') ?></th>
                         <th class="min-w-10x"><?= Yii::t('app', 'name_en') ?></th>
                         <th class="min-w-15x"><?= Yii::t('app', 'categories') ?></th>
                         <th class="min-w-5x"><?= Yii::t('app', 'Count') ?></th>
+                        <th class="w-min" data-orderable="false">D</th>
+                        <th class="w-min" data-orderable="false">S</th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -50,7 +53,7 @@ $this->title = Yii::t('app', 'Tags');
                             }
                         } ?>
 
-                        <tr <?= $model->getAvailabilityOfDescription($model) ?>>
+                        <tr>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <span class="me-4"><?= $model->id ?></span>
@@ -64,6 +67,8 @@ $this->title = Yii::t('app', 'Tags');
                                    class="text-reset"><?= $name_en ?></a></td>
                             <td> <?= $model->getCategoriesTag($model->id) ?> </td>
                             <td> <?= $model->getProductTag($model->id) ?> </td>
+                            <td <?= $model->getAvailabilityOfDescription($model) ?>></td>
+                            <td <?= $model->getAvailabilityOfSeo($model) ?>></td>
                             <td>
                                 <div class="dropdown">
                                     <button

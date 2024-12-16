@@ -156,9 +156,18 @@ class Tag extends ActiveRecord
     public function getAvailabilityOfDescription($model)
     {
         if ($model->description) {
-            return '';
+            return 'style="background-color: rgb(71 237 56 / 70%)"';
         } else {
-            return 'style="background-color: rgb(255 105 105 / 43%)"';
+            return 'style="background-color: rgb(255 105 105 / 70%)"';
+        }
+    }
+
+    public function getAvailabilityOfSeo($model)
+    {
+        if ($model->seo_title) {
+            return 'style="background-color: rgb(71 237 56 / 70%)"';
+        } else {
+            return 'style="background-color: rgb(255 105 105 / 70%)"';
         }
     }
 
