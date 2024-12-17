@@ -108,6 +108,11 @@ return [
                     'suffix' => '.xml'
                 ],
                 [
+                    'pattern' => 'sitemap-tags',
+                    'route' => 'site-map/sitemap-tags',
+                    'suffix' => '.xml'
+                ],
+                [
                     'pattern' => 'site-products-merchant',
                     'route' => 'site-map/site-products-merchant',
                     'suffix' => '.xml'

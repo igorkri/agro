@@ -7,6 +7,7 @@ use common\models\SeoPages;
 use common\models\shop\AuxiliaryCategories;
 use common\models\shop\Category;
 use common\models\shop\Product;
+use common\models\shop\Tag;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -17,7 +18,7 @@ class SiteMapController extends Controller
     public function actionSitemap()
     {
         $siteMapBase = 1;
-        $arr = ['sitemap-products.xml', 'sitemap-categories.xml', 'sitemap-articles.xml', 'sitemap-pages.xml'];
+        $arr = ['sitemap-products.xml', 'sitemap-categories.xml', 'sitemap-articles.xml', 'sitemap-pages.xml', 'sitemap-tags.xml'];
 
         $updates = [
             Product::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
@@ -27,6 +28,7 @@ class SiteMapController extends Controller
             ),
             Posts::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
             SeoPages::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
+            Tag::find()->select(['date_updated'])->orderBy(['date_updated' => SORT_DESC])->scalar(),
         ];
 
         $arrDate = array_map(function ($update) {
@@ -74,7 +76,7 @@ class SiteMapController extends Controller
 
         Yii::$app->response->format = Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+        $headers->add('Content-Type', 'text/xml');
 
         return $xml_array;
     }
@@ -122,7 +124,7 @@ class SiteMapController extends Controller
 
         Yii::$app->response->format = Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+        $headers->add('Content-Type', 'text/xml');
 
         return $xml_array;
     }
@@ -153,7 +155,7 @@ class SiteMapController extends Controller
 
         Yii::$app->response->format = Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+        $headers->add('Content-Type', 'text/xml');
 
         return $xml_array;
     }
@@ -163,14 +165,13 @@ class SiteMapController extends Controller
         $arr = array();
 
         $pages = SeoPages::find()
-            ->select(['slug', 'date_updated', 'title'])
+            ->select(['slug', 'date_updated'])
             ->where(['<>', 'slug', 'home'])
             ->all();
         foreach ($pages as $page) {
             $arr[] = array(
                 'loc' => '/' . $page->slug,
                 'lastmod' => !empty($page->date_updated) ? date(DATE_W3C, $page->date_updated) : date(DATE_W3C, time()),
-                'caption' => $page->title,
                 'priority' => '0.5',
                 'changefreq' => 'monthly',
             );
@@ -184,7 +185,37 @@ class SiteMapController extends Controller
 
         Yii::$app->response->format = Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+        $headers->add('Content-Type', 'text/xml');
+
+        return $xml_array;
+    }
+
+    public function actionSitemapTags()
+    {
+        $arr = array();
+
+        $pages = Tag::find()
+            ->select(['slug', 'date_updated'])
+            ->where(['<>', 'description', ''])
+            ->all();
+        foreach ($pages as $page) {
+            $arr[] = array(
+                'loc' => '/tag/' . $page->slug,
+                'lastmod' => !empty($page->date_updated) ? date(DATE_W3C, $page->date_updated) : date(DATE_W3C, time()),
+                'priority' => '0.5',
+                'changefreq' => 'monthly',
+            );
+        }
+
+        // Отправляем данные на отображение без шаблона
+        $xml_array = $this->renderPartial('sitemap', array(
+            'host' => Yii::$app->request->hostInfo, // Имя хоста
+            'urls' => $arr, // Полученный массив
+        ));
+
+        Yii::$app->response->format = Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml');
 
         return $xml_array;
     }
@@ -196,14 +227,13 @@ class SiteMapController extends Controller
             ->with('images', 'brand', 'category')
             ->all();
 
-        // Отправляем данные на отображение без шаблона
         $xml_array = $this->renderPartial('site-products-merchant', [
             'products' => $products
         ]);
 
         Yii::$app->response->format = Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'text/xml'); // Устанавливаем заголовок страницы
+        $headers->add('Content-Type', 'text/xml');
 
         return $xml_array;
     }
