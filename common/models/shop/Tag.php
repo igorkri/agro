@@ -209,33 +209,6 @@ class Tag extends ActiveRecord
         return $description;
     }
 
-    public function getAvailabilityOfDescription($model)
-    {
-        if ($model->description) {
-            return 'style="background-color: rgb(71 237 56 / 70%)"';
-        } else {
-            return 'style="background-color: rgb(255 105 105 / 70%)"';
-        }
-    }
-
-    public function getAvailabilityOfSeo($model)
-    {
-        if ($model->seo_title) {
-            return 'style="background-color: rgb(71 237 56 / 70%)"';
-        } else {
-            return 'style="background-color: rgb(255 105 105 / 70%)"';
-        }
-    }
-
-    public function getVisibility($model)
-    {
-        if ($model->visibility == true) {
-            return 'style="background-color: rgb(71 237 56 / 70%)"';
-        } else {
-            return 'style="background-color: rgb(255 105 105 / 70%)"';
-        }
-    }
-
     public function getCategoriesTag($id)
     {
         $categoryNames = Category::find()

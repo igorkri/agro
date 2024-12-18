@@ -67,10 +67,41 @@ $this->title = Yii::t('app', 'Tags');
                             <td><a href="<?= Url::to(['tag/update', 'id' => $model->id]) ?>"
                                    class="text-reset"><?= $name_en ?></a></td>
                             <td> <?= $model->getCategoriesTag($model->id) ?> </td>
-                            <td> <?= $model->getProductTag($model->id) ?> </td>
-                            <td <?= $model->getAvailabilityOfDescription($model) ?>></td>
-                            <td <?= $model->getAvailabilityOfSeo($model) ?>></td>
-                            <td <?= $model->getVisibility($model) ?>></td>
+                            <td style="font-weight: bold">
+                                <?= $model->getProductTag($model->id) ?> </td>
+                            <td>
+                                <?php if ($model->description != ''): ?>
+                                    <svg width="20px" height="20px" style="display: unset;" fill="green">
+                                        <use xlink:href="/admin/images/sprite.svg#check"/>
+                                    </svg>
+                                <?php else: ?>
+                                    <svg width="20px" height="20px" style="display: unset;" fill="red">
+                                        <use xlink:href="/admin/images/sprite.svg#cross"/>
+                                    </svg>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($model->seo_title != ''): ?>
+                                    <svg width="20px" height="20px" style="display: unset;" fill="green">
+                                        <use xlink:href="/admin/images/sprite.svg#check"/>
+                                    </svg>
+                                <?php else: ?>
+                                    <svg width="20px" height="20px" style="display: unset;" fill="red">
+                                        <use xlink:href="/admin/images/sprite.svg#cross"/>
+                                    </svg>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if ($model->visibility == false): ?>
+                                    <svg width="22px" height="22px" style="display: unset;" fill="red">
+                                        <use xlink:href="/admin/images/sprite.svg#eye-slash"/>
+                                    </svg>
+                                <?php else: ?>
+                                    <svg width="22px" height="22px" style="display: unset;" fill="green">
+                                        <use xlink:href="/admin/images/sprite.svg#eye"/>
+                                    </svg>
+                                <?php endif; ?>
+                            </td>
                             <td>
                                 <div class="dropdown">
                                     <button
