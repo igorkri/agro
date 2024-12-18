@@ -39,6 +39,7 @@ $this->title = Yii::t('app', 'Tags');
                         <th class="min-w-5x"><?= Yii::t('app', 'Count') ?></th>
                         <th class="w-min" data-orderable="false">D</th>
                         <th class="w-min" data-orderable="false">S</th>
+                        <th class="w-min" data-orderable="false">V</th>
                         <th class="w-min" data-orderable="false"></th>
                     </tr>
                     </thead>
@@ -69,6 +70,7 @@ $this->title = Yii::t('app', 'Tags');
                             <td> <?= $model->getProductTag($model->id) ?> </td>
                             <td <?= $model->getAvailabilityOfDescription($model) ?>></td>
                             <td <?= $model->getAvailabilityOfSeo($model) ?>></td>
+                            <td <?= $model->getVisibility($model) ?>></td>
                             <td>
                                 <div class="dropdown">
                                     <button

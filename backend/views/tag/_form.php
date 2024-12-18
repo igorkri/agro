@@ -94,8 +94,38 @@ use yii\widgets\ActiveForm;
                                         >
                                             <div class="card">
                                                 <div class="card-body p-5">
-                                                    <div class="col-4 mb-4">
-                                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
+                                                    <div class="mb-4">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(Yii::t('app', 'name')) ?>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <?= $form->field($model, 'visibility')->dropDownList([
+                                                                    1 => Yii::t('app', 'Так'),
+                                                                    0 => Yii::t('app', 'Ні'),
+                                                                ], [
+                                                                    'id' => 'visibility-dropdown',
+                                                                ])->label(Yii::t('app', 'visibility')) ?>
+                                                                <?php
+                                                                $this->registerJs("
+                                                                                    function updateBackgroundColor() {
+                                                                                        var selectedValue = $('#visibility-dropdown').val();
+                                                                                        if (selectedValue == 1) {
+                                                                                            $('#visibility-dropdown').css('background-color', 'rgb(71 237 56 / 70%)');
+                                                                                        } else if (selectedValue == 0) {
+                                                                                            $('#visibility-dropdown').css('background-color', 'rgb(255 105 105 / 70%)');
+                                                                                        } 
+                                                                                    }
+                                                                                    $(document).ready(function() {
+                                                                                        updateBackgroundColor();
+                                                                                    });
+                                                                                    $('#visibility-dropdown').on('change', function() {
+                                                                                        updateBackgroundColor();
+                                                                                    });
+                                                                                  ");
+                                                                ?>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="mb-4">
                                                         <?= $form->field($model, 'description')->widget(Widget::class, [

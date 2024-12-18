@@ -196,7 +196,7 @@ class SiteMapController extends Controller
 
         $pages = Tag::find()
             ->select(['slug', 'date_updated'])
-            ->where(['<>', 'description', ''])
+            ->where(['<>', 'visibility', false])
             ->all();
         foreach ($pages as $page) {
             $arr[] = array(

@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string|null $description
  * @property string $seo_title
  * @property string $seo_description
+ * @property boolean $visibility
  */
 class Tag extends ActiveRecord
 {
@@ -62,6 +63,7 @@ class Tag extends ActiveRecord
             [['name', 'slug'], 'string', 'max' => 50],
             [['description', 'seo_title', 'seo_description'], 'string'],
             [['date_public', 'date_updated'], 'integer'],
+            [['visibility'], 'boolean'],
             [['name'], 'unique'],
         ];
     }
@@ -219,6 +221,15 @@ class Tag extends ActiveRecord
     public function getAvailabilityOfSeo($model)
     {
         if ($model->seo_title) {
+            return 'style="background-color: rgb(71 237 56 / 70%)"';
+        } else {
+            return 'style="background-color: rgb(255 105 105 / 70%)"';
+        }
+    }
+
+    public function getVisibility($model)
+    {
+        if ($model->visibility == true) {
             return 'style="background-color: rgb(71 237 56 / 70%)"';
         } else {
             return 'style="background-color: rgb(255 105 105 / 70%)"';
