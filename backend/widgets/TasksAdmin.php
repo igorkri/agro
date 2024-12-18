@@ -25,7 +25,7 @@ class TasksAdmin extends Widget
         ];
 
         $countsTag = Tag::find()->count();
-        $countsNotDescr = Tag::find()->where(['description' => null])->count();
+        $countsNotDescr = Tag::find()->where(['description' => ''])->orWhere(['description' => null])->count();
         $addTagDescr = [
             'title' => 'Добавить описания тегам',
             'descr' => 'Осталось ' . $countsNotDescr . ' из ' . $countsTag,
