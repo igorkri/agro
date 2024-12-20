@@ -2,10 +2,10 @@
 
 namespace backend\widgets;
 
+use app\widgets\BaseWidget;
 use common\models\shop\ActivePages;
-use yii\base\Widget;
 
-class ActiveUsersSiteDay extends Widget
+class ActiveUsersSiteDay extends BaseWidget
 {
     public function init()
     {
@@ -26,16 +26,11 @@ class ActiveUsersSiteDay extends Widget
             ->all();
 
         $carts = [];
-        $ukrainian_months = [
-            'Jan' => 'Січ', 'Feb' => 'Лют', 'Mar' => 'Бер',
-            'Apr' => 'Кві', 'May' => 'Тра', 'Jun' => 'Чер',
-            'Jul' => 'Лип', 'Aug' => 'Сер', 'Sep' => 'Вер',
-            'Oct' => 'Жов', 'Nov' => 'Лис', 'Dec' => 'Гру'
-        ];
+        $ukrainian_months = $this->getUkrainianMonths();
 
         foreach ($users as $user) {
             $month_name = date('M', $user['date_visit']);
-            $day = date('j', $user['date_visit']); // 'j' для числового дня месяца без ведущих нулей
+            $day = date('j', $user['date_visit']);
             $ukrainian_month_name = $ukrainian_months[$month_name] ?? '';
             $carts[] = [
                 'label' => $day . ' ' . $ukrainian_month_name,
@@ -43,22 +38,7 @@ class ActiveUsersSiteDay extends Widget
             ];
         }
 
-        $resultArray = [];
-        foreach ($carts as $item) {
-            $label = $item['label'];
-            $value = $item['value'];
-
-            if (isset($resultArray[$label])) {
-                $resultArray[$label]['value'] += $value;
-            } else {
-                $resultArray[$label] = [
-                    'label' => $label,
-                    'value' => $value,
-                ];
-            }
-        }
-
-        $resultArray = array_values($resultArray);
+        $resultArray = $this->processCarts($carts);
 
         return $this->render('active-users-site-day', ['resultArray' => json_encode($resultArray)]);
     }

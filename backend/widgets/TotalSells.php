@@ -2,13 +2,11 @@
 
 namespace backend\widgets;
 
+use app\widgets\BaseWidget;
 use common\models\shop\Order;
 use common\models\shop\OrderItem;
-use DateInterval;
-use DateTime;
-use yii\base\Widget;
 
-class TotalSells extends Widget
+class TotalSells extends BaseWidget
 {
     public function init()
     {
@@ -37,18 +35,7 @@ class TotalSells extends Widget
         }
         $summ = array_sum($summ);
 
-        $currentDate = new DateTime();
-        $interval = new DateInterval('P1M');
-        $oneMonthAgo = $currentDate->sub($interval);
-        $months = [
-            1 => 'Январь', 2 => 'Февраль', 3 => 'Март', 4 => 'Апрель',
-            5 => 'Май', 6 => 'Июнь', 7 => 'Июль', 8 => 'Август',
-            9 => 'Сентябрь', 10 => 'Октябрь', 11 => 'Ноябрь', 12 => 'Декабрь',
-        ];
-        $monthNumber = $oneMonthAgo->format('n');
-        $year = $oneMonthAgo->format('Y');
-        $monthName = $months[$monthNumber];
-        $formattedDate = $monthName . ' ' . $year;
+        $formattedDate = $this->getPreviousMonthFormatted();
 
         $DaysAgo30 = strtotime('-30 days');
         $orders = Order::find()

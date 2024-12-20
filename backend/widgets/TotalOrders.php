@@ -2,12 +2,10 @@
 
 namespace backend\widgets;
 
+use app\widgets\BaseWidget;
 use common\models\shop\Order;
-use DateInterval;
-use DateTime;
-use yii\base\Widget;
 
-class TotalOrders extends Widget
+class TotalOrders extends BaseWidget
 {
     public function init()
     {
@@ -21,18 +19,7 @@ class TotalOrders extends Widget
             ->where(['order_pay_ment_id' => 3])
             ->count();
 
-        $currentDate = new DateTime();
-        $interval = new DateInterval('P1M');
-        $oneMonthAgo = $currentDate->sub($interval);
-        $months = [
-            1 => 'Январь', 2 => 'Февраль', 3 => 'Март', 4 => 'Апрель',
-            5 => 'Май', 6 => 'Июнь', 7 => 'Июль', 8 => 'Август',
-            9 => 'Сентябрь', 10 => 'Октябрь', 11 => 'Ноябрь', 12 => 'Декабрь',
-        ];
-        $monthNumber = $oneMonthAgo->format('n');
-        $year = $oneMonthAgo->format('Y');
-        $monthName = $months[$monthNumber];
-        $formattedDate = $monthName . ' ' . $year;
+        $formattedDate = $this->getPreviousMonthFormatted();
 
         return $this->render('total-orders', [
             'total_orders' => $total_orders,

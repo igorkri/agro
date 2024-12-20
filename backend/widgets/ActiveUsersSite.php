@@ -2,10 +2,10 @@
 
 namespace backend\widgets;
 
+use app\widgets\BaseWidget;
 use common\models\shop\ActivePages;
-use yii\base\Widget;
 
-class ActiveUsersSite extends Widget
+class ActiveUsersSite extends BaseWidget
 {
     public function init()
     {
@@ -16,18 +16,17 @@ class ActiveUsersSite extends Widget
 
     public function run()
     {
+        $startDate = date('Y-m-01 00:00:00', strtotime('-11 months'));
+        $endDate = date('Y-m-t 23:59:59');
+
         $users = ActivePages::find()
             ->select('date_visit')
             ->orderBy(['date_visit' => SORT_ASC])
+            ->andWhere(['between', 'date_visit', strtotime($startDate), strtotime($endDate)])
             ->all();
 
         $carts = [];
-        $ukrainian_months = [
-            'Jan' => 'Січ', 'Feb' => 'Лют', 'Mar' => 'Бер',
-            'Apr' => 'Кві', 'May' => 'Тра', 'Jun' => 'Чер',
-            'Jul' => 'Лип', 'Aug' => 'Сер', 'Sep' => 'Вер',
-            'Oct' => 'Жов', 'Nov' => 'Лис', 'Dec' => 'Гру'
-        ];
+        $ukrainian_months = $this->getUkrainianMonths();
 
         foreach ($users as $user) {
             $month_name = date('M', $user->date_visit);
@@ -38,22 +37,9 @@ class ActiveUsersSite extends Widget
             ];
         }
 
-        $resultArray = [];
-        foreach ($carts as $item) {
-            $label = $item['label'];
-            $value = $item['value'];
+        $resultArray = $this->processCarts($carts);
 
-            if (isset($resultArray[$label])) {
-                $resultArray[$label]['value'] += $value;
-            } else {
-                $resultArray[$label] = [
-                    'label' => $label,
-                    'value' => $value,
-                ];
-            }
-        }
-
-        $resultArray = array_values($resultArray);
+        $resultArray = $this->sortByMonths($resultArray);
 
         return $this->render('active-users-site', ['resultArray' => json_encode($resultArray)]);
     }
