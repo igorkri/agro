@@ -5,16 +5,16 @@ namespace frontend\controllers;
 use common\models\Posts;
 use common\models\Settings;
 use Spatie\SchemaOrg\Schema;
-use yii\data\Pagination;
 use yii\i18n\Formatter;
-use yii\web\Controller;
 use Yii;
 
-class BlogsController extends Controller
+class BlogsController extends BaseFrontedController
 {
     public function actionView()
     {
         $language = Yii::$app->session->get('_language');
+
+        $count = 4;
 
         $posts = Posts::find()->all();
 
@@ -26,14 +26,11 @@ class BlogsController extends Controller
 
         $this->setShemaBlogs($posts);
 
-        $posts = Posts::find();
+        $query = Posts::find();
 
-        $pages = new Pagination([
-            'totalCount' => $posts->count(), 'pageSize' => 4,
-            'forcePageParam' => false, 'pageSizeParam' => false
-        ]);
+        $pages = $this->setPagination($query, $count);
 
-        $blogs = $posts->offset($pages->offset)->limit($pages->limit)->orderBy('date_public DESC')->all();
+        $blogs = $query->offset($pages->offset)->limit($pages->limit)->orderBy('date_public DESC')->all();
 
         if ($language !== 'uk') {
             foreach ($blogs as $blog) {

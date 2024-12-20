@@ -8,16 +8,14 @@ use common\models\shop\ProductProperties;
 use common\models\shop\Category;
 use common\models\shop\Product;
 use Spatie\SchemaOrg\Schema;
-use yii\data\Pagination;
 use yii\helpers\Url;
-use yii\web\Controller;
 use yii\db\Expression;
 use Yii;
 
 /**
  * CategoryController for Category model.
  */
-class CategoryController extends Controller
+class CategoryController extends BaseFrontedController
 {
     public function actionList()
     {
@@ -105,11 +103,12 @@ class CategoryController extends Controller
 
     public function actionCatalog($slug)
     {
-//        Yii::$app->session->removeAll();
+//       Yii::$app->session->removeAll();
         $language = Yii::$app->session->get('_language');
-        $result = $this->getSortVariableSession();
-        $sort = $result['sort'];
-        $count = $result['count'];
+
+        $params = $this->setSortAndCount();
+        $sort = $params['sort'];
+        $count = $params['count'];
 
         $brandCheck = Yii::$app->request->post('brandCheck');
         $propertiesCheck = Yii::$app->request->post('propertiesCheck');
@@ -162,34 +161,17 @@ class CategoryController extends Controller
             $query->andFilterWhere(['in', 'brand_id', $brandCheck]);
         }
 
-        $this->getProductsSort($sort, $query);
+        $this->applySorting($query, $sort);
 
-        $pages = new Pagination([
-            'totalCount' => $query->count(), 'pageSize' => $count,
-            'forcePageParam' => false, 'pageSizeParam' => false
-        ]);
+        $pages = $this->setPagination($query, $count);
 
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
         if ($language !== 'uk') {
-            if ($category) {
-                $translationCat = $category->getTranslation($language)->one();
-                if ($translationCat) {
-                    if ($translationCat->name) {
-                        $category->name = $translationCat->name;
-                    }
-                    if ($translationCat->description) {
-                        $category->description = $translationCat->description;
-                    }
-                    if ($translationCat->pageTitle) {
-                        $category->pageTitle = $translationCat->pageTitle;
-                    }
-                    if ($translationCat->metaDescription) {
-                        $category->metaDescription = $translationCat->metaDescription;
-                    }
-                }
-            }
+
+            $category = $this->translateCategory($category, $language);
+
             if ($category->parent) {
                 $translationCatParent = $category->parent->getTranslation($language)->one();
                 if ($translationCatParent) {
@@ -210,27 +192,9 @@ class CategoryController extends Controller
                     }
                 }
             }
-            if ($products) {
-                foreach ($products as $product) {
-                    if ($product) {
-                        $translationProd = $product->getTranslation($language)->one();
-                        if ($translationProd) {
-                            if ($translationProd->name) {
-                                $product->name = $translationProd->name;
-                            }
-                        }
-                        $translationCat = $product->category->getTranslation($language)->one();
-                        if ($translationCat) {
-                            if ($translationCat->name) {
-                                $product->category->name = $translationCat->name;
-                            }
-                            if ($translationCat->prefix) {
-                                $product->category->prefix = $translationCat->prefix;
-                            }
-                        }
-                    }
-                }
-            }
+
+            $products = $this->translateProduct($products, $language);
+
             if ($auxiliaryCategories) {
                 foreach ($auxiliaryCategories as $auxiliaryCategory) {
                     if ($auxiliaryCategory) {
@@ -267,9 +231,10 @@ class CategoryController extends Controller
     {
 //        Yii::$app->session->removeAll();
         $language = Yii::$app->session->get('_language');
-        $result = $this->getSortVariableSession();
-        $sort = $result['sort'];
-        $count = $result['count'];
+
+        $params = $this->setSortAndCount();
+        $sort = $params['sort'];
+        $count = $params['count'];
 
 //        $brandCheck = Yii::$app->request->post('brandCheck');
 //        $propertiesCheck = Yii::$app->request->post('propertiesCheck');
@@ -329,60 +294,16 @@ class CategoryController extends Controller
 //            $query->andFilterWhere(['in', 'brand_id', $brandCheck]);
 //        }
 
-        $this->getProductsSort($sort, $query);
+        $this->applySorting($query, $sort);
 
-        $pages = new Pagination([
-            'totalCount' => $query->count(), 'pageSize' => $count,
-            'forcePageParam' => false, 'pageSizeParam' => false
-        ]);
+        $pages = $this->setPagination($query, $count);
 
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
         if ($language !== 'uk') {
-            if ($category) {
-                $translationCat = $category->getTranslation($language)->one();
-                if ($translationCat) {
-                    if ($translationCat->name) {
-                        $category->name = $translationCat->name;
-                    }
-                    if ($translationCat->description) {
-                        $category->description = $translationCat->description;
-                    }
-                    if ($translationCat->pageTitle) {
-                        $category->pageTitle = $translationCat->pageTitle;
-                    }
-                    if ($translationCat->metaDescription) {
-                        $category->metaDescription = $translationCat->metaDescription;
-                    }
-                }
-            }
-
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                    $translationCat = $product->category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $product->category->name = $translationCat->name;
-                        }
-                        if ($translationCat->prefix) {
-                            $product->category->prefix = $translationCat->prefix;
-                        }
-                    }
-                    $translationParentCat = $breadcrumbCategory->getTranslation($language)->one();
-                    if ($translationParentCat) {
-                        if ($translationParentCat->name) {
-                            $breadcrumbCategory->name = $translationParentCat->name;
-                        }
-                    }
-                }
-            }
+            $category = $this->translateCategory($category, $language);
+            $products = $this->translateProduct($products, $language);
         }
 
         $imageMetamaster = '/auxiliary-categories/' . $category->image;
@@ -404,43 +325,6 @@ class CategoryController extends Controller
             ]));
     }
 
-    protected function getSortVariableSession()
-    {
-        if (!Yii::$app->session->has('sort')) {
-            Yii::$app->session->set('sort', '');
-        } else {
-            if (Yii::$app->request->post('sort') !== null) {
-                Yii::$app->session->set('sort', Yii::$app->request->post('sort'));
-            }
-        }
-        $sort = Yii::$app->session->get('sort');
-
-        if (!Yii::$app->session->has('count')) {
-            Yii::$app->session->set('count', 12);
-        } else {
-            if (Yii::$app->request->post('count') !== null) {
-                Yii::$app->session->set('count', Yii::$app->request->post('count'));
-            }
-        }
-        $count = intval(Yii::$app->session->get('count'));
-
-        return ['sort' => $sort, 'count' => $count];
-    }
-
-    protected function getProductsSort($sort, $query)
-    {
-        if ($sort === 'price_lowest') {
-            $query->orderBy(['price' => SORT_ASC]);
-        } elseif ($sort === 'price_highest') {
-            $query->orderBy(['price' => SORT_DESC]);
-        } elseif ($sort === 'name_a') {
-            $query->orderBy(['name' => SORT_ASC]);
-        } elseif ($sort === 'name_z') {
-            $query->orderBy(['name' => SORT_DESC]);
-        } else {
-            $query->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
-        }
-    }
 
     protected function setChildrenProductSchema($category)
     {
