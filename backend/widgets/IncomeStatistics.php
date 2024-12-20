@@ -2,11 +2,11 @@
 
 namespace backend\widgets;
 
-use app\widgets\BaseWidget;
+use app\widgets\BaseWidgetBackend;
 use common\models\shop\Order;
 
 
-class IncomeStatistics extends BaseWidget
+class IncomeStatistics extends BaseWidgetBackend
 {
     public function init()
     {

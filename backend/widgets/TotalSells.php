@@ -2,11 +2,11 @@
 
 namespace backend\widgets;
 
-use app\widgets\BaseWidget;
+use app\widgets\BaseWidgetBackend;
 use common\models\shop\Order;
 use common\models\shop\OrderItem;
 
-class TotalSells extends BaseWidget
+class TotalSells extends BaseWidgetBackend
 {
     public function init()
     {

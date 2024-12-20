@@ -2,10 +2,10 @@
 
 namespace frontend\widgets;
 
+use app\widgets\BaseWidgetFronted;
 use Yii;
-use yii\base\Widget;
 
-class LatestProduct extends Widget
+class LatestProduct extends BaseWidgetFronted
 {
     public function init()
     {
@@ -21,18 +21,8 @@ class LatestProduct extends Widget
 
         $products = $this->products;
 
-        if ($language !== 'uk') {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                }
-            }
-        }
+        $products = $this->translateProductsCarousel($language, $products);
+
         return $this->render('latest-product',
             [
                 'products' => $products,

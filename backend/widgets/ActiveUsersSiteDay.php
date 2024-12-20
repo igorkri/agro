@@ -2,10 +2,10 @@
 
 namespace backend\widgets;
 
-use app\widgets\BaseWidget;
+use app\widgets\BaseWidgetBackend;
 use common\models\shop\ActivePages;
 
-class ActiveUsersSiteDay extends BaseWidget
+class ActiveUsersSiteDay extends BaseWidgetBackend
 {
     public function init()
     {

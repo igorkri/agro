@@ -6,7 +6,7 @@ use yii\base\Widget;
 use DateInterval;
 use DateTime;
 
-class BaseWidget extends Widget
+class BaseWidgetBackend extends Widget
 {
     protected $ukrainianMonths = [
         'Jan' => 'Січ', 'Feb' => 'Лют', 'Mar' => 'Бер',

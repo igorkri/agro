@@ -3,12 +3,12 @@
 
 namespace frontend\widgets;
 
+use app\widgets\BaseWidgetFronted;
 use common\models\shop\Product;
 use Yii;
-use yii\base\Widget;
 use yii\db\Expression;
 
-class RelatedProducts extends Widget
+class RelatedProducts extends BaseWidgetFronted
 {
 
     public function init()
@@ -44,27 +44,7 @@ class RelatedProducts extends Widget
             ->limit(15)
             ->all();
 
-        if ($language !== 'uk') {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                    $translationCat = $product->category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $product->category->name = $translationCat->name;
-                        }
-                        if ($translationCat->prefix) {
-                            $product->category->prefix = $translationCat->prefix;
-                        }
-                    }
-                }
-            }
-        }
+        $products = $this->translateProductsItem($language, $products);
 
         return $this->render('products-carousel-slide',
             [

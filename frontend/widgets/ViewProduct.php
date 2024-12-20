@@ -2,11 +2,11 @@
 
 namespace frontend\widgets;
 
+use app\widgets\BaseWidgetFronted;
 use common\models\shop\Product;
 use Yii;
-use yii\base\Widget;
 
-class ViewProduct extends Widget
+class ViewProduct extends BaseWidgetFronted
 {
 
     public function init()
@@ -51,27 +51,7 @@ class ViewProduct extends Widget
             ->where(['id' => $viewedProducts])
             ->all();
 
-        if ($language !== 'uk') {
-            foreach ($viewedProductsData as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                    $translationCat = $product->category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $product->category->name = $translationCat->name;
-                        }
-                        if ($translationCat->prefix) {
-                            $product->category->prefix = $translationCat->prefix;
-                        }
-                    }
-                }
-            }
-        }
+        $viewedProductsData = $this->translateProductsItem($language, $viewedProductsData);
 
         return $this->render('products-carousel-slide',
             [

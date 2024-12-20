@@ -2,13 +2,13 @@
 
 namespace frontend\widgets;
 
+use app\widgets\BaseWidgetFronted;
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
 use Yii;
 use yii\caching\DbDependency;
-use yii\base\Widget;
 
-class ProductsCarousel extends Widget
+class ProductsCarousel extends BaseWidgetFronted
 {
 
     public function init()
@@ -57,18 +57,7 @@ class ProductsCarousel extends Widget
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency);
         }
 
-        if ($language !== 'uk') {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                }
-            }
-        }
+        $products = $this->translateProductsCarousel($language, $products);
 
             return $this->render('products-carousel',
                 [

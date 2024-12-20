@@ -2,13 +2,13 @@
 
 namespace frontend\widgets;
 
+use app\widgets\BaseWidgetFronted;
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
 use Yii;
-use yii\base\Widget;
 use yii\caching\DbDependency;
 
-class ProductsCarouselGazon extends Widget   // Газонна Трава
+class ProductsCarouselGazon extends BaseWidgetFronted   // Газонна Трава
 {
     public function init()
     {
@@ -54,18 +54,7 @@ class ProductsCarouselGazon extends Widget   // Газонна Трава
             Yii::$app->cache->set($cacheKey . '_db', true, 0, $dependency); // Помечаем кэш базы данных как актуальный
         }
 
-        if ($language !== 'uk') {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                }
-            }
-        }
+        $products = $this->translateProductsCarousel($language, $products);
 
         return $this->render('products-carousel',
             [

@@ -2,10 +2,10 @@
 
 namespace backend\widgets;
 
-use app\widgets\BaseWidget;
+use app\widgets\BaseWidgetBackend;
 use common\models\shop\ActivePages;
 
-class ActiveUsersSite extends BaseWidget
+class ActiveUsersSite extends BaseWidgetBackend
 {
     public function init()
     {

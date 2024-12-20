@@ -4,13 +4,13 @@
 namespace frontend\widgets;
 
 
+use app\widgets\BaseWidgetFronted;
 use common\models\shop\Product;
 use common\models\shop\ProductGrup;
 use Yii;
-use yii\base\Widget;
 use yii\helpers\Url;
 
-class ColumnsSpecialOffers extends Widget  // Фунгіциди
+class ColumnsSpecialOffers extends BaseWidgetFronted  // Фунгіциди
 {
 
     public function init()
@@ -47,18 +47,7 @@ class ColumnsSpecialOffers extends Widget  // Фунгіциди
             ->limit(3)
             ->all();
 
-        if ($language !== 'uk') {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                }
-            }
-        }
+        $products = $this->translateProductsCarousel($language, $products);
 
         return $this->render('product-columns',
             [
