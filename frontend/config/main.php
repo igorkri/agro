@@ -95,21 +95,33 @@ return [
 
                 'catalog' => 'category/list',
                 'catalog/<slug:[\w+-]*\w+>' => 'category/children',
+                'product-list/<slug>/page/<page:\d+>' => 'category/catalog',
                 'product-list/<slug:[\w+-]*\w+>' => 'category/catalog',
+
+                'auxiliary-product-list/<slug>/page/<page:\d+>' => 'category/auxiliary-catalog',
                 'auxiliary-product-list/<slug:[\w+-]*\w+>' => 'category/auxiliary-catalog',
 
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
                 'post/<slug:[\w+-]*\w+>' => 'post/view',
-                'tag/<id:\d+>' => 'tag/redirect',
-                'tag/<slug>' => 'tag/view',
+
                 'about' => 'about/view',
                 'delivery' => 'delivery/view',
-                'special' => 'special/view',
                 'contact' => 'contact/view',
                 'compare' => 'compare/view',
                 'wish' => 'wish/view',
+
+                'tag/<id:\d+>' => 'tag/redirect',
+                'tag/<slug>/page/<page:\d+>' => 'tag/view',
+                'tag/<slug>' => 'tag/view',
+
+                'special/page/<page:\d+>' => 'special/view',
+                'special' => 'special/view',
+
+                'blogs/page/<page:\d+>' => 'blogs/view',
                 'blogs' => 'blogs/view',
+
                 'brands' => 'brands/view',
+                'brands/product-list/<slug>/page/<page:\d+>' => 'brands/catalog',
                 'brands/product-list/<slug>' => 'brands/catalog',
 
                 [
