@@ -7,7 +7,7 @@ use common\models\shop\Product;
 use Yii;
 use yii\db\Expression;
 
-class SpecialController extends BaseFrontedController
+class SpecialController extends BaseFrontendController
 {
     public function actionView()
     {

@@ -7,7 +7,7 @@ use yii\data\Pagination;
 use yii\web\Controller;
 use yii\db\Expression;
 
-class BaseFrontedController extends Controller
+class BaseFrontendController extends Controller
 {
     /**
      * Применяет сортировку в запрос.

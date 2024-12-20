@@ -15,7 +15,7 @@ use Yii;
 /**
  * CategoryController for Category model.
  */
-class CategoryController extends BaseFrontedController
+class CategoryController extends BaseFrontendController
 {
     public function actionList()
     {

@@ -8,7 +8,7 @@ use Spatie\SchemaOrg\Schema;
 use yii\i18n\Formatter;
 use Yii;
 
-class BlogsController extends BaseFrontedController
+class BlogsController extends BaseFrontendController
 {
     public function actionView()
     {

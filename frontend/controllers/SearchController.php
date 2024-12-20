@@ -11,7 +11,7 @@ use yii\db\Expression;
 use yii\web\Response;
 use Yii;
 
-class SearchController extends BaseFrontedController
+class SearchController extends BaseFrontendController
 {
 
     public function actionSuggestions($q = null)

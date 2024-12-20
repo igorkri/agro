@@ -7,7 +7,7 @@ use common\models\shop\Product;
 use Yii;
 use yii\db\Expression;
 
-class BrandsController extends BaseFrontedController
+class BrandsController extends BaseFrontendController
 {
 
     public function actionView()

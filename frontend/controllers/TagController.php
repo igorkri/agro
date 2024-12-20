@@ -9,7 +9,7 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use yii\helpers\Url;
 
-class TagController extends BaseFrontedController
+class TagController extends BaseFrontendController
 {
     public function actionView($slug)
     {
