@@ -28,7 +28,11 @@ class BlogsController extends Controller
 
         $posts = Posts::find();
 
-        $pages = new Pagination(['totalCount' => $posts->count(), 'pageSize' => 4]);
+        $pages = new Pagination([
+            'totalCount' => $posts->count(), 'pageSize' => 4,
+            'forcePageParam' => false, 'pageSizeParam' => false
+        ]);
+
         $blogs = $posts->offset($pages->offset)->limit($pages->limit)->orderBy('date_public DESC')->all();
 
         if ($language !== 'uk') {

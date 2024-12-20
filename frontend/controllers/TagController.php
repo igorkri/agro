@@ -61,7 +61,11 @@ class TagController extends Controller
         $productIds = array_column($tags, 'product_id');
         $query->andWhere(['id' => $productIds]);
 
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $count]);
+        $pages = new Pagination([
+            'totalCount' => $query->count(), 'pageSize' => $count,
+            'forcePageParam' => false, 'pageSizeParam' => false
+        ]);
+
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 

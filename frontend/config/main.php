@@ -45,8 +45,38 @@ return [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => [
+                        'error',
+//                        'warning',
+//                        'info',
+//                        'trace'
+                    ],
+                    'logVars' => [
+//                        '_GET',
+//                        '_POST',
+//                        '_FILES',
+//                        '_COOKIE',
+//                        '_SESSION',
+//                        '_SERVER'
+                    ],
                 ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'logVars' => [
+//                        '_GET',
+//                        '_POST',
+//                        '_FILES',
+//                        '_COOKIE',
+//                        '_SESSION',
+//                        '_SERVER'
+                    ],
+                    'message' => [
+                        'from' => ['jean1524@s10.uahosting.com.ua'],
+                        'to' => ['mikitane@ymail.com'],
+                        'subject' => 'Ошибка приложения LOC',
+                    ],
+                ]
             ],
         ],
         'errorHandler' => [
@@ -61,7 +91,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => '/site/index',
+                '/' => 'site/index',
 
                 'catalog' => 'category/list',
                 'catalog/<slug:[\w+-]*\w+>' => 'category/children',

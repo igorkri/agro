@@ -91,7 +91,11 @@ class SearchController extends Controller
             $query->orderBy([new Expression('FIELD(status_id, 1, 3, 4, 2)')]);
         }
 
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $count]);
+         $pages = new Pagination([
+            'totalCount' => $query->count(), 'pageSize' => $count,
+            'forcePageParam' => false, 'pageSizeParam' => false
+        ]);
+
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 

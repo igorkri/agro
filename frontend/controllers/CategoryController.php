@@ -164,7 +164,10 @@ class CategoryController extends Controller
 
         $this->getProductsSort($sort, $query);
 
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => $count]);
+        $pages = new Pagination([
+            'totalCount' => $query->count(), 'pageSize' => $count,
+            'forcePageParam' => false, 'pageSizeParam' => false
+        ]);
 
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
