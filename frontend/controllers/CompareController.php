@@ -6,9 +6,8 @@ use common\models\Settings;
 use common\models\shop\Product;
 use common\models\shop\ProductProperties;
 use Yii;
-use yii\web\Controller;
 
-class CompareController extends Controller
+class CompareController extends BaseFrontendController
 {
     public function actionView()
     {
@@ -37,10 +36,7 @@ class CompareController extends Controller
         }
         $properties = array_unique($newArray);
 
-        if ($language !== 'uk') {
-            $this->getTranslateCompare($products, $language);
-        }
-
+        $products = $this->translateProduct($products, $language);
 
         $seo = Settings::seoPageTranslate('compare');
         Settings::setMetamaster($seo);
@@ -52,31 +48,6 @@ class CompareController extends Controller
                 'properties' => $properties,
                 'page_description' => $page_description,
             ]);
-    }
-
-    protected function getTranslateCompare($products, $language)
-    {
-        if ($products) {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                    $translationCat = $product->category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $product->category->name = $translationCat->name;
-                        }
-                        if ($translationCat->prefix) {
-                            $product->category->prefix = $translationCat->prefix;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public function actionAddToCompare()

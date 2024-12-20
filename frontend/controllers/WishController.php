@@ -2,13 +2,11 @@
 
 namespace frontend\controllers;
 
-use common\models\SeoPages;
 use common\models\Settings;
 use common\models\shop\Product;
 use Yii;
-use yii\web\Controller;
 
-class WishController extends Controller
+class WishController extends BaseFrontendController
 {
     public function actionView()
     {
@@ -18,27 +16,7 @@ class WishController extends Controller
 
         $products = Product::find()->where(['id' => $wishList])->all();
 
-        if ($language !== 'uk') {
-            foreach ($products as $product) {
-                if ($product) {
-                    $translationProd = $product->getTranslation($language)->one();
-                    if ($translationProd) {
-                        if ($translationProd->name) {
-                            $product->name = $translationProd->name;
-                        }
-                    }
-                    $translationCat = $product->category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $product->category->name = $translationCat->name;
-                        }
-                        if ($translationCat->prefix) {
-                            $product->category->prefix = $translationCat->prefix;
-                        }
-                    }
-                }
-            }
-        }
+        $products = $this->translateProduct($products, $language);
 
         $seo = Settings::seoPageTranslate('wish');
         Settings::setMetamaster($seo);
