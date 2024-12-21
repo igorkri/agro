@@ -301,10 +301,8 @@ class CategoryController extends BaseFrontendController
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
         $products_all = $query->count();
 
-        if ($language !== 'uk') {
-            $category = $this->translateCategory($category, $language);
-            $products = $this->translateProduct($products, $language);
-        }
+        $category = $this->translateCategory($category, $language);
+        $products = $this->translateProduct($products, $language);
 
         $imageMetamaster = '/auxiliary-categories/' . $category->image;
 
