@@ -24,7 +24,7 @@ return [
         ],
         'metamaster' => [
             'class' => 'floor12\metamaster\MetaMaster',
-            'siteName' => 'AgroPro.org.ua',
+            'siteName' => 'AgroPro',
             'defaultImage' => '/images/logos/meta_logo.jpg',
         ],
         'request' => [
@@ -102,6 +102,7 @@ return [
                 'auxiliary-product-list/<slug:[\w+-]*\w+>' => 'category/auxiliary-catalog',
 
                 'product/<slug:[\w+-]*\w+>' => 'product/view',
+
                 'post/<slug:[\w+-]*\w+>' => 'post/view',
 
                 'about' => 'about/view',
@@ -110,6 +111,7 @@ return [
                 'compare' => 'compare/view',
                 'wish' => 'wish/view',
 
+                'tag' => 'tag/index',
                 'tag/<id:\d+>' => 'tag/redirect',
                 'tag/<slug>/page/<page:\d+>' => 'tag/view',
                 'tag/<slug>' => 'tag/view',

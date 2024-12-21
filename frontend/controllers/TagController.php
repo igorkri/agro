@@ -11,6 +11,18 @@ use yii\helpers\Url;
 
 class TagController extends BaseFrontendController
 {
+    public function actionIndex()
+    {
+        $language = Yii::$app->session->get('_language');
+        $tags = Tag::find()->where(['visibility' => true])->all();
+
+        return $this->render('index',
+            [
+                'tags' => $tags,
+                'language' => $language,
+            ]);
+    }
+
     public function actionView($slug)
     {
         $language = Yii::$app->session->get('_language');
@@ -50,6 +62,7 @@ class TagController extends BaseFrontendController
                 'pages' => $pages,
                 'language' => $language,
             ]);
+
     }
 
     public function actionRedirect($id)

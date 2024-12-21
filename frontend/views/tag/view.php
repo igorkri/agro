@@ -1,7 +1,9 @@
 <?php
 
 use common\models\shop\ActivePages;
+use common\models\shop\Product;
 use frontend\assets\TagPageAsset;
+use frontend\controllers\TagController;
 use frontend\widgets\ViewProduct;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -9,8 +11,11 @@ use yii\helpers\Url;
 TagPageAsset::register($this);
 ActivePages::setActiveUser();
 
-/** @var \common\models\shop\Product $products */
-/** @var \common\models\shop\Product $pages */
+/** @var Product $products */
+/** @var Product $pages */
+/** @var TagController $tag_name */
+/** @var TagController $language */
+/** @var TagController $products_all */
 
 ?>
 <div class="site__body">
@@ -25,14 +30,21 @@ ActivePages::setActiveUser();
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= Url::to(['tag/index']) ?>"> <?= Yii::t('app', 'Теги') ?></a>
+                            <svg class="breadcrumb-arrow" width="6px" height="9px">
+                                <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
+                            </svg>
+                        </li>
                         <li class="breadcrumb-item active"
-                            aria-current="page"><?= Yii::t('app', 'Продукти запиту') ?></li>
+                            aria-current="page"><?= Yii::t('app', 'Продукти запиту') ?>
+                        </li>
                     </ol>
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1><?= Yii::t('app', 'Продукти запиту') ?> "<?= $tag_name->getTagTranslate($tag_name, $language) ?>
-                    "</h1>
+                <h1><?= Yii::t('app', 'Продукти пов`язані тегом ') ?>
+                    "<?= $tag_name->getTagTranslate($tag_name, $language) ?>"</h1>
             </div>
         </div>
     </div>

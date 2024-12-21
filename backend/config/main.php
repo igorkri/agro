@@ -2,6 +2,8 @@
 
 use yii\log\FileTarget;
 
+define('PROJECT_VERSION_ADMIN', 41);
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
