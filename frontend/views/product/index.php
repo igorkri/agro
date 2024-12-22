@@ -26,7 +26,9 @@ use yii\helpers\Url;
 ProductPageAsset::register($this);
 ActivePages::setActiveUser();
 
-$language =Yii::$app->session->get('_language');
+$language = Yii::$app->session->get('_language');
+
+$mobile = Yii::$app->devicedetect->isMobile();
 
 $webp_support = ProductImage::imageWebp();
 
@@ -38,13 +40,13 @@ $webp_support = ProductImage::imageWebp();
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb breadcrumb-anim">
                         <li class="breadcrumb-item">
-                            <a href="/"> <i class="fas fa-home"></i> <?=Yii::t('app', 'Головна')?> </a>
+                            <a href="/"> <i class="fas fa-home"></i> <?= Yii::t('app', 'Головна') ?> </a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="<?= Url::to(['category/list']) ?>"><?=Yii::t('app', 'Категорії')?></a>
+                            <a href="<?= Url::to(['category/list']) ?>"><?= Yii::t('app', 'Категорії') ?></a>
                             <svg class="breadcrumb-arrow" width="6px" height="9px">
                                 <use xlink:href="/images/sprite.svg#arrow-rounded-right-6x9"></use>
                             </svg>
@@ -90,13 +92,13 @@ $webp_support = ProductImage::imageWebp();
                                     <div class="product-image product-image--location--gallery">
                                         <div class="product-card__badges-list">
                                             <?php if (isset($product->label->name)) : ?>
-                                                    <div class="product-card__badge product-card__badge--sale"
-                                                         style="background: <?= Html::encode($product->label->color) ?>;">
-                                                        <?= $product->label->name ?>
-                                                    </div>
+                                                <div class="product-card__badge product-card__badge--sale"
+                                                     style="background: <?= Html::encode($product->label->color) ?>;">
+                                                    <?= $product->label->name ?>
+                                                </div>
                                             <?php endif; ?>
                                             <?php if ($products_analog_count > 0) : ?>
-                                                <div class="product-card__badge product-card__badge--analog"><?= Yii::t('app','Є аналоги') . ' ' . $products_analog_count ?></div>
+                                                <div class="product-card__badge product-card__badge--analog"><?= Yii::t('app', 'Є аналоги') . ' ' . $products_analog_count ?></div>
                                             <?php endif; ?>
                                         </div>
                                         <a href="<?= '/product/' . $image->webp_name ?>" data-width="700"
@@ -125,16 +127,13 @@ $webp_support = ProductImage::imageWebp();
                                     </div>
                                 </div>
                                 <?php endif; ?>
+                                <?php if (!$mobile): ?>
+                                    <?= $this->render('tags', [
+                                        'product' => $product,
+                                        'language' => $language,
+                                    ]) ?>
+                                <?php endif; ?>
                             </div>
-                            <hr class="hr-mod">
-                            <div class="tags tags--lg">
-                                <div class="tags__list">
-                                    <?php foreach ($product->tags as $tag): ?>
-                                        <a href="<?= Url::to(['tag/view', 'slug' => $tag->slug]) ?>"><?= $tag->getTagTranslate($tag, $language) ?></a>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                            <hr class="hr-mod">
                         </div>
                         <div class="product__info">
                             <div class="product__wishlist-compare">
@@ -175,33 +174,12 @@ $webp_support = ProductImage::imageWebp();
                                     <?= $product->getRatingCount($product->id) ?>
                                 </div>
                             </div>
-                            <div class="product__description">
-                                <?php if ($product_properties != null) { ?>
-                                    <?php foreach ($product_properties as $property): ?>
-                                        <?php if ($property->value && $property->value != '*'): ?>
-                                            <div class="spec__row">
-                                                <div class="spec__name"><?= $property->properties ?></div>
-                                                <div class="spec__value"><?= $property->value ?></div>
-                                            </div>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php } else { ?>
-                                    <div class="spec__row">
-                                        <div class="spec__name">- - -</div>
-                                        <div class="spec__value">- - -</div>
-                                    </div>
-                                    <div class="spec__row">
-                                        <div class="spec__name">- - -</div>
-                                        <div class="spec__value">- - -</div>
-                                    </div>
-                                    <div class="spec__row">
-                                        <div class="spec__name">- - -</div>
-                                        <div class="spec__value">- - -</div>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                            <?php if (!$mobile): ?>
+                                <?= $this->render('properties', ['product_properties' => $product_properties]) ?>
+                            <?php endif; ?>
                         </div>
                         <?= $this->render('sidebar', [
+                            'mobile' => $mobile,
                             'product' => $product,
                             'img_brand' => $img_brand,
                             'isset_to_cart' => $isset_to_cart,
@@ -218,10 +196,28 @@ $webp_support = ProductImage::imageWebp();
                 'products_analog' => $products_analog,
                 'products_analog_count' => $products_analog_count,
             ]) ?>
+            <?php if ($mobile): ?>
+                <div style="margin-left: 15px;">
+                    <?= $this->render('tags', [
+                        'product' => $product,
+                        'language' => $language,
+                    ]) ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
-    <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
-
+    <?php if (!$mobile): ?>
+        <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
+    <?php endif; ?>
+    <?php if ($mobile): ?>
+        <div class="container">
+            <?= $this->render('info-accordion', [
+                'product' => $product,
+                'mobile' => $mobile,
+                'img_brand' => $img_brand,
+            ]) ?>
+        </div>
+    <?php endif; ?>
     <?php echo ViewProduct::widget(['id' => $product->id,]) ?>
 </div>
 <?= $this->render('@frontend/views/layouts/photoswipe.php') ?>
@@ -236,18 +232,13 @@ $webp_support = ProductImage::imageWebp();
         font-weight: 600;
     }
 
-    .hr-mod {
-        border: none;
-        height: 3px;
-        background-image: linear-gradient(to right, #FFF, #47991f, #FFF);
-    }
-
     .breadcrumb-anim a {
         position: relative;
         text-decoration: none;
         color: #01080e;
         display: inline-block;
     }
+
     .breadcrumb-anim a::before,
     .breadcrumb-anim a::after {
         content: '';
@@ -261,14 +252,17 @@ $webp_support = ProductImage::imageWebp();
         border-color: #47991f;
         box-sizing: border-box;
     }
+
     .breadcrumb-anim a::before {
         border-width: 1px 0 1px 0;
         transform: scaleX(0);
     }
+
     .breadcrumb-anim a::after {
         border-width: 0 1px 0 1px;
         transform: scaleY(0);
     }
+
     .breadcrumb-anim a:hover::before,
     .breadcrumb-anim a:hover::after {
         transform: scale(1, 1);
