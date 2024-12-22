@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\shop\Category;
 use common\models\shop\ProductTag;
 use common\models\shop\Product;
 use common\models\shop\Tag;
@@ -14,32 +15,65 @@ class TagController extends BaseFrontendController
     public function actionIndex()
     {
         $language = Yii::$app->session->get('_language');
-        $tags = Tag::find()
+
+        $categoriesTags = [];
+        $categories = Category::find()
+            ->select(['id', 'name'])
             ->where(['visibility' => true])
-            ->with('translations')
+            ->andWhere(['IS NOT', 'parentId', null])
             ->all();
 
-        if ($language !== 'uk') {
-            foreach ($tags as $tag) {
-                if ($tag) {
+        foreach ($categories as $category) {
+            $this->translateCategory($category, $language);
+        }
+
+        foreach ($categories as $category) {
+
+            $productsId = Product::find()
+                ->select('id')
+                ->where(['category_id' => $category->id])
+                ->column();
+
+            $productsTagsId = ProductTag::find()
+                ->select('tag_id')
+                ->where(['product_id' => $productsId])
+                ->distinct()
+                ->column();
+
+            $tags = Tag::find()
+                ->select(['id', 'name', 'slug'])
+                ->where(['visibility' => true])
+                ->andWhere(['id' => $productsTagsId])
+                ->with('translations')
+                ->all();
+
+            if ($language !== 'uk') {
+                foreach ($tags as $tag) {
                     $translationTag = null;
+
                     foreach ($tag->translations as $translation) {
                         if ($translation->language === $language) {
                             $translationTag = $translation;
                             break;
                         }
                     }
+
                     if ($translationTag && $translationTag->name) {
                         $tag->name = $translationTag->name;
                     }
                 }
             }
+            if ($tags) {
+                $categoriesTags[] = [
+                    'category' => $category,
+                    'tags' => $tags,
+                ];
+            }
         }
 
         return $this->render('index',
             [
-                'tags' => $tags,
-                'language' => $language,
+                'categories' => $categoriesTags,
             ]);
     }
 

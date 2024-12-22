@@ -8,7 +8,7 @@ use yii\helpers\Url;
 TagPageAsset::register($this);
 ActivePages::setActiveUser();
 
-/** @var common\models\shop\Tag $tags */
+/** @var frontend\controllers\TagController $categories */
 
 ?>
 <div class="site__body">
@@ -37,16 +37,21 @@ ActivePages::setActiveUser();
         <div class="block">
             <div class="products-view">
                 <hr class="hr-mod">
-                <div class="tags tags--lg">
-                    <div class="tags__list">
-                        <?php foreach ($tags as $tag): ?>
-                            <a style="margin: 7px;"
-                               href="<?= Url::to(['tag/view', 'slug' => $tag->slug]) ?>">
-                                <?= $tag->name ?>
-                            </a>
-                            <?php endforeach; ?>
+                <?php foreach ($categories as $category): ?>
+                    <div style="margin: 15px; font-weight: bold; font-size: 24px; color: #47991f">
+                        <?= $category['category']->name ?>
                     </div>
-                </div>
+                    <div class="tags tags--lg">
+                        <div class="tags__list">
+                            <?php foreach ($category['tags'] as $tag): ?>
+                                <a style="margin: 7px;"
+                                   href="<?= Url::to(['tag/view', 'slug' => $tag->slug]) ?>">
+                                    <?= $tag->name ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
                 <hr class="hr-mod">
                 <br>
                 <div class="spec__disclaimer">
