@@ -14,7 +14,27 @@ class TagController extends BaseFrontendController
     public function actionIndex()
     {
         $language = Yii::$app->session->get('_language');
-        $tags = Tag::find()->where(['visibility' => true])->all();
+        $tags = Tag::find()
+            ->where(['visibility' => true])
+            ->with('translations')
+            ->all();
+
+        if ($language !== 'uk') {
+            foreach ($tags as $tag) {
+                if ($tag) {
+                    $translationTag = null;
+                    foreach ($tag->translations as $translation) {
+                        if ($translation->language === $language) {
+                            $translationTag = $translation;
+                            break;
+                        }
+                    }
+                    if ($translationTag && $translationTag->name) {
+                        $tag->name = $translationTag->name;
+                    }
+                }
+            }
+        }
 
         return $this->render('index',
             [

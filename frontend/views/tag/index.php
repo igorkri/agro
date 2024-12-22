@@ -9,7 +9,6 @@ TagPageAsset::register($this);
 ActivePages::setActiveUser();
 
 /** @var common\models\shop\Tag $tags */
-/** @var frontend\controllers\TagController $language */
 
 ?>
 <div class="site__body">
@@ -43,7 +42,7 @@ ActivePages::setActiveUser();
                         <?php foreach ($tags as $tag): ?>
                             <a style="margin: 7px;"
                                href="<?= Url::to(['tag/view', 'slug' => $tag->slug]) ?>">
-                                <?= $tag->getTagTranslate($tag, $language) ?>
+                                <?= $tag->name ?>
                             </a>
                             <?php endforeach; ?>
                     </div>
