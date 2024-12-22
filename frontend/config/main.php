@@ -113,7 +113,9 @@ return [
 
                 'tag' => 'tag/index',
                 'tag/<id:\d+>' => 'tag/redirect',
+                'tag/<slug>/<category_slug>/page/<page:\d+>' => 'tag/view',
                 'tag/<slug>/page/<page:\d+>' => 'tag/view',
+                'tag/<slug>/<category_slug>' => 'tag/view',
                 'tag/<slug>' => 'tag/view',
 
                 'special/page/<page:\d+>' => 'special/view',

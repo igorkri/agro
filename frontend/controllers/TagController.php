@@ -18,7 +18,7 @@ class TagController extends BaseFrontendController
 
         $categoriesTags = [];
         $categories = Category::find()
-            ->select(['id', 'name'])
+            ->select(['id', 'name', 'slug'])
             ->where(['visibility' => true])
             ->andWhere(['IS NOT', 'parentId', null])
             ->all();
@@ -77,16 +77,28 @@ class TagController extends BaseFrontendController
             ]);
     }
 
-    public function actionView($slug)
+    public function actionView($slug, $category_slug = null)
     {
         $language = Yii::$app->session->get('_language');
+
+        $categoryName = '';
 
         $params = $this->setSortAndCount();
         $sort = $params['sort'];
         $count = $params['count'];
 
         $tag_name = Tag::find()->where(['slug' => $slug])->one();
-        $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->all();
+
+        if ($category_slug) {
+            $category = Category::find()->select(['id', 'name'])->where(['slug' => $category_slug])->one();
+            $this->translateCategory($category, $language);
+            $categoryId = $category->id;
+            $categoryName = Yii::t('app','в категорії ') . '<span style="color: #90998cc7">' .  $category->name . '</span>';
+            $productsId = Product::find()->select('id')->where(['category_id' => $categoryId])->column();
+            $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->andWhere(['product_id' => $productsId])->all();
+        } else {
+            $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->all();
+        }
 
         $query = Product::find()->where(['id' => []]);
 
@@ -115,6 +127,7 @@ class TagController extends BaseFrontendController
                 'tag_name' => $tag_name,
                 'pages' => $pages,
                 'language' => $language,
+                'categoryName' => $categoryName,
             ]);
 
     }

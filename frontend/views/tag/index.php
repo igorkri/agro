@@ -45,7 +45,7 @@ ActivePages::setActiveUser();
                         <div class="tags__list">
                             <?php foreach ($category['tags'] as $tag): ?>
                                 <a style="margin: 7px;"
-                                   href="<?= Url::to(['tag/view', 'slug' => $tag->slug]) ?>">
+                                   href="<?= Url::to(['tag/view', 'slug' => $tag->slug, 'category_slug' => $category['category']->slug]) ?>">
                                     <?= $tag->name ?>
                                 </a>
                             <?php endforeach; ?>

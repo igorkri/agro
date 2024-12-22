@@ -16,6 +16,7 @@ ActivePages::setActiveUser();
 /** @var TagController $tag_name */
 /** @var TagController $language */
 /** @var TagController $products_all */
+/** @var TagController $categoryName */
 
 ?>
 <div class="site__body">
@@ -43,8 +44,7 @@ ActivePages::setActiveUser();
                 </nav>
             </div>
             <div class="page-header__title">
-                <h1><?= Yii::t('app', 'Продукти пов`язані тегом ') ?>
-                    "<?= $tag_name->getTagTranslate($tag_name, $language) ?>"</h1>
+                <h1><?= Yii::t('app', 'Продукти пов`язані тегом ') . '"' . '<span style="color: #90998cc7">' .  $tag_name->getTagTranslate($tag_name, $language) . '</span>' . '" ' . $categoryName ?></h1>
             </div>
         </div>
     </div>
