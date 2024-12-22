@@ -59,6 +59,7 @@ AppAsset::register($this);
     <?= $this->render('quickview-modal') ?>
     <?= $this->render('success-compare') ?>
     <?= $this->render('success-wish') ?>
+    <?= $this->render('cookie-banner') ?>
     <?php $this->endBody() ?>
     </body>
     </html>
