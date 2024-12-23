@@ -9,6 +9,7 @@ TagPageAsset::register($this);
 ActivePages::setActiveUser();
 
 /** @var frontend\controllers\TagController $categories */
+/** @var frontend\controllers\TagController $page_description */
 
 ?>
 <div class="site__body">
@@ -55,7 +56,7 @@ ActivePages::setActiveUser();
                 <hr class="hr-mod">
                 <br>
                 <div class="spec__disclaimer">
-
+                    <?= $page_description ?>
                 </div>
                 <br>
                 <?php if (Yii::$app->session->get('viewedProducts', [])) echo ViewProduct::widget() ?>

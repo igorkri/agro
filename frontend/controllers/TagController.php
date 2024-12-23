@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Settings;
 use common\models\shop\Category;
 use common\models\shop\ProductTag;
 use common\models\shop\Product;
@@ -71,9 +72,14 @@ class TagController extends BaseFrontendController
             }
         }
 
+        $seo = Settings::seoPageTranslate('tag');
+        Settings::setMetamaster($seo);
+        $page_description = $seo->page_description;
+
         return $this->render('index',
             [
                 'categories' => $categoriesTags,
+                'page_description' => $page_description,
             ]);
     }
 
