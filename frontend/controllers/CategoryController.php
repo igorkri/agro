@@ -26,14 +26,6 @@ class CategoryController extends BaseFrontendController
             ->andWhere(['visibility' => 1])
             ->all();
 
-        $seo = Settings::seoPageTranslate('catalog');
-        $type = 'website';
-        $title = $seo->title;
-        $description = $seo->description;
-        $image = '';
-        $keywords = '';
-        Settings::setMetamaster($type, $title, $description, $image, $keywords);
-
         if ($language !== 'uk') {
             if ($categories) {
                 foreach ($categories as $category) {
@@ -48,6 +40,14 @@ class CategoryController extends BaseFrontendController
                 }
             }
         }
+
+        $seo = Settings::seoPageTranslate('catalog');
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('list',
             [
@@ -94,9 +94,13 @@ class CategoryController extends BaseFrontendController
             }
         }
 
-        $imageMetamaster = '/category/' . $category->file;
+        $type = 'website';
+        $title = $category->pageTitle;
+        $description = $category->metaDescription;
+        $image = '/category/' . $category->file;
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
-        $this->setCategoryMetamaster($category, $imageMetamaster);
         $this->setChildrenProductSchema($category);
 
         return $this->render('children',
@@ -214,11 +218,15 @@ class CategoryController extends BaseFrontendController
             }
         }
 
-        $imageMetamaster = '/category/' . $category->file;
-
         $this->setCatalogBreadCrumbSchema($category);
         $this->setCatalogProductSchema($category, $products_all);
-        $this->setCategoryMetamaster($category, $imageMetamaster);
+
+        $type = 'website';
+        $title = $category->pageTitle;
+        $description = $category->metaDescription;
+        $image = '/category/' . $category->file;
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('catalog',
             compact([
@@ -309,11 +317,16 @@ class CategoryController extends BaseFrontendController
         $category = $this->translateCategory($category, $language);
         $products = $this->translateProduct($products, $language);
 
-        $imageMetamaster = '/auxiliary-categories/' . $category->image;
 
         $this->setAuxiliaryCatalogBreadCrumbSchema($category, $breadcrumbCategory);
         $this->setAuxiliaryCatalogProductSchema($category, $products_all, $productsId);
-        $this->setCategoryMetamaster($category, $imageMetamaster);
+
+        $type = 'website';
+        $title = $category->pageTitle;
+        $description = $category->metaDescription;
+        $image = '/auxiliary-categories/' . $category->image;
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('view',
             compact([
@@ -547,14 +560,4 @@ class CategoryController extends BaseFrontendController
         Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
     }
 
-    protected function setCategoryMetamaster($category, $imageMetamaster)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($category->pageTitle)
-            ->setDescription($category->metaDescription)
-            ->setImage($imageMetamaster)
-            ->register(Yii::$app->getView());
-    }
 }

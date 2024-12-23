@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Settings;
 use common\models\shop\AnalogProducts;
 use common\models\shop\Product;
 use common\models\shop\Review;
@@ -41,8 +42,13 @@ class ProductController extends Controller
         $schemaProduct = $product->getSchemaProduct();
         Yii::$app->params['product'] = $schemaProduct->toScript();
 
+        $type = 'product';
+        $title = $product->seo_title;
+        $description = $product->seo_description;
+        $image = $product->getImgSeo($product->id);
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
-        $this->setProductMetadata($product);
         $this->setAlernateUrl($slug);
 
         return $this->render('index', [
@@ -112,17 +118,6 @@ class ProductController extends Controller
                 }
             }
         }
-    }
-
-    protected function setProductMetadata($product)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setTitle($product->seo_title)
-            ->setDescription($product->seo_description)
-            ->setType('product')
-            ->setImage($product->getImgSeo($product->id))
-            ->register(Yii::$app->getView());
     }
 
     protected function setAlernateUrl($slug)

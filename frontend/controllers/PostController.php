@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\PostProducts;
 use common\models\Posts;
 use common\models\PostsReview;
+use common\models\Settings;
 use Yii;
 use yii\web\Controller;
 use common\models\shop\Product;
@@ -41,7 +42,12 @@ class PostController extends Controller
         Yii::$app->params['breadcrumb'] = $schemaBreadcrumb->toScript();
         Yii::$app->params['post'] = $schemaPost->toScript();
 
-        $this->setMetaMasterSeo($postItem);
+        $type = 'article';
+        $title = $postItem->seo_title;
+        $description = $postItem->seo_description;
+        $image = '/posts/' . $postItem->image;
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         $this->setAlernateUrl($slug);
 
@@ -68,16 +74,6 @@ class PostController extends Controller
         ];
 
         Yii::$app->params['alternateUrls'] = $alternateUrls;
-    }
-
-    protected function setMetaMasterSeo($postItem)
-    {
-         Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setTitle($postItem->seo_title)
-            ->setDescription($postItem->seo_description)
-            ->setImage(Yii::$app->request->hostInfo . '/posts/' . $postItem->image)
-            ->register(Yii::$app->getView());
     }
 
     protected function getPostTranslation($postItem, $language)
