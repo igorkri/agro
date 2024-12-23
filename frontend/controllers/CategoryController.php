@@ -221,7 +221,7 @@ class CategoryController extends BaseFrontendController
         $this->setCatalogBreadCrumbSchema($category);
         $this->setCatalogProductSchema($category, $products_all);
 
-        $type = 'website';
+        $type = 'product.group';
         $title = $category->pageTitle;
         $description = $category->metaDescription;
         $image = '/category/' . $category->file;
@@ -321,7 +321,7 @@ class CategoryController extends BaseFrontendController
         $this->setAuxiliaryCatalogBreadCrumbSchema($category, $breadcrumbCategory);
         $this->setAuxiliaryCatalogProductSchema($category, $products_all, $productsId);
 
-        $type = 'website';
+        $type = 'product.group';
         $title = $category->pageTitle;
         $description = $category->metaDescription;
         $image = '/auxiliary-categories/' . $category->image;

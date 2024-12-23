@@ -33,7 +33,7 @@ class SpecialController extends BaseFrontendController
         $products = $this->translateProduct($products, $language);
 
         $seo = Settings::seoPageTranslate('special');
-        $type = 'website';
+        $type = 'product.group';
         $title = $seo->title;
         $description = $seo->description;
         $image = '';

@@ -18,7 +18,8 @@ AppAsset::register($this);
 <head>
 <meta charset="<?= Yii::$app->charset ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="apple-touch-icon" href="/images/logo-agro.png">
+<meta name="color-scheme" content="light only"/>
+<meta name="theme-color" content="#47991f"/>
 <link rel="manifest" href="/manifest.json">
 <?php $this->registerCsrfMetaTags() ?>
 <title><?= Html::encode($this->title) ?></title>
