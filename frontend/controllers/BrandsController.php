@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Settings;
 use common\models\shop\Brand;
 use common\models\shop\Product;
 use Yii;
@@ -15,8 +16,13 @@ class BrandsController extends BaseFrontendController
 
         $brands = Brand::find()->all();
 
-        $seo = Brand::getSeoPage();
-        Brand::setMetamaster($seo);
+        $seo = Settings::seoPageTranslate('brands');
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('view',
             [

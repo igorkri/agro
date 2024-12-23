@@ -15,7 +15,12 @@ class DeliveryController extends Controller
         $model = Delivery::find()->one();
 
         $seo = Settings::seoPageTranslate('delivery');
-        Settings::setMetamaster($seo);
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('view',
             [

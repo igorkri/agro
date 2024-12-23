@@ -13,25 +13,24 @@ AppAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>
-    <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>" dir="ltr">
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="apple-touch-icon" href="/images/logo-agro.png">
-        <link rel="manifest" href="/manifest.json">
-        <?php $this->registerCsrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>" dir="ltr">
+<head>
+<meta charset="<?= Yii::$app->charset ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="apple-touch-icon" href="/images/logo-agro.png">
+<link rel="manifest" href="/manifest.json">
+<?php $this->registerCsrfMetaTags() ?>
+<title><?= Html::encode($this->title) ?></title>
+<?= Yii::$app->params['schema'] ?? '' ?>
+<?= Yii::$app->params['product'] ?? '' ?>
+<?= Yii::$app->params['organization'] ?? '' ?>
+<?= Yii::$app->params['webPage'] ?? '' ?>
+<?= Yii::$app->params['blog'] ?? '' ?>
+<?= Yii::$app->params['post'] ?? '' ?>
+<?= Yii::$app->params['breadcrumb'] ?? '' ?>
 
-        <?= Yii::$app->params['schema'] ?? '' ?>
-        <?= Yii::$app->params['product'] ?? '' ?>
-        <?= Yii::$app->params['organization'] ?? '' ?>
-        <?= Yii::$app->params['webPage'] ?? '' ?>
-        <?= Yii::$app->params['blog'] ?? '' ?>
-        <?= Yii::$app->params['post'] ?? '' ?>
-        <?= Yii::$app->params['breadcrumb'] ?? '' ?>
-
-        <?php $this->head() ?>
+<?php $this->head() ?>
 
         <?php if (isset(Yii::$app->params['alternateUrls'])): ?>
             <link rel="alternate" hreflang="uk" href="<?= Yii::$app->params['alternateUrls']['ukUrl'] ?? '' ?>"/>

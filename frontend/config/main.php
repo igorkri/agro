@@ -24,7 +24,10 @@ return [
         ],
         'metamaster' => [
             'class' => 'floor12\metamaster\MetaMaster',
+            'type' => 'website',
             'siteName' => 'AgroPro',
+            'title' => 'AgroPro магазин',
+            'description' => 'AgroPro магазин засобів захисту рослин',
             'defaultImage' => '/images/logos/meta_logo.jpg',
         ],
         'request' => [

@@ -142,30 +142,4 @@ class Brand extends ActiveRecord
         return $totalIncome;
     }
 
-    static function getSeoPage()
-    {
-        $language = Yii::$app->session->get('_language');
-        $seo = SeoPages::find()->where(['slug' => 'brands'])->one();
-
-        if (in_array($language, ['ru', 'en']) && $seo !== null) {
-            $seo = SeoPageTranslate::find()
-                ->where(['page_id' => $seo->id, 'language' => $language])
-                ->one();
-        }
-
-        return $seo;
-    }
-
-    static function setMetamaster($seo)
-    {
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
-    }
-
-
 }

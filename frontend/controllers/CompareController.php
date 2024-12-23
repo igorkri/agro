@@ -39,7 +39,13 @@ class CompareController extends BaseFrontendController
         $products = $this->translateProduct($products, $language);
 
         $seo = Settings::seoPageTranslate('compare');
-        Settings::setMetamaster($seo);
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+
         $page_description = $seo->page_description;
 
         return $this->render('view',

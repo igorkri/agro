@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Messages;
 use common\models\SeoPages;
+use common\models\Settings;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Spatie\SchemaOrg\Schema;
@@ -99,7 +100,8 @@ class SiteController extends Controller
 
 //                Yii::$app->session->removeAll();
 
-        $seo = SeoPages::find()->where(['slug' => 'home'])->one();
+
+        $seo = Settings::seoPageTranslate('home');
 
         $organization = Schema::localBusiness()
             ->url('https://agropro.org.ua/')
@@ -142,13 +144,12 @@ class SiteController extends Controller
             ->url(Yii::$app->request->absoluteUrl);
         Yii::$app->params['webPage'] = $homepage->toScript();
 
-        Yii::$app->metamaster
-            ->setSiteName('AgroPro')
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('index');
     }

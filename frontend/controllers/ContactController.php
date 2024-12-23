@@ -17,7 +17,12 @@ class ContactController extends Controller
         $contacts = Contact::find()->one();
 
         $seo = Settings::seoPageTranslate('contact');
-        Settings::setMetamaster($seo);
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         $this->setSchemaLocalBusiness();
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace common\models;
-
 
 use Yii;
 use yii\base\Model;
@@ -53,13 +51,30 @@ class Settings extends Model
         return $seo;
     }
 
-    static function setMetamaster($seo)
+    static function setMetamaster($type = null, $title = null, $description = null, $image = null, $keywords = null)
     {
-        Yii::$app->metamaster
-            ->setType('website')
-            ->setTitle($seo->title)
-            ->setDescription(strip_tags($seo->description))
-            ->setImage('/images/logos/meta_logo.jpg')
-            ->register(Yii::$app->getView());
+
+        $metaMaster = Yii::$app->metamaster;
+
+        if ($type) {
+            $metaMaster->setType($type);
+        }
+        if ($title) {
+            $metaMaster->setTitle($title);
+        }
+        if ($description) {
+            $metaMaster->setDescription(strip_tags($description));
+        }
+        if ($image) {
+            $metaMaster->setImage($image);
+        }
+        if ($keywords) {
+            Yii::$app->view->registerMetaTag([
+                'name' => 'keywords',
+                'content' => $keywords,
+            ]);
+        }
+
+        $metaMaster->register(Yii::$app->getView());
     }
 }

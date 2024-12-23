@@ -39,7 +39,12 @@ class BlogsController extends BaseFrontendController
         }
 
         $seo = Settings::seoPageTranslate('blogs');
-        Settings::setMetamaster($seo);
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('view',
             [

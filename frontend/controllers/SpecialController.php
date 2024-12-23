@@ -33,7 +33,13 @@ class SpecialController extends BaseFrontendController
         $products = $this->translateProduct($products, $language);
 
         $seo = Settings::seoPageTranslate('special');
-        Settings::setMetamaster($seo);
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+
         $page_description = $seo->page_description;
 
         return $this->render('view', compact(['products', 'products_all', 'pages', 'language', 'page_description']));

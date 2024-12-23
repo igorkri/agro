@@ -14,8 +14,13 @@ class AboutController extends Controller
 
         $model = About::find()->one();
 
-        $seo = Settings::seoPageTranslate('catalog');
-        Settings::setMetamaster($seo);
+        $seo = Settings::seoPageTranslate('about');
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
 
         return $this->render('view',
             [

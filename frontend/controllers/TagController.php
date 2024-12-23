@@ -73,7 +73,13 @@ class TagController extends BaseFrontendController
         }
 
         $seo = Settings::seoPageTranslate('tag');
-        Settings::setMetamaster($seo);
+        $type = 'website';
+        $title = $seo->title;
+        $description = $seo->description;
+        $image = '';
+        $keywords = '';
+        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+
         $page_description = $seo->page_description;
 
         return $this->render('index',
