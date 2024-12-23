@@ -56,7 +56,6 @@ class Settings extends Model
     static function setMetamaster($seo)
     {
         Yii::$app->metamaster
-            ->setSiteName('AgroPro')
             ->setType('website')
             ->setTitle($seo->title)
             ->setDescription(strip_tags($seo->description))
