@@ -3,11 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Messages;
-use common\models\Posts;
 use common\models\SeoPages;
-use common\models\shop\AuxiliaryCategories;
-use common\models\shop\Category;
-use common\models\shop\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Spatie\SchemaOrg\Schema;
@@ -22,6 +18,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\Cookie;
 use yii\web\Response;
 
 /**
@@ -389,7 +386,7 @@ class SiteController extends Controller
 
     public function actionAcceptCookies()
     {
-        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+        Yii::$app->response->cookies->add(new Cookie([
             'name' => 'cookies_accepted',
             'value' => '1',
             'expire' => time() + 3600 * 24 * 365, // 1 год
