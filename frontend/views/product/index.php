@@ -175,7 +175,10 @@ $webp_support = ProductImage::imageWebp();
                                 </div>
                             </div>
                             <?php if (!$mobile): ?>
+                                <?php if ($this->beginCache('product_properties-product_' . $language . $product->id, ['duration' => 3600])): ?>
                                 <?= $this->render('properties', ['product_properties' => $product_properties]) ?>
+                                    <?php $this->endCache() ?>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                         <?= $this->render('sidebar', [
@@ -197,17 +200,23 @@ $webp_support = ProductImage::imageWebp();
                 'products_analog_count' => $products_analog_count,
             ]) ?>
             <?php if ($mobile): ?>
-                <div style="margin-left: 15px;">
-                    <?= $this->render('tags', [
-                        'product' => $product,
-                        'language' => $language,
-                    ]) ?>
-                </div>
+                <?php if ($this->beginCache('tags-product-mobile_' . $language . $product->id, ['duration' => 3600])): ?>
+                    <div style="margin-left: 15px;">
+                        <?= $this->render('tags', [
+                            'product' => $product,
+                            'language' => $language,
+                        ]) ?>
+                    </div>
+                    <?php $this->endCache() ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
     <?php if (!$mobile): ?>
-        <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
+        <?php if ($this->beginCache('related-product_' . $language, ['duration' => 3600])): ?>
+            <?php echo RelatedProducts::widget(['package' => $product->package,]) ?>
+            <?php $this->endCache() ?>
+        <?php endif; ?>
     <?php endif; ?>
     <?php if ($mobile): ?>
         <div class="container">
