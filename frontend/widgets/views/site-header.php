@@ -72,7 +72,7 @@ $lang = strtoupper(Yii::$app->language);
                                                 <a class="menu__item-link"
                                                    href="<?php echo Url::to(['/' . $path, 'language' => 'uk']) ?>">
                                                     <div class="menu__item-icon">
-                                                        <img src="/images/languages/language-UK.png" alt="UK">
+                                                        <img src="/images/languages/language-UK.png" width="20" height="16" alt="UK">
                                                     </div>
                                                     Українська
                                                 </a>
@@ -82,7 +82,7 @@ $lang = strtoupper(Yii::$app->language);
                                                 <a class="menu__item-link"
                                                    href="<?php echo Url::to(['/' . $path, 'language' => 'en']) ?>">
                                                     <div class="menu__item-icon">
-                                                        <img src="/images/languages/language-EN.png" alt="EN">
+                                                        <img src="/images/languages/language-EN.png" width="20" height="16" alt="EN">
                                                     </div>
                                                     English
                                                 </a>
@@ -92,7 +92,7 @@ $lang = strtoupper(Yii::$app->language);
                                                 <a class="menu__item-link"
                                                    href="<?php echo Url::to(['/' . $path, 'language' => 'ru']) ?>">
                                                     <div class="menu__item-icon">
-                                                        <img src="/images/languages/language-RU.png" alt="RU">
+                                                        <img src="/images/languages/language-RU.png" width="20" height="16" alt="RU">
                                                     </div>
                                                     Русский
                                                 </a>
@@ -106,11 +106,11 @@ $lang = strtoupper(Yii::$app->language);
                             <div class="topbar-dropdown">
                                 <button class="topbar-dropdown__btn" type="button">
                                     <?php if ($lang == 'UK') { ?>
-                                        <img src="/images/languages/language-UK.png" alt="UK">
+                                        <img src="/images/languages/language-UK.png" width="20" height="16" alt="UK">
                                     <?php } elseif ($lang == 'EN') { ?>
-                                        <img src="/images/languages/language-EN.png" alt="EN">
+                                        <img src="/images/languages/language-EN.png" width="20" height="16" alt="EN">
                                     <?php } else { ?>
-                                        <img src="/images/languages/language-RU.png" alt="RU">
+                                        <img src="/images/languages/language-RU.png" width="20" height="16" alt="RU">
                                     <?php } ?>
                                 </button>
                             </div>
