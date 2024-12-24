@@ -125,7 +125,7 @@ use yii\helpers\Url;
                                        href="<?php echo Url::to(['/' . $path, 'language' => 'uk']) ?>">
                                         <div class="row">
                                             <div class="col-1">
-                                                <img src="/images/languages/language-UK.png" alt="UK">
+                                                <img src="/images/languages/language-UK.png" width="20" height="16" alt="UK">
                                             </div>
                                             <div class="col-4">
                                                 Українська
@@ -140,7 +140,7 @@ use yii\helpers\Url;
                                        href="<?php echo Url::to(['/' . $path, 'language' => 'en']) ?>">
                                         <div class="row">
                                             <div class="col-1">
-                                                <img src="/images/languages/language-EN.png" alt="EN">
+                                                <img src="/images/languages/language-EN.png" width="20" height="16" alt="EN">
                                             </div>
                                             <div class="col-4">
                                                 English
@@ -155,7 +155,7 @@ use yii\helpers\Url;
                                        href="<?php echo Url::to(['/' . $path, 'language' => 'ru']) ?>">
                                         <div class="row">
                                             <div class="col-1">
-                                                <img src="/images/languages/language-RU.png" alt="RU">
+                                                <img src="/images/languages/language-RU.png" width="20" height="16" alt="RU">
                                             </div>
                                             <div class="col-4">
                                                 Русский
