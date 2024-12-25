@@ -128,10 +128,13 @@ $webp_support = ProductImage::imageWebp();
                                 </div>
                                 <?php endif; ?>
                                 <?php if (!$mobile): ?>
-                                    <?= $this->render('tags', [
-                                        'product' => $product,
-                                        'language' => $language,
-                                    ]) ?>
+                                    <?php if ($this->beginCache('tags-product_' . $language . $product->id, ['duration' => 3600])): ?>
+                                        <?= $this->render('tags', [
+                                            'product' => $product,
+                                            'language' => $language,
+                                        ]) ?>
+                                        <?php $this->endCache() ?>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         </div>
