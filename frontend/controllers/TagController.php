@@ -174,11 +174,10 @@ class TagController extends BaseFrontendController
         }
 
         Yii::$app->metamaster
-            ->setSiteName('AgroPro')
             ->setType('website')
+            ->setUrl( Url::canonical())
             ->setTitle($title)
             ->setDescription($description)
-            ->setImage('/images/logos/meta_logo.jpg')
             ->register(Yii::$app->getView());
     }
 }
