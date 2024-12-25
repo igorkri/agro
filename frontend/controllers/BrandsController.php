@@ -7,6 +7,7 @@ use common\models\shop\Brand;
 use common\models\shop\Product;
 use Yii;
 use yii\db\Expression;
+use yii\web\NotFoundHttpException;
 
 class BrandsController extends BaseFrontendController
 {
@@ -40,6 +41,10 @@ class BrandsController extends BaseFrontendController
         $count = $params['count'];
 
         $brand = Brand::find()->where(['slug' => $slug])->one();
+
+        if ($brand === null) {
+            throw new NotFoundHttpException('Brand not found ' . '" ' . $slug . ' "');
+        }
 
         $query = Product::find()
             ->andWhere(['brand_id' => $brand->id])

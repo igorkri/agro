@@ -9,6 +9,7 @@ use common\models\Settings;
 use Yii;
 use yii\web\Controller;
 use common\models\shop\Product;
+use yii\web\NotFoundHttpException;
 
 class PostController extends Controller
 {
@@ -18,6 +19,10 @@ class PostController extends Controller
 
         $blogs = Posts::find()->limit(6)->orderBy('date_public DESC')->all();
         $postItem = Posts::find()->where(['slug' => $slug])->one();
+
+        if ($postItem === null) {
+            throw new NotFoundHttpException('Post not found ' . '" ' . $slug . ' "');
+        }
 
         $products_id = PostProducts::find()
             ->select('product_id')

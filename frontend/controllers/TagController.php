@@ -148,11 +148,11 @@ class TagController extends BaseFrontendController
     {
         $tag = Tag::findOne($id);
         if (!$tag) {
-            throw new NotFoundHttpException("Tag not found");
+            throw new NotFoundHttpException("Tag not found id = " . $id);
         }
         $newUrl = Url::to(['tag/view', 'slug' => $tag->slug], true);
 
-        return $this->redirect($newUrl, 301); // 301 - постоянный редирект
+        return $this->redirect($newUrl, 301);
     }
 
     protected function setProductMetadata($tag_name, $language)

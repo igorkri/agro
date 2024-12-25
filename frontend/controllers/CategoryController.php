@@ -11,6 +11,7 @@ use Spatie\SchemaOrg\Schema;
 use yii\helpers\Url;
 use yii\db\Expression;
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * CategoryController for Category model.
@@ -130,6 +131,10 @@ class CategoryController extends BaseFrontendController
         Yii::$app->session->set('maxPriceFilter', $maxPrice);
 
         $category = Category::find()->where(['slug' => $slug])->one();
+
+        if ($category === null) {
+            throw new NotFoundHttpException('Category not found ' . '" ' . $slug . ' "');
+        }
 
         $auxiliaryCategories = AuxiliaryCategories::find()
             ->where(['parentId' => $category->id])
@@ -261,6 +266,10 @@ class CategoryController extends BaseFrontendController
 
 
         $category = AuxiliaryCategories::find()->where(['slug' => $slug])->one();
+
+        if ($category === null) {
+            throw new NotFoundHttpException('Category Auxiliary not found ' . '" ' . $slug . ' "');
+        }
 
         $breadcrumbCategory = Category::find()->where(['id' => $category->parentId])->one();
 
