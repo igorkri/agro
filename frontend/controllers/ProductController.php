@@ -10,6 +10,7 @@ use common\models\shop\Brand;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
+use yii\web\NotFoundHttpException;
 
 class ProductController extends Controller
 {
@@ -18,6 +19,10 @@ class ProductController extends Controller
         $language = Yii::$app->session->get('_language');
 
         $product = Product::find()->with(['category.parent', 'images'])->where(['slug' => $slug])->one();
+
+        if ($product === null) {
+            throw new NotFoundHttpException('Product not found ' . '" ' . $slug . ' "');
+        }
 
         $analog = AnalogProducts::find()->select('analog_product_id')->where(['product_id' => $product->id])->asArray()->all();
         $analog = ArrayHelper::getColumn($analog, 'analog_product_id');

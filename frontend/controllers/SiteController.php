@@ -30,16 +30,21 @@ class SiteController extends Controller
 
     public function actionError()
     {
-
         $exception = Yii::$app->errorHandler->exception;
+
         if ($exception !== null) {
-            if ($exception->statusCode == 404)
+            $statusCode = $exception->statusCode ?? 500;
+
+            if ($statusCode === 404) {
                 return $this->render('404', ['exception' => $exception]);
-            else
-                return $this->render('404', ['exception' => $exception]);
+            }
+
+            return $this->render('404', ['exception' => $exception]);
         }
-        return null;
+
+        return $this->redirect(Yii::$app->homeUrl);
     }
+
 
     /**
      * {@inheritdoc}
