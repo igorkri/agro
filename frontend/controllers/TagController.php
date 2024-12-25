@@ -109,9 +109,14 @@ class TagController extends BaseFrontendController
             $category = Category::find()->select(['id', 'name'])->where(['slug' => $category_slug])->one();
             $this->translateCategory($category, $language);
             $categoryId = $category->id;
-            $categoryName = Yii::t('app','в категорії ') . '<span style="color: #90998cc7">' .  $category->name . '</span>';
+            $categoryName = Yii::t('app', 'в категорії ') . '<span style="color: #90998cc7">' . $category->name . '</span>';
             $productsId = Product::find()->select('id')->where(['category_id' => $categoryId])->column();
             $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->andWhere(['product_id' => $productsId])->all();
+            // Регистрация тега meta
+            Yii::$app->view->registerMetaTag([
+                'name' => 'robots',
+                'content' => 'noindex, follow'
+            ]);
         } else {
             $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->all();
         }
@@ -175,7 +180,7 @@ class TagController extends BaseFrontendController
 
         Yii::$app->metamaster
             ->setType('website')
-            ->setUrl( Url::canonical())
+            ->setUrl(Url::canonical())
             ->setTitle($title)
             ->setDescription($description)
             ->register(Yii::$app->getView());

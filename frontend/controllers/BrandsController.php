@@ -61,6 +61,12 @@ class BrandsController extends BaseFrontendController
 
         $products = $this->translateProduct($products, $language);
 
+        // Регистрация тега meta
+        Yii::$app->view->registerMetaTag([
+            'name' => 'robots',
+            'content' => 'noindex, follow'
+        ]);
+
         return $this->render('catalog', [
             'products' => $products,
             'products_all' => $products_all,
