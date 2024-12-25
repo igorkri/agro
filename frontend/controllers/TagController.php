@@ -101,6 +101,10 @@ class TagController extends BaseFrontendController
 
         $tag_name = Tag::find()->where(['slug' => $slug])->one();
 
+        if ($tag_name === null) {
+            throw new NotFoundHttpException('Tag not found ' . '" ' . $slug . ' "');
+        }
+
         if ($category_slug) {
             $category = Category::find()->select(['id', 'name'])->where(['slug' => $category_slug])->one();
             $this->translateCategory($category, $language);
