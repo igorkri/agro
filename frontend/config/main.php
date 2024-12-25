@@ -66,18 +66,11 @@ return [
                 [
                     'class' => 'yii\log\EmailTarget',
                     'levels' => ['error'],
-                    'logVars' => [
-//                        '_GET',
-//                        '_POST',
-//                        '_FILES',
-//                        '_COOKIE',
-//                        '_SESSION',
-//                        '_SERVER'
-                    ],
+                    'logVars' => [],
                     'message' => [
                         'from' => ['jean1524@s10.uahosting.com.ua'],
                         'to' => ['mikitane@ymail.com'],
-                        'subject' => 'Ошибка приложения LOC',
+                        'subject' => 'Ошибка приложения LOCAL',
                     ],
                 ]
             ],

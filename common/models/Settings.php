@@ -51,7 +51,7 @@ class Settings extends Model
         return $seo;
     }
 
-    static function setMetamaster($type = null, $title = null, $description = null, $image = null, $keywords = null)
+    static function setMetamaster($type = null, $title = null, $description = null, $image = null, $keywords = null, $url = null)
     {
 
         $metaMaster = Yii::$app->metamaster;
@@ -67,6 +67,9 @@ class Settings extends Model
         }
         if ($image) {
             $metaMaster->setImage($image);
+        }
+        if ($url) {
+            $metaMaster->setUrl($url);
         }
         if ($keywords) {
             Yii::$app->view->registerMetaTag([

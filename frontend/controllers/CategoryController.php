@@ -231,7 +231,8 @@ class CategoryController extends BaseFrontendController
         $description = $category->metaDescription;
         $image = '/category/' . $category->file;
         $keywords = '';
-        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+        $url = Url::canonical();
+        Settings::setMetamaster($type, $title, $description, $image, $keywords, $url);
 
         return $this->render('catalog',
             compact([
@@ -335,7 +336,8 @@ class CategoryController extends BaseFrontendController
         $description = $category->metaDescription;
         $image = '/auxiliary-categories/' . $category->image;
         $keywords = '';
-        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+        $url = Url::canonical();
+        Settings::setMetamaster($type, $title, $description, $image, $keywords, $url);
 
         return $this->render('view',
             compact([

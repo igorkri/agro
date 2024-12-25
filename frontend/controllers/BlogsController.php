@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Posts;
 use common\models\Settings;
 use Spatie\SchemaOrg\Schema;
+use yii\helpers\Url;
 use yii\i18n\Formatter;
 use Yii;
 
@@ -44,7 +45,8 @@ class BlogsController extends BaseFrontendController
         $description = $seo->description;
         $image = '';
         $keywords = '';
-        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+        $url = Url::canonical();
+        Settings::setMetamaster($type, $title, $description, $image, $keywords, $url);
 
         return $this->render('view',
             [

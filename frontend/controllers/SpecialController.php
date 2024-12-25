@@ -6,6 +6,7 @@ use common\models\Settings;
 use common\models\shop\Product;
 use Yii;
 use yii\db\Expression;
+use yii\helpers\Url;
 
 class SpecialController extends BaseFrontendController
 {
@@ -38,7 +39,8 @@ class SpecialController extends BaseFrontendController
         $description = $seo->description;
         $image = '';
         $keywords = '';
-        Settings::setMetamaster($type, $title, $description, $image, $keywords);
+        $url = Url::canonical();
+        Settings::setMetamaster($type, $title, $description, $image, $keywords, $url);
 
         $page_description = $seo->page_description;
 

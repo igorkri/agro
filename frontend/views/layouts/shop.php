@@ -33,11 +33,20 @@ AppAsset::register($this);
 
 <?php $this->head() ?>
 
-        <?php if (isset(Yii::$app->params['alternateUrls'])): ?>
-            <link rel="alternate" hreflang="uk" href="<?= Yii::$app->params['alternateUrls']['ukUrl'] ?? '' ?>"/>
-            <link rel="alternate" hreflang="en" href="<?= Yii::$app->params['alternateUrls']['enUrl'] ?? '' ?>"/>
-            <link rel="alternate" hreflang="ru" href="<?= Yii::$app->params['alternateUrls']['ruUrl'] ?? '' ?>"/>
-        <?php endif; ?>
+
+<?php
+$page = Yii::$app->request->get('page');
+if ($page !== null && intval($page) > 1) {
+$this->registerMetaTag(['name' => 'robots', 'content' => 'noindex, follow']);
+}
+?>
+
+
+<?php if (isset(Yii::$app->params['alternateUrls'])): ?>
+<link rel="alternate" hreflang="uk" href="<?= Yii::$app->params['alternateUrls']['ukUrl'] ?? '' ?>"/>
+<link rel="alternate" hreflang="en" href="<?= Yii::$app->params['alternateUrls']['enUrl'] ?? '' ?>"/>
+<link rel="alternate" hreflang="ru" href="<?= Yii::$app->params['alternateUrls']['ruUrl'] ?? '' ?>"/>
+<?php endif; ?>
 
         <!--        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYNR0B69QV"></script>-->
         <!--        <script>-->
