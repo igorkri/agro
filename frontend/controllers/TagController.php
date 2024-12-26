@@ -19,9 +19,11 @@ class TagController extends BaseFrontendController
 
         $categoriesTags = [];
         $categories = Category::find()
-            ->select(['id', 'name', 'slug'])
-            ->where(['visibility' => true])
-            ->andWhere(['IS NOT', 'parentId', null])
+            ->alias('c')
+            ->select(['c.id', 'c.name', 'c.slug'])
+            ->innerJoin(Product::tableName() . ' p', 'p.category_id = c.id')
+            ->where(['c.visibility' => true])
+            ->distinct()
             ->all();
 
         foreach ($categories as $category) {
@@ -30,22 +32,13 @@ class TagController extends BaseFrontendController
 
         foreach ($categories as $category) {
 
-            $productsId = Product::find()
-                ->select('id')
-                ->where(['category_id' => $category->id])
-                ->column();
-
-            $productsTagsId = ProductTag::find()
-                ->select('tag_id')
-                ->where(['product_id' => $productsId])
-                ->distinct()
-                ->column();
-
             $tags = Tag::find()
-                ->select(['id', 'name', 'slug'])
-                ->where(['visibility' => true])
-                ->andWhere(['id' => $productsTagsId])
-                ->with('translations')
+                ->alias('t')
+                ->select(['t.id', 't.name', 't.slug'])
+                ->innerJoin(ProductTag::tableName() . ' pt', 'pt.tag_id = t.id')
+                ->innerJoin(Product::tableName() . ' p', 'p.id = pt.product_id')
+                ->where(['p.category_id' => $category->id, 't.visibility' => true])
+                ->distinct()
                 ->all();
 
             if ($language !== 'uk') {
@@ -110,15 +103,25 @@ class TagController extends BaseFrontendController
             $this->translateCategory($category, $language);
             $categoryId = $category->id;
             $categoryName = Yii::t('app', 'в категорії ') . '<span style="color: #90998cc7">' . $category->name . '</span>';
-            $productsId = Product::find()->select('id')->where(['category_id' => $categoryId])->column();
-            $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->andWhere(['product_id' => $productsId])->all();
+            $tags = ProductTag::find()
+                ->alias('pt')
+                ->innerJoin(Product::tableName() . ' p', 'pt.product_id = p.id')
+                ->where(['p.category_id' => $categoryId, 'pt.tag_id' => $tag_name->id])
+                ->all();
+
         } else {
             $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->all();
         }
 
-        $productsTagId = ProductTag::find()->select('product_id')->where(['tag_id' => $tag_name->id])->column();
-        $categoriesId = Product::find()->select('category_id')->where(['id' => $productsTagId])->distinct()->column();
-        $categories = Category::find()->select(['id', 'name', 'slug'])->where(['id' => $categoriesId])->all();
+        $categories = Category::find()
+            ->alias('c')
+            ->select(['c.id', 'c.name', 'c.slug'])
+            ->innerJoin(Product::tableName() . ' p', 'p.category_id = c.id')
+            ->innerJoin(ProductTag::tableName() . ' pt', 'pt.product_id = p.id')
+            ->where(['pt.tag_id' => $tag_name->id])
+            ->distinct()
+            ->all();
+
         foreach ($categories as $category) {
             $this->translateCategory($category, $language);
         }

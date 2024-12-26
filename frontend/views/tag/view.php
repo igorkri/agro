@@ -55,7 +55,6 @@ ActivePages::setActiveUser();
             <div class="col-12">
                 <div class="block">
                     <div class="products-view">
-<!--                        --><?php //if (!Yii::$app->devicedetect->isMobile()): ?>
                             <?php if (isset($categories) && $categories != null): ?>
                                 <div class="tags tags--lg">
                                     <div class="tags__list">
@@ -66,7 +65,6 @@ ActivePages::setActiveUser();
                                 </div>
                                 <hr>
                             <?php endif; ?>
-<!--                        --><?php //endif; ?>
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
                                 <?= $this->render('@frontend/views/layouts/products-sort.php', [
