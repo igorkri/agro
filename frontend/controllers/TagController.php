@@ -112,13 +112,15 @@ class TagController extends BaseFrontendController
             $categoryName = Yii::t('app', 'в категорії ') . '<span style="color: #90998cc7">' . $category->name . '</span>';
             $productsId = Product::find()->select('id')->where(['category_id' => $categoryId])->column();
             $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->andWhere(['product_id' => $productsId])->all();
-            // Регистрация тега meta
-            Yii::$app->view->registerMetaTag([
-                'name' => 'robots',
-                'content' => 'noindex, follow'
-            ]);
         } else {
             $tags = ProductTag::find()->where(['tag_id' => $tag_name->id])->all();
+        }
+
+        $productsTagId = ProductTag::find()->select('product_id')->where(['tag_id' => $tag_name->id])->column();
+        $categoriesId = Product::find()->select('category_id')->where(['id' => $productsTagId])->distinct()->column();
+        $categories = Category::find()->select(['id', 'name', 'slug'])->where(['id' => $categoriesId])->all();
+        foreach ($categories as $category) {
+            $this->translateCategory($category, $language);
         }
 
         $query = Product::find()->where(['id' => []]);
@@ -144,6 +146,7 @@ class TagController extends BaseFrontendController
         return $this->render('view',
             [
                 'products' => $products,
+                'categories' => $categories,
                 'products_all' => $products_all,
                 'tag_name' => $tag_name,
                 'pages' => $pages,

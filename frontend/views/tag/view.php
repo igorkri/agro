@@ -55,6 +55,18 @@ ActivePages::setActiveUser();
             <div class="col-12">
                 <div class="block">
                     <div class="products-view">
+<!--                        --><?php //if (!Yii::$app->devicedetect->isMobile()): ?>
+                            <?php if (isset($categories) && $categories != null): ?>
+                                <div class="tags tags--lg">
+                                    <div class="tags__list">
+                                        <?php foreach ($categories as $category): ?>
+                                            <a href="<?= Url::to(['tag/view', 'slug' => $tag_name->slug, 'category_slug' => $category->slug]) ?>"><?php echo $category->name ?></a>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                                <hr>
+                            <?php endif; ?>
+<!--                        --><?php //endif; ?>
                         <div class="products-view__options">
                             <div class="view-options view-options--offcanvas--always">
                                 <?= $this->render('@frontend/views/layouts/products-sort.php', [
