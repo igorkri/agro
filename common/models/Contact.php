@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "contacts".
@@ -16,8 +17,9 @@ use Yii;
  * @property string|null $comment_two Коментарій другий
  * @property string|null $work_time_short Години праці короткі
  * @property string|null $email Email
+ * @property string $language Мова
  */
-class Contact extends \yii\db\ActiveRecord
+class Contact extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -35,7 +37,7 @@ class Contact extends \yii\db\ActiveRecord
         return [
             [['comment_two'], 'string'],
             [['email'], 'email'],
-            [['address', 'tel_primary', 'tel_second', 'hours_work', 'coments', 'work_time_short'], 'string', 'max' => 255],
+            [['address', 'tel_primary', 'tel_second', 'hours_work', 'coments', 'work_time_short', 'language'], 'string', 'max' => 255],
         ];
     }
 

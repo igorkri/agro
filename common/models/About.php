@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string|null $name Назва
  * @property string|null $description Опис
+ * @property string $language Мова
  */
 class About extends ActiveRecord
 {
@@ -29,7 +30,7 @@ class About extends ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'language'], 'string', 'max' => 255],
         ];
     }
 

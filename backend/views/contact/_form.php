@@ -9,9 +9,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-
 <?php $form = ActiveForm::begin(); ?>
-
 <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
     <div class="container container--max--xl">
         <div class="py-5">
@@ -25,7 +23,7 @@ use yii\widgets\ActiveForm;
                                     'label' => Yii::t('app', 'Home'),
                                     'url' => Yii::$app->homeUrl,
                                 ],
-                                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                'links' => $this->params['breadcrumbs'] ?? [],
                             ]);
                             ?>
                         </ol>
@@ -46,14 +44,23 @@ use yii\widgets\ActiveForm;
                                         class="mb-0 fs-exact-18"><?= Yii::t('app', 'Basic information') ?></h2></div>
 
                             <div class="row">
-                                <div class="col-4 mb-4">
+                                <div class="col-3 mb-4">
                                     <?= $form->field($model, 'tel_primary')->textInput(['maxlength' => true]) ?>
                                 </div>
-                                <div class="col-4 mb-4">
+                                <div class="col-3 mb-4">
                                     <?= $form->field($model, 'tel_second')->textInput(['maxlength' => true]) ?>
                                 </div>
-                                <div class="col-4 mb-4">
+                                <div class="col-3 mb-4">
                                     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                                </div>
+                                <div class="col-3 mb-4">
+                                    <?= $form->field($model, 'language')->dropDownList(
+                                        [
+                                            'en' => 'English',
+                                            'ru' => 'Русский',
+                                            'uk' => 'Українська'
+                                        ],
+                                    ) ?>
                                 </div>
                             </div>
                             <div class="mb-4">
