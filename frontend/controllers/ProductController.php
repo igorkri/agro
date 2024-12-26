@@ -7,7 +7,6 @@ use common\models\shop\AnalogProducts;
 use common\models\shop\Product;
 use common\models\shop\Review;
 use common\models\shop\Brand;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -24,9 +23,12 @@ class ProductController extends Controller
             throw new NotFoundHttpException('Product not found ' . '" ' . $slug . ' "');
         }
 
-        $analog = AnalogProducts::find()->select('analog_product_id')->where(['product_id' => $product->id])->asArray()->all();
-        $analog = ArrayHelper::getColumn($analog, 'analog_product_id');
-        $products_analog = Product::find()->with(['category.parent', 'images'])->where(['id' => $analog])->all();
+        $products_analog = Product::find()
+            ->alias('p')
+            ->innerJoin(AnalogProducts::tableName() . ' ap', 'ap.analog_product_id = p.id')
+            ->with(['category.parent', 'images'])
+            ->where(['ap.product_id' => $product->id])
+            ->all();
         $products_analog_count = count($products_analog);
 
         $images = $product->images;
@@ -38,7 +40,7 @@ class ProductController extends Controller
         $model_review = new Review();
 
         if ($language !== 'uk') {
-            $this->getProductTranslation($product, $language, $product_properties);
+            $this->getProductTranslation($product, $language, $product_properties, $products_analog);
         }
 
         $schemaBreadcrumb = $product->getSchemaBreadcrumb();
@@ -68,7 +70,7 @@ class ProductController extends Controller
         ]);
     }
 
-    protected function getProductTranslation($product, $language, $product_properties)
+    protected function getProductTranslation($product, $language, $product_properties, $products_analog)
     {
         if ($product) {
             $translationProd = $product->getTranslation($language)->one();
@@ -119,6 +121,25 @@ class ProductController extends Controller
                     }
                     if ($translationProperty->value) {
                         $property->value = $translationProperty->value;
+                    }
+                }
+            }
+        }
+        if ($products_analog) {
+            foreach ($products_analog as $product) {
+                $translationProd = $product->getTranslation($language)->one();
+                if ($translationProd) {
+                    if ($translationProd->name) {
+                        $product->name = $translationProd->name;
+                    }
+                }
+                $translationCat = $product->category->getTranslation($language)->one();
+                if ($translationCat) {
+                    if ($translationCat->name) {
+                        $product->category->name = $translationCat->name;
+                    }
+                    if ($translationCat->prefix) {
+                        $product->category->prefix = $translationCat->prefix;
                     }
                 }
             }
