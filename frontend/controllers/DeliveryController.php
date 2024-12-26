@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Delivery;
 use common\models\Settings;
+use Yii;
 use yii\web\Controller;
 
 class DeliveryController extends Controller
@@ -11,8 +12,8 @@ class DeliveryController extends Controller
 
     public function actionView()
     {
-
-        $model = Delivery::find()->one();
+        $language = Yii::$app->session->get('_language');
+        $model = Delivery::find()->where(['language' => $language])->one();
 
         $seo = Settings::seoPageTranslate('delivery');
         $type = 'website';

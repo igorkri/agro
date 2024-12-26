@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\About;
 use common\models\Settings;
+use Yii;
 use yii\web\Controller;
 
 class AboutController extends Controller
@@ -11,8 +12,8 @@ class AboutController extends Controller
 
     public function actionView()
     {
-
-        $model = About::find()->one();
+        $language = Yii::$app->session->get('_language');
+        $model = About::find()->where(['language' => $language])->one();
 
         $seo = Settings::seoPageTranslate('about');
         $type = 'website';

@@ -18,11 +18,13 @@ class SiteFooter extends Widget
 
     public function run()
     {
-        $cacheKey = 'contact_cache_key';
+        $language = Yii::$app->session->get('_language');
+        $cacheKey = 'contact_cache_key_' . $language;
         $contacts = Yii::$app->cache->get($cacheKey);
 
         if ($contacts === false) {
-            $contacts = Contact::find()->one();
+
+            $contacts = Contact::find()->where(['language' => $language])->one();
 
             Yii::$app->cache->set($cacheKey, $contacts, 3600, new DbDependency([
                 'sql' => 'SELECT COUNT(*) FROM contacts',

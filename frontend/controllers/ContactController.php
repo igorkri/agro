@@ -14,7 +14,8 @@ class ContactController extends Controller
 {
     public function actionView(): string
     {
-        $contacts = Contact::find()->one();
+        $language = Yii::$app->session->get('_language');
+        $contacts = Contact::find()->where(['language' => $language])->one();
 
         $seo = Settings::seoPageTranslate('contact');
         $type = 'website';
