@@ -1,7 +1,7 @@
 <?php if (Yii::$app->request->cookies->getValue('cookies_accepted') !== '1'): ?>
     <div id="cookie-banner"
          class="cookie-banner">
-        <span>Цей веб-сайт застосовує файли cookie та інші технології, щоб спростити ваш пошук, забезпечити зручність користування, проводити аналіз використання наших послуг і продуктів. </span>
+        <span><?=Yii::t('app','Цей веб-сайт застосовує файли cookie та інші технології, щоб спростити ваш пошук, забезпечити зручність користування, проводити аналіз використання наших послуг і продуктів.')?> </span>
         <button id="accept-cookies"
                 class="btn btn-danger cookie-button">
             <?=Yii::t('app','Дати згоду')?>
