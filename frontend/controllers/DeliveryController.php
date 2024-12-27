@@ -12,7 +12,7 @@ class DeliveryController extends Controller
 
     public function actionView()
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->language;
         $model = Delivery::find()->where(['language' => $language])->one();
 
         $seo = Settings::seoPageTranslate('delivery');

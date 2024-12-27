@@ -18,7 +18,7 @@ class SiteFooter extends Widget
 
     public function run()
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->language;
         $cacheKey = 'contact_cache_key_' . $language;
         $contacts = Yii::$app->cache->get($cacheKey);
 

@@ -12,7 +12,7 @@ class AboutController extends Controller
 
     public function actionView()
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->language;
         $model = About::find()->where(['language' => $language])->one();
 
         $seo = Settings::seoPageTranslate('about');
