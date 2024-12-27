@@ -15,31 +15,69 @@ class PostController extends Controller
 {
     public function actionView($slug)
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
+        $model_review = new PostsReview();
+        $blogs = Posts::find()
+            ->alias('p')
+            ->select([
+                'p.id',
+                'p.slug',
+                'p.webp_small',
+                'p.date_public',
+                'p.title AS original_title',
+                'IFNULL(pt.title, p.title) AS title', // Переведенное название
+            ])
+            ->leftJoin('posts_translate pt', 'pt.post_id = p.id AND pt.language = :language')
+            ->addParams([':language' => $language]) // Параметр для языка
+            ->limit(6)
+            ->orderBy(['p.date_public' => SORT_DESC])
+            ->all();
 
-        $blogs = Posts::find()->limit(6)->orderBy('date_public DESC')->all();
-        $postItem = Posts::find()->where(['slug' => $slug])->one();
+        $postItem = Posts::find()
+            ->alias('p')
+            ->select([
+                'p.id',
+                'p.date_public',
+                'p.date_updated',
+                'p.slug',
+                'p.image',
+                'p.title AS original_title',
+                'p.description AS original_description',
+                'p.seo_title AS original_seo_title',
+                'p.seo_description AS original_seo_description',
+                'IFNULL(pt.title, p.title) AS title', // Переведенное название
+                'IFNULL(pt.description, p.description) AS description', // Переведенное описание
+                'IFNULL(pt.seo_title, p.seo_title) AS seo_title', // Переведенный SEO заголовок
+                'IFNULL(pt.seo_description, p.seo_description) AS seo_description' // Переведенное SEO описание
+            ])
+            ->leftJoin('posts_translate pt', 'pt.post_id = p.id AND pt.language = :language')
+            ->where(['p.slug' => $slug])
+            ->addParams([':language' => $language]) // Параметр языка
+            ->one();
 
         if ($postItem === null) {
             throw new NotFoundHttpException('Post not found ' . '" ' . $slug . ' "');
         }
 
-        $products_id = PostProducts::find()
-            ->select('product_id')
-            ->where(['post_id' => $postItem->id])
-            ->asArray()
+        $products_id = PostProducts::find()->select('product_id')->where(['post_id' => $postItem->id])->column();
+        $products = Product::find()
+            ->alias('p')
+            ->select([
+                'p.id',
+                'p.slug',
+                'p.price',
+                'p.old_price',
+                'p.currency',
+                'p.status_id',
+                'p.name AS original_name',
+                'p.description AS original_description',
+                'IFNULL(pt.name, p.name) AS name', // Переведенное название
+                'IFNULL(pt.description, p.description) AS description' // Переведенное описание
+            ])
+            ->leftJoin('products_translate pt', 'pt.product_id = p.id AND pt.language = :language')
+            ->where(['p.id' => $products_id])
+            ->addParams([':language' => $language]) // Параметр языка
             ->all();
-        $products_id = array_column($products_id, 'product_id');
-        $products = Product::find()->where(['id' => $products_id])->all();
-
-        $model_review = new PostsReview();
-
-        if ($language !== 'uk') {
-            foreach ($blogs as $blog) {
-                $this->getPostTranslation($blog, $language);
-            }
-            $this->getPostTranslation($postItem, $language);
-        }
 
         $schemaPost = $postItem->getSchemaPost();
         $schemaBreadcrumb = $postItem->getSchemaBreadcrumb();
@@ -81,24 +119,4 @@ class PostController extends Controller
         Yii::$app->params['alternateUrls'] = $alternateUrls;
     }
 
-    protected function getPostTranslation($postItem, $language)
-    {
-        if ($postItem) {
-            $translationPost = $postItem->getTranslation($language)->one();
-            if ($translationPost) {
-                if ($translationPost->title) {
-                    $postItem->title = $translationPost->title;
-                }
-                if ($translationPost->description) {
-                    $postItem->description = $translationPost->description;
-                }
-                if ($translationPost->seo_title) {
-                    $postItem->seo_title = $translationPost->seo_title;
-                }
-                if ($translationPost->seo_description) {
-                    $postItem->seo_description = $translationPost->seo_description;
-                }
-            }
-        }
-    }
 }

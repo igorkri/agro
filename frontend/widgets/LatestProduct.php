@@ -21,8 +21,6 @@ class LatestProduct extends BaseWidgetFronted
 
         $products = $this->products;
 
-        $products = $this->translateProductsCarousel($language, $products);
-
         return $this->render('latest-product',
             [
                 'products' => $products,
