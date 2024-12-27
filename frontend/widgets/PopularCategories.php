@@ -17,28 +17,27 @@ class PopularCategories extends Widget  // Популярні Категорії
 
     public function run()
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         $title = 'Популярні Категорії';
 
         $cat_id = [6, 7, 8, 5, 3, 9];
         $categories = Category::find()
-            ->where(['id' => $cat_id])
-            ->andWhere(['visibility' => 1])
+            ->alias('c')
+            ->select([
+                'c.id',
+                'c.slug',
+                'c.visibility',
+                'c.svg',
+                'c.file',
+                'c.name AS original_name',
+                'IFNULL(ct.name, c.name) AS name'
+            ])
+            ->leftJoin('categories_translate ct', 'ct.category_id = c.id AND ct.language = :language')
+            ->where(['c.id' => $cat_id])
+            ->andWhere(['c.visibility' => 1])
+            ->addParams([':language' => $language])
             ->all();
-
-        if ($language !== 'uk') {
-            foreach ($categories as $category) {
-                if ($category) {
-                    $translationCat = $category->getTranslation($language)->one();
-                    if ($translationCat) {
-                        if ($translationCat->name) {
-                            $category->name = $translationCat->name;
-                        }
-                    }
-                }
-            }
-        }
 
         return $this->render('popular-categories',
             [
