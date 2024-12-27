@@ -40,13 +40,22 @@ class Settings extends Model
 
     static function seoPageTranslate($slug)
     {
-        $language = Yii::$app->session->get('_language');
-        $seo = SeoPages::find()->where(['slug' => $slug])->one();
-        if (in_array($language, ['ru', 'en']) && $seo !== null) {
-            $seo = SeoPageTranslate::find()
-                ->where(['page_id' => $seo->id, 'language' => $language])
-                ->one();
-        }
+        $language = Yii::$app->session->get('_language', 'uk');
+        $seo = SeoPages::find()
+            ->alias('sp')
+            ->select([
+                'sp.id',
+                'sp.slug',
+                'IFNULL(spt.title, sp.title) AS title', // Переведенное или оригинальное название
+                'IFNULL(spt.description, sp.description) AS description', // Переведенное или оригинальное описание
+            ])
+            ->leftJoin(
+                'seo_page_translate spt',
+                'spt.page_id = sp.id AND spt.language = :language'
+            )
+            ->where(['sp.slug' => $slug])
+            ->addParams([':language' => $language])
+            ->one();
 
         return $seo;
     }
