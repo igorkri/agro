@@ -15,48 +15,45 @@ class TagController extends BaseFrontendController
 {
     public function actionIndex()
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         $categoriesTags = [];
         $categories = Category::find()
             ->alias('c')
-            ->select(['c.id', 'c.name', 'c.slug'])
+            ->select([
+                'c.id',
+                'c.slug',
+                'IFNULL(ct.name, c.name) AS name',
+            ])
             ->innerJoin(Product::tableName() . ' p', 'p.category_id = c.id')
+            ->leftJoin(
+                'categories_translate ct',
+                'ct.category_id = c.id AND ct.language = :language',
+                [':language' => $language]
+            )
             ->where(['c.visibility' => true])
             ->distinct()
             ->all();
 
         foreach ($categories as $category) {
-            $this->translateCategory($category, $language);
-        }
-
-        foreach ($categories as $category) {
-
             $tags = Tag::find()
                 ->alias('t')
-                ->select(['t.id', 't.name', 't.slug'])
+                ->select([
+                    't.id',
+                    't.slug',
+                    'IFNULL(tt.name, t.name) AS name', // Используем перевод, если он доступен
+                ])
                 ->innerJoin(ProductTag::tableName() . ' pt', 'pt.tag_id = t.id')
                 ->innerJoin(Product::tableName() . ' p', 'p.id = pt.product_id')
+                ->leftJoin(
+                    'tag_translate tt', // Таблица переводов
+                    'tt.tag_id = t.id AND tt.language = :language', // Привязка к текущему языку
+                    [':language' => $language]
+                )
                 ->where(['p.category_id' => $category->id, 't.visibility' => true])
                 ->distinct()
                 ->all();
 
-            if ($language !== 'uk') {
-                foreach ($tags as $tag) {
-                    $translationTag = null;
-
-                    foreach ($tag->translations as $translation) {
-                        if ($translation->language === $language) {
-                            $translationTag = $translation;
-                            break;
-                        }
-                    }
-
-                    if ($translationTag && $translationTag->name) {
-                        $tag->name = $translationTag->name;
-                    }
-                }
-            }
             if ($tags) {
                 $categoriesTags[] = [
                     'category' => $category,
@@ -99,8 +96,21 @@ class TagController extends BaseFrontendController
         }
 
         if ($category_slug) {
-            $category = Category::find()->select(['id', 'name'])->where(['slug' => $category_slug])->one();
-            $this->translateCategory($category, $language);
+            $category = Category::find()
+                ->alias('c')
+                ->select([
+                    'c.id',
+                    'c.slug',
+                    'IFNULL(ct.name, c.name) AS name',
+                ])
+                ->leftJoin(
+                    'categories_translate ct', // Таблица переводов
+                    'ct.category_id = c.id AND ct.language = :language'
+                )
+                ->where(['c.slug' => $category_slug])
+                ->addParams([':language' => $language])
+                ->one();
+
             $categoryId = $category->id;
             $categoryName = Yii::t('app', 'в категорії ') . '<span style="color: #90998cc7">' . $category->name . '</span>';
             $tags = ProductTag::find()
@@ -115,27 +125,62 @@ class TagController extends BaseFrontendController
 
         $categories = Category::find()
             ->alias('c')
-            ->select(['c.id', 'c.name', 'c.slug'])
+            ->select([
+                'c.id',
+                'c.slug',
+                'IFNULL(ct.name, c.name) AS name',
+                'IFNULL(ct.description, c.description) AS description',
+                'IFNULL(ct.pageTitle, c.pageTitle) AS pageTitle',
+                'IFNULL(ct.metaDescription, c.metaDescription) AS metaDescription',
+            ])
             ->innerJoin(Product::tableName() . ' p', 'p.category_id = c.id')
             ->innerJoin(ProductTag::tableName() . ' pt', 'pt.product_id = p.id')
+            ->leftJoin(
+                'categories_translate ct', // Таблица переводов
+                'ct.category_id = c.id AND ct.language = :language'
+            )
             ->where(['pt.tag_id' => $tag_name->id])
+            ->addParams([':language' => $language]) // Передача параметра языка
             ->distinct()
             ->all();
 
-        foreach ($categories as $category) {
-            $this->translateCategory($category, $language);
-        }
-
-        $query = Product::find()->where(['id' => []]);
+        $query = Product::find()
+            ->alias('p')
+            ->select([
+                'p.id',
+                'p.name',
+                'p.slug',
+                'p.price',
+                'p.old_price',
+                'p.status_id',
+                'p.label_id',
+                'p.currency',
+                'IFNULL(pt.name, p.name) AS name', // Переведенное или оригинальное название продукта
+                'p.category_id', // id категории
+                'c.name AS category_name', // Название категории
+                'IFNULL(ct.name, c.name) AS category_translated_name', // Переведенное или оригинальное название категории
+                'IFNULL(ct.prefix, c.prefix) AS category_translated_prefix' // Переведенный или оригинальный префикс категории
+            ])
+            ->leftJoin(
+                'products_translate pt', // Таблица переводов для продуктов
+                'pt.product_id = p.id AND pt.language = :language'
+            )
+            ->leftJoin(
+                'category c', // Присоединяем таблицу категорий
+                'c.id = p.category_id' // Присоединяем по id категории
+            )
+            ->leftJoin(
+                'status s', // Присоединяем таблицу категорий
+                's.id = p.status_id' // Присоединяем по id категории
+            )
+            ->leftJoin(
+                'categories_translate ct', // Таблица переводов для категорий
+                'ct.category_id = c.id AND ct.language = :language'
+            )
+            ->where(['p.id' => array_column($tags, 'product_id')])
+            ->addParams([':language' => $language]);
 
         $this->applySorting($query, $sort);
-
-        foreach ($tags as $tag) {
-            $query->orWhere(['id' => $tag->product_id]);
-        }
-
-        $productIds = array_column($tags, 'product_id');
-        $query->andWhere(['id' => $productIds]);
 
         $pages = $this->setPagination($query, $count);
 
@@ -143,8 +188,6 @@ class TagController extends BaseFrontendController
         $products_all = $query->count();
 
         $this->setProductMetadata($tag_name, $language);
-
-        $products = $this->translateProduct($products, $language);
 
         return $this->render('view',
             [
