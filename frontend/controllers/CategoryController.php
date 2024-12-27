@@ -9,7 +9,6 @@ use common\models\shop\Category;
 use common\models\shop\Product;
 use Spatie\SchemaOrg\Schema;
 use yii\helpers\Url;
-use yii\db\Expression;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -20,27 +19,23 @@ class CategoryController extends BaseFrontendController
 {
     public function actionList()
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
         $categories = Category::find()
-            ->with(['products'])
-            ->where(['is', 'parentId', new Expression('null')])
-            ->andWhere(['visibility' => 1])
+            ->alias('c')
+            ->select([
+                'c.id',
+                'c.slug',
+                'c.parentId',
+                'c.file',
+                'IFNULL(ct.name, c.name) AS name',
+                'c.visibility',
+                'c.svg',
+            ])
+            ->leftJoin('categories_translate ct', 'ct.category_id = c.id AND ct.language = :language')
+            ->where(['c.parentId' => null])
+            ->andWhere(['c.visibility' => 1])
+            ->addParams([':language' => $language])
             ->all();
-
-        if ($language !== 'uk') {
-            if ($categories) {
-                foreach ($categories as $category) {
-                    if ($category) {
-                        $translationCat = $category->getTranslation($language)->one();
-                        if ($translationCat) {
-                            if ($translationCat->name) {
-                                $category->name = $translationCat->name;
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         $seo = Settings::seoPageTranslate('catalog');
         $type = 'website';
@@ -60,36 +55,39 @@ class CategoryController extends BaseFrontendController
 
     public function actionChildren($slug)
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         $category = Category::find()
-            ->with(['parents', 'parent', 'products'])
-            ->where(['slug' => $slug])
+            ->alias('c')
+            ->select([
+                'c.id',
+                'c.slug',
+                'c.file',
+                'c.parentId',
+                'c.name AS original_name', // Оригинальное название категории
+                'IFNULL(ct.name, c.name) AS name', // Переведенное название категории
+                'c.description AS original_description', // Оригинальное описание категории
+                'IFNULL(ct.description, c.description) AS description', // Переведенное описание категории
+                'c.pageTitle AS original_pageTitle', // Оригинальный заголовок страницы
+                'IFNULL(ct.pageTitle, c.pageTitle) AS pageTitle', // Переведенный заголовок страницы
+                'c.metaDescription AS original_metaDescription', // Оригинальное мета-описание
+                'IFNULL(ct.metaDescription, c.metaDescription) AS metaDescription', // Переведенное мета-описание
+                'c.visibility',
+                'c.svg',
+            ])
+            ->leftJoin('categories_translate ct', 'ct.category_id = c.id AND ct.language = :language') // Присоединение переводов категории
+            ->leftJoin('categories_translate ctp', 'ctp.category_id = c.parentId AND ctp.language = :language') // Присоединение переводов родительской категории
+            ->where(['c.slug' => $slug]) // Фильтрация по слагу
+            ->andWhere(['c.visibility' => 1]) // Только видимые категории
+            ->addParams([':language' => $language]) // Добавление параметра языка
             ->one();
 
-        if ($language !== 'uk') {
-            $translationCat = $category->getTranslation($language)->one();
-            if ($translationCat) {
-                if ($translationCat->name) {
-                    $category->name = $translationCat->name;
-                }
-                if ($translationCat->description) {
-                    $category->description = $translationCat->description;
-                }
-                if ($translationCat->pageTitle) {
-                    $category->pageTitle = $translationCat->pageTitle;
-                }
-                if ($translationCat->metaDescription) {
-                    $category->metaDescription = $translationCat->metaDescription;
-                }
-            }
-            if ($category->parents) {
-                foreach ($category->parents as $parent) {
-                    if ($parent !== null) {
-                        $translationCatParent = $parent->getTranslation($language)->one();
-                        if ($translationCatParent) {
-                            $parent->name = $translationCatParent->name;
-                        }
+        if ($category->parents) {
+            foreach ($category->parents as $parent) {
+                if ($parent !== null) {
+                    $translationCatParent = $parent->getTranslation($language)->one();
+                    if ($translationCatParent) {
+                        $parent->name = $translationCatParent->name;
                     }
                 }
             }
@@ -248,8 +246,7 @@ class CategoryController extends BaseFrontendController
 
     public function actionAuxiliaryCatalog($slug)
     {
-//        Yii::$app->session->removeAll();
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         $params = $this->setSortAndCount();
         $sort = $params['sort'];
@@ -355,7 +352,7 @@ class CategoryController extends BaseFrontendController
 
     protected function setChildrenProductSchema($category)
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         if ($language !== 'uk') {
             $url = Yii::$app->request->hostInfo . '/' . $language;
@@ -405,7 +402,7 @@ class CategoryController extends BaseFrontendController
 
     protected function setCatalogProductSchema($category, $products_all)
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         if ($language !== 'uk') {
             $url = Yii::$app->request->hostInfo . '/' . $language;
@@ -444,7 +441,7 @@ class CategoryController extends BaseFrontendController
 
     protected function setAuxiliaryCatalogProductSchema($category, $products_all, $productsId)
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         if ($language !== 'uk') {
             $url = Yii::$app->request->hostInfo . '/' . $language;
@@ -484,7 +481,7 @@ class CategoryController extends BaseFrontendController
     protected function setCatalogBreadCrumbSchema($category)
     {
 
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         if ($language !== 'uk') {
             $url = Yii::$app->request->hostInfo . '/' . $language;
@@ -539,7 +536,7 @@ class CategoryController extends BaseFrontendController
 
     protected function setAuxiliaryCatalogBreadCrumbSchema($category, $breadcrumbCategory)
     {
-        $language = Yii::$app->session->get('_language');
+        $language = Yii::$app->session->get('_language', 'uk');
 
         if ($language !== 'uk') {
             $url = Yii::$app->request->hostInfo . '/' . $language;
