@@ -179,7 +179,19 @@ $form = ActiveForm::begin(['options' => ['autocomplete' => "off"]]); ?>
                                     role="tabpanel"
                                     aria-labelledby="keyword-tab-1"
                             >
-                                <?= 'В розробці' ?>
+                                <?php
+                                $params = [
+                                    'form' => $form,
+                                    'model' => $model,
+                                ];
+                                if (isset($translateRu)) {
+                                    $params['translateRu'] = $translateRu;
+                                }
+                                if (isset($translateEn)) {
+                                    $params['translateEn'] = $translateEn;
+                                }
+                                echo $this->render('keywords', $params);
+                                ?>
                             </div>
                         </div>
                     </div>

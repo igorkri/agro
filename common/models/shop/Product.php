@@ -33,6 +33,7 @@ use yz\shoppingcart\CartPositionTrait;
  * @property int $label_id
  * @property string $date_public Дата публикации
  * @property string|null $date_updated Дата редактирования
+ * @property string|null $keywords
  *
  * @property ProductTag[] $productTags
  * @property Tag[] $tags
@@ -83,7 +84,7 @@ class Product extends ActiveRecord implements CartPositionInterface
     {
         return [
             [['name', 'description', 'short_description', 'seo_title', 'seo_description', 'price', 'status_id', 'package', 'category_id'], 'required'],
-            [['description', 'footer_description', 'short_description', 'currency'], 'string'],
+            [['description', 'footer_description', 'short_description', 'currency', 'keywords'], 'string'],
             [['price', 'old_price'], 'number'],
             [['status_id', 'category_id', 'label_id', 'brand_id'], 'safe'],
             [['name', 'seo_title', 'seo_description', 'package', 'slug', 'sku', 'date_public', 'date_updated'], 'string', 'max' => 255],

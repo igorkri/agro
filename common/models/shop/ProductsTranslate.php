@@ -3,6 +3,7 @@
 namespace common\models\shop;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "products_translate".
@@ -16,8 +17,9 @@ use Yii;
  * @property string|null $seo_title
  * @property string|null $seo_description
  * @property string|null $footer_description
+ * @property string|null $keywords
  */
-class ProductsTranslate extends \yii\db\ActiveRecord
+class ProductsTranslate extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -34,7 +36,7 @@ class ProductsTranslate extends \yii\db\ActiveRecord
     {
         return [
             [['product_id'], 'integer'],
-            [['description', 'short_description', 'footer_description'], 'string'],
+            [['description', 'short_description', 'footer_description', 'keywords'], 'string'],
             [['language'], 'string', 'max' => 10],
             [['name', 'seo_title', 'seo_description'], 'string', 'max' => 255],
         ];
